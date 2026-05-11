@@ -2773,6 +2773,15 @@ body.font-dyslexia {
     background: #D4D8E0;
   }
   .tour-card .tour-dot.active { background: #b57c34; }
+  /* Tour card sits on white; override the dark-bg text colors used in tour.js */
+  .tour-card #tour-title { color: #1A1F2E !important; }
+  .tour-card #tour-body { color: rgba(26, 31, 46, 0.80) !important; }
+  .tour-card .console-label-gold { color: #b57c34 !important; }
+  .tour-card .text-bone-white,
+  .tour-card [class*="text-bone-white"] { color: #1A1F2E !important; }
+  .tour-card .text-bone-white\/85,
+  .tour-card .text-bone-white\/70,
+  .tour-card .text-bone-white\/60 { color: rgba(26, 31, 46, 0.78) !important; }
 
   .corner-marker.top-left { top: 0; left: 0; border-right: none; border-bottom: none; }
   .corner-marker.top-right { top: 0; right: 0; border-left: none; border-bottom: none; }
