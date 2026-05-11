@@ -56,10 +56,16 @@
         <div class="h-line flex-1 max-w-32"></div>
       </div>
 
-      <h1 class="display-heading text-5xl lg:text-6xl text-on-surface mb-6" data-i18n>
-        <span data-en>Your data, your <em class="text-primary">call</em>.</span>
-        <span data-th hidden>ข้อมูลของคุณ <em class="text-primary">คุณตัดสินใจ</em>.</span>
-      </h1>
+      <div class="flex items-end justify-between gap-6 flex-wrap mb-6">
+        <h1 class="display-heading text-5xl lg:text-6xl text-on-surface" data-i18n>
+          <span data-en>Your data, your <em class="text-primary">call</em>.</span>
+          <span data-th hidden>ข้อมูลของคุณ <em class="text-primary">คุณตัดสินใจ</em>.</span>
+        </h1>
+        <div class="lang-pill lang-pill-inline" role="group" aria-label="Language">
+          <button class="lang-pill-opt is-active" type="button" data-lang="en">EN</button>
+          <button class="lang-pill-opt" type="button" data-lang="th">ไทย</button>
+        </div>
+      </div>
 
       <p class="text-lg text-on-surface/80 leading-relaxed mb-10" data-i18n>
         <span data-en>Two things are required so we can run the platform. Three are optional — flip them on or off and you can change your mind any time.</span>
