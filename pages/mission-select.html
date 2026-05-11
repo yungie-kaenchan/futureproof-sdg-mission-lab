@@ -47,7 +47,31 @@
     </p>
 
     <!-- SDG GRID -->
-    <section id="sdg-grid" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-9 gap-2 mb-16" aria-label="The 17 UN Sustainable Development Goals"></section>
+    <section id="sdg-grid" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-9 gap-3 mb-12" aria-label="The 17 UN Sustainable Development Goals"></section>
+
+    <!-- SDG DESCRIPTION PANEL — shows when a tile is clicked -->
+    <section id="sdg-detail" class="mb-12" hidden>
+      <div class="sdg-detail-card">
+        <div class="flex items-center gap-4 mb-5 flex-wrap">
+          <div id="sdg-detail-badge" class="sdg-detail-badge">01</div>
+          <div class="flex-1">
+            <div class="console-label-gold" id="sdg-detail-eyebrow">SDG 01</div>
+            <h2 id="sdg-detail-title" class="display-heading text-3xl lg:text-4xl text-on-surface">No Poverty</h2>
+            <p id="sdg-detail-title-th" class="thai-meta text-base mt-1" style="font-size: 1.1rem;">ขจัดความยากจน</p>
+          </div>
+        </div>
+        <div class="grid lg:grid-cols-2 gap-6">
+          <div>
+            <div class="console-label-gold mb-2">ENGLISH</div>
+            <p id="sdg-detail-en" class="text-base text-on-surface/85 leading-relaxed"></p>
+          </div>
+          <div>
+            <div class="console-label-gold mb-2">ภาษาไทย</div>
+            <p id="sdg-detail-th" class="thai-meta leading-relaxed" style="font-size: 1.05rem; line-height: 1.75;"></p>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- SCENARIO PICKER -->
     <section id="scenarios-section" hidden>
@@ -59,8 +83,8 @@
       <div id="scenarios-grid" class="grid lg:grid-cols-3 gap-4 mb-10"></div>
       <div id="select-error" class="field-error mb-4" hidden></div>
       <div class="flex flex-wrap items-center gap-4">
-        <button id="lock-in-btn" type="button" class="btn-primary" disabled><span>Lock In Scenario</span><span>→</span></button>
-        <button id="regen-btn" type="button" class="btn-secondary"><span>Regenerate</span></button>
+        <button id="lock-in-btn" type="button" class="btn-primary" disabled><span>Choose Scenario</span><span>→</span></button>
+        <button id="regen-btn" type="button" class="btn-secondary"><span>Generate New Scenarios</span></button>
       </div>
     </section>
 
@@ -98,9 +122,25 @@
       chosenSDG = sdg.n;
       document.querySelectorAll('.sdg-tile').forEach((t) => t.classList.remove('selected'));
       grid.children[sdg.n - 1].classList.add('selected');
+
+      // Show the description panel with EN + Thai content for this SDG.
+      const detail = document.getElementById('sdg-detail');
+      detail.hidden = false;
+      detail.style.borderTop = `4px solid ${sdg.color}`;
+      document.getElementById('sdg-detail-badge').textContent = String(sdg.n).padStart(2, '0');
+      document.getElementById('sdg-detail-badge').style.background = sdg.color;
+      document.getElementById('sdg-detail-eyebrow').textContent = `SDG ${String(sdg.n).padStart(2, '0')}`;
+      document.getElementById('sdg-detail-title').textContent = sdg.short;
+      document.getElementById('sdg-detail-title-th').textContent = sdg.shortTh || '';
+      document.getElementById('sdg-detail-en').textContent = sdg.description?.en || '';
+      document.getElementById('sdg-detail-th').textContent = sdg.description?.th || '';
+
       document.getElementById('scenarios-section').hidden = true;
       document.getElementById('loading').hidden = false;
       document.getElementById('scenarios-label').textContent = `SCENARIOS — SDG ${String(sdg.n).padStart(2,'0')} ${sdg.short.toUpperCase()}`;
+
+      // Smooth scroll so the description panel is the first thing the user sees.
+      setTimeout(() => detail.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60);
 
       const flow = getFlowState();
       const learnerProfile = flow?.learnerProfile?.language ? {
@@ -183,39 +223,86 @@
   </script>
 
   <style>
+    /* SDG tiles — relative positioning so the selected outline stays inside its own
+       grid cell instead of overlapping neighbours. The grid gap also widened to 12px. */
     .sdg-tile {
+      position: relative;
       aspect-ratio: 1 / 1;
       color: white;
-      padding: 0.5rem;
+      padding: 0.55rem 0.6rem;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       align-items: flex-start;
       cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, outline 0.15s ease;
       border: none;
+      border-radius: 8px;
       text-align: left;
-      outline: 2px solid transparent;
-      outline-offset: 2px;
+      overflow: hidden;
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  box-shadow 0.2s ease;
+      z-index: 1;
     }
-    .sdg-tile:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.18); }
-    .sdg-tile.selected { outline: 2px solid #A88A4A; outline-offset: 3px; }
-    .sdg-tile:focus-visible { outline: 2px solid #A88A4A; outline-offset: 3px; }
-    .sdg-num { font-family: 'Cinzel', serif; font-size: 1rem; line-height: 1; opacity: 0.9; }
-    .sdg-name { font-family: 'DM Sans', sans-serif; font-size: 0.7rem; line-height: 1.2; font-weight: 600; }
+    .sdg-tile:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 8px 22px rgba(0,0,0,0.22);
+      z-index: 2;
+    }
+    /* Selected tile: a clean inset ring inside the tile (no negative outline offset
+       that bled into neighbours) + a small bronze badge at the top-right. */
+    .sdg-tile.selected {
+      box-shadow:
+        inset 0 0 0 3px #FFFFFF,
+        inset 0 0 0 5px #b57c34,
+        0 10px 26px rgba(0,0,0,0.28);
+      transform: translateY(-3px) scale(1.02);
+      z-index: 2;
+    }
+    .sdg-tile:focus-visible {
+      box-shadow:
+        inset 0 0 0 3px #FFFFFF,
+        inset 0 0 0 5px #b57c34;
+      outline: none;
+    }
+    .sdg-num { font-family: 'Fraunces', Georgia, serif; font-size: 1.1rem; line-height: 1; opacity: 0.95; font-weight: 600; }
+    .sdg-name { font-family: var(--font-ui); font-size: 0.7rem; line-height: 1.2; font-weight: 600; letter-spacing: 0.01em; }
+
+    /* SDG description card */
+    .sdg-detail-card {
+      background: #FAFAFA;
+      border: 1px solid #D4D8E0;
+      border-radius: 16px;
+      padding: 1.75rem 2rem;
+    }
+    .sdg-detail-badge {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFFFFF;
+      font-family: 'Fraunces', Georgia, serif;
+      font-weight: 600;
+      font-size: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    /* Scenario picker cards */
     .scenario-card {
-      border: 1px solid #E5E5E7;
+      border: 1px solid #D4D8E0;
       background: #FFFFFF;
       padding: 1.5rem;
       cursor: pointer;
+      border-radius: 12px;
       transition: all 0.15s ease;
       width: 100%;
     }
-    .scenario-card:hover { border-color: rgba(168, 138, 74, 0.4); }
+    .scenario-card:hover { border-color: rgba(181, 124, 52, 0.5); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.06); }
     .scenario-card.selected {
-      border-color: #A88A4A;
-      box-shadow: 0 0 0 1px #A88A4A inset;
-      background: rgba(168, 138, 74, 0.04);
+      border-color: #b57c34;
+      box-shadow: 0 0 0 1px #b57c34 inset, 0 8px 20px rgba(181, 124, 52, 0.12);
+      background: rgba(181, 124, 52, 0.04);
     }
   </style>
 <script type="module" src="../src/a11y.js"></script>
