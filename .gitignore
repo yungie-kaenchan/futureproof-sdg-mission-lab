@@ -6,3 +6,6 @@ node_modules/
 .vscode/
 .idea/
 config.local.js
+
+# Stowaway from a different project; never commit
+langlab-methods/
