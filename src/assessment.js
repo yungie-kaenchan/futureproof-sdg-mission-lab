@@ -10,218 +10,67 @@
  *   3. Analytical Thinking  — data interpretation
  *   4. Collaboration        — Likert self-assessment
  *
+ * PARALLEL TEST SETS: each user is deterministically assigned ONE of N
+ * matched-difficulty parallel test sets (see assessment-sets.js). The set is
+ * picked from the user's UID via FNV-1a hash, so the same user always gets
+ * the same set across sessions and devices. This deters answer-sharing
+ * between cohorts.
+ *
  * NOTE: The writing prompt currently uses a length / coverage heuristic.
  * In Day 9+ this should be replaced with a Claude API call that returns a
  * CEFR-aligned rubric score. The interface (writingHeuristic → number 0-1)
  * stays; only the implementation changes.
  */
 
-/* ──────────────────────────────────────────────────────────────────
- * Section 1 — Language Proficiency
- * ──────────────────────────────────────────────────────────────── */
-
-export const CLOZE_PASSAGE = {
-  intro: "Read the passage. Pick the best word for each blank.",
-  thaiIntro: "อ่านข้อความและเลือกคำที่เหมาะสมที่สุดสำหรับแต่ละช่องว่าง",
-  text: [
-    "Coastal salinity in the Chao Phraya estuary has",
-    { blank: 1, options: ["risen", "raised", "rosed", "raise"], answer: "risen", level: "B1" },
-    "steadily over the past decade. Local farmers report that the",
-    { blank: 2, options: ["salt", "salty", "saltness", "salinity"], answer: "salinity", level: "B2" },
-    "has begun to threaten rice yields, while urban planners",
-    { blank: 3, options: ["concerns", "are concerning", "are concerned", "concern"], answer: "are concerned", level: "B1" },
-    "about long-term water security. Although several pilot programs have been",
-    { blank: 4, options: ["lounched", "launched", "launchened", "launchen"], answer: "launched", level: "B1" },
-    "no integrated solution has yet",
-    { blank: 5, options: ["emerged", "emergence", "emerging", "emerge"], answer: "emerged", level: "B2" },
-    ".",
-  ],
-};
-
-export const VOCAB_ITEMS = [
-  {
-    id: "v1", level: "A2",
-    prompt: "Choose the meaning closest to: <em>steadily</em>",
-    options: ["loudly", "in a careful, regular way", "by accident", "without effort"],
-    answer: 1,
-  },
-  {
-    id: "v2", level: "B1",
-    prompt: "Choose the meaning closest to: <em>threaten</em>",
-    options: ["protect", "make smaller", "put at risk", "celebrate"],
-    answer: 2,
-  },
-  {
-    id: "v3", level: "B1",
-    prompt: "Choose the meaning closest to: <em>integrated</em>",
-    options: ["broken into pieces", "combined into a whole", "delayed", "approved"],
-    answer: 1,
-  },
-  {
-    id: "v4", level: "B2",
-    prompt: "Choose the meaning closest to: <em>mitigate</em>",
-    options: ["measure", "reduce in severity", "approve formally", "celebrate"],
-    answer: 1,
-  },
-  {
-    id: "v5", level: "B2",
-    prompt: "Choose the meaning closest to: <em>stakeholder</em>",
-    options: ["a person who owns shares only", "anyone affected by a decision", "a government regulator", "a referee"],
-    answer: 1,
-  },
-  {
-    id: "v6", level: "C1",
-    prompt: "Choose the meaning closest to: <em>contingent on</em>",
-    options: ["dependent on", "opposed to", "the cause of", "additional to"],
-    answer: 0,
-  },
-  {
-    id: "v7", level: "C1",
-    prompt: "Choose the meaning closest to: <em>tacit</em>",
-    options: ["loud and clear", "agreed without being stated", "questioned", "violent"],
-    answer: 1,
-  },
-  {
-    id: "v8", level: "C1",
-    prompt: "Choose the meaning closest to: <em>preempt</em>",
-    options: ["respond afterward", "act first to prevent", "give permission", "celebrate"],
-    answer: 1,
-  },
-];
-
-export const WRITING_PROMPT = {
-  prompt: "In 60–100 words, describe a problem in your community that you'd want to investigate. Who is affected? Why does it matter?",
-  thai: "เขียน 60–100 คำเป็นภาษาอังกฤษอธิบายปัญหาในชุมชนของคุณที่คุณอยากสืบสวน ใครได้รับผลกระทบ และทำไมจึงสำคัญ",
-  minWords: 50,
-  maxWords: 130,
-};
+import { ASSESSMENT_SETS, getAssessmentSet, pickSetIndexForUser } from "./assessment-sets.js";
+export { ASSESSMENT_SETS, getAssessmentSet, pickSetIndexForUser };
 
 /* ──────────────────────────────────────────────────────────────────
- * Section 2 — Critical Thinking
+ * Per-user set resolution
+ *
+ * At module load, we pick the set that matches the currently-signed-in user
+ * (read from the same fp_flow localStorage blob used by auth.js). If no user
+ * is signed in yet, fall back to set 0 — the original Coastal Salinity set.
+ *
+ * Pages that already use the named exports (CLOZE_PASSAGE, VOCAB_ITEMS, ...)
+ * keep working — they automatically receive the items from the user's
+ * assigned set.
  * ──────────────────────────────────────────────────────────────── */
 
-export const CRITICAL_ITEMS = [
-  {
-    id: "c1",
-    type: "validInference",
-    stem: "A study finds that students who eat breakfast score higher on math tests. The headline reads: \"Eating breakfast makes you better at math.\"",
-    question: "What is the most accurate critique of the headline?",
-    options: [
-      "The headline is correct because the study showed the connection.",
-      "The headline confuses correlation with causation; another factor (e.g., household stability) might explain both.",
-      "The headline is wrong because breakfast is not related to math.",
-      "The headline is correct only if the study had over 1,000 students.",
-    ],
-    answer: 1,
-  },
-  {
-    id: "c2",
-    type: "fallacyId",
-    stem: "\"Either we ban single-use plastics completely, or we accept that the oceans will die.\"",
-    question: "Which reasoning flaw does this statement contain?",
-    options: [
-      "Ad hominem attack",
-      "False dichotomy",
-      "Appeal to authority",
-      "Circular reasoning",
-    ],
-    answer: 1,
-  },
-  {
-    id: "c3",
-    type: "fallacyId",
-    stem: "\"Dr. Lee says this policy will work, and Dr. Lee has a PhD, so the policy will work.\"",
-    question: "Which reasoning flaw does this statement contain?",
-    options: [
-      "Slippery slope",
-      "Appeal to authority (without engaging the argument)",
-      "Strawman",
-      "False analogy",
-    ],
-    answer: 1,
-  },
-  {
-    id: "c4",
-    type: "argEval",
-    stem: "Premise: Higher minimum wage may reduce entry-level jobs in some sectors. Premise: Higher minimum wage also raises consumer spending. Conclusion: Therefore minimum wage policy must consider both effects.",
-    question: "Is the conclusion well-supported by the premises?",
-    options: [
-      "Yes — the conclusion modestly follows from acknowledging both effects.",
-      "No — the premises contradict each other.",
-      "No — the conclusion goes far beyond the premises.",
-      "Yes — but only if we accept one premise and reject the other.",
-    ],
-    answer: 0,
-  },
-];
+function readUidFromLocal() {
+  try {
+    const raw = localStorage.getItem("fp_flow");
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    return parsed && parsed.uid ? parsed.uid : null;
+  } catch (_) { return null; }
+}
+
+const ACTIVE_UID = readUidFromLocal();
+export const ACTIVE_SET_INDEX = pickSetIndexForUser(ACTIVE_UID);
+const ACTIVE_SET = ASSESSMENT_SETS[ACTIVE_SET_INDEX];
 
 /* ──────────────────────────────────────────────────────────────────
- * Section 3 — Analytical Thinking
+ * Section 1 — Language Proficiency (sourced from active set)
  * ──────────────────────────────────────────────────────────────── */
 
-export const ANALYTICAL_ITEMS = [
-  {
-    id: "a1",
-    table: {
-      caption: "Reported air-quality index (AQI) by district, weekday averages, 2025",
-      headers: ["District", "Mon", "Tue", "Wed", "Thu", "Fri"],
-      rows: [
-        ["A", 78, 82, 85, 88, 95],
-        ["B", 60, 61, 62, 60, 64],
-        ["C", 91, 70, 92, 71, 93],
-      ],
-    },
-    question: "Which conclusion is best supported by the data?",
-    options: [
-      "District B has the worst air quality.",
-      "District A's AQI rises steadily across the week.",
-      "District C's AQI is exactly twice District B's.",
-      "All three districts have similar weekly patterns.",
-    ],
-    answer: 1,
-  },
-  {
-    id: "a2",
-    table: {
-      caption: "Survey: percentage of respondents identifying each issue as their top community concern, by age band",
-      headers: ["Age band", "Water", "Air", "Jobs", "Education"],
-      rows: [
-        ["18–24", 18, 22, 30, 30],
-        ["25–34", 22, 25, 35, 18],
-        ["35–49", 28, 30, 22, 20],
-        ["50+",   34, 24, 18, 24],
-      ],
-    },
-    question: "Which statement is best supported?",
-    options: [
-      "Concern about jobs decreases as age increases.",
-      "Education is the top concern across all age bands.",
-      "Water concern is identical across age bands.",
-      "Older respondents care more about jobs than younger ones.",
-    ],
-    answer: 0,
-  },
-  {
-    id: "a3",
-    table: {
-      caption: "Recycling participation: % of households reporting active recycling, by district and quarter",
-      headers: ["District", "Q1", "Q2", "Q3", "Q4"],
-      rows: [
-        ["X", 40, 42, 45, 47],
-        ["Y", 60, 58, 55, 52],
-        ["Z", 50, 50, 50, 50],
-      ],
-    },
-    question: "Which inference is best supported?",
-    options: [
-      "District Z's program is failing.",
-      "District X is improving while District Y is declining.",
-      "District Y has the lowest current participation.",
-      "Recycling has declined overall.",
-    ],
-    answer: 1,
-  },
-];
+export const CLOZE_PASSAGE = ACTIVE_SET.cloze;
+
+export const VOCAB_ITEMS = ACTIVE_SET.vocab;
+
+export const WRITING_PROMPT = ACTIVE_SET.writing;
+
+/* ──────────────────────────────────────────────────────────────────
+ * Section 2 — Critical Thinking (sourced from active set)
+ * ──────────────────────────────────────────────────────────────── */
+
+export const CRITICAL_ITEMS = ACTIVE_SET.critical;
+
+/* ──────────────────────────────────────────────────────────────────
+ * Section 3 — Analytical Thinking (sourced from active set)
+ * ──────────────────────────────────────────────────────────────── */
+
+export const ANALYTICAL_ITEMS = ACTIVE_SET.analytical;
 
 /* ──────────────────────────────────────────────────────────────────
  * Section 4 — Collaboration Orientation (Likert)
@@ -358,6 +207,7 @@ export function scoreAssessment(allAnswers) {
 
 export async function saveLearnerProfile(uid, scored) {
   const fb = await import("./firebase-init.js");
+  const assignedSet = pickSetIndexForUser(uid);
   const profile = {
     cefrEstimate: scored.language.cefrEstimate,
     vocabularyScore: scored.language.vocabulary,
@@ -366,6 +216,10 @@ export async function saveLearnerProfile(uid, scored) {
     collaborationOrientation: scored.collaborationOrientation,
     assessedAt: scored.completedAt,
     version: scored.version,
+    assessmentSet: {
+      index: assignedSet,
+      theme: ASSESSMENT_SETS[assignedSet]?.theme || "unknown",
+    },
     rawSubscores: {
       cloze: scored.language.cloze,
       writing: scored.language.writing,
