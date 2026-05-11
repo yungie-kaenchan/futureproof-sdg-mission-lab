@@ -178,12 +178,3 @@ async function compressDataUrl(dataUrl, maxDim, quality) {
   ctx.drawImage(img, 0, 0, w, h);
   return canvas.toDataURL("image/jpeg", quality);
 }
-
-function loadImage(src) {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    img.onload = () => resolve(img);
-    img.onerror = (e) => reject(new Error("Couldn't decode the avatar image."));
-    img.src = src;
-  });
-}
