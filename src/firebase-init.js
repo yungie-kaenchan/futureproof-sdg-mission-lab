@@ -157,9 +157,38 @@ export async function logDecision(missionId, decision) {
 export async function recordConsent(uid, version, lang, flags) {
   const path = `${paths.consents(uid)}/${version}`;
   const existing = await readPath(path);
+
+  // If the user re-submits the same flags, no-op success (idempotent).
+  // If they changed any flag since last save, append a revision suffix so
+  // the audit log preserves both states — never silently overwrites.
   if (existing) {
-    throw new Error(`Consent for version ${version} already recorded for ${uid}`);
+    const sameFlags =
+      existing.flags &&
+      Object.keys(flags).every((k) => existing.flags[k] === flags[k]) &&
+      Object.keys(existing.flags).every((k) => existing.flags[k] === flags[k]);
+
+    if (sameFlags) {
+      // Already recorded exactly this state — just bump the lang if it changed and return.
+      if (existing.lang !== lang) {
+        await writePath(`${path}/lang`, lang);
+      }
+      return;
+    }
+
+    // Flags changed → write a new revision under the same version.
+    let n = 2;
+    while (await readPath(`${path}-r${n}`)) n++;
+    await writePath(`${path}-r${n}`, {
+      ts: serverTimestamp(),
+      version: `${version}-r${n}`,
+      lang,
+      flags,
+      previousFlags: existing.flags,
+      userAgent: navigator.userAgent,
+    });
+    return;
   }
+
   await writePath(path, {
     ts: serverTimestamp(),
     version,

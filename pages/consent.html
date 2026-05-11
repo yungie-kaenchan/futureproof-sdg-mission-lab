@@ -26,8 +26,11 @@
           <span class="topbar-name">Consent</span>
         </div>
       </div>
-      <div class="flex items-center gap-4">
-        <button id="lang-toggle" class="nav-btn" type="button">EN / ไทย</button>
+      <div class="flex items-center gap-2">
+        <div class="lang-pill" role="group" aria-label="Language">
+          <button id="lang-en" class="lang-pill-opt is-active" type="button" data-lang="en">EN</button>
+          <button id="lang-th" class="lang-pill-opt" type="button" data-lang="th">ไทย</button>
+        </div>
       </div>
     </div>
   </header>
@@ -72,7 +75,10 @@
         <div id="consent-cards" class="space-y-4"></div>
 
         <details class="border border-panel-line p-6 mt-8">
-          <summary class="cursor-pointer console-label-gold">READ THE FORMAL CONSENT DOCUMENT</summary>
+          <summary class="cursor-pointer console-label-gold" data-i18n>
+            <span data-en>READ THE FORMAL CONSENT DOCUMENT</span>
+            <span data-th hidden>อ่านเอกสารความยินยอมฉบับเต็ม</span>
+          </summary>
           <div class="mt-6 text-sm text-on-surface/80 leading-relaxed space-y-4" data-i18n>
             <div data-en>
               <p><strong>Data Controller:</strong> Faculty of Liberal Arts, Mahidol University. Contact: <a class="text-gold-primary hover:text-gold-glow" href="mailto:payungsak.kaenchan@gmail.com">payungsak.kaenchan@gmail.com</a>.</p>
@@ -125,18 +131,28 @@
     import { CONSENT_FLAGS, defaultFlags, validateFlags, submitConsent, getCurrentVersion } from '../src/consent.js';
     import { getFlowState, setFlowStep, isFirebaseAvailable } from '../src/auth.js';
 
-    let lang = (navigator.language || 'en').toLowerCase().startsWith('th') ? 'th' : 'en';
+    let lang = localStorage.getItem('fp_lang') ||
+               ((navigator.language || 'en').toLowerCase().startsWith('th') ? 'th' : 'en');
 
     function applyLang() {
       document.documentElement.lang = lang;
       document.querySelectorAll('[data-en]').forEach((el) => el.hidden = lang !== 'en');
       document.querySelectorAll('[data-th]').forEach((el) => el.hidden = lang !== 'th');
+      // Highlight the active option in the language pill
+      document.querySelectorAll('.lang-pill-opt').forEach((btn) => {
+        btn.classList.toggle('is-active', btn.dataset.lang === lang);
+        btn.setAttribute('aria-pressed', btn.dataset.lang === lang ? 'true' : 'false');
+      });
+      localStorage.setItem('fp_lang', lang);
     }
 
-    document.getElementById('lang-toggle').addEventListener('click', () => {
-      lang = lang === 'en' ? 'th' : 'en';
-      applyLang();
-      renderCards();
+    document.querySelectorAll('.lang-pill-opt').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        if (btn.dataset.lang === lang) return;
+        lang = btn.dataset.lang;
+        applyLang();
+        renderCards();
+      });
     });
 
     const flags = { ...defaultFlags() };
