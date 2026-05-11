@@ -129,19 +129,61 @@ export async function generateAvatar({ imageBase64, style, subjectHint }) {
 }
 
 /* ──────────────────────────────────────────────────────────────────
- * Save to Firebase Storage + profile
+ * Save to Realtime Database (no Firebase Storage required)
+ *
+ * We compress the avatar to ~512px JPEG and store the data URL directly
+ * in /users/$uid/profile/public/avatarUrl. This avoids Firebase Storage
+ * rules entirely and works as long as the user can write their own
+ * profile (which the security rules already permit).
+ *
+ * Why this is OK for a pilot platform:
+ *  - The compressed image is ~40–80 KB (well within Realtime DB limits).
+ *  - <img src="data:image/jpeg;base64,…"> renders natively, no extra fetch.
+ *  - No Storage CORS / rules / lifecycle to debug.
+ *  - For production CDN serving, we can migrate to Storage later via a
+ *    Cloud Function trigger that reads the data URL and uploads it.
  * ──────────────────────────────────────────────────────────────── */
 
-export async function saveAvatar(uid, dataUrl, version = 1) {
+const STORAGE_MAX_DIM = 512;       // resize before encoding to keep DB writes small
+const STORAGE_JPEG_QUALITY = 0.82; // ~50–80 KB per avatar
+
+export async function saveAvatar(uid, dataUrl /* , version = 1 */) {
+  if (!uid) throw new Error("Missing user id — please sign in again.");
+  if (!dataUrl) throw new Error("No avatar image to save.");
+
+  const compressed = await compressDataUrl(dataUrl, STORAGE_MAX_DIM, STORAGE_JPEG_QUALITY);
+
   const fb = await import("./firebase-init.js");
-  const blob = await dataUrlToBlob(dataUrl);
-  const path = `avatars/${uid}_v${version}.png`;
-  const downloadUrl = await fb.uploadFile(path, blob);
-  await fb.writePath(`${fb.paths.userPublic(uid)}/avatarUrl`, downloadUrl);
-  return downloadUrl;
+  await fb.writePath(`${fb.paths.userPublic(uid)}/avatarUrl`, compressed);
+  await fb.writePath(`${fb.paths.userPublic(uid)}/avatarUpdatedAt`, Date.now());
+  return compressed;
 }
 
-async function dataUrlToBlob(dataUrl) {
-  const res = await fetch(dataUrl);
-  return res.blob();
+/**
+ * Resize + recompress a data URL down to a max dimension and a JPEG quality.
+ * Stays canvas-only; no network. Returns a fresh `data:image/jpeg;base64,…` URL.
+ */
+async function compressDataUrl(dataUrl, maxDim, quality) {
+  const img = await loadImage(dataUrl);
+  const scale = Math.min(1, maxDim / Math.max(img.width, img.height));
+  const w = Math.round(img.width * scale);
+  const h = Math.round(img.height * scale);
+
+  const canvas = document.createElement("canvas");
+  canvas.width = w;
+  canvas.height = h;
+  const ctx = canvas.getContext("2d");
+  ctx.fillStyle = "#FAF7F0";   // bone, so transparent PNGs don't show black
+  ctx.fillRect(0, 0, w, h);
+  ctx.drawImage(img, 0, 0, w, h);
+  return canvas.toDataURL("image/jpeg", quality);
+}
+
+function loadImage(src) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => resolve(img);
+    img.onerror = (e) => reject(new Error("Couldn't decode the avatar image."));
+    img.src = src;
+  });
 }
