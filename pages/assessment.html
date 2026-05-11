@@ -159,21 +159,38 @@
     } from '../src/assessment.js';
     import { getFlowState, setFlowStep, isFirebaseAvailable } from '../src/auth.js';
 
-    /* ──────── State ──────── */
+    /* ──────── State (persisted to localStorage so back-navigation keeps work) ──────── */
 
-    const answers = {
-      cloze: {},
-      vocab: {},
-      writing: '',
-      critical: {},
-      analytical: {},
-      collaboration: {},
-    };
+    const flow0 = getFlowState();
+    const STORAGE_KEY = `fp_assessment_${flow0?.uid || 'anon'}`;
+
+    function blankAnswers() {
+      return { cloze: {}, vocab: {}, writing: '', critical: {}, analytical: {}, collaboration: {} };
+    }
+
+    function loadSaved() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return null;
+        return JSON.parse(raw);
+      } catch (_) { return null; }
+    }
+
+    function persist() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ answers, cursor, started, savedAt: Date.now() }));
+      } catch (_) { /* ignore quota errors */ }
+    }
+
+    const saved = loadSaved();
+    const answers = saved?.answers || blankAnswers();
+    // Sanity-fill any newly added top-level keys if the saved blob is older
+    for (const k of Object.keys(blankAnswers())) if (answers[k] === undefined) answers[k] = blankAnswers()[k];
 
     // Flat sequence of items the learner walks through.
     const sequence = buildSequence();
-    let cursor = 0;
-    let started = 0;
+    let cursor = Math.min(saved?.cursor || 0, sequence.length - 1);
+    let started = saved?.started || 0;
 
     function buildSequence() {
       const seq = [];
@@ -211,8 +228,16 @@
       intro.hidden = true;
       quiz.hidden = false;
       cursor = 0;
+      persist();
       renderCurrent();
     });
+
+    // If a previous attempt was already in progress, skip the intro and resume.
+    if (saved && saved.cursor > 0 && !saved.completedAt) {
+      intro.hidden = true;
+      quiz.hidden = false;
+      renderCurrent();
+    }
 
     document.getElementById('back-btn').addEventListener('click', () => {
       if (cursor === 0) {
@@ -221,16 +246,19 @@
         return;
       }
       cursor -= 1;
+      persist();
       renderCurrent();
     });
 
     document.getElementById('next-btn').addEventListener('click', () => {
       if (!validateCurrent()) return;
+      persist();
       if (cursor >= sequence.length - 1) {
         finishQuiz();
         return;
       }
       cursor += 1;
+      persist();
       renderCurrent();
     });
 
@@ -240,6 +268,7 @@
         else answers[k] = '';
       });
       cursor = 0;
+      persist();
       results.hidden = true;
       intro.hidden = false;
     });
@@ -303,7 +332,7 @@
             if (answers.cloze[seg.blank] === opt) o.selected = true;
             sel.appendChild(o);
           }
-          sel.addEventListener('change', () => { answers.cloze[seg.blank] = sel.value; });
+          sel.addEventListener('change', () => { answers.cloze[seg.blank] = sel.value; persist(); });
           span.appendChild(sel);
           passage.appendChild(span);
         }
@@ -330,6 +359,7 @@
           list.querySelectorAll('.option-card').forEach((b) => b.classList.remove('selected'));
           btn.classList.add('selected');
           clearError();
+          persist();
         });
         list.appendChild(btn);
       });
@@ -355,6 +385,7 @@
         answers.writing = ta.value;
         const n = ta.value.trim().split(/\s+/).filter(Boolean).length;
         wc.textContent = String(n);
+        persist();
       };
       ta.addEventListener('input', update);
       update();
@@ -387,6 +418,7 @@
         btn.innerHTML = `<span class="option-marker">${letters[idx]}</span><span class="flex-1">${opt}</span>`;
         btn.addEventListener('click', () => {
           answers.analytical[item.id] = idx;
+          persist();
           list.querySelectorAll('.option-card').forEach((b) => b.classList.remove('selected'));
           btn.classList.add('selected');
           clearError();
@@ -416,6 +448,7 @@
         opt.innerHTML = `<div class="font-mono text-base text-on-surface mb-1">${value}</div><div>${label}</div>`;
         opt.addEventListener('click', () => {
           answers.collaboration[item.id] = value;
+          persist();
           scale.querySelectorAll('.likert-option').forEach((b) => b.classList.remove('selected'));
           opt.classList.add('selected');
           clearError();
@@ -476,6 +509,12 @@
         try {
           await saveLearnerProfile(uid, scored);
           setFlowStep('avatar', { learnerProfile: scored });
+          // Persist the final answers one more time, but flag as completed so a
+          // future "Retake" can detect it. Keep the answers so back-nav still
+          // shows them — only clear when the user explicitly retakes.
+          localStorage.setItem(STORAGE_KEY, JSON.stringify({
+            answers, cursor: sequence.length - 1, started, completedAt: Date.now()
+          }));
         } catch (err) {
           console.error('[FUTUREPROOF] Failed to save learner profile', err);
         }
@@ -515,5 +554,6 @@
       if (document.querySelector(sel)) { mountVoiceGuide('assessment', sel); break; }
     }
   </script>
+  <script type="module" src="../src/topbar-actions.js"></script>
 </body>
 </html>

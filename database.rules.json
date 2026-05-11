@@ -5,26 +5,15 @@
 
     "users": {
       "$uid": {
-        ".read": "auth != null && (auth.uid === $uid || auth.token.role === 'admin' || auth.token.role === 'teacher')",
-        "profile": {
-          "public": {
-            ".write": "auth != null && auth.uid === $uid",
-            ".validate": "newData.hasChildren(['displayName', 'rank'])"
-          },
-          "private": {
-            ".write": "auth != null && auth.uid === $uid"
-          }
-        },
-        "learnerProfile": {
-          ".write": "auth != null && auth.uid === $uid",
-          ".read": "auth != null && (auth.uid === $uid || auth.token.role === 'admin' || auth.token.role === 'teacher')"
-        },
+        ".read":  "auth != null && (auth.uid === $uid || auth.token.role === 'admin' || auth.token.role === 'teacher')",
+        ".write": "auth != null && (auth.uid === $uid || auth.token.role === 'admin')",
+
         "tokens": {
           ".read": "auth != null && (auth.uid === $uid || auth.token.role === 'admin')",
-          "balance":  { ".write": false },
-          "earned":   { ".write": false },
-          "spent":    { ".write": false },
-          "ledger":   { ".write": false }
+          "balance": { ".write": "auth.token.role === 'admin'" },
+          "earned":  { ".write": "auth.token.role === 'admin'" },
+          "spent":   { ".write": "auth.token.role === 'admin'" },
+          "ledger":  { ".write": "auth.token.role === 'admin'" }
         }
       }
     },
@@ -40,21 +29,21 @@
       "$tid": {
         ".read":  "auth != null",
         ".write": "auth != null && (root.child('teams/' + $tid + '/members/' + auth.uid).exists() || auth.token.role === 'teacher' || auth.token.role === 'admin')",
-        "integrityScore": { ".write": false }
+        "integrityScore": { ".write": "auth.token.role === 'admin'" }
       }
     },
 
     "scenarios": {
       ".read":  "auth != null",
       "$sid": {
-        ".write": "auth != null && (data.child('lockedBy').val() === auth.uid || !data.exists() || auth.token.role === 'admin')"
+        ".write": "auth != null && (!data.exists() || data.child('lockedBy').val() === auth.uid || auth.token.role === 'admin')"
       }
     },
 
     "missions": {
       ".read":  "auth != null",
       "$mid": {
-        ".write": "auth != null && (root.child('teams/' + data.child('teamId').val() + '/members/' + auth.uid).exists() || auth.token.role === 'admin')"
+        ".write": "auth != null"
       }
     },
 
