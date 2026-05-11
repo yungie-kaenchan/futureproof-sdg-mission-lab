@@ -200,37 +200,97 @@ export const SAMPLE_SCENARIOS = {
     },
   ],
 
-  /* ── Preview scenarios (one per remaining SDG; replace with Claude live) ── */
+  /* ── Preview scenarios (3 per SDG; replaced by live Claude on healthy API) ── */
 
-  1: [previewScenario(
-    "Bangkok's Forgotten Pavement Workers",
-    "Informal vendors and waste-pickers earn under the urban poverty line; municipal sweeps periodically displace them without resettlement.",
-    "Tourism-friendly streets vs livelihoods of the urban informal economy.",
-    "What policy would protect informal-economy livelihoods without freezing the city's economic dynamism?",
-    ["Distributive justice", "Recognition"],
-    "Tied to BMA street-vendor zoning policies and the Foundation for Slum Child Care's recent work.",
-    [
-      { label: "Street vendor association", role: "Representative voice", interest: "Stable workspace permits" },
-      { label: "BMA District Office", role: "Sweeps authority", interest: "Tourist-ready sidewalks" },
-      { label: "Tourism board", role: "City image", interest: "Predictable visitor experience" },
-      { label: "Foundation for Slum Child Care", role: "Advocacy", interest: "Family stability" },
-    ],
-  )],
+  1: [
+    previewScenario(
+      "Bangkok's Forgotten Pavement Workers",
+      "Informal vendors and waste-pickers earn under the urban poverty line; municipal sweeps periodically displace them without resettlement.",
+      "Tourism-friendly streets vs livelihoods of the urban informal economy.",
+      "What policy would protect informal-economy livelihoods without freezing the city's economic dynamism?",
+      ["Distributive justice", "Recognition"],
+      "Tied to BMA street-vendor zoning policies and the Foundation for Slum Child Care's recent work.",
+      [
+        { label: "Street vendor association", role: "Representative voice", interest: "Stable workspace permits" },
+        { label: "BMA District Office", role: "Sweeps authority", interest: "Tourist-ready sidewalks" },
+        { label: "Tourism board", role: "City image", interest: "Predictable visitor experience" },
+        { label: "Foundation for Slum Child Care", role: "Advocacy", interest: "Family stability" },
+      ],
+    ),
+    previewScenario(
+      "Chiang Mai's Day-Labour Pickup Points",
+      "Day-labourers gather at intersections each morning; municipal officials periodically clear the sites citing traffic safety.",
+      "Public-space order vs the only labour-matching mechanism most workers know.",
+      "What sanctioned pickup-point design would preserve labour matching without compromising street safety?",
+      ["Distributive justice", "Procedural fairness"],
+      "Echoes Chiang Mai municipal traffic-safety reviews and Mirror Foundation outreach work.",
+      [
+        { label: "Day-labourer collective", role: "Affected community", interest: "Reliable matching site" },
+        { label: "Provincial traffic engineers", role: "Safety authority", interest: "Free-flowing intersections" },
+        { label: "Hiring contractors", role: "Demand side", interest: "Predictable pickup point" },
+        { label: "Mirror Foundation outreach", role: "Mediator", interest: "Worker dignity and safety" },
+      ],
+    ),
+    previewScenario(
+      "Songkhla's Unbanked Households",
+      "A majority of households in coastal sub-districts lack formal bank accounts; predatory lenders fill the gap during fishing off-seasons.",
+      "Bank-of-Thailand financial-inclusion mandates vs banks' commercial risk appetite.",
+      "What combination of bank obligations and consumer protections would safely extend credit to these households?",
+      ["Recognition", "Vulnerability prioritisation"],
+      "Tied to Bank of Thailand financial-inclusion reviews and TDRI fieldwork on informal credit.",
+      [
+        { label: "Unbanked fishing households", role: "Affected community", interest: "Safe credit access" },
+        { label: "Local commercial banks", role: "Service providers", interest: "Manageable risk on new accounts" },
+        { label: "Bank of Thailand supervisors", role: "Regulator", interest: "Defensible inclusion policy" },
+        { label: "Provincial consumer-protection officers", role: "Enforcement", interest: "Predatory-lender controls" },
+      ],
+    ),
+  ],
 
-  2: [previewScenario(
-    "School Lunch in the Northeast",
-    "Rural primary schools struggle to deliver the national school-lunch nutrition target on the per-meal budget allocated.",
-    "Caloric adequacy vs nutritional adequacy under tight per-meal budgets.",
-    "Reallocate budget toward fewer, more nutrient-dense meals — or maintain current frequency?",
-    ["Child welfare", "Procedural fairness across schools"],
-    "Echoes Ministry of Education and OBEC 2024–2025 school-nutrition reviews.",
-    [
-      { label: "School principals (Khon Kaen)", role: "Operational owners", interest: "Workable budget" },
-      { label: "Pediatric nutritionists", role: "Standard-setting", interest: "Nutrition adequacy" },
-      { label: "Parent-teacher associations", role: "Community voice", interest: "Children fed" },
-      { label: "OBEC budget officials", role: "Funding allocator", interest: "Defensible policy" },
-    ],
-  )],
+  2: [
+    previewScenario(
+      "School Lunch in the Northeast",
+      "Rural primary schools struggle to deliver the national school-lunch nutrition target on the per-meal budget allocated.",
+      "Caloric adequacy vs nutritional adequacy under tight per-meal budgets.",
+      "Reallocate budget toward fewer, more nutrient-dense meals — or maintain current frequency?",
+      ["Child welfare", "Procedural fairness across schools"],
+      "Echoes Ministry of Education and OBEC 2024–2025 school-nutrition reviews.",
+      [
+        { label: "School principals (Khon Kaen)", role: "Operational owners", interest: "Workable budget" },
+        { label: "Pediatric nutritionists", role: "Standard-setting", interest: "Nutrition adequacy" },
+        { label: "Parent-teacher associations", role: "Community voice", interest: "Children fed" },
+        { label: "OBEC budget officials", role: "Funding allocator", interest: "Defensible policy" },
+      ],
+    ),
+    previewScenario(
+      "Stunting in Border Districts",
+      "Districts along the Myanmar border show child-stunting rates persistently above the national average; the cause mix is contested.",
+      "Targeted nutrition transfers vs broader rural-livelihood programmes.",
+      "Should the next nutrition budget concentrate on the highest-stunting districts, or fund parallel livelihood programmes that act more slowly?",
+      ["Vulnerability prioritisation", "Procedural fairness"],
+      "Reflects MOPH child-growth surveys and UNICEF-Thailand 2024 child-poverty briefs.",
+      [
+        { label: "Border-district health volunteers", role: "Front-line measurement", interest: "Reliable supplies" },
+        { label: "MSDHS programme officers", role: "Transfer designers", interest: "Defensible targeting" },
+        { label: "Parents of stunted children", role: "Affected community", interest: "Sustained access to nutrition" },
+        { label: "MOPH nutritionists", role: "Standard-setters", interest: "Evidence-based interventions" },
+      ],
+    ),
+    previewScenario(
+      "Bangkok's Food-Aid Coverage Holes",
+      "Bangkok food-aid distribution after 2024 floods was uneven; some sub-districts were over-served while others were missed entirely.",
+      "Speed of response vs comprehensiveness of coverage.",
+      "What targeting rule should guide the next emergency food-aid distribution to prevent both over- and under-coverage?",
+      ["Distributive justice", "Procedural fairness"],
+      "Tied to BMA Office of Disaster Prevention review of 2024 flood-relief logistics.",
+      [
+        { label: "Under-served residents", role: "Affected community", interest: "Reliable inclusion next time" },
+        { label: "BMA emergency-relief officers", role: "Distributors", interest: "Workable targeting rule" },
+        { label: "Volunteer groups", role: "Surge capacity", interest: "Clear roles and routes" },
+        { label: "Independent disaster auditor", role: "Evaluation", interest: "Documented improvement" },
+      ],
+    ),
+  ],
 
   3: [
     previewScenario(
@@ -277,7 +337,8 @@ export const SAMPLE_SCENARIOS = {
     ),
   ],
 
-  4: [previewScenario(
+  4: [
+    previewScenario(
     "The Online-Learning Equity Gap",
     "Two years post-pandemic, learning loss in rural Northern districts has not closed; urban districts have largely recovered.",
     "Universal catch-up programs vs targeted rural-investment programs.",
@@ -290,9 +351,39 @@ export const SAMPLE_SCENARIOS = {
       { label: "Urban district teachers", role: "Implementers", interest: "Continued universal support" },
       { label: "Education economist", role: "Independent voice", interest: "Cost-effective allocation" },
     ],
-  )],
+  ),
+    previewScenario(
+      "Multilingual Classrooms in the Deep South",
+      "Children in three southern border provinces speak Patani Malay at home but receive instruction primarily in Thai; reading proficiency lags national averages.",
+      "Faster Thai acquisition vs preservation of mother-tongue literacy.",
+      "What instructional balance would close the reading gap while keeping mother-tongue literacy intact?",
+      ["Recognition", "Equitable learning outcomes"],
+      "Tied to OBEC bilingual-education pilots and CMU language-acquisition research.",
+      [
+        { label: "Bilingual classroom teachers", role: "Implementers", interest: "Workable curriculum balance" },
+        { label: "Patani Malay-speaking parents", role: "Affected families", interest: "Children read well in both languages" },
+        { label: "OBEC regional office", role: "Curriculum authority", interest: "Defensible policy" },
+        { label: "Linguistics researchers", role: "Evidence base", interest: "Outcomes-based instruction design" },
+      ],
+    ),
+    previewScenario(
+      "Vocational vs Academic Track Funding",
+      "Vocational secondary schools receive per-student funding below academic streams despite serving students with greater labour-market gaps to close.",
+      "Equity in funding vs preserving the cost structures the academic stream depends on.",
+      "Should per-student vocational funding be raised, and if so, where should the redirected budget come from?",
+      ["Equity vs equality", "Long-term economic outcomes"],
+      "Reflects OVEC budget reviews and TDRI labour-market reports.",
+      [
+        { label: "Vocational school directors", role: "Operational lead", interest: "Adequate equipment funding" },
+        { label: "Academic-stream principals", role: "Status quo holders", interest: "Stable funding floor" },
+        { label: "OVEC budget officers", role: "Funding allocator", interest: "Defensible reallocation rule" },
+        { label: "Recent vocational graduates", role: "Outcome data", interest: "Better labour-market preparation" },
+      ],
+    ),
+  ],
 
-  5: [previewScenario(
+  5: [
+    previewScenario(
     "Care Work in the Aging Society",
     "Thailand is aging rapidly; eldercare falls disproportionately on women, eroding their workforce participation.",
     "Public eldercare expansion vs preserving family-centered care traditions.",
@@ -305,9 +396,39 @@ export const SAMPLE_SCENARIOS = {
       { label: "MSDHS planners", role: "Policy authors", interest: "Affordable scale" },
       { label: "Community health volunteers", role: "Front-line care", interest: "Recognition + pay" },
     ],
-  )],
+  ),
+    previewScenario(
+      "Online Harassment of Young Women",
+      "Young women report rising rates of coordinated harassment on social platforms after speaking publicly; some withdraw from public discourse entirely.",
+      "Platform speech freedoms vs targeted-harassment harms.",
+      "What combination of platform tools and legal remedies would deter coordinated harassment without sweeping legitimate speech off the platforms?",
+      ["Recognition", "Procedural fairness"],
+      "Tracks PDPC, MDES, and academic-freedom-network 2025 reviews.",
+      [
+        { label: "Targeted young women", role: "Affected speakers", interest: "Safe public participation" },
+        { label: "Platform trust-and-safety teams", role: "Tool designers", interest: "Scalable moderation" },
+        { label: "MDES officials", role: "Policy authority", interest: "Defensible regulatory mix" },
+        { label: "Civil-society legal aid", role: "Remedy access", interest: "Workable user remedies" },
+      ],
+    ),
+    previewScenario(
+      "Single-Mother Credit Access",
+      "Female-headed households in provincial cities report higher rejection rates on small-business loans, even when stated revenues are comparable.",
+      "Credit risk discipline vs structural gender bias in underwriting.",
+      "What underwriting reform would close the gap without raising default rates above an acceptable threshold?",
+      ["Equity vs equality", "Procedural fairness"],
+      "Tied to Bank of Thailand inclusive-credit reviews and the Women's SME network's 2025 white paper.",
+      [
+        { label: "Female small-business owners", role: "Affected community", interest: "Fair underwriting" },
+        { label: "Bank credit officers", role: "Risk gatekeepers", interest: "Defensible default rates" },
+        { label: "BOT supervisors", role: "Regulator", interest: "Evidence-based fairness rules" },
+        { label: "Women's-SME-network advocates", role: "Voice", interest: "Sustained access reform" },
+      ],
+    ),
+  ],
 
-  7: [previewScenario(
+  7: [
+    previewScenario(
     "Rooftop Solar at the Industrial Estate",
     "An eastern industrial estate plans large-scale rooftop solar; grid operators warn of feeder instability without storage.",
     "Aggressive renewable rollout vs grid-stability conservatism.",
@@ -320,9 +441,39 @@ export const SAMPLE_SCENARIOS = {
       { label: "ERC commissioners", role: "Regulators", interest: "Defensible policy" },
       { label: "Provincial environmental groups", role: "Advocates", interest: "Decarbonization speed" },
     ],
-  )],
+  ),
+    previewScenario(
+      "Off-Grid Hill-Tribe Villages",
+      "Five hill-tribe villages in Mae Hong Son have refused a planned grid extension over land-use concerns; they have requested a community-owned solar micro-grid instead.",
+      "Standard centralised infrastructure vs community-owned distributed alternatives.",
+      "Should the energy budget fund the community proposal, the centralised extension, or a hybrid pilot?",
+      ["Recognition", "Long-term system resilience"],
+      "Reflects PEA off-grid programme decisions and DEDE 2025 community-energy pilots.",
+      [
+        { label: "Hill-tribe village councils", role: "Affected community", interest: "Land-use continuity and energy access" },
+        { label: "PEA rural engineers", role: "Service deliverer", interest: "Defensible operational model" },
+        { label: "DEDE community-energy team", role: "Pilot authority", interest: "Replicable results" },
+        { label: "Independent energy advisor", role: "Evidence base", interest: "Cost-effective rural electrification" },
+      ],
+    ),
+    previewScenario(
+      "Provincial Solar-Buyback Disparities",
+      "Feed-in tariff rates for rooftop solar vary widely between provinces; some households earn back twice what neighbouring provinces earn for identical systems.",
+      "Local-authority autonomy vs national-tariff equity.",
+      "Should national tariff rules override provincial discretion, or should disparities be allowed within bounded limits?",
+      ["Distributive justice", "Procedural fairness"],
+      "Tracks ERC and MEA/PEA tariff harmonisation discussions.",
+      [
+        { label: "Rooftop-solar households", role: "Affected investors", interest: "Predictable returns" },
+        { label: "Provincial energy authorities", role: "Local discretion", interest: "Workable local pricing" },
+        { label: "ERC commissioners", role: "Regulator", interest: "Defensible national rules" },
+        { label: "Independent energy economist", role: "Evidence base", interest: "Sustainable market design" },
+      ],
+    ),
+  ],
 
-  8: [previewScenario(
+  8: [
+    previewScenario(
     "Gig Workers Without Safety Nets",
     "Food-delivery and rideshare workers in Bangkok lack social security access; classification as 'partners' excludes them.",
     "Universal worker protections vs platform business-model viability.",
@@ -335,9 +486,39 @@ export const SAMPLE_SCENARIOS = {
       { label: "Ministry of Labour", role: "Regulator", interest: "Defensible classification" },
       { label: "TDRI economists", role: "Analysts", interest: "Evidence-based policy" },
     ],
-  )],
+  ),
+    previewScenario(
+      "Mae Sot Garment-Factory Closures",
+      "Two garment factories in Mae Sot closed without notice, stranding several hundred migrant workers without final pay or repatriation support.",
+      "Aggressive enforcement of factory-closure laws vs the practical limits of cross-border worker protections.",
+      "What enforcement and worker-support combination would prevent the next stranding without driving factories underground?",
+      ["Worker dignity", "Procedural fairness"],
+      "Tied to Ministry of Labour cross-border-worker protection reviews and Mirror Foundation outreach.",
+      [
+        { label: "Stranded migrant workers", role: "Affected community", interest: "Owed wages and safe return" },
+        { label: "Provincial labour inspectors", role: "Enforcement", interest: "Defensible procedures" },
+        { label: "Garment industry association", role: "Sector voice", interest: "Workable rules" },
+        { label: "Mirror Foundation outreach", role: "Worker advocates", interest: "Sustained protections" },
+      ],
+    ),
+    previewScenario(
+      "Domestic-Worker Labour-Code Gaps",
+      "Household domestic workers are excluded from key labour-code provisions; complaints often go unaddressed.",
+      "Extending labour-code coverage vs employer privacy and household autonomy.",
+      "What inspection and complaint regime would extend protections without making household employment legally untenable?",
+      ["Worker dignity", "Procedural fairness"],
+      "Reflects Ministry of Labour 2025 review of domestic-worker provisions.",
+      [
+        { label: "Domestic workers' networks", role: "Worker voice", interest: "Real complaint pathways" },
+        { label: "Employer households", role: "Affected employers", interest: "Workable obligations" },
+        { label: "MoL inspectors", role: "Enforcement", interest: "Defensible inspection regime" },
+        { label: "Labour-rights NGO", role: "Advocacy", interest: "Sustained protection floor" },
+      ],
+    ),
+  ],
 
-  9: [previewScenario(
+  9: [
+    previewScenario(
     "The EEC's Innovation Promise",
     "The Eastern Economic Corridor's high-tech investment promises clash with local SME displacement and water-allocation tensions.",
     "Foreign direct investment growth vs local SME and water-equity costs.",
@@ -350,9 +531,39 @@ export const SAMPLE_SCENARIOS = {
       { label: "Water-allocation engineers", role: "Resource constraint", interest: "Sustainable allocation" },
       { label: "Foreign investors", role: "Project funders", interest: "Predictable conditions" },
     ],
-  )],
+  ),
+    previewScenario(
+      "Rural Broadband's Last Mile",
+      "Three northeastern districts have funded fibre backbone in place but no commercial telco will lay the last-kilometre links to villages because of low expected revenue.",
+      "Public last-mile build-out vs private-market discipline.",
+      "Should the state build the last mile itself, subsidise telcos to do it, or wait for revenue conditions to improve?",
+      ["Distributive justice", "Long-term economic resilience"],
+      "Tracks NBTC and DEPA rural-connectivity programme reviews.",
+      [
+        { label: "Village headmen", role: "Affected community voice", interest: "Working broadband access" },
+        { label: "Commercial telcos", role: "Service providers", interest: "Workable cost-recovery" },
+        { label: "NBTC commissioners", role: "Regulator", interest: "Defensible universal-service rule" },
+        { label: "DEPA programme team", role: "Subsidy design", interest: "Cost-effective intervention" },
+      ],
+    ),
+    previewScenario(
+      "SME R&D Tax-Credit Uptake",
+      "Thailand's SME R&D tax credit exists on paper, but uptake among eligible firms is below 15%; most cite paperwork complexity.",
+      "Streamlining the credit for SMEs vs guarding against abuse by larger firms.",
+      "What reform would lift SME uptake without opening the credit to misuse?",
+      ["Procedural fairness", "Economic dynamism"],
+      "Tracks Revenue Department and NSTDA review of R&D tax-credit administration.",
+      [
+        { label: "SME owners (electronics)", role: "Eligible non-claimants", interest: "Simpler claiming pathway" },
+        { label: "Revenue Department auditors", role: "Anti-abuse function", interest: "Defensible verification" },
+        { label: "NSTDA programme officers", role: "Eligibility certifiers", interest: "Workable certification" },
+        { label: "Tax-policy economist", role: "Independent voice", interest: "Cost-effective design" },
+      ],
+    ),
+  ],
 
-  10: [previewScenario(
+  10: [
+    previewScenario(
     "Stateless Children at the Border",
     "Thousands of children along the Myanmar border lack legal documentation; access to schooling and healthcare is uneven.",
     "Sovereignty concerns vs the developmental rights of children.",
@@ -365,9 +576,39 @@ export const SAMPLE_SCENARIOS = {
       { label: "Border-province educators", role: "Front-line implementers", interest: "Workable rules" },
       { label: "UNICEF Thailand", role: "Advocacy", interest: "Children's rights compliance" },
     ],
-  )],
+  ),
+    previewScenario(
+      "Disability Access in Public Buildings",
+      "A 2024 audit found that under 30% of public-facing government buildings in three provinces meet the 2007 Equality Act access standards.",
+      "Cost of retrofits vs immediate rights of disabled citizens.",
+      "What enforcement timeline and budget combination would close the gap without bankrupting smaller municipalities?",
+      ["Recognition", "Procedural fairness"],
+      "Reflects MSDHS disability-equality reviews and Universal Design Center research.",
+      [
+        { label: "Disabled-citizens' coalition", role: "Rights-holders", interest: "Visible, time-bound progress" },
+        { label: "Municipal facilities directors", role: "Implementers", interest: "Workable retrofit budget" },
+        { label: "MSDHS enforcement officers", role: "Regulator", interest: "Defensible timelines" },
+        { label: "Universal-design architects", role: "Technical advisors", interest: "Cost-effective designs" },
+      ],
+    ),
+    previewScenario(
+      "Wage Gaps by National Origin",
+      "Lao- and Myanmar-origin workers in a Surat Thani fruit-processing plant earn 18% less than Thai workers for the same role, even when controlling for tenure.",
+      "Aggressive pay-gap enforcement vs the practicalities of cross-border labour pricing.",
+      "What inspection and remedy combination would close the gap without triggering factory relocation?",
+      ["Equity vs equality", "Recognition"],
+      "Tied to MoL pay-gap audits and Solidarity Center fieldwork.",
+      [
+        { label: "Affected migrant workers", role: "Underpaid group", interest: "Equal pay for equal work" },
+        { label: "Thai-origin co-workers", role: "Same workplace", interest: "Stable employer" },
+        { label: "Factory HR", role: "Pay-setter", interest: "Workable adjustment path" },
+        { label: "MoL pay-equity inspectors", role: "Enforcement", interest: "Defensible findings" },
+      ],
+    ),
+  ],
 
-  11: [previewScenario(
+  11: [
+    previewScenario(
     "The BTS Extension Decision",
     "A proposed BTS extension into a low-density suburban area would speed commutes but risks pricing out current residents.",
     "Connectivity gains vs gentrification displacement.",
@@ -380,9 +621,39 @@ export const SAMPLE_SCENARIOS = {
       { label: "BMA / OTP planners", role: "Decision authority", interest: "Defensible plan" },
       { label: "CODI", role: "Community-development advocate", interest: "Anti-displacement tools" },
     ],
-  )],
+  ),
+    previewScenario(
+      "Bangkok's Affordable-Housing Squeeze",
+      "Median rents in inner Bangkok have outpaced median wages every year since 2020; young professionals report leaving the city or staying with parents indefinitely.",
+      "Aggressive supply expansion vs neighbourhood character protection.",
+      "What single zoning or finance change would most credibly improve affordability in the next two years?",
+      ["Distributive justice", "Long-term urban form"],
+      "Tracks BMA, CODI, and OTP discussions on affordable-housing supply.",
+      [
+        { label: "Renters priced out", role: "Affected residents", interest: "Workable rents" },
+        { label: "Existing homeowners", role: "Status-quo holders", interest: "Preserved property values" },
+        { label: "BMA planners", role: "Zoning authority", interest: "Defensible reforms" },
+        { label: "Affordable-housing developer", role: "Supply side", interest: "Predictable approvals" },
+      ],
+    ),
+    previewScenario(
+      "Khon Kaen's Bus-Network Redesign",
+      "Khon Kaen plans to modernise its public bus network; informal song thaew operators say they will be displaced without a transition plan.",
+      "Modernisation gains vs the livelihoods of informal-transport operators.",
+      "What transition design would deliver the modernisation benefits without leaving operators destitute?",
+      ["Procedural fairness", "Distributive justice"],
+      "Reflects Khon Kaen Provincial Office and OTP transit reviews.",
+      [
+        { label: "Song thaew operators", role: "Affected workers", interest: "Sustained livelihood pathway" },
+        { label: "Modern-bus operators", role: "Successor providers", interest: "Workable rollout schedule" },
+        { label: "Provincial transit office", role: "Planner", interest: "Defensible transition plan" },
+        { label: "Commuter groups", role: "Beneficiaries", interest: "Service continuity" },
+      ],
+    ),
+  ],
 
-  12: [previewScenario(
+  12: [
+    previewScenario(
     "The Plastic-Pact Mid-Course Review",
     "Thailand's Plastic Pact is mid-way through its 2030 commitments; producer-responsibility milestones are slipping.",
     "Voluntary commitments vs regulated extended-producer-responsibility (EPR).",
@@ -395,9 +666,39 @@ export const SAMPLE_SCENARIOS = {
       { label: "Waste-picker cooperatives", role: "Front-line", interest: "Continued income stream" },
       { label: "Independent auditors", role: "Verification", interest: "Credible measurement" },
     ],
-  )],
+  ),
+    previewScenario(
+      "Fast-Fashion Returns Pipeline",
+      "Returns from cross-border fast-fashion platforms accumulate in central-province warehouses; up to half ultimately go to landfill.",
+      "E-commerce convenience vs unaccounted environmental cost.",
+      "What rules on returns liability would discipline this stream without crippling the broader e-commerce sector?",
+      ["Long-term system change", "Distributive justice"],
+      "Tracks PCD, OECD-Thailand circular-economy reviews, and customs-returns audits.",
+      [
+        { label: "Warehouse-district residents", role: "Affected community", interest: "Cleaner local environment" },
+        { label: "E-commerce platforms", role: "Returns originators", interest: "Workable returns model" },
+        { label: "PCD regulators", role: "Enforcement", interest: "Defensible producer-responsibility rule" },
+        { label: "Customs auditors", role: "Border-flow visibility", interest: "Transparent return-shipment data" },
+      ],
+    ),
+    previewScenario(
+      "Single-Use Plastic in Tourist Areas",
+      "Single-use plastic-ban compliance varies sharply between tourist destinations; voluntary commitments by operators have not closed the gap.",
+      "Voluntary commitments vs mandatory destination-level bans.",
+      "Should the next phase of plastic regulation be tied to tourist-zone designations, or applied uniformly?",
+      ["Long-term system change", "Procedural fairness"],
+      "Reflects PCD, TAT, and provincial tourism-office discussions.",
+      [
+        { label: "Tourism business operators", role: "Compliers and resisters", interest: "Predictable rules" },
+        { label: "Provincial tourism office", role: "Local enforcement", interest: "Workable compliance regime" },
+        { label: "PCD national regulator", role: "Rule-setter", interest: "Defensible national policy" },
+        { label: "Marine-conservation NGO", role: "Outcome advocate", interest: "Visible plastic-leak reductions" },
+      ],
+    ),
+  ],
 
-  15: [previewScenario(
+  15: [
+    previewScenario(
     "The Mae Ping Headwaters",
     "Upper Mae Ping forest cover is fragmenting; downstream water-quality and flood-resilience are at risk.",
     "Conservation strictness vs livelihood rights of upper-watershed communities.",
@@ -410,9 +711,39 @@ export const SAMPLE_SCENARIOS = {
       { label: "Downstream city officials", role: "Beneficiary cities", interest: "Water + flood control" },
       { label: "Watershed scientists", role: "Evidence base", interest: "Ecological integrity" },
     ],
-  )],
+  ),
+    previewScenario(
+      "Bangkok's Urban Tree Canopy",
+      "BMA tree-planting targets have been announced annually since 2020; an independent satellite audit shows canopy cover declining in five of fifteen districts.",
+      "Headline planting targets vs actual canopy outcomes.",
+      "What measurement and accountability change would align planting commitments with canopy reality?",
+      ["Long-term ecological function", "Transparency"],
+      "Reflects BMA Environment Department and GISTDA-Chulalongkorn canopy mapping.",
+      [
+        { label: "District environment officers", role: "Implementers", interest: "Workable metrics" },
+        { label: "Independent satellite scientists", role: "Evidence base", interest: "Honest measurement" },
+        { label: "Community tree-planting groups", role: "Volunteers", interest: "Lasting impact" },
+        { label: "BMA Environment Department", role: "Programme owner", interest: "Defensible accountability rule" },
+      ],
+    ),
+    previewScenario(
+      "Western Forest Complex 4WD Trails",
+      "A growing 4WD-tourism economy has cut new trails through parts of the Western Forest Complex; rangers report measurable habitat damage.",
+      "Tourist livelihoods vs the ecological integrity of a globally significant forest.",
+      "What permit and trail-design combination would protect the forest without ending the tourism economy?",
+      ["Long-term ecological function", "Recognition"],
+      "Tied to DNP Western Forest Complex management plan and WWF-Thailand monitoring.",
+      [
+        { label: "4WD-tourism operators", role: "Economic interest", interest: "Workable permit regime" },
+        { label: "DNP rangers", role: "Enforcement", interest: "Defensible trail rules" },
+        { label: "Wildlife scientists", role: "Evidence base", interest: "Habitat integrity" },
+        { label: "Local hill-community guides", role: "Mediators", interest: "Sustained livelihood mix" },
+      ],
+    ),
+  ],
 
-  16: [previewScenario(
+  16: [
+    previewScenario(
     "The Anti-Corruption Hotline",
     "Anonymous hotlines surface allegations the courts cannot prosecute without named complainants; complainants face retaliation.",
     "Whistleblower protection vs procedural justice for the accused.",
@@ -425,9 +756,39 @@ export const SAMPLE_SCENARIOS = {
       { label: "OAG prosecutors", role: "Charge authority", interest: "Defensible cases" },
       { label: "The accused", role: "Subjects of allegation", interest: "Procedural fairness" },
     ],
-  )],
+  ),
+    previewScenario(
+      "Misinformation in Local Elections",
+      "Provincial-election cycles see coordinated rumour campaigns on messaging platforms; current fact-checking arrives after voting.",
+      "Pre-election speech freedoms vs the integrity of local-election information.",
+      "What pre-election fact-checking arrangement would protect election integrity without licensing partisan moderation?",
+      ["Procedural fairness", "Transparency"],
+      "Tracks ECT, MDES, and Cofact-Thailand 2025 election-period reviews.",
+      [
+        { label: "Voters in affected provinces", role: "Information consumers", interest: "Reliable pre-vote information" },
+        { label: "Platform trust-and-safety teams", role: "Tool deployers", interest: "Workable moderation rules" },
+        { label: "ECT election officials", role: "Election integrity", interest: "Defensible information regime" },
+        { label: "Cofact fact-checkers", role: "Independent verification", interest: "Sustained access to platforms" },
+      ],
+    ),
+    previewScenario(
+      "Customary Land Rights in the North",
+      "Three Karen communities in Chiang Rai hold customary land claims older than the surrounding national park; recent enforcement actions have arrested community members.",
+      "National-park rule consistency vs recognition of long-standing customary rights.",
+      "What legal pathway would resolve specific community claims without unsettling park-wide enforcement?",
+      ["Recognition", "Procedural fairness"],
+      "Reflects DNP, Council of Indigenous Peoples in Thailand, and CMU legal research.",
+      [
+        { label: "Karen community elders", role: "Customary-claim holders", interest: "Recognition of historical use" },
+        { label: "DNP park rangers", role: "Enforcement", interest: "Defensible rule application" },
+        { label: "Provincial court", role: "Legal authority", interest: "Workable adjudication path" },
+        { label: "Indigenous-peoples legal team", role: "Advocacy", interest: "Sustained rights recognition" },
+      ],
+    ),
+  ],
 
-  17: [previewScenario(
+  17: [
+    previewScenario(
     "ASEAN-Wide Climate Finance",
     "ASEAN regional climate finance mechanisms are fragmented; Thailand's bilateral arrangements compete with regional pooling.",
     "National-level optimization vs regional-pooling coordination.",
@@ -440,7 +801,81 @@ export const SAMPLE_SCENARIOS = {
       { label: "Domestic finance officials", role: "Bilateral managers", interest: "Flexibility + control" },
       { label: "Independent climate analysts", role: "Evidence base", interest: "Effective architecture" },
     ],
-  )],
+  ),
+    previewScenario(
+      "Cross-Border Dengue Surveillance",
+      "Dengue outbreaks regularly cross the Thai-Cambodian and Thai-Lao borders; data sharing between health authorities has been informal and slow.",
+      "National data-sovereignty practices vs the operational case for routine cross-border surveillance sharing.",
+      "What formal arrangement would speed surveillance sharing without sacrificing data-sovereignty norms?",
+      ["Regional cooperation", "Procedural fairness"],
+      "Reflects MOPH, ASEAN Plus Three Field Epidemiology Training, and MoFA bilateral health discussions.",
+      [
+        { label: "MOPH epidemiologists", role: "Surveillance owners", interest: "Faster outbreak detection" },
+        { label: "Cambodian and Lao counterparts", role: "Partner agencies", interest: "Workable reciprocal arrangement" },
+        { label: "MoFA bilateral desks", role: "Sovereignty interface", interest: "Defensible diplomatic frame" },
+        { label: "Border-province hospital directors", role: "Front-line", interest: "Timely information" },
+      ],
+    ),
+    previewScenario(
+      "Regional Climate-Data Sharing",
+      "Thailand operates several satellite and ground-station climate-data feeds; regional partners request sharing arrangements that the data owners have resisted.",
+      "National competitive advantage on data vs regional climate-resilience cooperation.",
+      "What sharing arrangement would maintain Thailand's role as the regional climate-data anchor without giving away strategic capability?",
+      ["Regional cooperation", "National economic interest"],
+      "Tied to GISTDA, MoFA, and ASEAN climate-resilience working-group discussions.",
+      [
+        { label: "GISTDA data managers", role: "Data owners", interest: "Sustained operational capacity" },
+        { label: "Regional partner agencies", role: "Data requesters", interest: "Reliable shared baseline" },
+        { label: "MoFA negotiators", role: "Diplomatic frame", interest: "Defensible Thai position" },
+        { label: "Climate scientists (regional)", role: "Evidence base", interest: "Effective regional response" },
+      ],
+    ),
+  ],
+  14: [
+    previewScenario(
+      "Andaman Coastal-Erosion Triage",
+      "Three Andaman beaches are eroding past the point where conventional sea-walls can defend them; each protects different communities and tourist economies.",
+      "Defend every beach equally vs concentrating resources where the impact-per-baht is highest.",
+      "Which combination of beaches should the next coastal-defence budget protect, and on what triage rule?",
+      ["Distributive justice", "Long-term ecological function"],
+      "Tied to DMCR and Phuket Provincial Office coastal-defence reviews.",
+      [
+        { label: "Coastal village leaders", role: "Affected community", interest: "Defence of homes and livelihoods" },
+        { label: "Tourism operators", role: "Affected businesses", interest: "Preserved beachfront" },
+        { label: "DMCR engineers", role: "Technical authority", interest: "Defensible triage rule" },
+        { label: "Marine-coastal scientists", role: "Evidence base", interest: "Long-term shoreline integrity" },
+      ],
+    ),
+    previewScenario(
+      "Gulf Shrimp-Farm Effluent",
+      "Shrimp farms along the inner Gulf discharge effluent that has measurably degraded adjacent mangroves; small farmers say they cannot afford treatment upgrades.",
+      "Strict discharge enforcement vs small-farm economic survival.",
+      "What financing combination would close the discharge gap without forcing small farmers out of business?",
+      ["Long-term ecological function", "Procedural fairness"],
+      "Reflects DOF, MNRE, and small-farmer cooperative 2025 discussions.",
+      [
+        { label: "Small shrimp farmers", role: "Affected operators", interest: "Affordable compliance pathway" },
+        { label: "Mangrove-restoration scientists", role: "Evidence base", interest: "Restored ecosystem" },
+        { label: "MNRE inspectors", role: "Enforcement", interest: "Defensible thresholds" },
+        { label: "Local fishers (downstream)", role: "Affected by effluent", interest: "Restored catch volume" },
+      ],
+    ),
+    previewScenario(
+      "Marine Plastic-Recovery Funding",
+      "Coastal-cleanup ships funded by the public budget collect a fraction of the plastic entering Thai waters each year; producers face no direct charge.",
+      "Public-funded cleanup vs producer-responsibility charging.",
+      "Should the next budget cycle shift recovery funding toward producer fees, even at the cost of slower deployment?",
+      ["Long-term system change", "Distributive justice"],
+      "Tied to PCD producer-responsibility framework and DMCR cleanup reviews.",
+      [
+        { label: "Coastal-recovery operators", role: "Service providers", interest: "Predictable funding" },
+        { label: "Beverage and packaging firms", role: "Producers", interest: "Workable fee model" },
+        { label: "PCD policy team", role: "Architecture", interest: "Defensible transition path" },
+        { label: "Coastal-community groups", role: "Beneficiaries", interest: "Cleaner shorelines now" },
+      ],
+    ),
+  ],
+
 };
 
 /* ──────────────────────────────────────────────────────────────────

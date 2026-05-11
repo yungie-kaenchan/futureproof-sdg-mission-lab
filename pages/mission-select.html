@@ -102,6 +102,10 @@
     let chosenSDG = null;
     let chosenScenario = null;
     let lastResult = null;
+    // Regeneration counter: a user gets at most 2 "Generate New Scenarios" clicks per SDG selection.
+    // After that, they must choose from the scenarios currently shown.
+    const MAX_REGEN_PER_SDG = 2;
+    let regensUsedForSDG = 0;
 
     const grid = document.getElementById('sdg-grid');
     SDG_LIST.forEach((sdg) => {
@@ -119,6 +123,12 @@
     });
 
     async function selectSDG(sdg) {
+      // New SDG selection resets the regen counter and the chosen scenario.
+      if (chosenSDG !== sdg.n) {
+        regensUsedForSDG = 0;
+        chosenScenario = null;
+        updateRegenButton();
+      }
       chosenSDG = sdg.n;
       document.querySelectorAll('.sdg-tile').forEach((t) => t.classList.remove('selected'));
       grid.children[sdg.n - 1].classList.add('selected');
@@ -191,10 +201,50 @@
 
     function escapeHtml(s) { return String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c])); }
 
+    function updateRegenButton() {
+      const btn = document.getElementById('regen-btn');
+      if (!btn) return;
+      const remaining = MAX_REGEN_PER_SDG - regensUsedForSDG;
+      const label = btn.querySelector('span');
+      if (remaining <= 0) {
+        btn.disabled = true;
+        if (label) label.textContent = 'No regenerations left — choose from above';
+      } else {
+        btn.disabled = false;
+        if (label) label.textContent = `Generate New Scenarios (${remaining} left)`;
+      }
+    }
+    // Initial label
+    updateRegenButton();
+
     document.getElementById('regen-btn').addEventListener('click', async () => {
       if (!chosenSDG) return;
+      if (regensUsedForSDG >= MAX_REGEN_PER_SDG) return;
+      regensUsedForSDG += 1;
       const sdg = SDG_LIST.find((s) => s.n === chosenSDG);
-      if (sdg) selectSDG(sdg);
+      if (sdg) {
+        // Don't go through selectSDG (which resets the counter) — just refetch.
+        chosenScenario = null;
+        document.getElementById('scenarios-section').hidden = true;
+        document.getElementById('loading').hidden = false;
+        const flow = getFlowState();
+        const learnerProfile = flow?.learnerProfile?.language ? {
+          cefrEstimate: flow.learnerProfile.language.cefrEstimate,
+          analyticalPercentile: flow.learnerProfile.analyticalPercentile,
+          criticalThinkingPercentile: flow.learnerProfile.criticalThinkingPercentile,
+        } : null;
+        try {
+          const result = await generateScenarios({ sdg: sdg.n, learnerProfile });
+          lastResult = result;
+          renderScenarios(result);
+        } catch (err) {
+          document.getElementById('select-error').textContent = 'Could not generate fresh scenarios. Please choose from the previous batch.';
+          document.getElementById('select-error').hidden = false;
+        } finally {
+          document.getElementById('loading').hidden = true;
+          updateRegenButton();
+        }
+      }
     });
 
     document.getElementById('lock-in-btn').addEventListener('click', async () => {
@@ -203,22 +253,33 @@
       const errorEl = document.getElementById('select-error');
       errorEl.hidden = true;
 
-      if (!flow?.uid || !isFirebaseAvailable()) {
-        // Local preview mode — just stash and proceed.
-        setFlowStep('mission-select', { selectedSDG: chosenSDG, scenarioPreview: chosenScenario });
-        location.href = './mission-01.html';
-        return;
+      // Always stash locally first so the user proceeds even if the cloud write fails.
+      // This makes the button feel reliable; the cloud is best-effort, not blocking.
+      setFlowStep('mission-select', {
+        selectedSDG: chosenSDG,
+        scenarioPreview: chosenScenario,
+        scenarioLocked: true,
+      });
+
+      const btn = document.getElementById('lock-in-btn');
+      const label = btn.querySelector('span:first-child');
+      btn.disabled = true;
+      if (label) label.textContent = 'Choosing…';
+
+      // Try to write to Firebase if available; if it fails, log and continue.
+      if (flow?.uid && isFirebaseAvailable()) {
+        try {
+          const tid = flow.uid;
+          await freezeScenarioForTeam({ tid, sdg: chosenSDG, scenario: chosenScenario });
+          setFlowStep('mission-select', { selectedSDG: chosenSDG, scenarioLocked: true, tid });
+        } catch (err) {
+          // Non-blocking: log the failure but proceed locally so the user can keep going.
+          console.warn('[FUTUREPROOF] scenario cloud-write failed; continuing locally', err);
+        }
       }
-      try {
-        // Use uid as tid placeholder for solo runs; Day 8+ team formation will replace.
-        const tid = flow.uid;
-        await freezeScenarioForTeam({ tid, sdg: chosenSDG, scenario: chosenScenario });
-        setFlowStep('mission-select', { selectedSDG: chosenSDG, scenarioLocked: true, tid });
-        location.href = './mission-01.html';
-      } catch (err) {
-        errorEl.textContent = err.message || 'Could not lock the scenario. Try again.';
-        errorEl.hidden = false;
-      }
+
+      // Proceed to Mission 01 regardless.
+      location.href = './mission-01.html';
     });
   </script>
 
