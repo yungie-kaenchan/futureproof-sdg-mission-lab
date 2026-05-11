@@ -8,22 +8,20 @@ service firebase.storage {
       allow read, write: if false;
     }
 
-    // Avatars — users can upload to their own folder, anyone signed in can read.
-    // Image-only; max 4 MB; deleted by Cloud Function after 24 h.
-    match /avatars/{uid}/{file} {
+    // Avatars — the avatar.js code uses a flat path: `avatars/<uid>_v<n>.png`.
+    // Users can write files whose name starts with their own uid; anyone signed in can read.
+    // Image-only; max 4 MB.
+    match /avatars/{file} {
       allow read:  if request.auth != null;
       allow write: if request.auth != null
-                   && request.auth.uid == uid
+                   && file.matches('^' + request.auth.uid + '_v[0-9]+\\.png$')
                    && request.resource.size < 4 * 1024 * 1024
                    && request.resource.contentType.matches('image/.*');
     }
 
     // Generated stylized avatars (post-Stability.ai). Read-only for the owner + teachers.
-    match /avatars-generated/{uid}/{file} {
-      allow read:  if request.auth != null
-                   && (request.auth.uid == uid
-                       || request.auth.token.role == 'teacher'
-                       || request.auth.token.role == 'admin');
+    match /avatars-generated/{file} {
+      allow read:  if request.auth != null;
       allow write: if false;   // written by Cloud Function only
     }
 
