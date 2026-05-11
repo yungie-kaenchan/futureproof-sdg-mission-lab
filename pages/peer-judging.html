@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Peer Judging — FUTUREPROOF</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body class="bg-white text-on-surface">
+
+  <header class="topbar fixed top-0 left-0 right-0 z-50 backdrop-blur-md" style="height:56px;">
+    <div class="h-full max-w-1600 mx-auto px-6 lg:px-12 flex items-center justify-between text-xs">
+      <div class="flex items-center gap-6">
+        <a href="../index.html" class="flex items-center gap-2 hover:opacity-80 transition">
+          <div class="status-pulse"></div><span class="topbar-brand">FUTUREPROOF</span>
+        </a>
+        <span class="topbar-name">Peer Judging</span>
+      </div>
+      <a href="javascript:history.back()" class="nav-btn">← Back</a>
+    </div>
+  </header>
+
+  <main id="main" class="max-w-1600 mx-auto px-6 lg:px-12 pt-32 pb-24">
+
+    <div class="flex items-center gap-4 mb-4 flex-wrap">
+      <span class="topbar-name">Tier 02 // Cross-Team Review</span>
+      <div class="h-line flex-1 max-w-32"></div>
+    </div>
+
+    <h1 class="display-heading text-5xl lg:text-6xl text-on-surface mb-4 max-w-3xl">
+      Read your <em class="text-primary">peers</em>.
+    </h1>
+    <p class="text-lg text-on-surface/80 leading-relaxed mb-10 max-w-2xl">
+      After Mission 04, each team reviews one other team using Rubric D. Your scores aren't a grade — they're how you sharpen your own judgment by exercising it on someone else's work.
+    </p>
+
+    <div id="config-warning" class="alert-warn mb-8 max-w-3xl" hidden>
+      <strong>Heads up:</strong> Firebase isn't connected, so the assigned-team data is mock. The same UI saves to <code>/rubricScores/$tid/rubricD/$peerUid</code> in production.
+    </div>
+
+    <!-- Assigned team summary -->
+    <section class="max-w-3xl mb-10">
+      <div class="consent-card">
+        <div class="console-label-gold mb-2">ASSIGNED TEAM</div>
+        <div class="display-heading text-2xl text-on-surface mb-1" id="peer-team-name">Atlas Cell</div>
+        <div class="text-sm text-on-surface/75" id="peer-scenario">Working on: SDG 06 — The Chao Phraya Salt Wedge</div>
+        <div class="mt-4">
+          <a id="peer-artifact-link" class="text-gold-primary hover:text-gold-glow underline-offset-2 hover:underline" href="#">Read their decision log up to Mission 04 →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Rubric D -->
+    <section class="max-w-3xl">
+      <h2 class="mission-title text-sm text-on-surface mb-4">Rubric D — Soft Skills (1 → 6)</h2>
+      <form id="peer-form" class="space-y-5">
+        <div id="rubric-rows"></div>
+        <div>
+          <label class="field-label" for="peer-comments">Open feedback (optional)</label>
+          <textarea id="peer-comments" class="field-input" rows="5" placeholder="Anything you noticed that the rubric doesn't capture?"></textarea>
+        </div>
+        <div id="form-error" class="field-error" hidden></div>
+        <div class="flex flex-wrap items-center gap-4">
+          <button type="submit" id="submit-btn" class="btn-primary"><span>Submit Review</span><span>→</span></button>
+          <span id="status" class="field-help"></span>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <script src="../config.local.js" onerror="window.__noConfig = true;"></script>
+  <script type="module">
+    import { isFirebaseAvailable, getFlowState } from '../src/auth.js';
+
+    const RUBRIC_D = [
+      { key: 'criticalThinking', label: 'Critical Thinking', hint: 'Tested own reasoning; engaged feedback substantively.' },
+      { key: 'analytical',       label: 'Analytical Thinking', hint: 'Decomposed problems into multi-axis comparisons.' },
+      { key: 'collaboration',    label: 'Collaboration', hint: 'Visible role distinction; surfaced disagreements.' },
+      { key: 'ethicalReasoning', label: 'Ethical Reasoning', hint: 'Engaged the strongest counterargument, not the easiest.' },
+      { key: 'decisionMaking',   label: 'Decision-Making Under Uncertainty', hint: 'Committed with stated trade-offs.' },
+    ];
+
+    const scores = {};
+    const rowsHost = document.getElementById('rubric-rows');
+    if (!isFirebaseAvailable()) document.getElementById('config-warning').hidden = false;
+
+    RUBRIC_D.forEach((d) => {
+      const row = document.createElement('div');
+      row.className = 'consent-card';
+      row.innerHTML = `
+        <div class="flex flex-wrap items-start justify-between gap-2 mb-2">
+          <div>
+            <div class="mission-title text-sm text-on-surface">${d.label}</div>
+            <p class="text-sm text-on-surface/70">${d.hint}</p>
+          </div>
+        </div>
+        <div class="likert-scale" data-key="${d.key}" role="radiogroup" aria-label="${d.label} score">
+          ${[1,2,3,4,5,6].map(n => `<button type="button" class="likert-option" data-val="${n}" role="radio" aria-checked="false">${n}</button>`).join('')}
+        </div>
+      `;
+      rowsHost.appendChild(row);
+      const buttons = row.querySelectorAll('.likert-option');
+      buttons.forEach((b) => b.addEventListener('click', () => {
+        scores[d.key] = parseInt(b.dataset.val, 10);
+        buttons.forEach((x) => { x.classList.remove('selected'); x.setAttribute('aria-checked', 'false'); });
+        b.classList.add('selected');
+        b.setAttribute('aria-checked', 'true');
+      }));
+    });
+
+    document.getElementById('peer-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const errorBox = document.getElementById('form-error');
+      const status = document.getElementById('status');
+      const missing = RUBRIC_D.filter((d) => !scores[d.key]).map((d) => d.label);
+      if (missing.length) {
+        errorBox.textContent = `Score every dimension before submitting. Missing: ${missing.join(', ')}.`;
+        errorBox.hidden = false;
+        return;
+      }
+      errorBox.hidden = true;
+
+      const flow = getFlowState();
+      const peerUid = flow?.uid || 'anonymous';
+      const targetTid = new URLSearchParams(location.search).get('tid') || 'demo_atlas';
+      const comments = document.getElementById('peer-comments').value;
+      const payload = { ts: Date.now(), evaluatorRole: 'peer', scores, comments, isFinal: false };
+
+      if (!isFirebaseAvailable()) {
+        status.textContent = 'Saved on this device. (Firebase not connected.)';
+        return;
+      }
+      try {
+        const fb = await import('../src/firebase-init.js');
+        await fb.writePath(`${fb.paths.rubricScores(targetTid, 'rubricD')}/${peerUid}`, payload);
+        status.textContent = 'Submitted. Thanks for the read.';
+        document.getElementById('submit-btn').disabled = true;
+      } catch (err) {
+        errorBox.textContent = err.message;
+        errorBox.hidden = false;
+      }
+    });
+  </script>
+
+  <script type="module" src="../src/a11y.js"></script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "rules": {
+    "langlab-teams": {
+      ".read": true,
+      ".write": true
+    }
+  }
+}

@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Build your operator avatar — FUTUREPROOF: SDG Mission Lab." />
+  <title>Operator Avatar — FUTUREPROOF</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="bg-white text-on-surface">
+
+  <header class="topbar fixed top-0 left-0 right-0 z-50 backdrop-blur-md" style="height:56px;">
+    <div class="h-full max-w-1600 mx-auto px-6 lg:px-12 flex items-center justify-between text-xs">
+      <div class="flex items-center gap-6">
+        <a href="../index.html" class="flex items-center gap-2 hover:opacity-80 transition">
+          <div class="status-pulse"></div>
+          <span class="topbar-brand">FUTUREPROOF</span>
+        </a>
+        <div class="hidden md:flex items-center gap-2 console-label">
+          <span class="topbar-name">Operator Avatar</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="./assessment.html" class="nav-btn">← Back</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="max-w-1600 mx-auto px-6 lg:px-12 pt-32 pb-24">
+
+    <div class="step-track" aria-label="Onboarding progress: step 4 of 5">
+      <div class="step-dot done"></div>
+      <div class="step-line done"></div>
+      <div class="step-dot done"></div>
+      <div class="step-line done"></div>
+      <div class="step-dot done"></div>
+      <div class="step-line done"></div>
+      <div class="step-dot active"></div>
+      <div class="step-line"></div>
+      <div class="step-dot"></div>
+    </div>
+
+    <div class="flex items-center gap-4 mb-8">
+      <span class="topbar-name">Step 04 / 05</span>
+      <div class="h-line flex-1 max-w-32"></div>
+    </div>
+
+    <h1 class="display-heading text-5xl lg:text-6xl text-on-surface mb-6 max-w-3xl">
+      Build your<br>
+      <em class="text-primary">operator</em>.
+    </h1>
+
+    <p class="text-lg text-on-surface/80 leading-relaxed mb-10 max-w-2xl">
+      Your avatar shows up next to every decision you log. Snap a quick photo or upload one — we'll generate a stylized portrait that looks like you, only more cinematic.
+    </p>
+
+    <div id="config-warning" class="alert-warn mb-8 max-w-3xl" hidden>
+      <strong>Heads up:</strong> The avatar service isn't connected in this build. The page works as a preview — generation and saving are disabled until Aj. Yungie deploys to Netlify and sets the <code>STABILITY_API_KEY</code> environment variable.
+    </div>
+
+    <div id="consent-block" class="alert-warn mb-8 max-w-3xl" hidden>
+      <strong>Photo consent is off.</strong> You opted out of photo capture during PDPA consent. You can either <a href="./consent.html" class="text-gold-primary hover:text-gold-glow underline-offset-2 hover:underline">update your consent</a> or skip this step and use a default avatar.
+    </div>
+
+    <div class="grid lg:grid-cols-12 gap-10 max-w-6xl">
+
+      <!-- Capture column -->
+      <section class="lg:col-span-7 space-y-6">
+
+        <div class="flex items-center gap-3 flex-wrap">
+          <button type="button" class="avatar-tab active" data-tab="upload">Upload</button>
+          <button type="button" class="avatar-tab" data-tab="webcam">Webcam</button>
+          <button type="button" class="avatar-tab" data-tab="skip">Skip for now</button>
+        </div>
+
+        <!-- Upload pane -->
+        <div id="pane-upload" class="space-y-4">
+          <label class="dropzone block" id="dropzone" for="file-input">
+            <div class="mission-title text-sm text-on-surface mb-2">Drop a photo here, or click to choose</div>
+            <p class="text-sm">PNG or JPG up to 8 MB. We'll square-crop to the center.</p>
+            <input type="file" id="file-input" accept="image/png,image/jpeg" hidden />
+          </label>
+        </div>
+
+        <!-- Webcam pane -->
+        <div id="pane-webcam" class="space-y-4" hidden>
+          <div class="avatar-stage">
+            <video id="webcam-video" playsinline muted></video>
+          </div>
+          <div class="flex flex-wrap gap-3">
+            <button id="webcam-start" type="button" class="btn-secondary"><span>Start camera</span></button>
+            <button id="webcam-capture" type="button" class="btn-primary" disabled><span>Capture</span><span>📸</span></button>
+            <button id="webcam-stop" type="button" class="btn-secondary" hidden><span>Stop</span></button>
+          </div>
+          <p class="field-help">Your camera stream stays on your device until you press Capture.</p>
+        </div>
+
+        <!-- Skip pane -->
+        <div id="pane-skip" class="space-y-4" hidden>
+          <div class="alert-info">
+            No photo, no problem. We'll assign you a console-style placeholder avatar. You can always come back and generate one later from your profile.
+          </div>
+          <button id="skip-btn" type="button" class="btn-primary"><span>Use placeholder & continue</span><span>→</span></button>
+        </div>
+
+      </section>
+
+      <!-- Preview column -->
+      <section class="lg:col-span-5 space-y-6">
+
+        <div>
+          <div class="console-label-gold mb-3">PREVIEW</div>
+          <div id="preview-stage" class="avatar-stage">
+            <div class="placeholder">
+              Your stylized portrait will appear here after generation.
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="mission-title text-sm text-on-surface mb-3">Style</div>
+          <div id="style-grid" class="grid sm:grid-cols-2 gap-3"></div>
+        </div>
+
+        <div>
+          <label class="field-label" for="subject-hint">Optional notes for the artist</label>
+          <input id="subject-hint" type="text" class="field-input" maxlength="120" placeholder="e.g. wears glasses, short hair" />
+          <p class="field-help">Help the model with details a single photo might miss. Keep it short.</p>
+        </div>
+
+        <div id="form-error" class="field-error" hidden></div>
+
+        <div class="flex flex-wrap items-center gap-4">
+          <button id="generate-btn" type="button" class="btn-primary" disabled>
+            <span id="generate-label">Generate</span>
+            <span id="generate-icon">→</span>
+          </button>
+          <button id="save-btn" type="button" class="btn-secondary" disabled>
+            <span>Save & Continue</span>
+          </button>
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+  <script src="../config.local.js" onerror="window.__noConfig = true;"></script>
+
+  <script type="module">
+    import {
+      STYLE_PRESETS, startWebcam, stopWebcam, captureFromVideo,
+      readFileAsDataURL, resizeDataUrlToSquare, generateAvatar, saveAvatar,
+    } from '../src/avatar.js';
+    import { getFlowState, setFlowStep, isFirebaseAvailable } from '../src/auth.js';
+
+    /* ─────── State ─────── */
+    let sourceDataUrl = null;     // squared input (1024×1024 PNG)
+    let generatedDataUrl = null;  // result from Stability
+    let selectedStyle = STYLE_PRESETS[0].id;
+    let webcamStream = null;
+
+    /* ─────── Consent gate ─────── */
+    // Best-effort: when the consent flag is available, hide capture if the
+    // user opted out of photo capture. Without Firebase wired in, we let the
+    // page render so it can be reviewed.
+    (async () => {
+      const flow = getFlowState();
+      if (!flow?.uid || !isFirebaseAvailable()) return;
+      try {
+        const fb = await import('../src/firebase-init.js');
+        const consents = await fb.readPath(fb.paths.consents(flow.uid));
+        const latest = consents ? Object.values(consents).sort((a, b) => (b.ts || 0) - (a.ts || 0))[0] : null;
+        if (latest && latest.flags && latest.flags.photo === false) {
+          document.getElementById('consent-block').hidden = false;
+          document.querySelector('[data-tab="skip"]').click();
+        }
+      } catch (_) {/* graceful */}
+    })();
+
+    /* ─────── Tabs ─────── */
+    const tabs = document.querySelectorAll('.avatar-tab');
+    const panes = {
+      upload: document.getElementById('pane-upload'),
+      webcam: document.getElementById('pane-webcam'),
+      skip:   document.getElementById('pane-skip'),
+    };
+    tabs.forEach((t) => t.addEventListener('click', () => {
+      tabs.forEach((x) => x.classList.remove('active'));
+      t.classList.add('active');
+      const id = t.getAttribute('data-tab');
+      Object.entries(panes).forEach(([k, el]) => { el.hidden = k !== id; });
+      if (id !== 'webcam' && webcamStream) { stopWebcam(webcamStream); webcamStream = null; resetWebcamButtons(); }
+    }));
+
+    /* ─────── Style picker ─────── */
+    const styleGrid = document.getElementById('style-grid');
+    function renderStyles() {
+      styleGrid.innerHTML = '';
+      for (const s of STYLE_PRESETS) {
+        const card = document.createElement('button');
+        card.type = 'button';
+        card.className = 'style-card text-left' + (s.id === selectedStyle ? ' selected' : '');
+        card.innerHTML = `<div class="mission-title text-sm text-on-surface mb-1">${s.label}</div><p class="text-sm text-on-surface/70">${s.hint}</p>`;
+        card.addEventListener('click', () => {
+          selectedStyle = s.id;
+          renderStyles();
+        });
+        styleGrid.appendChild(card);
+      }
+    }
+    renderStyles();
+
+    /* ─────── Upload + drag/drop ─────── */
+    const fileInput = document.getElementById('file-input');
+    const dropzone = document.getElementById('dropzone');
+    fileInput.addEventListener('change', async (e) => {
+      const f = e.target.files?.[0];
+      if (f) await ingestFile(f);
+    });
+    ['dragenter', 'dragover'].forEach((ev) =>
+      dropzone.addEventListener(ev, (e) => { e.preventDefault(); dropzone.classList.add('drag-over'); })
+    );
+    ['dragleave', 'drop'].forEach((ev) =>
+      dropzone.addEventListener(ev, (e) => { e.preventDefault(); dropzone.classList.remove('drag-over'); })
+    );
+    dropzone.addEventListener('drop', async (e) => {
+      const f = e.dataTransfer?.files?.[0];
+      if (f) await ingestFile(f);
+    });
+
+    async function ingestFile(file) {
+      clearError();
+      try {
+        const raw = await readFileAsDataURL(file);
+        sourceDataUrl = await resizeDataUrlToSquare(raw);
+        showSourcePreview();
+        document.getElementById('generate-btn').disabled = false;
+      } catch (err) {
+        showError(err.message);
+      }
+    }
+
+    /* ─────── Webcam ─────── */
+    const video = document.getElementById('webcam-video');
+    const startBtn = document.getElementById('webcam-start');
+    const captureBtn = document.getElementById('webcam-capture');
+    const stopBtn = document.getElementById('webcam-stop');
+
+    startBtn.addEventListener('click', async () => {
+      clearError();
+      try {
+        webcamStream = await startWebcam(video);
+        startBtn.hidden = true;
+        captureBtn.disabled = false;
+        stopBtn.hidden = false;
+      } catch (err) {
+        showError(err.message);
+      }
+    });
+    captureBtn.addEventListener('click', async () => {
+      sourceDataUrl = captureFromVideo(video);
+      stopWebcam(webcamStream); webcamStream = null;
+      resetWebcamButtons();
+      showSourcePreview();
+      document.getElementById('generate-btn').disabled = false;
+    });
+    stopBtn.addEventListener('click', () => {
+      stopWebcam(webcamStream); webcamStream = null;
+      resetWebcamButtons();
+    });
+    function resetWebcamButtons() {
+      startBtn.hidden = false;
+      captureBtn.disabled = true;
+      stopBtn.hidden = true;
+    }
+
+    /* ─────── Preview ─────── */
+    const previewStage = document.getElementById('preview-stage');
+    function showSourcePreview() {
+      previewStage.innerHTML = '';
+      const img = document.createElement('img');
+      img.src = sourceDataUrl;
+      img.alt = 'Source photo (preview)';
+      previewStage.appendChild(img);
+      const note = document.createElement('div');
+      note.className = 'absolute bottom-2 left-2 console-label-gold';
+      note.style.background = 'rgba(255,255,255,0.85)';
+      note.style.padding = '0.25rem 0.5rem';
+      note.textContent = 'SOURCE';
+      previewStage.appendChild(note);
+    }
+    function showGeneratedPreview() {
+      previewStage.innerHTML = '';
+      const img = document.createElement('img');
+      img.src = generatedDataUrl;
+      img.alt = 'Stylized operator avatar';
+      previewStage.appendChild(img);
+      const note = document.createElement('div');
+      note.className = 'absolute bottom-2 left-2 console-label-gold';
+      note.style.background = 'rgba(255,255,255,0.85)';
+      note.style.padding = '0.25rem 0.5rem';
+      note.textContent = 'GENERATED';
+      previewStage.appendChild(note);
+    }
+
+    /* ─────── Generate ─────── */
+    const generateBtn = document.getElementById('generate-btn');
+    const generateLabel = document.getElementById('generate-label');
+    const saveBtn = document.getElementById('save-btn');
+    const errorBox = document.getElementById('form-error');
+
+    function showError(msg) { errorBox.textContent = msg; errorBox.hidden = false; }
+    function clearError() { errorBox.hidden = true; errorBox.textContent = ''; }
+
+    generateBtn.addEventListener('click', async () => {
+      if (!sourceDataUrl) return showError("Add a photo first.");
+      clearError();
+      generateBtn.disabled = true;
+      generateLabel.innerHTML = '<span class="spinner"></span> Generating…';
+
+      try {
+        const subjectHint = document.getElementById('subject-hint').value.trim();
+        const data = await generateAvatar({ imageBase64: sourceDataUrl, style: selectedStyle, subjectHint });
+        generatedDataUrl = data.imageBase64;
+        showGeneratedPreview();
+        saveBtn.disabled = false;
+      } catch (err) {
+        showError(err.message);
+        document.getElementById('config-warning').hidden = false;
+      } finally {
+        generateBtn.disabled = false;
+        generateLabel.textContent = 'Regenerate';
+      }
+    });
+
+    /* ─────── Save & continue ─────── */
+    saveBtn.addEventListener('click', async () => {
+      if (!generatedDataUrl) return;
+      clearError();
+      const flow = getFlowState();
+      if (!flow?.uid || !isFirebaseAvailable()) {
+        showError("Firebase isn't connected, so the avatar can't be saved here. Continuing in preview mode.");
+        setFlowStep('mission-select');
+        location.href = './mission-select.html';
+        return;
+      }
+      saveBtn.disabled = true;
+      try {
+        await saveAvatar(flow.uid, generatedDataUrl);
+        setFlowStep('mission-select', { avatarSaved: true });
+        location.href = './mission-select.html';
+      } catch (err) {
+        showError(err.message);
+        saveBtn.disabled = false;
+      }
+    });
+
+    /* ─────── Skip ─────── */
+    document.getElementById('skip-btn').addEventListener('click', () => {
+      setFlowStep('mission-select', { usingPlaceholderAvatar: true });
+      location.href = './mission-select.html';
+    });
+
+    /* ─────── Initial config check ─────── */
+    if (!isFirebaseAvailable()) {
+      document.getElementById('config-warning').hidden = false;
+    }
+
+    /* ─────── Cleanup ─────── */
+    window.addEventListener('beforeunload', () => stopWebcam(webcamStream));
+  </script>
+
+<script type="module" src="../src/a11y.js"></script>
+  <script type="module">
+    import { mountVoiceGuide } from '../src/voice-guide.js';
+    // Mount the voice guide at the top of the first .max-w-* content container
+    const candidates = ['main .max-w-2xl', 'main .max-w-3xl', 'main .max-w-4xl', 'main .max-w-6xl', 'main'];
+    for (const sel of candidates) {
+      if (document.querySelector(sel)) { mountVoiceGuide('avatar', sel); break; }
+    }
+  </script>
+</body>
+</html>

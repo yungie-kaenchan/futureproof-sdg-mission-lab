@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Sign up for FUTUREPROOF: SDG Mission Lab — your first step into the mission." />
+  <title>Sign Up — FUTUREPROOF</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="bg-white text-on-surface">
+
+  <!-- TOP STATUS BAR -->
+  <header class="topbar fixed top-0 left-0 right-0 z-50 backdrop-blur-md" style="height:56px;">
+    <div class="h-full max-w-1600 mx-auto px-6 lg:px-12 flex items-center justify-between text-xs">
+      <div class="flex items-center gap-6">
+        <a href="../index.html" class="flex items-center gap-2 hover:opacity-80 transition">
+          <div class="status-pulse"></div>
+          <span class="topbar-brand">FUTUREPROOF</span>
+        </a>
+        <div class="hidden md:flex items-center gap-2 console-label">
+          <span class="topbar-name">Sign Up</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="../index.html" class="nav-btn">← Back</a>
+      </div>
+    </div>
+</header>
+  <!-- SIGN-UP -->
+  <main id="main" class="max-w-1600 mx-auto px-6 lg:px-12 pt-32 pb-24">
+
+    <div class="max-w-2xl">
+
+      <div class="step-track" aria-label="Onboarding progress: step 1 of 5">
+        <div class="step-dot active" title="Sign up"></div>
+        <div class="step-line"></div>
+        <div class="step-dot" title="Consent"></div>
+        <div class="step-line"></div>
+        <div class="step-dot" title="Readiness check"></div>
+        <div class="step-line"></div>
+        <div class="step-dot" title="Avatar"></div>
+        <div class="step-line"></div>
+        <div class="step-dot" title="Mission select"></div>
+      </div>
+
+      <div class="flex items-center gap-4 mb-8">
+        <span class="topbar-name">Step 01 / 05</span>
+        <div class="h-line flex-1 max-w-32"></div>
+      </div>
+
+      <h1 class="display-heading text-5xl lg:text-6xl text-on-surface mb-6">
+        Let's get you<br>
+        <em class="text-primary">in</em>.
+      </h1>
+
+      <p class="text-lg text-on-surface/80 leading-relaxed mb-10">
+        A few details and you're set. We'll ask about consent next, then a quick readiness check before missions begin.
+      </p>
+
+      <div id="config-warning" class="alert-warn mb-8" hidden>
+        <strong>Heads up:</strong> Firebase isn't connected yet, so this form can't actually create an account in this build. Aj. Yungie will provision the project before student onboarding goes live.
+      </div>
+
+      <form id="signup-form" class="space-y-6" novalidate>
+
+        <div>
+          <label class="field-label" for="displayName">Display name</label>
+          <input class="field-input" type="text" id="displayName" name="displayName" autocomplete="name" required maxlength="60" />
+          <p class="field-help">This is how teammates and your teacher will see you. Use what you'd like to go by.</p>
+        </div>
+
+        <div>
+          <label class="field-label" for="email">Email</label>
+          <input class="field-input" type="email" id="email" name="email" autocomplete="email" required />
+          <p class="field-help">We'll send a verification email after sign-up.</p>
+        </div>
+
+        <div>
+          <label class="field-label" for="password">Password</label>
+          <input class="field-input" type="password" id="password" name="password" autocomplete="new-password" required minlength="8" />
+          <p class="field-help">8+ characters, with at least one letter and one number.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <div>
+            <label class="field-label" for="institution">Institution</label>
+            <select class="field-select" id="institution" name="institution" required>
+              <option value="">Select your institution</option>
+              <option value="MU">Mahidol University</option>
+              <option value="MUIC">Mahidol University International College</option>
+              <option value="TU">Thammasat University</option>
+              <option value="CU">Chulalongkorn University</option>
+              <option value="KMUTT">King Mongkut's University of Technology Thonburi</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="field-label" for="yearOfStudy">Year of study</label>
+            <select class="field-select" id="yearOfStudy" name="yearOfStudy" required>
+              <option value="">Select year</option>
+              <option value="1">Year 1</option>
+              <option value="2">Year 2</option>
+              <option value="3">Year 3</option>
+              <option value="4">Year 4</option>
+              <option value="grad">Graduate</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="alert-info">
+          By continuing, you confirm you're 18 or older. We'll walk you through PDPA consent on the next screen — you decide what we can and can't do with your data.
+        </div>
+
+        <div id="form-error" class="field-error" hidden></div>
+
+        <div class="flex flex-wrap items-center gap-4 pt-4">
+          <button type="submit" class="btn-primary" id="submit-btn">
+            <span>Continue to Consent</span>
+            <span>→</span>
+          </button>
+          <a href="./signin.html" class="btn-secondary">
+            <span>I have an account</span>
+          </a>
+        </div>
+
+      </form>
+
+      <div class="mt-12 thai-meta text-sm text-console-dim leading-relaxed max-w-xl">
+        ลงทะเบียนเพื่อเริ่มต้นภารกิจของคุณ — ในขั้นตอนต่อไปเราจะขอความยินยอม PDPA แบบเลือกได้ จากนั้นเป็นการประเมินความพร้อมสั้นๆ ก่อนเข้าสู่ภารกิจจริง
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Optional config (gitignored). If absent, page runs in disconnected mode. -->
+  <script src="../config.local.js" onerror="window.__noConfig = true;"></script>
+
+  <script type="module">
+    import { signUpWithProfile, isFirebaseAvailable, looksLikeEmail, passwordIssues } from '../src/auth.js';
+
+    const form = document.getElementById('signup-form');
+    const errorBox = document.getElementById('form-error');
+    const submitBtn = document.getElementById('submit-btn');
+    const configWarning = document.getElementById('config-warning');
+
+    if (!isFirebaseAvailable()) {
+      configWarning.hidden = false;
+    }
+
+    function showError(msg) {
+      errorBox.textContent = msg;
+      errorBox.hidden = false;
+    }
+    function clearError() {
+      errorBox.hidden = true;
+      errorBox.textContent = '';
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      clearError();
+
+      const data = Object.fromEntries(new FormData(form).entries());
+
+      if (!data.displayName || data.displayName.length < 2) {
+        return showError('Add a display name (2+ characters).');
+      }
+      if (!looksLikeEmail(data.email)) {
+        return showError("That email doesn't look right. Double-check and try again.");
+      }
+      const pwIssues = passwordIssues(data.password);
+      if (pwIssues.length) {
+        return showError(`Password needs: ${pwIssues.join(', ')}.`);
+      }
+      if (!data.institution) return showError('Pick your institution.');
+      if (!data.yearOfStudy) return showError('Pick your year of study.');
+
+      submitBtn.disabled = true;
+      submitBtn.querySelector('span:first-child').textContent = 'Creating account…';
+
+      if (!isFirebaseAvailable()) {
+        showError('Firebase is not connected in this build. Sign-up is disabled until provisioning is complete.');
+        submitBtn.disabled = false;
+        submitBtn.querySelector('span:first-child').textContent = 'Continue to Consent';
+        return;
+      }
+
+      try {
+        await signUpWithProfile({
+          email: data.email.trim(),
+          password: data.password,
+          displayName: data.displayName.trim(),
+          institution: data.institution,
+          yearOfStudy: data.yearOfStudy,
+        });
+        location.href = './consent.html';
+      } catch (err) {
+        showError(err && err.message ? err.message : 'Something went wrong. Try again in a moment.');
+        submitBtn.disabled = false;
+        submitBtn.querySelector('span:first-child').textContent = 'Continue to Consent';
+      }
+    });
+  </script>
+
+<script type="module" src="../src/a11y.js"></script>
+  <script type="module">
+    import { mountVoiceGuide } from '../src/voice-guide.js';
+    // Mount the voice guide at the top of the first .max-w-* content container
+    const candidates = ['main .max-w-2xl', 'main .max-w-3xl', 'main .max-w-4xl', 'main .max-w-6xl', 'main'];
+    for (const sel of candidates) {
+      if (document.querySelector(sel)) { mountVoiceGuide('signup', sel); break; }
+    }
+  </script>
+</body>
+</html>

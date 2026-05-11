@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="My Data — review, export, and delete your data on FUTUREPROOF." />
+  <title>My Data — FUTUREPROOF</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="bg-white text-on-surface">
+
+  <header class="topbar fixed top-0 left-0 right-0 z-50 backdrop-blur-md" style="height:56px;">
+    <div class="h-full max-w-1600 mx-auto px-6 lg:px-12 flex items-center justify-between text-xs">
+      <div class="flex items-center gap-6">
+        <a href="../index.html" class="flex items-center gap-2 hover:opacity-80 transition">
+          <div class="status-pulse"></div>
+          <span class="topbar-brand">FUTUREPROOF</span>
+        </a>
+        <div class="hidden md:flex items-center gap-2 console-label">
+          <span class="topbar-name">My Data</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="../index.html" class="nav-btn">← Back</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="max-w-1600 mx-auto px-6 lg:px-12 pt-32 pb-24">
+
+    <div class="max-w-4xl">
+
+      <div class="flex items-center gap-4 mb-8">
+        <span class="topbar-name">Pdpa / Self-Service</span>
+        <div class="h-line flex-1 max-w-32"></div>
+      </div>
+
+      <h1 class="display-heading text-5xl lg:text-6xl text-on-surface mb-6">
+        Your data,<br>
+        in <em class="text-primary">your hands</em>.
+      </h1>
+
+      <p class="text-lg text-on-surface/80 leading-relaxed mb-12 max-w-2xl">
+        Review what we have, export a copy, change a consent flag, or delete it all. Your PDPA rights are exercised here — no email tickets, no waiting.
+      </p>
+
+      <div class="alert-info mb-10">
+        <strong>Design preview.</strong> This page is a layout draft for Day 3. The actions below will be wired up after Firebase Auth + the user data API land later in the sprint.
+      </div>
+
+      <!-- Consent status -->
+      <section class="mb-12">
+        <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+          <h2 class="mission-title text-sm text-on-surface">Active Consents</h2>
+          <a href="./consent.html" class="nav-btn">UPDATE CONSENT →</a>
+        </div>
+        <div class="space-y-3">
+          <div class="consent-card flex items-center justify-between gap-4">
+            <div>
+              <div class="mission-title text-sm text-on-surface mb-1">Basic profile</div>
+              <p class="text-sm text-on-surface/70">Required while enrolled.</p>
+            </div>
+            <span class="console-label-gold">ON</span>
+          </div>
+          <div class="consent-card flex items-center justify-between gap-4">
+            <div>
+              <div class="mission-title text-sm text-on-surface mb-1">Photo for avatar</div>
+              <p class="text-sm text-on-surface/70">You can turn this off any time.</p>
+            </div>
+            <span class="console-label-gold">ON</span>
+          </div>
+          <div class="consent-card flex items-center justify-between gap-4">
+            <div>
+              <div class="mission-title text-sm text-on-surface mb-1">Voice recordings</div>
+              <p class="text-sm text-on-surface/70">Off — Pitch Capsule will use text-only narration.</p>
+            </div>
+            <span class="topbar-name">Off</span>
+          </div>
+          <div class="consent-card flex items-center justify-between gap-4">
+            <div>
+              <div class="mission-title text-sm text-on-surface mb-1">Mission decisions</div>
+              <p class="text-sm text-on-surface/70">Required while enrolled.</p>
+            </div>
+            <span class="console-label-gold">ON</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- What we have -->
+      <section class="mb-12">
+        <h2 class="mission-title text-sm text-on-surface mb-4">What We Have</h2>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="consent-card">
+            <div class="console-label mb-2">PROFILE</div>
+            <p class="text-sm text-on-surface/85 leading-relaxed">Name, email, institution, year of study, sign-up date.</p>
+          </div>
+          <div class="consent-card">
+            <div class="console-label mb-2">LEARNER PROFILE</div>
+            <p class="text-sm text-on-surface/85 leading-relaxed">Competency assessment results — CEFR estimate, vocabulary score, critical-thinking and analytical percentiles.</p>
+          </div>
+          <div class="consent-card">
+            <div class="console-label mb-2">DECISIONS</div>
+            <p class="text-sm text-on-surface/85 leading-relaxed">Every choice you made during missions, when you made it, and the AI's feedback.</p>
+          </div>
+          <div class="consent-card">
+            <div class="console-label mb-2">ARTIFACTS</div>
+            <p class="text-sm text-on-surface/85 leading-relaxed">Drafts, the Pitch Capsule, exported PDF, and (if you opted in) audio narration.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Actions -->
+      <section class="mb-12">
+        <h2 class="mission-title text-sm text-on-surface mb-4">Actions</h2>
+        <div class="space-y-3">
+          <div class="consent-card flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <div class="mission-title text-sm text-on-surface mb-1">Export my data (JSON)</div>
+              <p class="text-sm text-on-surface/70">A complete download of everything we hold about you.</p>
+            </div>
+            <button class="btn-secondary" disabled><span>Download</span></button>
+          </div>
+          <div class="consent-card flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <div class="mission-title text-sm text-on-surface mb-1">Request correction</div>
+              <p class="text-sm text-on-surface/70">Spot something wrong? Send a fix request to your teacher.</p>
+            </div>
+            <button class="btn-secondary" disabled><span>Open Form</span></button>
+          </div>
+          <div class="consent-card flex flex-wrap items-center justify-between gap-4 border-crimson-glow/40">
+            <div>
+              <div class="mission-title text-sm text-on-surface mb-1">Delete everything</div>
+              <p class="text-sm text-on-surface/70">Permanently remove your account and all data. Ends your enrollment.</p>
+            </div>
+            <button class="btn-secondary" disabled><span>Delete Account</span></button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Audit -->
+      <section>
+        <h2 class="mission-title text-sm text-on-surface mb-4">Recent Access</h2>
+        <p class="text-sm text-on-surface/70 mb-4">Every time someone other than you opens your records, it shows up here.</p>
+        <div class="consent-card">
+          <p class="text-sm text-console-dim italic">No external access yet.</p>
+        </div>
+      </section>
+
+    </div>
+
+  </main>
+
+<script type="module" src="../src/a11y.js"></script>
+</body>
+</html>

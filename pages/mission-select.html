@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pick Your SDG — FUTUREPROOF</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body class="bg-white text-on-surface">
+
+  <header class="topbar fixed top-0 left-0 right-0 z-50 backdrop-blur-md" style="height:56px;">
+    <div class="h-full max-w-1600 mx-auto px-6 lg:px-12 flex items-center justify-between text-xs">
+      <div class="flex items-center gap-6">
+        <a href="../index.html" class="flex items-center gap-2 hover:opacity-80 transition">
+          <div class="status-pulse"></div><span class="topbar-brand">FUTUREPROOF</span>
+        </a>
+        <span class="topbar-name">Mission Select</span>
+      </div>
+      <a href="./avatar.html" class="nav-btn">← Back</a>
+    </div>
+  </header>
+
+  <main id="main" class="max-w-1600 mx-auto px-6 lg:px-12 pt-32 pb-24">
+
+    <div class="step-track" aria-label="Onboarding progress: step 5 of 5">
+      <div class="step-dot done"></div><div class="step-line done"></div>
+      <div class="step-dot done"></div><div class="step-line done"></div>
+      <div class="step-dot done"></div><div class="step-line done"></div>
+      <div class="step-dot done"></div><div class="step-line done"></div>
+      <div class="step-dot active"></div>
+    </div>
+
+    <div class="flex items-center gap-4 mb-8">
+      <span class="topbar-name">Step 05 / 05</span>
+      <div class="h-line flex-1 max-w-32"></div>
+    </div>
+
+    <h1 class="display-heading text-5xl lg:text-6xl text-on-surface mb-6 max-w-3xl">
+      Pick the goal<br>that <em class="text-primary">pulls you in</em>.
+    </h1>
+    <p class="text-lg text-on-surface/80 leading-relaxed mb-12 max-w-2xl">
+      Tap an SDG to see three scenarios your team could investigate. We'll generate them tailored to your readiness check, with a Thai context layer.
+    </p>
+
+    <!-- SDG GRID -->
+    <section id="sdg-grid" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-9 gap-2 mb-16" aria-label="The 17 UN Sustainable Development Goals"></section>
+
+    <!-- SCENARIO PICKER -->
+    <section id="scenarios-section" hidden>
+      <div class="flex items-center gap-4 mb-6 flex-wrap">
+        <span class="console-label-gold" id="scenarios-label">SCENARIOS</span>
+        <div class="h-line flex-1 max-w-32"></div>
+        <span id="scenarios-source" class="console-label"></span>
+      </div>
+      <div id="scenarios-grid" class="grid lg:grid-cols-3 gap-4 mb-10"></div>
+      <div id="select-error" class="field-error mb-4" hidden></div>
+      <div class="flex flex-wrap items-center gap-4">
+        <button id="lock-in-btn" type="button" class="btn-primary" disabled><span>Lock In Scenario</span><span>→</span></button>
+        <button id="regen-btn" type="button" class="btn-secondary"><span>Regenerate</span></button>
+      </div>
+    </section>
+
+    <div id="loading" hidden class="flex items-center gap-3 mt-8 text-on-surface/70">
+      <span class="spinner"></span>
+      <span>Generating scenarios for your team…</span>
+    </div>
+  </main>
+
+  <script src="../config.local.js" onerror="window.__noConfig = true;"></script>
+  <script type="module">
+    import { SDG_LIST, generateScenarios, freezeScenarioForTeam } from '../src/scenario.js';
+    import { getFlowState, setFlowStep, isFirebaseAvailable } from '../src/auth.js';
+
+    let chosenSDG = null;
+    let chosenScenario = null;
+    let lastResult = null;
+
+    const grid = document.getElementById('sdg-grid');
+    SDG_LIST.forEach((sdg) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.setAttribute('aria-label', `SDG ${sdg.n}: ${sdg.short}`);
+      btn.className = 'sdg-tile';
+      btn.style.background = sdg.color;
+      btn.innerHTML = `
+        <div class="sdg-num">${String(sdg.n).padStart(2,'0')}</div>
+        <div class="sdg-name">${sdg.short}</div>
+      `;
+      btn.addEventListener('click', () => selectSDG(sdg));
+      grid.appendChild(btn);
+    });
+
+    async function selectSDG(sdg) {
+      chosenSDG = sdg.n;
+      document.querySelectorAll('.sdg-tile').forEach((t) => t.classList.remove('selected'));
+      grid.children[sdg.n - 1].classList.add('selected');
+      document.getElementById('scenarios-section').hidden = true;
+      document.getElementById('loading').hidden = false;
+      document.getElementById('scenarios-label').textContent = `SCENARIOS — SDG ${String(sdg.n).padStart(2,'0')} ${sdg.short.toUpperCase()}`;
+
+      const flow = getFlowState();
+      const learnerProfile = flow?.learnerProfile?.language ? {
+        cefrEstimate: flow.learnerProfile.language.cefrEstimate,
+        analyticalPercentile: flow.learnerProfile.analyticalPercentile,
+        criticalThinkingPercentile: flow.learnerProfile.criticalThinkingPercentile,
+      } : null;
+
+      const result = await generateScenarios({ sdg: sdg.n, learnerProfile });
+      lastResult = result;
+      document.getElementById('loading').hidden = true;
+      renderScenarios(result);
+    }
+
+    function renderScenarios(result) {
+      const section = document.getElementById('scenarios-section');
+      const sg = document.getElementById('scenarios-grid');
+      const sourceLabel = document.getElementById('scenarios-source');
+      sg.innerHTML = '';
+      if (!result.scenarios || result.scenarios.length === 0) {
+        sg.innerHTML = `<div class="alert-warn">No scenarios available for this SDG yet. Pick another or regenerate.</div>`;
+        section.hidden = false;
+        return;
+      }
+      sourceLabel.textContent = result.source === 'claude' ? 'GENERATED LIVE' : 'PREVIEW BANK';
+      result.scenarios.forEach((sc, idx) => {
+        const card = document.createElement('button');
+        card.type = 'button';
+        card.className = 'scenario-card text-left';
+        card.innerHTML = `
+          <div class="console-label-gold mb-3">SCENARIO 0${idx+1}</div>
+          <h3 class="display-heading text-2xl text-on-surface mb-3">${escapeHtml(sc.title)}</h3>
+          <p class="text-sm text-on-surface/85 leading-relaxed mb-4">${escapeHtml(sc.setting)}</p>
+          <p class="text-sm text-on-surface/70 leading-relaxed mb-3"><strong>Tension:</strong> ${escapeHtml(sc.coreTension)}</p>
+          <p class="text-sm text-on-surface/70 leading-relaxed mb-3"><strong>Decision point:</strong> ${escapeHtml(sc.decisionPoint)}</p>
+          <p class="thai-meta text-xs leading-relaxed">${escapeHtml(sc.localLens || '')}</p>
+        `;
+        card.addEventListener('click', () => {
+          chosenScenario = sc;
+          sg.querySelectorAll('.scenario-card').forEach((c) => c.classList.remove('selected'));
+          card.classList.add('selected');
+          document.getElementById('lock-in-btn').disabled = false;
+        });
+        sg.appendChild(card);
+      });
+      section.hidden = false;
+    }
+
+    function escapeHtml(s) { return String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c])); }
+
+    document.getElementById('regen-btn').addEventListener('click', async () => {
+      if (!chosenSDG) return;
+      const sdg = SDG_LIST.find((s) => s.n === chosenSDG);
+      if (sdg) selectSDG(sdg);
+    });
+
+    document.getElementById('lock-in-btn').addEventListener('click', async () => {
+      const flow = getFlowState();
+      if (!chosenScenario) return;
+      const errorEl = document.getElementById('select-error');
+      errorEl.hidden = true;
+
+      if (!flow?.uid || !isFirebaseAvailable()) {
+        // Local preview mode — just stash and proceed.
+        setFlowStep('mission-select', { selectedSDG: chosenSDG, scenarioPreview: chosenScenario });
+        location.href = './mission-01.html';
+        return;
+      }
+      try {
+        // Use uid as tid placeholder for solo runs; Day 8+ team formation will replace.
+        const tid = flow.uid;
+        await freezeScenarioForTeam({ tid, sdg: chosenSDG, scenario: chosenScenario });
+        setFlowStep('mission-select', { selectedSDG: chosenSDG, scenarioLocked: true, tid });
+        location.href = './mission-01.html';
+      } catch (err) {
+        errorEl.textContent = err.message || 'Could not lock the scenario. Try again.';
+        errorEl.hidden = false;
+      }
+    });
+  </script>
+
+  <style>
+    .sdg-tile {
+      aspect-ratio: 1 / 1;
+      color: white;
+      padding: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-start;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, outline 0.15s ease;
+      border: none;
+      text-align: left;
+      outline: 2px solid transparent;
+      outline-offset: 2px;
+    }
+    .sdg-tile:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.18); }
+    .sdg-tile.selected { outline: 2px solid #A88A4A; outline-offset: 3px; }
+    .sdg-tile:focus-visible { outline: 2px solid #A88A4A; outline-offset: 3px; }
+    .sdg-num { font-family: 'Cinzel', serif; font-size: 1rem; line-height: 1; opacity: 0.9; }
+    .sdg-name { font-family: 'DM Sans', sans-serif; font-size: 0.7rem; line-height: 1.2; font-weight: 600; }
+    .scenario-card {
+      border: 1px solid #E5E5E7;
+      background: #FFFFFF;
+      padding: 1.5rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      width: 100%;
+    }
+    .scenario-card:hover { border-color: rgba(168, 138, 74, 0.4); }
+    .scenario-card.selected {
+      border-color: #A88A4A;
+      box-shadow: 0 0 0 1px #A88A4A inset;
+      background: rgba(168, 138, 74, 0.04);
+    }
+  </style>
+<script type="module" src="../src/a11y.js"></script>
+  <script type="module">
+    import { mountVoiceGuide } from '../src/voice-guide.js';
+    // Mount the voice guide at the top of the first .max-w-* content container
+    const candidates = ['main .max-w-2xl', 'main .max-w-3xl', 'main .max-w-4xl', 'main .max-w-6xl', 'main'];
+    for (const sel of candidates) {
+      if (document.querySelector(sel)) { mountVoiceGuide('mission-select', sel); break; }
+    }
+  </script>
+</body>
+</html>

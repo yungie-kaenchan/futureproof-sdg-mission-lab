@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mission — FUTUREPROOF</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body class="bg-white text-on-surface cockpit">
+
+  <!-- TOP APP BAR -->
+  <header class="topbar fixed top-0 left-0 right-0 z-50 backdrop-blur-md" style="height: 56px;">
+    <div class="h-full flex items-center justify-between px-4 gap-3">
+      <div class="flex items-center gap-3">
+        <a href="../index.html" class="flex items-center gap-2">
+          <div class="status-pulse"></div>
+          <span class="topbar-brand">FUTUREPROOF</span>
+        </a>
+        <span id="mission-label" class="topbar-name">Mission</span>
+      </div>
+
+      <div class="m3-search hidden md:flex" style="height: 40px; max-width: 400px; flex:1;">
+        <span class="material-symbols-rounded size-20">search</span>
+        <input type="text" placeholder="Search missions, scenarios, decisions…" data-tip-en="Search across your work" data-tip-th="ค้นหาผลงานทั้งหมดของคุณ" />
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button class="btn-text" id="open-mentor" data-tip-en="Field Mentor — Socratic guide" data-tip-th="ที่ปรึกษาภาคสนาม — ผู้แนะนำแบบโสเครติส">
+          <span class="material-symbols-rounded size-20">support_agent</span>
+        </button>
+        <button class="btn-text" id="open-shop" data-tip-en="Insight Token Shop" data-tip-th="ร้านค้าโทเค็น">
+          <span class="material-symbols-rounded size-20">storefront</span>
+        </button>
+        <a class="btn-text" href="./reflections.html" data-tip-en="Voice of the Learner — record reflections" data-tip-th="เสียงของผู้เรียน — บันทึกการสะท้อน">
+          <span class="material-symbols-rounded size-20">mic</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- NAVIGATION RAIL (full labels) -->
+  <nav class="m3-rail" aria-label="Mission navigation">
+    <a href="./mission-shell.html?m=1" class="m3-rail-item" data-mission="1" data-tip-en="Mission 01 — Recon (Remember)" data-tip-th="ภารกิจ 01 — สำรวจ (จดจำ)">
+      <span class="icon-wrap"><span class="material-symbols-rounded size-20">visibility</span></span>
+      <span>Recon</span>
+    </a>
+    <a href="./mission-shell.html?m=2" class="m3-rail-item" data-mission="2" data-tip-en="Mission 02 — Decode (Understand)" data-tip-th="ภารกิจ 02 — ถอดรหัส (เข้าใจ)">
+      <span class="icon-wrap"><span class="material-symbols-rounded size-20">translate</span></span>
+      <span>Decode</span>
+    </a>
+    <a href="./mission-shell.html?m=3" class="m3-rail-item" data-mission="3" data-tip-en="Mission 03 — Deploy (Apply)" data-tip-th="ภารกิจ 03 — นำไปใช้ (ประยุกต์)">
+      <span class="icon-wrap"><span class="material-symbols-rounded size-20">rocket_launch</span></span>
+      <span>Deploy</span>
+    </a>
+    <a href="./mission-shell.html?m=4" class="m3-rail-item" data-mission="4" data-tip-en="Mission 04 — Dissect (Analyze)" data-tip-th="ภารกิจ 04 — วิเคราะห์">
+      <span class="icon-wrap"><span class="material-symbols-rounded size-20">biotech</span></span>
+      <span>Dissect</span>
+    </a>
+    <a href="./mission-shell.html?m=5" class="m3-rail-item" data-mission="5" data-tip-en="Mission 05 — Tribunal (Evaluate)" data-tip-th="ภารกิจ 05 — ศาลพิจารณา (ประเมิน)">
+      <span class="icon-wrap"><span class="material-symbols-rounded size-20">gavel</span></span>
+      <span>Tribunal</span>
+    </a>
+    <a href="./mission-shell.html?m=6" class="m3-rail-item" data-mission="6" data-tip-en="Mission 06 — Forge (Create)" data-tip-th="ภารกิจ 06 — สร้างสรรค์">
+      <span class="icon-wrap"><span class="material-symbols-rounded size-20">auto_awesome</span></span>
+      <span>Forge</span>
+    </a>
+
+    <div style="height: 1.5rem"></div>
+
+    <a href="./studio.html" class="m3-rail-item" data-tip-en="Pitch Capsule Studio — design & narrate" data-tip-th="สตูดิโอแคปซูลพิตช์ — ออกแบบและบรรยาย">
+      <span class="icon-wrap"><span class="material-symbols-rounded size-20">auto_stories</span></span>
+      <span>Studio</span>
+    </a>
+    <a href="./npc-interview.html" class="m3-rail-item" data-tip-en="Stakeholder Interview — talk to NPCs" data-tip-th="สัมภาษณ์ผู้มีส่วนได้ส่วนเสีย — พูดคุยกับ NPC">
+      <span class="icon-wrap"><span class="material-symbols-rounded size-20">record_voice_over</span></span>
+      <span>Interview</span>
+    </a>
+    <a href="./reflections.html" class="m3-rail-item" data-tip-en="Voice of the Learner — reflections" data-tip-th="เสียงของผู้เรียน — การสะท้อน">
+      <span class="icon-wrap"><span class="material-symbols-rounded size-20">graphic_eq</span></span>
+      <span>Reflect</span>
+    </a>
+    <a href="./portfolio.html" class="m3-rail-item" data-tip-en="Learning Portfolio — your growth" data-tip-th="พอร์ตโฟลิโอการเรียนรู้ — พัฒนาการของคุณ">
+      <span class="icon-wrap"><span class="material-symbols-rounded size-20">school</span></span>
+      <span>Portfolio</span>
+    </a>
+  </nav>
+
+  <!-- COMMAND LINE -->
+  <div class="console-cmdline" role="contentinfo">
+    <span><kbd>Esc</kbd> exit</span>
+    <span><kbd>?</kbd> mentor</span>
+    <span><kbd>S</kbd> shop</span>
+    <span><kbd>R</kbd> reflect</span>
+    <span style="margin-left:auto" class="topbar-name">Futureproof // Mission Console</span>
+  </div>
+
+  <!-- COCKPIT WINDOW -->
+  <div class="cockpit-window">
+
+    <!-- CENTER PANE: mission body -->
+    <main id="main" class="cockpit-pane center">
+      <div class="max-w-3xl mx-auto">
+        <div class="flex items-center gap-3 mb-4 flex-wrap">
+          <span id="mission-number" class="console-label-gold"></span>
+          <span id="mission-bloom" class="console-label"></span>
+          <span class="m3-chip selected"><span class="material-symbols-rounded size-20">target</span><span id="mission-code-chip">RECON</span></span>
+        </div>
+
+        <h1 id="mission-title" class="display-m text-on-surface mb-3"></h1>
+        <p id="mission-tagline" class="body-l text-on-surface/80 mb-8 max-w-2xl"></p>
+
+        <div id="mission-progress" class="m3-progress-linear mb-6" aria-label="Mission progress"><div class="fill" style="width: 30%"></div></div>
+
+        <div id="scenario-summary" class="m3-card outlined mb-8" style="padding: 1rem 1.25rem;"></div>
+
+        <div id="phase-container" class="mb-8"></div>
+
+        <div id="phase-controls" class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-outline-variant">
+          <button id="back-btn" type="button" class="btn-secondary"><span class="material-symbols-rounded size-20">arrow_back</span><span>Back</span></button>
+          <div id="phase-error" class="field-error" hidden></div>
+          <button id="next-btn" type="button" class="btn-primary"><span>Next</span><span class="material-symbols-rounded size-20">arrow_forward</span></button>
+        </div>
+      </div>
+    </main>
+
+    <!-- RIGHT PANE: student profile + journey -->
+    <aside class="cockpit-pane right profile-pane" aria-label="Your profile and journey">
+      <div class="cockpit-drag" aria-label="Resize panel" data-tip-en="Drag to resize" data-tip-th="ลากเพื่อปรับขนาด"></div>
+
+      <!-- Avatar + identity -->
+      <section class="mb-6">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="slot slot-square no-label" style="width: 56px; height: 56px; border-radius: 9999px;" aria-hidden="true"></div>
+          <div>
+            <div id="student-name" class="title-l">Operator</div>
+            <div id="student-rank" class="badge-pill mt-1"><span class="material-symbols-rounded size-20">military_tech</span><span>Cadet</span></div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <span id="student-cefr" class="m3-chip assist"><span class="material-symbols-rounded size-20">translate</span>B1+</span>
+          <span id="student-team" class="m3-chip assist"><span class="material-symbols-rounded size-20">group</span>Atlas Cell</span>
+        </div>
+      </section>
+
+      <!-- Integrity meter -->
+      <section class="mb-6">
+        <div class="flex items-center justify-between mb-2">
+          <span class="label-m">Integrity</span>
+          <span id="integrity-value" class="title-m" style="color:#3B3BD6">78</span>
+        </div>
+        <div class="m3-progress-linear" aria-label="Integrity score"><div id="integrity-fill" class="fill" style="width:78%"></div></div>
+        <p class="body-s text-on-surface-variant mt-2" data-tip-en="A running gauge of your team's ethical consistency" data-tip-th="มาตรวัดความสม่ำเสมอทางจริยธรรมของทีม">How consistent your team's ethical reasoning has been so far.</p>
+      </section>
+
+      <!-- Stats -->
+      <section class="mb-6">
+        <h3 class="title-m mb-3">Earned</h3>
+        <div class="profile-stat"><span class="label">Tokens</span><span class="value" id="stat-tokens">47 ◆</span></div>
+        <div class="profile-stat"><span class="label">Decisions logged</span><span class="value" id="stat-decisions">14</span></div>
+        <div class="profile-stat"><span class="label">Reflections</span><span class="value" id="stat-reflections">3</span></div>
+        <div class="profile-stat"><span class="label">Mission progress</span><span class="value" id="stat-progress">3 / 6</span></div>
+      </section>
+
+      <!-- What's left -->
+      <section class="mb-6">
+        <h3 class="title-m mb-3">What's left</h3>
+        <ul class="space-y-2" id="todo-list">
+          <li class="flex items-start gap-2"><span class="material-symbols-rounded size-20" style="color:#3B3BD6">radio_button_unchecked</span><span class="body-m">Finish Mission 03 — Deploy</span></li>
+          <li class="flex items-start gap-2"><span class="material-symbols-rounded size-20" style="color:#5C5C66">radio_button_unchecked</span><span class="body-m">Mission 04 — Dissect</span></li>
+          <li class="flex items-start gap-2"><span class="material-symbols-rounded size-20" style="color:#5C5C66">radio_button_unchecked</span><span class="body-m">Mission 05 — Tribunal</span></li>
+          <li class="flex items-start gap-2"><span class="material-symbols-rounded size-20" style="color:#5C5C66">radio_button_unchecked</span><span class="body-m">Submit Pitch Capsule</span></li>
+        </ul>
+      </section>
+
+      <!-- Notes -->
+      <section>
+        <h3 class="title-m mb-3 flex items-center justify-between">
+          <span>Notes</span>
+          <span class="material-symbols-rounded size-20" data-tip-en="Auto-saved on this device" data-tip-th="บันทึกอัตโนมัติบนอุปกรณ์นี้" style="color:#5C5C66">cloud_done</span>
+        </h3>
+        <div class="m3-textfield">
+          <textarea id="notes" rows="6" placeholder=" "></textarea>
+          <label for="notes">Scratchpad</label>
+        </div>
+      </section>
+    </aside>
+  </div>
+
+  <!-- FAB MENU -->
+  <div class="m3-fab-menu" id="fab-menu">
+    <div class="m3-fab-item">
+      <span class="label">Field Mentor</span>
+      <a class="m3-fab small surface" href="#" id="fab-mentor"><span class="material-symbols-rounded size-20">support_agent</span></a>
+    </div>
+    <div class="m3-fab-item">
+      <span class="label">Quick reflect</span>
+      <a class="m3-fab small surface" href="./reflections.html"><span class="material-symbols-rounded size-20">mic</span></a>
+    </div>
+    <div class="m3-fab-item">
+      <span class="label">Stakeholder interview</span>
+      <a class="m3-fab small surface" href="./npc-interview.html"><span class="material-symbols-rounded size-20">forum</span></a>
+    </div>
+    <button class="m3-fab primary trigger" data-tip-en="Quick actions" data-tip-th="การดำเนินการด่วน">
+      <span class="material-symbols-rounded">add</span>
+    </button>
+  </div>
+
+  <!-- Field Mentor drawer -->
+  <aside id="mentor-drawer" class="mentor-drawer" hidden>
+    <header class="mentor-header">
+      <div>
+        <div class="console-label-gold">FIELD MENTOR</div>
+        <div class="text-sm text-on-surface-variant">Socratic companion. Language support, no answers.</div>
+      </div>
+      <button id="close-mentor" type="button" class="btn-text"><span class="material-symbols-rounded size-20">close</span></button>
+    </header>
+    <div id="mentor-log" class="mentor-log"></div>
+    <form id="mentor-form" class="mentor-form">
+      <input id="mentor-input" type="text" placeholder="Ask a question…" autocomplete="off" />
+      <button type="submit" class="btn-primary"><span>Send</span></button>
+    </form>
+  </aside>
+
+  <!-- Shop drawer -->
+  <aside id="shop-drawer" class="mentor-drawer" hidden>
+    <header class="mentor-header">
+      <div>
+        <div class="console-label-gold">INSIGHT TOKEN SHOP</div>
+        <div class="text-sm text-on-surface-variant">Spend earned tokens on scaffolding tools.</div>
+      </div>
+      <button id="close-shop" type="button" class="btn-text"><span class="material-symbols-rounded size-20">close</span></button>
+    </header>
+    <div id="shop-list" class="mentor-log"></div>
+  </aside>
+
+  <script src="../config.local.js" onerror="window.__noConfig = true;"></script>
+  <script type="module">
+    import { MISSION_CONFIGS, MissionEngine } from '../src/mission-engine.js';
+    import { getBalance, SHOP_ITEMS, spendTokens } from '../src/tokens.js';
+    import { startMentorChat } from '../src/field-mentor.js';
+    import { getFlowState, setFlowStep, isFirebaseAvailable } from '../src/auth.js';
+    import { registerAllPhaseHandlers } from '../src/mission-phases.js';
+    import { applySDGThemeFromFlow } from '../src/sdg-theme.js';
+
+    applySDGThemeFromFlow();
+
+    const params = new URLSearchParams(location.search);
+    const missionNumber = parseInt(params.get('m') || (location.pathname.match(/mission-(\d+)/) || [])[1] || '1', 10);
+    const cfg = MISSION_CONFIGS[missionNumber];
+    if (!cfg) { document.body.innerHTML = '<main class="p-12"><h1>Unknown mission.</h1></main>'; throw new Error('Unknown mission: ' + missionNumber); }
+
+    document.title = `Mission ${String(missionNumber).padStart(2,'0')} — ${cfg.title} — FUTUREPROOF`;
+    document.getElementById('mission-label').textContent = `MISSION ${String(missionNumber).padStart(2,'0')} // ${cfg.code}`;
+    document.getElementById('mission-number').textContent = `MISSION ${String(missionNumber).padStart(2,'0')}`;
+    document.getElementById('mission-bloom').textContent = cfg.bloom.toUpperCase();
+    document.getElementById('mission-code-chip').textContent = cfg.code;
+    document.getElementById('mission-title').textContent = cfg.title + '.';
+    document.getElementById('mission-tagline').textContent = cfg.tagline;
+
+    const activeRailItem = document.querySelector(`.m3-rail-item[data-mission="${missionNumber}"]`);
+    if (activeRailItem) activeRailItem.classList.add('active');
+
+    const flow = getFlowState();
+    const scenario = flow?.scenarioPreview || null;
+    const scenarioBox = document.getElementById('scenario-summary');
+    if (scenario) {
+      scenarioBox.innerHTML = `<div class="title-m mb-1">${scenario.title}</div><div class="body-m text-on-surface/80">${scenario.coreTension || scenario.setting}</div>`;
+    } else {
+      scenarioBox.innerHTML = `<div class="body-m">No scenario locked yet. <a class="text-primary underline-offset-2 hover:underline" href="./mission-select.html">Pick one →</a></div>`;
+    }
+
+    const container = document.getElementById('phase-container');
+    const engine = new MissionEngine({
+      missionNumber, container,
+      onComplete: () => {
+        const next = missionNumber === 6 ? './studio.html' : `./mission-${String(missionNumber+1).padStart(2,'0')}.html`;
+        location.href = next;
+      },
+    });
+    registerAllPhaseHandlers(engine);
+    engine.start({ scenario, profile: flow?.learnerProfile });
+
+    document.getElementById('next-btn').addEventListener('click', () => engine.advance());
+    document.getElementById('back-btn').addEventListener('click', () => engine.back());
+
+    // Token balance + stats
+    async function refreshStats() {
+      const tid = flow?.uid;
+      if (tid && isFirebaseAvailable()) {
+        const bal = await getBalance(tid);
+        document.getElementById('stat-tokens').textContent = `${bal ?? 0} ◆`;
+      }
+    }
+    refreshStats();
+
+    // Profile fields
+    if (flow?.displayName) document.getElementById('student-name').textContent = flow.displayName;
+    if (flow?.learnerProfile?.language?.cefrEstimate) {
+      document.getElementById('student-cefr').innerHTML = `<span class="material-symbols-rounded size-20">translate</span>${flow.learnerProfile.language.cefrEstimate}`;
+    }
+    document.getElementById('stat-progress').textContent = `${missionNumber - 1} / 6`;
+
+    // Notes — autosave to localStorage
+    const notes = document.getElementById('notes');
+    notes.value = localStorage.getItem('fp_notes_v1') || '';
+    notes.addEventListener('input', () => localStorage.setItem('fp_notes_v1', notes.value));
+
+    // Drawers
+    const mentorDrawer = document.getElementById('mentor-drawer');
+    const mentorLog = document.getElementById('mentor-log');
+    const mentorInput = document.getElementById('mentor-input');
+    const mentor = startMentorChat({ logEl: mentorLog, profile: flow?.learnerProfile, missionConfig: cfg, scenario });
+    document.getElementById('open-mentor').addEventListener('click', () => mentorDrawer.hidden = false);
+    document.getElementById('close-mentor').addEventListener('click', () => mentorDrawer.hidden = true);
+    document.getElementById('fab-mentor').addEventListener('click', (e) => { e.preventDefault(); mentorDrawer.hidden = false; });
+    document.getElementById('mentor-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const q = mentorInput.value.trim();
+      if (!q) return;
+      mentorInput.value = '';
+      await mentor.send(q);
+    });
+
+    const shopDrawer = document.getElementById('shop-drawer');
+    const shopList = document.getElementById('shop-list');
+    function renderShop() {
+      shopList.innerHTML = '';
+      for (const item of SHOP_ITEMS) {
+        const card = document.createElement('div');
+        card.className = 'shop-item';
+        card.innerHTML = `
+          <div>
+            <div class="title-s">${item.label}</div>
+            <p class="body-s text-on-surface-variant">${item.hint}</p>
+          </div>
+          <button class="btn-secondary"><span>${item.cost} ◆</span></button>
+        `;
+        card.querySelector('button').addEventListener('click', async () => {
+          try { await spendTokens({ tid: flow?.uid, item }); await refreshStats(); }
+          catch (err) { alert(err.message); }
+        });
+        shopList.appendChild(card);
+      }
+    }
+    document.getElementById('open-shop').addEventListener('click', () => { shopDrawer.hidden = false; renderShop(); });
+    document.getElementById('close-shop').addEventListener('click', () => shopDrawer.hidden = true);
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') return;
+      if (e.key === '?') { mentorDrawer.hidden = false; }
+      if (e.key.toLowerCase() === 's' && !e.metaKey && !e.ctrlKey) { shopDrawer.hidden = false; renderShop(); }
+      if (e.key.toLowerCase() === 'r') { location.href = './reflections.html'; }
+      if (e.key === 'Escape') {
+        mentorDrawer.hidden = true; shopDrawer.hidden = true;
+        document.getElementById('fab-menu').classList.remove('open');
+      }
+    });
+  </script>
+
+  <script type="module" src="../src/cockpit.js"></script>
+  <script type="module" src="../src/tooltips.js"></script>
+  <script type="module" src="../src/a11y.js"></script>
+
+  <style>
+    .mentor-drawer { position: fixed; right: 0; top: 0; bottom: 0; width: min(440px, 100vw); background: #FFFFFF; border-left: 1px solid #E5E5E7; box-shadow: -8px 0 24px rgba(0,0,0,0.06); display: flex; flex-direction: column; z-index: 60; }
+    .mentor-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid #E5E5E7; display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+    .mentor-log { flex: 1; overflow-y: auto; padding: 1rem 1.5rem; display: flex; flex-direction: column; gap: 0.75rem; }
+    .mentor-msg { padding: 0.75rem 1rem; border-radius: 12px; font-size: 14px; line-height: 1.5; max-width: 92%; }
+    .mentor-msg.user { background: rgba(59,59,214,0.08); align-self: flex-end; }
+    .mentor-msg.bot { background: #F8F8F9; border: 1px solid #E5E5E7; }
+    .mentor-form { padding: 1rem 1.5rem; border-top: 1px solid #E5E5E7; display: flex; gap: 0.5rem; }
+    .mentor-form input { flex: 1; padding: 0.6rem 0.85rem; border: 1px solid #E5E5E7; border-radius: 9999px; font-family: 'DM Sans', sans-serif; }
+    .mentor-form input:focus { outline: none; border-color: #3B3BD6; }
+    .shop-item { display: flex; align-items: center; justify-content: space-between; gap: 1rem; border: 1px solid #E5E5E7; padding: 0.85rem 1rem; border-radius: 12px; background: #FFFFFF; }
+  </style>
+  <!-- M3 mobile bottom nav -->
+  <nav class="m3-navbar" aria-label="Mobile navigation">
+    <a href="./mission-select.html" class="active"><span class="icon-wrap"><span class="material-symbols-rounded size-20">map</span></span><span>Missions</span></a>
+    <a href="./studio.html"><span class="icon-wrap"><span class="material-symbols-rounded size-20">edit_note</span></span><span>Studio</span></a>
+    <a href="./reflections.html"><span class="icon-wrap"><span class="material-symbols-rounded size-20">mic</span></span><span>Reflect</span></a>
+    <a href="./portfolio.html"><span class="icon-wrap"><span class="material-symbols-rounded size-20">dashboard</span></span><span>Profile</span></a>
+  </nav>
+</body>
+</html>

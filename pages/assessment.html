@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Mission Readiness Assessment — calibrate your starting profile on FUTUREPROOF." />
+  <title>Readiness Check — FUTUREPROOF</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="bg-white text-on-surface">
+
+  <header class="topbar fixed top-0 left-0 right-0 z-50 backdrop-blur-md" style="height:56px;">
+    <div class="h-full max-w-1600 mx-auto px-6 lg:px-12 flex items-center justify-between text-xs">
+      <div class="flex items-center gap-6">
+        <a href="../index.html" class="flex items-center gap-2 hover:opacity-80 transition">
+          <div class="status-pulse"></div>
+          <span class="topbar-brand">FUTUREPROOF</span>
+        </a>
+        <div class="hidden md:flex items-center gap-2 console-label">
+          <span class="topbar-name">Readiness Check</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-4">
+        <span id="time-elapsed" class="console-label">00:00</span>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="max-w-1600 mx-auto px-6 lg:px-12 pt-32 pb-24">
+
+    <!-- INTRO PANEL -->
+    <section id="screen-intro" class="max-w-2xl">
+      <div class="step-track" aria-label="Onboarding progress: step 3 of 5">
+        <div class="step-dot done"></div>
+        <div class="step-line done"></div>
+        <div class="step-dot done"></div>
+        <div class="step-line done"></div>
+        <div class="step-dot active"></div>
+        <div class="step-line"></div>
+        <div class="step-dot"></div>
+        <div class="step-line"></div>
+        <div class="step-dot"></div>
+      </div>
+
+      <div class="flex items-center gap-4 mb-8">
+        <span class="topbar-name">Step 03 / 05</span>
+        <div class="h-line flex-1 max-w-32"></div>
+      </div>
+
+      <h1 class="display-heading text-5xl lg:text-6xl text-on-surface mb-6">
+        Quick readiness<br>
+        <em class="text-primary">check</em>.
+      </h1>
+
+      <p class="text-lg text-on-surface/80 leading-relaxed mb-8">
+        About 12–15 minutes. Four short sections. We're not grading you — we're calibrating the missions to your level so they feel challenging without being crushing.
+      </p>
+
+      <div class="alert-info mb-10">
+        <strong>This isn't a test.</strong> There's no pass/fail. Your responses set the difficulty for your team's missions. Honest answers give you a better fit.
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-3 mb-10">
+        <div class="consent-card">
+          <div class="console-label-gold mb-2">SECTION 01</div>
+          <div class="mission-title text-sm text-on-surface mb-1">Language</div>
+          <p class="text-sm text-on-surface/70">Cloze passage, vocabulary, short writing prompt.</p>
+        </div>
+        <div class="consent-card">
+          <div class="console-label-gold mb-2">SECTION 02</div>
+          <div class="mission-title text-sm text-on-surface mb-1">Critical Thinking</div>
+          <p class="text-sm text-on-surface/70">Spotting weak arguments and reasoning flaws.</p>
+        </div>
+        <div class="consent-card">
+          <div class="console-label-gold mb-2">SECTION 03</div>
+          <div class="mission-title text-sm text-on-surface mb-1">Analytical Thinking</div>
+          <p class="text-sm text-on-surface/70">Drawing inferences from small data tables.</p>
+        </div>
+        <div class="consent-card">
+          <div class="console-label-gold mb-2">SECTION 04</div>
+          <div class="mission-title text-sm text-on-surface mb-1">Collaboration</div>
+          <p class="text-sm text-on-surface/70">Six quick self-assessment items. No right answers.</p>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-4">
+        <button id="begin-btn" type="button" class="btn-primary">
+          <span>Begin</span>
+          <span>→</span>
+        </button>
+        <a href="./consent.html" class="btn-secondary">
+          <span>← Back</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- SECTION CONTAINER -->
+    <section id="screen-quiz" hidden class="max-w-3xl">
+      <div class="mb-6">
+        <div class="flex items-center justify-between mb-2 flex-wrap gap-2">
+          <span id="section-label" class="console-label-gold">SECTION 01 / 04 — LANGUAGE</span>
+          <span id="item-counter" class="topbar-name">Item 1 / 1</span>
+        </div>
+        <div class="progress-bar"><div id="progress-fill" class="progress-bar-fill" style="width: 0%"></div></div>
+      </div>
+
+      <div id="quiz-content" class="mb-10"></div>
+
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <button id="back-btn" type="button" class="btn-secondary"><span>← Back</span></button>
+        <div id="quiz-error" class="field-error" hidden></div>
+        <button id="next-btn" type="button" class="btn-primary"><span>Next</span><span>→</span></button>
+      </div>
+    </section>
+
+    <!-- RESULTS -->
+    <section id="screen-results" hidden class="max-w-3xl">
+      <div class="flex items-center gap-4 mb-8">
+        <span class="topbar-name">Calibration Complete</span>
+        <div class="h-line flex-1 max-w-32"></div>
+      </div>
+
+      <h2 class="display-heading text-5xl lg:text-6xl text-on-surface mb-4">
+        Your starting<br>
+        <em class="text-primary">profile</em>.
+      </h2>
+      <p class="text-lg text-on-surface/80 leading-relaxed mb-10">
+        Your missions will be calibrated to these numbers. They're a snapshot — not a label. You'll see them grow over the course.
+      </p>
+
+      <div id="results-grid" class="grid md:grid-cols-2 gap-4 mb-10"></div>
+
+      <div id="config-warning" class="alert-warn mb-8" hidden>
+        <strong>Heads up:</strong> Firebase isn't connected in this build, so your profile wasn't saved to the cloud. Once provisioning is done, the same scoring engine will write to <code>/users/$uid/learnerProfile</code>.
+      </div>
+
+      <div class="flex flex-wrap items-center gap-4">
+        <a href="./avatar.html" class="btn-primary"><span>Continue to Avatar</span><span>→</span></a>
+        <button id="retake-btn" type="button" class="btn-secondary"><span>Retake</span></button>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="../config.local.js" onerror="window.__noConfig = true;"></script>
+
+  <script type="module">
+    import {
+      CLOZE_PASSAGE, VOCAB_ITEMS, WRITING_PROMPT,
+      CRITICAL_ITEMS, ANALYTICAL_ITEMS,
+      COLLAB_ITEMS, LIKERT_LABELS,
+      scoreAssessment, saveLearnerProfile,
+    } from '../src/assessment.js';
+    import { getFlowState, setFlowStep, isFirebaseAvailable } from '../src/auth.js';
+
+    /* ──────── State ──────── */
+
+    const answers = {
+      cloze: {},
+      vocab: {},
+      writing: '',
+      critical: {},
+      analytical: {},
+      collaboration: {},
+    };
+
+    // Flat sequence of items the learner walks through.
+    const sequence = buildSequence();
+    let cursor = 0;
+    let started = 0;
+
+    function buildSequence() {
+      const seq = [];
+      seq.push({ section: 'language', label: 'LANGUAGE', kind: 'cloze' });
+      for (const v of VOCAB_ITEMS) seq.push({ section: 'language', label: 'LANGUAGE', kind: 'vocab', item: v });
+      seq.push({ section: 'language', label: 'LANGUAGE', kind: 'writing' });
+      for (const c of CRITICAL_ITEMS) seq.push({ section: 'critical', label: 'CRITICAL THINKING', kind: 'mcq', item: c });
+      for (const a of ANALYTICAL_ITEMS) seq.push({ section: 'analytical', label: 'ANALYTICAL THINKING', kind: 'data', item: a });
+      for (const k of COLLAB_ITEMS) seq.push({ section: 'collaboration', label: 'COLLABORATION', kind: 'likert', item: k });
+      return seq;
+    }
+
+    function sectionIndex(section) {
+      return ['language', 'critical', 'analytical', 'collaboration'].indexOf(section);
+    }
+
+    /* ──────── Timer ──────── */
+    const timeEl = document.getElementById('time-elapsed');
+    setInterval(() => {
+      if (!started) return;
+      const elapsed = Math.floor((Date.now() - started) / 1000);
+      const mm = String(Math.floor(elapsed / 60)).padStart(2, '0');
+      const ss = String(elapsed % 60).padStart(2, '0');
+      timeEl.textContent = `${mm}:${ss}`;
+    }, 1000);
+
+    /* ──────── Screen control ──────── */
+
+    const intro = document.getElementById('screen-intro');
+    const quiz = document.getElementById('screen-quiz');
+    const results = document.getElementById('screen-results');
+
+    document.getElementById('begin-btn').addEventListener('click', () => {
+      started = Date.now();
+      intro.hidden = true;
+      quiz.hidden = false;
+      cursor = 0;
+      renderCurrent();
+    });
+
+    document.getElementById('back-btn').addEventListener('click', () => {
+      if (cursor === 0) {
+        quiz.hidden = true;
+        intro.hidden = false;
+        return;
+      }
+      cursor -= 1;
+      renderCurrent();
+    });
+
+    document.getElementById('next-btn').addEventListener('click', () => {
+      if (!validateCurrent()) return;
+      if (cursor >= sequence.length - 1) {
+        finishQuiz();
+        return;
+      }
+      cursor += 1;
+      renderCurrent();
+    });
+
+    document.getElementById('retake-btn').addEventListener('click', () => {
+      Object.keys(answers).forEach((k) => {
+        if (typeof answers[k] === 'object') answers[k] = {};
+        else answers[k] = '';
+      });
+      cursor = 0;
+      results.hidden = true;
+      intro.hidden = false;
+    });
+
+    /* ──────── Renderers ──────── */
+
+    const content = document.getElementById('quiz-content');
+    const sectionLabel = document.getElementById('section-label');
+    const itemCounter = document.getElementById('item-counter');
+    const progressFill = document.getElementById('progress-fill');
+    const errorBox = document.getElementById('quiz-error');
+
+    function clearError() { errorBox.hidden = true; errorBox.textContent = ''; }
+    function showError(msg) { errorBox.textContent = msg; errorBox.hidden = false; }
+
+    function renderCurrent() {
+      clearError();
+      const step = sequence[cursor];
+      const sIdx = sectionIndex(step.section);
+      sectionLabel.textContent = `SECTION 0${sIdx + 1} / 04 — ${step.label}`;
+      itemCounter.textContent = `ITEM ${cursor + 1} / ${sequence.length}`;
+      progressFill.style.width = `${((cursor) / sequence.length) * 100}%`;
+
+      if (step.kind === 'cloze') return renderCloze();
+      if (step.kind === 'vocab') return renderMcq(step.item, answers.vocab, 'vocab');
+      if (step.kind === 'writing') return renderWriting();
+      if (step.kind === 'mcq') return renderMcq(step.item, answers.critical, 'critical', step.item.stem, step.item.question);
+      if (step.kind === 'data') return renderData(step.item);
+      if (step.kind === 'likert') return renderLikert(step.item);
+    }
+
+    function renderCloze() {
+      content.innerHTML = '';
+      const wrap = document.createElement('div');
+      wrap.className = 'space-y-4';
+      wrap.innerHTML = `
+        <div class="console-label-gold">CLOZE</div>
+        <h2 class="display-heading text-3xl text-on-surface mb-2">${CLOZE_PASSAGE.intro}</h2>
+        <p class="thai-meta text-sm">${CLOZE_PASSAGE.thaiIntro}</p>
+        <p class="text-lg leading-relaxed mt-6" id="cloze-passage"></p>
+      `;
+      content.appendChild(wrap);
+      const passage = wrap.querySelector('#cloze-passage');
+      for (const seg of CLOZE_PASSAGE.text) {
+        if (typeof seg === 'string') {
+          passage.appendChild(document.createTextNode(' ' + seg + ' '));
+        } else {
+          const span = document.createElement('span');
+          span.className = 'cloze-blank';
+          const sel = document.createElement('select');
+          sel.setAttribute('data-blank', String(seg.blank));
+          sel.setAttribute('aria-label', `Blank ${seg.blank}`);
+          const placeholder = document.createElement('option');
+          placeholder.value = '';
+          placeholder.textContent = '— choose —';
+          sel.appendChild(placeholder);
+          for (const opt of seg.options) {
+            const o = document.createElement('option');
+            o.value = opt;
+            o.textContent = opt;
+            if (answers.cloze[seg.blank] === opt) o.selected = true;
+            sel.appendChild(o);
+          }
+          sel.addEventListener('change', () => { answers.cloze[seg.blank] = sel.value; });
+          span.appendChild(sel);
+          passage.appendChild(span);
+        }
+      }
+    }
+
+    function renderMcq(item, store, _key, stemOverride, questionOverride) {
+      content.innerHTML = '';
+      const wrap = document.createElement('div');
+      wrap.className = 'space-y-5';
+      const stemHtml = stemOverride ? `<p class="text-base text-on-surface/85 leading-relaxed mb-2">${stemOverride}</p>` : '';
+      const questionHtml = `<h2 class="display-heading text-3xl text-on-surface mb-2">${questionOverride || item.prompt}</h2>`;
+      wrap.innerHTML = `<div class="console-label-gold">${item.level || ''}</div>${questionHtml}${stemHtml}`;
+      const list = document.createElement('div');
+      list.className = 'space-y-3 mt-4';
+      const letters = ['A', 'B', 'C', 'D', 'E'];
+      item.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'option-card' + (store[item.id] === idx ? ' selected' : '');
+        btn.innerHTML = `<span class="option-marker">${letters[idx]}</span><span class="flex-1">${opt}</span>`;
+        btn.addEventListener('click', () => {
+          store[item.id] = idx;
+          list.querySelectorAll('.option-card').forEach((b) => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          clearError();
+        });
+        list.appendChild(btn);
+      });
+      wrap.appendChild(list);
+      content.appendChild(wrap);
+    }
+
+    function renderWriting() {
+      content.innerHTML = '';
+      const wrap = document.createElement('div');
+      wrap.className = 'space-y-4';
+      wrap.innerHTML = `
+        <div class="console-label-gold">SHORT WRITING</div>
+        <h2 class="display-heading text-3xl text-on-surface">${WRITING_PROMPT.prompt}</h2>
+        <p class="thai-meta text-sm">${WRITING_PROMPT.thai}</p>
+        <textarea id="writing-input" class="field-input" rows="6" placeholder="Start typing in English…">${answers.writing}</textarea>
+        <p class="field-help"><span id="word-count">0</span> words</p>
+      `;
+      content.appendChild(wrap);
+      const ta = wrap.querySelector('#writing-input');
+      const wc = wrap.querySelector('#word-count');
+      const update = () => {
+        answers.writing = ta.value;
+        const n = ta.value.trim().split(/\s+/).filter(Boolean).length;
+        wc.textContent = String(n);
+      };
+      ta.addEventListener('input', update);
+      update();
+    }
+
+    function renderData(item) {
+      content.innerHTML = '';
+      const wrap = document.createElement('div');
+      wrap.className = 'space-y-5';
+      const headerRow = item.table.headers.map((h) => `<th>${h}</th>`).join('');
+      const bodyRows = item.table.rows.map((r) => `<tr>${r.map((c) => `<td>${c}</td>`).join('')}</tr>`).join('');
+      wrap.innerHTML = `
+        <div class="console-label-gold">DATA INTERPRETATION</div>
+        <h2 class="display-heading text-3xl text-on-surface">${item.question}</h2>
+        <div class="overflow-x-auto">
+          <table class="data-table">
+            <caption class="caption-bottom mt-2 text-xs text-console-dim text-left">${item.table.caption}</caption>
+            <thead><tr>${headerRow}</tr></thead>
+            <tbody>${bodyRows}</tbody>
+          </table>
+        </div>
+      `;
+      const list = document.createElement('div');
+      list.className = 'space-y-3';
+      const letters = ['A', 'B', 'C', 'D'];
+      item.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'option-card' + (answers.analytical[item.id] === idx ? ' selected' : '');
+        btn.innerHTML = `<span class="option-marker">${letters[idx]}</span><span class="flex-1">${opt}</span>`;
+        btn.addEventListener('click', () => {
+          answers.analytical[item.id] = idx;
+          list.querySelectorAll('.option-card').forEach((b) => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          clearError();
+        });
+        list.appendChild(btn);
+      });
+      wrap.appendChild(list);
+      content.appendChild(wrap);
+    }
+
+    function renderLikert(item) {
+      content.innerHTML = '';
+      const wrap = document.createElement('div');
+      wrap.className = 'space-y-5';
+      wrap.innerHTML = `
+        <div class="console-label-gold">SELF-ASSESSMENT</div>
+        <h2 class="display-heading text-2xl text-on-surface leading-snug">${item.text}</h2>
+        <p class="text-sm text-console-dim">No right answer — pick what's most true for you.</p>
+      `;
+      const scale = document.createElement('div');
+      scale.className = 'likert-scale';
+      LIKERT_LABELS.forEach((label, i) => {
+        const value = i + 1;
+        const opt = document.createElement('button');
+        opt.type = 'button';
+        opt.className = 'likert-option' + (answers.collaboration[item.id] === value ? ' selected' : '');
+        opt.innerHTML = `<div class="font-mono text-base text-on-surface mb-1">${value}</div><div>${label}</div>`;
+        opt.addEventListener('click', () => {
+          answers.collaboration[item.id] = value;
+          scale.querySelectorAll('.likert-option').forEach((b) => b.classList.remove('selected'));
+          opt.classList.add('selected');
+          clearError();
+        });
+        scale.appendChild(opt);
+      });
+      wrap.appendChild(scale);
+      content.appendChild(wrap);
+    }
+
+    /* ──────── Validation ──────── */
+
+    function validateCurrent() {
+      const step = sequence[cursor];
+      if (step.kind === 'cloze') {
+        const total = CLOZE_PASSAGE.text.filter((s) => typeof s === 'object').length;
+        if (Object.keys(answers.cloze).filter((k) => answers.cloze[k]).length < total) {
+          showError('Fill in every blank before continuing.');
+          return false;
+        }
+      }
+      if (step.kind === 'vocab' && !(step.item.id in answers.vocab)) {
+        showError('Pick an option to continue.');
+        return false;
+      }
+      if (step.kind === 'writing') {
+        const n = (answers.writing || '').trim().split(/\s+/).filter(Boolean).length;
+        if (n < WRITING_PROMPT.minWords) {
+          showError(`A bit more, please — at least ${WRITING_PROMPT.minWords} words. (You have ${n}.)`);
+          return false;
+        }
+      }
+      if (step.kind === 'mcq' && !(step.item.id in answers.critical)) {
+        showError('Pick an option to continue.');
+        return false;
+      }
+      if (step.kind === 'data' && !(step.item.id in answers.analytical)) {
+        showError('Pick an option to continue.');
+        return false;
+      }
+      if (step.kind === 'likert' && !(step.item.id in answers.collaboration)) {
+        showError('Pick a response to continue.');
+        return false;
+      }
+      return true;
+    }
+
+    /* ──────── Finish ──────── */
+
+    async function finishQuiz() {
+      progressFill.style.width = '100%';
+      const scored = scoreAssessment(answers);
+      renderResults(scored);
+
+      const flow = getFlowState();
+      const uid = flow && flow.uid;
+      if (uid && isFirebaseAvailable()) {
+        try {
+          await saveLearnerProfile(uid, scored);
+          setFlowStep('avatar', { learnerProfile: scored });
+        } catch (err) {
+          console.error('[FUTUREPROOF] Failed to save learner profile', err);
+        }
+      } else {
+        document.getElementById('config-warning').hidden = false;
+      }
+
+      quiz.hidden = true;
+      results.hidden = false;
+    }
+
+    function renderResults(scored) {
+      const grid = document.getElementById('results-grid');
+      grid.innerHTML = '';
+      grid.appendChild(makeStat('CEFR', `<div class="result-stat-cefr">${scored.language.cefrEstimate}</div>`, 'Estimated language band based on cloze, vocabulary, and writing.'));
+      grid.appendChild(makeStat('VOCABULARY', `<div class="result-stat-value">${scored.language.vocabulary}<span class="text-base text-console-dim">/100</span></div>`, 'Recognition score across A2–C1 items.'));
+      grid.appendChild(makeStat('CRITICAL THINKING', `<div class="result-stat-value">${scored.criticalThinkingPercentile}<span class="text-base text-console-dim">/100</span></div>`, 'Argument analysis and fallacy identification.'));
+      grid.appendChild(makeStat('ANALYTICAL THINKING', `<div class="result-stat-value">${scored.analyticalPercentile}<span class="text-base text-console-dim">/100</span></div>`, 'Drawing inferences from data tables.'));
+      grid.appendChild(makeStat('COLLABORATION', `<div class="result-stat-value">${Math.round(scored.collaborationOrientation * 100)}<span class="text-base text-console-dim">/100</span></div>`, 'Self-reported collaboration orientation.'));
+      grid.appendChild(makeStat('LANGUAGE COMPOSITE', `<div class="result-stat-value">${scored.language.composite}<span class="text-base text-console-dim">/100</span></div>`, 'Weighted average across the language sub-scores.'));
+    }
+
+    function makeStat(label, valueHtml, hint) {
+      const div = document.createElement('div');
+      div.className = 'result-stat';
+      div.innerHTML = `<div class="console-label-gold mb-3">${label}</div>${valueHtml}<p class="text-sm text-console-dim mt-3 leading-relaxed">${hint}</p>`;
+      return div;
+    }
+  </script>
+
+<script type="module" src="../src/a11y.js"></script>
+  <script type="module">
+    import { mountVoiceGuide } from '../src/voice-guide.js';
+    // Mount the voice guide at the top of the first .max-w-* content container
+    const candidates = ['main .max-w-2xl', 'main .max-w-3xl', 'main .max-w-4xl', 'main .max-w-6xl', 'main'];
+    for (const sel of candidates) {
+      if (document.querySelector(sel)) { mountVoiceGuide('assessment', sel); break; }
+    }
+  </script>
+</body>
+</html>

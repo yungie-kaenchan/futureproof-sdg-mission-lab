@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Voice of the Learner — FUTUREPROOF</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body class="bg-white text-on-surface cockpit">
+
+  <header class="topbar fixed top-0 left-0 right-0 z-50 backdrop-blur-md" style="height:56px;">
+    <div class="h-full flex items-center justify-between px-4 gap-3">
+      <div class="flex items-center gap-3">
+        <a href="../index.html" class="flex items-center gap-2"><div class="status-pulse"></div><span class="topbar-brand">FUTUREPROOF</span></a>
+        <span class="topbar-name">Voice Of The Learner</span>
+      </div>
+      <a href="../index.html" class="btn-text"><span class="material-symbols-rounded size-20">home</span><span>Home</span></a>
+    </div>
+  </header>
+
+  <div class="console-cmdline" role="contentinfo">
+    <span><kbd>R</kbd> start recording</span>
+    <span><kbd>Esc</kbd> stop</span>
+    <span style="margin-left:auto" class="topbar-name">Futureproof // Voice Of The Learner</span>
+  </div>
+
+  <div class="cockpit-window" style="grid-template-columns: 1fr 380px;">
+
+    <main id="main" class="cockpit-pane center">
+      <div class="max-w-3xl mx-auto">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="topbar-name">Reflection</span>
+        </div>
+
+        <h1 class="display-m mb-3">Hear yourself <em class="text-primary not-italic">grow</em>.</h1>
+        <p class="body-l text-on-surface/80 mb-8 max-w-2xl">
+          Short voice recordings — before, during, and after the course — let you (and you alone) listen to how your thinking and your English have shifted.
+        </p>
+
+        <div id="config-warning" class="alert-attention mb-6" hidden>
+          <strong>Heads up:</strong> Firebase isn't connected in this build, so recordings stay on your device only. Once provisioning is done, the same UI saves to <code>/reflections/$uid</code>.
+        </div>
+
+        <nav class="flex flex-wrap gap-2 mb-6" id="reflection-tabs"></nav>
+
+        <section id="recorder" class="space-y-6"></section>
+      </div>
+    </main>
+
+    <aside class="cockpit-pane right" aria-label="Past recordings and history">
+      <div class="cockpit-drag" aria-label="Resize panel" data-tip-en="Drag to resize" data-tip-th="ลากเพื่อปรับขนาด"></div>
+
+      <section class="mb-4">
+        <h3 class="title-l mb-1">Your recordings</h3>
+        <p class="body-s text-on-surface-variant mb-4">Tap any to play back. Compare yourself, then and now.</p>
+      </section>
+
+      <section>
+        <div id="past-list" class="space-y-3"></div>
+      </section>
+    </aside>
+  </div>
+
+  <script src="../config.local.js" onerror="window.__noConfig = true;"></script>
+
+  <script type="module">
+    import { REFLECTION_PROMPTS, ReflectionRecorder, saveReflection, fetchReflections, reflectionContext } from '../src/reflections.js';
+    import { isFirebaseAvailable } from '../src/auth.js';
+
+    const KIND_ORDER = ['timeCapsule', 'preMission', 'postMission', 'thirtyDay'];
+    let activeKind = 'timeCapsule';
+    let recorder = null;
+    let lastBlob = null;
+    let lastDuration = 0;
+
+    const tabsEl = document.getElementById('reflection-tabs');
+    const recorderEl = document.getElementById('recorder');
+    const pastEl = document.getElementById('past-list');
+    const configWarn = document.getElementById('config-warning');
+    if (!isFirebaseAvailable()) configWarn.hidden = false;
+
+    function renderTabs() {
+      tabsEl.innerHTML = '';
+      for (const kind of KIND_ORDER) {
+        const t = document.createElement('button');
+        t.type = 'button';
+        t.className = 'avatar-tab' + (kind === activeKind ? ' active' : '');
+        t.textContent = REFLECTION_PROMPTS[kind].label;
+        t.addEventListener('click', () => {
+          if (recorder) try { recorder.stop(); } catch (_) {}
+          activeKind = kind;
+          renderTabs();
+          renderRecorder();
+        });
+        tabsEl.appendChild(t);
+      }
+    }
+
+    function renderRecorder() {
+      const cfg = REFLECTION_PROMPTS[activeKind];
+      lastBlob = null;
+      recorderEl.innerHTML = `
+        <div class="consent-card">
+          <div class="console-label-gold mb-2">${cfg.label.toUpperCase()}</div>
+          <h2 class="display-heading text-3xl text-on-surface mb-3">${escapeHtml(cfg.prompt)}</h2>
+          <p class="thai-meta text-sm leading-relaxed mb-4">${escapeHtml(cfg.thai)}</p>
+          <p class="field-help">Up to ${cfg.duration} seconds. The microphone stops automatically.</p>
+          <div class="flex flex-wrap gap-3 items-center mt-6">
+            <button id="rec-start" class="btn-primary"><span>Start recording</span><span>●</span></button>
+            <button id="rec-stop" class="btn-secondary" hidden><span>Stop</span></button>
+            <span id="rec-clock" class="console-label-gold"></span>
+          </div>
+          <div id="rec-result" class="mt-6 space-y-3" hidden>
+            <audio id="rec-playback" controls></audio>
+            <div class="flex flex-wrap gap-3">
+              <button id="rec-save" class="btn-primary"><span>Save reflection</span><span>→</span></button>
+              <button id="rec-redo" class="btn-secondary"><span>Re-record</span></button>
+            </div>
+            <p id="rec-status" class="field-help"></p>
+          </div>
+        </div>
+      `;
+
+      const startBtn = document.getElementById('rec-start');
+      const stopBtn = document.getElementById('rec-stop');
+      const clock = document.getElementById('rec-clock');
+      const resultBox = document.getElementById('rec-result');
+      const playback = document.getElementById('rec-playback');
+      const saveBtn = document.getElementById('rec-save');
+      const redoBtn = document.getElementById('rec-redo');
+      const status = document.getElementById('rec-status');
+
+      startBtn.addEventListener('click', async () => {
+        try {
+          recorder = new ReflectionRecorder({
+            maxSeconds: cfg.duration,
+            onLevel: (elapsed, remaining) => {
+              clock.textContent = `${String(elapsed).padStart(2, '0')}s · ${remaining}s left`;
+            },
+            onStop: (blob, duration) => {
+              lastBlob = blob;
+              lastDuration = duration;
+              clock.textContent = `Captured ${duration}s.`;
+              startBtn.hidden = false;
+              stopBtn.hidden = true;
+              playback.src = URL.createObjectURL(blob);
+              resultBox.hidden = false;
+            },
+          });
+          await recorder.start();
+          startBtn.hidden = true;
+          stopBtn.hidden = false;
+          clock.textContent = 'Recording…';
+        } catch (err) {
+          status.textContent = err.message;
+        }
+      });
+
+      stopBtn.addEventListener('click', () => recorder?.stop());
+      redoBtn.addEventListener('click', () => {
+        resultBox.hidden = true;
+        startBtn.hidden = false;
+        stopBtn.hidden = true;
+        clock.textContent = '';
+        lastBlob = null;
+      });
+
+      saveBtn.addEventListener('click', async () => {
+        if (!lastBlob) return;
+        const ctx = reflectionContext();
+        if (!ctx.uid) {
+          status.textContent = 'No active session. Sign in first to save.';
+          return;
+        }
+        saveBtn.disabled = true;
+        try {
+          const result = await saveReflection({
+            uid: ctx.uid,
+            kind: activeKind,
+            missionId: ctx.missionId,
+            blob: lastBlob,
+            durationSec: lastDuration,
+          });
+          status.textContent = result.saved ? 'Saved.' : 'Recorded locally. (Firebase not connected.)';
+          renderPast();
+        } catch (err) {
+          status.textContent = err.message;
+        } finally {
+          saveBtn.disabled = false;
+        }
+      });
+    }
+
+    async function renderPast() {
+      const ctx = reflectionContext();
+      pastEl.innerHTML = '';
+      if (!ctx.uid || !isFirebaseAvailable()) {
+        pastEl.innerHTML = '<div class="alert-info">Sign in to see your saved reflections here.</div>';
+        return;
+      }
+      const data = await fetchReflections(ctx.uid);
+      if (!data) { pastEl.innerHTML = '<div class="alert-info">No reflections yet — record one above.</div>'; return; }
+      const flat = [];
+      for (const kind of Object.keys(data)) {
+        for (const id of Object.keys(data[kind])) {
+          flat.push({ kind, id, ...data[kind][id] });
+        }
+      }
+      flat.sort((a, b) => (b.ts || 0) - (a.ts || 0));
+      if (flat.length === 0) { pastEl.innerHTML = '<div class="alert-info">No reflections yet — record one above.</div>'; return; }
+      for (const r of flat) {
+        const card = document.createElement('div');
+        card.className = 'consent-card flex items-center justify-between gap-4 flex-wrap';
+        const date = new Date(r.ts || 0).toLocaleString();
+        card.innerHTML = `
+          <div>
+            <div class="mission-title text-sm text-on-surface mb-1">${escapeHtml(REFLECTION_PROMPTS[r.kind]?.label || r.kind)}</div>
+            <div class="text-xs text-console-dim">${escapeHtml(date)} · ${r.durationSec}s</div>
+          </div>
+          ${r.audioUrl ? `<audio controls src="${escapeHtml(r.audioUrl)}"></audio>` : '<span class="topbar-name">Local</span>'}
+        `;
+        pastEl.appendChild(card);
+      }
+    }
+
+    function escapeHtml(s) { return String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c])); }
+
+    renderTabs();
+    renderRecorder();
+    renderPast();
+  </script>
+
+  <script type="module" src="../src/a11y.js"></script>
+</body>
+</html>

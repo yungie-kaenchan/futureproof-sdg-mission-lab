@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LangLab Methods Vault — Admin Console</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Nunito:wght@400;600;700;800&family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+<style>
+:root{
+  --bg:#0B0F1A;--card:rgba(20,27,45,.92);--card2:rgba(26,35,64,.92);
+  --neon:#00ff88;--cyan:#00d4ff;--warn:#ff6b35;--danger:#ff3366;
+  --purple:#c084fc;--gold:#ffe066;--text:#e8ecf1;--dim:#a8b3cc;--dark:#3a4a6b;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0B0F1A;color:var(--text);font-family:'Nunito',system-ui,sans-serif;min-height:100vh;font-size:16px}
+.hf{font-family:'Orbitron',monospace}
+.mf{font-family:'Source Code Pro',monospace}
+button{font-family:inherit;border:none;cursor:pointer;font-size:inherit}
+input{font-family:inherit;font-size:inherit}
+input:focus{outline:2px solid var(--neon)}
+
+.bg-stage{position:fixed;inset:0;z-index:0;background:url('assets/bg-login.png') center/cover no-repeat}
+.bg-stage::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,15,26,.7) 0%,rgba(11,15,26,.85) 100%)}
+.sc{position:relative;z-index:2}
+
+/* LOGIN */
+#login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px}
+#login-screen .box{max-width:440px;width:100%;text-align:center}
+.card{background:var(--card);border:1px solid rgba(107,127,163,.25);border-radius:14px;padding:22px;backdrop-filter:blur(8px)}
+.field-label{display:block;text-align:left;font-size:12px;color:var(--cyan);margin-bottom:8px;letter-spacing:1.5px;font-family:'Source Code Pro',monospace}
+.field-input{width:100%;padding:14px 16px;background:rgba(11,15,26,.65);border:1px solid rgba(0,255,136,.4);border-radius:10px;color:var(--text)}
+
+/* DASH */
+#dash-screen{display:none;min-height:100vh;padding:24px}
+.dash-wrap{max-width:1200px;margin:0 auto;width:100%}
+.header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:20px}
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:20px}
+.kpi{background:var(--card);border:1px solid rgba(107,127,163,.25);border-radius:14px;padding:16px 18px;backdrop-filter:blur(8px)}
+.kpi .label{font-family:'Source Code Pro',monospace;font-size:11px;color:var(--dim);letter-spacing:1.5px;margin-bottom:6px}
+.kpi .val{font-family:'Orbitron',monospace;font-size:28px;font-weight:800}
+
+.tabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.tab{padding:10px 18px;background:var(--card);border:1px solid rgba(107,127,163,.2);border-radius:10px;color:var(--dim);font-size:13px;letter-spacing:1px;font-family:'Source Code Pro',monospace}
+.tab.active{background:rgba(0,255,136,.15);border-color:var(--neon);color:var(--neon)}
+
+table{width:100%;border-collapse:collapse;background:var(--card);border-radius:14px;overflow:hidden;backdrop-filter:blur(8px)}
+th,td{padding:12px 14px;text-align:left;font-size:14px}
+thead{background:rgba(0,212,255,.08)}
+th{font-family:'Source Code Pro',monospace;font-size:11px;letter-spacing:1.5px;color:var(--cyan);border-bottom:1px solid rgba(0,212,255,.18)}
+tbody tr{border-top:1px solid rgba(107,127,163,.12);transition:background .2s}
+tbody tr:hover{background:rgba(0,255,136,.04)}
+.rank{font-family:'Orbitron',monospace;font-weight:800;color:var(--gold);text-align:center;width:50px}
+.rank.gold{color:#ffd54a;text-shadow:0 0 12px rgba(255,213,74,.5)}
+.rank.silver{color:#c0c5d6}
+.rank.bronze{color:#cd7f4a}
+.badge{display:inline-block;padding:3px 10px;border-radius:6px;font-size:10px;font-family:'Source Code Pro',monospace;letter-spacing:1px;font-weight:700}
+.badge.playing{background:rgba(0,212,255,.18);color:var(--cyan)}
+.badge.victory{background:rgba(0,255,136,.2);color:var(--neon)}
+.badge.defeated{background:rgba(255,51,102,.18);color:var(--danger)}
+.live-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--neon);margin-right:6px;box-shadow:0 0 8px var(--neon);animation:pulse 1.4s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+
+.empty{padding:60px 20px;text-align:center;color:var(--dim)}
+
+.lifebar{display:inline-flex;gap:2px}
+.lifebar .lp{width:14px;height:14px;border-radius:3px;background:var(--danger);opacity:.2}
+.lifebar .lp.on{background:var(--neon);opacity:1}
+
+.progressbar{position:relative;width:100%;max-width:160px;height:8px;background:rgba(107,127,163,.2);border-radius:4px;overflow:hidden}
+.progressbar .fill{height:100%;background:linear-gradient(90deg,var(--neon),var(--cyan));transition:width .4s}
+
+.mono{font-family:'Source Code Pro',monospace}
+
+@media(max-width:680px){
+  th.hide-sm,td.hide-sm{display:none}
+}
+</style>
+</head>
+<body>
+<div class="bg-stage"></div>
+
+<!-- LOGIN -->
+<div id="login-screen" class="sc">
+  <div class="box">
+    <div class="hf" style="font-size:clamp(36px,8vw,52px);font-weight:900;color:var(--neon);text-shadow:0 0 30px rgba(0,255,136,.5);letter-spacing:2px">LANGLAB</div>
+    <div class="hf" style="font-size:clamp(13px,3vw,18px);color:var(--cyan);letter-spacing:8px;margin-top:-2px">ADMIN · CONSOLE</div>
+    <div style="width:80px;height:2px;background:linear-gradient(90deg,transparent,var(--neon),transparent);margin:18px auto 22px"></div>
+    <p class="mf" style="font-size:11px;color:var(--gold);letter-spacing:1.5px;margin-bottom:6px">LANGUAGE INSTITUTE · THAMMASAT UNIVERSITY</p>
+    <p class="mf" style="font-size:11px;color:var(--dim);letter-spacing:1.5px;margin-bottom:22px">RANGSIT CAMPUS</p>
+
+    <div class="card" style="text-align:left">
+      <label class="field-label">ADMIN PASSWORD</label>
+      <input id="pw" class="field-input" type="password" placeholder="Enter password" autocomplete="off">
+      <div id="login-error" style="color:var(--danger);font-size:12px;margin-top:10px;min-height:18px"></div>
+    </div>
+
+    <button id="login-btn" class="hf" style="width:100%;padding:18px;background:linear-gradient(135deg,var(--neon),var(--cyan));border-radius:12px;color:#0B0F1A;font-size:16px;font-weight:800;letter-spacing:1.5px;margin-top:14px">SIGN IN →</button>
+    <div style="margin-top:18px"><a href="index.html" class="mf" style="font-size:11px;color:var(--dim);letter-spacing:1.5px;text-decoration:none">← BACK TO GAME</a></div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dash-screen" class="sc">
+  <div class="dash-wrap">
+    <div class="header">
+      <div>
+        <div class="hf" style="font-size:24px;font-weight:800;color:var(--neon);letter-spacing:2px">METHODS VAULT · LIVE SCOREBOARD</div>
+        <div class="mf" style="font-size:11px;color:var(--gold);letter-spacing:1.5px;margin-top:4px">LANGUAGE INSTITUTE · THAMMASAT UNIVERSITY · RANGSIT CAMPUS</div>
+        <div class="mf" style="font-size:11px;color:var(--cyan);letter-spacing:1.5px;margin-top:6px"><span class="live-dot" id="live-dot"></span><span id="live-status">REAL-TIME · FIREBASE</span></div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <button onclick="exportCsv()" class="mf" style="padding:10px 16px;background:var(--card);border:1px solid rgba(0,212,255,.3);border-radius:10px;color:var(--cyan);font-size:11px;letter-spacing:1px">⬇ EXPORT CSV</button>
+        <button onclick="resetAllConfirm()" class="mf" style="padding:10px 16px;background:rgba(255,51,102,.1);border:1px solid rgba(255,51,102,.35);border-radius:10px;color:var(--danger);font-size:11px;letter-spacing:1px">⌫ CLEAR ALL</button>
+        <button onclick="logout()" class="mf" style="padding:10px 16px;background:var(--card);border:1px solid rgba(107,127,163,.2);border-radius:10px;color:var(--dim);font-size:11px;letter-spacing:1px">⎋ SIGN OUT</button>
+      </div>
+    </div>
+
+    <div id="error-banner" style="display:none;background:rgba(255,51,102,.12);border:1px solid rgba(255,51,102,.45);border-radius:12px;padding:16px 18px;margin-bottom:18px;color:var(--danger);font-size:13px;line-height:1.6">
+      <div style="font-family:'Orbitron',monospace;font-weight:800;letter-spacing:1.2px;margin-bottom:6px">⚠ FIREBASE PERMISSION DENIED</div>
+      <div style="color:var(--text)">The database rules are blocking reads on <code style="font-family:'Source Code Pro',monospace;color:var(--gold)">/langlab-teams</code>. To enable the live scoreboard, open the Firebase console → Realtime Database → Rules and replace with:</div>
+<pre style="background:rgba(11,15,26,.8);border:1px solid rgba(107,127,163,.3);border-radius:8px;padding:12px;margin-top:10px;font-family:'Source Code Pro',monospace;font-size:12px;color:var(--neon);overflow:auto">{
+  "rules": {
+    "langlab-teams": {
+      ".read": true,
+      ".write": true
+    }
+  }
+}</pre>
+      <div style="margin-top:6px;color:var(--dim);font-size:12px">Click <strong>Publish</strong>. Records appear here within seconds.</div>
+    </div>
+
+    <div class="kpi-row">
+      <div class="kpi"><div class="label">TOTAL TEAMS</div><div class="val" id="kpi-total" style="color:var(--text)">0</div></div>
+      <div class="kpi"><div class="label">PLAYING NOW</div><div class="val" id="kpi-playing" style="color:var(--cyan)">0</div></div>
+      <div class="kpi"><div class="label">VICTORIES</div><div class="val" id="kpi-victory" style="color:var(--neon)">0</div></div>
+      <div class="kpi"><div class="label">DEFEATED</div><div class="val" id="kpi-defeat" style="color:var(--danger)">0</div></div>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active" data-filter="all" onclick="setFilter('all')">ALL</button>
+      <button class="tab" data-filter="playing" onclick="setFilter('playing')">PLAYING</button>
+      <button class="tab" data-filter="victory" onclick="setFilter('victory')">VICTORIES</button>
+      <button class="tab" data-filter="defeated" onclick="setFilter('defeated')">DEFEATED</button>
+    </div>
+
+    <table id="board">
+      <thead>
+        <tr>
+          <th class="rank">#</th>
+          <th>TEAM</th>
+          <th class="hide-sm">PLAYERS</th>
+          <th>STATUS</th>
+          <th>CORRECT</th>
+          <th class="hide-sm">PROGRESS</th>
+          <th class="hide-sm">LIVES</th>
+          <th>TIME</th>
+          <th class="hide-sm">UPDATED</th>
+        </tr>
+      </thead>
+      <tbody id="board-body">
+        <tr><td colspan="9" class="empty">Waiting for teams to join…</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+// =====================================================
+// CONFIG — change ADMIN_PASS for your class
+// =====================================================
+const ADMIN_PASS = "thammasat2026";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCiPRWrkFwt4XJJg-S4EoI0PmuYAeGTJZA",
+  authDomain: "langlab-escape.firebaseapp.com",
+  databaseURL: "https://langlab-escape-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "langlab-escape",
+  storageBucket: "langlab-escape.firebasestorage.app",
+  messagingSenderId: "611239522142",
+  appId: "1:611239522142:web:2444b036c5d8158a5ce9cf"
+};
+firebase.initializeApp(firebaseConfig);
+const fbdb = firebase.database();
+const FB_NODE = "langlab-teams";
+const GAME_TAG = "methods-vault";
+const KEY_PREFIX = "mv-";
+
+const $ = id => document.getElementById(id);
+let TEAMS = [];
+let FILTER = "all";
+
+// =====================================================
+// LOGIN
+// =====================================================
+function attemptLogin(){
+  const pw = $("pw").value;
+  if(pw === ADMIN_PASS){
+    sessionStorage.setItem("ll-admin","1");
+    enterDash();
+  } else {
+    $("login-error").textContent = "Incorrect password.";
+    $("pw").value = "";
+    $("pw").focus();
+  }
+}
+$("login-btn").onclick = attemptLogin;
+$("pw").onkeydown = e => { if(e.key === "Enter") attemptLogin(); };
+
+function logout(){
+  sessionStorage.removeItem("ll-admin");
+  location.reload();
+}
+window.logout = logout;
+
+function enterDash(){
+  $("login-screen").style.display = "none";
+  $("dash-screen").style.display = "block";
+  listenTeams();
+}
+
+// =====================================================
+// LIVE LISTENER
+// =====================================================
+function listenTeams(){
+  fbdb.ref(FB_NODE).on("value", snap => {
+    document.getElementById("error-banner").style.display = "none";
+    document.getElementById("live-status").textContent = "REAL-TIME · FIREBASE";
+    const data = snap.val() || {};
+    TEAMS = Object.entries(data)
+      .filter(([k,v]) => k.startsWith(KEY_PREFIX) || (v && v.game === GAME_TAG))
+      .map(([k,v]) => ({key:k, ...v}));
+    render();
+  }, err => {
+    console.error("Firebase listener error:", err);
+    document.getElementById("error-banner").style.display = "block";
+    document.getElementById("live-status").textContent = "OFFLINE · PERMISSION DENIED";
+    document.getElementById("live-dot").style.background = "var(--danger)";
+    document.getElementById("live-dot").style.boxShadow = "0 0 8px var(--danger)";
+  });
+}
+
+function setFilter(f){
+  FILTER = f;
+  document.querySelectorAll(".tab").forEach(t=>{
+    t.classList.toggle("active", t.dataset.filter === f);
+  });
+  render();
+}
+window.setFilter = setFilter;
+
+function fmtTime(ms){
+  if(!ms || ms<0) return "—";
+  const s = Math.floor(ms/1000), m = Math.floor(s/60);
+  return m+"m "+String(s%60).padStart(2,"0")+"s";
+}
+function fmtRel(ms){
+  if(!ms) return "—";
+  const d = Date.now() - ms;
+  if(d < 5000) return "just now";
+  if(d < 60000) return Math.floor(d/1000)+"s ago";
+  if(d < 3600000) return Math.floor(d/60000)+"m ago";
+  return Math.floor(d/3600000)+"h ago";
+}
+
+function statusBadge(t){
+  if(t.status === "victory") return '<span class="badge victory">🏆 VICTORY</span>';
+  if(t.status === "defeated") return '<span class="badge defeated">💀 DEFEATED</span>';
+  return '<span class="badge playing"><span class="live-dot" style="width:6px;height:6px"></span>PLAYING</span>';
+}
+
+function lifeBar(lives, max){
+  max = max || 4;
+  let h = '<div class="lifebar">';
+  for(let i=0;i<max;i++) h += `<div class="lp ${i<lives?'on':''}"></div>`;
+  return h + '</div>';
+}
+
+function render(){
+  // Sort: most correct desc, fastest time asc, status (victory > playing > defeated)
+  const statusRank = { victory: 0, playing: 1, defeated: 2 };
+  const sorted = [...TEAMS].sort((a,b)=>{
+    if(b.correct !== a.correct) return (b.correct||0) - (a.correct||0);
+    const at = (a.status==="victory" && a.timeMs) ? a.timeMs : Infinity;
+    const bt = (b.status==="victory" && b.timeMs) ? b.timeMs : Infinity;
+    if(at !== bt) return at - bt;
+    return (statusRank[a.status]||3) - (statusRank[b.status]||3);
+  });
+
+  // KPIs
+  $("kpi-total").textContent = TEAMS.length;
+  $("kpi-playing").textContent = TEAMS.filter(t=>t.status==="playing").length;
+  $("kpi-victory").textContent = TEAMS.filter(t=>t.status==="victory").length;
+  $("kpi-defeat").textContent = TEAMS.filter(t=>t.status==="defeated").length;
+
+  // Filter
+  let view = sorted;
+  if(FILTER !== "all") view = sorted.filter(t => t.status === FILTER);
+
+  const body = $("board-body");
+  if(view.length === 0){
+    body.innerHTML = '<tr><td colspan="9" class="empty">No teams matching this filter yet.</td></tr>';
+    return;
+  }
+
+  body.innerHTML = view.map((t,i) => {
+    const rankClass = i===0?'gold':(i===1?'silver':(i===2?'bronze':''));
+    const correct = t.correct || 0;
+    const total = t.totalQs || 12;
+    const qIdx = t.qIdx || 0;
+    const lives = t.lives === undefined ? 4 : t.lives;
+    const progress = t.status==="victory" ? 100 : Math.round((qIdx/total)*100);
+    const time = t.status==="victory" || t.status==="defeated"
+      ? fmtTime(t.timeMs)
+      : (t.startTime ? fmtTime(Date.now() - t.startTime) : "—");
+    return `
+      <tr>
+        <td class="rank ${rankClass}">${i+1}</td>
+        <td><strong>${escapeHtml(t.team||'—')}</strong></td>
+        <td class="hide-sm" style="color:var(--dim);font-size:13px">${escapeHtml(t.players||t.p1||'')}</td>
+        <td>${statusBadge(t)}</td>
+        <td><span class="mono" style="color:var(--neon);font-weight:700">${correct}</span><span class="mono" style="color:var(--dim)">/${total}</span></td>
+        <td class="hide-sm"><div class="progressbar"><div class="fill" style="width:${progress}%"></div></div><div class="mono" style="font-size:11px;color:var(--dim);margin-top:4px">Q${Math.min(qIdx+1,total)}/${total}</div></td>
+        <td class="hide-sm">${lifeBar(lives)}</td>
+        <td><span class="mono" style="color:var(--cyan)">${time}</span></td>
+        <td class="hide-sm mono" style="color:var(--dim);font-size:12px">${fmtRel(t.lastUpdate)}</td>
+      </tr>`;
+  }).join("");
+}
+
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+// =====================================================
+// EXPORT / CLEAR
+// =====================================================
+window.exportCsv = function(){
+  if(TEAMS.length === 0){ alert("No data to export."); return; }
+  const headers = ["Rank","Team","Players","Status","Correct","Total","QIdx","LivesLeft","TimeMs","StartTime","EndTime"];
+  const sorted = [...TEAMS].sort((a,b)=>(b.correct||0)-(a.correct||0) || (a.timeMs||Infinity)-(b.timeMs||Infinity));
+  const rows = sorted.map((t,i)=>[
+    i+1,
+    `"${(t.team||'').replace(/"/g,'""')}"`,
+    `"${(t.players||t.p1||'').replace(/"/g,'""')}"`,
+    t.status||"",
+    t.correct||0,
+    t.totalQs||12,
+    (t.qIdx||0)+1,
+    t.lives===undefined?4:t.lives,
+    t.timeMs||"",
+    t.startTime?new Date(t.startTime).toISOString():"",
+    t.endTime?new Date(t.endTime).toISOString():""
+  ].join(","));
+  const csv = headers.join(",") + "\n" + rows.join("\n");
+  const blob = new Blob([csv], {type:"text/csv"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "langlab-methods-scoreboard-" + new Date().toISOString().slice(0,10) + ".csv";
+  a.click();
+  URL.revokeObjectURL(url);
+};
+
+window.resetAllConfirm = function(){
+  if(!confirm("⚠ This will permanently delete ALL Methods Vault team records from Firebase.\n\nProceed?")) return;
+  if(!confirm("Are you absolutely sure? This cannot be undone.")) return;
+  const updates = {};
+  TEAMS.forEach(t => { updates[t.key] = null; });
+  fbdb.ref(FB_NODE).update(updates).then(()=>{
+    alert("All Methods Vault records cleared.");
+  }).catch(err=>{
+    alert("Error: " + err.message);
+  });
+};
+
+// =====================================================
+// INIT
+// =====================================================
+if(sessionStorage.getItem("ll-admin") === "1"){
+  enterDash();
+} else {
+  setTimeout(()=>$("pw").focus(), 200);
+}
+</script>
+</body>
+</html>

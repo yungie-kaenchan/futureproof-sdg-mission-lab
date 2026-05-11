@@ -1,0 +1,95 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+
+    "users": {
+      "$uid": {
+        ".read": "auth != null && (auth.uid === $uid || auth.token.role === 'admin' || auth.token.role === 'teacher')",
+        "profile": {
+          "public": {
+            ".write": "auth != null && auth.uid === $uid",
+            ".validate": "newData.hasChildren(['displayName', 'rank'])"
+          },
+          "private": {
+            ".write": "auth != null && auth.uid === $uid"
+          }
+        },
+        "learnerProfile": {
+          ".write": "auth != null && auth.uid === $uid",
+          ".read": "auth != null && (auth.uid === $uid || auth.token.role === 'admin' || auth.token.role === 'teacher')"
+        },
+        "tokens": {
+          ".read": "auth != null && (auth.uid === $uid || auth.token.role === 'admin')",
+          "balance":  { ".write": false },
+          "earned":   { ".write": false },
+          "spent":    { ".write": false },
+          "ledger":   { ".write": false }
+        }
+      }
+    },
+
+    "consents": {
+      "$uid": {
+        ".read":  "auth != null && (auth.uid === $uid || auth.token.role === 'admin')",
+        ".write": "auth != null && auth.uid === $uid"
+      }
+    },
+
+    "teams": {
+      "$tid": {
+        ".read":  "auth != null",
+        ".write": "auth != null && (root.child('teams/' + $tid + '/members/' + auth.uid).exists() || auth.token.role === 'teacher' || auth.token.role === 'admin')",
+        "integrityScore": { ".write": false }
+      }
+    },
+
+    "scenarios": {
+      ".read":  "auth != null",
+      "$sid": {
+        ".write": "auth != null && (data.child('lockedBy').val() === auth.uid || !data.exists() || auth.token.role === 'admin')"
+      }
+    },
+
+    "missions": {
+      ".read":  "auth != null",
+      "$mid": {
+        ".write": "auth != null && (root.child('teams/' + data.child('teamId').val() + '/members/' + auth.uid).exists() || auth.token.role === 'admin')"
+      }
+    },
+
+    "reflections": {
+      "$uid": {
+        ".read":  "auth != null && (auth.uid === $uid || auth.token.role === 'admin' || auth.token.role === 'teacher')",
+        ".write": "auth != null && auth.uid === $uid"
+      }
+    },
+
+    "fieldMentor": {
+      "$uid": {
+        ".read":  "auth != null && (auth.uid === $uid || auth.token.role === 'admin' || auth.token.role === 'teacher')",
+        ".write": "auth != null && auth.uid === $uid"
+      }
+    },
+
+    "hall": {
+      ".read":  true,
+      ".write": "auth != null && (auth.token.role === 'admin' || auth.token.role === 'teacher')"
+    },
+
+    "moderation": {
+      ".read":  "auth != null && (auth.token.role === 'admin' || auth.token.role === 'teacher')",
+      ".write": "auth != null"
+    },
+
+    "audit": {
+      ".read":  "auth != null && auth.token.role === 'admin'",
+      ".write": false
+    },
+
+    "config": {
+      ".read":  "auth != null",
+      ".write": "auth != null && auth.token.role === 'admin'"
+    }
+  }
+}

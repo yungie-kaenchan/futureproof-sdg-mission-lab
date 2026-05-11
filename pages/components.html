@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Components — FUTUREPROOF</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body class="bg-white text-on-surface">
+
+  <header class="topbar fixed top-0 left-0 right-0 z-50 backdrop-blur-md" style="height: 56px;">
+    <div class="h-full flex items-center justify-between px-4 gap-3">
+      <div class="flex items-center gap-3">
+        <a href="../index.html" class="flex items-center gap-2"><div class="status-pulse"></div><span class="topbar-brand">FUTUREPROOF</span></a>
+        <span class="topbar-name">Components</span>
+      </div>
+      <a href="./mission-shell.html?m=3" class="btn-text"><span>View mission cockpit</span><span class="material-symbols-rounded size-20">arrow_forward</span></a>
+    </div>
+  </header>
+
+  <main id="main" class="max-w-1600 mx-auto px-6 lg:px-12 pt-24 pb-32">
+
+    <h1 class="display-l mb-4">Components.</h1>
+    <p class="body-l text-on-surface/80 mb-12 max-w-2xl">Every M3 component in one place — buttons, cards, inputs, navigation, motion. Hover any control to see the bilingual EN / ไทย tooltip.</p>
+
+    <!-- BUTTONS -->
+    <section class="mb-16">
+      <h2 class="headline-l mb-6">Buttons</h2>
+      <div class="flex flex-wrap items-center gap-4 mb-6">
+        <button class="btn-primary" data-tip-en="Filled — primary action" data-tip-th="ปุ่มหลัก — การกระทำหลัก"><span class="material-symbols-rounded size-20">edit</span><span>Filled</span></button>
+        <button class="btn-secondary" data-tip-en="Outlined — secondary action" data-tip-th="ปุ่มขอบ — การกระทำรอง"><span>Outlined</span></button>
+        <button class="btn-tonal" data-tip-en="Tonal — medium emphasis" data-tip-th="ปุ่มโทน — เน้นปานกลาง"><span class="material-symbols-rounded size-20">bookmark</span><span>Tonal</span></button>
+        <button class="btn-text" data-tip-en="Text — low emphasis" data-tip-th="ปุ่มข้อความ — เน้นน้อย"><span>Text</span><span class="material-symbols-rounded size-20">arrow_forward</span></button>
+      </div>
+
+      <h3 class="title-l mb-3 mt-8">Segmented buttons</h3>
+      <div class="m3-segmented mb-6">
+        <button aria-selected="true">Wireframe</button>
+        <button aria-selected="false">High fidelity</button>
+        <button aria-selected="false">Pitch</button>
+      </div>
+
+      <h3 class="title-l mb-3 mt-8">Split button</h3>
+      <div class="m3-split mb-6">
+        <button class="main"><span class="material-symbols-rounded size-20">save</span>Save</button>
+        <button class="menu"><span class="material-symbols-rounded size-20">expand_more</span></button>
+      </div>
+
+      <h3 class="title-l mb-3 mt-8">FABs</h3>
+      <div class="flex items-center gap-4">
+        <button class="m3-fab small primary" data-tip-en="Compact action" data-tip-th="การกระทำขนาดเล็ก"><span class="material-symbols-rounded size-20">add</span></button>
+        <button class="m3-fab primary" data-tip-en="Primary action" data-tip-th="การกระทำหลัก"><span class="material-symbols-rounded">edit</span></button>
+        <button class="m3-fab large primary" data-tip-en="Hero action" data-tip-th="การกระทำเด่น"><span class="material-symbols-rounded size-36">rocket_launch</span></button>
+        <button class="m3-fab extended primary" data-tip-en="Extended FAB with label" data-tip-th="ปุ่มลอยพร้อมป้ายกำกับ"><span class="material-symbols-rounded size-20">edit</span><span>Compose</span></button>
+      </div>
+    </section>
+
+    <!-- CARDS -->
+    <section class="mb-16">
+      <h2 class="headline-l mb-6">Cards</h2>
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="m3-card filled">
+          <div class="title-l mb-1">Filled</div>
+          <p class="body-m text-on-surface/80">Resting on the surface-1 tonal layer. Use for grouped content.</p>
+        </div>
+        <div class="m3-card elevated">
+          <div class="title-l mb-1">Elevated</div>
+          <p class="body-m text-on-surface/80">Subtle shadow. Use for items the user can act on.</p>
+        </div>
+        <div class="m3-card outlined">
+          <div class="title-l mb-1">Outlined</div>
+          <p class="body-m text-on-surface/80">Hairline border. Use for dense groups.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHIPS -->
+    <section class="mb-16">
+      <h2 class="headline-l mb-6">Chips</h2>
+      <div class="flex flex-wrap items-center gap-2">
+        <button class="m3-chip"><span class="material-symbols-rounded size-20">filter_alt</span>Filter</button>
+        <button class="m3-chip selected"><span class="material-symbols-rounded size-20">check</span>Selected</button>
+        <button class="m3-chip assist"><span class="material-symbols-rounded size-20">help</span>Assist</button>
+        <button class="m3-chip suggestion">Suggestion</button>
+        <button class="m3-chip input">Aria <span class="chip-close"><span class="material-symbols-rounded" style="font-size:14px;">close</span></span></button>
+      </div>
+    </section>
+
+    <!-- INPUTS -->
+    <section class="mb-16">
+      <h2 class="headline-l mb-6">Inputs</h2>
+      <div class="grid md:grid-cols-2 gap-6 max-w-3xl">
+        <div class="m3-textfield">
+          <input type="text" id="ex-name" placeholder=" " />
+          <label for="ex-name">Display name</label>
+        </div>
+        <div class="m3-textfield">
+          <input type="email" id="ex-email" placeholder=" " />
+          <label for="ex-email">Email</label>
+        </div>
+        <div>
+          <label class="label-m mb-2 block">Switch</label>
+          <label class="m3-switch"><input type="checkbox" /><span class="track"></span><span class="thumb"></span></label>
+        </div>
+        <div>
+          <label class="label-m mb-2 block">Slider</label>
+          <input type="range" min="0" max="100" value="62" class="m3-slider" />
+        </div>
+        <div>
+          <label class="label-m mb-2 block">Search</label>
+          <div class="m3-search">
+            <span class="material-symbols-rounded size-20">search</span>
+            <input type="text" placeholder="Find a mission, decision, or word…" />
+          </div>
+        </div>
+        <div>
+          <label class="label-m mb-2 block">Checkbox</label>
+          <label class="flex items-center gap-2"><input type="checkbox" class="checkbox-custom" checked />I'm 18 or older</label>
+        </div>
+      </div>
+    </section>
+
+    <!-- TABS -->
+    <section class="mb-16">
+      <h2 class="headline-l mb-6">Tabs</h2>
+      <div class="m3-tabs mb-6" role="tablist">
+        <button role="tab" aria-selected="true"  data-tab-target="t1">Overview</button>
+        <button role="tab" aria-selected="false" data-tab-target="t2">Spacing</button>
+        <button role="tab" aria-selected="false" data-tab-target="t3">Density</button>
+        <button role="tab" aria-selected="false" data-tab-target="t4">Layout</button>
+      </div>
+      <div data-tab-pane="t1"><p class="body-l">Overview content. Layout primitives, motion, and color all roll up here.</p></div>
+      <div data-tab-pane="t2" hidden><p class="body-l">Spacing scale: 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 px.</p></div>
+      <div data-tab-pane="t3" hidden><p class="body-l">Comfortable density by default; compact on dashboards.</p></div>
+      <div data-tab-pane="t4" hidden><p class="body-l">Column · Fold · Margin · Pane · Drag handle · Spacer · Window.</p></div>
+    </section>
+
+    <!-- PROGRESS -->
+    <section class="mb-16">
+      <h2 class="headline-l mb-6">Progress</h2>
+      <div class="grid md:grid-cols-2 gap-8 items-center max-w-3xl">
+        <div>
+          <label class="label-m mb-2 block">Linear (determinate, 60%)</label>
+          <div class="m3-progress-linear"><div class="fill" style="width: 60%"></div></div>
+        </div>
+        <div>
+          <label class="label-m mb-2 block">Linear (indeterminate)</label>
+          <div class="m3-progress-linear indeterminate"><div class="fill"></div></div>
+        </div>
+        <div>
+          <label class="label-m mb-2 block">Circular</label>
+          <div class="m3-progress-circular"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ICONS -->
+    <section class="mb-16">
+      <h2 class="headline-l mb-6">Icons (Material Symbols Rounded)</h2>
+      <p class="body-m text-on-surface-variant mb-4">Variable axes — weight, fill, optical size — set globally via CSS.</p>
+      <div class="flex flex-wrap items-center gap-6">
+        <div class="text-center"><span class="material-symbols-rounded size-36">visibility</span><div class="body-s mt-1">Recon</div></div>
+        <div class="text-center"><span class="material-symbols-rounded size-36">translate</span><div class="body-s mt-1">Decode</div></div>
+        <div class="text-center"><span class="material-symbols-rounded size-36">rocket_launch</span><div class="body-s mt-1">Deploy</div></div>
+        <div class="text-center"><span class="material-symbols-rounded size-36">biotech</span><div class="body-s mt-1">Dissect</div></div>
+        <div class="text-center"><span class="material-symbols-rounded size-36">gavel</span><div class="body-s mt-1">Tribunal</div></div>
+        <div class="text-center"><span class="material-symbols-rounded size-36">auto_awesome</span><div class="body-s mt-1">Forge</div></div>
+        <div class="text-center"><span class="material-symbols-rounded size-36">edit_note</span><div class="body-s mt-1">Studio</div></div>
+        <div class="text-center"><span class="material-symbols-rounded size-36">forum</span><div class="body-s mt-1">Interview</div></div>
+        <div class="text-center"><span class="material-symbols-rounded size-36">dashboard</span><div class="body-s mt-1">Portfolio</div></div>
+      </div>
+    </section>
+
+    <!-- TYPE SCALE -->
+    <section class="mb-16">
+      <h2 class="headline-l mb-6">Type scale</h2>
+      <div class="space-y-2">
+        <div class="display-l">Display L — 57</div>
+        <div class="display-m">Display M — 45</div>
+        <div class="display-s">Display S — 36</div>
+        <div class="headline-l">Headline L — 32</div>
+        <div class="headline-m">Headline M — 28</div>
+        <div class="headline-s">Headline S — 24</div>
+        <div class="title-l">Title L — 22</div>
+        <div class="body-l">Body L — 16, the working surface for paragraph copy.</div>
+        <div class="body-m">Body M — 14, secondary copy.</div>
+        <div class="label-m">LABEL M — 12 PX</div>
+      </div>
+    </section>
+
+    <!-- TOOLTIP DEMO -->
+    <section class="mb-16">
+      <h2 class="headline-l mb-6">Bilingual tooltips</h2>
+      <p class="body-l text-on-surface/80 mb-4">Hover or focus any of these to see the EN + ไทย popover.</p>
+      <div class="flex items-center gap-4">
+        <button class="m3-fab small primary" data-tip-en="Add a teammate" data-tip-th="เพิ่มเพื่อนร่วมทีม"><span class="material-symbols-rounded size-20">person_add</span></button>
+        <button class="m3-fab small surface" data-tip-en="Share with mentor" data-tip-th="แบ่งปันกับที่ปรึกษา"><span class="material-symbols-rounded size-20">share</span></button>
+        <button class="m3-fab small tertiary" data-tip-en="Celebrate this moment" data-tip-th="ฉลองช่วงเวลานี้"><span class="material-symbols-rounded size-20">celebration</span></button>
+        <button class="btn-secondary" data-tip-en="Save your draft (Cmd+S)" data-tip-th="บันทึกฉบับร่าง (Cmd+S)"><span class="material-symbols-rounded size-20">save</span><span>Save</span></button>
+      </div>
+    </section>
+
+  </main>
+
+  <script type="module" src="../src/cockpit.js"></script>
+  <script type="module" src="../src/tooltips.js"></script>
+  <script type="module" src="../src/a11y.js"></script>
+</body>
+</html>

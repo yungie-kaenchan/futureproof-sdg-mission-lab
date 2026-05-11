@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stakeholder Interview — FUTUREPROOF</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body class="bg-white text-on-surface cockpit">
+
+  <header class="topbar fixed top-0 left-0 right-0 z-50 backdrop-blur-md" style="height:56px;">
+    <div class="h-full max-w-1600 mx-auto px-6 lg:px-12 flex items-center justify-between text-xs">
+      <div class="flex items-center gap-6">
+        <a href="../index.html" class="flex items-center gap-2 hover:opacity-80 transition">
+          <div class="status-pulse"></div><span class="topbar-brand">FUTUREPROOF</span>
+        </a>
+        <span class="topbar-name">Stakeholder Interview</span>
+      </div>
+      <a href="javascript:history.back()" class="btn-text"><span class="material-symbols-rounded size-20">arrow_back</span><span>Back</span></a>
+    </div>
+  </header>
+
+  <div class="console-cmdline" role="contentinfo">
+    <span><kbd>Enter</kbd> ask</span>
+    <span><kbd>Esc</kbd> back</span>
+    <span style="margin-left:auto" class="topbar-name">Futureproof // Stakeholder Interview</span>
+  </div>
+
+  <div class="cockpit-window" style="grid-template-columns: 1fr 380px;">
+
+    <main id="main" class="cockpit-pane center">
+      <div class="max-w-3xl mx-auto">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="topbar-name">Npc Interview</span>
+        </div>
+
+        <h1 id="npc-name" class="display-m text-on-surface mb-3"></h1>
+        <p id="npc-role" class="body-l text-on-surface/80 mb-2"></p>
+        <p id="npc-interest" class="body-m text-on-surface-variant mb-6"></p>
+
+        <div id="config-warning" class="alert-attention mb-6" hidden>
+          <strong>Heads up:</strong> Claude proxy isn't connected in this build, so the stakeholder will use a generic fallback voice. Once env vars are set on Netlify, the conversation will be live and in-character.
+        </div>
+
+        <div id="picker" class="mb-6"></div>
+        <div id="chat-host" hidden>
+          <div id="npc-log" class="mentor-log" style="border:1px solid #D4D8E0; padding: 1rem 1.25rem; min-height: 320px; max-height: 60vh; overflow-y: auto; display:flex; flex-direction:column; gap:0.5rem; border-radius:12px; background:#FAFAFA;"></div>
+          <form id="npc-form" class="flex gap-2 mt-4">
+            <div class="m3-textfield" style="flex:1;">
+              <input id="npc-input" type="text" placeholder=" " autocomplete="off" />
+              <label for="npc-input">Your question</label>
+            </div>
+            <button type="submit" class="btn-primary" style="align-self: flex-start; margin-top: 4px;"><span class="material-symbols-rounded size-20">send</span><span>Ask</span></button>
+          </form>
+          <p class="body-s text-on-surface-variant mt-3">The stakeholder has limited time. Make your questions specific.</p>
+        </div>
+      </div>
+    </main>
+
+    <aside class="cockpit-pane right" aria-label="Scenario context and tips">
+      <div class="cockpit-drag" aria-label="Resize panel" data-tip-en="Drag to resize" data-tip-th="ลากเพื่อปรับขนาด"></div>
+
+      <section class="mb-6">
+        <h3 class="title-l mb-1">Scenario context</h3>
+        <p class="body-s text-on-surface-variant mb-3">What this stakeholder knows you're investigating.</p>
+        <div id="ctx-scenario" class="m3-card outlined" style="padding: 1rem;">
+          <div class="title-m mb-1" id="ctx-title">—</div>
+          <div class="body-s text-on-surface-variant" id="ctx-tension">—</div>
+        </div>
+      </section>
+
+      <section class="mb-6">
+        <h3 class="title-m mb-2 flex items-center gap-2">
+          <span class="material-symbols-rounded size-20">lightbulb</span>
+          <span>Question tips</span>
+        </h3>
+        <ul class="space-y-2 body-s">
+          <li class="flex items-start gap-2"><span class="material-symbols-rounded size-20 gold-text">check</span><span>Ask "why" before "what."</span></li>
+          <li class="flex items-start gap-2"><span class="material-symbols-rounded size-20 gold-text">check</span><span>Probe their interest, not your hypothesis.</span></li>
+          <li class="flex items-start gap-2"><span class="material-symbols-rounded size-20 gold-text">check</span><span>Listen for what they avoid saying.</span></li>
+          <li class="flex items-start gap-2"><span class="material-symbols-rounded size-20 gold-text">check</span><span>Don't argue — gather.</span></li>
+        </ul>
+      </section>
+
+      <section>
+        <h3 class="title-m mb-2 flex items-center gap-2">
+          <span class="material-symbols-rounded size-20">timer</span>
+          <span>Budget</span>
+        </h3>
+        <div class="m3-card filled" style="padding: 0.85rem 1rem;">
+          <div class="profile-stat"><span class="label">Questions left</span><span class="value gold-text" id="npc-budget">6</span></div>
+          <p class="body-s text-on-surface-variant mt-2">Use them well. The stakeholder remembers tone.</p>
+        </div>
+      </section>
+    </aside>
+  </div>
+
+  <script src="../config.local.js" onerror="window.__noConfig = true;"></script>
+  <script type="module">
+    import { startNpcChat } from '../src/npc.js';
+    import { getFlowState, isFirebaseAvailable } from '../src/auth.js';
+
+    const flow = getFlowState();
+    const scenario = flow?.scenarioPreview || null;
+    const profile = flow?.learnerProfile;
+
+    if (!isFirebaseAvailable()) document.getElementById('config-warning').hidden = false;
+
+    // Populate right-pane scenario context
+    if (scenario) {
+      document.getElementById('ctx-title').textContent = scenario.title || '—';
+      document.getElementById('ctx-tension').textContent = scenario.coreTension || scenario.setting || '—';
+    }
+
+    const picker = document.getElementById('picker');
+    const chatHost = document.getElementById('chat-host');
+
+    if (!scenario?.stakeholders?.length) {
+      picker.innerHTML = `<div class="alert-warn"><strong>No scenario locked.</strong> Pick a scenario from <a class="text-gold-primary hover:text-gold-glow underline-offset-2 hover:underline" href="./mission-select.html">Mission Select</a> first — then come back here to interview a stakeholder.</div>`;
+    } else {
+      const heading = document.createElement('h2');
+      heading.className = 'mission-title text-sm text-on-surface mb-4';
+      heading.textContent = 'Pick a stakeholder';
+      picker.appendChild(heading);
+      const grid = document.createElement('div');
+      grid.className = 'space-y-3';
+      scenario.stakeholders.forEach((s, idx) => {
+        const card = document.createElement('button');
+        card.type = 'button';
+        card.className = 'option-card';
+        card.innerHTML = `
+          <span class="option-marker">${String(idx+1).padStart(2,'0')}</span>
+          <span class="flex-1">
+            <strong>${escapeHtml(s.label)}</strong>
+            <div class="text-sm text-on-surface/85 mt-1">${escapeHtml(s.role || '')}</div>
+            <div class="text-xs text-console-dim mt-1">${escapeHtml(s.interest || '')}</div>
+          </span>
+        `;
+        card.addEventListener('click', () => beginInterview(s));
+        grid.appendChild(card);
+      });
+      picker.appendChild(grid);
+    }
+
+    function beginInterview(stakeholder) {
+      picker.hidden = true;
+      chatHost.hidden = false;
+      document.getElementById('npc-name').textContent = stakeholder.label;
+      document.getElementById('npc-role').textContent = stakeholder.role || '';
+      document.getElementById('npc-interest').textContent = stakeholder.interest || '';
+
+      const log = document.getElementById('npc-log');
+      const chat = startNpcChat({ logEl: log, stakeholder, scenario, profile });
+
+      document.getElementById('npc-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const input = document.getElementById('npc-input');
+        const q = input.value.trim();
+        if (!q) return;
+        input.value = '';
+        await chat.send(q);
+      });
+    }
+
+    function escapeHtml(s) { return String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c])); }
+  </script>
+
+  <script type="module" src="../src/a11y.js"></script>
+</body>
+</html>

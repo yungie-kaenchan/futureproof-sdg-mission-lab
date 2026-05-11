@@ -1,0 +1,15 @@
+{
+  "name": "futureproof-sdg-mission-lab",
+  "version": "0.1.0",
+  "description": "FUTUREPROOF: SDG Mission Lab — AI-powered gamified learning platform for English language education and global citizenship",
+  "scripts": {
+    "dev": "tailwindcss -i ./src/input.css -o ./styles.css --watch",
+    "build": "tailwindcss -i ./src/input.css -o ./styles.css --minify"
+  },
+  "keywords": ["edtech", "elt", "sdg", "ai", "gamification"],
+  "author": "Aj. Yungie (Dr. Payungsak Kaenchan)",
+  "license": "MIT",
+  "devDependencies": {
+    "tailwindcss": "^3.4.1"
+  }
+}
