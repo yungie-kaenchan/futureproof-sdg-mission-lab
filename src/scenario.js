@@ -888,6 +888,11 @@ export async function generateScenarios({ sdg, learnerProfile }) {
     `Analytical percentile: ${learnerProfile?.analyticalPercentile ?? 50}. ` +
     `Critical thinking percentile: ${learnerProfile?.criticalThinkingPercentile ?? 50}.`;
 
+  // Hard 20-second timeout: if Claude proxy hangs (cold-start, rate-limit,
+  // network glitch), we fall back to the local bank rather than spin forever.
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 20000);
+
   let response;
   try {
     response = await fetch(CLAUDE_PROXY, {
@@ -898,22 +903,36 @@ export async function generateScenarios({ sdg, learnerProfile }) {
         userMessage,
         context: { sdg, learnerProfile },
       }),
+      signal: controller.signal,
     });
   } catch (err) {
-    return { source: "fallback", scenarios: SAMPLE_SCENARIOS[sdg] || [] };
+    clearTimeout(timeoutId);
+    return { source: "fallback", scenarios: SAMPLE_SCENARIOS[sdg] || [], reason: err.name === "AbortError" ? "timeout" : "network" };
   }
+  clearTimeout(timeoutId);
 
   if (!response.ok) {
-    return { source: "fallback", scenarios: SAMPLE_SCENARIOS[sdg] || [] };
+    return { source: "fallback", scenarios: SAMPLE_SCENARIOS[sdg] || [], reason: `proxy_${response.status}` };
   }
 
-  const data = await response.json();
+  let data;
+  try { data = await response.json(); }
+  catch (err) {
+    return { source: "fallback", scenarios: SAMPLE_SCENARIOS[sdg] || [], reason: "bad_response_body" };
+  }
+
   let parsed;
   try { parsed = JSON.parse(data.text); }
   catch {
     return { source: "fallback", scenarios: SAMPLE_SCENARIOS[sdg] || [], parseFail: true };
   }
-  return { source: "claude", scenarios: parsed.scenarios || [] };
+  // Sanity-check the shape; if Claude returned fewer than 3 scenarios, top up from bank.
+  const claudeScenarios = Array.isArray(parsed.scenarios) ? parsed.scenarios.filter(Boolean) : [];
+  if (claudeScenarios.length >= 3) {
+    return { source: "claude", scenarios: claudeScenarios.slice(0, 3) };
+  }
+  const topUp = (SAMPLE_SCENARIOS[sdg] || []).slice(0, 3 - claudeScenarios.length);
+  return { source: claudeScenarios.length ? "claude+fallback" : "fallback", scenarios: [...claudeScenarios, ...topUp] };
 }
 
 /* ──────────────────────────────────────────────────────────────────

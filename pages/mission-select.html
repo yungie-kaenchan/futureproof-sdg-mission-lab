@@ -34,17 +34,44 @@
       <div class="step-dot active"></div>
     </div>
 
-    <div class="flex items-center gap-4 mb-8">
+    <div class="flex items-center gap-4 mb-6">
       <span class="topbar-name">Step 05 / 05</span>
       <div class="h-line flex-1 max-w-32"></div>
     </div>
 
-    <h1 class="display-heading text-5xl lg:text-6xl text-on-surface mb-6 max-w-3xl">
+    <h1 class="display-heading text-5xl lg:text-6xl text-on-surface mb-4 max-w-3xl">
       Pick the goal<br>that <em class="text-primary">pulls you in</em>.
     </h1>
-    <p class="text-lg text-on-surface/80 leading-relaxed mb-12 max-w-2xl">
-      Tap an SDG to see three scenarios your team could investigate. We'll generate them tailored to your readiness check, with a Thai context layer.
+    <p class="text-lg text-on-surface/80 leading-relaxed mb-10 max-w-2xl">
+      Three steps. About two minutes. Then your missions begin.
     </p>
+
+    <!-- WORKFLOW GUIDE — three-step horizontal flow -->
+    <section class="workflow-guide mb-12" aria-label="How this page works">
+      <ol class="workflow-steps">
+        <li class="workflow-step is-active" data-step="1">
+          <div class="workflow-step-num">1</div>
+          <div class="workflow-step-body">
+            <div class="workflow-step-title">Pick an SDG</div>
+            <div class="workflow-step-desc">Tap a colored tile. Each tile is one of the seventeen UN goals — hover to see Thai.</div>
+          </div>
+        </li>
+        <li class="workflow-step" data-step="2">
+          <div class="workflow-step-num">2</div>
+          <div class="workflow-step-body">
+            <div class="workflow-step-title">Read the description</div>
+            <div class="workflow-step-desc">Bilingual summary appears — confirm this is the goal you want to investigate.</div>
+          </div>
+        </li>
+        <li class="workflow-step" data-step="3">
+          <div class="workflow-step-num">3</div>
+          <div class="workflow-step-body">
+            <div class="workflow-step-title">Choose a scenario</div>
+            <div class="workflow-step-desc">Three Thai-context scenarios appear. Tap one card to lock it in and begin missions.</div>
+          </div>
+        </li>
+      </ol>
+    </section>
 
     <!-- SDG GRID -->
     <section id="sdg-grid" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-9 gap-3 mb-12" aria-label="The 17 UN Sustainable Development Goals"></section>
@@ -57,7 +84,7 @@
           <div class="flex-1">
             <div class="console-label-gold" id="sdg-detail-eyebrow">SDG 01</div>
             <h2 id="sdg-detail-title" class="display-heading text-3xl lg:text-4xl text-on-surface">No Poverty</h2>
-            <p id="sdg-detail-title-th" class="thai-meta text-base mt-1" style="font-size: 1.1rem;">ขจัดความยากจน</p>
+            <p id="sdg-detail-title-th" class="thai-meta mt-1" style="font-size: 1.1rem;">ขจัดความยากจน</p>
           </div>
         </div>
         <div class="grid lg:grid-cols-2 gap-6">
@@ -75,20 +102,34 @@
 
     <!-- SCENARIO PICKER -->
     <section id="scenarios-section" hidden>
-      <div class="flex items-center gap-4 mb-6 flex-wrap">
-        <span class="console-label-gold" id="scenarios-label">SCENARIOS</span>
-        <div class="h-line flex-1 max-w-32"></div>
-        <span id="scenarios-source" class="console-label"></span>
+      <div class="scenarios-header mb-6">
+        <div>
+          <span class="console-label-gold" id="scenarios-label">SCENARIOS</span>
+          <span id="scenarios-source" class="scenarios-source-tag"></span>
+        </div>
+        <p class="text-base text-on-surface/70 mt-2 max-w-2xl">
+          Three Thai-context scenarios are ready. <strong>Tap the card you want to investigate</strong> — that locks it in and starts your missions.
+        </p>
       </div>
-      <div id="scenarios-grid" class="grid lg:grid-cols-3 gap-4 mb-10"></div>
+
+      <div id="scenarios-grid" class="grid lg:grid-cols-3 gap-5 mb-8"></div>
+
       <div id="select-error" class="field-error mb-4" hidden></div>
-      <div class="flex flex-wrap items-center gap-4">
-        <button id="lock-in-btn" type="button" class="btn-primary" disabled><span>Choose Scenario</span><span>→</span></button>
-        <button id="regen-btn" type="button" class="btn-secondary"><span>Generate New Scenarios</span></button>
+
+      <!-- Secondary action: regenerate (the only button on this section) -->
+      <div class="regen-row">
+        <div class="regen-row-prompt">
+          <span class="material-symbols-rounded size-20" aria-hidden="true">refresh</span>
+          <span class="text-sm text-on-surface/75">None of these feel right?</span>
+        </div>
+        <button id="regen-btn" type="button" class="btn-secondary">
+          <span>Generate fresh scenarios</span>
+          <span id="regen-count" class="regen-count">(2 left)</span>
+        </button>
       </div>
     </section>
 
-    <div id="loading" hidden class="flex items-center gap-3 mt-8 text-on-surface/70">
+    <div id="loading" hidden class="loading-row">
       <span class="spinner"></span>
       <span>Generating scenarios for your team…</span>
     </div>
@@ -100,40 +141,52 @@
     import { getFlowState, setFlowStep, isFirebaseAvailable } from '../src/auth.js';
 
     let chosenSDG = null;
-    let chosenScenario = null;
     let lastResult = null;
-    // Regeneration counter: a user gets at most 2 "Generate New Scenarios" clicks per SDG selection.
-    // After that, they must choose from the scenarios currently shown.
     const MAX_REGEN_PER_SDG = 2;
     let regensUsedForSDG = 0;
 
+    /* ──────── Workflow-guide progress ──────── */
+    function setActiveWorkflowStep(stepNum) {
+      document.querySelectorAll('.workflow-step').forEach((el) => {
+        const n = Number(el.dataset.step);
+        el.classList.toggle('is-active', n === stepNum);
+        el.classList.toggle('is-done', n < stepNum);
+      });
+    }
+    setActiveWorkflowStep(1);
+
+    /* ──────── SDG tiles ──────── */
     const grid = document.getElementById('sdg-grid');
     SDG_LIST.forEach((sdg) => {
       const btn = document.createElement('button');
       btn.type = 'button';
-      btn.setAttribute('aria-label', `SDG ${sdg.n}: ${sdg.short}`);
+      btn.setAttribute('aria-label', `SDG ${sdg.n}: ${sdg.short} / ${sdg.shortTh || ''}`);
       btn.className = 'sdg-tile';
       btn.style.background = sdg.color;
       btn.innerHTML = `
-        <div class="sdg-num">${String(sdg.n).padStart(2,'0')}</div>
-        <div class="sdg-name">${sdg.short}</div>
+        <div class="sdg-tile-inner">
+          <div class="sdg-num">${String(sdg.n).padStart(2,'0')}</div>
+          <div class="sdg-name">${sdg.short}</div>
+          <div class="sdg-name-th">${sdg.shortTh || ''}</div>
+        </div>
+        <div class="sdg-tile-glow"></div>
       `;
       btn.addEventListener('click', () => selectSDG(sdg));
       grid.appendChild(btn);
     });
 
     async function selectSDG(sdg) {
-      // New SDG selection resets the regen counter and the chosen scenario.
       if (chosenSDG !== sdg.n) {
         regensUsedForSDG = 0;
-        chosenScenario = null;
         updateRegenButton();
       }
       chosenSDG = sdg.n;
       document.querySelectorAll('.sdg-tile').forEach((t) => t.classList.remove('selected'));
       grid.children[sdg.n - 1].classList.add('selected');
 
-      // Show the description panel with EN + Thai content for this SDG.
+      // Step 2: description visible
+      setActiveWorkflowStep(2);
+
       const detail = document.getElementById('sdg-detail');
       detail.hidden = false;
       detail.style.borderTop = `4px solid ${sdg.color}`;
@@ -146,10 +199,10 @@
       document.getElementById('sdg-detail-th').textContent = sdg.description?.th || '';
 
       document.getElementById('scenarios-section').hidden = true;
+      document.getElementById('select-error').hidden = true;
       document.getElementById('loading').hidden = false;
       document.getElementById('scenarios-label').textContent = `SCENARIOS — SDG ${String(sdg.n).padStart(2,'0')} ${sdg.short.toUpperCase()}`;
 
-      // Smooth scroll so the description panel is the first thing the user sees.
       setTimeout(() => detail.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60);
 
       const flow = getFlowState();
@@ -159,10 +212,18 @@
         criticalThinkingPercentile: flow.learnerProfile.criticalThinkingPercentile,
       } : null;
 
-      const result = await generateScenarios({ sdg: sdg.n, learnerProfile });
-      lastResult = result;
-      document.getElementById('loading').hidden = true;
-      renderScenarios(result);
+      try {
+        const result = await generateScenarios({ sdg: sdg.n, learnerProfile });
+        lastResult = result;
+        renderScenarios(result);
+      } catch (err) {
+        const errEl = document.getElementById('select-error');
+        errEl.textContent = 'We could not reach the scenario generator. Showing preview scenarios for this SDG.';
+        errEl.hidden = false;
+        renderScenarios({ source: 'fallback', scenarios: [] });
+      } finally {
+        document.getElementById('loading').hidden = true;
+      }
     }
 
     function renderScenarios(result) {
@@ -171,50 +232,97 @@
       const sourceLabel = document.getElementById('scenarios-source');
       sg.innerHTML = '';
       if (!result.scenarios || result.scenarios.length === 0) {
-        sg.innerHTML = `<div class="alert-warn">No scenarios available for this SDG yet. Pick another or regenerate.</div>`;
+        sg.innerHTML = `<div class="alert-warn col-span-full">No scenarios available right now. Please regenerate or pick a different SDG.</div>`;
         section.hidden = false;
         return;
       }
-      sourceLabel.textContent = result.source === 'claude' ? 'GENERATED LIVE' : 'PREVIEW BANK';
+      sourceLabel.textContent = result.source === 'claude' ? 'GENERATED LIVE' :
+                                result.source === 'claude+fallback' ? 'PARTIAL LIVE' :
+                                'PREVIEW BANK';
+      sourceLabel.dataset.source = result.source;
+
       result.scenarios.forEach((sc, idx) => {
         const card = document.createElement('button');
         card.type = 'button';
-        card.className = 'scenario-card text-left';
+        card.className = 'scenario-choice-card';
+        card.setAttribute('aria-label', `Choose scenario ${idx + 1}: ${sc.title}`);
         card.innerHTML = `
-          <div class="console-label-gold mb-3">SCENARIO 0${idx+1}</div>
-          <h3 class="display-heading text-2xl text-on-surface mb-3">${escapeHtml(sc.title)}</h3>
-          <p class="text-sm text-on-surface/85 leading-relaxed mb-4">${escapeHtml(sc.setting)}</p>
-          <p class="text-sm text-on-surface/70 leading-relaxed mb-3"><strong>Tension:</strong> ${escapeHtml(sc.coreTension)}</p>
-          <p class="text-sm text-on-surface/70 leading-relaxed mb-3"><strong>Decision point:</strong> ${escapeHtml(sc.decisionPoint)}</p>
-          <p class="thai-meta text-xs leading-relaxed">${escapeHtml(sc.localLens || '')}</p>
+          <div class="scenario-choice-head">
+            <div class="scenario-num">0${idx + 1}</div>
+            <div class="scenario-choice-cta">
+              <span class="material-symbols-rounded size-20" aria-hidden="true">arrow_forward</span>
+              <span>Choose this</span>
+            </div>
+          </div>
+          <h3 class="scenario-title">${escapeHtml(sc.title)}</h3>
+          <p class="scenario-setting">${escapeHtml(sc.setting)}</p>
+          <div class="scenario-meta">
+            <div class="scenario-meta-row"><strong>Tension</strong><span>${escapeHtml(sc.coreTension)}</span></div>
+            <div class="scenario-meta-row"><strong>Decision</strong><span>${escapeHtml(sc.decisionPoint)}</span></div>
+          </div>
+          <p class="scenario-localens">${escapeHtml(sc.localLens || '')}</p>
         `;
-        card.addEventListener('click', () => {
-          chosenScenario = sc;
-          sg.querySelectorAll('.scenario-card').forEach((c) => c.classList.remove('selected'));
-          card.classList.add('selected');
-          document.getElementById('lock-in-btn').disabled = false;
-        });
+        // Clicking a scenario card = the single "Choose Scenario" action.
+        // No separate confirm button — the card IS the button.
+        card.addEventListener('click', () => chooseAndProceed(sc, card));
         sg.appendChild(card);
       });
       section.hidden = false;
+      setActiveWorkflowStep(3);
+    }
+
+    async function chooseAndProceed(scenario, cardEl) {
+      // Visual: mark this card chosen, dim the others, show choosing state.
+      document.querySelectorAll('.scenario-choice-card').forEach((c) => {
+        c.classList.remove('selected');
+        c.disabled = true;
+      });
+      cardEl.classList.add('selected');
+      cardEl.classList.add('is-choosing');
+
+      // Always stash the choice locally first — proceed even if cloud fails.
+      const flow = getFlowState();
+      setFlowStep('mission-select', {
+        selectedSDG: chosenSDG,
+        scenarioPreview: scenario,
+        scenarioLocked: true,
+      });
+
+      // Best-effort cloud write.
+      if (flow?.uid && isFirebaseAvailable()) {
+        try {
+          const tid = flow.uid;
+          await freezeScenarioForTeam({ tid, sdg: chosenSDG, scenario });
+          setFlowStep('mission-select', { selectedSDG: chosenSDG, scenarioLocked: true, tid });
+        } catch (err) {
+          console.warn('[FUTUREPROOF] scenario cloud-write failed; continuing locally', err);
+        }
+      }
+
+      // Brief moment so the user sees the visual confirmation, then advance.
+      setTimeout(() => { location.href = './mission-01.html'; }, 320);
     }
 
     function escapeHtml(s) { return String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c])); }
 
+    /* ──────── Regenerate (secondary action) ──────── */
     function updateRegenButton() {
       const btn = document.getElementById('regen-btn');
+      const count = document.getElementById('regen-count');
       if (!btn) return;
       const remaining = MAX_REGEN_PER_SDG - regensUsedForSDG;
-      const label = btn.querySelector('span');
       if (remaining <= 0) {
         btn.disabled = true;
-        if (label) label.textContent = 'No regenerations left — choose from above';
+        const label = btn.querySelector('span:first-child');
+        if (label) label.textContent = 'No regenerations left';
+        if (count) count.textContent = '— choose one above';
       } else {
         btn.disabled = false;
-        if (label) label.textContent = `Generate New Scenarios (${remaining} left)`;
+        const label = btn.querySelector('span:first-child');
+        if (label) label.textContent = 'Generate fresh scenarios';
+        if (count) count.textContent = `(${remaining} left)`;
       }
     }
-    // Initial label
     updateRegenButton();
 
     document.getElementById('regen-btn').addEventListener('click', async () => {
@@ -222,102 +330,180 @@
       if (regensUsedForSDG >= MAX_REGEN_PER_SDG) return;
       regensUsedForSDG += 1;
       const sdg = SDG_LIST.find((s) => s.n === chosenSDG);
-      if (sdg) {
-        // Don't go through selectSDG (which resets the counter) — just refetch.
-        chosenScenario = null;
-        document.getElementById('scenarios-section').hidden = true;
-        document.getElementById('loading').hidden = false;
-        const flow = getFlowState();
-        const learnerProfile = flow?.learnerProfile?.language ? {
-          cefrEstimate: flow.learnerProfile.language.cefrEstimate,
-          analyticalPercentile: flow.learnerProfile.analyticalPercentile,
-          criticalThinkingPercentile: flow.learnerProfile.criticalThinkingPercentile,
-        } : null;
-        try {
-          const result = await generateScenarios({ sdg: sdg.n, learnerProfile });
-          lastResult = result;
-          renderScenarios(result);
-        } catch (err) {
-          document.getElementById('select-error').textContent = 'Could not generate fresh scenarios. Please choose from the previous batch.';
-          document.getElementById('select-error').hidden = false;
-        } finally {
-          document.getElementById('loading').hidden = true;
-          updateRegenButton();
-        }
-      }
-    });
-
-    document.getElementById('lock-in-btn').addEventListener('click', async () => {
+      if (!sdg) return;
+      document.getElementById('scenarios-section').hidden = true;
+      document.getElementById('loading').hidden = false;
+      document.getElementById('select-error').hidden = true;
       const flow = getFlowState();
-      if (!chosenScenario) return;
-      const errorEl = document.getElementById('select-error');
-      errorEl.hidden = true;
-
-      // Always stash locally first so the user proceeds even if the cloud write fails.
-      // This makes the button feel reliable; the cloud is best-effort, not blocking.
-      setFlowStep('mission-select', {
-        selectedSDG: chosenSDG,
-        scenarioPreview: chosenScenario,
-        scenarioLocked: true,
-      });
-
-      const btn = document.getElementById('lock-in-btn');
-      const label = btn.querySelector('span:first-child');
-      btn.disabled = true;
-      if (label) label.textContent = 'Choosing…';
-
-      // Try to write to Firebase if available; if it fails, log and continue.
-      if (flow?.uid && isFirebaseAvailable()) {
-        try {
-          const tid = flow.uid;
-          await freezeScenarioForTeam({ tid, sdg: chosenSDG, scenario: chosenScenario });
-          setFlowStep('mission-select', { selectedSDG: chosenSDG, scenarioLocked: true, tid });
-        } catch (err) {
-          // Non-blocking: log the failure but proceed locally so the user can keep going.
-          console.warn('[FUTUREPROOF] scenario cloud-write failed; continuing locally', err);
-        }
+      const learnerProfile = flow?.learnerProfile?.language ? {
+        cefrEstimate: flow.learnerProfile.language.cefrEstimate,
+        analyticalPercentile: flow.learnerProfile.analyticalPercentile,
+        criticalThinkingPercentile: flow.learnerProfile.criticalThinkingPercentile,
+      } : null;
+      try {
+        const result = await generateScenarios({ sdg: sdg.n, learnerProfile });
+        lastResult = result;
+        renderScenarios(result);
+      } catch (err) {
+        const errEl = document.getElementById('select-error');
+        errEl.textContent = 'Could not generate fresh scenarios. Showing the previous batch.';
+        errEl.hidden = false;
+        if (lastResult) renderScenarios(lastResult);
+      } finally {
+        document.getElementById('loading').hidden = true;
+        updateRegenButton();
       }
-
-      // Proceed to Mission 01 regardless.
-      location.href = './mission-01.html';
     });
   </script>
 
   <style>
-    /* SDG tiles — relative positioning so the selected outline stays inside its own
-       grid cell instead of overlapping neighbours. The grid gap also widened to 12px. */
+    /* ──────── Workflow guide ──────── */
+    .workflow-guide {
+      background: linear-gradient(135deg, #FAFAFA 0%, #F4F4F4 100%);
+      border: 1px solid #D4D8E0;
+      border-radius: 20px;
+      padding: 1.5rem 1.75rem;
+    }
+    .workflow-steps {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: workflow;
+    }
+    @media (min-width: 768px) {
+      .workflow-steps { grid-template-columns: 1fr 1fr 1fr; gap: 0; position: relative; }
+      .workflow-steps::before {
+        content: '';
+        position: absolute;
+        top: 28px;
+        left: 12%;
+        right: 12%;
+        height: 2px;
+        background: linear-gradient(90deg, #D4D8E0 0%, #D4D8E0 100%);
+        z-index: 0;
+      }
+    }
+    .workflow-step {
+      position: relative;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      padding: 0 0.75rem;
+      z-index: 1;
+    }
+    @media (min-width: 768px) {
+      .workflow-step { flex-direction: column; align-items: center; text-align: center; gap: 0.75rem; }
+    }
+    .workflow-step-num {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      color: #647293;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Fraunces', Georgia, serif;
+      font-weight: 600;
+      font-size: 1.2rem;
+      border: 2px solid #D4D8E0;
+      transition:
+        background 320ms cubic-bezier(0.34, 1.56, 0.64, 1),
+        color 240ms ease,
+        border-color 240ms ease,
+        transform 320ms cubic-bezier(0.34, 1.56, 0.64, 1),
+        box-shadow 320ms cubic-bezier(0.2, 0, 0, 1);
+    }
+    .workflow-step.is-active .workflow-step-num {
+      background: #b57c34;
+      color: #FFFFFF;
+      border-color: #b57c34;
+      transform: scale(1.1);
+      box-shadow: 0 6px 16px rgba(181, 124, 52, 0.30);
+    }
+    .workflow-step.is-done .workflow-step-num {
+      background: #33486f;
+      color: #FFFFFF;
+      border-color: #33486f;
+    }
+    .workflow-step-title {
+      font-family: var(--font-display);
+      font-variation-settings: 'opsz' 144, 'SOFT' 50;
+      font-weight: 500;
+      font-size: 1.15rem;
+      color: #1A1F2E;
+      margin-bottom: 2px;
+    }
+    .workflow-step-desc {
+      font-family: var(--font-ui);
+      font-size: 0.875rem;
+      color: rgba(26, 31, 46, 0.70);
+      line-height: 1.5;
+    }
+    .workflow-step.is-active .workflow-step-title { color: #b57c34; }
+    .workflow-step-body { flex: 1; }
+
+    /* ──────── SDG tiles with Thai hover reveal + flashy motion ──────── */
     .sdg-tile {
       position: relative;
       aspect-ratio: 1 / 1;
       color: white;
-      padding: 0.55rem 0.6rem;
+      padding: 0;
+      cursor: pointer;
+      border: none;
+      border-radius: 10px;
+      text-align: left;
+      overflow: hidden;
+      background-clip: padding-box;
+      transition:
+        transform 380ms cubic-bezier(0.34, 1.56, 0.64, 1),
+        box-shadow 320ms cubic-bezier(0.2, 0, 0, 1),
+        filter 240ms ease;
+      z-index: 1;
+      will-change: transform;
+    }
+    .sdg-tile-inner {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      padding: 0.55rem 0.65rem;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       align-items: flex-start;
-      cursor: pointer;
-      border: none;
-      border-radius: 8px;
-      text-align: left;
-      overflow: hidden;
-      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
-                  box-shadow 0.2s ease;
+    }
+    /* Aura behind the tile — animates in on hover for the "flashy" feel */
+    .sdg-tile-glow {
+      position: absolute;
+      inset: -20% -20% -20% -20%;
       z-index: 1;
+      background: radial-gradient(circle at 50% 30%, rgba(255,255,255,0.35) 0%, transparent 60%);
+      opacity: 0;
+      transform: scale(0.7);
+      transition: opacity 400ms cubic-bezier(0.2, 0, 0, 1), transform 600ms cubic-bezier(0.34, 1.56, 0.64, 1);
+      pointer-events: none;
     }
     .sdg-tile:hover {
-      transform: translateY(-3px) scale(1.02);
-      box-shadow: 0 8px 22px rgba(0,0,0,0.22);
-      z-index: 2;
+      transform: translateY(-6px) scale(1.08) rotate(-1deg);
+      box-shadow: 0 16px 36px -8px rgba(0,0,0,0.30), 0 2px 6px rgba(0,0,0,0.10);
+      filter: saturate(1.18) brightness(1.08);
+      z-index: 5;
     }
-    /* Selected tile: a clean inset ring inside the tile (no negative outline offset
-       that bled into neighbours) + a small bronze badge at the top-right. */
+    .sdg-tile:hover .sdg-tile-glow {
+      opacity: 1;
+      transform: scale(1.2);
+    }
     .sdg-tile.selected {
       box-shadow:
         inset 0 0 0 3px #FFFFFF,
         inset 0 0 0 5px #b57c34,
-        0 10px 26px rgba(0,0,0,0.28);
-      transform: translateY(-3px) scale(1.02);
-      z-index: 2;
+        0 14px 32px -6px rgba(0,0,0,0.32);
+      transform: translateY(-6px) scale(1.06);
+      z-index: 4;
     }
     .sdg-tile:focus-visible {
       box-shadow:
@@ -325,51 +511,266 @@
         inset 0 0 0 5px #b57c34;
       outline: none;
     }
-    .sdg-num { font-family: 'Fraunces', Georgia, serif; font-size: 1.1rem; line-height: 1; opacity: 0.95; font-weight: 600; }
-    .sdg-name { font-family: var(--font-ui); font-size: 0.7rem; line-height: 1.2; font-weight: 600; letter-spacing: 0.01em; }
+    .sdg-num {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 1.2rem;
+      line-height: 1;
+      font-weight: 600;
+      opacity: 0.95;
+      transition: transform 320ms cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .sdg-tile:hover .sdg-num { transform: translateY(-2px) scale(1.05); }
+    .sdg-name {
+      font-family: var(--font-ui);
+      font-size: 0.68rem;
+      line-height: 1.2;
+      font-weight: 700;
+      letter-spacing: 0.015em;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.18);
+    }
+    /* Thai short name — revealed on hover with smooth motion */
+    .sdg-name-th {
+      font-family: 'IBM Plex Sans Thai', sans-serif;
+      font-size: 0.65rem;
+      line-height: 1.25;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      opacity: 0;
+      max-height: 0;
+      overflow: hidden;
+      transform: translateY(4px);
+      transition:
+        opacity 280ms cubic-bezier(0.2, 0, 0, 1),
+        max-height 320ms cubic-bezier(0.34, 1.56, 0.64, 1),
+        transform 320ms cubic-bezier(0.34, 1.56, 0.64, 1);
+      margin-top: 2px;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.18);
+    }
+    .sdg-tile:hover .sdg-name-th,
+    .sdg-tile.selected .sdg-name-th {
+      opacity: 0.95;
+      max-height: 2.4em;
+      transform: translateY(0);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .sdg-tile, .sdg-tile:hover, .sdg-tile.selected,
+      .sdg-tile-glow, .sdg-num, .sdg-name-th { transition: none !important; transform: none !important; }
+    }
 
-    /* SDG description card */
+    /* ──────── SDG description card ──────── */
     .sdg-detail-card {
       background: #FAFAFA;
       border: 1px solid #D4D8E0;
-      border-radius: 16px;
+      border-radius: 18px;
       padding: 1.75rem 2rem;
     }
     .sdg-detail-badge {
-      width: 56px;
-      height: 56px;
-      border-radius: 12px;
+      width: 60px;
+      height: 60px;
+      border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: #FFFFFF;
       font-family: 'Fraunces', Georgia, serif;
       font-weight: 600;
-      font-size: 1.5rem;
+      font-size: 1.7rem;
       letter-spacing: -0.02em;
+      box-shadow: 0 4px 14px -3px rgba(0,0,0,0.15);
     }
 
-    /* Scenario picker cards */
-    .scenario-card {
-      border: 1px solid #D4D8E0;
-      background: #FFFFFF;
-      padding: 1.5rem;
-      cursor: pointer;
-      border-radius: 12px;
-      transition: all 0.15s ease;
-      width: 100%;
+    /* ──────── Scenarios header ──────── */
+    .scenarios-header { padding-bottom: 0.5rem; }
+    .scenarios-source-tag {
+      display: inline-block;
+      margin-left: 0.65rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(181, 124, 52, 0.12);
+      color: #b57c34;
+      font-family: var(--font-ui);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
     }
-    .scenario-card:hover { border-color: rgba(181, 124, 52, 0.5); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.06); }
-    .scenario-card.selected {
+    .scenarios-source-tag[data-source="claude"] {
+      background: rgba(51, 72, 111, 0.12);
+      color: #33486f;
+    }
+
+    /* ──────── Scenario choice cards — clicking = choose + proceed ──────── */
+    .scenario-choice-card {
+      position: relative;
+      text-align: left;
+      width: 100%;
+      background: #FFFFFF;
+      border: 1.5px solid #D4D8E0;
+      border-radius: 16px;
+      padding: 1.5rem 1.5rem 1.25rem;
+      cursor: pointer;
+      overflow: hidden;
+      transition:
+        transform 360ms cubic-bezier(0.34, 1.56, 0.64, 1),
+        box-shadow 280ms cubic-bezier(0.2, 0, 0, 1),
+        border-color 240ms ease,
+        background 240ms ease;
+    }
+    .scenario-choice-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 0;
+      background: #b57c34;
+      transition: width 280ms cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .scenario-choice-card:hover {
+      transform: translateY(-4px) scale(1.012);
       border-color: #b57c34;
-      box-shadow: 0 0 0 1px #b57c34 inset, 0 8px 20px rgba(181, 124, 52, 0.12);
-      background: rgba(181, 124, 52, 0.04);
+      box-shadow: 0 16px 32px -10px rgba(181, 124, 52, 0.22), 0 4px 10px -4px rgba(0,0,0,0.06);
+      background: linear-gradient(135deg, #FFFFFF 0%, #F8EEDF 100%);
+    }
+    .scenario-choice-card:hover::before { width: 5px; }
+    .scenario-choice-card.selected {
+      border-color: #b57c34;
+      background: linear-gradient(135deg, #FFFFFF 0%, #F4ECDB 100%);
+      box-shadow: 0 16px 32px -10px rgba(181, 124, 52, 0.30);
+    }
+    .scenario-choice-card.selected::before { width: 6px; }
+    .scenario-choice-card.is-choosing {
+      transform: translateY(-4px) scale(1.012);
+      filter: saturate(1.10);
+    }
+    .scenario-choice-card[disabled] { cursor: default; }
+    .scenario-choice-card[disabled]:not(.selected) { opacity: 0.55; }
+
+    .scenario-choice-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.65rem;
+    }
+    .scenario-num {
+      font-family: 'Fraunces', Georgia, serif;
+      font-weight: 600;
+      font-size: 1.5rem;
+      color: #b57c34;
+      line-height: 1;
+    }
+    .scenario-choice-cta {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-family: var(--font-ui);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #b57c34;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(181, 124, 52, 0.08);
+      transition: background 200ms ease, color 200ms ease, transform 280ms cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .scenario-choice-card:hover .scenario-choice-cta {
+      background: #b57c34;
+      color: #FFFFFF;
+      transform: translateX(2px);
+    }
+    .scenario-choice-card.selected .scenario-choice-cta {
+      background: #b57c34;
+      color: #FFFFFF;
+    }
+    .scenario-title {
+      font-family: var(--font-display);
+      font-variation-settings: 'opsz' 144, 'SOFT' 50;
+      font-weight: 500;
+      font-size: 1.5rem;
+      line-height: 1.15;
+      color: #1A1F2E;
+      margin-bottom: 0.75rem;
+    }
+    .scenario-setting {
+      font-family: var(--font-ui);
+      font-size: 0.95rem;
+      line-height: 1.55;
+      color: rgba(26, 31, 46, 0.82);
+      margin-bottom: 1rem;
+    }
+    .scenario-meta { margin-bottom: 0.75rem; display: grid; gap: 0.5rem; }
+    .scenario-meta-row {
+      display: grid;
+      grid-template-columns: 70px 1fr;
+      gap: 8px;
+      font-family: var(--font-ui);
+      font-size: 0.875rem;
+      line-height: 1.45;
+      color: rgba(26, 31, 46, 0.75);
+    }
+    .scenario-meta-row strong {
+      font-weight: 700;
+      color: #33486f;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding-top: 3px;
+    }
+    .scenario-localens {
+      font-family: 'IBM Plex Sans Thai', 'Space Grotesk', sans-serif;
+      font-size: 0.78rem;
+      line-height: 1.5;
+      color: rgba(26, 31, 46, 0.55);
+      border-top: 1px solid rgba(212, 216, 224, 0.7);
+      padding-top: 0.65rem;
+      margin-top: 0.25rem;
+    }
+
+    /* ──────── Regen row — secondary action, visually separated ──────── */
+    .regen-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      background: #FAFAFA;
+      border: 1px dashed #D4D8E0;
+      border-radius: 14px;
+      padding: 0.9rem 1.25rem;
+    }
+    .regen-row-prompt {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(26, 31, 46, 0.75);
+    }
+    .regen-row-prompt .material-symbols-rounded { color: #b57c34; }
+    .regen-count {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      opacity: 0.75;
+      margin-left: 4px;
+    }
+
+    /* ──────── Loading row ──────── */
+    .loading-row {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      margin-top: 1.5rem;
+      padding: 1rem 1.25rem;
+      background: #FAFAFA;
+      border: 1px solid #D4D8E0;
+      border-radius: 14px;
+      color: rgba(26, 31, 46, 0.75);
+      font-family: var(--font-ui);
+      font-size: 0.95rem;
     }
   </style>
-<script type="module" src="../src/a11y.js"></script>
+
+  <script type="module" src="../src/a11y.js"></script>
   <script type="module">
     import { mountVoiceGuide } from '../src/voice-guide.js';
-    // Mount the voice guide at the top of the first .max-w-* content container
     const candidates = ['main .max-w-2xl', 'main .max-w-3xl', 'main .max-w-4xl', 'main .max-w-6xl', 'main'];
     for (const sel of candidates) {
       if (document.querySelector(sel)) { mountVoiceGuide('mission-select', sel); break; }
