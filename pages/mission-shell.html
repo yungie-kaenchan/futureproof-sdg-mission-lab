@@ -265,10 +265,42 @@
     if (activeRailItem) activeRailItem.classList.add('active');
 
     const flow = getFlowState();
-    const scenario = flow?.scenarioPreview || null;
+    let scenario = flow?.scenarioPreview || null;
+
+    // Showcase-tier scenario detection.
+    // SDG 6 + Mission 1 → curated "The Aquifer Below Khon Kaen".
+    // Override paths:
+    //   - Flow state: flow.selectedSDG === 6 (user picked SDG 6 in mission-select)
+    //   - URL param: ?scenario=sdg06-khonkaen (direct test link)
+    const scenarioParam = params.get('scenario');
+    const isKhonKaenShowcase =
+      missionNumber === 1 &&
+      (flow?.selectedSDG === 6 || scenarioParam === 'sdg06-khonkaen');
+    if (isKhonKaenShowcase) {
+      const { SCENARIO_META } = await import('../src/scenarios/sdg06-khonkaen-content.js');
+      scenario = {
+        title: SCENARIO_META.title,
+        titleTh: SCENARIO_META.titleTh,
+        setting: SCENARIO_META.setting,
+        coreTension: SCENARIO_META.coreTension,
+        decisionPoint: SCENARIO_META.decisionPoint,
+        ethicalAxes: SCENARIO_META.ethicalAxes,
+        scenarioId: SCENARIO_META.id,
+        showcase: true,
+      };
+    }
+
     const scenarioBox = document.getElementById('scenario-summary');
     if (scenario) {
-      scenarioBox.innerHTML = `<div class="title-m mb-1">${scenario.title}</div><div class="body-m text-on-surface/80">${scenario.coreTension || scenario.setting}</div>`;
+      const showcaseBadge = scenario.showcase
+        ? `<span class="badge-pill" style="margin-left:0.5rem"><span class="material-symbols-rounded size-20">verified</span><span>Curated showcase</span></span>`
+        : '';
+      scenarioBox.innerHTML = `
+        <div class="flex items-center gap-2 flex-wrap mb-1">
+          <span class="title-m">${scenario.title}</span>${showcaseBadge}
+        </div>
+        <div class="body-m text-on-surface/80">${scenario.coreTension || scenario.setting}</div>
+      `;
     } else {
       scenarioBox.innerHTML = `<div class="body-m">No scenario locked yet. <a class="text-primary underline-offset-2 hover:underline" href="./mission-select.html">Pick one →</a></div>`;
     }
@@ -281,7 +313,15 @@
         location.href = next;
       },
     });
-    registerAllPhaseHandlers(engine);
+
+    // Use scenario-specific phase handlers when available; otherwise the generic set.
+    if (isKhonKaenShowcase) {
+      const { installKhonKaenMission1 } = await import('../src/scenarios/sdg06-khonkaen-m1.js');
+      installKhonKaenMission1(engine);
+    } else {
+      registerAllPhaseHandlers(engine);
+    }
+
     engine.start({ scenario, profile: flow?.learnerProfile });
 
     document.getElementById('next-btn').addEventListener('click', () => engine.advance());
