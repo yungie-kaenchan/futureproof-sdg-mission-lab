@@ -15,3 +15,6 @@ sandbox/
 
 # Large image source files — keep local for re-generation, don't commit
 assets/landing/source/
+
+# Local backups of in-place file overrides
+*.bak

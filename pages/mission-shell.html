@@ -1,109 +1,821 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mission — FUTUREPROOF</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mission — FUTUREPROOF</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Cinzel:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet">
+
+<style>
+  /* ─── DESIGN TOKENS (match real /src/input.css brand) ─── */
+  :root {
+    --ink: #071734;
+    --ink-deep: #050D1F;
+    --ink-soft: #4A5A7A;
+    --bone: #F4F1EA;
+    --bone-warm: #EBE5D6;
+    --paper: #FAFAF7;
+    --white: #FFFFFF;
+    --bronze: #b57c34;
+    --bronze-light: #E8C77A;
+    --bronze-faint: #F4E9D4;
+    --crimson: #7B1B1B;
+    --crimson-glow: #A82424;
+    --steel: #647293;
+    --steel-soft: #A8B0C8;
+    --mist: #EEEEEE;
+    --line: rgba(7, 23, 52, 0.10);
+    --line-strong: rgba(7, 23, 52, 0.22);
+    --display: 'Fraunces', 'Cormorant Garamond', serif;
+    --titles: 'Cinzel', serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+    --thai: 'IBM Plex Sans Thai', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+
+    /* Layout */
+    --rail-w: 264px;      /* fully-extended rail with English text labels */
+    --right-w: 340px;     /* analytics pane width when expanded */
+    --right-w-collapsed: 0px;
+    --header-h: 64px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    font-family: var(--sans);
+    color: var(--ink);
+    background: var(--bone);
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+  }
+
+  /* ─────────────────────────────────────────────
+   * HEADER BAR (replaces the existing topbar)
+   * "FUTUREPROOF SDGs MISSION LAB" left
+   * "SDGs MISSION IN PROGRESS: <title>" right
+   * ───────────────────────────────────────────── */
+  .header {
+    position: fixed; top: 0; left: 0; right: 0; height: var(--header-h);
+    z-index: 50;
+    background: rgba(7, 23, 52, 0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(232, 199, 122, 0.18);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 24px;
+    color: var(--bone);
+  }
+  .header-brand {
+    display: flex; align-items: center; gap: 14px;
+  }
+  .header-brand .logo {
+    font-family: var(--display); font-weight: 600;
+    font-size: 20px; letter-spacing: 0.02em;
+    color: var(--bronze-light);
+    line-height: 1;
+  }
+  .header-brand .sub {
+    font-family: var(--titles); font-weight: 600;
+    font-size: 11px; letter-spacing: 0.32em;
+    color: rgba(244, 241, 234, 0.65);
+    text-transform: uppercase;
+    border-left: 1px solid rgba(232, 199, 122, 0.22);
+    padding-left: 14px; margin-left: 4px;
+  }
+  .header-status {
+    display: flex; align-items: center; gap: 10px;
+    background: rgba(232, 199, 122, 0.08);
+    border: 1px solid rgba(232, 199, 122, 0.22);
+    border-radius: 999px;
+    padding: 7px 16px 7px 12px;
+    max-width: 540px;
+  }
+  .header-status .live-dot {
+    width: 8px; height: 8px; border-radius: 999px;
+    background: var(--crimson-glow);
+    box-shadow: 0 0 0 0 rgba(168, 36, 36, 0.55);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(168, 36, 36, 0.55); }
+    70% { box-shadow: 0 0 0 8px rgba(168, 36, 36, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(168, 36, 36, 0); }
+  }
+  .header-status-label {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em;
+    color: var(--bronze-light); text-transform: uppercase;
+  }
+  .header-status-title {
+    font-family: var(--display); font-style: italic; font-weight: 500;
+    font-size: 15px;
+    color: var(--bone);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    max-width: 360px;
+  }
+
+  /* Right-side header actions */
+  .header-right { display: flex; align-items: center; gap: 8px; }
+  .header-btn {
+    background: transparent; border: 1px solid rgba(244, 241, 234, 0.18);
+    color: var(--bone); border-radius: 999px;
+    padding: 6px 14px; font-family: var(--sans); font-size: 12px; font-weight: 600;
+    cursor: pointer;
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: background 200ms, border-color 200ms;
+  }
+  .header-btn:hover { background: rgba(244, 241, 234, 0.08); border-color: var(--bronze); }
+  .header-btn .material-symbols-rounded { font-size: 16px; }
+
+  /* ─────────────────────────────────────────────
+   * LEFT RAIL — fully extended with English text labels
+   * (Thai supporting line below each English label for UDL)
+   * ───────────────────────────────────────────── */
+  .rail {
+    position: fixed; top: var(--header-h); left: 0; bottom: 0;
+    width: var(--rail-w);
+    background: var(--white);
+    border-right: 1px solid var(--line);
+    display: flex; flex-direction: column;
+    z-index: 40;
+    padding: 12px 0;
+  }
+  .rail-nav {
+    display: flex; flex-direction: column; gap: 2px;
+    padding: 0 12px;
+    flex: 1; overflow-y: auto;
+    scrollbar-width: none;
+  }
+  .rail-nav::-webkit-scrollbar { display: none; }
+
+  .rail-item {
+    position: relative;
+    display: flex; flex-direction: row; align-items: center; gap: 12px;
+    padding: 10px 12px;
+    border-radius: 14px;
+    background: transparent;
+    color: var(--ink-soft);
+    text-decoration: none; cursor: pointer;
+    transition:
+      background 200ms cubic-bezier(0.2, 0, 0, 1),
+      color 200ms cubic-bezier(0.2, 0, 0, 1),
+      transform 240ms cubic-bezier(0.34, 1.56, 0.64, 1),
+      box-shadow 240ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .rail-item .rail-icon {
+    width: 40px; height: 40px; border-radius: 999px;
+    background: rgba(7, 23, 52, 0.05);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: background 220ms, transform 220ms cubic-bezier(0.34, 1.56, 0.64, 1), color 200ms;
+    color: var(--ink-soft);
+  }
+  .rail-item .rail-icon .material-symbols-rounded { font-size: 22px; }
+  .rail-item .rail-text {
+    display: flex; flex-direction: column; gap: 1px;
+    min-width: 0; flex: 1;
+  }
+  .rail-item .rail-step {
+    font-family: var(--mono); font-size: 9px; font-weight: 700;
+    letter-spacing: 0.16em;
+    color: rgba(100, 114, 147, 0.65);
+    margin-bottom: 2px;
+  }
+  .rail-item .rail-label {
+    font-size: 13px; font-weight: 600;
+    color: var(--ink);
+    line-height: 1.25;
+  }
+  .rail-item .rail-label-th {
+    font-family: var(--thai); font-size: 11.5px; font-weight: 400;
+    color: rgba(100, 114, 147, 0.92);
+    line-height: 1.35;
+  }
+  /* Hover — motion physics: lift + bronze accent */
+  .rail-item:hover {
+    background: rgba(181, 124, 52, 0.08);
+    color: var(--ink);
+    transform: translateX(2px);
+  }
+  .rail-item:hover .rail-icon {
+    background: rgba(181, 124, 52, 0.18);
+    color: var(--bronze);
+    transform: scale(1.08) rotate(-3deg);
+  }
+  /* Active state */
+  .rail-item.active {
+    background: rgba(7, 23, 52, 0.06);
+    color: var(--ink);
+  }
+  .rail-item.active .rail-icon {
+    background: var(--ink);
+    color: var(--bronze-light);
+  }
+  .rail-item.active .rail-step { color: var(--bronze); }
+  .rail-item.active .rail-label { color: var(--ink-deep); }
+  .rail-item.active .rail-label-th { color: var(--bronze); }
+
+  /* Rail section header — bilingual */
+  .rail-section-label {
+    display: flex; flex-direction: column; gap: 2px;
+    padding: 14px 14px 6px;
+  }
+  .rail-section-label .rail-section-en {
+    font-family: var(--mono); font-size: 10px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--bronze);
+  }
+  .rail-section-label .rail-section-th {
+    font-family: var(--thai); font-size: 10px; font-weight: 500;
+    color: rgba(100, 114, 147, 0.85);
+  }
+  .rail-section-label:first-child { padding-top: 4px; }
+
+  /* Profile block at bottom */
+  .rail-profile {
+    border-top: 1px solid var(--line);
+    padding: 16px 12px 0;
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+  }
+  .rail-avatar {
+    width: 48px; height: 48px; border-radius: 999px;
+    background: linear-gradient(135deg, var(--bronze) 0%, var(--ink) 100%);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--bone); font-weight: 700; font-size: 16px;
+    cursor: pointer;
+    transition: transform 200ms;
+    position: relative;
+  }
+  .rail-avatar:hover { transform: scale(1.06); }
+  .rail-avatar .online-dot {
+    position: absolute; bottom: 2px; right: 2px;
+    width: 12px; height: 12px; border-radius: 999px;
+    background: #4F7050; border: 2px solid var(--white);
+  }
+  .rail-icon-btn {
+    width: 36px; height: 36px; border-radius: 10px;
+    background: transparent; border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--ink-soft);
+    transition: background 200ms, color 200ms;
+    position: relative;
+  }
+  .rail-icon-btn:hover { background: var(--mist); color: var(--ink); }
+  .rail-icon-btn .material-symbols-rounded { font-size: 20px; }
+  .rail-icon-btn.signout:hover { color: var(--crimson); background: rgba(168, 36, 36, 0.08); }
+
+  /* ─────────────────────────────────────────────
+   * CENTER PANE (the workspace)
+   * ───────────────────────────────────────────── */
+  .center {
+    position: fixed;
+    top: var(--header-h);
+    left: var(--rail-w);
+    right: var(--right-w);
+    bottom: 0;
+    overflow-y: auto;
+    background: var(--bone);
+    transition: right 300ms cubic-bezier(0.2, 0, 0, 1);
+  }
+  body.right-collapsed .center { right: 0; }
+
+  .center-inner {
+    max-width: 920px; margin: 0 auto;
+    padding: 32px 36px 60px;
+  }
+
+  /* Mission header block */
+  .mission-header {
+    margin-bottom: 28px;
+  }
+  .mission-meta-row {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 12px;
+  }
+  .mission-code-chip {
+    background: var(--ink); color: var(--bronze-light);
+    padding: 6px 14px; border-radius: 999px;
+    font-family: var(--mono); font-size: 11px; font-weight: 700;
+    letter-spacing: 0.12em;
+  }
+  .mission-bloom-chip {
+    background: var(--bronze-faint); color: var(--bronze);
+    padding: 6px 14px; border-radius: 999px;
+    font-family: var(--mono); font-size: 11px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .mission-sdg-chip {
+    background: rgba(38, 189, 226, 0.14); color: #0F7AA0;
+    padding: 6px 14px; border-radius: 999px;
+    font-size: 12px; font-weight: 600;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .mission-title {
+    font-family: var(--display); font-weight: 500;
+    font-size: 36px; line-height: 1.15; letter-spacing: -0.01em;
+    color: var(--ink); margin-top: 2px;
+  }
+  .mission-title em { font-style: italic; color: var(--bronze); font-weight: 400; }
+  .mission-subtitle {
+    font-size: 15px; color: var(--ink-soft); line-height: 1.55;
+    max-width: 680px; margin-top: 8px;
+  }
+
+  /* ─── Stepper (step-by-step instructions) ─── */
+  .stepper-block {
+    background: var(--white); border-radius: 16px;
+    border: 1px solid var(--line);
+    padding: 18px 22px;
+    margin: 20px 0 28px;
+  }
+  .stepper-head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 14px; flex-wrap: wrap; gap: 8px;
+  }
+  .stepper-title {
+    font-family: var(--mono); font-size: 11px; font-weight: 700;
+    color: var(--bronze); letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  /* EN/TH language toggle for instructions */
+  .lang-pill {
+    display: inline-flex; background: var(--mist);
+    border-radius: 999px; padding: 3px;
+  }
+  .lang-pill button {
+    padding: 5px 14px; border-radius: 999px;
+    background: transparent; border: none; cursor: pointer;
+    font-family: var(--sans); font-size: 11px; font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+  }
+  .lang-pill button.is-active { background: var(--bronze); color: var(--white); }
+
+  .stepper {
+    display: flex; gap: 8px;
+    position: relative;
+  }
+  .step {
+    flex: 1;
+    padding: 12px 14px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 200ms;
+    min-width: 0;
+  }
+  .step:hover { border-color: var(--bronze); transform: translateY(-1px); }
+  .step .step-num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border-radius: 999px;
+    background: var(--mist); color: var(--ink-soft);
+    font-family: var(--mono); font-size: 11px; font-weight: 700;
+  }
+  .step .step-label {
+    font-size: 12px; font-weight: 600; margin-top: 6px;
+    color: var(--ink); line-height: 1.35;
+    overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  }
+  .step.is-done { background: rgba(99, 138, 100, 0.06); border-color: rgba(99, 138, 100, 0.3); }
+  .step.is-done .step-num { background: #4F7050; color: var(--white); }
+  .step.is-current { background: var(--ink); border-color: var(--ink); }
+  .step.is-current .step-num { background: var(--bronze); color: var(--ink); }
+  .step.is-current .step-label { color: var(--bone); }
+
+  /* ─── Instruction card (current step in detail) ─── */
+  .instruction-card {
+    background: var(--white); border-radius: 16px;
+    border: 1px solid var(--line);
+    padding: 24px 28px;
+    margin-bottom: 24px;
+    border-left: 4px solid var(--bronze);
+  }
+  .instruction-card-head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 12px; gap: 12px; flex-wrap: wrap;
+  }
+  .instruction-card h2 {
+    font-family: var(--display); font-weight: 500; font-size: 22px; line-height: 1.2;
+  }
+  .instruction-card .text-size-controls {
+    display: inline-flex; background: var(--mist);
+    border-radius: 999px; padding: 3px; gap: 2px;
+  }
+  .text-size-controls button {
+    background: transparent; border: none; cursor: pointer;
+    padding: 4px 10px; border-radius: 999px;
+    font-family: var(--sans); font-size: 11px; font-weight: 700;
+    color: var(--ink-soft);
+  }
+  .text-size-controls button.is-active { background: var(--ink); color: var(--bronze-light); }
+
+  .instruction-body { color: var(--ink-soft); line-height: 1.7; font-size: 15px; }
+  .instruction-body p { margin: 0 0 12px 0; }
+  .instruction-body p:last-child { margin: 0; }
+  .instruction-body .th { font-family: var(--thai); color: var(--steel); font-size: 14px; line-height: 1.7; }
+  .instruction-body .th { display: none; }
+  body[data-lang="th"] .instruction-body .en { display: none; }
+  body[data-lang="th"] .instruction-body .th { display: block; }
+  body[data-text-size="L"] .instruction-body { font-size: 17px; }
+  body[data-text-size="XL"] .instruction-body { font-size: 19px; line-height: 1.75; }
+
+  /* ─── Embedded media card (video) ─── */
+  .media-card {
+    background: var(--white); border-radius: 16px;
+    border: 1px solid var(--line);
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+  .media-card-head {
+    padding: 14px 22px; border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .media-card-head .label {
+    font-family: var(--mono); font-size: 10px; font-weight: 700;
+    color: var(--bronze); letter-spacing: 0.16em; text-transform: uppercase;
+  }
+  .video-screen {
+    aspect-ratio: 16 / 9;
+    background:
+      radial-gradient(circle at 30% 40%, rgba(181, 124, 52, 0.18) 0%, transparent 50%),
+      linear-gradient(135deg, #071734 0%, #1A2B52 60%, #647293 100%);
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .video-screen .play-btn {
+    width: 72px; height: 72px; border-radius: 999px;
+    background: rgba(232, 199, 122, 0.92);
+    color: var(--ink);
+    border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.32);
+    transition: transform 200ms;
+  }
+  .video-screen .play-btn:hover { transform: scale(1.08); }
+  .video-screen .play-btn .material-symbols-rounded { font-size: 36px; }
+  .video-screen-overlay {
+    position: absolute; bottom: 12px; left: 12px; right: 12px;
+    display: flex; justify-content: space-between; align-items: center;
+    color: var(--bone);
+    font-family: var(--mono); font-size: 11px;
+  }
+  .video-screen-overlay .duration { background: rgba(0,0,0,0.55); padding: 4px 8px; border-radius: 4px; }
+
+  /* ─── Audio controller card ─── */
+  .audio-card {
+    background: var(--white); border-radius: 16px;
+    border: 1px solid var(--line);
+    padding: 18px 22px;
+    margin-bottom: 24px;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .audio-play {
+    width: 48px; height: 48px; border-radius: 999px;
+    background: var(--ink); color: var(--bronze-light);
+    border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .audio-info { flex: 1; min-width: 0; }
+  .audio-title { font-weight: 600; font-size: 14px; color: var(--ink); }
+  .audio-meta { font-family: var(--mono); font-size: 11px; color: var(--ink-soft); margin-top: 2px; }
+  .audio-track {
+    flex: 2; height: 4px; background: var(--mist); border-radius: 999px;
+    position: relative; cursor: pointer;
+  }
+  .audio-track-fill { height: 100%; background: var(--bronze); border-radius: 999px; width: 32%; }
+  .audio-time { font-family: var(--mono); font-size: 11px; color: var(--ink-soft); }
+
+  /* ─── Embedded text editor card ─── */
+  .editor-card {
+    background: var(--white); border-radius: 16px;
+    border: 1px solid var(--line);
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+  .editor-head {
+    padding: 12px 18px; border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--paper);
+    gap: 10px; flex-wrap: wrap;
+  }
+  .editor-head .label {
+    font-family: var(--mono); font-size: 10px; font-weight: 700;
+    color: var(--bronze); letter-spacing: 0.16em; text-transform: uppercase;
+  }
+  .editor-toolbar {
+    display: flex; flex-wrap: wrap; gap: 4px; align-items: center;
+    padding: 8px 14px; border-bottom: 1px solid var(--line);
+    background: var(--white);
+  }
+  .editor-toolbar select {
+    border: 1px solid var(--line); border-radius: 6px;
+    padding: 4px 8px; font-family: var(--sans); font-size: 12px;
+    background: var(--white); color: var(--ink); cursor: pointer;
+  }
+  .editor-toolbar button {
+    background: transparent; border: 1px solid transparent; cursor: pointer;
+    width: 30px; height: 30px; border-radius: 6px;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: var(--ink-soft);
+    font-family: var(--sans); font-weight: 600; font-size: 13px;
+    transition: background 150ms, color 150ms;
+  }
+  .editor-toolbar button:hover { background: var(--mist); color: var(--ink); }
+  .editor-toolbar button.is-active { background: var(--ink); color: var(--bronze-light); }
+  .editor-toolbar .divider { width: 1px; height: 20px; background: var(--line); margin: 0 4px; }
+  .editor-toolbar .color-swatch {
+    width: 22px; height: 22px; border-radius: 4px;
+    border: 1px solid var(--line); cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .editor-body {
+    min-height: 200px; padding: 18px 22px;
+    font-size: 15px; line-height: 1.7; color: var(--ink);
+    outline: none;
+  }
+  .editor-body:focus { background: rgba(232, 199, 122, 0.03); }
+  .editor-footer {
+    padding: 10px 18px;
+    background: var(--paper);
+    border-top: 1px solid var(--line);
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--mono); font-size: 11px; color: var(--ink-soft);
+  }
+
+  /* ─── Submit row ─── */
+  .submit-row {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 8px;
+  }
+  .submit-row .left-info {
+    font-size: 13px; color: var(--ink-soft);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--bronze) 0%, var(--bronze-light) 100%);
+    color: var(--ink);
+    border: none; padding: 12px 28px; border-radius: 999px;
+    font-family: var(--sans); font-weight: 700; font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 6px 16px rgba(181, 124, 52, 0.32);
+    transition: transform 200ms, box-shadow 200ms;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 10px 22px rgba(181, 124, 52, 0.42); }
+  .btn-secondary {
+    background: var(--white); color: var(--ink);
+    border: 1px solid var(--line-strong); padding: 11px 22px; border-radius: 999px;
+    font-family: var(--sans); font-weight: 600; font-size: 13px;
+    cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+    transition: all 200ms;
+  }
+  .btn-secondary:hover { border-color: var(--ink); }
+
+  /* ─────────────────────────────────────────────
+   * RIGHT PANE (analytics — collapsible)
+   * ───────────────────────────────────────────── */
+  .right {
+    position: fixed; top: var(--header-h); right: 0; bottom: 0;
+    width: var(--right-w);
+    background: var(--white);
+    border-left: 1px solid var(--line);
+    z-index: 30;
+    transition: transform 300ms cubic-bezier(0.2, 0, 0, 1);
+    display: flex; flex-direction: column;
+  }
+  body.right-collapsed .right { transform: translateX(100%); }
+
+  /* Toggle handle — visible against the body even when pane is collapsed */
+  .right-toggle {
+    position: fixed; top: calc(var(--header-h) + 18px); right: var(--right-w);
+    z-index: 35;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-right: none;
+    border-radius: 12px 0 0 12px;
+    width: 28px; height: 56px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--ink-soft);
+    transition: right 300ms cubic-bezier(0.2, 0, 0, 1), color 200ms, background 200ms;
+    box-shadow: -4px 0 10px rgba(7, 23, 52, 0.05);
+  }
+  .right-toggle:hover { color: var(--bronze); background: var(--bronze-faint); }
+  body.right-collapsed .right-toggle { right: 0; border-radius: 12px 0 0 12px; }
+  .right-toggle .material-symbols-rounded { font-size: 18px; transition: transform 300ms; }
+  body.right-collapsed .right-toggle .material-symbols-rounded { transform: rotate(180deg); }
+
+  .right-inner {
+    overflow-y: auto; flex: 1;
+    padding: 22px 22px 28px;
+  }
+  .right-section { margin-bottom: 26px; }
+  .right-section-label {
+    font-family: var(--mono); font-size: 10px; font-weight: 700;
+    color: var(--bronze); letter-spacing: 0.16em; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  /* Mission progress overall */
+  .progress-overall {
+    background: var(--paper); border-radius: 12px;
+    padding: 14px 16px; border: 1px solid var(--line);
+  }
+  .progress-overall-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 8px;
+  }
+  .progress-overall-pct {
+    font-family: var(--display); font-size: 28px; font-weight: 500; color: var(--ink);
+  }
+  .progress-overall-label {
+    font-family: var(--mono); font-size: 10px; color: var(--ink-soft); letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .progress-bar {
+    height: 6px; background: var(--mist); border-radius: 999px; overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%; background: linear-gradient(90deg, var(--bronze) 0%, var(--bronze-light) 100%);
+    border-radius: 999px;
+  }
+  .progress-overall-detail {
+    font-size: 12px; color: var(--ink-soft); margin-top: 8px;
+  }
+
+  /* Stat tiles */
+  .stat-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+  }
+  .stat-tile {
+    background: var(--paper); border: 1px solid var(--line); border-radius: 12px;
+    padding: 12px 14px;
+  }
+  .stat-tile .label {
+    font-family: var(--mono); font-size: 9px; color: var(--ink-soft); letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .stat-tile .value {
+    font-family: var(--display); font-size: 24px; font-weight: 500; color: var(--ink);
+    margin-top: 4px;
+  }
+  .stat-tile.tokens { background: linear-gradient(135deg, var(--bronze-faint) 0%, var(--white) 100%); }
+  .stat-tile.tokens .value { color: var(--bronze); }
+
+  /* Integrity meter */
+  .integrity {
+    background: var(--paper); border-radius: 12px;
+    padding: 14px 16px; border: 1px solid var(--line);
+  }
+  .integrity-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 8px;
+  }
+  .integrity-label { font-size: 12px; font-weight: 600; color: var(--ink); }
+  .integrity-value {
+    font-family: var(--display); font-size: 22px; font-weight: 500; color: var(--ink);
+  }
+  .integrity-bar {
+    height: 6px; background: var(--mist); border-radius: 999px; overflow: hidden;
+  }
+  .integrity-bar-fill {
+    height: 100%; background: linear-gradient(90deg, #4F7050 0%, var(--bronze) 70%, var(--crimson) 100%);
+    border-radius: 999px;
+  }
+  .integrity-note { font-size: 11px; color: var(--ink-soft); margin-top: 6px; }
+
+  /* Stakeholder list */
+  .stake-list { display: flex; flex-direction: column; gap: 6px; }
+  .stake-row {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 10px;
+    background: var(--paper); border-radius: 10px;
+    border: 1px solid var(--line);
+    font-size: 12px; color: var(--ink);
+  }
+  .stake-row .dot {
+    width: 8px; height: 8px; border-radius: 999px;
+    background: var(--bronze); flex-shrink: 0;
+  }
+  .stake-row.done .dot { background: #4F7050; }
+  .stake-row.done { color: var(--ink-soft); }
+  .stake-row.done .name { text-decoration: line-through; opacity: 0.7; }
+  .stake-row .name { flex: 1; }
+  .stake-row .material-symbols-rounded { font-size: 16px; color: var(--ink-soft); }
+
+  /* Token log */
+  .token-log {
+    background: var(--paper); border-radius: 12px;
+    padding: 12px 14px; border: 1px solid var(--line);
+    font-family: var(--mono); font-size: 11px;
+    color: var(--ink-soft);
+    max-height: 140px; overflow-y: auto;
+  }
+  .token-log-row { display: flex; justify-content: space-between; padding: 3px 0; }
+  .token-log-row .amount { font-weight: 700; color: #4F7050; }
+  .token-log-row .amount.neg { color: var(--crimson); }
+
+  /* Responsive */
+  @media (max-width: 1080px) {
+    body { overflow: auto; }
+    .right { transform: translateX(100%); }
+    .center { right: 0; }
+    .right-toggle { right: 0; }
+    body.right-open .right { transform: translateX(0); }
+    body.right-open .center { right: var(--right-w); }
+    body.right-open .right-toggle { right: var(--right-w); }
+  }
+  @media (max-width: 700px) {
+    .stepper { flex-direction: column; }
+    .step { flex: none; }
+    .stat-grid { grid-template-columns: 1fr; }
+    .center-inner { padding: 20px 18px 40px; }
+    .header-status { display: none; }
+  }
+</style>
 </head>
-<body class="bg-white text-on-surface cockpit">
 
-  <!-- TOP APP BAR — brand-left · mission-in-progress status badge centre · controls right -->
-  <header class="topbar fixed top-0 left-0 right-0 z-50 backdrop-blur-md" style="height: 56px;">
-    <div class="h-full flex items-center justify-between px-4 gap-3">
-      <!-- Brand left -->
-      <a href="../home.html" class="topbar-brand-block">
-        <div class="status-pulse"></div>
-        <div class="topbar-brand-text">
-          <span class="topbar-brand">FUTUREPROOF</span>
-          <span class="topbar-sub" lang="en">SDGs Mission Lab</span>
-        </div>
-      </a>
+<body data-lang="en" data-text-size="M">
 
-      <!-- Mission status badge centre -->
-      <div class="mission-status-badge" aria-live="polite">
-        <span class="badge-pulse" aria-hidden="true"></span>
-        <div class="badge-text">
-          <div class="badge-label">
-            <span>SDGs Mission in Progress</span>
-            <span class="th" lang="th">อยู่ระหว่างทำภารกิจ</span>
-          </div>
-          <div id="mission-label" class="badge-title">Loading mission…</div>
-        </div>
-      </div>
 
-      <!-- Header controls right -->
-      <div class="flex items-center gap-2">
-        <button class="header-btn" id="open-mentor" data-tip-en="Field Mentor — Socratic guide" data-tip-th="ที่ปรึกษาภาคสนาม — ผู้แนะนำแบบโสเครติส">
-          <span class="material-symbols-rounded size-20">support_agent</span>
-          <span class="header-btn-label">Mentor</span>
-        </button>
-        <button class="header-btn" id="open-shop" data-tip-en="Insight Token Shop" data-tip-th="ร้านค้าโทเค็น">
-          <span class="material-symbols-rounded size-20">storefront</span>
-          <span class="header-btn-label">Shop</span>
-        </button>
-        <a class="header-btn" href="./reflections.html" data-tip-en="Voice of the Learner — record reflections" data-tip-th="เสียงของผู้เรียน — บันทึกการสะท้อน">
-          <span class="material-symbols-rounded size-20">mic</span>
-          <span class="header-btn-label">Reflect</span>
-        </a>
-      </div>
+<!-- ─── HEADER ─── -->
+<header class="header">
+  <a href="../home.html" class="header-brand" style="text-decoration: none;">
+    <span class="logo">FUTUREPROOF</span>
+    <span class="sub">SDGs Mission Lab</span>
+  </a>
+
+  <div class="header-status">
+    <span class="live-dot"></span>
+    <div>
+      <div class="header-status-label">SDGs Mission in Progress</div>
+      <div class="header-status-title">The Aquifer Below Khon Kaen — Mission 01 / RECON</div>
     </div>
-  </header>
+  </div>
 
-  <!-- NAVIGATION RAIL — fully displayed labels with EN + Thai for UDL -->
-  <nav class="m3-rail" aria-label="Mission navigation">
+  <div class="header-right">
+    <button class="header-btn" title="Field Mentor">
+      <span class="material-symbols-rounded">support_agent</span>
+      <span>Mentor</span>
+    </button>
+    <button class="header-btn" title="Insight Token Shop">
+      <span class="material-symbols-rounded">storefront</span>
+      <span>Shop · 47 ◆</span>
+    </button>
+  </div>
+</header>
+
+<!-- ─── LEFT RAIL — fully extended with English text labels (Thai supporting for UDL) ─── -->
+<aside class="rail">
+  <nav class="rail-nav">
 
     <div class="rail-section-label">
       <span class="rail-section-en">Six Missions</span>
       <span class="rail-section-th" lang="th">หกภารกิจ</span>
     </div>
 
-    <a href="./mission-shell.html?m=1" class="m3-rail-item" data-mission="1">
-      <span class="icon-wrap"><span class="material-symbols-rounded size-20">visibility</span></span>
+    <a href="./mission-shell.html?m=1" class="rail-item active" data-mission="1">
+      <span class="rail-icon"><span class="material-symbols-rounded">visibility</span></span>
       <span class="rail-text">
         <span class="rail-step">01</span>
         <span class="rail-label">Recon · Remember</span>
         <span class="rail-label-th" lang="th">สำรวจ · จดจำ</span>
       </span>
     </a>
-    <a href="./mission-shell.html?m=2" class="m3-rail-item" data-mission="2">
-      <span class="icon-wrap"><span class="material-symbols-rounded size-20">translate</span></span>
+    <a href="./mission-shell.html?m=2" class="rail-item" data-mission="2">
+      <span class="rail-icon"><span class="material-symbols-rounded">translate</span></span>
       <span class="rail-text">
         <span class="rail-step">02</span>
         <span class="rail-label">Decode · Understand</span>
         <span class="rail-label-th" lang="th">ถอดรหัส · เข้าใจ</span>
       </span>
     </a>
-    <a href="./mission-shell.html?m=3" class="m3-rail-item" data-mission="3">
-      <span class="icon-wrap"><span class="material-symbols-rounded size-20">rocket_launch</span></span>
+    <a href="./mission-shell.html?m=3" class="rail-item" data-mission="3">
+      <span class="rail-icon"><span class="material-symbols-rounded">rocket_launch</span></span>
       <span class="rail-text">
         <span class="rail-step">03</span>
         <span class="rail-label">Deploy · Apply</span>
         <span class="rail-label-th" lang="th">นำไปใช้ · ประยุกต์</span>
       </span>
     </a>
-    <a href="./mission-shell.html?m=4" class="m3-rail-item" data-mission="4">
-      <span class="icon-wrap"><span class="material-symbols-rounded size-20">biotech</span></span>
+    <a href="./mission-shell.html?m=4" class="rail-item" data-mission="4">
+      <span class="rail-icon"><span class="material-symbols-rounded">biotech</span></span>
       <span class="rail-text">
         <span class="rail-step">04</span>
         <span class="rail-label">Dissect · Analyze</span>
         <span class="rail-label-th" lang="th">แยกแยะ · วิเคราะห์</span>
       </span>
     </a>
-    <a href="./mission-shell.html?m=5" class="m3-rail-item" data-mission="5">
-      <span class="icon-wrap"><span class="material-symbols-rounded size-20">gavel</span></span>
+    <a href="./mission-shell.html?m=5" class="rail-item" data-mission="5">
+      <span class="rail-icon"><span class="material-symbols-rounded">gavel</span></span>
       <span class="rail-text">
         <span class="rail-step">05</span>
         <span class="rail-label">Tribunal · Evaluate</span>
         <span class="rail-label-th" lang="th">ศาลพิจารณา · ประเมิน</span>
       </span>
     </a>
-    <a href="./mission-shell.html?m=6" class="m3-rail-item" data-mission="6">
-      <span class="icon-wrap"><span class="material-symbols-rounded size-20">auto_awesome</span></span>
+    <a href="./mission-shell.html?m=6" class="rail-item" data-mission="6">
+      <span class="rail-icon"><span class="material-symbols-rounded">auto_awesome</span></span>
       <span class="rail-text">
         <span class="rail-step">06</span>
         <span class="rail-label">Forge · Create</span>
@@ -116,372 +828,387 @@
       <span class="rail-section-th" lang="th">เครื่องมือและพื้นที่ทำงาน</span>
     </div>
 
-    <a href="./studio.html" class="m3-rail-item">
-      <span class="icon-wrap"><span class="material-symbols-rounded size-20">auto_stories</span></span>
+    <a href="./studio.html" class="rail-item">
+      <span class="rail-icon"><span class="material-symbols-rounded">auto_stories</span></span>
       <span class="rail-text">
         <span class="rail-label">Pitch Capsule Studio</span>
         <span class="rail-label-th" lang="th">สตูดิโอแคปซูลพิตช์</span>
       </span>
     </a>
-    <a href="./npc-interview.html" class="m3-rail-item">
-      <span class="icon-wrap"><span class="material-symbols-rounded size-20">record_voice_over</span></span>
+    <a href="./npc-interview.html" class="rail-item">
+      <span class="rail-icon"><span class="material-symbols-rounded">record_voice_over</span></span>
       <span class="rail-text">
         <span class="rail-label">Stakeholder Interview</span>
         <span class="rail-label-th" lang="th">สัมภาษณ์ผู้มีส่วนได้ส่วนเสีย</span>
       </span>
     </a>
-    <a href="./reflections.html" class="m3-rail-item">
-      <span class="icon-wrap"><span class="material-symbols-rounded size-20">graphic_eq</span></span>
+    <a href="./reflections.html" class="rail-item">
+      <span class="rail-icon"><span class="material-symbols-rounded">graphic_eq</span></span>
       <span class="rail-text">
         <span class="rail-label">Voice of the Learner</span>
-        <span class="rail-label-th" lang="th">เสียงของผู้เรียน · บันทึก</span>
+        <span class="rail-label-th" lang="th">เสียงของผู้เรียน</span>
       </span>
     </a>
-    <a href="./portfolio.html" class="m3-rail-item">
-      <span class="icon-wrap"><span class="material-symbols-rounded size-20">school</span></span>
+    <a href="./portfolio.html" class="rail-item">
+      <span class="rail-icon"><span class="material-symbols-rounded">school</span></span>
       <span class="rail-text">
         <span class="rail-label">Learning Portfolio</span>
         <span class="rail-label-th" lang="th">พอร์ตโฟลิโอการเรียนรู้</span>
       </span>
     </a>
+    <a href="./hall-of-excellence.html" class="rail-item">
+      <span class="rail-icon"><span class="material-symbols-rounded">emoji_events</span></span>
+      <span class="rail-text">
+        <span class="rail-label">Hall of Excellence</span>
+        <span class="rail-label-th" lang="th">หอเกียรติยศ</span>
+      </span>
+    </a>
   </nav>
 
-  <!-- COMMAND LINE -->
-  <div class="console-cmdline" role="contentinfo">
-    <span><kbd>Esc</kbd> exit</span>
-    <span><kbd>?</kbd> mentor</span>
-    <span><kbd>S</kbd> shop</span>
-    <span><kbd>R</kbd> reflect</span>
-    <span style="margin-left:auto" class="topbar-name">Futureproof // Mission Console</span>
-  </div>
-
-  <!-- COCKPIT WINDOW -->
-  <div class="cockpit-window">
-
-    <!-- CENTER PANE: mission body -->
-    <main id="main" class="cockpit-pane center">
-      <div class="max-w-3xl mx-auto">
-        <div class="flex items-center gap-3 mb-4 flex-wrap">
-          <span id="mission-number" class="console-label-gold"></span>
-          <span id="mission-bloom" class="console-label"></span>
-          <span class="m3-chip selected"><span class="material-symbols-rounded size-20">target</span><span id="mission-code-chip">RECON</span></span>
-        </div>
-
-        <h1 id="mission-title" class="display-m text-on-surface mb-3"></h1>
-        <p id="mission-tagline" class="body-l text-on-surface/80 mb-8 max-w-2xl"></p>
-
-        <div id="mission-progress" class="m3-progress-linear mb-6" aria-label="Mission progress"><div class="fill" style="width: 30%"></div></div>
-
-        <div id="scenario-summary" class="m3-card outlined mb-8" style="padding: 1rem 1.25rem;"></div>
-
-        <div id="phase-container" class="mb-8"></div>
-
-        <div id="phase-controls" class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-outline-variant">
-          <button id="back-btn" type="button" class="btn-secondary"><span class="material-symbols-rounded size-20">arrow_back</span><span>Back</span></button>
-          <div id="phase-error" class="field-error" hidden></div>
-          <button id="next-btn" type="button" class="btn-primary"><span>Next</span><span class="material-symbols-rounded size-20">arrow_forward</span></button>
-        </div>
-      </div>
-    </main>
-
-    <!-- RIGHT PANE: student profile + journey -->
-    <aside class="cockpit-pane right profile-pane" aria-label="Your profile and journey">
-      <div class="cockpit-drag" aria-label="Resize panel" data-tip-en="Drag to resize" data-tip-th="ลากเพื่อปรับขนาด"></div>
-
-      <!-- Avatar + identity -->
-      <section class="mb-6">
-        <div class="flex items-center gap-3 mb-3">
-          <div class="slot slot-square no-label" style="width: 56px; height: 56px; border-radius: 9999px;" aria-hidden="true"></div>
-          <div>
-            <div id="student-name" class="title-l">Operator</div>
-            <div id="student-rank" class="badge-pill mt-1"><span class="material-symbols-rounded size-20">military_tech</span><span>Cadet</span></div>
-          </div>
-        </div>
-        <div class="flex items-center gap-2">
-          <span id="student-cefr" class="m3-chip assist"><span class="material-symbols-rounded size-20">translate</span>B1+</span>
-          <span id="student-team" class="m3-chip assist"><span class="material-symbols-rounded size-20">group</span>Atlas Cell</span>
-        </div>
-      </section>
-
-      <!-- Integrity meter -->
-      <section class="mb-6">
-        <div class="flex items-center justify-between mb-2">
-          <span class="label-m">Integrity</span>
-          <span id="integrity-value" class="title-m" style="color:#3B3BD6">78</span>
-        </div>
-        <div class="m3-progress-linear" aria-label="Integrity score"><div id="integrity-fill" class="fill" style="width:78%"></div></div>
-        <p class="body-s text-on-surface-variant mt-2" data-tip-en="A running gauge of your team's ethical consistency" data-tip-th="มาตรวัดความสม่ำเสมอทางจริยธรรมของทีม">How consistent your team's ethical reasoning has been so far.</p>
-      </section>
-
-      <!-- Stats -->
-      <section class="mb-6">
-        <h3 class="title-m mb-3">Earned</h3>
-        <div class="profile-stat"><span class="label">Tokens</span><span class="value" id="stat-tokens">47 ◆</span></div>
-        <div class="profile-stat"><span class="label">Decisions logged</span><span class="value" id="stat-decisions">14</span></div>
-        <div class="profile-stat"><span class="label">Reflections</span><span class="value" id="stat-reflections">3</span></div>
-        <div class="profile-stat"><span class="label">Mission progress</span><span class="value" id="stat-progress">3 / 6</span></div>
-      </section>
-
-      <!-- What's left -->
-      <section class="mb-6">
-        <h3 class="title-m mb-3">What's left</h3>
-        <ul class="space-y-2" id="todo-list">
-          <li class="flex items-start gap-2"><span class="material-symbols-rounded size-20" style="color:#3B3BD6">radio_button_unchecked</span><span class="body-m">Finish Mission 03 — Deploy</span></li>
-          <li class="flex items-start gap-2"><span class="material-symbols-rounded size-20" style="color:#5C5C66">radio_button_unchecked</span><span class="body-m">Mission 04 — Dissect</span></li>
-          <li class="flex items-start gap-2"><span class="material-symbols-rounded size-20" style="color:#5C5C66">radio_button_unchecked</span><span class="body-m">Mission 05 — Tribunal</span></li>
-          <li class="flex items-start gap-2"><span class="material-symbols-rounded size-20" style="color:#5C5C66">radio_button_unchecked</span><span class="body-m">Submit Pitch Capsule</span></li>
-        </ul>
-      </section>
-
-      <!-- Notes -->
-      <section>
-        <h3 class="title-m mb-3 flex items-center justify-between">
-          <span>Notes</span>
-          <span class="material-symbols-rounded size-20" data-tip-en="Auto-saved on this device" data-tip-th="บันทึกอัตโนมัติบนอุปกรณ์นี้" style="color:#5C5C66">cloud_done</span>
-        </h3>
-        <div class="m3-textfield">
-          <textarea id="notes" rows="6" placeholder=" "></textarea>
-          <label for="notes">Scratchpad</label>
-        </div>
-      </section>
-    </aside>
-  </div>
-
-  <!-- FAB MENU -->
-  <div class="m3-fab-menu" id="fab-menu">
-    <div class="m3-fab-item">
-      <span class="label">Field Mentor</span>
-      <a class="m3-fab small surface" href="#" id="fab-mentor"><span class="material-symbols-rounded size-20">support_agent</span></a>
+  <div class="rail-profile">
+    <div class="rail-avatar" title="Profile">
+      <span>YK</span>
+      <span class="online-dot" aria-label="Online"></span>
     </div>
-    <div class="m3-fab-item">
-      <span class="label">Quick reflect</span>
-      <a class="m3-fab small surface" href="./reflections.html"><span class="material-symbols-rounded size-20">mic</span></a>
-    </div>
-    <div class="m3-fab-item">
-      <span class="label">Stakeholder interview</span>
-      <a class="m3-fab small surface" href="./npc-interview.html"><span class="material-symbols-rounded size-20">forum</span></a>
-    </div>
-    <button class="m3-fab primary trigger" data-tip-en="Quick actions" data-tip-th="การดำเนินการด่วน">
-      <span class="material-symbols-rounded">add</span>
+    <button class="rail-icon-btn" title="Profile settings">
+      <span class="material-symbols-rounded">settings</span>
+    </button>
+    <button class="rail-icon-btn signout" title="Sign out">
+      <span class="material-symbols-rounded">logout</span>
     </button>
   </div>
+</aside>
 
-  <!-- Field Mentor drawer -->
-  <aside id="mentor-drawer" class="mentor-drawer" hidden>
-    <header class="mentor-header">
-      <div>
-        <div class="console-label-gold">FIELD MENTOR</div>
-        <div class="text-sm text-on-surface-variant">Socratic companion. Language support, no answers.</div>
+<!-- ─── CENTER ─── -->
+<main class="center">
+  <div class="center-inner">
+
+    <!-- Mission header -->
+    <div class="mission-header">
+      <div class="mission-meta-row">
+        <span class="mission-code-chip">MISSION 01 // RECON</span>
+        <span class="mission-bloom-chip">Bloom · Remember</span>
+        <span class="mission-sdg-chip">
+          <span style="width:10px;height:10px;border-radius:2px;background:#26BDE2;display:inline-block"></span>
+          SDG 6 · Clean Water
+        </span>
       </div>
-      <button id="close-mentor" type="button" class="btn-text"><span class="material-symbols-rounded size-20">close</span></button>
-    </header>
-    <div id="mentor-log" class="mentor-log"></div>
-    <form id="mentor-form" class="mentor-form">
-      <input id="mentor-input" type="text" placeholder="Ask a question…" autocomplete="off" />
-      <button type="submit" class="btn-primary"><span>Send</span></button>
-    </form>
-  </aside>
+      <h1 class="mission-title">The Aquifer <em>Below</em> Khon Kaen</h1>
+      <p class="mission-subtitle">Read the dossier. Hear the four stakeholders. Make the call that goes to the provincial council.</p>
+    </div>
 
-  <!-- Shop drawer -->
-  <aside id="shop-drawer" class="mentor-drawer" hidden>
-    <header class="mentor-header">
-      <div>
-        <div class="console-label-gold">INSIGHT TOKEN SHOP</div>
-        <div class="text-sm text-on-surface-variant">Spend earned tokens on scaffolding tools.</div>
-      </div>
-      <button id="close-shop" type="button" class="btn-text"><span class="material-symbols-rounded size-20">close</span></button>
-    </header>
-    <div id="shop-list" class="mentor-log"></div>
-  </aside>
-
-  <script src="../config.local.js" onerror="window.__noConfig = true;"></script>
-  <script type="module">
-    import { MISSION_CONFIGS, MissionEngine } from '../src/mission-engine.js';
-    import { getBalance, SHOP_ITEMS, spendTokens } from '../src/tokens.js';
-    import { startMentorChat } from '../src/field-mentor.js';
-    import { getFlowState, setFlowStep, isFirebaseAvailable } from '../src/auth.js';
-    import { registerAllPhaseHandlers } from '../src/mission-phases.js';
-    import { applySDGThemeFromFlow } from '../src/sdg-theme.js';
-
-    applySDGThemeFromFlow();
-
-    const params = new URLSearchParams(location.search);
-    const missionNumber = parseInt(params.get('m') || (location.pathname.match(/mission-(\d+)/) || [])[1] || '1', 10);
-    const cfg = MISSION_CONFIGS[missionNumber];
-    if (!cfg) { document.body.innerHTML = '<main class="p-12"><h1>Unknown mission.</h1></main>'; throw new Error('Unknown mission: ' + missionNumber); }
-
-    document.title = `Mission ${String(missionNumber).padStart(2,'0')} — ${cfg.title} — FUTUREPROOF`;
-    document.getElementById('mission-label').textContent = `MISSION ${String(missionNumber).padStart(2,'0')} // ${cfg.code}`;
-    document.getElementById('mission-number').textContent = `MISSION ${String(missionNumber).padStart(2,'0')}`;
-    document.getElementById('mission-bloom').textContent = cfg.bloom.toUpperCase();
-    document.getElementById('mission-code-chip').textContent = cfg.code;
-    document.getElementById('mission-title').textContent = cfg.title + '.';
-    document.getElementById('mission-tagline').textContent = cfg.tagline;
-
-    const activeRailItem = document.querySelector(`.m3-rail-item[data-mission="${missionNumber}"]`);
-    if (activeRailItem) activeRailItem.classList.add('active');
-
-    const flow = getFlowState();
-    let scenario = flow?.scenarioPreview || null;
-
-    // Showcase-tier scenario detection.
-    // SDG 6 + Mission 1 → curated "The Aquifer Below Khon Kaen".
-    // Override paths:
-    //   - Flow state: flow.selectedSDG === 6 (user picked SDG 6 in mission-select)
-    //   - URL param: ?scenario=sdg06-khonkaen (direct test link)
-    const scenarioParam = params.get('scenario');
-    const isKhonKaenShowcase =
-      missionNumber === 1 &&
-      (flow?.selectedSDG === 6 || scenarioParam === 'sdg06-khonkaen');
-    if (isKhonKaenShowcase) {
-      const { SCENARIO_META } = await import('../src/scenarios/sdg06-khonkaen-content.js');
-      scenario = {
-        title: SCENARIO_META.title,
-        titleTh: SCENARIO_META.titleTh,
-        setting: SCENARIO_META.setting,
-        coreTension: SCENARIO_META.coreTension,
-        decisionPoint: SCENARIO_META.decisionPoint,
-        ethicalAxes: SCENARIO_META.ethicalAxes,
-        scenarioId: SCENARIO_META.id,
-        showcase: true,
-      };
-    }
-
-    const scenarioBox = document.getElementById('scenario-summary');
-    if (scenario) {
-      const showcaseBadge = scenario.showcase
-        ? `<span class="badge-pill" style="margin-left:0.5rem"><span class="material-symbols-rounded size-20">verified</span><span>Curated showcase</span></span>`
-        : '';
-      scenarioBox.innerHTML = `
-        <div class="flex items-center gap-2 flex-wrap mb-1">
-          <span class="title-m">${scenario.title}</span>${showcaseBadge}
+    <!-- Stepper -->
+    <div class="stepper-block">
+      <div class="stepper-head">
+        <span class="stepper-title">Mission Steps · 6 stages</span>
+        <div class="lang-pill" role="tablist" aria-label="Instructions language">
+          <button class="is-active" data-set-lang="en">EN</button>
+          <button data-set-lang="th">ไทย</button>
         </div>
-        <div class="body-m text-on-surface/80">${scenario.coreTension || scenario.setting}</div>
-      `;
-    } else {
-      scenarioBox.innerHTML = `<div class="body-m">No scenario locked yet. <a class="text-primary underline-offset-2 hover:underline" href="./mission-select.html">Pick one →</a></div>`;
-    }
+      </div>
+      <div class="stepper">
+        <div class="step is-done"><span class="step-num">1</span><div class="step-label">Mission Briefing</div></div>
+        <div class="step is-done"><span class="step-num">2</span><div class="step-label">Read Dossier</div></div>
+        <div class="step is-current"><span class="step-num">3</span><div class="step-label">Stakeholder Voices</div></div>
+        <div class="step"><span class="step-num">4</span><div class="step-label">Adaptive Quiz</div></div>
+        <div class="step"><span class="step-num">5</span><div class="step-label">Draft Brief</div></div>
+        <div class="step"><span class="step-num">6</span><div class="step-label">Submit &amp; Reflect</div></div>
+      </div>
+    </div>
 
-    const container = document.getElementById('phase-container');
-    const engine = new MissionEngine({
-      missionNumber, container,
-      onComplete: () => {
-        const next = missionNumber === 6 ? './studio.html' : `./mission-${String(missionNumber+1).padStart(2,'0')}.html`;
-        location.href = next;
-      },
+    <!-- Instruction card with text-size + EN/TH toggle -->
+    <div class="instruction-card">
+      <div class="instruction-card-head">
+        <h2>Step 3 · Hear from four stakeholders</h2>
+        <div class="text-size-controls" role="group" aria-label="Text size">
+          <button data-size="M" class="is-active">A</button>
+          <button data-size="L">A+</button>
+          <button data-size="XL">A++</button>
+        </div>
+      </div>
+      <div class="instruction-body">
+        <div class="en">
+          <p>Four stakeholders have recorded brief dispatches about the proposed wellfield expansion. Each speaks from inside their own role — a farmer, a provincial waterworks manager, an industrial production director, and a village health volunteer.</p>
+          <p>Watch the embedded video introduction below, then play each audio dispatch in any order. When all four are heard, the <strong>Continue</strong> button activates and you proceed to the adaptive quiz.</p>
+        </div>
+        <div class="th" lang="th">
+          <p>ผู้มีส่วนได้ส่วนเสียทั้งสี่คนได้บันทึกข้อความสั้น ๆ
+          เกี่ยวกับข้อเสนอขยายบ่อน้ำเทศบาล แต่ละคนพูดจากบทบาทของตนเอง
+          ทั้งเกษตรกร ผู้จัดการการประปาส่วนภูมิภาค ผู้อำนวยการฝ่ายผลิตอุตสาหกรรม
+          และอาสาสมัครสาธารณสุขประจำหมู่บ้าน</p>
+          <p>รับชมวิดีโอแนะนำด้านล่าง จากนั้นเล่นไฟล์เสียงของแต่ละคน
+          ตามลำดับใดก็ได้ เมื่อรับฟังครบทั้งสี่คน ปุ่ม <strong>ดำเนินการต่อ</strong>
+          จะเปิดใช้งาน และคุณจะได้ทำแบบทดสอบเชิงปรับตัวเป็นขั้นถัดไป</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Embedded video card -->
+    <div class="media-card">
+      <div class="media-card-head">
+        <span class="material-symbols-rounded" style="color: var(--bronze)">play_circle</span>
+        <span class="label">Stakeholder Briefing — Video Intro</span>
+      </div>
+      <div class="video-screen">
+        <button class="play-btn" title="Play"><span class="material-symbols-rounded">play_arrow</span></button>
+        <div class="video-screen-overlay">
+          <span class="duration">1:24</span>
+          <span>HD · EN subtitles · ไทย subtitles</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Audio cards (4 stakeholders) -->
+    <div class="audio-card">
+      <button class="audio-play"><span class="material-symbols-rounded">play_arrow</span></button>
+      <div class="audio-info">
+        <div class="audio-title">Stakeholder 01 · Smallholder rice farmer</div>
+        <div class="audio-meta">Nong Rua District · ~32s</div>
+      </div>
+      <div class="audio-track"><div class="audio-track-fill"></div></div>
+      <div class="audio-time">0:10 / 0:32</div>
+    </div>
+
+    <div class="audio-card">
+      <button class="audio-play"><span class="material-symbols-rounded">play_arrow</span></button>
+      <div class="audio-info">
+        <div class="audio-title">Stakeholder 02 · PWA Operations Manager</div>
+        <div class="audio-meta">Provincial Waterworks · ~32s</div>
+      </div>
+      <div class="audio-track"><div class="audio-track-fill" style="width:0"></div></div>
+      <div class="audio-time">0:00 / 0:32</div>
+    </div>
+
+    <div class="audio-card">
+      <button class="audio-play"><span class="material-symbols-rounded">play_arrow</span></button>
+      <div class="audio-info">
+        <div class="audio-title">Stakeholder 03 · Food-processing facility Director</div>
+        <div class="audio-meta">Khon Kaen basin · ~30s</div>
+      </div>
+      <div class="audio-track"><div class="audio-track-fill" style="width:0"></div></div>
+      <div class="audio-time">0:00 / 0:30</div>
+    </div>
+
+    <div class="audio-card">
+      <button class="audio-play"><span class="material-symbols-rounded">play_arrow</span></button>
+      <div class="audio-info">
+        <div class="audio-title">Stakeholder 04 · Community Health Volunteer (อสม.)</div>
+        <div class="audio-meta">Ban Phai sub-district · ~34s</div>
+      </div>
+      <div class="audio-track"><div class="audio-track-fill" style="width:0"></div></div>
+      <div class="audio-time">0:00 / 0:34</div>
+    </div>
+
+    <!-- Embedded text editor card -->
+    <div class="editor-card">
+      <div class="editor-head">
+        <span class="label">Working Notes · Auto-saved</span>
+        <span style="font-family: var(--mono); font-size: 11px; color: var(--ink-soft);">
+          <span class="material-symbols-rounded" style="vertical-align: middle; font-size: 14px; color:#4F7050">cloud_done</span>
+          Saved to your portfolio
+        </span>
+      </div>
+      <div class="editor-toolbar">
+        <select aria-label="Font family">
+          <option>Body Sans</option>
+          <option>Display Serif</option>
+          <option>Mono</option>
+          <option>Thai</option>
+        </select>
+        <select aria-label="Font size">
+          <option>12</option><option>14</option><option selected>16</option><option>18</option><option>22</option><option>28</option>
+        </select>
+        <span class="divider"></span>
+        <button title="Bold"><strong>B</strong></button>
+        <button title="Italic"><em>I</em></button>
+        <button title="Underline"><span style="text-decoration: underline">U</span></button>
+        <button title="Strikethrough"><span style="text-decoration: line-through">S</span></button>
+        <span class="divider"></span>
+        <span class="color-swatch" title="Text color" style="background: linear-gradient(135deg, var(--ink) 0%, var(--bronze) 100%);"></span>
+        <span class="color-swatch" title="Highlight" style="background: linear-gradient(135deg, var(--bronze-light) 0%, var(--bronze-faint) 100%);"></span>
+        <span class="divider"></span>
+        <button title="Align left"><span class="material-symbols-rounded" style="font-size:16px">format_align_left</span></button>
+        <button title="Align center"><span class="material-symbols-rounded" style="font-size:16px">format_align_center</span></button>
+        <button title="Align right"><span class="material-symbols-rounded" style="font-size:16px">format_align_right</span></button>
+        <span class="divider"></span>
+        <button title="Bullet list"><span class="material-symbols-rounded" style="font-size:16px">format_list_bulleted</span></button>
+        <button title="Numbered list"><span class="material-symbols-rounded" style="font-size:16px">format_list_numbered</span></button>
+        <button title="Quote"><span class="material-symbols-rounded" style="font-size:16px">format_quote</span></button>
+        <span class="divider"></span>
+        <button title="Insert link"><span class="material-symbols-rounded" style="font-size:16px">link</span></button>
+        <button title="Insert citation"><span class="material-symbols-rounded" style="font-size:16px">menu_book</span></button>
+        <button title="Undo"><span class="material-symbols-rounded" style="font-size:16px">undo</span></button>
+        <button title="Redo"><span class="material-symbols-rounded" style="font-size:16px">redo</span></button>
+      </div>
+      <div class="editor-body" contenteditable="true" data-placeholder="Type your notes here…">Listening to the smallholder farmer made me realise the upper aquifer is genuinely shared. The PWA manager's framing is also defensible, though — she has a real statutory mandate.</div>
+      <div class="editor-footer">
+        <span>134 words · 6 minutes editing</span>
+        <span>Last saved 12 seconds ago</span>
+      </div>
+    </div>
+
+    <!-- Submit row -->
+    <div class="submit-row">
+      <div class="left-info">
+        <span class="material-symbols-rounded" style="color: var(--bronze)">info</span>
+        Continue once all four stakeholders have been heard.
+      </div>
+      <div style="display: flex; gap: 10px;">
+        <button class="btn-secondary">
+          <span class="material-symbols-rounded">arrow_back</span> Back
+        </button>
+        <button class="btn-primary">
+          Continue to Step 4 <span class="material-symbols-rounded">arrow_forward</span>
+        </button>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- ─── RIGHT PANE ─── -->
+<aside class="right" aria-label="Mission analytics and progress">
+  <div class="right-inner">
+
+    <!-- Overall mission progress -->
+    <div class="right-section">
+      <div class="right-section-label">Mission Progress</div>
+      <div class="progress-overall">
+        <div class="progress-overall-head">
+          <span class="progress-overall-pct">42%</span>
+          <span class="progress-overall-label">Step 3 / 6</span>
+        </div>
+        <div class="progress-bar"><div class="progress-bar-fill" style="width: 42%"></div></div>
+        <p class="progress-overall-detail">~26 min spent · ~45 min estimated remaining</p>
+      </div>
+    </div>
+
+    <!-- Stat tiles -->
+    <div class="right-section">
+      <div class="right-section-label">Earned This Mission</div>
+      <div class="stat-grid">
+        <div class="stat-tile tokens">
+          <div class="label">Tokens</div>
+          <div class="value">+12 ◆</div>
+        </div>
+        <div class="stat-tile">
+          <div class="label">Decisions</div>
+          <div class="value">3</div>
+        </div>
+        <div class="stat-tile">
+          <div class="label">Vocab learned</div>
+          <div class="value">5 / 9</div>
+        </div>
+        <div class="stat-tile">
+          <div class="label">Reflections</div>
+          <div class="value">1</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Integrity meter -->
+    <div class="right-section">
+      <div class="right-section-label">Integrity Meter</div>
+      <div class="integrity">
+        <div class="integrity-head">
+          <span class="integrity-label">Reasoning consistency</span>
+          <span class="integrity-value">78</span>
+        </div>
+        <div class="integrity-bar"><div class="integrity-bar-fill" style="width: 78%"></div></div>
+        <p class="integrity-note">Strong so far — keep linking evidence to stakeholder concerns.</p>
+      </div>
+    </div>
+
+    <!-- Stakeholder briefing tracker -->
+    <div class="right-section">
+      <div class="right-section-label">Stakeholders Heard</div>
+      <div class="stake-list">
+        <div class="stake-row done">
+          <span class="dot"></span>
+          <span class="name">Smallholder rice farmer</span>
+          <span class="material-symbols-rounded">check</span>
+        </div>
+        <div class="stake-row done">
+          <span class="dot"></span>
+          <span class="name">PWA Operations Manager</span>
+          <span class="material-symbols-rounded">check</span>
+        </div>
+        <div class="stake-row">
+          <span class="dot"></span>
+          <span class="name">Food-processing Director</span>
+          <span class="material-symbols-rounded">schedule</span>
+        </div>
+        <div class="stake-row">
+          <span class="dot"></span>
+          <span class="name">Community Health Volunteer</span>
+          <span class="material-symbols-rounded">schedule</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Token log -->
+    <div class="right-section">
+      <div class="right-section-label">Token Log</div>
+      <div class="token-log">
+        <div class="token-log-row"><span>Vocab match · drawdown</span><span class="amount">+3 ◆</span></div>
+        <div class="token-log-row"><span>Dossier read · Part 2</span><span class="amount">+2 ◆</span></div>
+        <div class="token-log-row"><span>Vocab match · threshold</span><span class="amount">+3 ◆</span></div>
+        <div class="token-log-row"><span>Source confidence · low</span><span class="amount neg">-1 ◆</span></div>
+        <div class="token-log-row"><span>Reflection · pre-mission</span><span class="amount">+2 ◆</span></div>
+        <div class="token-log-row"><span>Dossier read · Part 1</span><span class="amount">+3 ◆</span></div>
+      </div>
+    </div>
+
+  </div>
+</aside>
+
+<!-- Right-pane toggle handle (always visible) -->
+<button class="right-toggle" id="right-toggle" title="Hide / show analytics pane">
+  <span class="material-symbols-rounded">chevron_right</span>
+</button>
+
+<script>
+  // EN ↔ TH instructions toggle
+  document.querySelectorAll('[data-set-lang]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const lang = btn.dataset.setLang;
+      document.body.dataset.lang = lang;
+      document.querySelectorAll('[data-set-lang]').forEach(b => b.classList.toggle('is-active', b.dataset.setLang === lang));
     });
+  });
 
-    // Use scenario-specific phase handlers when available; otherwise the generic set.
-    if (isKhonKaenShowcase) {
-      const { installKhonKaenMission1 } = await import('../src/scenarios/sdg06-khonkaen-m1.js');
-      installKhonKaenMission1(engine);
-    } else {
-      registerAllPhaseHandlers(engine);
-    }
+  // Text size toggle for instructions
+  document.querySelectorAll('[data-size]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const s = btn.dataset.size;
+      document.body.dataset.textSize = s;
+      document.querySelectorAll('[data-size]').forEach(b => b.classList.toggle('is-active', b.dataset.size === s));
+    });
+  });
 
-    engine.start({ scenario, profile: flow?.learnerProfile });
+  // Stepper navigation (visual)
+  document.querySelectorAll('.step').forEach(step => {
+    step.addEventListener('click', () => {
+      document.querySelectorAll('.step').forEach(s => s.classList.remove('is-current'));
+      step.classList.add('is-current');
+    });
+  });
 
-    document.getElementById('next-btn').addEventListener('click', () => engine.advance());
-    document.getElementById('back-btn').addEventListener('click', () => engine.back());
-
-    // Token balance + stats
-    async function refreshStats() {
-      const tid = flow?.uid;
-      if (tid && isFirebaseAvailable()) {
-        const bal = await getBalance(tid);
-        document.getElementById('stat-tokens').textContent = `${bal ?? 0} ◆`;
-      }
-    }
-    refreshStats();
-
-    // Profile fields
-    if (flow?.displayName) document.getElementById('student-name').textContent = flow.displayName;
-    if (flow?.learnerProfile?.language?.cefrEstimate) {
-      document.getElementById('student-cefr').innerHTML = `<span class="material-symbols-rounded size-20">translate</span>${flow.learnerProfile.language.cefrEstimate}`;
-    }
-    document.getElementById('stat-progress').textContent = `${missionNumber - 1} / 6`;
-
-    // Notes — autosave to localStorage
-    const notes = document.getElementById('notes');
-    notes.value = localStorage.getItem('fp_notes_v1') || '';
-    notes.addEventListener('input', () => localStorage.setItem('fp_notes_v1', notes.value));
-
-    // Drawers
-    const mentorDrawer = document.getElementById('mentor-drawer');
-    const mentorLog = document.getElementById('mentor-log');
-    const mentorInput = document.getElementById('mentor-input');
-    const mentor = startMentorChat({ logEl: mentorLog, profile: flow?.learnerProfile, missionConfig: cfg, scenario });
-    document.getElementById('open-mentor').addEventListener('click', () => mentorDrawer.hidden = false);
-    document.getElementById('close-mentor').addEventListener('click', () => mentorDrawer.hidden = true);
-    document.getElementById('fab-mentor').addEventListener('click', (e) => { e.preventDefault(); mentorDrawer.hidden = false; });
-    document.getElementById('mentor-form').addEventListener('submit', async (e) => {
+  // Rail item navigation (visual)
+  document.querySelectorAll('.rail-item').forEach(item => {
+    item.addEventListener('click', (e) => {
       e.preventDefault();
-      const q = mentorInput.value.trim();
-      if (!q) return;
-      mentorInput.value = '';
-      await mentor.send(q);
+      document.querySelectorAll('.rail-item').forEach(i => i.classList.remove('active'));
+      item.classList.add('active');
     });
+  });
 
-    const shopDrawer = document.getElementById('shop-drawer');
-    const shopList = document.getElementById('shop-list');
-    function renderShop() {
-      shopList.innerHTML = '';
-      for (const item of SHOP_ITEMS) {
-        const card = document.createElement('div');
-        card.className = 'shop-item';
-        card.innerHTML = `
-          <div>
-            <div class="title-s">${item.label}</div>
-            <p class="body-s text-on-surface-variant">${item.hint}</p>
-          </div>
-          <button class="btn-secondary"><span>${item.cost} ◆</span></button>
-        `;
-        card.querySelector('button').addEventListener('click', async () => {
-          try { await spendTokens({ tid: flow?.uid, item }); await refreshStats(); }
-          catch (err) { alert(err.message); }
-        });
-        shopList.appendChild(card);
-      }
-    }
-    document.getElementById('open-shop').addEventListener('click', () => { shopDrawer.hidden = false; renderShop(); });
-    document.getElementById('close-shop').addEventListener('click', () => shopDrawer.hidden = true);
+  // Right pane collapse toggle
+  const toggle = document.getElementById('right-toggle');
+  toggle.addEventListener('click', () => {
+    document.body.classList.toggle('right-collapsed');
+  });
+</script>
 
-    // Keyboard shortcuts
-    document.addEventListener('keydown', (e) => {
-      if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') return;
-      if (e.key === '?') { mentorDrawer.hidden = false; }
-      if (e.key.toLowerCase() === 's' && !e.metaKey && !e.ctrlKey) { shopDrawer.hidden = false; renderShop(); }
-      if (e.key.toLowerCase() === 'r') { location.href = './reflections.html'; }
-      if (e.key === 'Escape') {
-        mentorDrawer.hidden = true; shopDrawer.hidden = true;
-        document.getElementById('fab-menu').classList.remove('open');
-      }
-    });
-  </script>
-
-  <script type="module" src="../src/cockpit.js"></script>
-  <script type="module" src="../src/tooltips.js"></script>
-  <script type="module" src="../src/a11y.js"></script>
-
-  <style>
-    .mentor-drawer { position: fixed; right: 0; top: 0; bottom: 0; width: min(440px, 100vw); background: #FFFFFF; border-left: 1px solid #E5E5E7; box-shadow: -8px 0 24px rgba(0,0,0,0.06); display: flex; flex-direction: column; z-index: 60; }
-    .mentor-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid #E5E5E7; display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
-    .mentor-log { flex: 1; overflow-y: auto; padding: 1rem 1.5rem; display: flex; flex-direction: column; gap: 0.75rem; }
-    .mentor-msg { padding: 0.75rem 1rem; border-radius: 12px; font-size: 14px; line-height: 1.5; max-width: 92%; }
-    .mentor-msg.user { background: rgba(59,59,214,0.08); align-self: flex-end; }
-    .mentor-msg.bot { background: #F8F8F9; border: 1px solid #E5E5E7; }
-    .mentor-form { padding: 1rem 1.5rem; border-top: 1px solid #E5E5E7; display: flex; gap: 0.5rem; }
-    .mentor-form input { flex: 1; padding: 0.6rem 0.85rem; border: 1px solid #E5E5E7; border-radius: 9999px; font-family: 'DM Sans', sans-serif; }
-    .mentor-form input:focus { outline: none; border-color: #3B3BD6; }
-    .shop-item { display: flex; align-items: center; justify-content: space-between; gap: 1rem; border: 1px solid #E5E5E7; padding: 0.85rem 1rem; border-radius: 12px; background: #FFFFFF; }
-  </style>
-  <!-- M3 mobile bottom nav -->
-  <nav class="m3-navbar" aria-label="Mobile navigation">
-    <a href="./mission-select.html" class="active"><span class="icon-wrap"><span class="material-symbols-rounded size-20">map</span></span><span>Missions</span></a>
-    <a href="./studio.html"><span class="icon-wrap"><span class="material-symbols-rounded size-20">edit_note</span></span><span>Studio</span></a>
-    <a href="./reflections.html"><span class="icon-wrap"><span class="material-symbols-rounded size-20">mic</span></span><span>Reflect</span></a>
-    <a href="./portfolio.html"><span class="icon-wrap"><span class="material-symbols-rounded size-20">dashboard</span></span><span>Profile</span></a>
-  </nav>
-  <script type="module" src="../src/topbar-actions.js"></script>
 </body>
 </html>
