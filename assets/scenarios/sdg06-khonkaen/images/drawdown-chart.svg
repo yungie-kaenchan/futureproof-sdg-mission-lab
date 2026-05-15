@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Static water level decline, three Khon Kaen districts, 2020–2025.
+     Numbers are ILLUSTRATIVE NARRATIVE FIGURES per the scenario
+     manifest (PRODUCTION-MASTER §1.5) — not verified field data. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img"
+     aria-label="Chart showing static water level decline in three Khon Kaen districts from 2020 to 2025. Nong Rua district shows the steepest decline (from 9 m to 21 m below ground surface). Ban Phai and Ubolratana districts show moderate and shallower declines. All three lines cross the historical fluctuation threshold around 2023.">
+  <title>Static water level decline · 2020–2025</title>
+
+  <!-- Background -->
+  <rect width="1600" height="900" fill="#F4F1EA"/>
+
+  <!-- Title block -->
+  <text x="120" y="90" font-family="'Fraunces', serif" font-style="italic" font-size="44"
+        font-weight="500" fill="#071734">Static water level decline · 2020–2025</text>
+  <text x="120" y="125" font-family="'IBM Plex Sans Thai', sans-serif" font-size="20"
+        fill="#647293">ระดับน้ำใต้ดินที่ลดลง · เทียบสามอำเภอ จังหวัดขอนแก่น</text>
+
+  <!-- Chart area: x [180, 1480], y [200, 760] -->
+  <g>
+    <!-- Gridlines (horizontal) at every 5m -->
+    <g stroke="#E4E8F0" stroke-width="1">
+      <line x1="180" y1="200" x2="1480" y2="200"/>
+      <line x1="180" y1="312" x2="1480" y2="312"/>
+      <line x1="180" y1="424" x2="1480" y2="424"/>
+      <line x1="180" y1="536" x2="1480" y2="536"/>
+      <line x1="180" y1="648" x2="1480" y2="648"/>
+      <line x1="180" y1="760" x2="1480" y2="760"/>
+    </g>
+
+    <!-- Axes -->
+    <line x1="180" y1="200" x2="180" y2="760" stroke="#1A1F2E" stroke-width="2"/>
+    <line x1="180" y1="760" x2="1480" y2="760" stroke="#1A1F2E" stroke-width="2"/>
+
+    <!-- Y-axis labels: depth in metres below ground (0 at top, 25 at bottom) -->
+    <g font-family="'JetBrains Mono', monospace" font-size="14" fill="#1A1F2E" text-anchor="end">
+      <text x="160" y="206">0 m</text>
+      <text x="160" y="318">5 m</text>
+      <text x="160" y="430">10 m</text>
+      <text x="160" y="542">15 m</text>
+      <text x="160" y="654">20 m</text>
+      <text x="160" y="766">25 m</text>
+    </g>
+    <text x="60" y="480" font-family="'DM Sans', sans-serif" font-size="13"
+          fill="#647293" transform="rotate(-90 60 480)">Depth below ground surface (m)</text>
+
+    <!-- X-axis labels: years 2020–2025 -->
+    <g font-family="'JetBrains Mono', monospace" font-size="14" fill="#1A1F2E" text-anchor="middle">
+      <text x="180"  y="790">2020</text>
+      <text x="440"  y="790">2021</text>
+      <text x="700"  y="790">2022</text>
+      <text x="960"  y="790">2023</text>
+      <text x="1220" y="790">2024</text>
+      <text x="1480" y="790">2025</text>
+    </g>
+
+    <!-- Historical fluctuation upper bound (dashed line at 18 m = y=603) -->
+    <line x1="180" y1="603" x2="1480" y2="603"
+          stroke="#B57C34" stroke-width="2" stroke-dasharray="8 6"/>
+    <text x="1480" y="595" font-family="'DM Sans', sans-serif" font-size="13"
+          fill="#B57C34" font-style="italic" text-anchor="end">Historical seasonal fluctuation — upper bound (18 m)</text>
+
+    <!-- Nong Rua line (steepest: 9 → 21 m) -->
+    <polyline fill="none" stroke="#B57C34" stroke-width="3.5"
+              points="180,402 440,448 700,514 960,580 1220,624 1480,670"/>
+    <g fill="#B57C34">
+      <circle cx="180"  cy="402" r="6"/>
+      <circle cx="440"  cy="448" r="6"/>
+      <circle cx="700"  cy="514" r="6"/>
+      <circle cx="960"  cy="580" r="6"/>
+      <circle cx="1220" cy="624" r="6"/>
+      <circle cx="1480" cy="670" r="6"/>
+    </g>
+    <text x="1500" y="676" font-family="'DM Sans', sans-serif" font-size="14"
+          font-weight="600" fill="#B57C34">Nong Rua · 21 m</text>
+
+    <!-- Ban Phai line (moderate: 8 → 17 m) -->
+    <polyline fill="none" stroke="#647293" stroke-width="3.5"
+              points="180,380 440,402 700,438 960,492 1220,548 1480,582"/>
+    <g fill="#647293">
+      <circle cx="180"  cy="380" r="6"/>
+      <circle cx="440"  cy="402" r="6"/>
+      <circle cx="700"  cy="438" r="6"/>
+      <circle cx="960"  cy="492" r="6"/>
+      <circle cx="1220" cy="548" r="6"/>
+      <circle cx="1480" cy="582" r="6"/>
+    </g>
+    <text x="1500" y="588" font-family="'DM Sans', sans-serif" font-size="14"
+          font-weight="600" fill="#647293">Ban Phai · 17 m</text>
+
+    <!-- Ubolratana line (shallowest: 8 → 13 m) -->
+    <polyline fill="none" stroke="#4F7050" stroke-width="3.5"
+              points="180,378 440,392 700,418 960,442 1220,478 1480,514"/>
+    <g fill="#4F7050">
+      <circle cx="180"  cy="378" r="6"/>
+      <circle cx="440"  cy="392" r="6"/>
+      <circle cx="700"  cy="418" r="6"/>
+      <circle cx="960"  cy="442" r="6"/>
+      <circle cx="1220" cy="478" r="6"/>
+      <circle cx="1480" cy="514" r="6"/>
+    </g>
+    <text x="1500" y="520" font-family="'DM Sans', sans-serif" font-size="14"
+          font-weight="600" fill="#4F7050">Ubolratana · 13 m</text>
+
+    <!-- 2022 severe-dry-season annotation -->
+    <g>
+      <line x1="700" y1="498" x2="700" y2="240" stroke="#7B1B1B" stroke-width="1" stroke-dasharray="4 4"/>
+      <rect x="600" y="220" width="200" height="34" rx="4" fill="#7B1B1B"/>
+      <text x="700" y="243" text-anchor="middle"
+            font-family="'JetBrains Mono', monospace" font-size="12"
+            letter-spacing="0.06em" fill="#F4F1EA">SEVERE DRY SEASON · 2022</text>
+    </g>
+  </g>
+
+  <!-- Source / disclaimer footer -->
+  <g transform="translate(120 850)">
+    <text font-family="'JetBrains Mono', monospace" font-size="11"
+          letter-spacing="0.06em" fill="#647293">
+      SOURCE: GROUNDWATER RESEARCH INSTITUTE (GWRI) · KKU · WORKING PAPER · ILLUSTRATIVE
+    </text>
+    <text y="18" font-family="'JetBrains Mono', monospace" font-size="10"
+          letter-spacing="0.04em" fill="#8B8B92">
+      Numbers shown are pedagogical narrative figures · not verified field data · per scenario manifest §1.5
+    </text>
+  </g>
+</svg>

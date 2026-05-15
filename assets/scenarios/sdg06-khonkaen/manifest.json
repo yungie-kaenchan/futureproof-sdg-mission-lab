@@ -1,0 +1,153 @@
+{
+  "scenarioId": "sdg06-khonkaen-aquifer-v1",
+  "version": "1.0.0-polish",
+  "updated": "2026-05-15",
+  "sdg": 6,
+  "narrativeFigures": {
+    "newWells": { "value": 12, "status": "illustrative", "notes": "Pedagogical narrative choice — not a verified provincial figure." },
+    "residents": { "value": 200000, "status": "qualified-estimate", "notes": "Around 200,000 — order-of-magnitude only." },
+    "drawdownData": { "status": "illustrative", "notes": "Numbers on drawdown-chart.svg are pedagogical narrative figures, not verified field data." }
+  },
+  "assets": {
+    "images": [
+      {
+        "path": "/assets/scenarios/sdg06-khonkaen/images/stakeholder-01.svg",
+        "kind": "stakeholder-portrait",
+        "stakeholder": "smallholder-farmer",
+        "tier": "svg-baseline",
+        "shipped": true,
+        "altText": "Stylized portrait illustration of a smallholder rice farmer in a wide-brimmed hat, warm ochre palette. Composite role, not a real person."
+      },
+      {
+        "path": "/assets/scenarios/sdg06-khonkaen/images/stakeholder-02.svg",
+        "kind": "stakeholder-portrait",
+        "stakeholder": "pwa-operations-manager",
+        "tier": "svg-baseline",
+        "shipped": true,
+        "altText": "Stylized portrait illustration of a PWA Operations Manager in collared blouse holding a folder, soft steel-blue palette. Composite role, not a real person."
+      },
+      {
+        "path": "/assets/scenarios/sdg06-khonkaen/images/stakeholder-03.svg",
+        "kind": "stakeholder-portrait",
+        "stakeholder": "food-processing-director",
+        "tier": "svg-baseline",
+        "shipped": true,
+        "altText": "Stylized portrait illustration of a food-processing facility Production Director holding a clipboard, warm bronze palette. Composite role, not a real person."
+      },
+      {
+        "path": "/assets/scenarios/sdg06-khonkaen/images/stakeholder-04.svg",
+        "kind": "stakeholder-portrait",
+        "stakeholder": "community-health-volunteer",
+        "tier": "svg-baseline",
+        "shipped": true,
+        "altText": "Stylized portrait illustration of a Community Health Volunteer (อสม.) in stylized vest holding a notebook, soft sage palette. Composite role, not a real person."
+      },
+      {
+        "path": "/assets/scenarios/sdg06-khonkaen/images/aquifer-crosssection.svg",
+        "kind": "explanatory-diagram",
+        "tier": "svg-shipped",
+        "shipped": true,
+        "altText": "Cross-section diagram of the Khorat Plateau aquifer beneath Khon Kaen showing upper and lower aquifer layers, confining strata with vertical leakage arrows, and deeper rock salt zones with potential saline intrusion arrows."
+      },
+      {
+        "path": "/assets/scenarios/sdg06-khonkaen/images/drawdown-chart.svg",
+        "kind": "data-visualization",
+        "tier": "svg-shipped",
+        "shipped": true,
+        "altText": "Chart showing static water level decline in three Khon Kaen districts (Nong Rua, Ban Phai, Ubolratana) from 2020 to 2025. Numbers are illustrative narrative figures, not verified field data."
+      },
+      {
+        "path": "/assets/scenarios/sdg06-khonkaen/images/watershed-map.svg",
+        "kind": "geographic-map",
+        "tier": "svg-shipped",
+        "shipped": true,
+        "altText": "Hand-drawn map of Khon Kaen Province showing the Nam Phong river basin, Ubolratana Reservoir, and six labelled sub-district locations representing the farmer, PWA, food-processing facility, community health volunteer, KKU, and Provincial Hall."
+      },
+      {
+        "path": "/assets/scenarios/sdg06-khonkaen/images/hero.png",
+        "kind": "hero-photograph",
+        "tier": "ai-generated-pending",
+        "shipped": false,
+        "promptSource": "/scenarios/sdg06-khonkaen-aquifer-v1/PRODUCTION-PROMPTS.md (Hero B1) and /assets/scenarios/sdg06-khonkaen/PRODUCTION-WORKFLOW.md",
+        "altText": "Pre-dawn rice paddy in rural Khon Kaen. A farmer carries an empty water container away from an old hand-pump well, with provincial waterworks buildings visible on the horizon connected by a single industrial pipe."
+      }
+    ],
+    "audio": [
+      {
+        "path": "/assets/scenarios/sdg06-khonkaen/audio/01-rice-farmer.mp3",
+        "captions": "/assets/scenarios/sdg06-khonkaen/audio/01-rice-farmer.vtt",
+        "stakeholder": "smallholder-farmer",
+        "durationSec": 32,
+        "voiceTier": "cloned-thai-male-60s",
+        "shipped": false,
+        "captionsShipped": true,
+        "promptSource": "/scenarios/sdg06-khonkaen-aquifer-v1/PRODUCTION-PROMPTS.md (A1)"
+      },
+      {
+        "path": "/assets/scenarios/sdg06-khonkaen/audio/02-pwa-manager.mp3",
+        "captions": "/assets/scenarios/sdg06-khonkaen/audio/02-pwa-manager.vtt",
+        "stakeholder": "pwa-operations-manager",
+        "durationSec": 32,
+        "voiceTier": "library-thai-female-40s-professional",
+        "shipped": false,
+        "captionsShipped": true,
+        "promptSource": "/scenarios/sdg06-khonkaen-aquifer-v1/PRODUCTION-PROMPTS.md (A2)"
+      },
+      {
+        "path": "/assets/scenarios/sdg06-khonkaen/audio/03-plant-director.mp3",
+        "captions": "/assets/scenarios/sdg06-khonkaen/audio/03-plant-director.vtt",
+        "stakeholder": "food-processing-director",
+        "durationSec": 30,
+        "voiceTier": "library-thai-male-50s-executive",
+        "shipped": false,
+        "captionsShipped": true,
+        "promptSource": "/scenarios/sdg06-khonkaen-aquifer-v1/PRODUCTION-PROMPTS.md (A3)"
+      },
+      {
+        "path": "/assets/scenarios/sdg06-khonkaen/audio/04-health-volunteer.mp3",
+        "captions": "/assets/scenarios/sdg06-khonkaen/audio/04-health-volunteer.vtt",
+        "stakeholder": "community-health-volunteer",
+        "durationSec": 34,
+        "voiceTier": "cloned-thai-female-50s",
+        "shipped": false,
+        "captionsShipped": true,
+        "promptSource": "/scenarios/sdg06-khonkaen-aquifer-v1/PRODUCTION-PROMPTS.md (A4)"
+      },
+      {
+        "path": "/assets/scenarios/sdg06-khonkaen/audio/crisis-dispatch.mp3",
+        "captions": "/assets/scenarios/sdg06-khonkaen/audio/crisis-dispatch.vtt",
+        "kind": "crisis-event-m3",
+        "durationSec": 42,
+        "voiceTier": "library-news-anchor-neutral",
+        "shipped": false,
+        "captionsShipped": true,
+        "promptSource": "/scenarios/sdg06-khonkaen-aquifer-v1/PRODUCTION-PROMPTS.md (A5)"
+      },
+      {
+        "path": "/assets/scenarios/sdg06-khonkaen/audio/tribunal-open.mp3",
+        "captions": "/assets/scenarios/sdg06-khonkaen/audio/tribunal-open.vtt",
+        "kind": "tribunal-opening-m5",
+        "durationSec": 32,
+        "voiceTier": "library-panel-chair-formal",
+        "shipped": false,
+        "captionsShipped": true,
+        "promptSource": "/scenarios/sdg06-khonkaen-aquifer-v1/PRODUCTION-PROMPTS.md (A6)"
+      }
+    ]
+  },
+  "shippedStatus": {
+    "imagesReady": 7,
+    "imagesPending": 1,
+    "audioReady": 0,
+    "audioPending": 6,
+    "captionsReady": 6,
+    "overallCompleteness": "0.62"
+  },
+  "qa": {
+    "compositeStakeholderDisclosure": true,
+    "narrativeFigureDisclosure": true,
+    "noIdentifiableFaces": true,
+    "noUNLogo": true,
+    "udlCaptioning": "pending-audio-production"
+  }
+}

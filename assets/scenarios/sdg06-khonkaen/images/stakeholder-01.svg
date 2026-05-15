@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Stakeholder 01 — Smallholder rice farmer, Nong Rua District
+     Composite role, not a real person. Editorial silhouette in
+     warm ochre accent. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img"
+     aria-label="Stylized portrait illustration of a smallholder rice farmer">
+  <title>Smallholder Rice Farmer · Nong Rua District</title>
+  <desc>Editorial illustration: silhouette of a working farmer with a wide-brimmed hat, warm ochre accent palette. Composite role, not a real person.</desc>
+
+  <defs>
+    <linearGradient id="s1-bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"  stop-color="#F4E9D4"/>
+      <stop offset="100%" stop-color="#EFD4A3"/>
+    </linearGradient>
+    <linearGradient id="s1-figure" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"  stop-color="#1A1F2E"/>
+      <stop offset="100%" stop-color="#3F4A6B"/>
+    </linearGradient>
+    <radialGradient id="s1-glow" cx="50%" cy="100%" r="60%">
+      <stop offset="0%"  stop-color="#E5B567" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#E5B567" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="512" height="512" fill="url(#s1-bg)"/>
+
+  <!-- Sunrise glow at base -->
+  <rect y="320" width="512" height="192" fill="url(#s1-glow)"/>
+
+  <!-- Distant horizon line (rice paddy) -->
+  <path d="M 0 380 Q 128 372 256 378 T 512 380 L 512 410 L 0 410 Z" fill="#B57C34" opacity="0.32"/>
+  <path d="M 0 405 L 512 405 L 512 512 L 0 512 Z" fill="#8C5E23" opacity="0.45"/>
+
+  <!-- Subject silhouette: head + hat -->
+  <g fill="url(#s1-figure)">
+    <!-- Hat brim — wide-brim straw -->
+    <ellipse cx="256" cy="160" rx="118" ry="22"/>
+    <!-- Hat crown -->
+    <path d="M 200 120 Q 256 75 312 120 L 312 162 Q 256 158 200 162 Z"/>
+    <!-- Neck + collar -->
+    <path d="M 232 180 L 232 220 Q 236 232 256 232 Q 276 232 280 220 L 280 180 Z"/>
+    <!-- Torso (linen shirt suggestion) -->
+    <path d="M 152 232 Q 200 230 232 232 L 232 250 Q 256 256 280 250 L 280 232 Q 312 230 360 232
+             L 360 380 Q 360 405 332 412 L 180 412 Q 152 405 152 380 Z"
+          fill="#F4F1EA"/>
+    <!-- Shirt shadow -->
+    <path d="M 152 232 Q 200 230 232 232 L 232 250 Q 256 256 280 250 L 280 232 Q 312 230 360 232
+             L 360 380 Q 360 405 332 412 L 180 412 Q 152 405 152 380 Z"
+          fill="#1A1F2E" opacity="0.16"/>
+  </g>
+
+  <!-- Hat shadow under brim -->
+  <ellipse cx="256" cy="172" rx="56" ry="10" fill="#1A1F2E" opacity="0.42"/>
+
+  <!-- Subtle ochre rim light on hat edge -->
+  <path d="M 144 158 Q 256 138 368 158" stroke="#E5B567" stroke-width="1.5" fill="none" opacity="0.65"/>
+
+  <!-- Bottom caption strip -->
+  <rect x="0" y="466" width="512" height="46" fill="#1A1F2E" opacity="0.88"/>
+  <text x="256" y="488" text-anchor="middle"
+        font-family="'JetBrains Mono', monospace" font-size="11"
+        font-weight="700" letter-spacing="0.16em" fill="#E5B567">
+    SMALLHOLDER · NONG RUA
+  </text>
+  <text x="256" y="503" text-anchor="middle"
+        font-family="'IBM Plex Sans Thai', sans-serif" font-size="9"
+        fill="#F4F1EA" opacity="0.7">
+    เกษตรกรรายย่อย · อ.หนองเรือ
+  </text>
+</svg>

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Khorat Plateau Aquifer · Cross-Section Diagram
+     Hand-drawn explanatory style. For the SDG 6 Khon Kaen scenario.
+     Educational illustration · not to scale. Composite illustrative
+     depiction · not a literal geological survey. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" role="img"
+     aria-label="Cross-section diagram of the Khorat Plateau aquifer beneath Khon Kaen showing upper and lower aquifer layers, confining strata with vertical leakage arrows, and deeper rock salt zones with potential saline intrusion arrows">
+  <title>The Aquifer Below Khon Kaen — cross-section</title>
+
+  <defs>
+    <pattern id="rice-paddy" x="0" y="0" width="40" height="20" patternUnits="userSpaceOnUse">
+      <rect width="40" height="20" fill="#C7E8DA"/>
+      <line x1="0" y1="14" x2="40" y2="14" stroke="#4F7050" stroke-width="0.8" opacity="0.45"/>
+    </pattern>
+    <pattern id="soil-upper" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+      <rect width="20" height="20" fill="#E8D2B0"/>
+      <circle cx="4" cy="8" r="0.6" fill="#8C5E23" opacity="0.5"/>
+      <circle cx="14" cy="14" r="0.5" fill="#8C5E23" opacity="0.5"/>
+      <circle cx="10" cy="3" r="0.4" fill="#8C5E23" opacity="0.5"/>
+    </pattern>
+    <pattern id="aquifer-upper" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
+      <rect width="30" height="30" fill="#A8D5F0"/>
+      <circle cx="6" cy="10" r="1.2" fill="#5BA8D9" opacity="0.55"/>
+      <circle cx="20" cy="22" r="1.0" fill="#5BA8D9" opacity="0.55"/>
+      <circle cx="14" cy="4" r="0.9" fill="#5BA8D9" opacity="0.55"/>
+    </pattern>
+    <pattern id="confining" x="0" y="0" width="14" height="14" patternUnits="userSpaceOnUse">
+      <rect width="14" height="14" fill="#647293"/>
+      <line x1="-2" y1="14" x2="16" y2="-2" stroke="#3F4A6B" stroke-width="0.8"/>
+    </pattern>
+    <pattern id="aquifer-lower" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
+      <rect width="30" height="30" fill="#5BA8D9"/>
+      <circle cx="8" cy="12" r="1.4" fill="#1A4F7A" opacity="0.55"/>
+      <circle cx="22" cy="22" r="1.2" fill="#1A4F7A" opacity="0.55"/>
+      <circle cx="14" cy="4"  r="1.0" fill="#1A4F7A" opacity="0.55"/>
+    </pattern>
+    <pattern id="rock-salt" x="0" y="0" width="22" height="22" patternUnits="userSpaceOnUse">
+      <rect width="22" height="22" fill="#B57C34"/>
+      <circle cx="6"  cy="6"  r="2.5" fill="#E5B567" opacity="0.55"/>
+      <circle cx="18" cy="14" r="3" fill="#E5B567" opacity="0.55"/>
+      <circle cx="12" cy="18" r="2"   fill="#E5B567" opacity="0.55"/>
+    </pattern>
+
+    <marker id="arrow-up" viewBox="0 0 10 10" refX="5" refY="0" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 10 L 5 0 L 10 10 Z" fill="#7B1B1B"/>
+    </marker>
+    <marker id="arrow-down" viewBox="0 0 10 10" refX="5" refY="10" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 5 10 L 10 0 Z" fill="#1A2B52"/>
+    </marker>
+  </defs>
+
+  <!-- Page background (bone) -->
+  <rect width="1920" height="1080" fill="#F4F1EA"/>
+
+  <!-- ── SKY + SURFACE ── -->
+  <rect width="1920" height="200" fill="#E4F0FA"/>
+  <text x="80" y="60" font-family="'Fraunces', serif" font-style="italic" font-size="42"
+        font-weight="500" fill="#071734">The Aquifer Below Khon Kaen</text>
+  <text x="80" y="100" font-family="'JetBrains Mono', monospace" font-size="14"
+        letter-spacing="0.16em" fill="#647293">CROSS-SECTION · ILLUSTRATIVE · NOT TO SCALE</text>
+
+  <!-- ── GROUND SURFACE LAYER ── -->
+  <rect x="0" y="200" width="1920" height="60" fill="url(#rice-paddy)"/>
+  <!-- A rice paddy on the left, urban water tower on the right -->
+  <g transform="translate(140 220)">
+    <!-- Rice paddy field marker -->
+    <line x1="0" y1="32" x2="60" y2="20" stroke="#4F7050" stroke-width="2"/>
+    <line x1="0" y1="42" x2="60" y2="30" stroke="#4F7050" stroke-width="2"/>
+    <text x="0" y="68" font-family="'DM Sans', sans-serif" font-size="20" font-weight="600" fill="#1A1F2E">Rice paddy</text>
+    <text x="0" y="88" font-family="'IBM Plex Sans Thai', sans-serif" font-size="14" fill="#647293">นาข้าว</text>
+  </g>
+  <g transform="translate(1620 220)">
+    <!-- Water tower icon -->
+    <rect x="0" y="0" width="36" height="14" fill="#647293"/>
+    <rect x="14" y="14" width="8" height="22" fill="#647293"/>
+    <rect x="-8" y="36" width="52" height="8" fill="#647293"/>
+    <text x="-30" y="68" font-family="'DM Sans', sans-serif" font-size="20" font-weight="600" fill="#1A1F2E">PWA Wellfield</text>
+    <text x="-30" y="88" font-family="'IBM Plex Sans Thai', sans-serif" font-size="14" fill="#647293">บ่อน้ำเทศบาล</text>
+  </g>
+
+  <!-- ── HOUSEHOLD SHALLOW WELL (left) ── -->
+  <g transform="translate(180 200)">
+    <rect x="-4" y="0" width="8" height="240" fill="#1A1F2E"/>
+    <circle cx="0" cy="240" r="14" fill="#1A1F2E"/>
+  </g>
+
+  <!-- ── MUNICIPAL DEEP WELL ── -->
+  <g transform="translate(1640 200)">
+    <rect x="-4" y="0" width="8" height="540" fill="#1A1F2E"/>
+    <circle cx="0" cy="540" r="18" fill="#1A1F2E"/>
+  </g>
+
+  <!-- ── INDUSTRIAL DEEP WELL ── -->
+  <g transform="translate(1280 200)">
+    <rect x="-3" y="0" width="6" height="560" fill="#8C5E23"/>
+    <circle cx="0" cy="560" r="14" fill="#8C5E23"/>
+  </g>
+
+  <!-- ── UPPER AQUIFER LAYER (30-60m) ── -->
+  <rect x="0" y="260" width="1920" height="60" fill="url(#soil-upper)"/>
+  <text x="80" y="298" font-family="'JetBrains Mono', monospace" font-size="14"
+        letter-spacing="0.12em" fill="#1A1F2E">UNSATURATED ZONE · 0–30 m</text>
+
+  <rect x="0" y="320" width="1920" height="160" fill="url(#aquifer-upper)"/>
+  <g transform="translate(80 360)">
+    <text font-family="'Fraunces', serif" font-style="italic" font-size="28"
+          font-weight="500" fill="#1A4F7A">Upper Aquifer</text>
+    <text y="32" font-family="'JetBrains Mono', monospace" font-size="13"
+          letter-spacing="0.12em" fill="#1A1F2E">30–60 m · RECHARGED BY MONSOON</text>
+    <text y="58" font-family="'IBM Plex Sans Thai', sans-serif" font-size="16" fill="#1A1F2E">ชั้นน้ำใต้ดินตื้น</text>
+  </g>
+
+  <!-- Recharge arrows (downward, from surface) -->
+  <g stroke="#1A2B52" stroke-width="2" fill="none" marker-end="url(#arrow-down)" opacity="0.6">
+    <line x1="500"  y1="270" x2="500"  y2="430"/>
+    <line x1="780"  y1="270" x2="780"  y2="430"/>
+    <line x1="1060" y1="270" x2="1060" y2="430"/>
+  </g>
+
+  <!-- ── CONFINING STRATA (with fractures = leakage arrows) ── -->
+  <rect x="0" y="480" width="1920" height="80" fill="url(#confining)"/>
+  <g transform="translate(80 520)">
+    <text font-family="'Fraunces', serif" font-style="italic" font-size="24"
+          font-weight="500" fill="#FFFFFF">Confining Strata</text>
+    <text y="26" font-family="'JetBrains Mono', monospace" font-size="13"
+          letter-spacing="0.10em" fill="#E5B567">PARTIAL SEPARATION · VERTICAL LEAKAGE OCCURS</text>
+  </g>
+  <!-- Fracture indicators across the strata -->
+  <g stroke="#7B1B1B" stroke-width="2.5" stroke-dasharray="4 6" fill="none">
+    <line x1="320"  y1="480" x2="320"  y2="560"/>
+    <line x1="640"  y1="480" x2="640"  y2="560"/>
+    <line x1="960"  y1="480" x2="960"  y2="560"/>
+    <line x1="1280" y1="480" x2="1280" y2="560"/>
+    <line x1="1580" y1="480" x2="1580" y2="560"/>
+  </g>
+  <!-- Tiny vertical leakage arrows down through fractures -->
+  <g stroke="#7B1B1B" stroke-width="2" fill="none" marker-end="url(#arrow-down)">
+    <line x1="320"  y1="560" x2="320"  y2="600"/>
+    <line x1="960"  y1="560" x2="960"  y2="600"/>
+    <line x1="1580" y1="560" x2="1580" y2="600"/>
+  </g>
+
+  <!-- ── LOWER CONFINED AQUIFER ── -->
+  <rect x="0" y="560" width="1920" height="280" fill="url(#aquifer-lower)"/>
+  <g transform="translate(80 620)">
+    <text font-family="'Fraunces', serif" font-style="italic" font-size="34"
+          font-weight="500" fill="#FFFFFF">Lower Confined Aquifer</text>
+    <text y="36" font-family="'JetBrains Mono', monospace" font-size="13"
+          letter-spacing="0.12em" fill="#E5B567">~200 m+ · MUNICIPAL + INDUSTRIAL EXTRACTION</text>
+    <text y="62" font-family="'IBM Plex Sans Thai', sans-serif" font-size="16" fill="#FFFFFF">ชั้นน้ำใต้ดินลึก · กักเก็บจำกัด</text>
+  </g>
+
+  <!-- Drawdown indicator — declining water-level arrow within lower aquifer -->
+  <g stroke="#E5B567" stroke-width="3" fill="none" marker-end="url(#arrow-down)">
+    <line x1="800" y1="640" x2="800" y2="800" stroke-dasharray="6 4"/>
+  </g>
+  <text x="820" y="730" font-family="'DM Sans', sans-serif" font-size="14"
+        font-style="italic" fill="#E5B567">drawdown ↘</text>
+
+  <!-- ── ROCK SALT ZONES ── -->
+  <rect x="0" y="840" width="1920" height="180" fill="url(#rock-salt)"/>
+  <g transform="translate(80 890)">
+    <text font-family="'Fraunces', serif" font-style="italic" font-size="28"
+          font-weight="500" fill="#FFFFFF">Rock Salt Formations</text>
+    <text y="30" font-family="'JetBrains Mono', monospace" font-size="13"
+          letter-spacing="0.10em" fill="#1A1F2E">SALINE INTRUSION RISK WHEN OVER-DRAWN</text>
+    <text y="56" font-family="'IBM Plex Sans Thai', sans-serif" font-size="16" fill="#1A1F2E">ชั้นเกลือ · เสี่ยงรุกล้ำสู่ชั้นน้ำจืด</text>
+  </g>
+
+  <!-- Saline intrusion upward arrows -->
+  <g stroke="#7B1B1B" stroke-width="3" fill="none" marker-end="url(#arrow-up)">
+    <line x1="360"  y1="840" x2="360"  y2="780"/>
+    <line x1="720"  y1="840" x2="720"  y2="780"/>
+    <line x1="1080" y1="840" x2="1080" y2="780"/>
+    <line x1="1440" y1="840" x2="1440" y2="780"/>
+  </g>
+  <text x="1500" y="800" font-family="'DM Sans', sans-serif" font-size="14"
+        font-style="italic" fill="#7B1B1B">saline intrusion ↑</text>
+
+  <!-- ── DEPTH SCALE on right edge ── -->
+  <g transform="translate(1860 280)" font-family="'JetBrains Mono', monospace" font-size="11" fill="#647293">
+    <line x1="0" y1="0" x2="0" y2="740" stroke="#647293" stroke-width="1"/>
+    <g><line x1="-6" y1="0"   x2="6" y2="0"   stroke="#647293"/><text x="-50" y="4">0 m</text></g>
+    <g><line x1="-6" y1="60"  x2="6" y2="60"  stroke="#647293"/><text x="-58" y="64">30 m</text></g>
+    <g><line x1="-6" y1="200" x2="6" y2="200" stroke="#647293"/><text x="-58" y="204">60 m</text></g>
+    <g><line x1="-6" y1="280" x2="6" y2="280" stroke="#647293"/><text x="-70" y="284">100 m</text></g>
+    <g><line x1="-6" y1="560" x2="6" y2="560" stroke="#647293"/><text x="-70" y="564">200 m</text></g>
+    <g><line x1="-6" y1="740" x2="6" y2="740" stroke="#647293"/><text x="-70" y="744">300 m</text></g>
+  </g>
+
+  <!-- ── FOOTER attribution ── -->
+  <text x="80" y="1050" font-family="'JetBrains Mono', monospace" font-size="11"
+        letter-spacing="0.08em" fill="#647293">
+    EDUCATIONAL ILLUSTRATION · FUTUREPROOF SDG MISSION LAB · NOT A LITERAL GEOLOGICAL SURVEY
+  </text>
+</svg>

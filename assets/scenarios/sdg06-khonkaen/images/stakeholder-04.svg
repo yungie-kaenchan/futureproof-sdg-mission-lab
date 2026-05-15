@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Stakeholder 04 — Community Health Volunteer (อสม.)
+     Composite role, not a real person. Editorial silhouette in
+     soft sage accent. The recognizable อสม. vest is rendered
+     stylized — not a literal uniform copy. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img"
+     aria-label="Stylized portrait illustration of a Community Health Volunteer">
+  <title>Community Health Volunteer · อสม.</title>
+  <desc>Editorial illustration: silhouette of a community health worker in stylized vest with notebook, soft sage palette. Composite role, not a real person.</desc>
+
+  <defs>
+    <linearGradient id="s4-bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"  stop-color="#E8F2DC"/>
+      <stop offset="100%" stop-color="#C7E8DA"/>
+    </linearGradient>
+    <linearGradient id="s4-figure" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"  stop-color="#1A1F2E"/>
+      <stop offset="100%" stop-color="#2F4334"/>
+    </linearGradient>
+    <radialGradient id="s4-glow" cx="50%" cy="100%" r="50%">
+      <stop offset="0%"  stop-color="#4F7050" stop-opacity="0.30"/>
+      <stop offset="100%" stop-color="#4F7050" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="512" height="512" fill="url(#s4-bg)"/>
+
+  <!-- Suggestion of village houses in background -->
+  <g opacity="0.18" fill="#2F4334">
+    <polygon points="60,400 100,360 140,400"/>
+    <rect x="80" y="395" width="40" height="20"/>
+    <polygon points="380,395 420,355 460,395"/>
+    <rect x="400" y="390" width="40" height="20"/>
+  </g>
+
+  <!-- Floor glow -->
+  <rect y="380" width="512" height="100" fill="url(#s4-glow)"/>
+
+  <!-- Subject silhouette -->
+  <g fill="url(#s4-figure)">
+    <!-- Hair (mid-length) -->
+    <path d="M 196 92 Q 256 62 316 92 L 320 168 L 192 168 Z"/>
+    <!-- Head -->
+    <ellipse cx="256" cy="152" rx="60" ry="78"/>
+    <!-- Neck -->
+    <rect x="232" y="210" width="48" height="30"/>
+    <!-- Blouse (plain) -->
+    <path d="M 152 240 Q 200 232 232 240 L 232 258 L 280 258 L 280 240 Q 312 232 360 240
+             L 360 412 L 152 412 Z"
+          fill="#F4F1EA"/>
+  </g>
+
+  <!-- อสม. vest (stylized — light sage with simple form) -->
+  <g>
+    <!-- Vest body -->
+    <path d="M 168 244 L 232 252 L 256 268 L 280 252 L 344 244
+             L 350 412 L 162 412 Z"
+          fill="#C7E8DA" opacity="0.92"/>
+    <!-- Vest left edge -->
+    <line x1="232" y1="252" x2="232" y2="412" stroke="#2F4334" stroke-width="1" opacity="0.42"/>
+    <!-- Vest right edge -->
+    <line x1="280" y1="252" x2="280" y2="412" stroke="#2F4334" stroke-width="1" opacity="0.42"/>
+    <!-- Subtle ID-style band across chest -->
+    <rect x="180" y="290" width="44" height="14" rx="2" fill="#4F7050" opacity="0.32"/>
+  </g>
+
+  <!-- Notebook held -->
+  <g transform="translate(312 360)">
+    <rect x="0" y="0" width="48" height="62" rx="2" fill="#4F7050"/>
+    <rect x="4" y="4" width="40" height="54" fill="#F4F1EA"/>
+    <line x1="0" y1="14" x2="48" y2="14" stroke="#2F4334" stroke-width="0.8" opacity="0.5"/>
+    <line x1="8" y1="22" x2="40" y2="22" stroke="#647293" stroke-width="1"/>
+    <line x1="8" y1="30" x2="38" y2="30" stroke="#647293" stroke-width="1"/>
+    <line x1="8" y1="38" x2="42" y2="38" stroke="#647293" stroke-width="1"/>
+    <line x1="8" y1="46" x2="36" y2="46" stroke="#647293" stroke-width="1"/>
+    <!-- Spiral binding -->
+    <circle cx="2"  cy="12" r="1.5" fill="#1A1F2E"/>
+    <circle cx="2"  cy="22" r="1.5" fill="#1A1F2E"/>
+    <circle cx="2"  cy="32" r="1.5" fill="#1A1F2E"/>
+    <circle cx="2"  cy="42" r="1.5" fill="#1A1F2E"/>
+    <circle cx="2"  cy="52" r="1.5" fill="#1A1F2E"/>
+  </g>
+
+  <!-- Bottom caption strip -->
+  <rect x="0" y="466" width="512" height="46" fill="#1A1F2E" opacity="0.88"/>
+  <text x="256" y="488" text-anchor="middle"
+        font-family="'JetBrains Mono', monospace" font-size="11"
+        font-weight="700" letter-spacing="0.16em" fill="#C7E8DA">
+    COMMUNITY HEALTH · อสม.
+  </text>
+  <text x="256" y="503" text-anchor="middle"
+        font-family="'IBM Plex Sans Thai', sans-serif" font-size="9"
+        fill="#F4F1EA" opacity="0.7">
+    อาสาสมัครสาธารณสุข · บ้านไผ่
+  </text>
+</svg>
