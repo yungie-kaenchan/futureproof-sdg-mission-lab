@@ -10,20 +10,89 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
+
+  <style>
+    /* ─── Mission Shell template header ─── */
+    .shell-header {
+      position: fixed; top: 0; left: 0; right: 0; height: 64px; z-index: 50;
+      background: rgba(7, 23, 52, 0.95); backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(232, 199, 122, 0.18);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 24px; color: #F4F1EA;
+    }
+    .shell-header-brand { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+    .shell-header-brand .logo {
+      font-family: 'Fraunces', 'Cormorant Garamond', serif;
+      font-weight: 600; font-size: 20px; letter-spacing: 0.02em;
+      color: #E8C77A; line-height: 1;
+    }
+    .shell-header-brand .sub {
+      font-family: 'Cinzel', serif; font-weight: 600; font-size: 11px;
+      letter-spacing: 0.32em; color: rgba(244, 241, 234, 0.65);
+      text-transform: uppercase;
+      border-left: 1px solid rgba(232, 199, 122, 0.22);
+      padding-left: 14px; margin-left: 4px;
+    }
+    .shell-header-status {
+      display: flex; align-items: center; gap: 10px;
+      background: rgba(232, 199, 122, 0.08);
+      border: 1px solid rgba(232, 199, 122, 0.22);
+      border-radius: 999px; padding: 7px 16px 7px 12px; max-width: 540px;
+    }
+    .shell-header-status .live-dot {
+      width: 8px; height: 8px; border-radius: 999px; background: #A82424;
+      box-shadow: 0 0 0 0 rgba(168, 36, 36, 0.55);
+      animation: shellPulse 2s infinite;
+    }
+    @keyframes shellPulse {
+      0% { box-shadow: 0 0 0 0 rgba(168, 36, 36, 0.55); }
+      70% { box-shadow: 0 0 0 8px rgba(168, 36, 36, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(168, 36, 36, 0); }
+    }
+    .shell-header-status-label {
+      font-family: 'JetBrains Mono', monospace; font-size: 10px;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: #E8C77A; line-height: 1.15;
+    }
+    .shell-header-status-title {
+      font-family: 'Fraunces', 'Cormorant Garamond', serif;
+      font-style: italic; font-weight: 500; font-size: 15px;
+      color: #F4F1EA; white-space: nowrap; overflow: hidden;
+      text-overflow: ellipsis; max-width: 360px;
+    }
+    .shell-header-btn {
+      background: transparent; border: 1px solid rgba(244, 241, 234, 0.18);
+      color: #F4F1EA; border-radius: 999px; padding: 6px 14px;
+      font-family: 'DM Sans', system-ui, sans-serif; font-size: 12px; font-weight: 600;
+      cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+      transition: background 200ms, border-color 200ms; text-decoration: none;
+    }
+    .shell-header-btn:hover { background: rgba(244, 241, 234, 0.08); border-color: #b57c34; }
+    @media (max-width: 1199px) { .shell-header-status { max-width: 360px; margin: 0 8px; } }
+    @media (max-width: 899px) { .shell-header-brand .sub { display: none; } }
+    @media (max-width: 767px) { .shell-header-status { display: none; } }
+    body { padding-top: 64px; }
+  </style>
 </head>
 
 <body class="bg-white text-on-surface">
 
-  <header class="topbar fixed top-0 left-0 right-0 z-50 backdrop-blur-md" style="height:56px;">
-    <div class="h-full max-w-1600 mx-auto px-6 lg:px-12 flex items-center justify-between text-xs">
-      <div class="flex items-center gap-6">
-        <a href="../home.html" class="flex items-center gap-2 hover:opacity-80 transition">
-          <div class="status-pulse"></div><span class="topbar-brand">FUTUREPROOF</span>
-        </a>
-        <span class="topbar-name">Sign In</span>
+  <!-- Mission Shell template header — bilingual status badge -->
+  <header class="shell-header">
+    <a href="../home.html" class="shell-header-brand">
+      <span class="logo">FUTUREPROOF</span>
+      <span class="sub">SDGs Mission Lab</span>
+    </a>
+
+    <div class="shell-header-status">
+      <span class="live-dot" aria-hidden="true"></span>
+      <div>
+        <div class="shell-header-status-label">Returning Learner · ผู้เรียนเดิม</div>
+        <div class="shell-header-status-title">Sign In · เข้าสู่ระบบ</div>
       </div>
-      <a href="../home.html" class="nav-btn">← Back</a>
     </div>
+
+    <a href="../home.html" class="shell-header-btn">← Back</a>
   </header>
 
   <main id="main" class="max-w-1600 mx-auto px-6 lg:px-12 pt-32 pb-24">
