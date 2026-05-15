@@ -1920,6 +1920,129 @@ body.font-dyslexia {
   }
   .topbar .status-pulse { background: #E5B567; }   /* light bronze pulse */
 
+  /* ── BRAND BLOCK (top-left) ── new linked container with pulse + wordmark + subtitle */
+  .topbar-brand-block {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+  .topbar-brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+  }
+  .topbar-sub {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    color: rgba(232, 199, 122, 0.78);
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  /* ── MISSION STATUS BADGE (centre) ── replaces the old search bar */
+  .mission-status-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 16px 6px 12px;
+    border-radius: 999px;
+    background: rgba(232, 199, 122, 0.08);
+    border: 1px solid rgba(232, 199, 122, 0.22);
+    max-width: 540px;
+    min-width: 0;
+    flex: 1 1 auto;
+    margin: 0 12px;
+  }
+  .mission-status-badge .badge-pulse {
+    width: 8px; height: 8px; border-radius: 999px;
+    background: #A82424;
+    box-shadow: 0 0 0 0 rgba(168, 36, 36, 0.55);
+    animation: missionPulse 2s infinite;
+    flex-shrink: 0;
+  }
+  @keyframes missionPulse {
+    0% { box-shadow: 0 0 0 0 rgba(168, 36, 36, 0.55); }
+    70% { box-shadow: 0 0 0 8px rgba(168, 36, 36, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(168, 36, 36, 0); }
+  }
+  .mission-status-badge .badge-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    line-height: 1.15;
+  }
+  .mission-status-badge .badge-label {
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #E5B567;
+    display: flex; gap: 6px; align-items: center;
+  }
+  .mission-status-badge .badge-label .th {
+    font-family: 'IBM Plex Sans Thai', sans-serif;
+    text-transform: none;
+    letter-spacing: 0.02em;
+    color: rgba(232, 199, 122, 0.62);
+    font-size: 10px;
+  }
+  .mission-status-badge .badge-label .th::before { content: "·"; margin-right: 6px; opacity: 0.5; }
+  .mission-status-badge .badge-title {
+    font-family: 'Fraunces', 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 14px;
+    color: #FFFFFF;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 1px;
+  }
+
+  /* ── HEADER BUTTONS (right) ── with text labels for clarity */
+  .header-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: #F4F1EA;
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-family: var(--font-ui);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex; align-items: center; gap: 6px;
+    text-decoration: none;
+    transition:
+      background 200ms cubic-bezier(0.2, 0, 0, 1),
+      border-color 200ms cubic-bezier(0.2, 0, 0, 1),
+      color 200ms cubic-bezier(0.2, 0, 0, 1);
+    flex-shrink: 0;
+  }
+  .header-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: #b57c34;
+    color: #FFFFFF;
+  }
+  .header-btn .material-symbols-rounded { font-size: 16px; }
+
+  /* ── RESPONSIVE — hide text labels on narrow viewports ── */
+  @media (max-width: 1199px) {
+    .mission-status-badge { max-width: 360px; margin: 0 8px; }
+    .mission-status-badge .badge-label .th { display: none; }
+  }
+  @media (max-width: 899px) {
+    .topbar-sub { display: none; }
+    .header-btn-label { display: none; }
+    .header-btn { padding: 6px 10px; }
+  }
+  @media (max-width: 767px) {
+    .mission-status-badge { display: none; }
+  }
+
   /* ── NAV BUTTONS — motion physics, calibrated for the translucent navy bar ── */
   .nav-btn {
     position: relative;

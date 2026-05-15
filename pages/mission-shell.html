@@ -12,31 +12,43 @@
 </head>
 <body class="bg-white text-on-surface cockpit">
 
-  <!-- TOP APP BAR -->
+  <!-- TOP APP BAR — brand-left · mission-in-progress status badge centre · controls right -->
   <header class="topbar fixed top-0 left-0 right-0 z-50 backdrop-blur-md" style="height: 56px;">
     <div class="h-full flex items-center justify-between px-4 gap-3">
-      <div class="flex items-center gap-3">
-        <a href="../index.html" class="flex items-center gap-2">
-          <div class="status-pulse"></div>
+      <!-- Brand left -->
+      <a href="../home.html" class="topbar-brand-block">
+        <div class="status-pulse"></div>
+        <div class="topbar-brand-text">
           <span class="topbar-brand">FUTUREPROOF</span>
-        </a>
-        <span id="mission-label" class="topbar-name">Mission</span>
+          <span class="topbar-sub" lang="en">SDGs Mission Lab</span>
+        </div>
+      </a>
+
+      <!-- Mission status badge centre -->
+      <div class="mission-status-badge" aria-live="polite">
+        <span class="badge-pulse" aria-hidden="true"></span>
+        <div class="badge-text">
+          <div class="badge-label">
+            <span>SDGs Mission in Progress</span>
+            <span class="th" lang="th">อยู่ระหว่างทำภารกิจ</span>
+          </div>
+          <div id="mission-label" class="badge-title">Loading mission…</div>
+        </div>
       </div>
 
-      <div class="m3-search hidden md:flex" style="height: 40px; max-width: 400px; flex:1;">
-        <span class="material-symbols-rounded size-20">search</span>
-        <input type="text" placeholder="Search missions, scenarios, decisions…" data-tip-en="Search across your work" data-tip-th="ค้นหาผลงานทั้งหมดของคุณ" />
-      </div>
-
+      <!-- Header controls right -->
       <div class="flex items-center gap-2">
-        <button class="btn-text" id="open-mentor" data-tip-en="Field Mentor — Socratic guide" data-tip-th="ที่ปรึกษาภาคสนาม — ผู้แนะนำแบบโสเครติส">
+        <button class="header-btn" id="open-mentor" data-tip-en="Field Mentor — Socratic guide" data-tip-th="ที่ปรึกษาภาคสนาม — ผู้แนะนำแบบโสเครติส">
           <span class="material-symbols-rounded size-20">support_agent</span>
+          <span class="header-btn-label">Mentor</span>
         </button>
-        <button class="btn-text" id="open-shop" data-tip-en="Insight Token Shop" data-tip-th="ร้านค้าโทเค็น">
+        <button class="header-btn" id="open-shop" data-tip-en="Insight Token Shop" data-tip-th="ร้านค้าโทเค็น">
           <span class="material-symbols-rounded size-20">storefront</span>
+          <span class="header-btn-label">Shop</span>
         </button>
-        <a class="btn-text" href="./reflections.html" data-tip-en="Voice of the Learner — record reflections" data-tip-th="เสียงของผู้เรียน — บันทึกการสะท้อน">
+        <a class="header-btn" href="./reflections.html" data-tip-en="Voice of the Learner — record reflections" data-tip-th="เสียงของผู้เรียน — บันทึกการสะท้อน">
           <span class="material-symbols-rounded size-20">mic</span>
+          <span class="header-btn-label">Reflect</span>
         </a>
       </div>
     </div>

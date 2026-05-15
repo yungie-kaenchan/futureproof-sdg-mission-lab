@@ -1,624 +1,427 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="FUTUREPROOF: SDG Mission Lab — An AI-powered gamified learning platform where English meets the world's most urgent challenges." />
-  <title>FUTUREPROOF — SDG Mission Lab</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FUTUREPROOF — Entry Portal</title>
 
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Cinzel:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet">
 
-  <!-- Compiled production CSS -->
-  <link rel="stylesheet" href="./styles.css">
+<style>
+  :root {
+    --ink: #071734;
+    --ink-soft: #4A5A7A;
+    --bone: #F4F1EA;
+    --bone-warm: #EBE5D6;
+    --bronze: #b57c34;
+    --bronze-light: #E8C77A;
+    --crimson: #7B1B1B;
+    --crimson-glow: #A82424;
+    --steel: #647293;
+    --line: rgba(244, 241, 234, 0.18);
+    --display: 'Fraunces', 'Cormorant Garamond', serif;
+    --titles: 'Cinzel', serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+    --thai: 'IBM Plex Sans Thai', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { font-family: var(--sans); color: var(--bone); -webkit-font-smoothing: antialiased; min-height: 100vh; }
+  body {
+    /* FALLBACK background — visible only when AI-generated bg image is
+       missing or still loading. Once the image lands in /assets/landing/,
+       it covers this gradient via the .bg-layer below. */
+    background:
+      radial-gradient(ellipse 900px 600px at 12% 10%, rgba(168, 36, 36, 0.22) 0%, transparent 55%),
+      radial-gradient(ellipse 1000px 700px at 50% 60%, rgba(181, 124, 52, 0.16) 0%, transparent 60%),
+      radial-gradient(ellipse 800px 600px at 88% 92%, rgba(58, 79, 126, 0.30) 0%, transparent 60%),
+      linear-gradient(180deg, #050D1F 0%, #071734 45%, #0A1E4C 100%);
+    background-attachment: fixed;
+    position: relative; overflow-x: hidden;
+    display: flex; flex-direction: column;
+  }
+
+  /* Fallback starfield — hidden once the real image loads */
+  body::before {
+    content: ""; position: fixed; inset: 0; z-index: 0;
+    background-image:
+      radial-gradient(circle at 14% 22%, rgba(232, 199, 122, 0.06) 1px, transparent 2px),
+      radial-gradient(circle at 76% 36%, rgba(232, 199, 122, 0.04) 1px, transparent 2px),
+      radial-gradient(circle at 32% 78%, rgba(232, 199, 122, 0.05) 1px, transparent 2px),
+      radial-gradient(circle at 88% 64%, rgba(232, 199, 122, 0.03) 1px, transparent 2px);
+    background-size: 360px 360px, 480px 480px, 240px 240px, 380px 380px;
+    pointer-events: none;
+    transition: opacity 600ms ease-out;
+  }
+  body[data-bg-loaded="true"]::before { opacity: 0; }
+
+  /* ─── FULL-BLEED BACKGROUND IMAGE SYSTEM ─── */
+  .bg-layer {
+    position: fixed; inset: 0; z-index: 0;
+    overflow: hidden; pointer-events: none;
+    opacity: 0;
+    transition: opacity 700ms cubic-bezier(0.2, 0, 0, 1);
+  }
+  body[data-bg-loaded="true"] .bg-layer { opacity: 1; }
+
+  .bg-layer picture,
+  .bg-layer img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+  }
+  .bg-layer img {
+    object-fit: cover;
+    /* Centered crop — the new image has TWO subjects (the woman at ~10%
+       from left, the man at ~25% from left). A right-anchor crop would
+       push the woman off the viewport's left edge, so we keep the crop
+       symmetric and let both subjects stay framed naturally. */
+    object-position: center;
+    /* Slight desaturation + contrast bump so the image reads as cinematic
+       editorial and the SDG aurora colours never go neon */
+    filter: saturate(0.92) contrast(1.04);
+  }
+
+  /* Three-zone overlay — RE-TUNED for "new_landing.png" (two subjects on
+     left, aurora arcing upper-center, golden glow centre-right).
+     - Top:    Light (0.40) so the rainbow aurora glows through
+     - Center: Heavy vignette anchored at 66% horizontal — sits over the
+               right two-thirds where the typography column lives,
+               leaving the subjects on the left bathed in natural light
+     - Bottom: Heavy (0.92) so footer reads over the mountain mist */
+  .bg-overlay {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(180deg,
+        rgba(5, 13, 31, 0.40) 0%,
+        rgba(5, 13, 31, 0.14) 22%,
+        transparent 34%),
+      radial-gradient(ellipse 70vw 70vh at 66% 50%,
+        rgba(5, 13, 31, 0.74) 0%,
+        rgba(5, 13, 31, 0.46) 48%,
+        transparent 74%),
+      linear-gradient(180deg,
+        transparent 68%,
+        rgba(5, 13, 31, 0.65) 86%,
+        rgba(5, 13, 31, 0.92) 100%);
+  }
+
+  /* Mobile — the mobile.webp was natively portrait-cropped (west gravity)
+     so the subject is already pinned to the left. No object-position
+     override needed; default center works. Only the overlay needs a
+     mobile-specific blend (no center vignette since portrait viewport
+     redistributes the visual weight). */
+  @media (max-width: 768px) {
+    .bg-overlay {
+      background:
+        linear-gradient(180deg,
+          rgba(5, 13, 31, 0.50) 0%,
+          rgba(5, 13, 31, 0.20) 25%,
+          rgba(5, 13, 31, 0.55) 55%,
+          rgba(5, 13, 31, 0.92) 100%);
+    }
+  }
+
+  /* Top-left brand mark — small, mission-control style */
+  .topmark {
+    position: absolute; top: 24px; left: 32px; z-index: 5;
+    display: flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    color: var(--bone); opacity: 0.7; letter-spacing: 0.12em;
+  }
+  .topmark::before {
+    content: ""; width: 6px; height: 6px; border-radius: 999px;
+    background: var(--crimson-glow);
+    box-shadow: 0 0 0 0 rgba(168, 36, 36, 0.55);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(168, 36, 36, 0.55); }
+    70% { box-shadow: 0 0 0 8px rgba(168, 36, 36, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(168, 36, 36, 0); }
+  }
+
+  /* Top-right SDG mark */
+  .sdg-mark {
+    position: absolute; top: 24px; right: 32px; z-index: 5;
+    display: flex; gap: 6px; align-items: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    color: var(--bone); opacity: 0.7; letter-spacing: 0.12em;
+  }
+  .sdg-mark .dot {
+    display: inline-block; width: 14px; height: 14px; border-radius: 3px;
+  }
+  .sdg-mark .dot.sdg6  { background: #26BDE2; }
+  .sdg-mark .dot.sdg3  { background: #4C9F38; }
+  .sdg-mark .dot.sdg11 { background: #FD9D24; }
+  .sdg-mark .dot.sdg13 { background: #3F7E44; }
+
+  /* Main stage — centered on mobile, FLUSH-RIGHT on desktop.
+     The flush-right layout creates the magazine-cover diagonal:
+     figure on the left side of the image · headline on the right
+     side of the viewport · clean negative space between. */
+  .stage {
+    position: relative; z-index: 2;
+    flex: 1;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 40px 24px;
+    text-align: center;
+  }
+  /* Desktop / wide tablet: foreground content lives in the RIGHT TWO-THIRDS
+     of the viewport. Left padding ≈ 1/3 of viewport so the column starts
+     where the subjects on the left side of the image end. Text-align right
+     so each element sits flush against the clean right edge. */
+  @media (min-width: 900px) {
+    .stage {
+      padding-left: clamp(200px, 33vw, 640px);
+      padding-right: clamp(40px, 4vw, 72px);
+      align-items: flex-end;
+      text-align: right;
+    }
+  }
+
+  /* Section bracket marks above wordmark */
+  .stage-bracket {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.16em;
+    color: var(--bronze-light); opacity: 0.85;
+    margin-bottom: 24px;
+  }
+
+  /* The big wordmark — crimson primary. Refined to 8vw/144px with
+     tighter letter-spacing so it stays compact within the right-anchored
+     column at all desktop viewports, with clean breathing room from
+     the subject on the left. */
+  .wordmark {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: clamp(48px, 8vw, 144px);
+    line-height: 0.92;
+    letter-spacing: -0.028em;
+    color: var(--crimson-glow);
+    text-shadow:
+      0 4px 28px rgba(168, 36, 36, 0.42),
+      0 1px 0 rgba(0, 0, 0, 0.25);
+    transform: translateZ(0);
+    user-select: none;
+  }
+  .wordmark .future { font-style: normal; }
+  .wordmark .proof  { font-weight: 400; font-style: italic; opacity: 0.92; }
+
+  .subtitle {
+    font-family: var(--titles);
+    font-weight: 500;
+    font-size: clamp(16px, 1.8vw, 22px);
+    letter-spacing: 0.36em; text-transform: uppercase;
+    color: var(--bronze-light);
+    margin-top: 18px;
+  }
+
+  /* Description blocks — sized at 20px / 21px for hero readability.
+     Max-width now extends to cover the right two-thirds zone, matching
+     the wordmark's natural horizontal span so the whole column reads
+     as one anchored block. Lines stay at ≤70 characters at every
+     viewport — the readability ceiling. */
+  .description {
+    max-width: clamp(580px, 58vw, 840px);
+    margin: 40px auto 0;
+    font-size: 20px;
+    line-height: 1.65;
+    color: rgba(244, 241, 234, 0.88);
+    text-wrap: balance;
+  }
+  .description-th {
+    max-width: clamp(580px, 58vw, 840px);
+    margin: 18px auto 0;
+    font-family: var(--thai);
+    font-size: 21px;
+    line-height: 1.75;
+    color: rgba(244, 241, 234, 0.72);
+    text-wrap: balance;
+    word-break: keep-all;
+  }
+  @media (min-width: 900px) {
+    .description, .description-th {
+      margin-left: auto;
+      margin-right: 0;
+      text-align: right;
+    }
+  }
+
+  /* Enter Site pill */
+  .enter-cta {
+    display: inline-flex; align-items: center; gap: 10px;
+    margin-top: 44px;
+    padding: 14px 32px; border-radius: 999px;
+    background: linear-gradient(135deg, var(--bronze) 0%, var(--bronze-light) 100%);
+    color: var(--ink);
+    font-weight: 700; font-size: 14px;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    text-decoration: none;
+    transition: transform 240ms cubic-bezier(0.2, 0, 0, 1),
+                box-shadow 240ms cubic-bezier(0.2, 0, 0, 1);
+    box-shadow: 0 10px 28px rgba(181, 124, 52, 0.34);
+  }
+  .enter-cta:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 14px 36px rgba(232, 199, 122, 0.48);
+  }
+  .enter-cta .material-symbols-rounded { font-size: 18px; }
+
+  /* Footer — tighter padding, shorter CC notice, more breathing room */
+  .footer {
+    position: relative; z-index: 2;
+    padding: 22px 40px 26px;
+    border-top: 1px solid var(--line);
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 16px;
+    font-size: 11px; color: rgba(244, 241, 234, 0.55);
+    font-family: 'JetBrains Mono', monospace; letter-spacing: 0.04em;
+  }
+  .footer .creator { display: flex; flex-direction: column; gap: 2px; }
+  .footer .creator strong { color: rgba(244, 241, 234, 0.85); font-weight: 600; letter-spacing: 0.06em; }
+  .footer .cc-block {
+    display: flex; align-items: center; gap: 10px;
+    max-width: 340px;
+    text-align: right; line-height: 1.5;
+  }
+  .footer .cc-icons { display: inline-flex; gap: 4px; flex-shrink: 0; }
+  .footer .cc-icons span {
+    width: 22px; height: 22px; border-radius: 999px;
+    border: 1px solid rgba(244, 241, 234, 0.35);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: var(--sans); font-size: 10px; font-weight: 700;
+  }
+
+  /* Corner brackets — preserve the existing FUTUREPROOF console aesthetic */
+  .corner { position: absolute; width: 28px; height: 28px; border: 1.5px solid var(--bronze); opacity: 0.55; z-index: 3; pointer-events: none; }
+  .corner.tl { top: 14px; left: 14px; border-right: none; border-bottom: none; }
+  .corner.tr { top: 14px; right: 14px; border-left: none; border-bottom: none; }
+  .corner.bl { bottom: 14px; left: 14px; border-right: none; border-top: none; }
+  .corner.br { bottom: 14px; right: 14px; border-left: none; border-top: none; }
+
+  @media (max-width: 640px) {
+    .topmark, .sdg-mark { font-size: 10px; top: 18px; }
+    .topmark { left: 16px; }
+    .sdg-mark { right: 16px; }
+    .footer { flex-direction: column; align-items: flex-start; }
+    .footer .cc-block { text-align: left; }
+  }
+</style>
 </head>
 
-<body class="bg-white text-on-surface">
+<body>
 
-  <!-- TOP NAV BAR — light surface, gold wordmark, motion-physics nav buttons -->
-  <div class="topbar fixed top-0 left-0 right-0 z-50 backdrop-blur-md">
-    <div class="max-w-1600 mx-auto px-6 lg:px-12 py-3 flex items-center justify-between text-xs">
-      <div class="flex items-center gap-6">
-        <div class="flex items-center gap-2">
-          <div class="status-pulse"></div>
-          <span class="topbar-brand">FUTUREPROOF</span>
-        </div>
-        <div class="hidden md:flex items-center gap-2">
-          <span class="topbar-name">SDGs Mission Lab</span>
-        </div>
-      </div>
+<!-- ─── FULL-BLEED BACKGROUND IMAGE LAYER ───
+   When you drop your AI-generated image files into /assets/landing/,
+   the picture element below picks them up automatically. Until then,
+   the body's fallback gradient + starfield remain visible.
+   No code changes required after dropping the images in. -->
+<div class="bg-layer" aria-hidden="true">
+  <picture>
+    <source media="(max-width: 768px)"
+            srcset="assets/landing/bg-landing-mobile.webp"
+            type="image/webp">
+    <source media="(max-width: 1440px)"
+            srcset="assets/landing/bg-landing-tablet.webp"
+            type="image/webp">
+    <img id="bg-image"
+         src="assets/landing/bg-landing-desktop.webp"
+         alt=""
+         loading="eager"
+         decoding="async"
+         fetchpriority="high">
+  </picture>
+  <div class="bg-overlay"></div>
+</div>
 
-      <div class="hidden md:flex items-center gap-6">
-        <span class="topbar-meta" id="ticker-time">— LOADING —</span>
-        <span class="topbar-meta">VISITOR PASS</span>
-      </div>
+<!-- Console-feel corner markers -->
+<span class="corner tl"></span>
+<span class="corner tr"></span>
+<span class="corner bl"></span>
+<span class="corner br"></span>
 
-      <nav class="flex items-center gap-2">
-        <a href="#mission" class="nav-btn">Mission</a>
-        <a href="#architecture" class="nav-btn hidden md:inline-flex">Architecture</a>
-        <a href="#output" class="nav-btn hidden md:inline-flex">Output</a>
-        <a href="pages/signin.html" class="nav-btn hidden md:inline-flex">Sign In</a>
-        <a href="#begin" class="nav-btn nav-btn-primary">Begin</a>
-      </nav>
-    </div>
+<!-- Top brand mark -->
+<div class="topmark"><span>SYSTEM // ONLINE</span></div>
+
+<!-- SDG colour bar top right -->
+<div class="sdg-mark">
+  <span class="dot sdg6"></span>
+  <span class="dot sdg3"></span>
+  <span class="dot sdg11"></span>
+  <span class="dot sdg13"></span>
+  <span>17 GOALS · 5 SHOWCASE</span>
+</div>
+
+<!-- Main stage -->
+<main class="stage">
+  <div class="stage-bracket">[ ENTER THE MISSION LAB ]</div>
+
+  <h1 class="wordmark">
+    <span class="future">FUTURE</span><span class="proof">PROOF</span>
+  </h1>
+
+  <div class="subtitle">SDGs Mission Lab</div>
+
+  <p class="description">
+    Where Thailand's next generation earns its voice.
+    Six AI-guided missions across the United Nations' seventeen Sustainable
+    Development Goals — building the English fluency, analytical thinking,
+    and ethical judgment to decide what the country becomes next.
+  </p>
+
+  <p class="description-th" lang="th">
+    พื้นที่ที่คนรุ่นใหม่ของไทยได้สร้างเสียงของตนเอง
+    ผ่านหกภารกิจซึ่งขับเคลื่อนด้วยปัญญาประดิษฐ์
+    ครอบคลุมเป้าหมายการพัฒนาที่ยั่งยืน 17 ข้อ
+    ขององค์การสหประชาชาติ
+    เพื่อบ่มเพาะทักษะภาษาอังกฤษ การคิดวิเคราะห์
+    และการใช้เหตุผลเชิงจริยธรรม
+    สู่การร่วมกำหนดอนาคตของประเทศ
+  </p>
+
+  <a href="./home.html" class="enter-cta">
+    <span>Begin Your Mission</span>
+    <span class="material-symbols-rounded">arrow_forward</span>
+  </a>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="creator">
+    <span><strong>CREATOR</strong> · Dr. Payungsak Kaenchan, Ed.D</span>
+    <span>Faculty of Liberal Arts · Mahidol University</span>
   </div>
-
-  <!-- HERO -->
-  <section class="relative min-h-screen flex flex-col justify-center overflow-hidden console-grid pt-20 pb-12 lg:pb-16">
-    <div class="absolute inset-0 glow-radial pointer-events-none"></div>
-
-    <div class="absolute top-24 left-6 lg:left-12 corner-marker top-left"></div>
-    <div class="absolute top-24 right-6 lg:right-12 corner-marker top-right"></div>
-
-    <div class="relative max-w-1600 mx-auto px-6 lg:px-12 w-full">
-
-      <div class="flex items-center gap-4 mb-12 animate-fadeUp delay-100">
-        <div class="h-line w-12 bg-gold-primary"></div>
-        <span class="console-label-gold">FUTUREPROOF // YOUR MISSION STARTS HERE</span>
-      </div>
-
-      <div class="hero-mark flex items-center gap-3 lg:gap-5 max-w-6xl animate-fadeUp delay-200">
-        <h1 class="hero-display text-on-surface">
-          FUTUREPROOF<br>
-          <em>SDGs Mission Lab</em>.
-        </h1>
-        <img
-          src="assets/images/hero-feature.png"
-          alt="FUTUREPROOF logo — seventeen UN Sustainable Development Goal icons fan out from a glowing brain in a vibrant abstract constellation."
-          class="hero-mark-logo"
-          loading="eager"
-          decoding="async"
-          onerror="this.style.display='none';" />
-      </div>
-
-      <!-- SDG TICKER — sits tight under the hero headline -->
-      <div class="hero-ticker animate-fadeUp delay-300" aria-label="The 17 UN Sustainable Development Goals">
-        <div class="ticker-track">
-          <span class="sdg-tile sdg-01"><span class="sdg-num">01</span><span class="sdg-goal">No Poverty</span></span>
-          <span class="sdg-tile sdg-02"><span class="sdg-num">02</span><span class="sdg-goal">Zero Hunger</span></span>
-          <span class="sdg-tile sdg-03"><span class="sdg-num">03</span><span class="sdg-goal">Good Health &amp; Well-Being</span></span>
-          <span class="sdg-tile sdg-04"><span class="sdg-num">04</span><span class="sdg-goal">Quality Education</span></span>
-          <span class="sdg-tile sdg-05"><span class="sdg-num">05</span><span class="sdg-goal">Gender Equality</span></span>
-          <span class="sdg-tile sdg-06"><span class="sdg-num">06</span><span class="sdg-goal">Clean Water &amp; Sanitation</span></span>
-          <span class="sdg-tile sdg-07"><span class="sdg-num">07</span><span class="sdg-goal">Affordable &amp; Clean Energy</span></span>
-          <span class="sdg-tile sdg-08"><span class="sdg-num">08</span><span class="sdg-goal">Decent Work &amp; Economic Growth</span></span>
-          <span class="sdg-tile sdg-09"><span class="sdg-num">09</span><span class="sdg-goal">Industry, Innovation &amp; Infrastructure</span></span>
-          <span class="sdg-tile sdg-10"><span class="sdg-num">10</span><span class="sdg-goal">Reduced Inequalities</span></span>
-          <span class="sdg-tile sdg-11"><span class="sdg-num">11</span><span class="sdg-goal">Sustainable Cities &amp; Communities</span></span>
-          <span class="sdg-tile sdg-12"><span class="sdg-num">12</span><span class="sdg-goal">Responsible Consumption &amp; Production</span></span>
-          <span class="sdg-tile sdg-13"><span class="sdg-num">13</span><span class="sdg-goal">Climate Action</span></span>
-          <span class="sdg-tile sdg-14"><span class="sdg-num">14</span><span class="sdg-goal">Life Below Water</span></span>
-          <span class="sdg-tile sdg-15"><span class="sdg-num">15</span><span class="sdg-goal">Life on Land</span></span>
-          <span class="sdg-tile sdg-16"><span class="sdg-num">16</span><span class="sdg-goal">Peace, Justice &amp; Strong Institutions</span></span>
-          <span class="sdg-tile sdg-17"><span class="sdg-num">17</span><span class="sdg-goal">Partnerships for the Goals</span></span>
-          <!-- Identical second copy for seamless -50% loop -->
-          <span class="sdg-tile sdg-01" aria-hidden="true"><span class="sdg-num">01</span><span class="sdg-goal">No Poverty</span></span>
-          <span class="sdg-tile sdg-02" aria-hidden="true"><span class="sdg-num">02</span><span class="sdg-goal">Zero Hunger</span></span>
-          <span class="sdg-tile sdg-03" aria-hidden="true"><span class="sdg-num">03</span><span class="sdg-goal">Good Health &amp; Well-Being</span></span>
-          <span class="sdg-tile sdg-04" aria-hidden="true"><span class="sdg-num">04</span><span class="sdg-goal">Quality Education</span></span>
-          <span class="sdg-tile sdg-05" aria-hidden="true"><span class="sdg-num">05</span><span class="sdg-goal">Gender Equality</span></span>
-          <span class="sdg-tile sdg-06" aria-hidden="true"><span class="sdg-num">06</span><span class="sdg-goal">Clean Water &amp; Sanitation</span></span>
-          <span class="sdg-tile sdg-07" aria-hidden="true"><span class="sdg-num">07</span><span class="sdg-goal">Affordable &amp; Clean Energy</span></span>
-          <span class="sdg-tile sdg-08" aria-hidden="true"><span class="sdg-num">08</span><span class="sdg-goal">Decent Work &amp; Economic Growth</span></span>
-          <span class="sdg-tile sdg-09" aria-hidden="true"><span class="sdg-num">09</span><span class="sdg-goal">Industry, Innovation &amp; Infrastructure</span></span>
-          <span class="sdg-tile sdg-10" aria-hidden="true"><span class="sdg-num">10</span><span class="sdg-goal">Reduced Inequalities</span></span>
-          <span class="sdg-tile sdg-11" aria-hidden="true"><span class="sdg-num">11</span><span class="sdg-goal">Sustainable Cities &amp; Communities</span></span>
-          <span class="sdg-tile sdg-12" aria-hidden="true"><span class="sdg-num">12</span><span class="sdg-goal">Responsible Consumption &amp; Production</span></span>
-          <span class="sdg-tile sdg-13" aria-hidden="true"><span class="sdg-num">13</span><span class="sdg-goal">Climate Action</span></span>
-          <span class="sdg-tile sdg-14" aria-hidden="true"><span class="sdg-num">14</span><span class="sdg-goal">Life Below Water</span></span>
-          <span class="sdg-tile sdg-15" aria-hidden="true"><span class="sdg-num">15</span><span class="sdg-goal">Life on Land</span></span>
-          <span class="sdg-tile sdg-16" aria-hidden="true"><span class="sdg-num">16</span><span class="sdg-goal">Peace, Justice &amp; Strong Institutions</span></span>
-          <span class="sdg-tile sdg-17" aria-hidden="true"><span class="sdg-num">17</span><span class="sdg-goal">Partnerships for the Goals</span></span>
-        </div>
-      </div>
-
-      <div class="grid lg:grid-cols-12 gap-8 mt-12 max-w-6xl">
-
-        <div class="lg:col-span-7 animate-fadeUp delay-400">
-          <p class="text-lg leading-relaxed text-on-surface/85 max-w-2xl">
-            An AI-powered gamified learning platform where undergraduate teams undertake adaptive missions across the United Nations Sustainable Development Goals — building English proficiency, critical thinking, ethical reasoning, and professional design skills, inseparably and at once.
-          </p>
-        </div>
-
-        <div class="lg:col-span-5 animate-fadeUp delay-500">
-          <div class="border-l border-gold-primary/30 pl-6">
-            <p class="thai-meta leading-relaxed" style="font-size:1.1375rem;">
-              ภารกิจเอสดีจีเพื่ออนาคต — แพลตฟอร์มการเรียนรู้ที่ขับเคลื่อนด้วย AI ผ่านภารกิจที่ปรับตัวได้ตามเป้าหมายการพัฒนาที่ยั่งยืนของสหประชาชาติ เพื่อพัฒนาทักษะภาษาอังกฤษ การคิดเชิงวิพากษ์ การคิดเชิงจริยธรรม และการออกแบบอย่างมืออาชีพ
-            </p>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="flex flex-wrap items-center gap-4 mt-10 animate-fadeUp delay-600">
-        <a href="pages/signup.html" class="btn-primary">
-          <span>Begin Mission</span>
-          <span>→</span>
-        </a>
-        <a href="#mission" class="btn-secondary">
-          <span>Mission Brief</span>
-        </a>
-      </div>
-
+  <div class="cc-block">
+    <div class="cc-icons">
+      <span>CC</span>
+      <span>BY</span>
+      <span>NC</span>
+      <span>ND</span>
     </div>
-  </section>
-
-  <!-- MISSION BRIEF SECTION -->
-  <section id="mission" class="relative strip-host">
-    <div class="max-w-1600 mx-auto strip strip-cream">
-
-      <div class="grid lg:grid-cols-12 gap-12 mb-24 reveal">
-        <div class="lg:col-span-4">
-          <div class="flex items-center gap-4 mb-8">
-            <span class="console-label-gold">PART 01</span>
-            <div class="h-line flex-1 max-w-32"></div>
-          </div>
-          <h2 class="display-heading text-5xl lg:text-6xl text-on-surface">
-            The Mission<br>
-            <em class="text-primary">Brief</em>.
-          </h2>
-        </div>
-
-        <div class="lg:col-span-7 lg:col-start-6 flex items-end">
-          <p class="text-lg leading-relaxed text-on-surface/80">
-            FUTUREPROOF reframes English language education as a vehicle for global citizenship. Students do not study English to pass tests. They use English to investigate real crises, deliberate over genuine ethical dilemmas, and produce professional artifacts of consequence — an experience inseparable from the language itself.
-          </p>
-        </div>
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-4">
-
-        <div class="m3-card elevated p-10 lg:p-12 reveal relative group" style="border-radius:20px;">
-          <span class="console-label-gold mb-8 block">PILLAR 01</span>
-          <h3 class="mission-title text-sm text-on-surface mb-6">Adaptive Intelligence</h3>
-          <div class="display-heading text-4xl lg:text-5xl mb-8 text-gold-primary">i + 1</div>
-          <p class="text-on-surface/75 leading-relaxed">
-            Each student begins with a competency diagnostic. The AI engine then generates every mission's content at precisely the level that stretches without overwhelming — Krashen's Input Hypothesis operationalized at scale.
-          </p>
-        </div>
-
-        <div class="m3-card elevated p-10 lg:p-12 reveal relative group" style="border-radius:20px;">
-          <span class="console-label-gold mb-8 block">PILLAR 02</span>
-          <h3 class="mission-title text-sm text-on-surface mb-6">Bloom's Architecture</h3>
-          <div class="display-heading text-4xl lg:text-5xl mb-8 text-gold-primary">06 / 06</div>
-          <p class="text-on-surface/75 leading-relaxed">
-            Six missions mapped to six cognitive levels. Students progress from Remembering through Creating across a complete journey of intellectual ascent — each mission building structurally on what came before.
-          </p>
-        </div>
-
-        <div class="m3-card elevated p-10 lg:p-12 reveal relative group" style="border-radius:20px;">
-          <span class="console-label-gold mb-8 block">PILLAR 03</span>
-          <h3 class="mission-title text-sm text-on-surface mb-6">Authentic Output</h3>
-          <div class="display-heading text-4xl lg:text-5xl mb-8 text-gold-primary">∞</div>
-          <p class="text-on-surface/75 leading-relaxed">
-            Students produce a Pitch Capsule — a professional, narrated, designed digital artifact addressing their chosen SDG crisis. It is portfolio-worthy, sharable, and stands as proof of integrated learning made visible.
-          </p>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- THE SIX MISSIONS / ARCHITECTURE -->
-  <section id="architecture" class="relative strip-host">
-    <div class="max-w-1600 mx-auto strip strip-pearl">
-
-      <div class="grid lg:grid-cols-12 gap-12 mb-24 reveal">
-        <div class="lg:col-span-6">
-          <div class="flex items-center gap-4 mb-8">
-            <span class="console-label-gold">PART 02</span>
-            <div class="h-line flex-1 max-w-32"></div>
-          </div>
-          <h2 class="display-heading text-5xl lg:text-7xl text-on-surface leading-none">
-            Six missions.<br>
-            <em class="text-primary">One ascent.</em>
-          </h2>
-        </div>
-        <div class="lg:col-span-5 lg:col-start-8 flex items-end">
-          <p class="text-lg leading-relaxed text-on-surface/80">
-            Each mission corresponds to a Bloom's cognitive level. Decisions branch the path. Performance shapes resources. No two team journeys are alike — but every path arrives at synthesis.
-          </p>
-        </div>
-      </div>
-
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-        <div class="mission-card mission-recon p-8 lg:p-10 reveal" tabindex="0">
-          <div class="flex items-start justify-between mb-8">
-            <div class="mission-number">01</div>
-            <span class="mission-eyebrow">Remember</span>
-          </div>
-          <h3 class="mission-name text-xl mb-4">Recon</h3>
-          <p class="leading-relaxed mission-blurb" style="color:rgba(26,31,46,0.75);">
-            Intel gathering. Teams comb verified source materials, identify key facts, decode terminology, and map stakeholders. Strategic source selection shapes what knowledge they carry forward.
-          </p>
-        </div>
-
-        <div class="mission-card mission-decode p-8 lg:p-10 reveal" tabindex="0">
-          <div class="flex items-start justify-between mb-8">
-            <div class="mission-number">02</div>
-            <span class="mission-eyebrow">Understand</span>
-          </div>
-          <h3 class="mission-name text-xl mb-4">Decode</h3>
-          <p class="leading-relaxed mission-blurb" style="color:rgba(26,31,46,0.75);">
-            Comprehension under stakes. Teams must explain the crisis to a specific audience — minister, citizen, investor — forcing register shifting and audience awareness. Conflicting sources demand judgment.
-          </p>
-        </div>
-
-        <div class="mission-card mission-deploy p-8 lg:p-10 reveal" tabindex="0">
-          <div class="flex items-start justify-between mb-8">
-            <div class="mission-number">03</div>
-            <span class="mission-eyebrow">Apply</span>
-          </div>
-          <h3 class="mission-name text-xl mb-4">Deploy</h3>
-          <p class="leading-relaxed mission-blurb" style="color:rgba(26,31,46,0.75);">
-            A live crisis event escalates the scenario. Teams must respond in real time — drafting communications, choosing strategy, and committing to action under uncertainty.
-          </p>
-        </div>
-
-        <div class="mission-card mission-dissect p-8 lg:p-10 reveal" tabindex="0">
-          <div class="flex items-start justify-between mb-8">
-            <div class="mission-number">04</div>
-            <span class="mission-eyebrow">Analyze</span>
-          </div>
-          <h3 class="mission-name text-xl mb-4">Dissect</h3>
-          <p class="leading-relaxed mission-blurb" style="color:rgba(26,31,46,0.75);">
-            Consequences arrive. Teams break down what worked, what failed, and why — comparing approaches, mapping stakeholders, identifying root causes, and standing behind their analytical conclusions.
-          </p>
-        </div>
-
-        <div class="mission-card mission-tribunal p-8 lg:p-10 reveal" tabindex="0">
-          <div class="flex items-start justify-between mb-8">
-            <div class="mission-number">05</div>
-            <span class="mission-eyebrow">Evaluate</span>
-          </div>
-          <h3 class="mission-name text-xl mb-4">Tribunal</h3>
-          <p class="leading-relaxed mission-blurb" style="color:rgba(26,31,46,0.75);">
-            The ethical crucible. A moral dilemma generated from the team's specific journey. AI cross-examination probes for weakness. Students defend their reasoning under pressure — in English.
-          </p>
-        </div>
-
-        <div class="mission-card mission-forge p-8 lg:p-10 reveal" tabindex="0">
-          <div class="flex items-start justify-between mb-8">
-            <div class="mission-number">06</div>
-            <span class="mission-eyebrow">Create</span>
-          </div>
-          <h3 class="mission-name text-xl mb-4">Forge</h3>
-          <p class="leading-relaxed mission-blurb" style="color:rgba(26,31,46,0.78);">
-            The synthesis. Teams enter the Creation Studio to produce their Pitch Capsule — a designed, narrated, multi-panel digital artifact that crystallizes the entire journey into professional output.
-          </p>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- THE OUTPUT / PITCH CAPSULE -->
-  <section id="output" class="relative strip-host">
-    <div class="max-w-1600 mx-auto strip strip-warm">
-
-      <div class="grid lg:grid-cols-12 gap-12 lg:gap-20 items-start">
-
-        <div class="lg:col-span-7 reveal">
-          <div class="flex items-center gap-4 mb-8">
-            <span class="console-label-gold">PART 03</span>
-            <div class="h-line flex-1 max-w-32"></div>
-          </div>
-
-          <h2 class="display-heading text-5xl lg:text-7xl text-on-surface mb-12 leading-none">
-            The Pitch<br>
-            <em class="text-primary">Capsule</em>.
-          </h2>
-
-          <p class="text-lg leading-relaxed text-on-surface/80 mb-8 max-w-2xl">
-            A five-panel professional artifact. Designed within the platform. Narrated by the team in their own voice. Exportable as PDF. Eligible for the Hall of Excellence.
-          </p>
-
-          <p class="text-base leading-relaxed text-on-surface/70 max-w-2xl mb-12">
-            Students do not write about a problem. They construct a piece of professional communication that demonstrates language proficiency in writing and speech, design judgment, ethical reasoning, and the discipline to synthesize a complex journey into a single deliverable.
-          </p>
-
-          <div class="space-y-4 capsule-skills">
-            <div class="grid grid-cols-12 gap-4 items-center py-4 border-b border-panel-line">
-              <div class="col-span-1 console-label-gold">01</div>
-              <div class="col-span-11 capsule-skill">Written English across multiple registers</div>
-            </div>
-            <div class="grid grid-cols-12 gap-4 items-center py-4 border-b border-panel-line">
-              <div class="col-span-1 console-label-gold">02</div>
-              <div class="col-span-11 capsule-skill">Spoken English with AI pronunciation coaching</div>
-            </div>
-            <div class="grid grid-cols-12 gap-4 items-center py-4 border-b border-panel-line">
-              <div class="col-span-1 console-label-gold">03</div>
-              <div class="col-span-11 capsule-skill">Visual design judgment &amp; editorial coherence</div>
-            </div>
-            <div class="grid grid-cols-12 gap-4 items-center py-4 border-b border-panel-line">
-              <div class="col-span-1 console-label-gold">04</div>
-              <div class="col-span-11 capsule-skill">Critical &amp; ethical reasoning under pressure</div>
-            </div>
-            <div class="grid grid-cols-12 gap-4 items-center py-4 border-b border-panel-line">
-              <div class="col-span-1 console-label-gold">05</div>
-              <div class="col-span-11 capsule-skill">Documented AI collaboration &amp; authorship ethics</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="lg:col-span-5 reveal">
-          <div class="console-panel p-8 relative">
-            <div class="corner-marker top-left"></div>
-            <div class="corner-marker top-right"></div>
-            <div class="corner-marker bottom-left"></div>
-            <div class="corner-marker bottom-right"></div>
-
-            <div class="space-y-8">
-              <div class="flex items-center justify-between">
-                <span class="console-label-gold">PITCH CAPSULE / 05 PANELS</span>
-                <div class="status-pulse"></div>
-              </div>
-
-              <div class="panel-card panel-crisis" tabindex="0">
-                <span class="panel-eyebrow">Panel 01</span>
-                <div class="panel-title">The Crisis</div>
-                <p class="panel-blurb">Problem statement with data, sources cited, stakeholders named. Led by the Research Analyst — sets the why before the how.</p>
-              </div>
-
-              <div class="panel-card panel-journey" tabindex="0">
-                <span class="panel-eyebrow">Panel 02</span>
-                <div class="panel-title">The Journey</div>
-                <p class="panel-blurb">Decisions, missteps, lessons learned along the way. Collaborative authorship — the team's reasoning made visible.</p>
-              </div>
-
-              <div class="panel-card panel-insight" tabindex="0">
-                <span class="panel-eyebrow">Panel 03</span>
-                <div class="panel-title">The Insight</div>
-                <p class="panel-blurb">The single argument that survives cross-examination. Led by the Ethics &amp; Policy Officer — clarity under pressure.</p>
-              </div>
-
-              <div class="panel-card panel-solution" tabindex="0">
-                <span class="panel-eyebrow">Panel 04</span>
-                <div class="panel-title">The Solution</div>
-                <p class="panel-blurb">Proposed action with stakeholder map and rollout. Led by the Communications Director — built to be read by power.</p>
-              </div>
-
-              <div class="panel-card panel-voice" tabindex="0">
-                <span class="panel-eyebrow">Panel 05 // Voice</span>
-                <div class="panel-title">The Voice</div>
-                <p class="panel-blurb">Recorded narration in your own voice over the whole capsule. Team-wide. Pronunciation coaching included before you press record.</p>
-              </div>
-
-              <div class="flex items-center justify-between pt-4 border-t border-panel-line">
-                <span class="console-label">EXPORT</span>
-                <span class="console-label-gold">PDF / AUDIO / GALLERY</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- OPERATOR TOOLS -->
-  <section class="relative strip-host">
-    <div class="max-w-1600 mx-auto strip strip-beige">
-
-      <div class="grid lg:grid-cols-12 gap-12 mb-24 reveal">
-        <div class="lg:col-span-6">
-          <div class="flex items-center gap-4 mb-8">
-            <span class="console-label-gold">PART 04</span>
-            <div class="h-line flex-1 max-w-32"></div>
-          </div>
-          <h2 class="display-heading text-5xl lg:text-7xl text-on-surface leading-none">
-            Four kinds<br>
-            of <em class="text-primary">judgment</em>.
-          </h2>
-        </div>
-        <div class="lg:col-span-5 lg:col-start-8 flex items-end">
-          <p class="text-lg leading-relaxed text-on-surface/80">
-            FUTUREPROOF deliberately separates what AI evaluates well from what only humans can. Each judgment layer does what it does best — and nothing more.
-          </p>
-        </div>
-      </div>
-
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-
-        <div class="tier-card tier-ai reveal" tabindex="0">
-          <span class="tier-eyebrow">Tier 01</span>
-          <h3 class="tier-title">AI Judges</h3>
-          <p class="tier-body">
-            Real-time formative evaluation of decisions, language quality, factual accuracy, and structural coherence. Consistent. Scalable. Immediate.
-          </p>
-        </div>
-
-        <div class="tier-card tier-peer reveal" tabindex="0">
-          <span class="tier-eyebrow">Tier 02</span>
-          <h3 class="tier-title">Peer Judges</h3>
-          <p class="tier-body">
-            Cross-team review using rubrics. Builds metacognition. Sharpens the reviewer's own reasoning through evaluating others.
-          </p>
-        </div>
-
-        <div class="tier-card tier-teacher reveal" tabindex="0">
-          <span class="tier-eyebrow">Tier 03</span>
-          <h3 class="tier-title">Teacher Judges</h3>
-          <p class="tier-body">
-            Holistic, summative, authoritative. Cultural wisdom. Recognition of authentic voice. Final professional grade. Irreplaceable.
-          </p>
-        </div>
-
-        <div class="tier-card tier-external reveal" tabindex="0">
-          <span class="tier-eyebrow">Tier 04</span>
-          <h3 class="tier-title">External Judges</h3>
-          <p class="tier-body">
-            Authentic audience. Invited faculty, industry, NGOs at the Pitch Showcase. Awards beyond the classroom. Recognition that travels.
-          </p>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- BEGIN MISSION CTA -->
-  <section id="begin" class="relative strip-host">
-    <div class="max-w-1600 mx-auto strip strip-shadow">
-      <div class="max-w-4xl reveal">
-        <div class="flex items-center gap-4 mb-12">
-          <div class="status-crimson"></div>
-          <span class="console-label-gold">READY WHEN YOU ARE</span>
-        </div>
-
-        <h2 class="display-heading text-5xl lg:text-7xl text-on-surface mb-12 leading-tight">
-          The world is <em class="text-primary italic">waiting</em>.<br>
-          Will you <em class="italic" style="color:#647293;">begin</em> now?
-        </h2>
-
-        <p class="text-lg leading-relaxed text-on-surface/85 mb-16 max-w-2xl">
-          Five quick steps and you're in. Sign up, take a short readiness check, build your operator avatar, pick the SDG that pulls you in, and team up with two friends. We'll handle the rest.
-        </p>
-
-        <div class="flex flex-wrap items-center gap-4">
-          <a href="pages/signup.html" class="btn-primary">
-            <span>Sign Up to Begin</span>
-            <span>→</span>
-          </a>
-          <a href="#" class="btn-secondary">
-            <span>For Teachers</span>
-          </a>
-        </div>
-
-        <div class="mt-12 thai-meta text-sm leading-relaxed max-w-2xl" style="color:rgba(7,23,52,0.75);">
-          ลงทะเบียนเพื่อเริ่มต้นภารกิจของคุณ ประเมินสมรรถนะ สร้างอวตาร เลือก SDG ที่คุณสนใจ และเริ่มต้นการเรียนรู้ที่จะเปลี่ยนวิธีที่คุณคิดเกี่ยวกับภาษาอังกฤษและโลก
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="site-footer relative py-16">
-    <div class="max-w-1600 mx-auto px-6 lg:px-12">
-
-      <div class="footer-bequest-eyebrow mb-6">From Bangkok · Est. 2026</div>
-
-      <div class="grid lg:grid-cols-12 gap-8 mb-12">
-
-        <div class="lg:col-span-5">
-          <div class="footer-brand-mark mb-4">FUTUREPROOF</div>
-          <p class="footer-tagline leading-relaxed max-w-md">
-            SDG Mission Lab — An AI-powered gamified learning platform for English language education and global citizenship.
-          </p>
-          <p class="footer-tagline thai-meta mt-3 max-w-md">
-            ภารกิจเอสดีจีเพื่ออนาคต
-          </p>
-        </div>
-
-        <div class="lg:col-span-2 footer-links">
-          <div class="footer-col-title mb-4">SYSTEM</div>
-          <ul class="space-y-2">
-            <li><a href="#mission">Mission Brief</a></li>
-            <li><a href="#architecture">Architecture</a></li>
-            <li><a href="#output">Output</a></li>
-          </ul>
-        </div>
-
-        <div class="lg:col-span-2 footer-links">
-          <div class="footer-col-title mb-4">PROTOCOL</div>
-          <ul class="space-y-2">
-            <li><a href="pages/my-data.html">My Data</a></li>
-            <li><a href="pages/consent.html">PDPA Consent</a></li>
-            <li><a href="#">Ethics</a></li>
-          </ul>
-        </div>
-
-        <div class="lg:col-span-3">
-          <div class="footer-col-title mb-4">COMMAND</div>
-          <p class="footer-tagline leading-relaxed">
-            Designed and developed by<br>
-            <strong style="color:#FFFFFF;font-weight:600;">Aj. Yungie (Dr. Payungsak Kaenchan)</strong>
-          </p>
-          <p class="footer-col-title mt-2" style="font-size:0.875rem;letter-spacing:0.04em;text-transform:none;">
-            Faculty of Liberal Arts<br>
-            Mahidol University
-          </p>
-        </div>
-
-      </div>
-
-      <div class="footer-bottom pt-6">
-        <p class="leading-relaxed mb-6 max-w-4xl">
-          This work is licensed under a
-          <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener license" style="text-decoration:underline;text-underline-offset:2px;">Creative Commons Attribution-NonCommercial 4.0 International License (CC BY-NC 4.0)</a>.
-          Free to use, adapt, and share for educational and non-commercial purposes with appropriate attribution. Commercial use is not permitted.
-        </p>
-
-        <div class="flex flex-wrap items-center justify-between gap-4">
-          <div class="credit flex items-center gap-6">
-            <span>© 2026 <strong>FUTUREPROOF</strong></span>
-            <span>SDG MISSION LAB</span>
-          </div>
-
-          <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener license" class="cc-license group flex items-center gap-2" aria-label="Creative Commons Attribution-NonCommercial 4.0 International License" style="color:inherit;">
-            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
-              <circle cx="12" cy="12" r="11" fill="none" stroke="currentColor" stroke-width="1.4"/>
-              <text x="12" y="15.5" text-anchor="middle" font-size="8.5" font-family="JetBrains Mono, monospace" font-weight="700" fill="currentColor">CC</text>
-            </svg>
-            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
-              <circle cx="12" cy="12" r="11" fill="none" stroke="currentColor" stroke-width="1.4"/>
-              <text x="12" y="15.5" text-anchor="middle" font-size="8.5" font-family="JetBrains Mono, monospace" font-weight="700" fill="currentColor">BY</text>
-            </svg>
-            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
-              <circle cx="12" cy="12" r="11" fill="none" stroke="currentColor" stroke-width="1.4"/>
-              <text x="12" y="15.5" text-anchor="middle" font-size="8.5" font-family="JetBrains Mono, monospace" font-weight="700" fill="currentColor">NC</text>
-            </svg>
-            <span>CC BY-NC 4.0</span>
-          </a>
-
-          <span style="color:#b57c34;letter-spacing:0.08em;text-transform:uppercase;">CLASSIFICATION: OPEN</span>
-        </div>
-      </div>
-
-    </div>
-  </footer>
-
-  <script type="module" src="src/a11y.js"></script>
-  <script type="module" src="src/tour.js"></script>
-
-  <script>
-    function updateTime() {
-      const el = document.getElementById('ticker-time');
-      if (!el) return;
-      const now = new Date();
-      const opts = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: 'Asia/Bangkok' };
-      const time = now.toLocaleTimeString('en-GB', opts);
-      el.textContent = `BKK ${time}`;
+    <span>Educational use · Attribution required · Certain media AI-generated</span>
+  </div>
+</footer>
+
+<script>
+  // Detect whether the background image actually loaded.
+  // - On success: set body[data-bg-loaded="true"], which (via CSS) fades
+  //   the image in, hides the fallback starfield, and removes the
+  //   placeholder badge.
+  // - On failure (file not yet dropped in): do nothing — fallback gradient
+  //   + starfield + placeholder badge remain.
+  (function () {
+    var img = document.getElementById('bg-image');
+    if (!img) return;
+    function markLoaded() { document.body.dataset.bgLoaded = 'true'; }
+    if (img.complete && img.naturalWidth > 0) { markLoaded(); }
+    else {
+      img.addEventListener('load',  markLoaded);
+      img.addEventListener('error', function () { /* leave fallback in place */ });
     }
-    setInterval(updateTime, 1000);
-    updateTime();
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15 });
-
-    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
-
-    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-      anchor.addEventListener('click', (e) => {
-        const target = document.querySelector(anchor.getAttribute('href'));
-        if (target) {
-          e.preventDefault();
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      });
-    });
-  </script>
+  })();
+</script>
 
 </body>
 </html>
