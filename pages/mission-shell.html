@@ -232,38 +232,166 @@
   }
   .rail-section-label:first-child { padding-top: 4px; }
 
-  /* Profile block at bottom */
+  /* ─── PROFILE BLOCK — expandable rich menu ─── */
   .rail-profile {
     border-top: 1px solid var(--line);
-    padding: 16px 12px 0;
-    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    padding: 10px 12px 12px;
+    display: flex; flex-direction: column; gap: 6px;
+    background: var(--paper);
   }
+
+  /* Always-visible header — click to toggle the menu */
+  .rail-profile-header {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 8px;
+    background: transparent; border: none; cursor: pointer;
+    border-radius: 12px;
+    text-align: left;
+    transition: background 180ms cubic-bezier(0.2, 0, 0, 1);
+    width: 100%;
+  }
+  .rail-profile-header:hover { background: rgba(7, 23, 52, 0.04); }
+
   .rail-avatar {
-    width: 48px; height: 48px; border-radius: 999px;
+    width: 40px; height: 40px; border-radius: 999px;
     background: linear-gradient(135deg, var(--bronze) 0%, var(--ink) 100%);
     display: flex; align-items: center; justify-content: center;
-    color: var(--bone); font-weight: 700; font-size: 16px;
-    cursor: pointer;
-    transition: transform 200ms;
+    color: var(--bone); font-weight: 700; font-size: 14px;
     position: relative;
+    flex-shrink: 0;
   }
-  .rail-avatar:hover { transform: scale(1.06); }
   .rail-avatar .online-dot {
-    position: absolute; bottom: 2px; right: 2px;
-    width: 12px; height: 12px; border-radius: 999px;
-    background: #4F7050; border: 2px solid var(--white);
+    position: absolute; bottom: 1px; right: 1px;
+    width: 10px; height: 10px; border-radius: 999px;
+    background: #4F7050; border: 2px solid var(--paper);
   }
-  .rail-icon-btn {
-    width: 36px; height: 36px; border-radius: 10px;
+
+  .rail-profile-info {
+    flex: 1; min-width: 0; line-height: 1.25;
+  }
+  .rail-profile-name {
+    font-size: 13px; font-weight: 700; color: var(--ink-deep);
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .rail-profile-role {
+    font-size: 11px; color: var(--ink-soft);
+    font-family: var(--mono); letter-spacing: 0.02em;
+    margin-top: 1px;
+  }
+
+  .rail-profile-chev {
+    color: var(--ink-soft); font-size: 20px;
+    transition: transform 200ms cubic-bezier(0.2, 0, 0, 1);
+    flex-shrink: 0;
+  }
+  .rail-profile.is-open .rail-profile-chev { transform: rotate(180deg); }
+
+  /* Menu — collapsed by default, expanded on click */
+  .rail-profile-menu {
+    max-height: 0; overflow: hidden;
+    transition: max-height 280ms cubic-bezier(0.2, 0, 0, 1);
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .rail-profile.is-open .rail-profile-menu {
+    max-height: 720px;
+    margin-top: 4px;
+  }
+
+  /* Stats block */
+  .rail-profile-stats {
+    background: var(--white); border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 10px 12px;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .rail-profile-team {
+    font-size: 11px; color: var(--ink-soft);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .rail-profile-team .material-symbols-rounded { font-size: 14px; }
+  .rail-profile-statgrid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
+  }
+  .rail-profile-stat {
+    padding: 6px 8px; border-radius: 8px;
+    background: var(--paper);
+    line-height: 1.2;
+  }
+  .rail-profile-stat .stat-label {
+    font-family: var(--mono); font-size: 9px;
+    color: var(--ink-soft); letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .rail-profile-stat .stat-value {
+    font-family: var(--display); font-size: 18px;
+    font-weight: 500; color: var(--ink-deep);
+    margin-top: 2px;
+  }
+  .rail-profile-stat.tokens .stat-value { color: var(--bronze); }
+
+  /* Action items (links) */
+  .rail-profile-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 12px;
+    border-radius: 10px;
+    color: var(--ink); text-decoration: none;
+    font-size: 12.5px; font-weight: 500;
+    transition: background 180ms;
+  }
+  .rail-profile-item:hover { background: rgba(181, 124, 52, 0.08); color: var(--ink-deep); }
+  .rail-profile-item .material-symbols-rounded {
+    font-size: 18px; color: var(--ink-soft);
+  }
+  .rail-profile-item:hover .material-symbols-rounded { color: var(--bronze); }
+
+  /* Language toggle */
+  .rail-profile-language {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 8px 12px;
+    border-top: 1px solid var(--line);
+    margin-top: 2px;
+  }
+  .rail-profile-language .lang-caption {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 12.5px; color: var(--ink);
+  }
+  .rail-profile-language .lang-caption .material-symbols-rounded {
+    font-size: 16px; color: var(--ink-soft);
+  }
+  .rail-profile-langpill {
+    display: inline-flex; background: var(--mist);
+    border-radius: 999px; padding: 2px;
+  }
+  .rail-profile-langpill button {
+    padding: 4px 10px; border-radius: 999px;
     background: transparent; border: none; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
+    font-family: var(--sans); font-size: 10px; font-weight: 700;
+    letter-spacing: 0.04em;
     color: var(--ink-soft);
-    transition: background 200ms, color 200ms;
-    position: relative;
   }
-  .rail-icon-btn:hover { background: var(--mist); color: var(--ink); }
-  .rail-icon-btn .material-symbols-rounded { font-size: 20px; }
-  .rail-icon-btn.signout:hover { color: var(--crimson); background: rgba(168, 36, 36, 0.08); }
+  .rail-profile-langpill button.is-active {
+    background: var(--bronze); color: var(--white);
+  }
+
+  /* Sign out — always visible, separated */
+  .rail-profile-signout {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 12px;
+    margin-top: 4px;
+    border-radius: 10px;
+    background: transparent; border: 1px solid transparent;
+    cursor: pointer;
+    color: var(--crimson);
+    font-family: var(--sans); font-size: 12.5px; font-weight: 600;
+    transition: background 180ms, border-color 180ms;
+    text-decoration: none;
+    width: 100%;
+  }
+  .rail-profile-signout:hover {
+    background: rgba(168, 36, 36, 0.06);
+    border-color: rgba(168, 36, 36, 0.22);
+  }
+  .rail-profile-signout .material-symbols-rounded { font-size: 18px; }
 
   /* ─────────────────────────────────────────────
    * CENTER PANE (the workspace)
@@ -865,17 +993,79 @@
     </a>
   </nav>
 
-  <div class="rail-profile">
-    <div class="rail-avatar" title="Profile">
-      <span>YK</span>
-      <span class="online-dot" aria-label="Online"></span>
+  <div class="rail-profile" id="rail-profile">
+    <!-- Always-visible header — click to toggle the menu -->
+    <button class="rail-profile-header" id="rail-profile-toggle" aria-expanded="false" aria-controls="rail-profile-menu">
+      <div class="rail-avatar">
+        <span>YK</span>
+        <span class="online-dot" aria-label="Online"></span>
+      </div>
+      <div class="rail-profile-info">
+        <div class="rail-profile-name">Yungie K.</div>
+        <div class="rail-profile-role">Cadet · CEFR B1+</div>
+      </div>
+      <span class="rail-profile-chev material-symbols-rounded" aria-hidden="true">expand_more</span>
+    </button>
+
+    <!-- Expandable menu -->
+    <div class="rail-profile-menu" id="rail-profile-menu" role="region" aria-label="Profile menu">
+
+      <div class="rail-profile-stats">
+        <div class="rail-profile-team">
+          <span class="material-symbols-rounded">groups</span>
+          <span>Team Atlas Cell</span>
+        </div>
+        <div class="rail-profile-statgrid">
+          <div class="rail-profile-stat tokens">
+            <div class="stat-label">Tokens</div>
+            <div class="stat-value">47 ◆</div>
+          </div>
+          <div class="rail-profile-stat">
+            <div class="stat-label">Missions</div>
+            <div class="stat-value">1 / 6</div>
+          </div>
+        </div>
+      </div>
+
+      <a href="./portfolio.html" class="rail-profile-item">
+        <span class="material-symbols-rounded">school</span>
+        <span>My Portfolio</span>
+      </a>
+      <a href="./reflections.html" class="rail-profile-item">
+        <span class="material-symbols-rounded">mic</span>
+        <span>My Reflections</span>
+      </a>
+      <a href="./my-data.html" class="rail-profile-item">
+        <span class="material-symbols-rounded">lock</span>
+        <span>My Data · PDPA</span>
+      </a>
+      <a href="#" class="rail-profile-item" id="open-preferences">
+        <span class="material-symbols-rounded">settings</span>
+        <span>Preferences</span>
+      </a>
+      <a href="../home.html#contact" class="rail-profile-item">
+        <span class="material-symbols-rounded">help</span>
+        <span>Help &amp; Support</span>
+      </a>
+
+      <div class="rail-profile-language">
+        <div class="lang-caption">
+          <span class="material-symbols-rounded">translate</span>
+          <span>Language</span>
+        </div>
+        <div class="rail-profile-langpill" role="tablist" aria-label="Interface language">
+          <button class="is-active" data-lang="en" role="tab" aria-selected="true">EN</button>
+          <button data-lang="th" role="tab" aria-selected="false">ไทย</button>
+        </div>
+      </div>
+
     </div>
-    <button class="rail-icon-btn" title="Profile settings">
-      <span class="material-symbols-rounded">settings</span>
-    </button>
-    <button class="rail-icon-btn signout" title="Sign out">
+
+    <!-- Sign out — always visible -->
+    <a href="../index.html" class="rail-profile-signout" id="rail-signout">
       <span class="material-symbols-rounded">logout</span>
-    </button>
+      <span>Sign Out</span>
+    </a>
   </div>
 </aside>
 
@@ -1194,20 +1384,49 @@
     });
   });
 
-  // Rail item navigation (visual)
-  document.querySelectorAll('.rail-item').forEach(item => {
-    item.addEventListener('click', (e) => {
-      e.preventDefault();
-      document.querySelectorAll('.rail-item').forEach(i => i.classList.remove('active'));
-      item.classList.add('active');
-    });
-  });
-
   // Right pane collapse toggle
   const toggle = document.getElementById('right-toggle');
   toggle.addEventListener('click', () => {
     document.body.classList.toggle('right-collapsed');
   });
+
+  // Profile pane expand/collapse
+  const profileToggle = document.getElementById('rail-profile-toggle');
+  const profilePane = document.getElementById('rail-profile');
+  if (profileToggle && profilePane) {
+    profileToggle.addEventListener('click', () => {
+      const isOpen = profilePane.classList.toggle('is-open');
+      profileToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+  }
+
+  // Profile-pane language toggle (mirrors the body[data-lang] system)
+  document.querySelectorAll('.rail-profile-langpill button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const lang = btn.dataset.lang;
+      document.body.dataset.lang = lang;
+      document.querySelectorAll('.rail-profile-langpill button').forEach(b => {
+        const active = b.dataset.lang === lang;
+        b.classList.toggle('is-active', active);
+        b.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+      // Also reflect into stepper's EN/TH toggle if present
+      document.querySelectorAll('[data-set-lang]').forEach(b => {
+        b.classList.toggle('is-active', b.dataset.setLang === lang);
+      });
+    });
+  });
+
+  // Sign-out — clear local state, then proceed to the splash portal
+  const signoutLink = document.getElementById('rail-signout');
+  if (signoutLink) {
+    signoutLink.addEventListener('click', (e) => {
+      try {
+        localStorage.removeItem('fp_flow');
+        localStorage.removeItem('fp_notes_v1');
+      } catch (_) { /* graceful */ }
+    });
+  }
 </script>
 
 </body>
