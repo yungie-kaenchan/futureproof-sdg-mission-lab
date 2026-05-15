@@ -42,50 +42,95 @@
     </div>
   </header>
 
-  <!-- NAVIGATION RAIL (full labels) -->
+  <!-- NAVIGATION RAIL — fully displayed labels with EN + Thai for UDL -->
   <nav class="m3-rail" aria-label="Mission navigation">
-    <a href="./mission-shell.html?m=1" class="m3-rail-item" data-mission="1" data-tip-en="Mission 01 — Recon (Remember)" data-tip-th="ภารกิจ 01 — สำรวจ (จดจำ)">
+
+    <div class="rail-section-label">
+      <span class="rail-section-en">Six Missions</span>
+      <span class="rail-section-th" lang="th">หกภารกิจ</span>
+    </div>
+
+    <a href="./mission-shell.html?m=1" class="m3-rail-item" data-mission="1">
       <span class="icon-wrap"><span class="material-symbols-rounded size-20">visibility</span></span>
-      <span>Recon</span>
+      <span class="rail-text">
+        <span class="rail-step">01</span>
+        <span class="rail-label">Recon · Remember</span>
+        <span class="rail-label-th" lang="th">สำรวจ · จดจำ</span>
+      </span>
     </a>
-    <a href="./mission-shell.html?m=2" class="m3-rail-item" data-mission="2" data-tip-en="Mission 02 — Decode (Understand)" data-tip-th="ภารกิจ 02 — ถอดรหัส (เข้าใจ)">
+    <a href="./mission-shell.html?m=2" class="m3-rail-item" data-mission="2">
       <span class="icon-wrap"><span class="material-symbols-rounded size-20">translate</span></span>
-      <span>Decode</span>
+      <span class="rail-text">
+        <span class="rail-step">02</span>
+        <span class="rail-label">Decode · Understand</span>
+        <span class="rail-label-th" lang="th">ถอดรหัส · เข้าใจ</span>
+      </span>
     </a>
-    <a href="./mission-shell.html?m=3" class="m3-rail-item" data-mission="3" data-tip-en="Mission 03 — Deploy (Apply)" data-tip-th="ภารกิจ 03 — นำไปใช้ (ประยุกต์)">
+    <a href="./mission-shell.html?m=3" class="m3-rail-item" data-mission="3">
       <span class="icon-wrap"><span class="material-symbols-rounded size-20">rocket_launch</span></span>
-      <span>Deploy</span>
+      <span class="rail-text">
+        <span class="rail-step">03</span>
+        <span class="rail-label">Deploy · Apply</span>
+        <span class="rail-label-th" lang="th">นำไปใช้ · ประยุกต์</span>
+      </span>
     </a>
-    <a href="./mission-shell.html?m=4" class="m3-rail-item" data-mission="4" data-tip-en="Mission 04 — Dissect (Analyze)" data-tip-th="ภารกิจ 04 — วิเคราะห์">
+    <a href="./mission-shell.html?m=4" class="m3-rail-item" data-mission="4">
       <span class="icon-wrap"><span class="material-symbols-rounded size-20">biotech</span></span>
-      <span>Dissect</span>
+      <span class="rail-text">
+        <span class="rail-step">04</span>
+        <span class="rail-label">Dissect · Analyze</span>
+        <span class="rail-label-th" lang="th">แยกแยะ · วิเคราะห์</span>
+      </span>
     </a>
-    <a href="./mission-shell.html?m=5" class="m3-rail-item" data-mission="5" data-tip-en="Mission 05 — Tribunal (Evaluate)" data-tip-th="ภารกิจ 05 — ศาลพิจารณา (ประเมิน)">
+    <a href="./mission-shell.html?m=5" class="m3-rail-item" data-mission="5">
       <span class="icon-wrap"><span class="material-symbols-rounded size-20">gavel</span></span>
-      <span>Tribunal</span>
+      <span class="rail-text">
+        <span class="rail-step">05</span>
+        <span class="rail-label">Tribunal · Evaluate</span>
+        <span class="rail-label-th" lang="th">ศาลพิจารณา · ประเมิน</span>
+      </span>
     </a>
-    <a href="./mission-shell.html?m=6" class="m3-rail-item" data-mission="6" data-tip-en="Mission 06 — Forge (Create)" data-tip-th="ภารกิจ 06 — สร้างสรรค์">
+    <a href="./mission-shell.html?m=6" class="m3-rail-item" data-mission="6">
       <span class="icon-wrap"><span class="material-symbols-rounded size-20">auto_awesome</span></span>
-      <span>Forge</span>
+      <span class="rail-text">
+        <span class="rail-step">06</span>
+        <span class="rail-label">Forge · Create</span>
+        <span class="rail-label-th" lang="th">สร้างสรรค์</span>
+      </span>
     </a>
 
-    <div style="height: 1.5rem"></div>
+    <div class="rail-section-label">
+      <span class="rail-section-en">Tools &amp; Workspace</span>
+      <span class="rail-section-th" lang="th">เครื่องมือและพื้นที่ทำงาน</span>
+    </div>
 
-    <a href="./studio.html" class="m3-rail-item" data-tip-en="Pitch Capsule Studio — design & narrate" data-tip-th="สตูดิโอแคปซูลพิตช์ — ออกแบบและบรรยาย">
+    <a href="./studio.html" class="m3-rail-item">
       <span class="icon-wrap"><span class="material-symbols-rounded size-20">auto_stories</span></span>
-      <span>Studio</span>
+      <span class="rail-text">
+        <span class="rail-label">Pitch Capsule Studio</span>
+        <span class="rail-label-th" lang="th">สตูดิโอแคปซูลพิตช์</span>
+      </span>
     </a>
-    <a href="./npc-interview.html" class="m3-rail-item" data-tip-en="Stakeholder Interview — talk to NPCs" data-tip-th="สัมภาษณ์ผู้มีส่วนได้ส่วนเสีย — พูดคุยกับ NPC">
+    <a href="./npc-interview.html" class="m3-rail-item">
       <span class="icon-wrap"><span class="material-symbols-rounded size-20">record_voice_over</span></span>
-      <span>Interview</span>
+      <span class="rail-text">
+        <span class="rail-label">Stakeholder Interview</span>
+        <span class="rail-label-th" lang="th">สัมภาษณ์ผู้มีส่วนได้ส่วนเสีย</span>
+      </span>
     </a>
-    <a href="./reflections.html" class="m3-rail-item" data-tip-en="Voice of the Learner — reflections" data-tip-th="เสียงของผู้เรียน — การสะท้อน">
+    <a href="./reflections.html" class="m3-rail-item">
       <span class="icon-wrap"><span class="material-symbols-rounded size-20">graphic_eq</span></span>
-      <span>Reflect</span>
+      <span class="rail-text">
+        <span class="rail-label">Voice of the Learner</span>
+        <span class="rail-label-th" lang="th">เสียงของผู้เรียน · บันทึก</span>
+      </span>
     </a>
-    <a href="./portfolio.html" class="m3-rail-item" data-tip-en="Learning Portfolio — your growth" data-tip-th="พอร์ตโฟลิโอการเรียนรู้ — พัฒนาการของคุณ">
+    <a href="./portfolio.html" class="m3-rail-item">
       <span class="icon-wrap"><span class="material-symbols-rounded size-20">school</span></span>
-      <span>Portfolio</span>
+      <span class="rail-text">
+        <span class="rail-label">Learning Portfolio</span>
+        <span class="rail-label-th" lang="th">พอร์ตโฟลิโอการเรียนรู้</span>
+      </span>
     </a>
   </nav>
 
