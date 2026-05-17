@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>How it works — FUTUREPROOF</title>
+<meta name="description" content="How the FUTUREPROOF SDGs Mission Lab works: the six-region Thailand journey, the five-stage mission arc, and exactly how your work is evaluated." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Cinzel:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+
+<style>
+  :root{
+    --ink:#071734; --ink-deep:#050D1F; --ink-soft:#4A5A7A;
+    --bone:#F4F1EA; --paper:#FAFAF7; --white:#FFFFFF;
+    --bronze:#b57c34; --bronze-light:#E8C77A; --bronze-faint:#F4E9D4;
+    --crimson:#7B1B1B; --steel:#647293;
+    --line:rgba(7,23,52,0.10); --line-strong:rgba(7,23,52,0.20);
+    --display:'Fraunces','Cormorant Garamond',serif;
+    --titles:'Cinzel',serif; --sans:'DM Sans',system-ui,sans-serif;
+    --thai:'IBM Plex Sans Thai',sans-serif; --mono:'JetBrains Mono',monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{font-family:var(--sans);color:var(--ink);background:var(--bone);-webkit-font-smoothing:antialiased}
+  body{
+    background:
+      radial-gradient(ellipse 1100px 700px at 78% 6%, rgba(232,199,122,0.10) 0%, transparent 60%),
+      radial-gradient(ellipse 900px 600px at 10% 94%, rgba(7,23,52,0.06) 0%, transparent 60%),
+      linear-gradient(180deg,#FBFAF6 0%,#F1ECE0 100%);
+    min-height:100vh; padding-top:64px;
+  }
+  a{color:inherit}
+
+  /* ── Shell header ── */
+  .shell-header{position:fixed;top:0;left:0;right:0;height:64px;z-index:50;
+    background:rgba(7,23,52,0.95);backdrop-filter:blur(8px);
+    border-bottom:1px solid rgba(232,199,122,0.18);
+    display:flex;align-items:center;justify-content:space-between;padding:0 24px;color:var(--bone)}
+  .shell-header-brand{display:flex;align-items:center;gap:14px;text-decoration:none}
+  .shell-header-brand .logo{font-family:var(--display);font-weight:600;font-size:20px;letter-spacing:.02em;color:var(--bronze-light);line-height:1}
+  .shell-header-brand .sub{font-family:var(--titles);font-weight:600;font-size:11px;letter-spacing:.32em;color:rgba(244,241,234,.65);text-transform:uppercase;border-left:1px solid rgba(232,199,122,.22);padding-left:14px;margin-left:4px}
+  .shell-header-status{display:flex;align-items:center;gap:10px;background:rgba(232,199,122,.08);border:1px solid rgba(232,199,122,.22);border-radius:999px;padding:7px 16px 7px 12px}
+  .shell-header-status .live-dot{width:8px;height:8px;border-radius:999px;background:#A82424;box-shadow:0 0 0 0 rgba(168,36,36,.55);animation:hpulse 2s infinite}
+  @keyframes hpulse{0%{box-shadow:0 0 0 0 rgba(168,36,36,.55)}70%{box-shadow:0 0 0 8px rgba(168,36,36,0)}100%{box-shadow:0 0 0 0 rgba(168,36,36,0)}}
+  .shell-header-status-label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--bronze-light);line-height:1.15}
+  .shell-header-status-title{font-family:var(--display);font-style:italic;font-weight:500;font-size:15px;color:var(--bone)}
+  .shell-header-btn{background:transparent;border:1px solid rgba(244,241,234,.18);color:var(--bone);border-radius:999px;padding:6px 14px;font-family:var(--sans);font-size:12px;font-weight:600;cursor:pointer;text-decoration:none;transition:.2s}
+  .shell-header-btn:hover{background:rgba(244,241,234,.08);border-color:var(--bronze)}
+  @media (max-width:899px){.shell-header-brand .sub{display:none}}
+  @media (max-width:767px){.shell-header-status{display:none}}
+
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+  /* ── Hero ── */
+  .hero{text-align:center;padding:54px 24px 10px;max-width:780px;margin:0 auto}
+  .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--bronze);margin-bottom:12px}
+  .hero h1{font-family:var(--display);font-weight:500;font-size:clamp(34px,5.4vw,62px);line-height:1.04;letter-spacing:-.01em;color:var(--ink-deep)}
+  .hero h1 em{font-style:italic;color:var(--bronze)}
+  .hero p{margin:16px auto 0;max-width:620px;color:var(--ink-soft);font-size:17px;line-height:1.7}
+  .hero .th{margin-top:8px;font-family:var(--thai);font-size:14px;color:rgba(100,114,147,.9);line-height:1.7}
+
+  /* ── Section scaffold ── */
+  section.block{margin-top:56px}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:6px}
+  .sec-num{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--bronze);letter-spacing:.1em}
+  .sec-head h2{font-family:var(--display);font-weight:500;font-size:clamp(24px,3.4vw,34px);color:var(--ink-deep)}
+  .sec-sub{color:var(--ink-soft);font-size:15px;line-height:1.65;margin:6px 0 22px;max-width:680px}
+
+  /* ── How-it-works: the 5-stage arc ── */
+  .arc{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+  @media (max-width:860px){.arc{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:480px){.arc{grid-template-columns:1fr}}
+  .arc-step{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:16px 14px;position:relative;overflow:hidden}
+  .arc-step::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--bronze)}
+  .arc-step .n{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--bronze);letter-spacing:.12em}
+  .arc-step h3{font-family:var(--titles);font-size:14px;letter-spacing:.06em;color:var(--ink-deep);margin:6px 0 6px}
+  .arc-step p{font-size:12.5px;color:var(--ink-soft);line-height:1.55}
+  .arc-step .bloom{display:inline-block;margin-top:8px;font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--steel);background:rgba(100,114,147,.1);padding:2px 7px;border-radius:5px}
+
+  /* ── Region chips ── */
+  .regions{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  @media (max-width:760px){.regions{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:460px){.regions{grid-template-columns:1fr}}
+  .region{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:16px;position:relative;overflow:hidden}
+  .region::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--sdg,var(--bronze))}
+  .region .sdg{display:inline-block;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.1em;color:#fff;background:var(--sdg,var(--bronze));padding:3px 9px;border-radius:999px}
+  .region .reg{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin-left:8px}
+  .region h3{font-family:var(--display);font-size:18px;font-weight:500;color:var(--ink-deep);margin-top:10px;line-height:1.2}
+  .region p{font-size:13px;color:var(--ink-soft);line-height:1.55;margin-top:6px}
+
+  /* ── Evaluation tiers ── */
+  .tiers{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  @media (max-width:760px){.tiers{grid-template-columns:1fr}}
+  .tier{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:20px}
+  .tier .lvl{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--bronze)}
+  .tier h3{font-family:var(--display);font-size:20px;font-weight:500;color:var(--ink-deep);margin:6px 0 4px}
+  .tier .who{font-family:var(--mono);font-size:11px;color:var(--steel);letter-spacing:.04em}
+  .tier p{font-size:13.5px;color:var(--ink-soft);line-height:1.6;margin-top:10px}
+  .tier.authoritative{border-color:var(--bronze);box-shadow:0 10px 26px rgba(181,124,52,.14)}
+  .tier.authoritative .seal{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:linear-gradient(135deg,var(--bronze) 0%,var(--bronze-light) 100%);padding:4px 12px;border-radius:999px}
+
+  /* ── Currency split ── */
+  .currencies{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media (max-width:680px){.currencies{grid-template-columns:1fr}}
+  .cur{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:20px}
+  .cur .ic{font-family:'Material Symbols Rounded';font-size:26px;color:var(--bronze)}
+  .cur h3{font-family:var(--display);font-size:19px;font-weight:500;color:var(--ink-deep);margin:8px 0 4px}
+  .cur .tag{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--steel)}
+  .cur p{font-size:13.5px;color:var(--ink-soft);line-height:1.6;margin-top:10px}
+
+  /* ── Expectations list ── */
+  .expects{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  @media (max-width:760px){.expects{grid-template-columns:1fr}}
+  .expect{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:18px}
+  .expect .ic{font-family:'Material Symbols Rounded';font-size:24px;color:var(--bronze)}
+  .expect h3{font-family:var(--sans);font-weight:700;font-size:15px;color:var(--ink-deep);margin:8px 0 6px}
+  .expect p{font-size:13px;color:var(--ink-soft);line-height:1.6}
+
+  /* ── CTA band ── */
+  .cta-band{margin:64px auto 90px;background:linear-gradient(135deg,var(--ink) 0%,var(--ink-deep) 100%);
+    border-radius:24px;padding:46px 32px;text-align:center;color:var(--bone);position:relative;overflow:hidden}
+  .cta-band::after{content:"";position:absolute;inset:0;
+    background:radial-gradient(ellipse 600px 300px at 50% 0%, rgba(232,199,122,.16) 0%, transparent 70%);pointer-events:none}
+  .cta-band h2{font-family:var(--display);font-weight:500;font-size:clamp(26px,4vw,40px);color:var(--white);position:relative}
+  .cta-band p{margin:12px auto 0;max-width:520px;color:rgba(244,241,234,.78);font-size:15px;line-height:1.65;position:relative}
+  .cta-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:26px;position:relative}
+  .btn-go{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;border-radius:999px;
+    font-weight:700;font-size:14px;letter-spacing:.03em;text-decoration:none;cursor:pointer;
+    background:linear-gradient(135deg,var(--bronze) 0%,var(--bronze-light) 100%);color:var(--ink-deep);
+    transition:transform .2s,box-shadow .2s}
+  .btn-go:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(181,124,52,.4)}
+  .btn-ghost{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:999px;
+    font-weight:600;font-size:14px;text-decoration:none;color:var(--bone);
+    border:1px solid rgba(244,241,234,.26);transition:.2s}
+  .btn-ghost:hover{border-color:var(--bronze-light);background:rgba(244,241,234,.06)}
+
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s ease-out,transform .7s ease-out}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+
+<header class="shell-header">
+  <a href="../home.html" class="shell-header-brand">
+    <span class="logo">FUTUREPROOF</span>
+    <span class="sub">SDGs Mission Lab</span>
+  </a>
+  <div class="shell-header-status">
+    <span class="live-dot" aria-hidden="true"></span>
+    <div>
+      <div class="shell-header-status-label">Orientation · Step 1</div>
+      <div class="shell-header-status-title">How it works · ภาพรวม</div>
+    </div>
+  </div>
+  <a href="./signin.html" class="shell-header-btn">Sign in &rarr;</a>
+</header>
+
+<section class="hero">
+  <div class="kicker">Read this before you begin</div>
+  <h1>You're about to cross Thailand — and become <em>futureproof</em>.</h1>
+  <p>FUTUREPROOF is a guided journey across six Thai regions. Each region holds one real sustainable-development challenge. You'll investigate it, weigh hard trade-offs, act under pressure, and defend your reasoning — building English, critical thinking, and ethical judgement at the same time, because the platform never lets you separate them.</p>
+  <p class="th" lang="th">แพลตฟอร์มนี้คือการเดินทางข้าม 6 ภูมิภาคของไทย แต่ละภูมิภาคมีโจทย์ความยั่งยืนจริง คุณจะได้ฝึกภาษาอังกฤษ การคิดวิเคราะห์ และการตัดสินใจเชิงจริยธรรมไปพร้อมกัน</p>
+</section>
+
+<div class="wrap">
+
+  <!-- 1 · The journey -->
+  <section class="block reveal">
+    <div class="sec-head"><span class="sec-num">01</span><h2>The journey: six regions, six Keystones</h2></div>
+    <p class="sec-sub">There's no fixed order. Open the Thailand map, choose any region, and take on its challenge. Meet the bar and you earn that region's <strong>SDG Keystone</strong>. Collect all six and your <strong>Voice for Change</strong> — the final task — unlocks.</p>
+    <div class="regions">
+      <div class="region" style="--sdg:#26BDE2">
+        <span class="sdg">SDG 6</span><span class="reg">Northeast</span>
+        <h3>The Aquifer Below Khon Kaen</h3>
+        <p>A city secures its dry-season water — by drawing down the aquifer the next generation inherits.</p>
+      </div>
+      <div class="region" style="--sdg:#3F7E44">
+        <span class="sdg">SDG 13</span><span class="reg">North</span>
+        <h3>The Burning Season</h3>
+        <p>Clean-air enforcement protects city lungs — and threatens upland farmers who burn to survive.</p>
+      </div>
+      <div class="region" style="--sdg:#FD9D24">
+        <span class="sdg">SDG 11</span><span class="reg">Central</span>
+        <h3>The Klong and the City</h3>
+        <p>A flood plan shields 80,000 commuters — and displaces canal-side families who live on the water.</p>
+      </div>
+      <div class="region" style="--sdg:#0A97D9">
+        <span class="sdg">SDG 14</span><span class="reg">South</span>
+        <h3>The Reef and the Tide</h3>
+        <p>A tourism quota lets the reef recover — and cuts the income of the divers who depend on it.</p>
+      </div>
+      <div class="region" style="--sdg:#C5192D">
+        <span class="sdg">SDG 4</span><span class="reg">West</span>
+        <h3>The Children at the Border</h3>
+        <p>Every child has a right to learn — where legal status and resources collide at Mae Sot.</p>
+      </div>
+      <div class="region" style="--sdg:#4C9F38">
+        <span class="sdg">SDG 3</span><span class="reg">East</span>
+        <h3>The Village the Boom Left Behind</h3>
+        <p>The Eastern Economic Corridor pulls workers away — leaving elders and thinning healthcare behind.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · The mission arc -->
+  <section class="block reveal">
+    <div class="sec-head"><span class="sec-num">02</span><h2>Inside every mission: five stages</h2></div>
+    <p class="sec-sub">Each region runs the same disciplined arc. You climb from recalling facts to defending a judgement — every mission, so the thinking becomes a habit, not a one-off. The full <em>creative</em> build is saved for your final Voice for Change.</p>
+    <div class="arc">
+      <div class="arc-step"><div class="n">01</div><h3>BRIEF</h3><p>Absorb the situation, the place, the people who will be affected.</p><span class="bloom">Remember</span></div>
+      <div class="arc-step"><div class="n">02</div><h3>PROBE</h3><p>Question the sources. Separate evidence from spin.</p><span class="bloom">Understand · Analyse</span></div>
+      <div class="arc-step"><div class="n">03</div><h3>DECIDE</h3><p>Choose under a real trade-off. No option is clean.</p><span class="bloom">Apply · Evaluate</span></div>
+      <div class="arc-step"><div class="n">04</div><h3>ACT</h3><p>Communicate the decision to the people it lands on.</p><span class="bloom">Apply</span></div>
+      <div class="arc-step"><div class="n">05</div><h3>DEBRIEF</h3><p>Reflect on consequence. This is where the Keystone is earned.</p><span class="bloom">Evaluate</span></div>
+    </div>
+  </section>
+
+  <!-- 3 · What's expected -->
+  <section class="block reveal">
+    <div class="sec-head"><span class="sec-num">03</span><h2>What's expected of you</h2></div>
+    <p class="sec-sub">Honest effort, in English, with a teammate or two if you have them. The platform calibrates difficulty to you — so the demand is real but never crushing.</p>
+    <div class="expects">
+      <div class="expect">
+        <span class="ic" aria-hidden="true">translate</span>
+        <h3>English, primarily</h3>
+        <p>All missions run in English. Thai appears for navigation, consent, and key reflection — never as a crutch that removes the challenge.</p>
+      </div>
+      <div class="expect">
+        <span class="ic" aria-hidden="true">tune</span>
+        <h3>A short readiness check</h3>
+        <p>About 12–15 minutes. It sets your reading tier so texts meet you at the right level. It's calibration, not a grade — there's no pass/fail.</p>
+      </div>
+      <div class="expect">
+        <span class="ic" aria-hidden="true">groups</span>
+        <h3>Solo, pair, or trio</h3>
+        <p>Teams of three take a professional role each and must share intel in English. Solo and pairs are fully supported — AI fills the empty seats.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · How you're evaluated (Q&A-defence section) -->
+  <section class="block reveal">
+    <div class="sec-head"><span class="sec-num">04</span><h2>How your work is evaluated</h2></div>
+    <p class="sec-sub">Four kinds of judgement, each doing what it does best. AI gives you instant, consistent feedback at scale. People make the judgements that must stay human — your teacher's grade is the final, official one.</p>
+    <div class="tiers">
+      <div class="tier">
+        <span class="lvl">Tier 1 · During every mission</span>
+        <h3>AI feedback</h3>
+        <span class="who">Formative · real-time · consistent</span>
+        <p>Instant feedback on each decision and draft. It coaches and calibrates — it never sets your final grade.</p>
+      </div>
+      <div class="tier">
+        <span class="lvl">Tier 2 · Mid-journey</span>
+        <h3>Peer review</h3>
+        <span class="who">Cross-team · rubric-guided</span>
+        <p>You review another team and are reviewed back, building the metacognition that comes from judging others' reasoning.</p>
+      </div>
+      <div class="tier authoritative">
+        <span class="lvl">Tier 3 · Final task</span>
+        <h3>Teacher grade</h3>
+        <span class="who">Holistic · summative · authoritative</span>
+        <p>Your teacher grades the Voice for Change with a published rubric. This is the official result — the AI never overrides it.</p>
+        <span class="seal"><span class="material-symbols-rounded" style="font-size:14px">verified</span>Final authority</span>
+      </div>
+      <div class="tier">
+        <span class="lvl">Tier 4 · Showcase</span>
+        <h3>Authentic audience</h3>
+        <span class="who">Public · optional forum</span>
+        <p>With consent, strong work reaches a real audience in the Hall of Voices — and may be routed to a youth SDG forum.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · The two currencies -->
+  <section class="block reveal">
+    <div class="sec-head"><span class="sec-num">05</span><h2>Two things you collect — and they're different</h2></div>
+    <p class="sec-sub">Don't confuse them. One you spend; one you can't. Keeping them separate is what keeps the journey honest.</p>
+    <div class="currencies">
+      <div class="cur">
+        <span class="ic" aria-hidden="true">toll</span>
+        <h3>Insight Tokens</h3>
+        <span class="tag">Spendable · earned per stage</span>
+        <p>Earn them for strong work; spend them on scaffolding — a language coach, an expert question, a hint. They reward process and ease the climb. They do <em>not</em> unlock the ending.</p>
+      </div>
+      <div class="cur">
+        <span class="ic" aria-hidden="true">key</span>
+        <h3>SDG Keystones</h3>
+        <span class="tag">Not spendable · one per mission</span>
+        <p>One per region you pass — six in total. They can't be bought with Tokens. They are the only key to the Final Task: this protects the productive struggle.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-band reveal">
+    <h2>Ready? Six regions are waiting.</h2>
+    <p>Next: a quick sign-up, your data consent, then the readiness check. A few minutes and you're on the map.</p>
+    <div class="cta-actions">
+      <a href="./signup.html" class="btn-go">Create my operator account <span aria-hidden="true">→</span></a>
+      <a href="./signin.html" class="btn-ghost">I already have one</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // Lightweight scroll reveal — pure DOM, no deps (public page = max reliability)
+  (function () {
+    var els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window) ||
+        matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      els.forEach(function (e) { e.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.12 });
+    els.forEach(function (e) { io.observe(e); });
+  })();
+</script>
+</body>
+</html>

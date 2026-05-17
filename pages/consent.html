@@ -158,9 +158,28 @@
         <span data-th hidden>มี 2 อย่างที่จำเป็นเพื่อให้ระบบทำงานได้ และอีก 3 อย่างเป็นทางเลือก — คุณเปิดหรือปิดได้ตามใจ และเปลี่ยนใจได้ตลอดเวลา</span>
       </p>
 
+      <div id="pdpa-redirect-note" class="alert-info mb-8" hidden>
+        <strong>One step first.</strong> The readiness check collects personal
+        responses, so under Thailand's PDPA we record your consent here before
+        anything is gathered. Set your preferences below and you'll continue
+        straight to the check.
+        <span lang="th" class="block mt-1" style="font-family:'IBM Plex Sans Thai',sans-serif">
+          ตามพ.ร.บ.คุ้มครองข้อมูลส่วนบุคคล เราขอบันทึกความยินยอมก่อนเริ่มแบบประเมิน
+        </span>
+      </div>
+
       <div id="config-warning" class="alert-warn mb-8" hidden>
         <strong>Heads up:</strong> Firebase isn't connected in this build, so consent submission is disabled. Aj. Yungie will provision the project before student onboarding goes live.
       </div>
+
+      <script>
+        try {
+          if (sessionStorage.getItem('fp_pdpa_redirect') === '1') {
+            sessionStorage.removeItem('fp_pdpa_redirect');
+            document.getElementById('pdpa-redirect-note').hidden = false;
+          }
+        } catch (_) { /* sessionStorage unavailable — non-fatal */ }
+      </script>
 
       <form id="consent-form" class="space-y-6">
 

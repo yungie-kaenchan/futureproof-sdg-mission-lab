@@ -23,6 +23,7 @@
  */
 
 import { ASSESSMENT_SETS, getAssessmentSet, pickSetIndexForUser } from "./assessment-sets.js";
+import { cefrToTier, tierLabel } from "./adaptive.js";
 export { ASSESSMENT_SETS, getAssessmentSet, pickSetIndexForUser };
 
 /* ──────────────────────────────────────────────────────────────────
@@ -208,8 +209,15 @@ export function scoreAssessment(allAnswers) {
 export async function saveLearnerProfile(uid, scored) {
   const fb = await import("./firebase-init.js");
   const assignedSet = pickSetIndexForUser(uid);
+  // D2 static tier-on-entry (Reconstruction Master §5): the CEFR estimate is
+  // mapped ONCE to a reading tier here, at the diagnostic-score step, and
+  // stored on the profile. Every mission then serves its reading materials
+  // at this tier. Audio/video are deliberately NOT tiered (SLA asymmetry).
+  const readingTier = cefrToTier(scored.language.cefrEstimate);
   const profile = {
     cefrEstimate: scored.language.cefrEstimate,
+    readingTier,
+    readingTierLabel: tierLabel(readingTier),
     vocabularyScore: scored.language.vocabulary,
     criticalThinkingPercentile: scored.criticalThinkingPercentile,
     analyticalPercentile: scored.analyticalPercentile,

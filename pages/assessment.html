@@ -86,6 +86,26 @@
       .shell-header-status { display: none; }
     }
     body { padding-top: 64px; }
+
+    /* ─── Reading-tier Score Report (step 5: adaptivity made visible) ─── */
+    .tier-report {
+      background: linear-gradient(135deg, rgba(232,199,122,0.10) 0%, rgba(7,23,52,0.04) 100%);
+      border: 1px solid rgba(232,199,122,0.34);
+      border-left: 4px solid #b57c34;
+      border-radius: 16px; padding: 22px 24px;
+    }
+    .tier-report-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .tier-badge {
+      font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase; color: #fff;
+      background: linear-gradient(135deg,#b57c34 0%,#E8C77A 100%);
+      padding: 4px 12px; border-radius: 999px;
+    }
+    .tier-band {
+      font-family: 'Fraunces', 'Cormorant Garamond', serif;
+      font-size: clamp(28px,4vw,40px); font-weight: 500; line-height: 1.1;
+      color: #b57c34; margin-top: 10px;
+    }
   </style>
 </head>
 
@@ -214,6 +234,26 @@
         Your missions will be calibrated to these numbers. They're a snapshot — not a label. You'll see them grow over the course.
       </p>
 
+      <!-- Reading-tier Score Report (Reconstruction Master §6 step 5 —
+           adaptivity made visible; scores การตอบคำถาม in Q&A defence) -->
+      <div id="tier-report" class="tier-report mb-10" hidden>
+        <div class="tier-report-head">
+          <span class="console-label-gold">YOUR READING TIER</span>
+          <span id="tier-badge" class="tier-badge"></span>
+        </div>
+        <div id="tier-band" class="tier-band"></div>
+        <p id="tier-explain" class="text-sm text-on-surface/75 leading-relaxed mt-3"></p>
+        <p class="text-xs text-console-dim leading-relaxed mt-3">
+          <strong>Why text adapts but audio doesn't:</strong> reading is self-paced,
+          so we meet you at i+1 or comprehension collapses. Listening is time-bound
+          and benefits from controlled stretch — the captions scaffold access. This
+          asymmetry is SLA-correct (Krashen; dual-coding), not a shortcut.
+          <span lang="th" class="block mt-1" style="font-family:var(--thai,'IBM Plex Sans Thai',sans-serif)">
+            ระดับการอ่านปรับตามคุณ ส่วนเสียง/วิดีโอเป็นภาษาจริงเสมอ โดยมีคำบรรยายช่วย
+          </span>
+        </p>
+      </div>
+
       <div id="results-grid" class="grid md:grid-cols-2 gap-4 mb-10"></div>
 
       <div id="config-warning" class="alert-warn mb-8" hidden>
@@ -238,10 +278,26 @@
       scoreAssessment, saveLearnerProfile,
     } from '../src/assessment.js';
     import { getFlowState, setFlowStep, isFirebaseAvailable } from '../src/auth.js';
+    import { cefrToTier, tierLabel, glossDensity, scaffoldsEnabled } from '../src/adaptive.js';
 
     /* ──────── State (persisted to localStorage so back-navigation keeps work) ──────── */
 
     const flow0 = getFlowState();
+
+    /* ──────── PDPA hard gate (Reconstruction Master §6, D3 fix) ────────
+     * Consent MUST precede any personal-data collection. The diagnostic
+     * never renders — and never writes to Firebase — until a consent
+     * version is on record. A "Back" link is not enough: a learner who
+     * deep-links here, or whose consent state was cleared, is bounced to
+     * consent.html before a single answer is captured. This closes the
+     * Q&A vulnerability the original sign-up→assessment→consent order had.
+     */
+    if (!flow0 || !flow0.consentVersion) {
+      try { sessionStorage.setItem('fp_pdpa_redirect', '1'); } catch (_) {}
+      location.replace('./consent.html');
+      throw new Error('[FUTUREPROOF] PDPA gate: consent not recorded — redirecting to consent.');
+    }
+
     const STORAGE_KEY = `fp_assessment_${flow0?.uid || 'anon'}`;
 
     function blankAnswers() {
@@ -581,22 +637,33 @@
     async function finishQuiz() {
       progressFill.style.width = '100%';
       const scored = scoreAssessment(answers);
+
+      // D2 tier-on-entry: derive the reading tier ONCE and attach it to the
+      // profile object so it travels with flow-state (offline-safe) and is
+      // the canonical value adaptive.js reads. Cloud write happens only if
+      // Firebase is available — but the journey must work offline for the
+      // judged demo, so flow-state advances regardless.
+      const readingTier = cefrToTier(scored.language.cefrEstimate);
+      scored.readingTier = readingTier;
+      scored.readingTierLabel = tierLabel(readingTier);
+
       renderResults(scored);
+      renderTierReport(readingTier);
 
       const flow = getFlowState();
       const uid = flow && flow.uid;
+      // Local flow-state advance is always safe (user's own browser, not a
+      // cloud write of personal data) and is required for the offline demo.
+      setFlowStep('avatar', { learnerProfile: scored });
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({
+        answers, cursor: sequence.length - 1, started, completedAt: Date.now()
+      }));
       if (uid && isFirebaseAvailable()) {
         try {
-          await saveLearnerProfile(uid, scored);
-          setFlowStep('avatar', { learnerProfile: scored });
-          // Persist the final answers one more time, but flag as completed so a
-          // future "Retake" can detect it. Keep the answers so back-nav still
-          // shows them — only clear when the user explicitly retakes.
-          localStorage.setItem(STORAGE_KEY, JSON.stringify({
-            answers, cursor: sequence.length - 1, started, completedAt: Date.now()
-          }));
+          await saveLearnerProfile(uid, scored); // writes readingTier to RTDB
         } catch (err) {
           console.error('[FUTUREPROOF] Failed to save learner profile', err);
+          document.getElementById('config-warning').hidden = false;
         }
       } else {
         document.getElementById('config-warning').hidden = false;
@@ -604,6 +671,27 @@
 
       quiz.hidden = true;
       results.hidden = false;
+    }
+
+    /* Step 5 — adaptivity made visible. Show the learner exactly which
+       reading tier their missions will serve, and *why* audio stays
+       authentic. This transparency is a deliberate Q&A-defence asset. */
+    function renderTierReport(tier) {
+      const box = document.getElementById('tier-report');
+      const badge = document.getElementById('tier-badge');
+      const band = document.getElementById('tier-band');
+      const explain = document.getElementById('tier-explain');
+      if (!box) return;
+      badge.textContent = 'TIER ' + tier;
+      band.textContent = tierLabel(tier);
+      const gloss = glossDensity(tier);
+      const scaff = scaffoldsEnabled(tier) ? 'with sentence-starter and graphic-organiser scaffolds' : 'without extra scaffolds (you read closer to authentic register)';
+      explain.textContent =
+        `Every mission's dossier and source texts will be served at this tier — ` +
+        `same facts, same decisions, same stakeholders, but tuned to ${tier === 1 ? 'shorter sentences and lighter lexical load' : tier === 3 ? 'denser, more academic prose' : 'a balanced register'}, ` +
+        `${gloss} vocabulary-gloss density, ${scaff}. Your tier is fixed at entry — ` +
+        `it never punishes you mid-mission.`;
+      box.hidden = false;
     }
 
     function renderResults(scored) {
