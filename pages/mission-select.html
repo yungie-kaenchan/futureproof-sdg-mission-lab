@@ -1,850 +1,390 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pick Your SDG — FUTUREPROOF</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Thailand Journey — FUTUREPROOF</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Cinzel:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
 
-  <style>
-    /* ─── Mission Shell template header ─── */
-    .shell-header {
-      position: fixed; top: 0; left: 0; right: 0; height: 64px; z-index: 50;
-      background: rgba(7, 23, 52, 0.95); backdrop-filter: blur(8px);
-      border-bottom: 1px solid rgba(232, 199, 122, 0.18);
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 24px; color: #F4F1EA;
-    }
-    .shell-header-brand { display: flex; align-items: center; gap: 14px; text-decoration: none; }
-    .shell-header-brand .logo {
-      font-family: 'Fraunces', 'Cormorant Garamond', serif;
-      font-weight: 600; font-size: 20px; letter-spacing: 0.02em;
-      color: #E8C77A; line-height: 1;
-    }
-    .shell-header-brand .sub {
-      font-family: 'Cinzel', serif; font-weight: 600; font-size: 11px;
-      letter-spacing: 0.32em; color: rgba(244, 241, 234, 0.65);
-      text-transform: uppercase;
-      border-left: 1px solid rgba(232, 199, 122, 0.22);
-      padding-left: 14px; margin-left: 4px;
-    }
-    .shell-header-status {
-      display: flex; align-items: center; gap: 10px;
-      background: rgba(232, 199, 122, 0.08);
-      border: 1px solid rgba(232, 199, 122, 0.22);
-      border-radius: 999px; padding: 7px 16px 7px 12px; max-width: 540px;
-    }
-    .shell-header-status .live-dot {
-      width: 8px; height: 8px; border-radius: 999px; background: #A82424;
-      box-shadow: 0 0 0 0 rgba(168, 36, 36, 0.55);
-      animation: shellPulse 2s infinite;
-    }
-    @keyframes shellPulse {
-      0% { box-shadow: 0 0 0 0 rgba(168, 36, 36, 0.55); }
-      70% { box-shadow: 0 0 0 8px rgba(168, 36, 36, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(168, 36, 36, 0); }
-    }
-    .shell-header-status-label {
-      font-family: 'JetBrains Mono', monospace; font-size: 10px;
-      letter-spacing: 0.16em; text-transform: uppercase;
-      color: #E8C77A; line-height: 1.15;
-    }
-    .shell-header-status-title {
-      font-family: 'Fraunces', 'Cormorant Garamond', serif;
-      font-style: italic; font-weight: 500; font-size: 15px;
-      color: #F4F1EA; white-space: nowrap; overflow: hidden;
-      text-overflow: ellipsis; max-width: 360px;
-    }
-    .shell-header-btn {
-      background: transparent; border: 1px solid rgba(244, 241, 234, 0.18);
-      color: #F4F1EA; border-radius: 999px; padding: 6px 14px;
-      font-family: 'DM Sans', system-ui, sans-serif; font-size: 12px; font-weight: 600;
-      cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
-      transition: background 200ms, border-color 200ms; text-decoration: none;
-    }
-    .shell-header-btn:hover { background: rgba(244, 241, 234, 0.08); border-color: #b57c34; }
-    @media (max-width: 1199px) { .shell-header-status { max-width: 360px; margin: 0 8px; } }
-    @media (max-width: 899px) { .shell-header-brand .sub { display: none; } }
-    @media (max-width: 767px) { .shell-header-status { display: none; } }
-    body { padding-top: 64px; }
-  </style>
+<style>
+  :root{
+    --ink:#071734; --ink-deep:#050D1F; --ink-soft:#4A5A7A;
+    --bone:#F4F1EA; --paper:#FAFAF7; --white:#FFFFFF;
+    --bronze:#b57c34; --bronze-light:#E8C77A; --bronze-faint:#F4E9D4;
+    --crimson:#7B1B1B; --crimson-glow:#A82424; --steel:#647293;
+    --line:rgba(7,23,52,0.10); --line-strong:rgba(7,23,52,0.20);
+    --display:'Fraunces','Cormorant Garamond',serif;
+    --titles:'Cinzel',serif; --sans:'DM Sans',system-ui,sans-serif;
+    --thai:'IBM Plex Sans Thai',sans-serif; --mono:'JetBrains Mono',monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{font-family:var(--sans);color:var(--ink);background:var(--bone);-webkit-font-smoothing:antialiased}
+  body{
+    background:
+      radial-gradient(ellipse 1100px 700px at 78% 8%, rgba(232,199,122,0.10) 0%, transparent 60%),
+      radial-gradient(ellipse 900px 600px at 12% 92%, rgba(7,23,52,0.06) 0%, transparent 60%),
+      linear-gradient(180deg,#FBFAF6 0%,#F1ECE0 100%);
+    min-height:100vh; padding-top:64px;
+  }
+
+  /* ── Shell header (consistent with onboarding pages) ── */
+  .shell-header{position:fixed;top:0;left:0;right:0;height:64px;z-index:50;
+    background:rgba(7,23,52,0.95);backdrop-filter:blur(8px);
+    border-bottom:1px solid rgba(232,199,122,0.18);
+    display:flex;align-items:center;justify-content:space-between;padding:0 24px;color:var(--bone)}
+  .shell-header-brand{display:flex;align-items:center;gap:14px;text-decoration:none}
+  .shell-header-brand .logo{font-family:var(--display);font-weight:600;font-size:20px;letter-spacing:.02em;color:var(--bronze-light);line-height:1}
+  .shell-header-brand .sub{font-family:var(--titles);font-weight:600;font-size:11px;letter-spacing:.32em;color:rgba(244,241,234,.65);text-transform:uppercase;border-left:1px solid rgba(232,199,122,.22);padding-left:14px;margin-left:4px}
+  .shell-header-status{display:flex;align-items:center;gap:10px;background:rgba(232,199,122,.08);border:1px solid rgba(232,199,122,.22);border-radius:999px;padding:7px 16px 7px 12px;max-width:540px}
+  .shell-header-status .live-dot{width:8px;height:8px;border-radius:999px;background:var(--crimson-glow);box-shadow:0 0 0 0 rgba(168,36,36,.55);animation:hpulse 2s infinite}
+  @keyframes hpulse{0%{box-shadow:0 0 0 0 rgba(168,36,36,.55)}70%{box-shadow:0 0 0 8px rgba(168,36,36,0)}100%{box-shadow:0 0 0 0 rgba(168,36,36,0)}}
+  .shell-header-status-label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--bronze-light);line-height:1.15}
+  .shell-header-status-title{font-family:var(--display);font-style:italic;font-weight:500;font-size:15px;color:var(--bone);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:360px}
+  .shell-header-btn{background:transparent;border:1px solid rgba(244,241,234,.18);color:var(--bone);border-radius:999px;padding:6px 14px;font-family:var(--sans);font-size:12px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:.2s;text-decoration:none}
+  .shell-header-btn:hover{background:rgba(244,241,234,.08);border-color:var(--bronze)}
+  @media (max-width:1199px){.shell-header-status{max-width:340px;margin:0 8px}}
+  @media (max-width:899px){.shell-header-brand .sub{display:none}}
+  @media (max-width:767px){.shell-header-status{display:none}}
+
+  /* ── Hero band ── */
+  .journey-hero{max-width:1180px;margin:0 auto;padding:40px 24px 8px;text-align:center}
+  .journey-kicker{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--bronze);margin-bottom:10px}
+  .journey-title{font-family:var(--display);font-weight:500;font-size:clamp(34px,5vw,60px);line-height:1.05;letter-spacing:-.01em;color:var(--ink-deep)}
+  .journey-title em{font-style:italic;color:var(--bronze)}
+  .journey-sub{max-width:640px;margin:14px auto 0;color:var(--ink-soft);line-height:1.65;font-size:16px}
+  .journey-sub-th{margin-top:8px;font-family:var(--thai);font-size:14px;color:rgba(100,114,147,.9);line-height:1.7}
+
+  /* ── Keystone progress meter ── */
+  .keystone-meter{display:flex;align-items:center;justify-content:center;gap:14px;margin:22px auto 0;flex-wrap:wrap}
+  .keystone-track{display:flex;gap:8px}
+  .keystone-dot{width:18px;height:18px;border-radius:4px;transform:rotate(45deg);
+    background:var(--white);border:2px solid var(--line-strong);transition:all .4s cubic-bezier(.34,1.56,.64,1)}
+  .keystone-dot.earned{background:linear-gradient(135deg,var(--bronze) 0%,var(--bronze-light) 100%);border-color:transparent;box-shadow:0 4px 12px rgba(181,124,52,.4)}
+  .keystone-count{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--ink);letter-spacing:.04em}
+  .finaltask-chip{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:999px;font-size:13px;font-weight:600;font-family:var(--sans)}
+  .finaltask-chip.locked{background:rgba(7,23,52,.05);color:var(--ink-soft);border:1px dashed var(--line-strong)}
+  .finaltask-chip.unlocked{background:linear-gradient(135deg,var(--bronze) 0%,var(--bronze-light) 100%);color:var(--white);border:1px solid transparent;box-shadow:0 6px 18px rgba(181,124,52,.34)}
+  .finaltask-chip .material-symbols-rounded{font-size:18px}
+
+  /* ── Map + cards layout ── */
+  .journey-grid{max-width:1180px;margin:24px auto 0;padding:0 24px 80px;display:grid;grid-template-columns:minmax(300px,420px) 1fr;gap:40px;align-items:start}
+  @media (max-width:980px){.journey-grid{grid-template-columns:1fr;gap:28px}}
+
+  /* ── Map stage ── */
+  .map-stage{position:sticky;top:88px}
+  @media (max-width:980px){.map-stage{position:static}}
+  .map-frame{position:relative;width:100%;max-width:420px;margin:0 auto;
+    aspect-ratio:760/1400; border-radius:24px;overflow:hidden;
+    background:radial-gradient(ellipse at 50% 30%, #0E2148 0%, #071734 60%, #050D1F 100%);
+    box-shadow:0 24px 60px rgba(7,23,52,.28), inset 0 0 0 1px rgba(232,199,122,.14)}
+  .map-frame svg{position:absolute;inset:0;width:100%;height:100%}
+  .map-path{fill:url(#thGrad);stroke:rgba(232,199,122,.55);stroke-width:.6;
+    filter:url(#thGlow);opacity:0;transition:opacity 1.1s ease-out}
+  .map-path.in{opacity:1}
+  .map-fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    text-align:center;color:var(--bronze-light);font-family:var(--mono);font-size:12px;
+    padding:24px;letter-spacing:.08em;line-height:1.8}
+
+  /* Region pins (HTML buttons over the SVG, % positioned) */
+  .pin{position:absolute;transform:translate(-50%,-50%);width:34px;height:34px;
+    border:none;background:transparent;cursor:pointer;padding:0;z-index:5}
+  .pin-core{position:absolute;inset:0;border-radius:999px;
+    background:radial-gradient(circle,var(--bronze-light) 0%,var(--bronze) 70%);
+    box-shadow:0 0 0 0 rgba(232,199,122,.6);transition:transform .3s cubic-bezier(.34,1.56,.64,1)}
+  .pin[data-status="available"] .pin-core{animation:pinPulse 2.6s infinite}
+  .pin[data-status="passed"] .pin-core{background:radial-gradient(circle,#FFF1CF 0%,var(--bronze) 60%);box-shadow:0 0 16px 3px rgba(232,199,122,.6)}
+  .pin:hover .pin-core,.pin:focus-visible .pin-core{transform:scale(1.35)}
+  .pin:focus-visible{outline:3px solid var(--bronze-light);outline-offset:4px;border-radius:999px}
+  .pin-ring{position:absolute;inset:-8px;border:1.5px solid rgba(232,199,122,.4);border-radius:999px;opacity:0}
+  .pin[data-status="passed"] .pin-ring{opacity:1}
+  .pin-label{position:absolute;left:50%;top:calc(100% + 6px);transform:translateX(-50%);
+    white-space:nowrap;font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.08em;
+    color:var(--bronze-light);text-transform:uppercase;pointer-events:none;
+    background:rgba(5,13,31,.7);padding:2px 7px;border-radius:6px;opacity:0;transition:opacity .25s}
+  .pin:hover .pin-label,.pin:focus-visible .pin-label{opacity:1}
+  @keyframes pinPulse{0%{box-shadow:0 0 0 0 rgba(232,199,122,.55)}70%{box-shadow:0 0 0 14px rgba(232,199,122,0)}100%{box-shadow:0 0 0 0 rgba(232,199,122,0)}}
+
+  /* ── Mission cards ── */
+  .cards-head{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:6px}
+  .cards-head h2{font-family:var(--display);font-weight:500;font-size:26px;color:var(--ink-deep)}
+  .cards-head .hint{font-size:13px;color:var(--ink-soft)}
+  .mission-cards{display:flex;flex-direction:column;gap:14px;margin-top:14px}
+  .mcard{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:20px 22px;
+    transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .25s,border-color .25s;
+    position:relative;overflow:hidden}
+  .mcard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--sdg,var(--bronze))}
+  .mcard:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(7,23,52,.10);border-color:var(--bronze)}
+  .mcard-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+  .sdg-badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10px;font-weight:700;
+    letter-spacing:.1em;text-transform:uppercase;color:#fff;background:var(--sdg,var(--bronze));padding:3px 10px;border-radius:999px}
+  .region-badge{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+  .mcard h3{font-family:var(--display);font-size:23px;font-weight:500;color:var(--ink-deep);line-height:1.2}
+  .mcard h3 .th{display:block;font-family:var(--thai);font-size:13px;color:var(--ink-soft);margin-top:2px;font-weight:400}
+  .mcard p{color:var(--ink-soft);font-size:14px;line-height:1.6;margin-top:8px}
+  .mcard-meta{display:flex;gap:14px;flex-wrap:wrap;margin-top:12px;font-size:12px;color:var(--ink-soft);font-family:var(--mono)}
+  .mcard-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:16px;flex-wrap:wrap}
+  .status-tag{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:6px}
+  .status-tag.passed{background:rgba(181,124,52,.14);color:var(--bronze)}
+  .status-tag.ready{background:rgba(7,23,52,.06);color:var(--ink)}
+  .status-tag.field{background:rgba(100,114,147,.12);color:var(--steel)}
+  .mbtn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:999px;
+    font-weight:700;font-size:13px;letter-spacing:.04em;text-decoration:none;cursor:pointer;border:none;
+    transition:transform .2s,box-shadow .2s}
+  .mbtn.go{background:linear-gradient(135deg,var(--bronze) 0%,var(--bronze-light) 100%);color:var(--ink)}
+  .mbtn.go:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(181,124,52,.34)}
+  .mbtn.field{background:transparent;border:1px solid var(--line-strong);color:var(--ink-soft)}
+  .mbtn.field:hover{border-color:var(--bronze);color:var(--bronze)}
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+    .map-path{opacity:1}
+  }
+</style>
 </head>
-<body class="bg-white text-on-surface">
+<body>
 
-  <!-- Mission Shell template header — bilingual status badge -->
-  <header class="shell-header">
-    <a href="../home.html" class="shell-header-brand">
-      <span class="logo">FUTUREPROOF</span>
-      <span class="sub">SDGs Mission Lab</span>
-    </a>
-
-    <div class="shell-header-status">
-      <span class="live-dot" aria-hidden="true"></span>
-      <div>
-        <div class="shell-header-status-label">Onboarding · Step 5 of 5</div>
-        <div class="shell-header-status-title">Choose Your SDG · เลือกเป้าหมาย SDG ของคุณ</div>
-      </div>
+<header class="shell-header">
+  <a href="../home.html" class="shell-header-brand">
+    <span class="logo">FUTUREPROOF</span>
+    <span class="sub">SDGs Mission Lab</span>
+  </a>
+  <div class="shell-header-status">
+    <span class="live-dot" aria-hidden="true"></span>
+    <div>
+      <div class="shell-header-status-label">The Thailand Journey · Step 7</div>
+      <div class="shell-header-status-title">Choose a region · เลือกภูมิภาค</div>
     </div>
+  </div>
+  <a href="./avatar.html" class="shell-header-btn">&larr; Back</a>
+</header>
 
-    <a href="./avatar.html" class="shell-header-btn">← Back</a>
-  </header>
+<section class="journey-hero">
+  <div class="journey-kicker">Six regions · Six challenges · One journey</div>
+  <h1 class="journey-title">Cross Thailand. Earn six <em>Keystones</em>.</h1>
+  <p class="journey-sub">Each region holds one of the nation's defining sustainable-development challenges. Solve a region to earn its SDG Keystone. Collect all six to unlock your <strong>Voice for Change</strong>. Travel them in any order.</p>
+  <p class="journey-sub-th" lang="th">เดินทางข้าม 6 ภูมิภาคของไทย แก้โจทย์ความยั่งยืนประจำภูมิภาค รับ Keystone ครบทั้ง 6 เพื่อปลดล็อกภารกิจสุดท้าย — เลือกลำดับได้อย่างอิสระ</p>
 
-  <main id="main" class="max-w-1600 mx-auto px-6 lg:px-12 pt-32 pb-24">
+  <div class="keystone-meter">
+    <div class="keystone-track" id="keystone-track" aria-label="Keystones earned"></div>
+    <span class="keystone-count" id="keystone-count">0 / 6 Keystones</span>
+    <span class="finaltask-chip locked" id="finaltask-chip">
+      <span class="material-symbols-rounded">lock</span>
+      <span id="finaltask-text">Final Task locked</span>
+    </span>
+  </div>
+</section>
 
-    <div class="step-track" aria-label="Onboarding progress: step 5 of 5">
-      <div class="step-dot done"></div><div class="step-line done"></div>
-      <div class="step-dot done"></div><div class="step-line done"></div>
-      <div class="step-dot done"></div><div class="step-line done"></div>
-      <div class="step-dot done"></div><div class="step-line done"></div>
-      <div class="step-dot active"></div>
-    </div>
-
-    <div class="flex items-center gap-4 mb-6">
-      <span class="topbar-name">Step 05 / 05</span>
-      <div class="h-line flex-1 max-w-32"></div>
-    </div>
-
-    <h1 class="display-heading text-5xl lg:text-6xl text-on-surface mb-4 max-w-3xl">
-      Pick the goal<br>that <em class="text-primary">pulls you in</em>.
-    </h1>
-    <p class="text-lg text-on-surface/80 leading-relaxed mb-10 max-w-2xl">
-      Three steps. About two minutes. Then your missions begin.
-    </p>
-
-    <!-- WORKFLOW GUIDE — three-step horizontal flow -->
-    <section class="workflow-guide mb-12" aria-label="How this page works">
-      <ol class="workflow-steps">
-        <li class="workflow-step is-active" data-step="1">
-          <div class="workflow-step-num">1</div>
-          <div class="workflow-step-body">
-            <div class="workflow-step-title">Pick an SDG</div>
-            <div class="workflow-step-desc">Tap a colored tile. Each tile is one of the seventeen UN goals — hover to see Thai.</div>
-          </div>
-        </li>
-        <li class="workflow-step" data-step="2">
-          <div class="workflow-step-num">2</div>
-          <div class="workflow-step-body">
-            <div class="workflow-step-title">Read the description</div>
-            <div class="workflow-step-desc">Bilingual summary appears — confirm this is the goal you want to investigate.</div>
-          </div>
-        </li>
-        <li class="workflow-step" data-step="3">
-          <div class="workflow-step-num">3</div>
-          <div class="workflow-step-body">
-            <div class="workflow-step-title">Choose a scenario</div>
-            <div class="workflow-step-desc">Three Thai-context scenarios appear. Tap one card to lock it in and begin missions.</div>
-          </div>
-        </li>
-      </ol>
-    </section>
-
-    <!-- SDG GRID -->
-    <section id="sdg-grid" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-9 gap-3 mb-12" aria-label="The 17 UN Sustainable Development Goals"></section>
-
-    <!-- SDG DESCRIPTION PANEL — shows when a tile is clicked -->
-    <section id="sdg-detail" class="mb-12" hidden>
-      <div class="sdg-detail-card">
-        <div class="flex items-center gap-4 mb-5 flex-wrap">
-          <div id="sdg-detail-badge" class="sdg-detail-badge">01</div>
-          <div class="flex-1">
-            <div class="console-label-gold" id="sdg-detail-eyebrow">SDG 01</div>
-            <h2 id="sdg-detail-title" class="display-heading text-3xl lg:text-4xl text-on-surface">No Poverty</h2>
-            <p id="sdg-detail-title-th" class="thai-meta mt-1" style="font-size: 1.1rem;">ขจัดความยากจน</p>
-          </div>
-        </div>
-        <div class="grid lg:grid-cols-2 gap-6">
-          <div>
-            <div class="console-label-gold mb-2">ENGLISH</div>
-            <p id="sdg-detail-en" class="text-base text-on-surface/85 leading-relaxed"></p>
-          </div>
-          <div>
-            <div class="console-label-gold mb-2">ภาษาไทย</div>
-            <p id="sdg-detail-th" class="thai-meta leading-relaxed" style="font-size: 1.05rem; line-height: 1.75;"></p>
-          </div>
-        </div>
+<div class="journey-grid">
+  <div class="map-stage">
+    <div class="map-frame" id="map-frame">
+      <svg id="th-map" viewBox="0 0 760 1400" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+        <defs>
+          <linearGradient id="thGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#1A2B52"/>
+            <stop offset="55%" stop-color="#10204A"/>
+            <stop offset="100%" stop-color="#0A1838"/>
+          </linearGradient>
+          <filter id="thGlow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="3" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="thMist" x="-30%" y="-30%" width="160%" height="160%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="7" result="n"/>
+            <feColorMatrix in="n" type="matrix" values="0 0 0 0 0.91  0 0 0 0 0.78  0 0 0 0 0.48  0 0 0 0.05 0"/>
+          </filter>
+        </defs>
+        <rect width="760" height="1400" filter="url(#thMist)"/>
+        <path id="th-path" class="map-path" d=""></path>
+      </svg>
+      <div class="map-fallback" id="map-fallback" hidden>
+        [ Map of Thailand ]<br>The six regions are listed as cards beside / below.
       </div>
-    </section>
-
-    <!-- SCENARIO PICKER -->
-    <section id="scenarios-section" hidden>
-      <div class="scenarios-header mb-6">
-        <div>
-          <span class="console-label-gold" id="scenarios-label">SCENARIOS</span>
-          <span id="scenarios-source" class="scenarios-source-tag"></span>
-        </div>
-        <p class="text-base text-on-surface/70 mt-2 max-w-2xl">
-          Three Thai-context scenarios are ready. <strong>Tap the card you want to investigate</strong> — that locks it in and starts your missions.
-        </p>
-      </div>
-
-      <div id="scenarios-grid" class="grid lg:grid-cols-3 gap-5 mb-8"></div>
-
-      <div id="select-error" class="field-error mb-4" hidden></div>
-
-      <!-- Secondary action: regenerate (the only button on this section) -->
-      <div class="regen-row">
-        <div class="regen-row-prompt">
-          <span class="material-symbols-rounded size-20" aria-hidden="true">refresh</span>
-          <span class="text-sm text-on-surface/75">None of these feel right?</span>
-        </div>
-        <button id="regen-btn" type="button" class="btn-secondary">
-          <span>Generate fresh scenarios</span>
-          <span id="regen-count" class="regen-count">(2 left)</span>
-        </button>
-      </div>
-    </section>
-
-    <div id="loading" hidden class="loading-row">
-      <span class="spinner"></span>
-      <span>Generating scenarios for your team…</span>
+      <!-- pins injected here -->
     </div>
-  </main>
+  </div>
 
-  <script src="../config.local.js" onerror="window.__noConfig = true;"></script>
-  <script type="module">
-    import { SDG_LIST, generateScenarios, freezeScenarioForTeam } from '../src/scenario.js';
-    import { getFlowState, setFlowStep, isFirebaseAvailable } from '../src/auth.js';
+  <div>
+    <div class="cards-head">
+      <h2>The Six Missions</h2>
+      <span class="hint">Any order · pass each to earn its Keystone</span>
+    </div>
+    <div class="mission-cards" id="mission-cards"></div>
+  </div>
+</div>
 
-    let chosenSDG = null;
-    let lastResult = null;
-    const MAX_REGEN_PER_SDG = 2;
-    let regensUsedForSDG = 0;
+<!-- GSAP — CDN with graceful CSS fallback if unavailable (no demo-fragility) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+        onerror="window.__noGSAP=true"></script>
 
-    /* ──────── Workflow-guide progress ──────── */
-    function setActiveWorkflowStep(stepNum) {
-      document.querySelectorAll('.workflow-step').forEach((el) => {
-        const n = Number(el.dataset.step);
-        el.classList.toggle('is-active', n === stepNum);
-        el.classList.toggle('is-done', n < stepNum);
+<script type="module">
+  import { JOURNEY_MISSIONS, getJourneyProgress, getKeystoneCount, isFinalTaskUnlocked }
+    from "../src/keystones.js";
+  import { getFlowState } from "../src/auth.js";
+
+  /* ── Mission presentation data (authored; not user input) ── */
+  const SDG_COLOR = { 6:"#26BDE2", 13:"#3F7E44", 11:"#FD9D24", 14:"#0A97D9", 4:"#C5192D", 3:"#4C9F38" };
+  const CARD = {
+    "sdg06-khonkaen":  { th:"ชั้นน้ำใต้ดินใต้ขอนแก่น", blurb:"A municipal wellfield expansion secures the city's dry-season water — but accelerates the aquifer drawdown the next generation inherits.", focus:"BRIEF · PROBE · DECIDE · ACT · DEBRIEF", state:"ready", href:"./mission-shell.html?scenario=sdg06-khonkaen" },
+    "sdg13-chiangmai": { th:"ฤดูแห่งการเผา", blurb:"PM2.5 enforcement protects urban respiratory health — but threatens the livelihoods of upland farmers who burn to survive.", focus:"BRIEF · PROBE · DECIDE · ACT · DEBRIEF", state:"build", href:"./mission-shell.html?scenario=sdg13-chiangmai" },
+    "sdg11-bangkok":   { th:"คลองกับเมือง", blurb:"A monsoon-flood plan protects 80,000 commuters — but displaces the klong-side households who have lived on the water for generations.", focus:"5-stage arc", state:"field", href:"#" },
+    "sdg14-andaman":   { th:"แนวปะการังกับกระแสน้ำ", blurb:"A marine-tourism quota lets the reef recover — but cuts the income of the dive operators who depend on it.", focus:"5-stage arc", state:"field", href:"#" },
+    "sdg04-takmaesot": { th:"เด็ก ๆ ที่ชายแดน", blurb:"Every child has a right to learn — but legal status and resources collide at the border where migrant and stateless children wait.", focus:"5-stage arc", state:"field", href:"#" },
+    "sdg03-eecfringe": { th:"หมู่บ้านที่ความเจริญทิ้งไว้", blurb:"The Eastern Economic Corridor draws working-age labour away — leaving villages of elders and grandchildren as healthcare thins.", focus:"5-stage arc", state:"field", href:"#" },
+  };
+
+  const flow = getFlowState();
+  const uid = flow && flow.uid;
+
+  /* ── Load baked Thailand geometry (same-origin, vendored — no CDN) ── */
+  let geo = null;
+  try {
+    const res = await fetch("../assets/geo/thailand-baked.json", { cache:"force-cache" });
+    if (res.ok) geo = await res.json();
+  } catch (_) { /* fallback handled below */ }
+
+  const pathEl = document.getElementById("th-path");
+  const frame  = document.getElementById("map-frame");
+  const fallback = document.getElementById("map-fallback");
+
+  if (geo && geo.d) {
+    pathEl.setAttribute("d", geo.d);
+    requestAnimationFrame(() => pathEl.classList.add("in"));
+    // pins
+    for (const m of JOURNEY_MISSIONS) {
+      const p = geo.pins[m.id];
+      if (!p) continue;
+      const btn = document.createElement("button");
+      btn.className = "pin";
+      btn.type = "button";
+      btn.style.left = (p.x / geo.W * 100) + "%";
+      btn.style.top  = (p.y / geo.H * 100) + "%";
+      btn.setAttribute("data-mission", m.id);
+      btn.setAttribute("aria-label", m.title + " — SDG " + m.sdg + " — " + m.region + " Thailand");
+      const core = document.createElement("span"); core.className = "pin-core";
+      const ring = document.createElement("span"); ring.className = "pin-ring";
+      const lab  = document.createElement("span"); lab.className = "pin-label";
+      lab.textContent = m.region;
+      btn.append(ring, core, lab);
+      btn.addEventListener("click", () => {
+        const c = CARD[m.id];
+        if (c && c.state !== "field") location.href = c.href;
+        else document.getElementById("card-" + m.id)?.scrollIntoView({ behavior:"smooth", block:"center" });
       });
+      frame.appendChild(btn);
     }
-    setActiveWorkflowStep(1);
+  } else {
+    pathEl.remove();
+    fallback.hidden = false;
+  }
 
-    /* ──────── SDG tiles ──────── */
-    const grid = document.getElementById('sdg-grid');
-    SDG_LIST.forEach((sdg) => {
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.setAttribute('aria-label', `SDG ${sdg.n}: ${sdg.short} / ${sdg.shortTh || ''}`);
-      btn.className = 'sdg-tile';
-      btn.style.background = sdg.color;
-      btn.innerHTML = `
-        <div class="sdg-tile-inner">
-          <div class="sdg-num">${String(sdg.n).padStart(2,'0')}</div>
-          <div class="sdg-name">${sdg.short}</div>
-          <div class="sdg-name-th">${sdg.shortTh || ''}</div>
-        </div>
-        <div class="sdg-tile-glow"></div>
-      `;
-      btn.addEventListener('click', () => selectSDG(sdg));
-      grid.appendChild(btn);
+  /* ── Journey progress: Keystone meter + pin/card states ── */
+  const progress = await getJourneyProgress(uid);     // [{id,sdg,region,title,status,...}]
+  const passedSet = new Set(progress.filter(p => p.status === "passed").map(p => p.id));
+  const count = await getKeystoneCount(uid);
+  const unlocked = await isFinalTaskUnlocked(uid);
+
+  // meter
+  const track = document.getElementById("keystone-track");
+  for (let i = 0; i < 6; i++) {
+    const d = document.createElement("span");
+    d.className = "keystone-dot" + (i < count ? " earned" : "");
+    track.appendChild(d);
+  }
+  document.getElementById("keystone-count").textContent = count + " / 6 Keystones";
+  const chip = document.getElementById("finaltask-chip");
+  const chipTxt = document.getElementById("finaltask-text");
+  if (unlocked) {
+    chip.className = "finaltask-chip unlocked";
+    chip.querySelector(".material-symbols-rounded").textContent = "lock_open";
+    chipTxt.textContent = "Final Task unlocked";
+    chip.style.cursor = "pointer";
+    chip.addEventListener("click", () => location.href = "./final-task.html");
+  } else {
+    chipTxt.textContent = "Final Task · " + (6 - count) + " Keystones to go";
+  }
+
+  // pin states
+  document.querySelectorAll(".pin").forEach(pin => {
+    const id = pin.getAttribute("data-mission");
+    pin.setAttribute("data-status", passedSet.has(id) ? "passed" : "available");
+  });
+
+  /* ── Mission cards ── */
+  const wrap = document.getElementById("mission-cards");
+  for (const m of JOURNEY_MISSIONS) {
+    const c = CARD[m.id] || {};
+    const passed = passedSet.has(m.id);
+    const card = document.createElement("article");
+    card.className = "mcard";
+    card.id = "card-" + m.id;
+    card.style.setProperty("--sdg", SDG_COLOR[m.sdg] || "var(--bronze)");
+
+    const top = document.createElement("div"); top.className = "mcard-top";
+    const sdg = document.createElement("span"); sdg.className = "sdg-badge";
+    sdg.textContent = "SDG " + m.sdg;
+    const region = document.createElement("span"); region.className = "region-badge";
+    region.textContent = m.region + " Thailand";
+    top.append(sdg, region);
+
+    const h3 = document.createElement("h3");
+    h3.textContent = m.title;
+    const th = document.createElement("span"); th.className = "th"; th.lang = "th";
+    th.textContent = c.th || "";
+    h3.appendChild(th);
+
+    const blurb = document.createElement("p");
+    blurb.textContent = c.blurb || "";
+
+    const meta = document.createElement("div"); meta.className = "mcard-meta";
+    const mf = document.createElement("span"); mf.textContent = "◆ " + (c.focus || "5-stage arc");
+    const mr = document.createElement("span"); mr.textContent = "⌖ " + m.region;
+    meta.append(mf, mr);
+
+    const foot = document.createElement("div"); foot.className = "mcard-foot";
+    const tag = document.createElement("span");
+    if (passed) { tag.className = "status-tag passed"; tag.textContent = "Keystone earned"; }
+    else if (c.state === "field") { tag.className = "status-tag field"; tag.textContent = "Field report — full build in progress"; }
+    else { tag.className = "status-tag ready"; tag.textContent = "Ready to begin"; }
+
+    let btn;
+    if (c.state === "field") {
+      btn = document.createElement("button");
+      btn.className = "mbtn field"; btn.type = "button";
+      btn.textContent = "Read the field report";
+      btn.addEventListener("click", () => alert(m.title + "\n\nSDG " + m.sdg + " · " + m.region + " Thailand\n\nThis mission is fully documented in its production master and will be playable in the next build. The Khon Kaen and Chiang Mai missions are live now."));
+    } else {
+      btn = document.createElement("a");
+      btn.className = "mbtn go"; btn.href = c.href;
+      btn.append(document.createTextNode(passed ? "Replay mission" : "Begin mission"),
+                 Object.assign(document.createElement("span"), { textContent: "→" }));
+    }
+    foot.append(tag, btn);
+    card.append(top, h3, blurb, meta, foot);
+    wrap.appendChild(card);
+  }
+
+  /* ── Cinematic motion (GSAP if present; CSS handles the rest) ── */
+  if (!window.__noGSAP && window.gsap && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const g = window.gsap;
+    g.from(".journey-title", { y: 24, opacity: 0, duration: .9, ease: "power3.out" });
+    g.from(".journey-sub",   { y: 16, opacity: 0, duration: .8, delay: .15, ease: "power3.out" });
+    g.from(".keystone-dot",  { scale: 0, opacity: 0, duration: .5, stagger: .06, delay: .35, ease: "back.out(2)" });
+    g.from(".pin",           { scale: 0, opacity: 0, duration: .6, stagger: .1, delay: .7, ease: "back.out(2.4)" });
+    g.from(".mcard",         { y: 30, opacity: 0, duration: .7, stagger: .08, delay: .5, ease: "power3.out" });
+    // gentle parallax on the map as the pointer moves
+    const mf = document.getElementById("map-frame");
+    mf.addEventListener("pointermove", (e) => {
+      const r = mf.getBoundingClientRect();
+      const dx = (e.clientX - r.left - r.width/2) / r.width;
+      const dy = (e.clientY - r.top - r.height/2) / r.height;
+      g.to("#th-path", { x: dx * 14, y: dy * 14, duration: .6, ease: "power2.out" });
     });
-
-    async function selectSDG(sdg) {
-      if (chosenSDG !== sdg.n) {
-        regensUsedForSDG = 0;
-        updateRegenButton();
-      }
-      chosenSDG = sdg.n;
-      document.querySelectorAll('.sdg-tile').forEach((t) => t.classList.remove('selected'));
-      grid.children[sdg.n - 1].classList.add('selected');
-
-      // Step 2: description visible
-      setActiveWorkflowStep(2);
-
-      const detail = document.getElementById('sdg-detail');
-      detail.hidden = false;
-      detail.style.borderTop = `4px solid ${sdg.color}`;
-      document.getElementById('sdg-detail-badge').textContent = String(sdg.n).padStart(2, '0');
-      document.getElementById('sdg-detail-badge').style.background = sdg.color;
-      document.getElementById('sdg-detail-eyebrow').textContent = `SDG ${String(sdg.n).padStart(2, '0')}`;
-      document.getElementById('sdg-detail-title').textContent = sdg.short;
-      document.getElementById('sdg-detail-title-th').textContent = sdg.shortTh || '';
-      document.getElementById('sdg-detail-en').textContent = sdg.description?.en || '';
-      document.getElementById('sdg-detail-th').textContent = sdg.description?.th || '';
-
-      document.getElementById('scenarios-section').hidden = true;
-      document.getElementById('select-error').hidden = true;
-      document.getElementById('loading').hidden = false;
-      document.getElementById('scenarios-label').textContent = `SCENARIOS — SDG ${String(sdg.n).padStart(2,'0')} ${sdg.short.toUpperCase()}`;
-
-      setTimeout(() => detail.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60);
-
-      const flow = getFlowState();
-      const learnerProfile = flow?.learnerProfile?.language ? {
-        cefrEstimate: flow.learnerProfile.language.cefrEstimate,
-        analyticalPercentile: flow.learnerProfile.analyticalPercentile,
-        criticalThinkingPercentile: flow.learnerProfile.criticalThinkingPercentile,
-      } : null;
-
-      try {
-        const result = await generateScenarios({ sdg: sdg.n, learnerProfile });
-        lastResult = result;
-        renderScenarios(result);
-      } catch (err) {
-        const errEl = document.getElementById('select-error');
-        errEl.textContent = 'We could not reach the scenario generator. Showing preview scenarios for this SDG.';
-        errEl.hidden = false;
-        renderScenarios({ source: 'fallback', scenarios: [] });
-      } finally {
-        document.getElementById('loading').hidden = true;
-      }
-    }
-
-    function renderScenarios(result) {
-      const section = document.getElementById('scenarios-section');
-      const sg = document.getElementById('scenarios-grid');
-      const sourceLabel = document.getElementById('scenarios-source');
-      sg.innerHTML = '';
-      if (!result.scenarios || result.scenarios.length === 0) {
-        sg.innerHTML = `<div class="alert-warn col-span-full">No scenarios available right now. Please regenerate or pick a different SDG.</div>`;
-        section.hidden = false;
-        return;
-      }
-      sourceLabel.textContent = result.source === 'claude' ? 'GENERATED LIVE' :
-                                result.source === 'claude+fallback' ? 'PARTIAL LIVE' :
-                                'PREVIEW BANK';
-      sourceLabel.dataset.source = result.source;
-
-      result.scenarios.forEach((sc, idx) => {
-        const card = document.createElement('button');
-        card.type = 'button';
-        card.className = 'scenario-choice-card';
-        card.setAttribute('aria-label', `Choose scenario ${idx + 1}: ${sc.title}`);
-        card.innerHTML = `
-          <div class="scenario-choice-head">
-            <div class="scenario-num">0${idx + 1}</div>
-            <div class="scenario-choice-cta">
-              <span class="material-symbols-rounded size-20" aria-hidden="true">arrow_forward</span>
-              <span>Choose this</span>
-            </div>
-          </div>
-          <h3 class="scenario-title">${escapeHtml(sc.title)}</h3>
-          <p class="scenario-setting">${escapeHtml(sc.setting)}</p>
-          <div class="scenario-meta">
-            <div class="scenario-meta-row"><strong>Tension</strong><span>${escapeHtml(sc.coreTension)}</span></div>
-            <div class="scenario-meta-row"><strong>Decision</strong><span>${escapeHtml(sc.decisionPoint)}</span></div>
-          </div>
-          <p class="scenario-localens">${escapeHtml(sc.localLens || '')}</p>
-        `;
-        // Clicking a scenario card = the single "Choose Scenario" action.
-        // No separate confirm button — the card IS the button.
-        card.addEventListener('click', () => chooseAndProceed(sc, card));
-        sg.appendChild(card);
-      });
-      section.hidden = false;
-      setActiveWorkflowStep(3);
-    }
-
-    async function chooseAndProceed(scenario, cardEl) {
-      // Visual: mark this card chosen, dim the others, show choosing state.
-      document.querySelectorAll('.scenario-choice-card').forEach((c) => {
-        c.classList.remove('selected');
-        c.disabled = true;
-      });
-      cardEl.classList.add('selected');
-      cardEl.classList.add('is-choosing');
-
-      // Always stash the choice locally first — proceed even if cloud fails.
-      const flow = getFlowState();
-      setFlowStep('mission-select', {
-        selectedSDG: chosenSDG,
-        scenarioPreview: scenario,
-        scenarioLocked: true,
-      });
-
-      // Best-effort cloud write.
-      if (flow?.uid && isFirebaseAvailable()) {
-        try {
-          const tid = flow.uid;
-          await freezeScenarioForTeam({ tid, sdg: chosenSDG, scenario });
-          setFlowStep('mission-select', { selectedSDG: chosenSDG, scenarioLocked: true, tid });
-        } catch (err) {
-          console.warn('[FUTUREPROOF] scenario cloud-write failed; continuing locally', err);
-        }
-      }
-
-      // Brief moment so the user sees the visual confirmation, then advance.
-      setTimeout(() => { location.href = './mission-01.html'; }, 320);
-    }
-
-    function escapeHtml(s) { return String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c])); }
-
-    /* ──────── Regenerate (secondary action) ──────── */
-    function updateRegenButton() {
-      const btn = document.getElementById('regen-btn');
-      const count = document.getElementById('regen-count');
-      if (!btn) return;
-      const remaining = MAX_REGEN_PER_SDG - regensUsedForSDG;
-      if (remaining <= 0) {
-        btn.disabled = true;
-        const label = btn.querySelector('span:first-child');
-        if (label) label.textContent = 'No regenerations left';
-        if (count) count.textContent = '— choose one above';
-      } else {
-        btn.disabled = false;
-        const label = btn.querySelector('span:first-child');
-        if (label) label.textContent = 'Generate fresh scenarios';
-        if (count) count.textContent = `(${remaining} left)`;
-      }
-    }
-    updateRegenButton();
-
-    document.getElementById('regen-btn').addEventListener('click', async () => {
-      if (!chosenSDG) return;
-      if (regensUsedForSDG >= MAX_REGEN_PER_SDG) return;
-      regensUsedForSDG += 1;
-      const sdg = SDG_LIST.find((s) => s.n === chosenSDG);
-      if (!sdg) return;
-      document.getElementById('scenarios-section').hidden = true;
-      document.getElementById('loading').hidden = false;
-      document.getElementById('select-error').hidden = true;
-      const flow = getFlowState();
-      const learnerProfile = flow?.learnerProfile?.language ? {
-        cefrEstimate: flow.learnerProfile.language.cefrEstimate,
-        analyticalPercentile: flow.learnerProfile.analyticalPercentile,
-        criticalThinkingPercentile: flow.learnerProfile.criticalThinkingPercentile,
-      } : null;
-      try {
-        const result = await generateScenarios({ sdg: sdg.n, learnerProfile });
-        lastResult = result;
-        renderScenarios(result);
-      } catch (err) {
-        const errEl = document.getElementById('select-error');
-        errEl.textContent = 'Could not generate fresh scenarios. Showing the previous batch.';
-        errEl.hidden = false;
-        if (lastResult) renderScenarios(lastResult);
-      } finally {
-        document.getElementById('loading').hidden = true;
-        updateRegenButton();
-      }
-    });
-  </script>
-
-  <style>
-    /* ──────── Workflow guide ──────── */
-    .workflow-guide {
-      background: linear-gradient(135deg, #FAFAFA 0%, #F4F4F4 100%);
-      border: 1px solid #D4D8E0;
-      border-radius: 20px;
-      padding: 1.5rem 1.75rem;
-    }
-    .workflow-steps {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1rem;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-      counter-reset: workflow;
-    }
-    @media (min-width: 768px) {
-      .workflow-steps { grid-template-columns: 1fr 1fr 1fr; gap: 0; position: relative; }
-      .workflow-steps::before {
-        content: '';
-        position: absolute;
-        top: 28px;
-        left: 12%;
-        right: 12%;
-        height: 2px;
-        background: linear-gradient(90deg, #D4D8E0 0%, #D4D8E0 100%);
-        z-index: 0;
-      }
-    }
-    .workflow-step {
-      position: relative;
-      display: flex;
-      gap: 1rem;
-      align-items: flex-start;
-      padding: 0 0.75rem;
-      z-index: 1;
-    }
-    @media (min-width: 768px) {
-      .workflow-step { flex-direction: column; align-items: center; text-align: center; gap: 0.75rem; }
-    }
-    .workflow-step-num {
-      flex-shrink: 0;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: #FFFFFF;
-      color: #647293;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Fraunces', Georgia, serif;
-      font-weight: 600;
-      font-size: 1.2rem;
-      border: 2px solid #D4D8E0;
-      transition:
-        background 320ms cubic-bezier(0.34, 1.56, 0.64, 1),
-        color 240ms ease,
-        border-color 240ms ease,
-        transform 320ms cubic-bezier(0.34, 1.56, 0.64, 1),
-        box-shadow 320ms cubic-bezier(0.2, 0, 0, 1);
-    }
-    .workflow-step.is-active .workflow-step-num {
-      background: #b57c34;
-      color: #FFFFFF;
-      border-color: #b57c34;
-      transform: scale(1.1);
-      box-shadow: 0 6px 16px rgba(181, 124, 52, 0.30);
-    }
-    .workflow-step.is-done .workflow-step-num {
-      background: #33486f;
-      color: #FFFFFF;
-      border-color: #33486f;
-    }
-    .workflow-step-title {
-      font-family: var(--font-display);
-      font-variation-settings: 'opsz' 144, 'SOFT' 50;
-      font-weight: 500;
-      font-size: 1.15rem;
-      color: #1A1F2E;
-      margin-bottom: 2px;
-    }
-    .workflow-step-desc {
-      font-family: var(--font-ui);
-      font-size: 0.875rem;
-      color: rgba(26, 31, 46, 0.70);
-      line-height: 1.5;
-    }
-    .workflow-step.is-active .workflow-step-title { color: #b57c34; }
-    .workflow-step-body { flex: 1; }
-
-    /* ──────── SDG tiles with Thai hover reveal + flashy motion ──────── */
-    .sdg-tile {
-      position: relative;
-      aspect-ratio: 1 / 1;
-      color: white;
-      padding: 0;
-      cursor: pointer;
-      border: none;
-      border-radius: 10px;
-      text-align: left;
-      overflow: hidden;
-      background-clip: padding-box;
-      transition:
-        transform 380ms cubic-bezier(0.34, 1.56, 0.64, 1),
-        box-shadow 320ms cubic-bezier(0.2, 0, 0, 1),
-        filter 240ms ease;
-      z-index: 1;
-      will-change: transform;
-    }
-    .sdg-tile-inner {
-      position: relative;
-      z-index: 2;
-      height: 100%;
-      padding: 0.55rem 0.65rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: flex-start;
-    }
-    /* Aura behind the tile — animates in on hover for the "flashy" feel */
-    .sdg-tile-glow {
-      position: absolute;
-      inset: -20% -20% -20% -20%;
-      z-index: 1;
-      background: radial-gradient(circle at 50% 30%, rgba(255,255,255,0.35) 0%, transparent 60%);
-      opacity: 0;
-      transform: scale(0.7);
-      transition: opacity 400ms cubic-bezier(0.2, 0, 0, 1), transform 600ms cubic-bezier(0.34, 1.56, 0.64, 1);
-      pointer-events: none;
-    }
-    .sdg-tile:hover {
-      transform: translateY(-6px) scale(1.08) rotate(-1deg);
-      box-shadow: 0 16px 36px -8px rgba(0,0,0,0.30), 0 2px 6px rgba(0,0,0,0.10);
-      filter: saturate(1.18) brightness(1.08);
-      z-index: 5;
-    }
-    .sdg-tile:hover .sdg-tile-glow {
-      opacity: 1;
-      transform: scale(1.2);
-    }
-    .sdg-tile.selected {
-      box-shadow:
-        inset 0 0 0 3px #FFFFFF,
-        inset 0 0 0 5px #b57c34,
-        0 14px 32px -6px rgba(0,0,0,0.32);
-      transform: translateY(-6px) scale(1.06);
-      z-index: 4;
-    }
-    .sdg-tile:focus-visible {
-      box-shadow:
-        inset 0 0 0 3px #FFFFFF,
-        inset 0 0 0 5px #b57c34;
-      outline: none;
-    }
-    .sdg-num {
-      font-family: 'Fraunces', Georgia, serif;
-      font-size: 1.2rem;
-      line-height: 1;
-      font-weight: 600;
-      opacity: 0.95;
-      transition: transform 320ms cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    .sdg-tile:hover .sdg-num { transform: translateY(-2px) scale(1.05); }
-    .sdg-name {
-      font-family: var(--font-ui);
-      font-size: 0.68rem;
-      line-height: 1.2;
-      font-weight: 700;
-      letter-spacing: 0.015em;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.18);
-    }
-    /* Thai short name — revealed on hover with smooth motion */
-    .sdg-name-th {
-      font-family: 'IBM Plex Sans Thai', sans-serif;
-      font-size: 0.65rem;
-      line-height: 1.25;
-      font-weight: 400;
-      letter-spacing: 0.01em;
-      opacity: 0;
-      max-height: 0;
-      overflow: hidden;
-      transform: translateY(4px);
-      transition:
-        opacity 280ms cubic-bezier(0.2, 0, 0, 1),
-        max-height 320ms cubic-bezier(0.34, 1.56, 0.64, 1),
-        transform 320ms cubic-bezier(0.34, 1.56, 0.64, 1);
-      margin-top: 2px;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.18);
-    }
-    .sdg-tile:hover .sdg-name-th,
-    .sdg-tile.selected .sdg-name-th {
-      opacity: 0.95;
-      max-height: 2.4em;
-      transform: translateY(0);
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .sdg-tile, .sdg-tile:hover, .sdg-tile.selected,
-      .sdg-tile-glow, .sdg-num, .sdg-name-th { transition: none !important; transform: none !important; }
-    }
-
-    /* ──────── SDG description card ──────── */
-    .sdg-detail-card {
-      background: #FAFAFA;
-      border: 1px solid #D4D8E0;
-      border-radius: 18px;
-      padding: 1.75rem 2rem;
-    }
-    .sdg-detail-badge {
-      width: 60px;
-      height: 60px;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #FFFFFF;
-      font-family: 'Fraunces', Georgia, serif;
-      font-weight: 600;
-      font-size: 1.7rem;
-      letter-spacing: -0.02em;
-      box-shadow: 0 4px 14px -3px rgba(0,0,0,0.15);
-    }
-
-    /* ──────── Scenarios header ──────── */
-    .scenarios-header { padding-bottom: 0.5rem; }
-    .scenarios-source-tag {
-      display: inline-block;
-      margin-left: 0.65rem;
-      padding: 2px 8px;
-      border-radius: 999px;
-      background: rgba(181, 124, 52, 0.12);
-      color: #b57c34;
-      font-family: var(--font-ui);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-    .scenarios-source-tag[data-source="claude"] {
-      background: rgba(51, 72, 111, 0.12);
-      color: #33486f;
-    }
-
-    /* ──────── Scenario choice cards — clicking = choose + proceed ──────── */
-    .scenario-choice-card {
-      position: relative;
-      text-align: left;
-      width: 100%;
-      background: #FFFFFF;
-      border: 1.5px solid #D4D8E0;
-      border-radius: 16px;
-      padding: 1.5rem 1.5rem 1.25rem;
-      cursor: pointer;
-      overflow: hidden;
-      transition:
-        transform 360ms cubic-bezier(0.34, 1.56, 0.64, 1),
-        box-shadow 280ms cubic-bezier(0.2, 0, 0, 1),
-        border-color 240ms ease,
-        background 240ms ease;
-    }
-    .scenario-choice-card::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 0;
-      background: #b57c34;
-      transition: width 280ms cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    .scenario-choice-card:hover {
-      transform: translateY(-4px) scale(1.012);
-      border-color: #b57c34;
-      box-shadow: 0 16px 32px -10px rgba(181, 124, 52, 0.22), 0 4px 10px -4px rgba(0,0,0,0.06);
-      background: linear-gradient(135deg, #FFFFFF 0%, #F8EEDF 100%);
-    }
-    .scenario-choice-card:hover::before { width: 5px; }
-    .scenario-choice-card.selected {
-      border-color: #b57c34;
-      background: linear-gradient(135deg, #FFFFFF 0%, #F4ECDB 100%);
-      box-shadow: 0 16px 32px -10px rgba(181, 124, 52, 0.30);
-    }
-    .scenario-choice-card.selected::before { width: 6px; }
-    .scenario-choice-card.is-choosing {
-      transform: translateY(-4px) scale(1.012);
-      filter: saturate(1.10);
-    }
-    .scenario-choice-card[disabled] { cursor: default; }
-    .scenario-choice-card[disabled]:not(.selected) { opacity: 0.55; }
-
-    .scenario-choice-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 0.65rem;
-    }
-    .scenario-num {
-      font-family: 'Fraunces', Georgia, serif;
-      font-weight: 600;
-      font-size: 1.5rem;
-      color: #b57c34;
-      line-height: 1;
-    }
-    .scenario-choice-cta {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      font-family: var(--font-ui);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: #b57c34;
-      padding: 5px 10px;
-      border-radius: 999px;
-      background: rgba(181, 124, 52, 0.08);
-      transition: background 200ms ease, color 200ms ease, transform 280ms cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    .scenario-choice-card:hover .scenario-choice-cta {
-      background: #b57c34;
-      color: #FFFFFF;
-      transform: translateX(2px);
-    }
-    .scenario-choice-card.selected .scenario-choice-cta {
-      background: #b57c34;
-      color: #FFFFFF;
-    }
-    .scenario-title {
-      font-family: var(--font-display);
-      font-variation-settings: 'opsz' 144, 'SOFT' 50;
-      font-weight: 500;
-      font-size: 1.5rem;
-      line-height: 1.15;
-      color: #1A1F2E;
-      margin-bottom: 0.75rem;
-    }
-    .scenario-setting {
-      font-family: var(--font-ui);
-      font-size: 0.95rem;
-      line-height: 1.55;
-      color: rgba(26, 31, 46, 0.82);
-      margin-bottom: 1rem;
-    }
-    .scenario-meta { margin-bottom: 0.75rem; display: grid; gap: 0.5rem; }
-    .scenario-meta-row {
-      display: grid;
-      grid-template-columns: 70px 1fr;
-      gap: 8px;
-      font-family: var(--font-ui);
-      font-size: 0.875rem;
-      line-height: 1.45;
-      color: rgba(26, 31, 46, 0.75);
-    }
-    .scenario-meta-row strong {
-      font-weight: 700;
-      color: #33486f;
-      font-size: 0.72rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      padding-top: 3px;
-    }
-    .scenario-localens {
-      font-family: 'IBM Plex Sans Thai', 'Space Grotesk', sans-serif;
-      font-size: 0.78rem;
-      line-height: 1.5;
-      color: rgba(26, 31, 46, 0.55);
-      border-top: 1px solid rgba(212, 216, 224, 0.7);
-      padding-top: 0.65rem;
-      margin-top: 0.25rem;
-    }
-
-    /* ──────── Regen row — secondary action, visually separated ──────── */
-    .regen-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1rem;
-      background: #FAFAFA;
-      border: 1px dashed #D4D8E0;
-      border-radius: 14px;
-      padding: 0.9rem 1.25rem;
-    }
-    .regen-row-prompt {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: rgba(26, 31, 46, 0.75);
-    }
-    .regen-row-prompt .material-symbols-rounded { color: #b57c34; }
-    .regen-count {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      font-weight: 600;
-      opacity: 0.75;
-      margin-left: 4px;
-    }
-
-    /* ──────── Loading row ──────── */
-    .loading-row {
-      display: flex;
-      align-items: center;
-      gap: 0.85rem;
-      margin-top: 1.5rem;
-      padding: 1rem 1.25rem;
-      background: #FAFAFA;
-      border: 1px solid #D4D8E0;
-      border-radius: 14px;
-      color: rgba(26, 31, 46, 0.75);
-      font-family: var(--font-ui);
-      font-size: 0.95rem;
-    }
-  </style>
-
-  <script type="module" src="../src/a11y.js"></script>
-  <script type="module">
-    import { mountVoiceGuide } from '../src/voice-guide.js';
-    const candidates = ['main .max-w-2xl', 'main .max-w-3xl', 'main .max-w-4xl', 'main .max-w-6xl', 'main'];
-    for (const sel of candidates) {
-      if (document.querySelector(sel)) { mountVoiceGuide('mission-select', sel); break; }
-    }
-  </script>
-  <script type="module" src="../src/topbar-actions.js"></script>
+    mf.addEventListener("pointerleave", () => g.to("#th-path", { x:0, y:0, duration:.8, ease:"power2.out" }));
+  }
+</script>
 </body>
 </html>
