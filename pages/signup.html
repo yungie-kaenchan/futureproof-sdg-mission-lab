@@ -73,6 +73,12 @@
     @media (max-width: 899px) { .shell-header-brand .sub { display: none; } }
     @media (max-width: 767px) { .shell-header-status { display: none; } }
     body { padding-top: 64px; }
+  /* QC red-text: validation/notice shown in friendly GREEN, no jargon */
+  #form-error{background:#E9F7EF;border:1px solid #3E9D5E;color:#1E6B3A;
+    border-radius:12px;padding:12px 16px;font-size:14px;font-weight:600;line-height:1.5;
+    display:flex;align-items:flex-start;gap:8px}
+  #form-error::before{content:"info";font-family:'Material Symbols Rounded';font-size:18px;color:#2E7D46;flex-shrink:0}
+  #form-error[hidden]{display:none}
   </style>
 </head>
 
@@ -127,7 +133,7 @@
       </p>
 
       <div id="config-warning" class="alert-warn mb-8" hidden>
-        <strong>Heads up:</strong> Firebase isn't connected yet, so this form can't actually create an account in this build. Aj. Yungie will provision the project before student onboarding goes live.
+        <strong>One moment:</strong> account creation isn't switched on just yet. You'll be able to sign up as soon as your teacher activates the platform.
       </div>
 
       <form id="signup-form" class="space-y-6" novalidate>
@@ -147,7 +153,7 @@
         <div>
           <label class="field-label" for="password">Password</label>
           <input class="field-input" type="password" id="password" name="password" autocomplete="new-password" required minlength="8" />
-          <p class="field-help">8+ characters, with at least one letter and one number.</p>
+          <p class="field-help">Use at least 8 characters with letters and numbers. Don\u2019t use your name or the word \u201cpassword\u201d \u2014 a strong password keeps your account and data safe.</p>
         </div>
 
         <div class="grid md:grid-cols-2 gap-6">
@@ -241,7 +247,7 @@
       }
       const pwIssues = passwordIssues(data.password);
       if (pwIssues.length) {
-        return showError(`Password needs: ${pwIssues.join(', ')}.`);
+        return showError(`Please choose a stronger password \u2014 it needs ${pwIssues.join(', ')}.`);
       }
       if (!data.institution) return showError('Pick your institution.');
       if (!data.yearOfStudy) return showError('Pick your year of study.');
@@ -250,7 +256,7 @@
       submitBtn.querySelector('span:first-child').textContent = 'Creating account…';
 
       if (!isFirebaseAvailable()) {
-        showError('Firebase is not connected in this build. Sign-up is disabled until provisioning is complete.');
+        showError('Sign-up isn\u2019t switched on just yet. Please try again later, or ask your teacher.');
         submitBtn.disabled = false;
         submitBtn.querySelector('span:first-child').textContent = 'Continue to Consent';
         return;
@@ -266,7 +272,7 @@
         });
         location.href = './consent.html';
       } catch (err) {
-        showError(err && err.message ? err.message : 'Something went wrong. Try again in a moment.');
+        showError('Something didn\u2019t work just now. Please check your details and try again in a moment.');
         submitBtn.disabled = false;
         submitBtn.querySelector('span:first-child').textContent = 'Continue to Consent';
       }

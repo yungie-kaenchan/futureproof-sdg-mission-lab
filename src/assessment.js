@@ -57,7 +57,10 @@ const ACTIVE_SET = ASSESSMENT_SETS[ACTIVE_SET_INDEX];
 
 export const CLOZE_PASSAGE = ACTIVE_SET.cloze;
 
-export const VOCAB_ITEMS = ACTIVE_SET.vocab;
+// Diagnostic.pdf QC: keep the readiness check brisk — cap each section to a
+// short, representative slice. The 16 parallel sets still rotate per-user,
+// so coverage and anti-cheat randomisation are preserved.
+export const VOCAB_ITEMS = ACTIVE_SET.vocab.slice(0, 5);
 
 export const WRITING_PROMPT = ACTIVE_SET.writing;
 
@@ -65,7 +68,7 @@ export const WRITING_PROMPT = ACTIVE_SET.writing;
  * Section 2 — Critical Thinking (sourced from active set)
  * ──────────────────────────────────────────────────────────────── */
 
-export const CRITICAL_ITEMS = ACTIVE_SET.critical;
+export const CRITICAL_ITEMS = ACTIVE_SET.critical.slice(0, 3);
 
 /* ──────────────────────────────────────────────────────────────────
  * Section 3 — Analytical Thinking (sourced from active set)
@@ -82,8 +85,6 @@ export const COLLAB_ITEMS = [
   { id: "k2", text: "I'm comfortable changing my mind when a teammate offers strong evidence." },
   { id: "k3", text: "I prefer to figure things out alone before bringing them to the team." , reverse: true },
   { id: "k4", text: "I notice when a quieter teammate has been waiting to speak." },
-  { id: "k5", text: "I'd rather move forward with a 'good enough' plan than wait for full agreement.", reverse: true },
-  { id: "k6", text: "I take responsibility when something I worked on doesn't land as intended." },
 ];
 
 export const LIKERT_LABELS = ["Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree"];

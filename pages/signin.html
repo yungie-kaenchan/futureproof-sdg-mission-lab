@@ -72,6 +72,12 @@
     @media (max-width: 899px) { .shell-header-brand .sub { display: none; } }
     @media (max-width: 767px) { .shell-header-status { display: none; } }
     body { padding-top: 64px; }
+  /* QC red-text: validation/notice shown in friendly GREEN, no jargon */
+  #form-error{background:#E9F7EF;border:1px solid #3E9D5E;color:#1E6B3A;
+    border-radius:12px;padding:12px 16px;font-size:14px;font-weight:600;line-height:1.5;
+    display:flex;align-items:flex-start;gap:8px}
+  #form-error::before{content:"info";font-family:'Material Symbols Rounded';font-size:18px;color:#2E7D46;flex-shrink:0}
+  #form-error[hidden]{display:none}
   </style>
 </head>
 
@@ -108,11 +114,11 @@
       </h1>
 
       <p class="text-lg text-on-surface/80 leading-relaxed mb-10">
-        Sign in to pick up where you left off. We'll drop you back at the right step.
+        Sign in with the email and password you made when you signed up. We'll take you straight back to where you left off in your journey.
       </p>
 
       <div id="config-warning" class="alert-warn mb-8" hidden>
-        <strong>Heads up:</strong> Firebase isn't connected yet, so this form can't actually sign anyone in. Aj. Yungie will provision the project before student onboarding goes live.
+        <strong>One moment:</strong> sign-in isn't switched on just yet. You'll be able to sign in as soon as your teacher activates the platform.
       </div>
 
       <form id="signin-form" class="space-y-6" novalidate>
@@ -200,7 +206,7 @@
       submitBtn.querySelector('span:first-child').textContent = 'Signing in…';
 
       if (!isFirebaseAvailable()) {
-        showError('Firebase is not connected in this build. Sign-in is disabled.');
+        showError('Sign-in isn\u2019t available just yet. Please try again later, or ask your teacher.');
         submitBtn.disabled = false;
         submitBtn.querySelector('span:first-child').textContent = 'Sign In';
         return;
@@ -211,8 +217,8 @@
         await routeReturningUser(user.uid);
       } catch (err) {
         const msg = err?.code === 'auth/invalid-credential'
-          ? "Email or password didn't match. Try again."
-          : (err?.message || 'Something went wrong. Try again in a moment.');
+          ? "Email or password didn\u2019t match. Please check them and try again."
+          : 'Something didn\u2019t work just now. Please check your details and try again.';
         showError(msg);
         submitBtn.disabled = false;
         submitBtn.querySelector('span:first-child').textContent = 'Sign In';
