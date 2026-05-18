@@ -139,17 +139,16 @@ async function reconDossier(container, state, engine) {
           <div class="vocab-table-wrap">
             <table class="vocab-table">
               <thead><tr>
-                <th>Word</th><th>Part&nbsp;of&nbsp;speech</th><th>Meaning (English)</th>
-                <th>Say</th><th lang="th">ความหมาย (ไทย)</th><th>Example — a different context</th>
+                <th>Word</th><th>Part of speech</th><th>Meaning (English)</th>
+                <th>Listen</th><th lang="th">ความหมาย (ไทย)</th>
               </tr></thead>
               <tbody>
                 ${VOCABULARY.map((v) => `<tr>
                   <td class="vt-word"><strong>${v.term}</strong></td>
                   <td class="vt-pos">${v.pos || "—"}</td>
-                  <td>${v.gloss}</td>
+                  <td class="vt-mean">${v.gloss}</td>
                   <td class="vt-say">${vocabSayButton(v.term)}</td>
                   <td class="vt-th" lang="th">${v.th}</td>
-                  <td class="vt-ex">${v.ex || ""}</td>
                 </tr>`).join("")}
               </tbody>
             </table>
