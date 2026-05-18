@@ -196,6 +196,11 @@
 
   <div class="toast" id="toast"></div>
 
+  <!-- Firebase web config (Netlify-injected at build). MUST load before
+       the module below — firebase-init.js reads window.FUTUREPROOF_CONFIG
+       synchronously. Two levels deep, so ../../ . -->
+  <script src="../../config.local.js" onerror="window.__noConfig = true;"></script>
+
   <script type="module">
     import * as Admin from "../../src/admin.js";
     import { JOURNEY_MISSIONS } from "../../src/keystones.js";
