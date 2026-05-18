@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mission — FUTUREPROOF</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Cinzel:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+
+<style>
+  :root{
+    --ink:#071734; --bone:#F4F1EA; --bronze:#b57c34; --bronze-light:#E8C77A;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{font-family:'DM Sans',system-ui,sans-serif;color:#0F1729;background:#FBFAF6;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;padding-top:64px}
+  .shell-header{position:fixed;top:0;left:0;right:0;height:64px;z-index:50;
+    background:rgba(7,23,52,0.95);backdrop-filter:blur(8px);
+    border-bottom:1px solid rgba(232,199,122,0.18);
+    display:flex;align-items:center;justify-content:space-between;padding:0 24px;color:var(--bone)}
+  .shell-header-brand{display:flex;align-items:center;gap:14px;text-decoration:none}
+  .shell-header-brand .logo{font-family:'Fraunces',serif;font-weight:600;font-size:20px;letter-spacing:.02em;color:var(--bronze-light)}
+  .shell-header-brand .sub{font-family:'Cinzel',serif;font-weight:600;font-size:11px;letter-spacing:.32em;color:rgba(244,241,234,.65);text-transform:uppercase;border-left:1px solid rgba(232,199,122,.22);padding-left:14px}
+  .shell-header-btn{background:transparent;border:1px solid rgba(244,241,234,.18);color:var(--bone);border-radius:999px;padding:6px 14px;font-size:12px;font-weight:600;text-decoration:none;transition:.2s}
+  .shell-header-btn:hover{background:rgba(244,241,234,.08);border-color:var(--bronze)}
+  @media (max-width:767px){.shell-header-brand .sub{display:none}}
+
+  .mission-wrap{max-width:920px;margin:0 auto;padding:32px 22px 100px}
+  #mission-root{min-height:50vh}
+
+  /* Boot / error states (host-owned, static text only — no injection) */
+  .boot{display:flex;flex-direction:column;align-items:center;justify-content:center;
+    min-height:50vh;text-align:center;gap:14px;color:#4A5A7A}
+  .boot .spinner{width:38px;height:38px;border-radius:999px;
+    border:3px solid rgba(181,124,52,.25);border-top-color:#b57c34;animation:spin 1s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .boot h1{font-family:'Fraunces',serif;font-weight:500;font-size:26px;color:#0F1729}
+  .boot a.btn{display:inline-flex;align-items:center;gap:8px;margin-top:8px;
+    background:linear-gradient(135deg,#b57c34,#E8C77A);color:#071734;
+    font-weight:700;font-size:14px;padding:11px 22px;border-radius:999px;text-decoration:none}
+  @media (prefers-reduced-motion:reduce){.boot .spinner{animation:none}}
+
+  #phase-controls{display:flex;justify-content:flex-end;gap:10px;margin-top:24px}
+</style>
+</head>
+<body>
+
+<header class="shell-header">
+  <a href="../home.html" class="shell-header-brand">
+    <span class="logo">FUTUREPROOF</span>
+    <span class="sub">SDGs Mission Lab</span>
+  </a>
+  <a href="./mission-select.html" class="shell-header-btn">&larr; Journey map</a>
+</header>
+
+<main class="mission-wrap">
+  <div id="mission-root">
+    <div class="boot" id="boot">
+      <div class="spinner" aria-hidden="true"></div>
+      <h1>Loading the mission…</h1>
+      <p>Reading your tier and preparing the dossier.</p>
+    </div>
+  </div>
+  <div id="phase-controls"></div>
+</main>
+
+<!-- Optional dev config (graceful if absent) -->
+<script src="../config.local.js" onerror="window.__noConfig = true;"></script>
+
+<script type="module">
+  import { MissionEngine } from "../src/mission-engine.js";
+
+  // Whitelisted, playable scenarios → adapter module path.
+  // (Documented-only missions 3–6 are intentionally absent; the journey
+  //  map routes them to their field reports instead.)
+  const REGISTRY = {
+    "sdg06-khonkaen":  "../src/scenarios/sdg06-khonkaen.js",
+    "sdg13-chiangmai": "../src/scenarios/sdg13-chiangmai.js",
+  };
+
+  const root = document.getElementById("mission-root");
+  const boot = document.getElementById("boot");
+
+  function fail(titleText, bodyText) {
+    // Static DOM only — never inject untrusted text via innerHTML.
+    root.replaceChildren();
+    const wrap = document.createElement("div");
+    wrap.className = "boot";
+    const h = document.createElement("h1");
+    h.textContent = titleText;
+    const p = document.createElement("p");
+    p.textContent = bodyText;
+    const a = document.createElement("a");
+    a.className = "btn";
+    a.href = "./mission-select.html";
+    a.textContent = "← Back to the Thailand journey";
+    wrap.append(h, p, a);
+    root.replaceChildren(wrap);
+  }
+
+  const params = new URLSearchParams(location.search);
+  const scenarioId = (params.get("scenario") || "").trim();
+  const modPath = REGISTRY[scenarioId];
+
+  if (!scenarioId) {
+    fail("No mission selected", "Choose a region from the journey map to begin.");
+  } else if (!modPath) {
+    fail("This mission isn't playable yet",
+         `“${scenarioId}” is documented in its production master but not built in this release. Khon Kaen and Chiang Mai are live now.`);
+  } else {
+    try {
+      const scenario = await import(modPath);
+      if (!scenario || !scenario.meta || !scenario.meta.id) {
+        throw new Error("scenario module missing meta.id");
+      }
+      // Clear the boot splash, hand the container to the engine.
+      root.replaceChildren();
+
+      const engine = new MissionEngine({
+        scenario,
+        container: root,
+        onComplete: (result) => {
+          // The DEBRIEF handler already renders its own outcome + CTA;
+          // this is a safety net if a scenario delegates to the engine.
+          try {
+            sessionStorage.setItem("fp_last_mission_result", JSON.stringify(result || {}));
+          } catch (_) {}
+        },
+      });
+
+      await engine.start();
+    } catch (err) {
+      console.error("[FUTUREPROOF] Mission failed to load:", err);
+      fail("Something went wrong loading this mission",
+           "The dossier couldn't be prepared. Your progress is safe — try again from the journey map.");
+    }
+  }
+</script>
+</body>
+</html>

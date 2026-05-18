@@ -3180,6 +3180,17 @@ body.font-dyslexia {
    * ──────────────────────────────────────────────────────────────── */
   .scenario-dossier { color: #1A1F2E; }
   .dossier-header h2 { color: #0F1729; }
+  /* Visible reading-tier chip (Reconstruction Master §5 — adaptivity made
+     transparent inside the mission, not just at the diagnostic). */
+  .tier-inline-chip {
+    display: inline-flex; align-items: center; gap: 6px; margin-top: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600;
+    letter-spacing: 0.04em; color: #7A5A22;
+    background: rgba(232, 199, 122, 0.16);
+    border: 1px solid rgba(181, 124, 52, 0.34);
+    padding: 4px 12px; border-radius: 999px;
+  }
+  .tier-inline-chip .material-symbols-rounded { font-size: 16px; }
   .dossier-parts { display: flex; flex-direction: column; gap: 14px; margin-top: 16px; }
   .dossier-part {
     border: 1px solid #EAEAED; border-radius: 14px; background: #FFFFFF;
