@@ -1,5 +1,4 @@
 {
-  "_comment": "FUTUREPROOF — RTDB security rules. Paste the object below (WITHOUT this _comment line) into Firebase Console → Realtime Database → Rules → Publish. Model: a learner can touch only their own data; an administrator (admins/<uid> === true) has full read/write across all learners; config is world-readable so the journey can read mission on/off + demo flags, but only an admin can change it.",
   "rules": {
     ".read": false,
     ".write": false,
