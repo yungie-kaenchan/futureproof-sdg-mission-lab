@@ -387,7 +387,7 @@ function renderStakeholderCard(s, isViewed) {
 
       <div class="stake-body">
         <div class="stake-video-row">
-          <video class="stake-video" controls playsinline preload="metadata" src="${s.video}" aria-label="${s.role} — video dispatch with English subtitles">
+          <video class="stake-video" controls controlsList="nodownload noremoteplayback" disablePictureInPicture oncontextmenu="return false" playsinline preload="metadata" src="${s.video}" aria-label="${s.role} — video dispatch with English subtitles">
             Your browser can't play this clip — the full transcript is below.
           </video>
           <div class="stake-video-meta">
