@@ -7,12 +7,13 @@ Emits TWO artifacts from one source of truth (the PROMPTS data below):
   • scenarios/PRODUCTION-PROMPTS-MASTER-v2.docx   (hand to producers)
   • scenarios/PRODUCTION-PROMPTS-MASTER-v2.md     (in-repo, diffable)
 
-Covers the TWO fully-built missions exactly as the code wires them, so a
-produced file dropped at the stated path auto-wires with zero code change.
+Covers the built missions exactly as the code wires them: each
+stakeholder dispatch is a VIDEO clip with the English subtitle text
+burned into the picture, dropped at /video/NN-slug.mp4 (auto-wires).
 
-The audio SCRIPTS are the verbatim on-screen transcripts pulled from
-src/scenarios/*-content.js — the spoken audio MUST match the wired
-captions/transcript word-for-word. Do not paraphrase them.
+The SCRIPTS are the verbatim on-screen transcripts pulled from
+src/scenarios/*-content.js — the spoken words AND the English subtitles
+BURNED INTO each video MUST match them word-for-word. Do not paraphrase.
 
 Regenerate:  python3 scripts/gen-production-prompts.py
 """
@@ -33,7 +34,7 @@ def wpm(words, seconds):
 #    here without changing the content module + .vtt in lockstep) ──
 KK = [
     dict(n=1, role="Smallholder rice farmer", th="เกษตรกรผู้ปลูกข้าวรายย่อย",
-         path="/assets/scenarios/sdg06-khonkaen/audio/01-rice-farmer.mp3",
+         path="/assets/scenarios/sdg06-khonkaen/video/01-rice-farmer.mp4",
          portrait="/assets/scenarios/sdg06-khonkaen/images/stakeholder-01.svg",
          dur=32, gender="male", age="55–65", flags="vulnerable",
          voice="Weathered, unhurried Northeastern (Isan) Thai man speaking "
@@ -48,7 +49,7 @@ KK = [
                 "the water under our feet is the same water. If they pull more, "
                 "mine runs dry sooner. That is just how the ground works."),
     dict(n=2, role="PWA Operations Manager", th="ผู้จัดการฝ่ายปฏิบัติการ การประปาส่วนภูมิภาคขอนแก่น",
-         path="/assets/scenarios/sdg06-khonkaen/audio/02-pwa-manager.mp3",
+         path="/assets/scenarios/sdg06-khonkaen/video/02-pwa-manager.mp4",
          portrait="/assets/scenarios/sdg06-khonkaen/images/stakeholder-02.svg",
          dur=32, gender="female", age="40–50", flags="institutional",
          voice="Composed, professional Thai woman, central-Thai English, "
@@ -65,7 +66,7 @@ KK = [
                 "commission additional monitoring. But taps must run."),
     dict(n=3, role="Food-processing facility Production Director",
          th="ผู้อำนวยการฝ่ายผลิต โรงงานแปรรูปอาหารในแอ่งขอนแก่น",
-         path="/assets/scenarios/sdg06-khonkaen/audio/03-plant-director.mp3",
+         path="/assets/scenarios/sdg06-khonkaen/video/03-plant-director.mp4",
          portrait="/assets/scenarios/sdg06-khonkaen/images/stakeholder-03.svg",
          dur=30, gender="male", age="45–55", flags="private",
          voice="Confident corporate Thai man, polished central-Thai English, "
@@ -82,7 +83,7 @@ KK = [
                 "regulatory environment is essential."),
     dict(n=4, role="Community Health Volunteer (อสม.)",
          th="อาสาสมัครสาธารณสุขประจำหมู่บ้าน",
-         path="/assets/scenarios/sdg06-khonkaen/audio/04-health-volunteer.mp3",
+         path="/assets/scenarios/sdg06-khonkaen/video/04-health-volunteer.mp4",
          portrait="/assets/scenarios/sdg06-khonkaen/images/stakeholder-04.svg",
          dur=34, gender="female", age="45–58", flags="vulnerable-adjacent",
          voice="Warm, grounded Isan Thai woman, English with an Isan accent, "
@@ -100,7 +101,7 @@ KK = [
 
 CM = [
     dict(n=1, role="Upland maize smallholder", th="เกษตรกรปลูกข้าวโพดบนพื้นที่สูง",
-         path="/assets/scenarios/sdg13-chiangmai/audio/01-maize-grower.mp3",
+         path="/assets/scenarios/sdg13-chiangmai/video/01-maize-grower.mp4",
          vtt="/assets/scenarios/sdg13-chiangmai/audio/01-maize-grower.vtt",
          portrait="/assets/scenarios/sdg13-chiangmai/images/stakeholder-01.svg",
          dur=33, gender="male", age="35–48", flags="vulnerable",
@@ -119,7 +120,7 @@ CM = [
                 "will take it. A fine is not a choice."),
     dict(n=2, role="Respiratory clinician, public hospital",
          th="แพทย์ระบบทางเดินหายใจ โรงพยาบาลรัฐ",
-         path="/assets/scenarios/sdg13-chiangmai/audio/02-clinician.mp3",
+         path="/assets/scenarios/sdg13-chiangmai/video/02-clinician.mp4",
          vtt="/assets/scenarios/sdg13-chiangmai/audio/02-clinician.vtt",
          portrait="/assets/scenarios/sdg13-chiangmai/images/stakeholder-02.svg",
          dur=32, gender="female", age="38–48", flags="institutional",
@@ -136,7 +137,7 @@ CM = [
                 "children in my ward as stakeholders too."),
     dict(n=3, role="Agribusiness maize-procurement manager",
          th="ผู้จัดการฝ่ายจัดซื้อข้าวโพด บริษัทเกษตรอุตสาหกรรม",
-         path="/assets/scenarios/sdg13-chiangmai/audio/03-procurement.mp3",
+         path="/assets/scenarios/sdg13-chiangmai/video/03-procurement.mp4",
          vtt="/assets/scenarios/sdg13-chiangmai/audio/03-procurement.vtt",
          portrait="/assets/scenarios/sdg13-chiangmai/images/stakeholder-03.svg",
          dur=30, gender="male", age="40–52", flags="private",
@@ -154,7 +155,7 @@ CM = [
                 "not the buyer alone. We move when the incentives move."),
     dict(n=4, role="District enforcement officer (haze task force)",
          th="เจ้าหน้าที่บังคับใช้กฎหมายระดับอำเภอ ชุดเฉพาะกิจหมอกควัน",
-         path="/assets/scenarios/sdg13-chiangmai/audio/04-officer.mp3",
+         path="/assets/scenarios/sdg13-chiangmai/video/04-officer.mp4",
          vtt="/assets/scenarios/sdg13-chiangmai/audio/04-officer.vtt",
          portrait="/assets/scenarios/sdg13-chiangmai/images/stakeholder-04.svg",
          dur=34, gender="female", age="35–45", flags="institutional",
@@ -188,28 +189,29 @@ def audio_block(s, mission_slug):
         "title": f'A{s["n"]}. Stakeholder {s["n"]:02d} — {s["role"]}',
         "rows": [
             ("Thai role label", s["th"]),
-            ("Tool", "ElevenLabs (Multilingual v2 or v3) — English narration, Thai-accented"),
+            ("Tool", "Video production (filmed actor OR AI talking-avatar) with the EXACT English subtitle text BURNED INTO the picture — no sidecar track"),
             ("WIRE TO (exact path — drop file here, auto-wires)", s["path"]),
-            ("Caption (.vtt) pairing", s.get("vtt", s["path"].replace(".mp3", ".vtt")
-                + "  (already shipped for Khon Kaen — audio must match it verbatim)")),
+            ("Subtitle burn-in source (.vtt)", s.get("vtt", s["path"].replace("/video/", "/audio/").replace(".mp4", ".vtt")
+                + "  (the exact words to BURN into the video — verbatim)")),
             ("Portrait pairs with", s["portrait"]),
             ("Target duration", f'{s["dur"]} s  (script ≈ {words} words → ~{pace} wpm)'),
             ("Voice profile", s["voice"]),
             ("Performance direction", s["tone"]),
-            ("ElevenLabs settings (start here, tune by ear)",
-             "Stability 0.40–0.55 · Similarity 0.75 · Style 0.30–0.45 · "
-             "Speaker-boost ON. Read at the wpm above; do not rush the final "
-             "sentence. One natural breath at each em-dash / question mark."),
+            ("Video & subtitle spec",
+             "1080p (≥720p) MP4 H.264 + AAC, 16:9, ≤ ~12 MB. Speaker visible, "
+             "neutral background. Burn the English subtitle text (below) into "
+             "the lower third — high-contrast, 2 lines max, timed to speech. "
+             "Do NOT ship a sidecar .vtt; the subtitles are part of the picture."),
         ],
         "script": s["script"],
         "qa": [
-            "Spoken words EXACTLY match the script (and the .vtt) — no "
+            "Spoken words AND the burned-in subtitles EXACTLY match the script — no "
             "paraphrase, no added 'um', no dropped clause.",
             f'Length within ±3 s of {s["dur"]} s.',
             "Accent reads as authentic Thai-English for the role, never "
             "cartoonish or mocking.",
             "Loudness normalised to ~ -16 LUFS; no clipping; clean tail.",
-            f'Exported as MP3 (mono, 128 kbps OK) and placed exactly at '
+            f'Exported as MP4 (H.264/AAC) and placed exactly at '
             f'{s["path"]} — filename is load-bearing, do not rename.',
         ],
     }
@@ -272,7 +274,7 @@ def image_block(code, title, tool, path, prompt, spec):
 # ── Assemble the document model ──
 def build_model():
     return {
-        "title": "FUTUREPROOF — Asset Production Prompt Master (v2)",
+        "title": "FUTUREPROOF — Asset Production Prompt Master (v2 · VIDEO)",
         "subtitle": "The two fully-built missions: Khon Kaen (SDG 6) & "
                     "Chiang Mai (SDG 13). Every prompt maps 1:1 to the exact "
                     "path the code already expects.",
@@ -281,12 +283,12 @@ def build_model():
             "WIRING CONTRACT: filenames and paths in this document are "
             "load-bearing. Produce the asset, drop it at the stated path, and "
             "it appears in the mission with NO code change. Do not rename.",
-            "AUDIO SCRIPTS ARE VERBATIM: every spoken word must match the "
+            "SCRIPTS ARE VERBATIM (spoken AND burned-in subtitle): every spoken word must match the "
             "script exactly — it is the same text shown on screen and in the "
             ".vtt caption. Paraphrasing breaks the caption sync and the "
             "comprehension items that quote stakeholders.",
             "STATUS — Khon Kaen: code wired; .vtt captions already shipped; "
-            "the 4 stakeholder MP3s are MISSING (placeholder UI shows until "
+            "the 4 stakeholder VIDEO clips are MISSING (placeholder UI shows until "
             "they exist); portraits are baseline SVGs you may upgrade.",
             "STATUS — Chiang Mai: code wired; NOTHING on disk yet — it needs "
             "the 4 MP3s, the 4 matching .vtt captions, and 4 portraits. The "
@@ -296,13 +298,13 @@ def build_model():
             "mirrors the scenario notice and the DPIA.",
             "Audio engine behaviour: the player auto-detects a missing file "
             "and shows a graceful 'production pending' chip — so partial "
-            "delivery never breaks a demo. Ship audio as you finish each one.",
+            "delivery never breaks a demo. Ship each video as you finish it; partial delivery never breaks a demo.",
         ],
         "missions": [
             {
                 "name": "MISSION 1 — “The Aquifer Below Khon Kaen” (SDG 6, Northeast)",
                 "intro": "Status: wired, captions shipped, MP3 audio MISSING. "
-                         "Produce A1–A4 first (highest visible impact).",
+                         "Produce A1–A4 first (highest visible impact). Each is a short video clip with the English subtitle text burned into the picture.",
                 "audio": [audio_block(s, "sdg06-khonkaen") for s in KK],
                 "extra_audio_note": (
                     "Optional secondary audio already has shipped .vtt scripts "
@@ -433,7 +435,7 @@ def render_md(m):
     for ms in m["missions"]:
         L.append(f"\n---\n\n# {ms['name']}\n")
         L.append(f"_{ms['intro']}_\n")
-        L.append("## Part A — Audio (ElevenLabs)\n")
+        L.append("## Part A — Video dispatches (English subtitles BURNED IN)\n")
         for a in ms["audio"]:
             L.append(f"### {a['title']}\n")
             for k, v in a["rows"]:
@@ -563,7 +565,7 @@ def render_docx(m):
         ir = intro.add_run(ms["intro"])
         ir.italic = True
         ir.font.size = Pt(10)
-        sub_head("Part A — Audio (ElevenLabs)")
+        sub_head("Part A — Video dispatches (English subtitles BURNED IN)")
         for a in ms["audio"]:
             asset(a)
         nn = doc.add_paragraph()

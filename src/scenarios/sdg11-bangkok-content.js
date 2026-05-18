@@ -185,7 +185,7 @@ export const STAKEHOLDERS = [
     flags: ["vulnerable", "female", "informal-tenure"],
     accent: "ochre",
     portrait: "/assets/scenarios/sdg11-bangkok/images/stakeholder-01.svg",
-    audio: "/assets/scenarios/sdg11-bangkok/audio/01-resident.mp3",
+    video: "/assets/scenarios/sdg11-bangkok/video/01-resident.mp4",
     caption: "/assets/scenarios/sdg11-bangkok/audio/01-resident.vtt",
     duration: 33,
     position:
@@ -203,7 +203,7 @@ export const STAKEHOLDERS = [
     flags: ["institutional", "female"],
     accent: "steel",
     portrait: "/assets/scenarios/sdg11-bangkok/images/stakeholder-02.svg",
-    audio: "/assets/scenarios/sdg11-bangkok/audio/02-engineer.mp3",
+    video: "/assets/scenarios/sdg11-bangkok/video/02-engineer.mp4",
     caption: "/assets/scenarios/sdg11-bangkok/audio/02-engineer.vtt",
     duration: 32,
     position:
@@ -221,7 +221,7 @@ export const STAKEHOLDERS = [
     flags: ["private", "male"],
     accent: "bronze",
     portrait: "/assets/scenarios/sdg11-bangkok/images/stakeholder-03.svg",
-    audio: "/assets/scenarios/sdg11-bangkok/audio/03-business.mp3",
+    video: "/assets/scenarios/sdg11-bangkok/video/03-business.mp4",
     caption: "/assets/scenarios/sdg11-bangkok/audio/03-business.vtt",
     duration: 30,
     position:
@@ -239,7 +239,7 @@ export const STAKEHOLDERS = [
     flags: ["bridging", "female"],
     accent: "sage",
     portrait: "/assets/scenarios/sdg11-bangkok/images/stakeholder-04.svg",
-    audio: "/assets/scenarios/sdg11-bangkok/audio/04-organiser.mp3",
+    video: "/assets/scenarios/sdg11-bangkok/video/04-organiser.mp4",
     caption: "/assets/scenarios/sdg11-bangkok/audio/04-organiser.vtt",
     duration: 34,
     position:

@@ -109,7 +109,7 @@ export const STAKEHOLDERS = [
     flags: ["vulnerable", "male"],
     accent: "ochre",
     portrait: "/assets/scenarios/sdg06-khonkaen/images/stakeholder-01.svg",
-    audio: "/assets/scenarios/sdg06-khonkaen/audio/01-rice-farmer.mp3",
+    video: "/assets/scenarios/sdg06-khonkaen/video/01-rice-farmer.mp4",
     duration: 32,
     position:
       "My family has farmed this land for three generations. The shallow well in our yard used to run all year. Now, by March, it gives nothing. I hear the province will dig deeper wells in town. I do not blame them — people need to drink. But the water under our feet is the same water. If they pull more, mine runs dry sooner. The officials say their wells are deeper than mine, so they will not affect us. The ground does not work like that. The rain that falls on my field is the rain that fills their wells.",
@@ -126,7 +126,7 @@ export const STAKEHOLDERS = [
     flags: ["institutional", "female"],
     accent: "steel",
     portrait: "/assets/scenarios/sdg06-khonkaen/images/stakeholder-02.svg",
-    audio: "/assets/scenarios/sdg06-khonkaen/audio/02-pwa-manager.mp3",
+    video: "/assets/scenarios/sdg06-khonkaen/video/02-pwa-manager.mp4",
     duration: 32,
     position:
       "Our statutory mandate is clear: continuous potable water to around 200,000 residents in this service area. In each of the last three drought years, we came within days of supply interruption. The twelve-well expansion is sized to provide a residual margin during a one-in-fifty-year dry season. The hydrogeological assessment supporting our permit application identifies a confined lower layer with minimal leakage risk. We have heard the concerns from rural districts and from the university working paper. We are prepared to commission additional monitoring — but we cannot operate the city on a precautionary delay. Taps must run.",
@@ -143,7 +143,7 @@ export const STAKEHOLDERS = [
     flags: ["private", "male"],
     accent: "bronze",
     portrait: "/assets/scenarios/sdg06-khonkaen/images/stakeholder-03.svg",
-    audio: "/assets/scenarios/sdg06-khonkaen/audio/03-plant-director.mp3",
+    video: "/assets/scenarios/sdg06-khonkaen/video/03-plant-director.mp4",
     duration: 30,
     position:
       "Our facility holds a groundwater extraction permit issued under the framework that has governed industrial water use in this region for nearly five decades. We extract from the deep confined layer, well below any household well. Our extraction volume is monitored and reported quarterly. The current debate about the municipal expansion has surfaced calls to revisit all extraction permits in the basin. We support sustainable allocation. We do not support retroactive cancellation of permits granted in good faith. A predictable regulatory environment is essential to continued operation and to the jobs our facility supports.",
@@ -160,7 +160,7 @@ export const STAKEHOLDERS = [
     flags: ["vulnerable-adjacent", "female"],
     accent: "sage",
     portrait: "/assets/scenarios/sdg06-khonkaen/images/stakeholder-04.svg",
-    audio: "/assets/scenarios/sdg06-khonkaen/audio/04-health-volunteer.mp3",
+    video: "/assets/scenarios/sdg06-khonkaen/video/04-health-volunteer.mp4",
     duration: 34,
     position:
       "I have walked the houses in my sub-district for eleven years. Two patterns repeat. When the shallow wells fail in March, families turn to ponds or river water. Within two weeks, mothers bring children with diarrhoea to our health post. Older residents stop drinking enough because they do not trust the taste of the surface water. Dehydration in the elderly is a quieter problem but a real one. I do not have hydrogeology training. I have a notebook with eleven years of household visits. The pattern I see is that decisions about water are decisions about who gets sick. Please remember the children when you decide.",

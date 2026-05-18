@@ -3371,6 +3371,23 @@ body.font-dyslexia {
   .stake-play.is-playing { background: #b57c34; }
   .play-duration { font-family: var(--font-mono); font-size: 12px; opacity: 0.75; }
   .stake-audio-fallback { display: flex; align-items: center; }
+  /* Video dispatch (stakeholder clips with English subtitles burned in).
+     Replaces the old audio row; native controls, graceful fallback. */
+  .stake-video-row {
+    display: flex; flex-direction: column; gap: 10px;
+    padding: 14px 16px; background: #FAFAFB;
+    border-bottom: 1px solid #EAEAED;
+  }
+  .stake-video {
+    width: 100%; max-height: 360px; border-radius: 12px;
+    background: #050D1F; display: block; outline: none;
+  }
+  .stake-video-meta {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--font-mono); font-size: 12px; color: #647293;
+  }
+  .stake-video-meta .material-symbols-rounded { font-size: 16px; color: #b57c34; }
+  .stake-video-fallback { display: flex; align-items: center; }
   .stake-transcript { padding-top: 14px; padding-bottom: 12px; }
   .stake-transcript p { line-height: 1.65; color: #1A1F2E; }
   .stake-position-full { padding-bottom: 14px; }

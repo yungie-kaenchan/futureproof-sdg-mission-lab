@@ -208,7 +208,7 @@ export const STAKEHOLDERS = [
     flags: ["vulnerable", "male"],
     accent: "ochre",
     portrait: "/assets/scenarios/sdg13-chiangmai/images/stakeholder-01.svg",
-    audio: "/assets/scenarios/sdg13-chiangmai/audio/01-maize-grower.mp3",
+    video: "/assets/scenarios/sdg13-chiangmai/video/01-maize-grower.mp4",
     caption: "/assets/scenarios/sdg13-chiangmai/audio/01-maize-grower.vtt",
     duration: 33,
     position:
@@ -226,7 +226,7 @@ export const STAKEHOLDERS = [
     flags: ["institutional", "female"],
     accent: "steel",
     portrait: "/assets/scenarios/sdg13-chiangmai/images/stakeholder-02.svg",
-    audio: "/assets/scenarios/sdg13-chiangmai/audio/02-clinician.mp3",
+    video: "/assets/scenarios/sdg13-chiangmai/video/02-clinician.mp4",
     caption: "/assets/scenarios/sdg13-chiangmai/audio/02-clinician.vtt",
     duration: 32,
     position:
@@ -244,7 +244,7 @@ export const STAKEHOLDERS = [
     flags: ["private", "male"],
     accent: "bronze",
     portrait: "/assets/scenarios/sdg13-chiangmai/images/stakeholder-03.svg",
-    audio: "/assets/scenarios/sdg13-chiangmai/audio/03-procurement.mp3",
+    video: "/assets/scenarios/sdg13-chiangmai/video/03-procurement.mp4",
     caption: "/assets/scenarios/sdg13-chiangmai/audio/03-procurement.vtt",
     duration: 30,
     position:
@@ -262,7 +262,7 @@ export const STAKEHOLDERS = [
     flags: ["institutional", "female"],
     accent: "sage",
     portrait: "/assets/scenarios/sdg13-chiangmai/images/stakeholder-04.svg",
-    audio: "/assets/scenarios/sdg13-chiangmai/audio/04-officer.mp3",
+    video: "/assets/scenarios/sdg13-chiangmai/video/04-officer.mp4",
     caption: "/assets/scenarios/sdg13-chiangmai/audio/04-officer.vtt",
     duration: 34,
     position:

@@ -259,8 +259,9 @@ async function reconStakeholders(container, state, engine) {
         <div class="console-label-gold">STAKEHOLDER BRIEFING</div>
         <h2 class="display-heading text-2xl mt-2">Four voices</h2>
         <p class="body-m text-on-surface-variant mt-1">
-          Each stakeholder gives a 25–35 second dispatch. Tap any card to expand the transcript
-          and play the audio. Hear all four before you move on.
+          Each stakeholder gives a short video dispatch with English subtitles
+          burned in. Open each card, watch the clip, and read the transcript
+          before you move on.
         </p>
       </header>
 
@@ -271,7 +272,7 @@ async function reconStakeholders(container, state, engine) {
       <div class="stake-controls mt-6">
         <p id="stake-progress" class="body-s text-on-surface-variant"></p>
         <button id="stake-continue" type="button" class="btn-primary" disabled>
-          <span>I have heard all four voices</span>
+          <span>I have watched all four dispatches</span>
           <span class="material-symbols-rounded size-20">arrow_forward</span>
         </button>
       </div>
@@ -281,9 +282,8 @@ async function reconStakeholders(container, state, engine) {
   STAKEHOLDERS.forEach((s) => {
     const card = container.querySelector(`[data-stakeholder-id="${s.id}"]`);
     const toggleBtn = card.querySelector(".stake-toggle");
-    const audio = card.querySelector("audio");
-    const playBtn = card.querySelector(".stake-play");
-    const fallback = card.querySelector(".stake-audio-fallback");
+    const video = card.querySelector("video");
+    const fallback = card.querySelector(".stake-video-fallback");
 
     toggleBtn.addEventListener("click", () => {
       card.classList.toggle("is-open");
@@ -291,32 +291,14 @@ async function reconStakeholders(container, state, engine) {
       refreshStakeProgress(container, viewed);
     });
 
-    if (audio && playBtn) {
-      let played = false;
-      audio.addEventListener("canplay", () => {
-        if (fallback) fallback.hidden = true;
-        playBtn.disabled = false;
-      });
-      audio.addEventListener("error", () => {
+    if (video) {
+      video.addEventListener("error", () => {
         if (fallback) fallback.hidden = false;
-        playBtn.disabled = true;
-        playBtn.classList.add("is-disabled");
+        video.style.display = "none";
       });
-      playBtn.addEventListener("click", () => {
-        if (audio.paused) {
-          audio.play().catch(() => {});
-          playBtn.classList.add("is-playing");
-          playBtn.querySelector(".play-label").textContent = "Pause";
-          played = true;
-        } else {
-          audio.pause();
-          playBtn.classList.remove("is-playing");
-          playBtn.querySelector(".play-label").textContent = "Play";
-        }
-      });
-      audio.addEventListener("ended", () => {
-        playBtn.classList.remove("is-playing");
-        playBtn.querySelector(".play-label").textContent = "Replay";
+      video.addEventListener("play", () => {
+        viewed[s.id] = true;
+        refreshStakeProgress(container, viewed);
       });
     }
   });
@@ -353,17 +335,18 @@ function renderStakeholderCard(s, isViewed) {
       </button>
 
       <div class="stake-body">
-        <div class="stake-audio-row">
-          <button class="stake-play" type="button" disabled>
-            <span class="material-symbols-rounded">play_arrow</span>
-            <span class="play-label">Play</span>
-            <span class="play-duration">${formatDuration(s.duration)}</span>
-          </button>
-          <audio preload="metadata" src="${s.audio}"></audio>
-          <div class="stake-audio-fallback" hidden>
+        <div class="stake-video-row">
+          <video class="stake-video" controls playsinline preload="metadata" src="${s.video}" aria-label="${s.role} — video dispatch with English subtitles">
+            Your browser can't play this clip — the full transcript is below.
+          </video>
+          <div class="stake-video-meta">
+            <span class="material-symbols-rounded size-20">subtitles</span>
+            <span>${formatDuration(s.duration)} · English subtitles burned in · authentic input — not tiered</span>
+          </div>
+          <div class="stake-video-fallback" hidden>
             <span class="badge-pill">
               <span class="material-symbols-rounded size-20">construction</span>
-              <span>Placeholder asset — production pending</span>
+              <span>Video dispatch — production pending. The full transcript is below.</span>
             </span>
           </div>
         </div>
@@ -400,7 +383,7 @@ function refreshStakeProgress(container, viewed) {
   const done = Object.values(viewed).filter(Boolean).length;
   const txt = container.querySelector("#stake-progress");
   const btn = container.querySelector("#stake-continue");
-  txt.textContent = `${done} of ${total} voices heard.`;
+  txt.textContent = `${done} of ${total} dispatches watched.`;
   btn.disabled = done < total;
   btn.classList.toggle("is-disabled", done < total);
 }
