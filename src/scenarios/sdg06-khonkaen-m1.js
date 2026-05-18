@@ -323,6 +323,21 @@ async function reconStakeholders(container, state, engine) {
         refreshStakeProgress(container, viewed);
       });
     }
+
+    const watch = card.querySelector(".stake-watch");
+    if (watch) {
+      const markWatched = () => {
+        card.classList.add("is-watched");
+        watch.disabled = true;
+        const lbl = watch.querySelector(".stake-watch-label");
+        if (lbl) lbl.textContent = "Watched \u2713";
+        viewed[s.id] = true;
+        refreshStakeProgress(container, viewed);
+      };
+      watch.addEventListener("click", markWatched);
+      if (video) video.addEventListener("ended", markWatched);
+      if (viewed[s.id]) markWatched();
+    }
   });
 
   refreshStakeProgress(container, viewed);
@@ -361,14 +376,15 @@ function renderStakeholderCard(s, isViewed) {
       <div class="stake-body">
         <div class="stake-video-row">
           <video class="stake-video" controls controlsList="nodownload noremoteplayback" disablePictureInPicture oncontextmenu="return false" playsinline preload="metadata" src="${s.video}" aria-label="${s.role} — video dispatch with English subtitles">
-            Your browser can't play this clip — the full transcript is below.
+            Your browser can't play this clip — the full statement is below.
           </video>
           <div class="stake-video-fallback" hidden>
-            <span class="badge-pill">
-              <span class="material-symbols-rounded size-20">construction</span>
-              <span>Video dispatch — production pending. The full transcript is below.</span>
-            </span>
+            <span class="badge-pill"><span class="material-symbols-rounded size-20">subtitles</span><span>The full statement is below.</span></span>
           </div>
+          <button class="stake-watch" type="button">
+            <span class="material-symbols-rounded size-20">visibility</span>
+            <span class="stake-watch-label">Mark video as watched</span>
+          </button>
         </div>
 
         <details class="stake-position-full" open>

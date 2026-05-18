@@ -3399,8 +3399,8 @@ body.font-dyslexia {
   .stake-portrait-placeholder { color: #647293; }
   .stake-portrait-placeholder .material-symbols-rounded { font-size: 28px; }
   .stake-meta { flex: 1; min-width: 0; }
-  .stake-role { font-weight: 600; color: #0F1729; font-size: 15px; }
-  .stake-role-th { font-family: 'IBM Plex Sans Thai', sans-serif; font-size: 13px; color: #647293; margin-top: 2px; }
+  .stake-role { font-weight: 700; color: #0F1729; font-size: 19px; line-height: 1.25; }
+  .stake-role-th { font-family: 'IBM Plex Sans Thai', sans-serif; font-size: 15px; color: #647293; margin-top: 3px; }
   .stake-location { font-size: 12px; color: #8B8B92; font-family: var(--font-mono); margin-top: 4px; }
   .stake-chev { color: #647293; transition: transform 200ms cubic-bezier(0.2, 0, 0, 1); }
   .stake-card.is-open .stake-chev { transform: rotate(180deg); }
@@ -3456,7 +3456,7 @@ body.font-dyslexia {
     border-bottom: 1px solid #EAEAED;
   }
   .stake-video {
-    width: 100%; max-height: 360px; border-radius: 12px;
+    width: 100%; max-height: 560px; border-radius: 12px;
     background: #050D1F; display: block; outline: none;
   }
   .stake-video-meta {
@@ -3465,6 +3465,22 @@ body.font-dyslexia {
   }
   .stake-video-meta .material-symbols-rounded { font-size: 16px; color: #b57c34; }
   .stake-video-fallback { display: flex; align-items: center; }
+  /* "Mark video as watched" — turns the box green once watched */
+  .stake-watch {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    align-self: flex-start; margin-top: 4px;
+    padding: 9px 18px; border-radius: 999px; cursor: pointer;
+    background: #FFFFFF; color: #2E7D46; border: 1.5px solid #3E9D5E;
+    font-family: var(--font-ui); font-weight: 700; font-size: 13.5px;
+    transition: background 160ms, color 160ms, transform 160ms;
+  }
+  .stake-watch:hover:not(:disabled) { background: #3E9D5E; color: #fff; transform: translateY(-1px); }
+  .stake-watch:disabled { cursor: default; background: #2E7D46; color: #fff; border-color: #2E7D46; }
+  .stake-card.is-watched .stake-video-row {
+    background: #E4F5E9; border-bottom-color: rgba(46,125,70,0.3);
+  }
+  .stake-card.is-watched .stake-video { box-shadow: 0 0 0 3px #3E9D5E; }
+  .stake-card.is-watched { border-color: #3E9D5E; }
   .stake-transcript { padding-top: 14px; padding-bottom: 12px; }
   .stake-transcript p { line-height: 1.65; color: #1A1F2E; }
   .stake-position-full { padding-bottom: 14px; }
