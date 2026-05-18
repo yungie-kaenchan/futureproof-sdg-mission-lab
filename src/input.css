@@ -3597,6 +3597,38 @@ body.font-dyslexia {
   .match-item:hover { border-color: #C8B68C; }
   .match-item.is-picked { border-color: #071734; background: rgba(7, 23, 52, 0.04); }
   .match-item.is-paired { border-color: #b57c34; background: rgba(181, 124, 52, 0.06); }
+  /* Colour-paired matches — each left+right pair shares a hue */
+  .match-item.mp-0 { border-color:#26BDE2; background:rgba(38,189,226,.12); }
+  .match-item.mp-1 { border-color:#3F7E44; background:rgba(63,126,68,.13); }
+  .match-item.mp-2 { border-color:#FD9D24; background:rgba(253,157,36,.14); }
+  .match-item.mp-3 { border-color:#A21942; background:rgba(162,25,66,.10); }
+  .match-item.mp-4 { border-color:#4C9F38; background:rgba(76,159,56,.13); }
+  .match-item.mp-5 { border-color:#3F7E93; background:rgba(63,126,147,.13); }
+  .match-item.mp-0,.match-item.mp-1,.match-item.mp-2,.match-item.mp-3,.match-item.mp-4,.match-item.mp-5{ font-weight:600; }
+  /* Per-MCQ hint disclosure */
+  .mcq-hint { margin-top: 12px; border:1px dashed rgba(181,124,52,.4); border-radius:10px; background:rgba(232,199,122,.08); }
+  .mcq-hint summary { cursor:pointer; padding:10px 14px; font-weight:700; font-size:13.5px; color:#8c5e23; display:flex; align-items:center; gap:7px; list-style:none; }
+  .mcq-hint summary::-webkit-details-marker{ display:none; }
+  .mcq-hint[open] summary { border-bottom:1px dashed rgba(181,124,52,.3); }
+  .mcq-hint p { padding:12px 14px; margin:0; font-size:13.5px; line-height:1.6; color:#42526E; }
+  /* Vivid "How sure?" rationale */
+  .confidence-why {
+    display:flex; align-items:flex-start; gap:8px; margin:8px 0 14px;
+    padding:11px 14px; border-radius:10px;
+    background:linear-gradient(135deg, rgba(232,199,122,.20), rgba(181,124,52,.10));
+    border:1px solid rgba(181,124,52,.34); color:#5a4216; font-size:13.5px; line-height:1.55;
+  }
+  .confidence-why .material-symbols-rounded { color:#b57c34; font-size:18px; flex-shrink:0; }
+  .confidence-why strong { color:#7a2e1b; }
+  /* Bigger, colourful gamification submit */
+  .quiz-cta {
+    font-size:16px; font-weight:800; padding:15px 34px; border-radius:999px;
+    background:linear-gradient(135deg,#b57c34 0%,#E8C77A 50%,#3FB984 140%);
+    color:#08142e; border:none; box-shadow:0 8px 22px rgba(181,124,52,.34);
+    transition:transform .18s, box-shadow .18s, filter .18s;
+  }
+  .quiz-cta:not(:disabled):hover { transform:translateY(-2px) scale(1.02); box-shadow:0 12px 30px rgba(181,124,52,.45); filter:saturate(1.15); }
+  .quiz-cta:disabled { opacity:.5; filter:grayscale(.3); }
 
   .quiz-confidence { margin-top: 18px; padding-top: 16px; border-top: 1px dashed #EAEAED; }
   .confidence-pills { display: flex; gap: 8px; flex-wrap: wrap; }

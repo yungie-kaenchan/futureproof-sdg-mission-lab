@@ -487,7 +487,7 @@ function renderCurrentQuizItem(container, state, engine) {
       ${item.type === "open" ? "" : renderConfidenceBlock()}
       <div id="quiz-feedback" class="quiz-feedback" hidden></div>
       <div class="quiz-controls">
-        <button id="quiz-submit" type="button" class="btn-primary" disabled>
+        <button id="quiz-submit" type="button" class="btn-primary quiz-cta" disabled>
           <span>Submit answer</span>
           <span class="material-symbols-rounded size-20">arrow_forward</span>
         </button>
@@ -503,6 +503,7 @@ function renderConfidenceBlock() {
   return `
     <div class="quiz-confidence">
       <div class="console-label-gold mb-2">HOW SURE ARE YOU?</div>
+      <p class="confidence-why"><span class="material-symbols-rounded size-20">bolt</span> <strong>This counts.</strong> High confidence + correct = more ◆ tokens; high confidence + wrong = a penalty. Answer honestly — calibrating your certainty is part of the skill.</p>
       <div class="confidence-pills" role="radiogroup" aria-label="Confidence">
         ${CONFIDENCE_LEVELS.map((c) => `
           <button class="confidence-pill" data-conf="${c.id}" role="radio" aria-checked="false" type="button">
@@ -526,6 +527,10 @@ function renderQuizOptions(item) {
           </button>
         `).join("")}
       </div>
+      <details class="mcq-hint">
+        <summary><span class="material-symbols-rounded size-20">lightbulb</span> Need a hint?</summary>
+        <p>${(item.scaffold && item.scaffold.message) ? item.scaffold.message : "Re-read the dossier section this question points to, then eliminate the option that over-claims or is not actually supported by the text."}</p>
+      </details>
     `;
   }
   if (item.type === "rank") {
@@ -546,7 +551,7 @@ function renderQuizOptions(item) {
   if (item.type === "match") {
     return `
       <div class="match-block">
-        <p class="body-s text-on-surface-variant mb-3">Click a stakeholder on the left, then click their concern on the right. Click a pair again to unset.</p>
+        <p class="body-s text-on-surface-variant mb-3">Click a card on the left, then its match on the right. <strong>Matched pairs share a colour.</strong> Click a pair again to unset.</p>
         <div class="match-grid">
           <div class="match-col">
             ${item.leftItems.map((l) => `<button type="button" class="match-item match-left" data-match-left="${l.id}">${l.text}</button>`).join("")}
@@ -637,12 +642,21 @@ function wireQuizItem(container, item, state, engine) {
         const wasAssignedTo = Object.keys(pairs).find((l) => pairs[l] === btn.dataset.matchRight);
         if (wasAssignedTo) delete pairs[wasAssignedTo];
         pairs[pickedLeft] = btn.dataset.matchRight;
+        const _PC = {}; item.leftItems.forEach((l, i) => { _PC[l.id] = i % 6; });
+        const _PCr = {}; Object.keys(pairs).forEach((lid) => { _PCr[pairs[lid]] = _PC[lid]; });
+        const _MP = ["mp-0","mp-1","mp-2","mp-3","mp-4","mp-5"];
         container.querySelectorAll(".match-left").forEach((l) => {
-          l.classList.toggle("is-paired", !!pairs[l.dataset.matchLeft]);
-          l.classList.remove("is-picked");
+          const lid = l.dataset.matchLeft;
+          l.classList.toggle("is-paired", !!pairs[lid]);
+          l.classList.remove("is-picked", ..._MP);
+          if (pairs[lid] != null) l.classList.add(_MP[_PC[lid]]);
         });
         container.querySelectorAll(".match-right").forEach((r) => {
-          r.classList.toggle("is-paired", Object.values(pairs).includes(r.dataset.matchRight));
+          const rid = r.dataset.matchRight;
+          const on = Object.values(pairs).includes(rid);
+          r.classList.toggle("is-paired", on);
+          r.classList.remove(..._MP);
+          if (on && _PCr[rid] != null) r.classList.add(_MP[_PCr[rid]]);
         });
         pickedLeft = null;
         selectedAnswer = Object.keys(pairs).length === item.leftItems.length ? { ...pairs } : null;
