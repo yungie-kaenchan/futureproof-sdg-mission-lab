@@ -1,91 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hall of Excellence — FUTUREPROOF</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hall of Voices — FUTUREPROOF</title>
+<meta name="description" content="The Hall of Voices: student Voice for Change pieces, curated by teachers and published only with the author's explicit consent. An authentic audience for real proposals." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Cinzel:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+
+<style>
+  :root{
+    --ink:#071734; --ink-deep:#050D1F; --ink-soft:#4A5A7A;
+    --bone:#F4F1EA; --white:#FFFFFF;
+    --bronze:#b57c34; --bronze-light:#E8C77A; --steel:#647293;
+    --line:rgba(7,23,52,0.10); --line-strong:rgba(7,23,52,0.20);
+    --display:'Fraunces','Cormorant Garamond',serif;
+    --titles:'Cinzel',serif; --sans:'DM Sans',system-ui,sans-serif;
+    --thai:'IBM Plex Sans Thai',sans-serif; --mono:'JetBrains Mono',monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{font-family:var(--sans);color:var(--ink);background:var(--bone);-webkit-font-smoothing:antialiased}
+  body{background:radial-gradient(ellipse 1100px 700px at 80% 6%, rgba(232,199,122,0.10) 0%, transparent 60%),linear-gradient(180deg,#FBFAF6 0%,#F1ECE0 100%);min-height:100vh;padding-top:64px}
+
+  .shell-header{position:fixed;top:0;left:0;right:0;height:64px;z-index:50;background:rgba(7,23,52,0.95);backdrop-filter:blur(8px);border-bottom:1px solid rgba(232,199,122,0.18);display:flex;align-items:center;justify-content:space-between;padding:0 24px;color:var(--bone)}
+  .shell-header-brand{display:flex;align-items:center;gap:14px;text-decoration:none}
+  .shell-header-brand .logo{font-family:var(--display);font-weight:600;font-size:20px;letter-spacing:.02em;color:var(--bronze-light)}
+  .shell-header-brand .sub{font-family:var(--titles);font-weight:600;font-size:11px;letter-spacing:.32em;color:rgba(244,241,234,.65);text-transform:uppercase;border-left:1px solid rgba(232,199,122,.22);padding-left:14px}
+  .shell-header-btn{background:transparent;border:1px solid rgba(244,241,234,.18);color:var(--bone);border-radius:999px;padding:6px 14px;font-size:12px;font-weight:600;text-decoration:none;transition:.2s}
+  .shell-header-btn:hover{background:rgba(244,241,234,.08);border-color:var(--bronze)}
+  @media (max-width:767px){.shell-header-brand .sub{display:none}}
+
+  .wrap{max-width:1080px;margin:0 auto;padding:48px 22px 90px}
+  .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--bronze);margin-bottom:10px}
+  h1.title{font-family:var(--display);font-weight:500;font-size:clamp(34px,5.4vw,60px);line-height:1.04;color:var(--ink-deep)}
+  h1.title em{font-style:italic;color:var(--bronze)}
+  .lede{max-width:640px;margin:16px 0 0;color:var(--ink-soft);font-size:16px;line-height:1.7}
+  .lede-th{margin-top:8px;font-family:var(--thai);font-size:14px;color:rgba(100,114,147,.9);line-height:1.7}
+
+  .consent-note{display:flex;gap:12px;align-items:flex-start;background:var(--white);border:1px solid var(--line);border-left:4px solid var(--bronze);border-radius:14px;padding:18px 20px;margin-top:28px}
+  .consent-note .material-symbols-rounded{font-size:22px;color:var(--bronze)}
+  .consent-note p{font-size:13.5px;color:var(--ink-soft);line-height:1.6}
+  .consent-note strong{color:var(--ink-deep)}
+
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px}
+  @media (max-width:860px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:560px){.grid{grid-template-columns:1fr}}
+  .voice-card{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:22px;position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s,border-color .2s}
+  .voice-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--sdg,var(--bronze))}
+  .voice-card:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(7,23,52,.10);border-color:var(--bronze)}
+  .voice-card .sdg{display:inline-block;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.1em;color:#fff;background:var(--sdg,var(--bronze));padding:3px 9px;border-radius:999px}
+  .voice-card .lane{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--steel);margin-left:8px}
+  .voice-card h3{font-family:var(--display);font-size:20px;font-weight:500;color:var(--ink-deep);margin-top:12px;line-height:1.2}
+  .voice-card .team{font-family:var(--mono);font-size:11px;color:var(--steel);margin-top:4px}
+  .voice-card p{font-size:13.5px;color:var(--ink-soft);line-height:1.6;margin-top:10px}
+  .voice-card .forum{display:inline-flex;align-items:center;gap:5px;margin-top:14px;font-size:11px;font-weight:600;color:var(--bronze)}
+  .voice-card .forum .material-symbols-rounded{font-size:14px}
+
+  .empty{background:var(--white);border:1px dashed var(--line-strong);border-radius:18px;padding:40px 28px;text-align:center;margin-top:34px;color:var(--ink-soft)}
+  .empty .material-symbols-rounded{font-size:40px;color:var(--steel)}
+  .empty h2{font-family:var(--display);font-weight:500;font-size:24px;color:var(--ink-deep);margin-top:10px}
+  .empty p{font-size:14px;line-height:1.65;margin-top:8px;max-width:520px;margin-left:auto;margin-right:auto}
+  .empty a{display:inline-flex;align-items:center;gap:8px;margin-top:18px;background:linear-gradient(135deg,var(--bronze),var(--bronze-light));color:var(--ink-deep);font-weight:700;font-size:14px;padding:11px 22px;border-radius:999px;text-decoration:none}
+
+  .seedbar{margin-top:30px;font-size:12px;color:var(--steel);display:flex;align-items:center;gap:8px}
+  .seedbar .material-symbols-rounded{font-size:16px}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
 </head>
-<body class="bg-white text-on-surface">
+<body>
 
-  <header class="topbar fixed top-0 left-0 right-0 z-50 backdrop-blur-md" style="height:56px;">
-    <div class="h-full max-w-1600 mx-auto px-6 lg:px-12 flex items-center justify-between text-xs">
-      <div class="flex items-center gap-6">
-        <a href="../home.html" class="flex items-center gap-2 hover:opacity-80 transition">
-          <div class="status-pulse"></div><span class="topbar-brand">FUTUREPROOF</span>
-        </a>
-        <span class="topbar-name">Hall Of Excellence</span>
-      </div>
-      <a href="../home.html" class="nav-btn">← Home</a>
-    </div>
-  </header>
+<header class="shell-header">
+  <a href="../home.html" class="shell-header-brand">
+    <span class="logo">FUTUREPROOF</span>
+    <span class="sub">SDGs Mission Lab</span>
+  </a>
+  <a href="./mission-select.html" class="shell-header-btn">&larr; Journey map</a>
+</header>
 
-  <main id="main" class="max-w-1600 mx-auto px-6 lg:px-12 pt-32 pb-24">
+<div class="wrap">
+  <div class="kicker">Authentic audience · เวทีจริง</div>
+  <h1 class="title">The Hall of <em>Voices</em>.</h1>
+  <p class="lede">Real proposals, from learners who walked all six of Thailand's frontlines. Every piece here was graded by a teacher and published <strong>only</strong> with its author's explicit, withdrawable consent.</p>
+  <p class="lede-th" lang="th">ผลงาน “เสียงเพื่อการเปลี่ยนแปลง” จากผู้เรียนจริง เผยแพร่เฉพาะเมื่อเจ้าของยินยอมอย่างชัดแจ้งและถอนได้ทุกเมื่อ</p>
 
-    <div class="flex items-center gap-4 mb-4 flex-wrap">
-      <span class="topbar-name">Public Gallery</span>
-      <div class="h-line flex-1 max-w-32"></div>
-    </div>
+  <div class="consent-note">
+    <span class="material-symbols-rounded">shield_person</span>
+    <p><strong>Consent is the gate, not curation alone.</strong> A teacher curates for quality; the learner decides whether it ever becomes public. No piece appears here without an explicit opt-in, and consent can be withdrawn any time from <a href="./my-data.html" style="color:var(--bronze);font-weight:600">My&nbsp;Data</a> — at which point it is removed. This is PDPA by design.</p>
+  </div>
 
-    <h1 class="display-heading text-5xl lg:text-6xl text-on-surface mb-4 max-w-3xl">
-      Student work that<br><em class="text-primary">travels</em>.
-    </h1>
-    <p class="text-lg text-on-surface/80 leading-relaxed mb-12 max-w-2xl">
-      Curated Pitch Capsules from past missions, published with the consent of the teams that made them.
-    </p>
+  <div class="grid" id="voice-grid"></div>
 
-    <div id="hall-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12"></div>
-    <div id="hall-empty" class="alert-info max-w-3xl" hidden>
-      The gallery is still loading its first cohort. Check back when teams have submitted with feature consent.
-    </div>
-  </main>
+  <div class="empty" id="voice-empty" hidden>
+    <span class="material-symbols-rounded">hearing</span>
+    <h2>The hall is listening for its first voices</h2>
+    <p>No consented pieces have been curated yet. When learners finish their Voice for Change and opt in, a teacher's curated selections appear here — and, with the extra consent, may travel to a real Thai youth SDG forum.</p>
+    <a href="./final-task.html">Make your Voice for Change <span aria-hidden="true">→</span></a>
+  </div>
 
-  <script src="../config.local.js" onerror="window.__noConfig = true;"></script>
-  <script type="module">
-    import { isFirebaseAvailable } from '../src/auth.js';
+  <div class="seedbar" id="seedbar" hidden>
+    <span class="material-symbols-rounded">info</span>
+    <span>Preview entries — illustrative of the format until the first cohort's consented pieces are curated.</span>
+  </div>
+</div>
 
-    const grid = document.getElementById('hall-grid');
-    const empty = document.getElementById('hall-empty');
+<script src="../config.local.js" onerror="window.__noConfig = true;"></script>
+<script type="module">
+  import { isFirebaseAvailable } from "../src/auth.js";
 
-    const PLACEHOLDER_ENTRIES = [
-      { tid: 'demo_atlas', team: 'Atlas Cell', title: 'The Chao Phraya Salt Wedge', sdg: 6, summary: 'A redistribution-of-cost framework for dry-season water shortage decisions.' },
-      { tid: 'demo_north', team: 'Northwind', title: 'The Burning Season Decision', sdg: 13, summary: 'A transition-incentive design that does not punish smallholder farmers.' },
-      { tid: 'demo_lake',  team: 'Songkhla Six', title: 'Songkhla Lake\'s Last Rinse', sdg: 14, summary: 'A coastal zoning pause grounded in fishery cooperative voice.' },
-    ];
+  const SDG_COLOR = { 6:"#26BDE2", 13:"#3F7E44", 11:"#FD9D24", 14:"#0A97D9", 4:"#C5192D", 3:"#4C9F38" };
 
-    function render(entries) {
-      grid.innerHTML = '';
-      if (!entries.length) { empty.hidden = false; return; }
-      for (const e of entries) {
-        const card = document.createElement('article');
-        card.className = 'hall-card';
-        card.innerHTML = `
-          <div class="console-label-gold mb-3">SDG ${String(e.sdg).padStart(2,'0')}</div>
-          <h3 class="display-heading text-2xl text-on-surface mb-2">${escapeHtml(e.title)}</h3>
-          <div class="mission-title text-xs text-on-surface/70 mb-4">${escapeHtml(e.team)}</div>
-          <p class="text-sm text-on-surface/85 leading-relaxed">${escapeHtml(e.summary)}</p>
-        `;
-        grid.appendChild(card);
-      }
+  // Illustrative format examples until a real consented cohort exists.
+  const SEED = [
+    { sdg:13, lane:"Recorded live", title:"Burn windows, not bans", team:"Northwind · Chiang Mai", summary:"A district-level rotating burn-window schedule paired with a funded shredder co-op — enforcement as the last step, not the first.", forum:true },
+    { sdg:6,  lane:"Canva export", title:"The water nobody meters", team:"Atlas Cell · Khon Kaen", summary:"A household-well monitoring compact that gives rural families standing in the provincial allocation decision.", forum:false },
+    { sdg:11, lane:"Uploaded video", title:"Stay on the klong", team:"Tide Six · Bangkok", summary:"A flood-defence redesign that protects commuters without evicting the canal community — co-designed, not imposed.", forum:true },
+  ];
+
+  const grid = document.getElementById("voice-grid");
+  const empty = document.getElementById("voice-empty");
+  const seedbar = document.getElementById("seedbar");
+
+  // Safe DOM only — no innerHTML, nothing user-supplied is parsed as HTML.
+  function card(e) {
+    const art = document.createElement("article");
+    art.className = "voice-card";
+    art.style.setProperty("--sdg", SDG_COLOR[e.sdg] || "var(--bronze)");
+
+    const top = document.createElement("div");
+    const sdg = document.createElement("span");
+    sdg.className = "sdg"; sdg.textContent = "SDG " + e.sdg;
+    const lane = document.createElement("span");
+    lane.className = "lane"; lane.textContent = e.lane;
+    top.append(sdg, lane);
+
+    const h = document.createElement("h3"); h.textContent = e.title;
+    const team = document.createElement("div"); team.className = "team"; team.textContent = e.team;
+    const p = document.createElement("p"); p.textContent = e.summary;
+    art.append(top, h, team, p);
+
+    if (e.forum) {
+      const f = document.createElement("span");
+      f.className = "forum";
+      const ic = document.createElement("span");
+      ic.className = "material-symbols-rounded"; ic.textContent = "campaign";
+      const t = document.createTextNode("Forwarded to a youth SDG forum");
+      f.append(ic, t);
+      art.appendChild(f);
     }
-    function escapeHtml(s) { return String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c])); }
+    return art;
+  }
 
-    if (!isFirebaseAvailable()) {
-      render(PLACEHOLDER_ENTRIES);
-    } else {
-      // In production, fetch /hallOfExcellence (public-readable) and render featured items.
-      render(PLACEHOLDER_ENTRIES);
+  function render(entries, isSeed) {
+    grid.replaceChildren();
+    if (!entries.length) { empty.hidden = false; return; }
+    entries.forEach((e) => grid.appendChild(card(e)));
+    if (isSeed) seedbar.hidden = false;
+  }
+
+  // Production: read a public-readable curated list from RTDB. Until that
+  // exists, show the format with clearly-labelled preview entries.
+  if (!isFirebaseAvailable()) {
+    render(SEED, true);
+  } else {
+    try {
+      const fb = await import("../src/firebase-init.js");
+      const data = await fb.readPath("hallOfVoices/published");
+      const list = data && typeof data === "object" ? Object.values(data) : [];
+      if (list.length) render(list, false);
+      else render(SEED, true);
+    } catch (_) {
+      render(SEED, true);
     }
-  </script>
-
-  <style>
-    .hall-card { border: 1px solid #E5E5E7; background: #FFFFFF; padding: 1.5rem; transition: border-color 0.15s ease; }
-    .hall-card:hover { border-color: rgba(168, 138, 74, 0.4); }
-  </style>
-<script type="module" src="../src/a11y.js"></script>
-  <script type="module" src="../src/topbar-actions.js"></script>
+  }
+</script>
 </body>
 </html>

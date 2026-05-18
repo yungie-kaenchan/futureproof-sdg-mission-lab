@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Voice for Change — FUTUREPROOF</title>
+<meta name="description" content="The FUTUREPROOF capstone: having walked all six of Thailand's frontlines, propose one concrete action for a Thai community — and address a real audience." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Cinzel:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+
+<style>
+  :root{
+    --ink:#071734; --ink-deep:#050D1F; --ink-soft:#4A5A7A;
+    --bone:#F4F1EA; --white:#FFFFFF;
+    --bronze:#b57c34; --bronze-light:#E8C77A;
+    --crimson:#7B1B1B; --steel:#647293;
+    --line:rgba(7,23,52,0.10); --line-strong:rgba(7,23,52,0.20);
+    --display:'Fraunces','Cormorant Garamond',serif;
+    --titles:'Cinzel',serif; --sans:'DM Sans',system-ui,sans-serif;
+    --thai:'IBM Plex Sans Thai',sans-serif; --mono:'JetBrains Mono',monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{font-family:var(--sans);color:var(--ink);background:var(--bone);-webkit-font-smoothing:antialiased}
+  body{background:radial-gradient(ellipse 1100px 700px at 78% 6%, rgba(232,199,122,0.10) 0%, transparent 60%),linear-gradient(180deg,#FBFAF6 0%,#F1ECE0 100%);min-height:100vh;padding-top:64px}
+
+  .shell-header{position:fixed;top:0;left:0;right:0;height:64px;z-index:50;background:rgba(7,23,52,0.95);backdrop-filter:blur(8px);border-bottom:1px solid rgba(232,199,122,0.18);display:flex;align-items:center;justify-content:space-between;padding:0 24px;color:var(--bone)}
+  .shell-header-brand{display:flex;align-items:center;gap:14px;text-decoration:none}
+  .shell-header-brand .logo{font-family:var(--display);font-weight:600;font-size:20px;letter-spacing:.02em;color:var(--bronze-light)}
+  .shell-header-brand .sub{font-family:var(--titles);font-weight:600;font-size:11px;letter-spacing:.32em;color:rgba(244,241,234,.65);text-transform:uppercase;border-left:1px solid rgba(232,199,122,.22);padding-left:14px}
+  .shell-header-btn{background:transparent;border:1px solid rgba(244,241,234,.18);color:var(--bone);border-radius:999px;padding:6px 14px;font-size:12px;font-weight:600;text-decoration:none;transition:.2s}
+  .shell-header-btn:hover{background:rgba(244,241,234,.08);border-color:var(--bronze)}
+  @media (max-width:767px){.shell-header-brand .sub{display:none}}
+
+  .wrap{max-width:920px;margin:0 auto;padding:40px 22px 100px}
+  .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--bronze);margin-bottom:10px}
+  h1.title{font-family:var(--display);font-weight:500;font-size:clamp(32px,5vw,56px);line-height:1.05;color:var(--ink-deep)}
+  h1.title em{font-style:italic;color:var(--bronze)}
+
+  /* Locked state */
+  .locked-card{background:var(--white);border:1px dashed var(--line-strong);border-radius:20px;padding:40px 32px;text-align:center;margin-top:28px}
+  .locked-card .lockic{font-family:'Material Symbols Rounded';font-size:46px;color:var(--steel)}
+  .locked-card h2{font-family:var(--display);font-weight:500;font-size:26px;color:var(--ink-deep);margin-top:10px}
+  .locked-card p{color:var(--ink-soft);font-size:15px;line-height:1.65;margin-top:10px;max-width:560px;margin-left:auto;margin-right:auto}
+  .ks-meter{display:flex;gap:8px;justify-content:center;margin:20px 0 6px}
+  .ks-dot{width:18px;height:18px;border-radius:4px;transform:rotate(45deg);background:var(--white);border:2px solid var(--line-strong)}
+  .ks-dot.on{background:linear-gradient(135deg,var(--bronze),var(--bronze-light));border-color:transparent}
+  .btn-go{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:999px;font-weight:700;font-size:14px;text-decoration:none;cursor:pointer;border:none;background:linear-gradient(135deg,var(--bronze),var(--bronze-light));color:var(--ink-deep);transition:transform .2s,box-shadow .2s}
+  .btn-go:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(181,124,52,.34)}
+  .btn-ghost{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:999px;font-weight:600;font-size:14px;text-decoration:none;cursor:pointer;background:transparent;border:1px solid var(--line-strong);color:var(--ink-soft)}
+  .btn-ghost:hover{border-color:var(--bronze);color:var(--bronze)}
+
+  /* Prompt */
+  .prompt-card{background:linear-gradient(135deg,var(--ink) 0%,var(--ink-deep) 100%);color:var(--bone);border-radius:20px;padding:34px 30px;margin-top:24px;position:relative;overflow:hidden}
+  .prompt-card::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 600px 280px at 50% 0%,rgba(232,199,122,.16) 0%,transparent 70%);pointer-events:none}
+  .prompt-card .pk{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--bronze-light);position:relative}
+  .prompt-card blockquote{font-family:var(--display);font-style:italic;font-weight:500;font-size:clamp(20px,3vw,28px);line-height:1.4;margin-top:12px;position:relative}
+  .prompt-card .th{font-family:var(--thai);font-size:14px;color:rgba(244,241,234,.78);margin-top:12px;line-height:1.7;position:relative}
+
+  .sec{margin-top:40px}
+  .sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:14px}
+  .sec-num{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--bronze);letter-spacing:.1em}
+  .sec-head h2{font-family:var(--display);font-weight:500;font-size:clamp(22px,3.2vw,30px);color:var(--ink-deep)}
+  .sec-sub{color:var(--ink-soft);font-size:14px;line-height:1.65;margin:-6px 0 18px;max-width:680px}
+
+  /* Lane tabs */
+  .lane-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+  .lane-tab{display:flex;align-items:center;gap:8px;padding:10px 16px;border-radius:12px;border:1px solid var(--line);background:var(--white);color:var(--ink-soft);font-weight:600;font-size:13px;cursor:pointer;transition:.2s}
+  .lane-tab .material-symbols-rounded{font-size:18px}
+  .lane-tab[aria-selected="true"]{border-color:var(--bronze);color:var(--ink-deep);background:rgba(232,199,122,.12);box-shadow:0 4px 14px rgba(181,124,52,.16)}
+  .lane-panel{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:24px}
+  .lane-panel[hidden]{display:none}
+  .lane-panel h3{font-family:var(--display);font-size:20px;font-weight:500;color:var(--ink-deep)}
+  .lane-panel p{color:var(--ink-soft);font-size:14px;line-height:1.6;margin-top:8px}
+  .hint{font-size:12.5px;color:var(--steel);margin-top:10px;line-height:1.55}
+
+  .rec-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:18px}
+  .rec-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:999px;font-weight:700;font-size:14px;cursor:pointer;border:none;background:linear-gradient(135deg,var(--crimson),#A82424);color:#fff;transition:.2s}
+  .rec-btn[disabled]{opacity:.5;cursor:not-allowed}
+  .rec-btn.is-recording{animation:recpulse 1.4s infinite}
+  @keyframes recpulse{0%{box-shadow:0 0 0 0 rgba(168,36,36,.5)}70%{box-shadow:0 0 0 12px rgba(168,36,36,0)}100%{box-shadow:0 0 0 0 rgba(168,36,36,0)}}
+  .rec-timer{font-family:var(--mono);font-size:18px;font-weight:700;color:var(--ink-deep);letter-spacing:.05em}
+  .rec-status{font-size:13px;color:var(--ink-soft)}
+  audio,video{margin-top:16px;width:100%;border-radius:12px;background:#000}
+  video{max-height:320px}
+  input[type=file]{margin-top:14px;font-size:13px;color:var(--ink-soft)}
+  .filemeta{margin-top:10px;font-family:var(--mono);font-size:12px;color:var(--steel)}
+
+  .consent-box{background:rgba(232,199,122,.08);border:1px solid rgba(181,124,52,.28);border-radius:14px;padding:18px 20px;margin-top:26px}
+  .consent-row{display:flex;gap:12px;align-items:flex-start;margin-top:10px}
+  .consent-row:first-of-type{margin-top:14px}
+  .consent-row input{margin-top:3px;width:18px;height:18px;accent-color:var(--bronze)}
+  .consent-row label{font-size:13.5px;color:var(--ink);line-height:1.55}
+  .consent-row label .th{display:block;font-family:var(--thai);font-size:12px;color:var(--ink-soft);margin-top:2px}
+
+  .boundary{display:flex;gap:12px;align-items:flex-start;background:var(--white);border:1px solid var(--line);border-left:4px solid var(--bronze);border-radius:14px;padding:18px 20px;margin-top:26px}
+  .boundary .material-symbols-rounded{font-size:22px;color:var(--bronze)}
+  .boundary p{font-size:13.5px;color:var(--ink-soft);line-height:1.6}
+  .boundary strong{color:var(--ink-deep)}
+
+  .submit-row{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-top:30px}
+  .submit-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 30px;border-radius:999px;font-weight:700;font-size:15px;cursor:pointer;border:none;background:linear-gradient(135deg,var(--bronze),var(--bronze-light));color:var(--ink-deep);transition:transform .2s,box-shadow .2s}
+  .submit-btn[disabled]{opacity:.5;cursor:not-allowed}
+  .submit-btn:not([disabled]):hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(181,124,52,.36)}
+  .submit-note{font-size:12.5px;color:var(--steel)}
+  .submitted{background:var(--white);border:1px solid var(--bronze);border-radius:18px;padding:30px;text-align:center;margin-top:24px}
+  .submitted .material-symbols-rounded{font-size:42px;color:var(--bronze)}
+  .submitted h3{font-family:var(--display);font-size:24px;font-weight:500;color:var(--ink-deep);margin-top:8px}
+  .submitted p{color:var(--ink-soft);font-size:14px;line-height:1.6;margin-top:8px}
+
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="shell-header">
+  <a href="../home.html" class="shell-header-brand">
+    <span class="logo">FUTUREPROOF</span>
+    <span class="sub">SDGs Mission Lab</span>
+  </a>
+  <a href="./mission-select.html" class="shell-header-btn">&larr; Journey map</a>
+</header>
+
+<div class="wrap">
+  <div class="kicker">The capstone · ภารกิจสุดท้าย</div>
+  <h1 class="title">Your <em>Voice for Change</em>.</h1>
+
+  <!-- Locked state (shown until 6/6 Keystones, or teacher override / demo bypass) -->
+  <section id="locked" hidden>
+    <div class="locked-card">
+      <span class="lockic">lock</span>
+      <h2>The Final Task is sealed for now</h2>
+      <div class="ks-meter" id="ks-meter" aria-hidden="true"></div>
+      <p id="locked-msg">Earn all six SDG Keystones across Thailand's regions to unlock your Voice for Change. Each region you pass turns one Keystone bronze.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:18px">
+        <a href="./mission-select.html" class="btn-go">Back to the journey <span aria-hidden="true">→</span></a>
+      </div>
+      <p style="font-size:12px;color:var(--steel);margin-top:18px">
+        Struggling on a region? A teacher can grant a Keystone for assessed offline-equivalent work — you are never dead-ended.
+      </p>
+    </div>
+  </section>
+
+  <!-- Unlocked: the task -->
+  <main id="task" hidden>
+
+    <div class="prompt-card">
+      <div class="pk">The prompt</div>
+      <blockquote>Having walked all six of Thailand's frontlines, propose one concrete action for a Thai community. Address a real audience — not your teacher, the people who live the problem.</blockquote>
+      <p class="th" lang="th">เมื่อคุณได้เดินผ่านแนวหน้าทั้ง 6 ของไทยแล้ว จงเสนอ “หนึ่งการกระทำที่เป็นรูปธรรม” สำหรับชุมชนไทยจริง และสื่อสารกับผู้ฟังจริง ไม่ใช่ครูของคุณ แต่เป็นผู้ที่เผชิญปัญหานั้น</p>
+    </div>
+
+    <div id="evidence-recall" class="boundary" hidden>
+      <span class="material-symbols-rounded">history_edu</span>
+      <p id="evidence-recall-text"></p>
+    </div>
+
+    <section class="sec">
+      <div class="sec-head"><span class="sec-num">01</span><h2>Choose how you'll speak</h2></div>
+      <p class="sec-sub">Three ways in — pick whichever lets your idea land hardest. None is "easier"; they are different means of expression (CAST UDL).</p>
+
+      <div class="lane-tabs" role="tablist" aria-label="Submission method">
+        <button class="lane-tab" role="tab" id="tab-live" aria-controls="panel-live" aria-selected="true" data-lane="live">
+          <span class="material-symbols-rounded">mic</span><span>Record live</span>
+        </button>
+        <button class="lane-tab" role="tab" id="tab-upload" aria-controls="panel-upload" aria-selected="false" data-lane="upload">
+          <span class="material-symbols-rounded">upload_file</span><span>Upload audio / video</span>
+        </button>
+        <button class="lane-tab" role="tab" id="tab-canva" aria-controls="panel-canva" aria-selected="false" data-lane="canva">
+          <span class="material-symbols-rounded">design_services</span><span>Create with Canva</span>
+        </button>
+      </div>
+
+      <!-- Lane 1: live recording -->
+      <div class="lane-panel" id="panel-live" role="tabpanel" aria-labelledby="tab-live">
+        <h3>Record live, in your own voice</h3>
+        <p>Speak for <strong>60–180 seconds</strong>. State the community, the one action, who it helps, and the evidence behind it. You can re-record as many times as you like.</p>
+        <div class="rec-row">
+          <button class="rec-btn" id="rec-toggle" type="button">
+            <span class="material-symbols-rounded">fiber_manual_record</span>
+            <span id="rec-label">Start recording</span>
+          </button>
+          <span class="rec-timer" id="rec-timer">00:00</span>
+          <span class="rec-status" id="rec-status"></span>
+        </div>
+        <audio id="rec-playback" controls hidden></audio>
+        <p class="hint" id="rec-hint">Your browser will ask for microphone permission. Audio stays on your device until you press <em>Submit</em>. Nothing is uploaded automatically.</p>
+      </div>
+
+      <!-- Lane 2: upload -->
+      <div class="lane-panel" id="panel-upload" role="tabpanel" aria-labelledby="tab-upload" hidden>
+        <h3>Upload something you've already made</h3>
+        <p>An audio file or a short video (max ~50&nbsp;MB). Good if you'd rather prepare offline or aren't comfortable recording live.</p>
+        <input type="file" id="upload-input" accept="audio/*,video/*" />
+        <div class="filemeta" id="upload-meta" hidden></div>
+        <video id="upload-preview" controls hidden></video>
+        <p class="hint">Your file is held in this page only and is sent when you press <em>Submit</em>. Large videos may take a moment.</p>
+      </div>
+
+      <!-- Lane 3: Canva (launch + export + upload — never iframe) -->
+      <div class="lane-panel" id="panel-canva" role="tabpanel" aria-labelledby="tab-canva" hidden>
+        <h3>Design it visually with Canva</h3>
+        <p>Open a Canva template in a <strong>new tab</strong>, design your one-action pitch, then export it as PDF / PNG / MP4 and bring it back here.</p>
+        <div class="rec-row">
+          <a class="btn-go" id="canva-launch" href="https://www.canva.com/design?create&type=TADQ_presentation" target="_blank" rel="noopener noreferrer">
+            <span class="material-symbols-rounded">open_in_new</span> Open Canva (new tab)
+          </a>
+        </div>
+        <p class="hint">Step 1 — design in the new tab. Step 2 — Canva → <em>Share → Download</em> (PDF, PNG, or MP4). Step 3 — upload the export below.</p>
+        <input type="file" id="canva-input" accept="application/pdf,image/*,video/*" />
+        <div class="filemeta" id="canva-meta" hidden></div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="sec-head"><span class="sec-num">02</span><h2>Reach a real audience</h2></div>
+      <p class="sec-sub">Authentic audience is the single biggest amplifier of learning. You decide — clearly and reversibly — how far your voice travels.</p>
+      <div class="consent-box">
+        <div style="font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--bronze)">Curation consent · PDPA</div>
+        <div class="consent-row">
+          <input type="checkbox" id="consent-hall" />
+          <label for="consent-hall">
+            Publish my Voice for Change in the public <strong>Hall of Voices</strong> if a teacher curates it.
+            <span class="th" lang="th">ยินยอมให้เผยแพร่ผลงานใน Hall of Voices หากครูคัดเลือก</span>
+          </label>
+        </div>
+        <div class="consent-row">
+          <input type="checkbox" id="consent-forum" />
+          <label for="consent-forum">
+            Also allow my piece to be forwarded to a real Thai youth SDG forum (optional, only with the above).
+            <span class="th" lang="th">ยินยอมให้ส่งต่อไปยังเวทีเยาวชน SDG ของไทย (ไม่บังคับ)</span>
+          </label>
+        </div>
+        <p style="font-size:12px;color:var(--steel);margin-top:14px">
+          Both default OFF. You can withdraw consent any time from <a href="./my-data.html" style="color:var(--bronze);font-weight:600">My Data</a>. Submitting without consent is completely fine — your teacher still grades it.
+        </p>
+      </div>
+    </section>
+
+    <div class="boundary">
+      <span class="material-symbols-rounded">balance</span>
+      <p><strong>How this is judged.</strong> AI scaffolded every mission that brought you here — consistent, instant, at scale. This capstone is different on purpose: <strong>your teacher grades it</strong>, holistically, with Rubric&nbsp;A. The summative judgement of a human voice stays with a human. That boundary is deliberate (AI-TPACK).</p>
+    </div>
+
+    <div class="submit-row">
+      <button class="submit-btn" id="submit-btn" type="button" disabled>
+        <span class="material-symbols-rounded">send</span>
+        <span>Submit my Voice for Change</span>
+      </button>
+      <span class="submit-note" id="submit-note">Choose a lane and add your piece to enable submit.</span>
+    </div>
+
+    <div class="submitted" id="submitted" hidden>
+      <span class="material-symbols-rounded">verified</span>
+      <h3>Submitted. Your voice is in.</h3>
+      <p id="submitted-msg">Your teacher will grade it with Rubric&nbsp;A. If you consented, it may be curated into the Hall of Voices.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px">
+        <a href="./hall-of-excellence.html" class="btn-ghost">See the Hall of Voices</a>
+        <a href="./mission-select.html" class="btn-go">Back to the journey</a>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script src="../config.local.js" onerror="window.__noConfig = true;"></script>
+
+<script type="module">
+  import { isFinalTaskUnlocked, getKeystoneCount, isDemoBypassActive } from "../src/keystones.js";
+  import { getFlowState, isFirebaseAvailable } from "../src/auth.js";
+
+  const flow = getFlowState();
+  const uid = flow && flow.uid;
+
+  /* ── Gate ─────────────────────────────────────────────────────── */
+  const lockedEl = document.getElementById("locked");
+  const taskEl = document.getElementById("task");
+  let unlocked = false, count = 0;
+  try {
+    count = await getKeystoneCount(uid);
+    unlocked = await isFinalTaskUnlocked(uid);
+  } catch (_) { unlocked = isDemoBypassActive(); }
+
+  if (unlocked) {
+    taskEl.hidden = false;
+  } else {
+    lockedEl.hidden = false;
+    const meter = document.getElementById("ks-meter");
+    for (let i = 0; i < 6; i++) {
+      const d = document.createElement("span");
+      d.className = "ks-dot" + (i < count ? " on" : "");
+      meter.appendChild(d);
+    }
+    const togo = Math.max(0, 6 - count);
+    document.getElementById("locked-msg").textContent =
+      `You have ${count} of 6 Keystones. ${togo} more ${togo === 1 ? "region" : "regions"} to walk before your Voice for Change unlocks. Each region you pass turns one Keystone bronze.`;
+  }
+
+  if (!unlocked) { /* nothing else to wire */ }
+  else {
+
+    /* ── Evidence-commitment recall (graceful, optional) ─────────── */
+    try {
+      const raw = sessionStorage.getItem("fp_last_mission_result");
+      const ev = (() => { try { return JSON.parse(sessionStorage.getItem("fp_evidence_commitment") || "null"); } catch (_) { return null; } })();
+      if (ev && typeof ev === "string" && ev.trim()) {
+        const box = document.getElementById("evidence-recall");
+        document.getElementById("evidence-recall-text").textContent =
+          `In a mission you committed to this evidence: “${ev.trim()}”. Your proposal should carry it — or be ready to say why it no longer holds.`;
+        box.hidden = false;
+      }
+    } catch (_) { /* non-fatal */ }
+
+    /* ── Lane tabs ───────────────────────────────────────────────── */
+    const tabs = Array.from(document.querySelectorAll(".lane-tab"));
+    const panels = {
+      live: document.getElementById("panel-live"),
+      upload: document.getElementById("panel-upload"),
+      canva: document.getElementById("panel-canva"),
+    };
+    let activeLane = "live";
+    tabs.forEach((t) => t.addEventListener("click", () => {
+      activeLane = t.dataset.lane;
+      tabs.forEach((x) => x.setAttribute("aria-selected", String(x === t)));
+      for (const k of Object.keys(panels)) panels[k].hidden = (k !== activeLane);
+      refreshSubmit();
+    }));
+
+    /* ── State the submit button reads ───────────────────────────── */
+    const captured = { live: null, upload: null, canva: null }; // {blob, name, type}
+    const submitBtn = document.getElementById("submit-btn");
+    const submitNote = document.getElementById("submit-note");
+    function refreshSubmit() {
+      const ready = !!captured[activeLane];
+      submitBtn.disabled = !ready;
+      submitNote.textContent = ready
+        ? "Ready. Submitting sends your piece for teacher grading."
+        : "Choose a lane and add your piece to enable submit.";
+    }
+
+    /* ── Lane 1: live recording (MediaRecorder) ──────────────────── */
+    const recToggle = document.getElementById("rec-toggle");
+    const recLabel = document.getElementById("rec-label");
+    const recTimer = document.getElementById("rec-timer");
+    const recStatus = document.getElementById("rec-status");
+    const recPlayback = document.getElementById("rec-playback");
+    let mediaRecorder = null, chunks = [], recTimerId = null, recSeconds = 0, recStream = null;
+    const MAX_SECONDS = 180, MIN_SECONDS = 60;
+
+    function fmt(s) { return String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0"); }
+
+    async function startRecording() {
+      if (!navigator.mediaDevices || !window.MediaRecorder) {
+        recStatus.textContent = "Live recording isn't supported in this browser — try the Upload lane.";
+        return;
+      }
+      try {
+        recStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      } catch (_) {
+        recStatus.textContent = "Microphone permission was declined. You can use the Upload or Canva lane instead.";
+        return;
+      }
+      chunks = [];
+      mediaRecorder = new MediaRecorder(recStream);
+      mediaRecorder.ondataavailable = (e) => { if (e.data && e.data.size) chunks.push(e.data); };
+      mediaRecorder.onstop = () => {
+        const blob = new Blob(chunks, { type: chunks[0]?.type || "audio/webm" });
+        captured.live = { blob, name: "voice-for-change.webm", type: blob.type };
+        recPlayback.src = URL.createObjectURL(blob);
+        recPlayback.hidden = false;
+        recStatus.textContent = recSeconds < MIN_SECONDS
+          ? `That was ${recSeconds}s — aim for at least ${MIN_SECONDS}s. You can re-record.`
+          : `Captured ${fmt(recSeconds)}. Re-record any time, or submit.`;
+        if (recStream) recStream.getTracks().forEach((t) => t.stop());
+        refreshSubmit();
+      };
+      mediaRecorder.start();
+      recSeconds = 0; recTimer.textContent = "00:00";
+      recToggle.classList.add("is-recording");
+      recLabel.textContent = "Stop recording";
+      recStatus.textContent = "Recording… speak clearly.";
+      recTimerId = setInterval(() => {
+        recSeconds += 1;
+        recTimer.textContent = fmt(recSeconds);
+        if (recSeconds >= MAX_SECONDS) stopRecording();
+      }, 1000);
+    }
+    function stopRecording() {
+      if (mediaRecorder && mediaRecorder.state !== "inactive") mediaRecorder.stop();
+      clearInterval(recTimerId);
+      recToggle.classList.remove("is-recording");
+      recLabel.textContent = "Re-record";
+    }
+    recToggle.addEventListener("click", () => {
+      if (mediaRecorder && mediaRecorder.state === "recording") stopRecording();
+      else startRecording();
+    });
+
+    /* ── Lane 2: upload ──────────────────────────────────────────── */
+    const upInput = document.getElementById("upload-input");
+    const upMeta = document.getElementById("upload-meta");
+    const upPrev = document.getElementById("upload-preview");
+    upInput.addEventListener("change", () => {
+      const f = upInput.files && upInput.files[0];
+      if (!f) return;
+      if (f.size > 50 * 1024 * 1024) {
+        upMeta.hidden = false;
+        upMeta.textContent = "That file is over ~50 MB. Please compress or trim it first.";
+        captured.upload = null; refreshSubmit(); return;
+      }
+      captured.upload = { blob: f, name: f.name, type: f.type };
+      upMeta.hidden = false;
+      upMeta.textContent = `${f.name} · ${(f.size / 1048576).toFixed(1)} MB`;
+      if (f.type.startsWith("video/")) { upPrev.src = URL.createObjectURL(f); upPrev.hidden = false; }
+      else { upPrev.hidden = true; }
+      refreshSubmit();
+    });
+
+    /* ── Lane 3: Canva export upload ─────────────────────────────── */
+    const cvInput = document.getElementById("canva-input");
+    const cvMeta = document.getElementById("canva-meta");
+    cvInput.addEventListener("change", () => {
+      const f = cvInput.files && cvInput.files[0];
+      if (!f) return;
+      if (f.size > 50 * 1024 * 1024) {
+        cvMeta.hidden = false;
+        cvMeta.textContent = "That export is over ~50 MB. Export at a smaller size and try again.";
+        captured.canva = null; refreshSubmit(); return;
+      }
+      captured.canva = { blob: f, name: f.name, type: f.type };
+      cvMeta.hidden = false;
+      cvMeta.textContent = `${f.name} · ${(f.size / 1048576).toFixed(1)} MB`;
+      refreshSubmit();
+    });
+
+    /* ── Submit (best-effort cloud; never blocks) ────────────────── */
+    submitBtn.addEventListener("click", async () => {
+      const piece = captured[activeLane];
+      if (!piece) return;
+      submitBtn.disabled = true;
+      submitNote.textContent = "Submitting…";
+      const consentHall = document.getElementById("consent-hall").checked;
+      const consentForum = document.getElementById("consent-forum").checked && consentHall;
+
+      let mediaUrl = null;
+      try {
+        if (uid && isFirebaseAvailable()) {
+          const fb = await import("../src/firebase-init.js");
+          try {
+            mediaUrl = await fb.uploadFile(
+              `voiceForChange/${uid}/${Date.now()}-${piece.name}`, piece.blob);
+          } catch (_) { /* storage optional — metadata still recorded */ }
+          await fb.writePath(fb.paths.voiceForChange(uid), {
+            lane: activeLane,
+            fileName: piece.name,
+            fileType: piece.type || "unknown",
+            mediaUrl: mediaUrl || null,
+            consent: { hallOfVoices: consentHall, youthForum: consentForum },
+            submittedAt: Date.now(),
+            status: "submitted-awaiting-teacher",
+          });
+        }
+      } catch (e) {
+        console.error("[FUTUREPROOF] Voice for Change submit (cloud) failed:", e);
+      }
+
+      // Local record so the UI is correct offline / in the judged demo.
+      try {
+        sessionStorage.setItem("fp_vfc_submitted", JSON.stringify({
+          lane: activeLane, at: Date.now(), consentHall, consentForum,
+        }));
+      } catch (_) {}
+
+      document.getElementById("task").hidden = true;
+      const done = document.getElementById("submitted");
+      document.getElementById("submitted-msg").textContent = consentHall
+        ? "Your teacher will grade it with Rubric A. Because you consented, it may be curated into the public Hall of Voices"
+          + (consentForum ? " and forwarded to a Thai youth SDG forum." : ".")
+        : "Your teacher will grade it with Rubric A. You did not consent to public curation — it stays private to your course.";
+      done.hidden = false;
+      done.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+
+    refreshSubmit();
+  }
+</script>
+</body>
+</html>
