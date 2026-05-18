@@ -158,7 +158,7 @@
         <div>
           <label class="field-label" for="password">Password <span class="req">*</span></label>
           <input class="field-input" type="password" id="password" name="password" autocomplete="new-password" required minlength="8" />
-          <p class="field-help is-secure">Choose a password with at least 8 characters, including both letters and numbers. Avoid your own name or easy-to-guess words like \u201cpassword\u201d or \u201c123456\u201d. A strong, unique password keeps your account and personal data safe.</p>
+          <p class="field-help is-secure">Choose a password with at least 8 characters, including both letters and numbers. Avoid your own name or easy-to-guess words such as "password" or "123456". A strong, unique password keeps your account and personal data safe.</p>
         </div>
 
         <div class="form-section-title">About you</div>
@@ -272,7 +272,7 @@
       }
       const pwIssues = passwordIssues(data.password);
       if (pwIssues.length) {
-        return showError(`Please choose a stronger password \u2014 it needs ${pwIssues.join(', ')}.`);
+        return showError(`Please choose a stronger password - it needs ${pwIssues.join(', ')}.`);
       }
 
       // Required demographic fields (location is the only optional one).
@@ -299,7 +299,7 @@
       submitBtn.querySelector('span:first-child').textContent = 'Creating account…';
 
       if (!isFirebaseAvailable()) {
-        showError('Sign-up isn\u2019t switched on just yet. Please try again later, or ask your teacher.');
+        showError('Sign-up is not switched on just yet. Please try again later, or ask your teacher.');
         submitBtn.disabled = false;
         submitBtn.querySelector('span:first-child').textContent = 'Continue to Consent';
         return;
@@ -325,7 +325,7 @@
         });
         location.href = './consent.html';
       } catch (err) {
-        showError('Something didn\u2019t work just now. Please check your details and try again in a moment.');
+        showError('Something did not work just now. Please check your details and try again in a moment.');
         submitBtn.disabled = false;
         submitBtn.querySelector('span:first-child').textContent = 'Continue to Consent';
       }
