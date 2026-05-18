@@ -23,6 +23,19 @@ export const SCENARIO_META = {
   ethicalAxes: ["Distributive justice", "Intergenerational equity"],
   region: "Nam Phong / Ubolratana watershed, Khon Kaen Province",
   cefr: "B1+/B2",
+  hero: "/assets/scenarios/sdg06-khonkaen/images/hero.png",
+  objectives: [
+    "Read a multi-source water-governance dossier and pin down the core resource trade-off.",
+    "Weigh four stakeholders' competing claims on one shared aquifer.",
+    "Decide, under uncertainty, whether to authorise the wellfield expansion — and defend it.",
+    "Communicate that decision in precise, audience-appropriate English.",
+  ],
+  outcomes: [
+    "explain the intergenerational- vs. distributive-justice tension in plain and academic English",
+    "judge a source by methodology, recency and conflict of interest",
+    "hold a position that survives a strong counter-argument",
+    "connect this local SDG-6 case to wider water-security principles",
+  ],
 };
 
 /**

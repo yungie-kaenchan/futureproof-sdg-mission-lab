@@ -36,6 +36,19 @@ export const SCENARIO_META = {
   ethicalAxes: ["Public health vs. rural livelihood", "Procedural justice"],
   region: "Upper Ping basin, Chiang Mai & Mae Hong Son uplands",
   cefr: "B1+/B2",
+  hero: "/assets/scenarios/sdg13-chiangmai/images/hero.webp",
+  objectives: [
+    "Analyse why upland burning persists despite known PM2.5 harm.",
+    "Compare enforcement-only vs. enforcement-plus-alternative under a real trade-off.",
+    "Judge the strongest structural objection to a zero-burning order.",
+    "Communicate the decision to the people who bear its consequences.",
+  ],
+  outcomes: [
+    "articulate the public-health vs. rural-livelihood tension precisely in English",
+    "reason about transboundary causation and behavioural displacement (night burning)",
+    "calibrate your confidence to the strength of the evidence",
+    "transfer this SDG-13 reasoning to other climate-action dilemmas",
+  ],
 };
 
 /**

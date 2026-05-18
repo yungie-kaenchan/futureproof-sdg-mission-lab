@@ -52,6 +52,12 @@ async function reconBriefing(container, state, engine) {
       <h1 class="display-heading text-4xl mt-4 mb-2">${SCENARIO_META.title}</h1>
       <p class="title-m text-on-surface-variant mb-6" lang="th">${SCENARIO_META.titleTh}</p>
 
+      <figure class="mission-hero">
+        <img src="${SCENARIO_META.hero}" alt="" loading="eager"
+             onerror="this.closest('.mission-hero').classList.add('no-img'); this.remove();" />
+        <figcaption>${SCENARIO_META.title}</figcaption>
+      </figure>
+
       <div class="briefing-meta">
         <span class="meta-pill"><span class="material-symbols-rounded size-20">location_on</span>${SCENARIO_META.region}</span>
         <span class="meta-pill"><span class="material-symbols-rounded size-20">translate</span>CEFR ${SCENARIO_META.cefr}</span>
@@ -72,6 +78,17 @@ async function reconBriefing(container, state, engine) {
         <div class="console-label-gold mb-2">ETHICAL AXES IN TENSION</div>
         <div class="axes-row">
           ${SCENARIO_META.ethicalAxes.map((ax) => `<span class="axis-pill">${ax}</span>`).join('<span class="axis-vs">×</span>')}
+        </div>
+      </div>
+
+      <div class="learn-block mt-6">
+        <div class="learn-col">
+          <div class="console-label-gold mb-2">LEARNING OBJECTIVES</div>
+          <ul class="learn-list">${(SCENARIO_META.objectives||[]).map((o)=>`<li>${o}</li>`).join("")}</ul>
+        </div>
+        <div class="learn-col">
+          <div class="console-label-gold mb-2">LEARNING OUTCOMES — by the end you can…</div>
+          <ul class="learn-list">${(SCENARIO_META.outcomes||[]).map((o)=>`<li>${o}</li>`).join("")}</ul>
         </div>
       </div>
 
