@@ -30,15 +30,24 @@ export const SCENARIO_META = {
  * Thai gloss. Used in M1 quiz item 4.
  */
 export const VOCABULARY = [
-  { term: "aquifer",        gloss: "an underground layer of rock or soil that holds water",   th: "ชั้นน้ำใต้ดิน" },
-  { term: "drawdown",       gloss: "the lowering of a water level due to extraction",        th: "การลดลงของระดับน้ำจากการสูบ" },
-  { term: "mandate",        gloss: "an official duty or authority to act",                    th: "อาณัติ / หน้าที่ตามกฎหมาย" },
-  { term: "allocation",     gloss: "how a limited resource is divided among users",          th: "การจัดสรร" },
-  { term: "threshold",      gloss: "a point beyond which behaviour changes qualitatively",   th: "ขีดแบ่ง / จุดวิกฤต" },
-  { term: "intrusion",      gloss: "the unwanted movement of one substance into another",    th: "การรุกล้ำ" },
-  { term: "equitable",      gloss: "fair in a way that accounts for different needs",        th: "เป็นธรรม" },
-  { term: "jurisdiction",   gloss: "the area within which an authority has power",           th: "เขตอำนาจ" },
-  { term: "residual",       gloss: "a remaining amount or margin",                            th: "ส่วนที่เหลือ / ส่วนสำรอง" },
+  { term: "aquifer",      pos: "noun",      gloss: "an underground layer of rock or soil that holds water", th: "ชั้นน้ำใต้ดิน",
+    ex: "The desert town drills deep to reach one ancient aquifer." },
+  { term: "drawdown",     pos: "noun",      gloss: "a lowering of a water level caused by taking water out", th: "การลดลงของระดับน้ำจากการสูบ",
+    ex: "Heavy irrigation caused a rapid drawdown of the reservoir by August." },
+  { term: "mandate",      pos: "noun",      gloss: "official authority or a duty to act", th: "อาณัติ / หน้าที่ตามกฎหมาย",
+    ex: "The new agency has a clear mandate to inspect every food factory." },
+  { term: "allocation",   pos: "noun",      gloss: "the way a limited resource is divided among users", th: "การจัดสรร",
+    ex: "Parliament argued for hours over the allocation of the disaster-relief budget." },
+  { term: "threshold",    pos: "noun",      gloss: "a point beyond which behaviour or a result changes sharply", th: "ขีดแบ่ง / จุดวิกฤต",
+    ex: "Once the debt passes a certain threshold, the loan's interest rate jumps." },
+  { term: "intrusion",    pos: "noun",      gloss: "the unwanted movement of one thing into another", th: "การรุกล้ำ",
+    ex: "An alarm warns staff of any intrusion into the secure server room." },
+  { term: "equitable",    pos: "adjective", gloss: "fair in a way that accounts for people's different needs", th: "เป็นธรรม",
+    ex: "They divided the inheritance in an equitable way, giving more to the child who had cared for their mother." },
+  { term: "jurisdiction", pos: "noun",      gloss: "the area or matters over which an authority has power", th: "เขตอำนาจ",
+    ex: "Traffic on the bridge falls under the city's jurisdiction, not the province's." },
+  { term: "residual",     pos: "adjective", gloss: "remaining; a small amount or margin left over", th: "ส่วนที่เหลือ / ส่วนสำรอง",
+    ex: "After the refund cleared, a small residual balance stayed on the card." },
 ];
 
 /**

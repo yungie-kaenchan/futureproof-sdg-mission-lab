@@ -44,16 +44,26 @@ export const SCENARIO_META = {
  * learner's tier via adaptive.glossDensity(); the gloss TEXT is constant.
  */
 export const VOCABULARY = [
-  { term: "klong",        gloss: "a canal; in Bangkok, also a waterway people live along",            th: "คลอง" },
-  { term: "defence",      gloss: "the system of works that protects a place from flooding",           th: "การป้องกัน (น้ำท่วม)" },
-  { term: "subsiding",    gloss: "slowly sinking downward over time (the ground itself)",             th: "ทรุดตัว / การทรุดตัวของแผ่นดิน" },
-  { term: "corridor",     gloss: "a continuous strip of engineered flood works along a route",        th: "แนวพื้นที่ก่อสร้างโครงการป้องกันน้ำท่วม" },
-  { term: "reservation",  gloss: "the legal land strip beside a canal that the city controls",        th: "เขตคลอง / แนวเขตที่ดินริมคลองตามกฎหมาย" },
-  { term: "district",     gloss: "a defined area of the city (here, where offices/commerce concentrate)", th: "ย่าน / เขตธุรกิจใจกลางเมือง" },
-  { term: "title",        gloss: "a legal document proving ownership of land",                        th: "โฉนดที่ดิน / เอกสารสิทธิ์" },
-  { term: "informal",     gloss: "living somewhere long-term without a secure legal right to the land", th: "การถือครองแบบไม่เป็นทางการ / ไม่มีเอกสารสิทธิ์" },
-  { term: "community",    gloss: "the people living together in one place, with shared ties",         th: "ชุมชน" },
-  { term: "Baan Mankong", gloss: "a real Thai programme: communities co-design secure-tenure housing", th: "โครงการบ้านมั่นคง" },
+  { term: "klong",        pos: "noun",        gloss: "a canal; in Bangkok, also a waterway people live along", th: "คลอง",
+    ex: "Tourist boats still wind through the old klong behind the temple." },
+  { term: "defence",      pos: "noun",        gloss: "the system of works that protects a place from flooding", th: "การป้องกัน (น้ำท่วม)",
+    ex: "The town's sea defence held through the worst of the typhoon." },
+  { term: "subsiding",    pos: "adjective",   gloss: "slowly sinking downward over time (of the ground itself)", th: "ทรุดตัว / การทรุดตัวของแผ่นดิน",
+    ex: "Cracks spread across the wall because the old building was slowly subsiding into soft clay." },
+  { term: "corridor",     pos: "noun",        gloss: "a continuous strip of land kept for one purpose along a route", th: "แนวพื้นที่ตามเส้นทาง",
+    ex: "Planners kept a green corridor for wildlife between the two parks." },
+  { term: "reservation",  pos: "noun",        gloss: "a strip of land legally set aside and controlled by an authority", th: "เขตหวงห้าม / แนวเขตที่ดินตามกฎหมาย",
+    ex: "You may not build on the railway reservation beside the tracks." },
+  { term: "district",     pos: "noun",        gloss: "a defined area of a city, often with one main function", th: "ย่าน / เขต",
+    ex: "The financial district empties out completely at the weekend." },
+  { term: "title",        pos: "noun",        gloss: "a legal document that proves ownership of land", th: "โฉนดที่ดิน / เอกสารสิทธิ์",
+    ex: "The bank held the land title until the loan was fully repaid." },
+  { term: "informal",     pos: "adjective",   gloss: "done or held without official, legally secured status", th: "ไม่เป็นทางการ / ไม่มีเอกสารสิทธิ์",
+    ex: "Many street vendors run an informal business with no registration." },
+  { term: "community",    pos: "noun",        gloss: "the people who live together in one place and share ties", th: "ชุมชน",
+    ex: "The fishing community organised its own clean-up after the oil spill." },
+  { term: "Baan Mankong", pos: "proper noun", gloss: "a real Thai programme in which communities co-design secure-tenure housing", th: "โครงการบ้านมั่นคง",
+    ex: "Several crowded neighbourhoods upgraded their homes through Baan Mankong." },
 ];
 
 /**

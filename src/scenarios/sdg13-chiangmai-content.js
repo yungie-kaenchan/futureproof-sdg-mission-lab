@@ -44,15 +44,24 @@ export const SCENARIO_META = {
  * learner's tier via adaptive.glossDensity(); the gloss TEXT is constant.
  */
 export const VOCABULARY = [
-  { term: "particulate",   gloss: "tiny solid particles suspended in air",                   th: "ฝุ่นละออง" },
-  { term: "PM2.5",         gloss: "particles smaller than 2.5 microns — small enough to enter the lungs and blood", th: "ฝุ่นละอองขนาดไม่เกิน 2.5 ไมครอน" },
-  { term: "residue",       gloss: "the plant matter left in a field after harvest",          th: "เศษวัสดุเหลือจากการเก็บเกี่ยว" },
-  { term: "hotspot",       gloss: "a point of active fire detected by satellite",            th: "จุดความร้อน / จุดเผา (จากดาวเทียม)" },
-  { term: "transboundary", gloss: "crossing a national border",                              th: "ข้ามพรมแดน" },
-  { term: "mitigation",    gloss: "action that reduces the severity of a problem",           th: "การลดทอน / การบรรเทา" },
-  { term: "enforcement",   gloss: "making people obey a rule, with penalties",               th: "การบังคับใช้กฎหมาย" },
-  { term: "subsistence",   gloss: "producing only enough to survive, with little spare",     th: "การยังชีพ / พอกินพอใช้" },
-  { term: "inversion",     gloss: "a layer of warm air that traps cooler polluted air below it", th: "ชั้นอากาศแบบผกผันที่กักมลพิษ" },
+  { term: "particulate",   pos: "noun",      gloss: "tiny solid particles floating in the air", th: "ฝุ่นละออง",
+    ex: "The carpenter wore a mask because sanding throws fine particulate into the workshop air." },
+  { term: "PM2.5",         pos: "noun",      gloss: "particles smaller than 2.5 microns — small enough to enter the lungs and blood", th: "ฝุ่นละอองขนาดไม่เกิน 2.5 ไมครอน",
+    ex: "When the app showed PM2.5 above 150, the school moved sports day indoors." },
+  { term: "residue",       pos: "noun",      gloss: "the matter left behind after something is used or removed", th: "เศษวัสดุที่เหลือ",
+    ex: "She scrubbed a sticky residue of glue off the table." },
+  { term: "hotspot",       pos: "noun",      gloss: "a point of intense activity that a system flags — here, an active fire seen by satellite", th: "จุดความร้อน / จุดเผา",
+    ex: "Border patrols watch the map for any new hotspot lighting up after dark." },
+  { term: "transboundary", pos: "adjective", gloss: "crossing a national border", th: "ข้ามพรมแดน",
+    ex: "Acid rain is a transboundary problem: one country's smoke falls as another country's rain." },
+  { term: "mitigation",    pos: "noun",      gloss: "action taken to reduce the severity of a problem", th: "การลดทอน / การบรรเทา",
+    ex: "Planting mangroves is a cheap mitigation against storm surges." },
+  { term: "enforcement",   pos: "noun",      gloss: "the act of making people obey a rule, usually with penalties", th: "การบังคับใช้กฎหมาย",
+    ex: "Speed cameras sharply improved enforcement of the limit on that highway." },
+  { term: "subsistence",   pos: "noun",      gloss: "producing only just enough to survive, with little to spare or sell", th: "การยังชีพ / พอกินพอใช้",
+    ex: "After the factory closed, the family went back to subsistence fishing." },
+  { term: "inversion",     pos: "noun",      gloss: "a layer of warm air that sits over cooler air and traps pollution below it", th: "ชั้นอากาศแบบผกผันที่กักมลพิษ",
+    ex: "A winter inversion held car exhaust over the city for a whole week." },
 ];
 
 /**

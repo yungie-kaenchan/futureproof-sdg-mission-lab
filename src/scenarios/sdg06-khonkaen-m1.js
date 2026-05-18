@@ -135,13 +135,24 @@ async function reconDossier(container, state, engine) {
 
       <footer class="dossier-footer mt-6">
         <div class="vocab-legend">
-          <div class="console-label-gold mb-2">VOCABULARY IN THIS DOSSIER</div>
-          <div class="vocab-chip-row">
-            ${VOCABULARY.map((v) => `
-              <span class="vocab-chip" tabindex="0" data-term="${v.term}">
-                <strong>${v.term}</strong>${vocabSayButton(v.term)}
-                <span class="vocab-tip"><em>${v.gloss}</em><span class="vocab-th" lang="th">${v.th}</span></span>
-              </span>`).join("")}
+          <div class="console-label-gold mb-2">VOCABULARY GLOSSARY</div>
+          <div class="vocab-table-wrap">
+            <table class="vocab-table">
+              <thead><tr>
+                <th>Word</th><th>Part&nbsp;of&nbsp;speech</th><th>Meaning (English)</th>
+                <th>Say</th><th lang="th">ความหมาย (ไทย)</th><th>Example — a different context</th>
+              </tr></thead>
+              <tbody>
+                ${VOCABULARY.map((v) => `<tr>
+                  <td class="vt-word"><strong>${v.term}</strong></td>
+                  <td class="vt-pos">${v.pos || "—"}</td>
+                  <td>${v.gloss}</td>
+                  <td class="vt-say">${vocabSayButton(v.term)}</td>
+                  <td class="vt-th" lang="th">${v.th}</td>
+                  <td class="vt-ex">${v.ex || ""}</td>
+                </tr>`).join("")}
+              </tbody>
+            </table>
           </div>
         </div>
 
@@ -174,11 +185,11 @@ async function reconDossier(container, state, engine) {
       if (readSet.has(id)) {
         readSet.delete(id);
         partEl.classList.remove("is-read");
-        btn.innerHTML = `<span class="material-symbols-rounded size-20">check_circle</span><span>Mark read</span>`;
+        btn.innerHTML = `<span class="material-symbols-rounded size-20">radio_button_unchecked</span><span>Click to mark as read</span>`;
       } else {
         readSet.add(id);
         partEl.classList.add("is-read");
-        btn.innerHTML = `<span class="material-symbols-rounded size-20">check_circle</span><span>Read ✓</span>`;
+        btn.innerHTML = `<span class="material-symbols-rounded size-20">task_alt</span><span>Read ✓</span>`;
       }
       refreshDossierProgress(container, readSet);
     });
@@ -195,16 +206,26 @@ async function reconDossier(container, state, engine) {
   toggleEngineControls(false);
 }
 
+function readingTime(txt) {
+  const w = String(txt).replace(/<\/?vocab>/g, " ").trim().split(/\s+/).filter(Boolean).length;
+  return Math.max(1, Math.round(w / 140)); // ~140 wpm, L2-calibrated
+}
+
 function renderDossierPart(part, isRead) {
+  const mins = readingTime(part.body);
   return `
     <article class="dossier-part ${isRead ? "is-read" : ""}" data-part-id="${part.id}">
       <header class="dossier-part-header">
         <h3 class="title-l">${part.heading}</h3>
         <button class="part-mark-read btn-secondary btn-sm" type="button">
-          <span class="material-symbols-rounded size-20">check_circle</span>
-          <span>${isRead ? "Read ✓" : "Mark read"}</span>
+          <span class="material-symbols-rounded size-20">${isRead ? "task_alt" : "radio_button_unchecked"}</span>
+          <span>${isRead ? "Read ✓" : "Click to mark as read"}</span>
         </button>
       </header>
+      <div class="reading-time" title="Estimated at ~140 words/min">
+        <span class="material-symbols-rounded size-20">schedule</span>
+        <span>≈ ${mins} min read</span>
+      </div>
       <div class="dossier-part-body">
         ${renderBodyWithVocab(part.body)}
       </div>
@@ -351,13 +372,8 @@ function renderStakeholderCard(s, isViewed) {
           </div>
         </div>
 
-        <div class="stake-transcript">
-          <div class="console-label-gold mb-2">DISPATCH</div>
-          <p class="body-m">${s.transcript}</p>
-        </div>
-
-        <details class="stake-position-full">
-          <summary>Read the full position statement</summary>
+        <details class="stake-position-full" open>
+          <summary>Full statement &amp; transcript</summary>
           <p class="body-m mt-2">${s.position}</p>
         </details>
       </div>
