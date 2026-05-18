@@ -347,11 +347,13 @@ async function probeStakeholders(container, state, engine) {
     });
 
     if (video) {
-      video.addEventListener("error", () => {
-        if (fallback) fallback.hidden = false;
-        video.style.display = "none";
-      });
+      const showFallback = () => { if (fallback) fallback.hidden = false; video.style.display = "none"; };
+      const hideFallback = () => { if (fallback) fallback.hidden = true; video.style.display = ""; };
+      video.addEventListener("error", showFallback);
+      video.addEventListener("loadeddata", hideFallback);
+      video.addEventListener("canplay", hideFallback);
       video.addEventListener("play", () => {
+        hideFallback();
         viewed[s.id] = true;
         refreshStakeProgress(container, viewed);
       });
@@ -390,10 +392,6 @@ function renderStakeholderCard(s, isViewed) {
           <video class="stake-video" controls controlsList="nodownload noremoteplayback" disablePictureInPicture oncontextmenu="return false" playsinline preload="metadata" src="${s.video}" aria-label="${s.role} — video dispatch with English subtitles">
             Your browser can't play this clip — the full transcript is below.
           </video>
-          <div class="stake-video-meta">
-            <span class="material-symbols-rounded size-20">subtitles</span>
-            <span>${formatDuration(s.duration)} · English subtitles burned in · authentic input — not tiered</span>
-          </div>
           <div class="stake-video-fallback" hidden>
             <span class="badge-pill">
               <span class="material-symbols-rounded size-20">construction</span>

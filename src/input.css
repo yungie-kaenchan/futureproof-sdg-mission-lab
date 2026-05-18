@@ -3198,10 +3198,11 @@ body.font-dyslexia {
                 box-shadow 200ms cubic-bezier(0.2, 0, 0, 1);
   }
   .dossier-part.is-read {
-    border-color: #4F9D69;
-    background: #ECF7EF;
+    border-color: #3E9D5E;
+    background: #D7F0DD;
+    box-shadow: inset 4px 0 0 0 #2E7D46;
   }
-  .dossier-part.is-read .dossier-part-header { border-bottom-color: rgba(79, 157, 105, 0.35); }
+  .dossier-part.is-read .dossier-part-header { border-bottom-color: rgba(46, 125, 70, 0.30); }
   /* Mark-as-read button: neutral by default, clearly green once read. */
   .part-mark-read { transition: background 180ms, color 180ms, border-color 180ms; }
   .dossier-part.is-read .part-mark-read {
@@ -3219,29 +3220,52 @@ body.font-dyslexia {
   .reading-time .material-symbols-rounded { font-size: 15px; }
   .dossier-part.is-read .reading-time { background: rgba(46,125,70,0.12); color: #2E7D46; }
   /* Vocabulary glossary table. */
-  .vocab-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .vocab-table-wrap {
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+    margin-top: 6px; border: 1px solid #E6E6EA; border-radius: 12px;
+  }
   .vocab-table {
-    width: 100%; border-collapse: collapse; font-size: 14px;
-    min-width: 680px;
+    width: 100%; min-width: 820px;
+    table-layout: fixed;            /* columns obey set widths — no collisions */
+    border-collapse: separate; border-spacing: 0;
+    font-size: 14px; line-height: 1.55;
   }
+  /* Explicit column proportions (table-layout: fixed) */
+  .vocab-table th:nth-child(1), .vocab-table td:nth-child(1) { width: 11%; }
+  .vocab-table th:nth-child(2), .vocab-table td:nth-child(2) { width: 9%;  }
+  .vocab-table th:nth-child(3), .vocab-table td:nth-child(3) { width: 22%; }
+  .vocab-table th:nth-child(4), .vocab-table td:nth-child(4) { width: 6%;  }
+  .vocab-table th:nth-child(5), .vocab-table td:nth-child(5) { width: 20%; }
+  .vocab-table th:nth-child(6), .vocab-table td:nth-child(6) { width: 32%; }
   .vocab-table th, .vocab-table td {
-    text-align: left; padding: 10px 12px; vertical-align: top;
-    border-bottom: 1px solid #EAEAED;
+    text-align: left; vertical-align: top;
+    padding: 13px 16px; border-bottom: 1px solid #ECECEF;
+    overflow-wrap: anywhere; word-break: normal;
   }
+  .vocab-table tbody tr:last-child td { border-bottom: none; }
   .vocab-table thead th {
-    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em;
-    text-transform: uppercase; color: #647293; background: #FAFAFB;
-    border-bottom: 1px solid #D8D8DC; white-space: nowrap;
+    font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.07em;
+    text-transform: uppercase; color: #6B7793;
+    background: #F6F5F2; border-bottom: 2px solid #DCDCE0;
+    line-height: 1.35; position: sticky; top: 0;
   }
-  .vocab-table tbody tr:hover { background: rgba(181, 124, 52, 0.05); }
-  .vocab-table .vt-word strong { color: #0F1729; font-size: 15px; }
-  .vocab-table .vt-pos { color: #647293; font-style: italic; white-space: nowrap; }
-  .vocab-table .vt-th { font-family: 'IBM Plex Sans Thai', sans-serif; color: #1A1F2E; }
+  .vocab-table tbody tr:nth-child(even) { background: #FBFAF7; }
+  .vocab-table tbody tr:hover { background: rgba(181, 124, 52, 0.07); }
+  .vocab-table .vt-word strong {
+    color: #0F1729; font-size: 15px; font-weight: 700;
+  }
+  .vocab-table .vt-pos { color: #647293; font-style: italic; }
+  .vocab-table .vt-th {
+    font-family: 'IBM Plex Sans Thai', sans-serif; color: #1A1F2E;
+  }
   .vocab-table .vt-ex { color: #42526E; font-style: italic; }
   .vocab-table .vt-say { text-align: center; }
   .vocab-table .vt-say .vocab-say {
-    position: static; background: rgba(181,124,52,0.16); color: #b57c34;
+    position: static; margin: 0 auto;
+    width: 30px; height: 30px;
+    background: rgba(181,124,52,0.16); color: #b57c34;
   }
+  .vocab-table .vt-say .vocab-say .material-symbols-rounded { font-size: 17px; }
   .vocab-table .vt-say .vocab-say:hover { background: #b57c34; color: #fff; }
   .dossier-part-header {
     padding: 14px 18px; border-bottom: 1px solid #EAEAED;
