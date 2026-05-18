@@ -15,6 +15,7 @@
     --ink:#071734; --ink-deep:#050D1F; --ink-soft:#42526E;
     --bone:#F4F1EA; --paper:#FBFAF6; --white:#fff;
     --bronze:#b57c34; --bronze-light:#E8C77A; --bronze-faint:#F4E9D4;
+    --sdg-accent:#b57c34; /* set per-mission from the scenario's SDG; main template stays bronze/navy */
     --crimson:#7B1B1B; --steel:#647293;
     --line:rgba(7,23,52,.10); --line-strong:rgba(7,23,52,.20);
     --display:'Fraunces',Georgia,serif; --titles:'Cinzel',serif;
@@ -30,6 +31,7 @@
   .shell-header{position:fixed;top:0;left:0;right:0;height:var(--header-h);z-index:60;
     background:rgba(7,23,52,.96);backdrop-filter:blur(8px);
     border-bottom:1px solid rgba(232,199,122,.18);
+    box-shadow:inset 0 -3px 0 0 var(--sdg-accent);
     display:flex;align-items:center;justify-content:space-between;padding:0 20px;color:var(--bone)}
   .shell-header-brand{display:flex;align-items:center;gap:14px;text-decoration:none}
   .shell-header-brand .logo{font-family:var(--display);font-weight:600;font-size:20px;letter-spacing:.02em;color:var(--bronze-light)}
@@ -53,9 +55,40 @@
     background:transparent;color:var(--ink-soft);text-decoration:none;cursor:pointer;
     transition:background .2s,color .2s,transform .24s cubic-bezier(.34,1.56,.64,1)}
   .rail-item:hover{background:rgba(181,124,52,.08);color:var(--ink-deep)}
-  .rail-item.active{background:rgba(181,124,52,.14);color:var(--ink-deep)}
-  .rail-item.active::before{content:"";position:absolute;left:-12px;top:8px;bottom:8px;width:3px;background:var(--bronze);border-radius:0 3px 3px 0}
+  .rail-item.active{background:color-mix(in srgb,var(--sdg-accent) 14%,transparent);color:var(--ink-deep)}
+  .rail-item.active::before{content:"";position:absolute;left:-12px;top:8px;bottom:8px;width:3px;background:var(--sdg-accent);border-radius:0 3px 3px 0}
   .rail-item.passed .rail-ic{background:linear-gradient(135deg,var(--bronze),var(--bronze-light));color:#fff}
+  /* Left branching "Six Missions · Six Regions" → 5-stage menu (motion physics) */
+  .rail-mainmenu{position:relative;display:flex;align-items:center;gap:11px;width:calc(100% - 0px);
+    margin:2px 0 4px;padding:11px 11px;border:none;border-radius:13px;cursor:pointer;text-align:left;
+    background:color-mix(in srgb,var(--sdg-accent) 12%,#fff);color:var(--ink-deep);
+    box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--sdg-accent) 30%,transparent);transition:background .2s}
+  .rail-mainmenu:hover{background:color-mix(in srgb,var(--sdg-accent) 18%,#fff)}
+  .rail-mainmenu .rail-ic{background:var(--sdg-accent);color:#fff}
+  .rail-mm-chev{margin-left:auto;color:var(--steel);font-size:20px;transition:transform .35s cubic-bezier(.34,1.56,.64,1)}
+  .rail-mainmenu[aria-expanded="false"] .rail-mm-chev{transform:rotate(-90deg)}
+  .rail-stages{position:relative;margin:0 0 6px 26px;padding-left:14px;
+    border-left:2px solid color-mix(in srgb,var(--sdg-accent) 35%,transparent);
+    display:flex;flex-direction:column;gap:3px;overflow:hidden;
+    max-height:420px;opacity:1;transition:max-height .4s cubic-bezier(.22,1,.36,1),opacity .3s,margin .3s}
+  .rail-stages:not(.is-open){max-height:0;opacity:0;margin-bottom:0}
+  .rail-stage{display:flex;align-items:center;gap:9px;padding:8px 10px;border:none;background:transparent;
+    border-radius:10px;cursor:pointer;color:var(--ink-soft);font-family:var(--sans);font-size:13px;font-weight:600;
+    text-align:left;transform:translateX(-6px);opacity:0;
+    transition:background .18s,color .18s,transform .35s cubic-bezier(.34,1.56,.64,1),opacity .3s}
+  .rail-stages.is-open .rail-stage{transform:none;opacity:1}
+  .rail-stages.is-open .rail-stage:nth-child(1){transition-delay:.04s}
+  .rail-stages.is-open .rail-stage:nth-child(2){transition-delay:.08s}
+  .rail-stages.is-open .rail-stage:nth-child(3){transition-delay:.12s}
+  .rail-stages.is-open .rail-stage:nth-child(4){transition-delay:.16s}
+  .rail-stages.is-open .rail-stage:nth-child(5){transition-delay:.20s}
+  .rail-stage::before{content:"";position:absolute;left:-15px;width:9px;height:2px;background:color-mix(in srgb,var(--sdg-accent) 45%,transparent)}
+  .rail-stage:hover{background:color-mix(in srgb,var(--sdg-accent) 12%,transparent);color:var(--ink-deep);transform:translateX(2px)}
+  .rail-stage .material-symbols-rounded{font-size:18px;color:var(--steel)}
+  .rail-stage.is-current{background:color-mix(in srgb,var(--sdg-accent) 18%,transparent);color:var(--ink-deep);font-weight:700}
+  .rail-stage.is-current .material-symbols-rounded{color:var(--sdg-accent)}
+  .rail-stage .rs-n{font-family:var(--mono);font-size:10px;color:var(--sdg-accent);font-weight:700;margin-left:auto}
+  @media (prefers-reduced-motion:reduce){.rail-stages,.rail-stage,.rail-mm-chev{transition:none!important}}
   .rail-ic{width:36px;height:36px;border-radius:999px;background:rgba(7,23,52,.05);
     display:flex;align-items:center;justify-content:center;flex-shrink:0}
   .rail-ic .material-symbols-rounded{font-size:19px}
@@ -145,7 +178,7 @@
   .prog-dot{width:22px;height:22px;border-radius:999px;border:2px solid var(--line-strong);
     display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:var(--steel);font-family:var(--mono);font-weight:700}
   .prog-stage.done .prog-dot{background:linear-gradient(135deg,var(--bronze),var(--bronze-light));border-color:transparent;color:#fff}
-  .prog-stage.current .prog-dot{border-color:var(--bronze);color:var(--bronze)}
+  .prog-stage.current .prog-dot{border-color:var(--sdg-accent);color:var(--sdg-accent)}
   .prog-stage.current{font-weight:700}
   .prog-name{font-size:13px;color:var(--ink-soft)}
   .prog-stage.done .prog-name,.prog-stage.current .prog-name{color:var(--ink-deep)}
@@ -238,6 +271,16 @@
 
 <aside class="rail" id="rail" aria-label="Missions and tools">
   <nav class="rail-nav">
+    <button class="rail-mainmenu" id="rail-mainmenu" type="button" aria-expanded="true" aria-controls="rail-stages">
+      <span class="rail-ic"><span class="material-symbols-rounded">hub</span></span>
+      <span class="rail-tx">
+        <span class="rail-label">Six Missions · Six Regions</span>
+        <span class="rail-label-th" lang="th">หกภารกิจ · หกภูมิภาค</span>
+      </span>
+      <span class="rail-mm-chev material-symbols-rounded" aria-hidden="true">expand_more</span>
+    </button>
+    <div class="rail-stages is-open" id="rail-stages" role="group" aria-label="Jump to a mission stage"><!-- 5 stages injected --></div>
+
     <div class="rail-section-label">
       <span class="rail-section-en">The Six Regions</span>
       <span class="rail-section-th" lang="th">หกภูมิภาค</span>
@@ -544,7 +587,52 @@
       todoList.appendChild(it);
     });
   }
-  window.addEventListener("fp:stage", (e) => { if (e.detail) paintProgress(e.detail); });
+  /* Left branching menu — the 5-stage arc, clickable to jump */
+  const STAGE_NAV = [
+    { label: "Brief",   ic: "menu_book",      idx: 0 },
+    { label: "Probe",   ic: "travel_explore", idx: 1 },
+    { label: "Decide",  ic: "balance",        idx: 3 },
+    { label: "Act",     ic: "campaign",       idx: 3 },
+    { label: "Debrief", ic: "verified",       idx: 4 },
+  ];
+  const stagesWrap = document.getElementById("rail-stages");
+  const mainMenuBtn = document.getElementById("rail-mainmenu");
+  if (stagesWrap) {
+    stagesWrap.replaceChildren();
+    STAGE_NAV.forEach((sgn, i) => {
+      const b = document.createElement("button");
+      b.type = "button"; b.className = "rail-stage"; b.dataset.arc = String(i);
+      const ic = document.createElement("span"); ic.className = "material-symbols-rounded"; ic.textContent = sgn.ic;
+      const tx = document.createElement("span"); tx.textContent = sgn.label;
+      const n = document.createElement("span"); n.className = "rs-n"; n.textContent = String(i + 1);
+      b.append(ic, tx, n);
+      b.addEventListener("click", () => {
+        const eng = window.__fpEngine;
+        if (eng && typeof eng.goToStage === "function") eng.goToStage(sgn.idx);
+        document.body.classList.remove("rail-open");
+      });
+      stagesWrap.appendChild(b);
+    });
+  }
+  if (mainMenuBtn && stagesWrap) {
+    mainMenuBtn.addEventListener("click", () => {
+      const open = stagesWrap.classList.toggle("is-open");
+      mainMenuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+  }
+  function highlightStage(curArc) {
+    document.querySelectorAll(".rail-stage").forEach((el) => {
+      el.classList.toggle("is-current", Number(el.dataset.arc) === curArc);
+    });
+  }
+  window.addEventListener("fp:stage", (e) => {
+    if (!e.detail) return;
+    paintProgress(e.detail);
+    let ca = PHASE_TO_ARC[e.detail.stageId];
+    if (ca == null) ca = Math.min(4, Math.round((e.detail.stageIndex / 4) * 4));
+    highlightStage(ca);
+    try { if (window.__fpEngine && window.__fpEngine.saveState) window.__fpEngine.saveState(); } catch (_) {}
+  });
 
   /* ── Mount the engine ── */
   let engine = null;
@@ -563,6 +651,11 @@
         scenario, container: root,
         onComplete: (result) => { try { sessionStorage.setItem("fp_last_mission_result", JSON.stringify(result || {})); } catch (_) {} },
       });
+      window.__fpEngine = engine;
+      try {
+        const _sdg = scenario.meta && scenario.meta.sdg;
+        if (_sdg && SDG_COLOR[_sdg]) document.documentElement.style.setProperty("--sdg-accent", SDG_COLOR[_sdg]);
+      } catch (_) {}
 
       const saveBar = document.getElementById("save-bar");
       const banner = document.getElementById("resume-banner");
