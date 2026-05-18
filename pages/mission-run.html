@@ -159,6 +159,26 @@
   .todo-item.done{color:var(--steel)}
   .todo-item.done .material-symbols-rounded{color:var(--bronze)}
   .todo-item.done span{text-decoration:line-through}
+  .todo-item{cursor:pointer;border-radius:8px;padding-left:6px;padding-right:6px;transition:background .15s}
+  .todo-item:hover{background:rgba(181,124,52,.07)}
+  .todo-item.done .material-symbols-rounded{color:#2E7D46}
+  .rsl-hint{font-family:var(--sans);font-weight:600;font-size:9px;color:var(--steel);text-transform:none;letter-spacing:0;margin-left:6px}
+  /* Right-pane profile dashboard (Mission_2 red: profile before the stats) */
+  .rpd-card{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:14px}
+  .rpd-top{display:flex;align-items:center;gap:12px}
+  .rpd-avatar{width:46px;height:46px;border-radius:999px;flex-shrink:0;
+    background:linear-gradient(135deg,var(--ink),#16305c);color:var(--bronze-light);
+    display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-weight:700;font-size:15px}
+  .rpd-meta{min-width:0;flex:1}
+  .rpd-name{font-size:15px;font-weight:700;color:var(--ink-deep);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .rpd-role{font-family:var(--mono);font-size:11px;color:var(--steel);margin-top:2px}
+  .rpd-tag{display:inline-block;margin-top:6px;font-family:var(--mono);font-size:10px;font-weight:700;
+    color:#7A5A22;background:rgba(181,124,52,.14);padding:2px 9px;border-radius:999px}
+  .rpd-edit{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:12px;
+    padding:8px 12px;border-radius:10px;text-decoration:none;font-size:12.5px;font-weight:700;
+    color:var(--ink-deep);background:rgba(232,199,122,.16);border:1px solid rgba(181,124,52,.3);transition:.2s}
+  .rpd-edit:hover{background:linear-gradient(135deg,var(--bronze),var(--bronze-light));color:#fff}
+  .rpd-edit .material-symbols-rounded{font-size:16px}
   .remain-item{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid var(--line);font-size:12.5px}
   .remain-item:last-child{border-bottom:none}
   .remain-item .sdg{width:24px;height:24px;border-radius:7px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
@@ -205,9 +225,12 @@
   </div>
   <div class="shell-header-right">
     <button class="shell-header-btn" id="save-exit" type="button" title="Save your progress and return to the journey map">
-      <span class="material-symbols-rounded" style="font-size:16px;vertical-align:-3px">bookmark_add</span> Save &amp; exit
+      <span class="material-symbols-rounded" style="font-size:16px;vertical-align:-3px">bookmark_add</span> Save for later
     </button>
     <a href="./mission-select.html" class="shell-header-btn">&larr; Journey map</a>
+    <button class="shell-header-btn" id="hdr-signout" type="button" title="Sign out">
+      <span class="material-symbols-rounded" style="font-size:16px;vertical-align:-3px">logout</span> Sign out
+    </button>
   </div>
 </header>
 
@@ -299,7 +322,24 @@
   <span class="material-symbols-rounded">chevron_right</span>
 </button>
 
-<aside class="right" id="right" aria-label="Progress and analytics">
+<aside class="right" id="right" aria-label="Your dashboard">
+  <div class="right-sec">
+    <div class="right-sec-label">Your Profile</div>
+    <div class="rpd-card">
+      <div class="rpd-top">
+        <div class="rpd-avatar"><span id="rpd-initials">··</span></div>
+        <div class="rpd-meta">
+          <div class="rpd-name" id="rpd-name">Loading…</div>
+          <div class="rpd-role" id="rpd-role">—</div>
+          <div class="rpd-tag" id="rpd-tag" hidden></div>
+        </div>
+      </div>
+      <a href="./avatar.html" class="rpd-edit">
+        <span class="material-symbols-rounded">edit</span>
+        <span>Edit profile &amp; avatar</span>
+      </a>
+    </div>
+  </div>
   <div class="right-sec">
     <div class="right-sec-label">Mission Progress</div>
     <div id="progress-list"><p style="font-size:12.5px;color:var(--steel)">Starting…</p></div>
@@ -314,12 +354,8 @@
     </div>
   </div>
   <div class="right-sec">
-    <div class="right-sec-label">What to do here</div>
+    <div class="right-sec-label">What to do here <span class="rsl-hint">tap to tick ✓</span></div>
     <div id="todo-list"></div>
-  </div>
-  <div class="right-sec">
-    <div class="right-sec-label">Remaining Regions</div>
-    <div id="remaining-list"><p style="font-size:12.5px;color:var(--steel)">Loading…</p></div>
   </div>
 </aside>
 
@@ -364,6 +400,11 @@
   document.getElementById("rp-role").textContent =
     rank + (lp.cefrEstimate ? " · CEFR " + lp.cefrEstimate : "");
   document.getElementById("rp-tier").textContent = tierNum ? ("T" + tierNum) : "—";
+  { const _i=document.getElementById("rpd-initials"); if(_i)_i.textContent=initials;
+    const _n=document.getElementById("rpd-name"); if(_n)_n.textContent=name;
+    const _r=document.getElementById("rpd-role"); if(_r)_r.textContent=rank+(lp.cefrEstimate?(" \u00b7 CEFR "+lp.cefrEstimate):"");
+    const _t=document.getElementById("rpd-tag"); if(_t&&tierNum){_t.textContent="Reading tier "+tierNum;_t.hidden=false;}
+    const _so=document.getElementById("hdr-signout"); if(_so)_so.addEventListener("click",()=>{try{localStorage.removeItem("fp_flow_state_v1");}catch(_){} location.href="../index.html";}); }
   const tierTxt = tierNum ? (tierNum + " · " + tierLabel(tierNum)) : "default";
   document.getElementById("an-tier").textContent = tierTxt;
 
@@ -402,9 +443,7 @@
     progress = JOURNEY_MISSIONS.map(m => ({ ...m, status: "available" }));
   }
   const railMissions = document.getElementById("rail-missions");
-  const remainingList = document.getElementById("remaining-list");
   railMissions.replaceChildren();
-  remainingList.replaceChildren();
   progress.forEach((m, i) => {
     const passed = m.status === "passed";
     const isCurrent = m.id === scenarioId;
@@ -425,14 +464,6 @@
     if (passed) { const k = document.createElement("span"); k.className = "rail-ks material-symbols-rounded"; k.textContent = "key"; a.appendChild(k); }
     railMissions.appendChild(a);
 
-    const r = document.createElement("div");
-    r.className = "remain-item" + (passed ? " passed" : "") + (isCurrent ? " current" : "");
-    const rs = document.createElement("span"); rs.className = "sdg"; rs.style.background = SDG_COLOR[m.sdg] || "#b57c34"; rs.textContent = m.sdg;
-    const rn = document.createElement("span"); rn.className = "nm"; rn.textContent = m.title;
-    const rst = document.createElement("span"); rst.className = "st";
-    rst.textContent = passed ? "earned" : (isCurrent ? "in progress" : (playable ? "ready" : "documented"));
-    r.append(rs, rn, rst);
-    remainingList.appendChild(r);
   });
 
   /* ── Helpers ── */
@@ -485,14 +516,32 @@
     document.getElementById("an-tokens").textContent = (d.tokensEarned >= 0 ? "" : "") + (d.tokensEarned || 0) + " ◆";
     document.getElementById("an-stage").textContent = (curArc + 1) + " / " + ARC.length;
     document.getElementById("an-keystone").textContent = d.keystoneAwarded ? "◆ EARNED" : (d.passed ? "◆" : "—");
-    // To-do for the current stage
+    // To-do for the current stage — tap to tick, persisted per user+mission+stage
     todoList.replaceChildren();
     const items = STAGE_TODO[d.stageId] || ["Work through this stage", "Continue when ready"];
-    items.forEach(t => {
-      const it = document.createElement("div"); it.className = "todo-item";
-      const ic = document.createElement("span"); ic.className = "material-symbols-rounded"; ic.textContent = "radio_button_unchecked";
+    const tKey = "fp_todo_" + (uid || "anon") + "_" + scenarioId + "_" + (d.stageId || "x");
+    let tDone = [];
+    try { tDone = JSON.parse(localStorage.getItem(tKey) || "[]"); } catch (_) { tDone = []; }
+    items.forEach((t, idx) => {
+      const it = document.createElement("div");
+      const isDone = tDone.includes(idx);
+      it.className = "todo-item" + (isDone ? " done" : "");
+      it.setAttribute("role", "button"); it.tabIndex = 0;
+      const ic = document.createElement("span"); ic.className = "material-symbols-rounded";
+      ic.textContent = isDone ? "task_alt" : "radio_button_unchecked";
       const sp = document.createElement("span"); sp.textContent = t;
-      it.append(ic, sp); todoList.appendChild(it);
+      it.append(ic, sp);
+      const toggle = () => {
+        const on = !it.classList.contains("done");
+        it.classList.toggle("done", on);
+        ic.textContent = on ? "task_alt" : "radio_button_unchecked";
+        let cur = []; try { cur = JSON.parse(localStorage.getItem(tKey) || "[]"); } catch (_) {}
+        cur = cur.filter((x) => x !== idx); if (on) cur.push(idx);
+        try { localStorage.setItem(tKey, JSON.stringify(cur)); } catch (_) {}
+      };
+      it.addEventListener("click", toggle);
+      it.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); } });
+      todoList.appendChild(it);
     });
   }
   window.addEventListener("fp:stage", (e) => { if (e.detail) paintProgress(e.detail); });
