@@ -953,10 +953,6 @@ async function debriefComplete(container, state, engine) {
           <span class="material-symbols-rounded size-20">replay</span>
           <span>Replay the DECIDE stage</span>
         </button>` : ""}
-        <a href="../pages/portfolio.html" class="btn-text">
-          <span class="material-symbols-rounded size-20">school</span>
-          <span>View your portfolio</span>
-        </a>
       </div>
     </section>
   `);

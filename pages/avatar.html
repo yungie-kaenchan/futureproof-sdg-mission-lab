@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Build your operator avatar — FUTUREPROOF: SDG Mission Lab." />
+  <meta name="description" content="Build your operator avatar — FUTUREPROOF: SDGs Mission Journey." />
   <title>Operator Avatar — FUTUREPROOF</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -82,7 +82,7 @@
   <header class="shell-header">
     <a href="../home.html" class="shell-header-brand">
       <span class="logo">FUTUREPROOF</span>
-      <span class="sub">SDGs Mission Lab</span>
+      <span class="sub">SDGs Mission Journey</span>
     </a>
 
     <div class="shell-header-status">
@@ -443,14 +443,6 @@
   </script>
 
 <script type="module" src="../src/a11y.js"></script>
-  <script type="module">
-    import { mountVoiceGuide } from '../src/voice-guide.js';
-    // Mount the voice guide at the top of the first .max-w-* content container
-    const candidates = ['main .max-w-2xl', 'main .max-w-3xl', 'main .max-w-4xl', 'main .max-w-6xl', 'main'];
-    for (const sel of candidates) {
-      if (document.querySelector(sel)) { mountVoiceGuide('avatar', sel); break; }
-    }
-  </script>
   <script type="module" src="../src/topbar-actions.js"></script>
 </body>
 </html>
