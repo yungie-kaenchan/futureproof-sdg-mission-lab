@@ -192,3 +192,9 @@ export const INSTITUTIONS_CITED = [
   { name: "Thailand Development Research Institute (TDRI)", role: "Policy-research authority" },
   { name: "Village Health Volunteers (อสม.) / MOPH",        role: "Community-level health surveillance" },
 ];
+
+export const RESOURCES = [
+  { label: "UN SDG 6 — Clean Water & Sanitation", url: "https://sdgs.un.org/goals/goal6" },
+  { label: "UN-Water — global water facts & data", url: "https://www.unwater.org" },
+  { label: "SDG Move — Thailand SDG knowledge hub", url: "https://www.sdgmove.com" },
+];

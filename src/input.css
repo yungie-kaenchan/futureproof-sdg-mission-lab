@@ -3277,9 +3277,26 @@ body.font-dyslexia {
     gap: 1rem; flex-wrap: wrap;
   }
   .dossier-part-header h3 { color: #0F1729; }
-  .dossier-part-body { padding: 14px 22px 18px; }
-  .dossier-part-body p { line-height: 1.7; color: #1A1F2E; margin: 0 0 12px 0; }
+  .dossier-part-body { padding: 16px 24px 20px; }
+  .dossier-part-body p { line-height: 1.78; color: #1A1F2E; margin: 0 0 14px 0; font-size: 16.5px; }
   .dossier-part-body p:last-child { margin-bottom: 0; }
+  /* Probe red-text: instruction callout + bigger readable body + linked resources */
+  .dossier-howto {
+    display: flex; align-items: flex-start; gap: 10px;
+    margin: 8px 0 16px; padding: 13px 16px; border-radius: 12px;
+    background: linear-gradient(135deg, rgba(232,199,122,.18), rgba(7,23,52,.04));
+    border: 1px solid rgba(181,124,52,.30); color: #4A3A18; font-size: 14px; line-height: 1.6;
+  }
+  .dossier-howto .material-symbols-rounded { color: #b57c34; font-size: 20px; flex-shrink: 0; }
+  .dossier-howto strong { color: #2E7D46; }
+  .dossier-resources .resource-list { list-style: none; margin: 6px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+  .dossier-resources .resource-list a {
+    display: inline-flex; align-items: center; gap: 7px;
+    color: #1A5FB4; font-weight: 600; font-size: 14.5px; text-decoration: none;
+    border-bottom: 1px solid rgba(26,95,180,.35); padding-bottom: 1px; width: fit-content;
+  }
+  .dossier-resources .resource-list a:hover { color: #0B3D91; border-bottom-color: #0B3D91; }
+  .dossier-resources .resource-list a .material-symbols-rounded { font-size: 15px; opacity: .8; }
   .btn-sm { padding: 6px 12px; font-size: 13px; }
 
   /* Vocab inline tooltip */

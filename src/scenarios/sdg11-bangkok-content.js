@@ -273,3 +273,9 @@ export const INSTITUTIONS_CITED = [
   { name: "Baan Mankong / Community Organizations Development Institute (CODI)", role: "Community-driven secure-tenure upgrading precedent" },
   { name: "Department of Disaster Prevention & Mitigation (DDPM)", role: "National disaster response & flood-emergency coordination" },
 ];
+
+export const RESOURCES = [
+  { label: "UN SDG 11 — Sustainable Cities & Communities", url: "https://sdgs.un.org/goals/goal11" },
+  { label: "UN-Habitat — sustainable urbanisation", url: "https://unhabitat.org" },
+  { label: "SDG Move — Thailand SDG knowledge hub", url: "https://www.sdgmove.com" },
+];

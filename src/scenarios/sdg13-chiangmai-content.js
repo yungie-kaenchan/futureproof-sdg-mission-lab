@@ -295,3 +295,9 @@ export const INSTITUTIONS_CITED = [
   { name: "Ministry of Public Health (MOPH)",                  role: "Respiratory-morbidity surveillance" },
   { name: "ASEAN Agreement on Transboundary Haze Pollution",   role: "Regional framework for cross-border smoke" },
 ];
+
+export const RESOURCES = [
+  { label: "UN SDG 13 — Climate Action", url: "https://sdgs.un.org/goals/goal13" },
+  { label: "UNFCCC — UN Climate Change", url: "https://unfccc.int" },
+  { label: "SDG Move — Thailand SDG knowledge hub", url: "https://www.sdgmove.com" },
+];

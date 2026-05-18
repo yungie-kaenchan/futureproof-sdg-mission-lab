@@ -22,7 +22,7 @@
  * battle-tested phase scaffold — a deliberate demo-reliability decision.
  */
 
-import { SCENARIO_META, DOSSIER, VOCABULARY, STAKEHOLDERS, INSTITUTIONS_CITED }
+import { SCENARIO_META, DOSSIER, VOCABULARY, STAKEHOLDERS, INSTITUTIONS_CITED, RESOURCES }
   from "./sdg11-bangkok-content.js";
 import { QUIZ_ITEMS, CONFIDENCE_LEVELS, computeTokenAward, shouldShowScaffold, QUIZ_TOKEN_CAP }
   from "./sdg11-bangkok-quiz.js";
@@ -158,6 +158,10 @@ async function probeDossier(container, state, engine) {
         </p>
       </header>
 
+      <div class="dossier-howto">
+        <span class="material-symbols-rounded size-20">menu_book</span>
+        <span>Read all four sections, then tap <strong>Click to mark as read</strong> on each. Tap any highlighted word to hear it. The glossary &amp; useful resources are at the end — your progress saves automatically.</span>
+      </div>
       <div class="dossier-parts" id="dossier-parts">
         ${DOSSIER.map((part) => renderDossierPart(part, readSet.has(part.id), density)).join("")}
       </div>
@@ -192,6 +196,13 @@ async function probeDossier(container, state, engine) {
           <p class="body-s text-on-surface-variant mt-3">
             Real institutions named for context only. See the scenario notice for citation discipline.
           </p>
+        </div>
+
+        <div class="dossier-resources mt-6">
+          <div class="console-label-gold mb-2">USEFUL RESOURCES &amp; REFERENCES</div>
+          <ul class="resource-list">
+            ${RESOURCES.map((r) => `<li><a href="${r.url}" target="_blank" rel="noopener noreferrer">${r.label}<span class="material-symbols-rounded size-20">open_in_new</span></a></li>`).join("")}
+          </ul>
         </div>
       </footer>
 
