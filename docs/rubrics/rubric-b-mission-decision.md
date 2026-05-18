@@ -1,84 +1,95 @@
 # Rubric B — Mission Decision Quality (AI Judge Logic)
 
-**Used by:** AI Judge (Tier 1, formative — every mission)
-**Applies to:** Each decision logged in `/decisions/$missionId/$decisionId`
-**Scale:** Each criterion 1–5; tokens awarded -10 to +25 based on integrated score.
+**Used by:** AI Judge (Tier 1, formative — every mission, every region)
+**Applies to:** each decision logged during a mission; the integrated
+result of the arc determines the **pass-threshold → SDG Keystone**.
+**Scale:** each criterion 1–5; Insight Tokens awarded −10 … +25 from the
+integrated score (Tokens are the spendable process reward — they never
+buy a Keystone).
 
-The AI Judge system prompt enforces:
-- No overall pass/fail.
-- Always names a specific growth edge.
-- Acknowledges effort before critique.
+> v2 note: this replaces v1's "one rubric per Bloom mission (RECON…
+> FORGE)". In v2 **every regional mission runs the same 5-stage arc** —
+> **BRIEF · PROBE · DECIDE · ACT · DEBRIEF** — a mastery spiral. The AI
+> Judge scores *per stage within the arc*; the mission's composite is
+> checked against the pass bar; clearing it awards that region's
+> Keystone (idempotent). The capstone (Voice for Change) is **not**
+> AI-graded — it goes to Rubric A (teacher). This preserves the
+> AI-TPACK boundary.
+
+The AI Judge system prompt enforces, unchanged from v1:
+- No overall pass/fail *per item*; the pass decision is the composite,
+  computed by the engine, not asserted by the model.
+- Always names a specific, actionable `growthEdge` (never null).
+- Acknowledges effort before critique; redirects, never solves.
 
 ---
 
-## Mission 01 — RECON
+## Stage 01 — BRIEF  (absorb the situation · Bloom: Remember/Understand)
 
 | Criterion | 1 | 3 | 5 |
 |---|---|---|---|
-| **Factual Accuracy** | Multiple errors of fact | Mostly accurate, minor slips | All claims traceable to a selected source |
-| **Vocabulary Recognition** | Misuses key terms | Uses key terms with occasional imprecision | Uses key terms precisely; differentiates near-synonyms |
-| **Strategic Source Selection** | Picked the two most familiar sources | Picked one familiar + one stretching source | Picked two complementary sources covering different perspectives |
-| **Justification Quality** | One-sentence assertion | Reasoned but thin | Names the trade-off explicitly |
-
-**Token band:** 5 → 15 average; 18 → 25 distinguished; -5 → -10 if factual errors are severe.
+| **Factual grounding** | Multiple errors of fact | Mostly accurate, minor slips | All claims traceable to the dossier (at the learner's tier) |
+| **Vocabulary recognition** | Misuses key terms | Uses key terms with occasional imprecision | Uses key terms precisely; differentiates near-synonyms |
+| **Situation grasp** | Misses the core tension | States the tension | Names the tension *and* whose interests it pits |
 
 ---
 
-## Mission 02 — DECODE
+## Stage 02 — PROBE  (question the sources · Bloom: Analyze)
 
 | Criterion | 1 | 3 | 5 |
 |---|---|---|---|
-| **Comprehension Depth** | Surface restatement | Captures one layer of meaning | Captures multiple layers and tensions |
-| **Register Appropriateness** | Wrong register for assigned audience | Mostly right register; some slips | Register hits the audience precisely |
-| **Audience Awareness** | Generic "audience" treatment | Names one audience-specific concern | Anticipates and addresses audience-specific objections |
-| **Justification Quality** | Implicit | Explicit but generic | Explicit and specific to chosen interpretation |
-
-**Token band:** as Mission 01.
+| **Source provenance** | Trusts the most familiar/loudest source | Weighs one provenance signal | Weighs methodology, recency, and conflict of interest together |
+| **Comprehension depth** | Surface restatement | Captures one layer | Captures multiple layers and the contested claim |
+| **Stakeholder reading** | Conflates stakeholders | Maps each to a stated concern | Distinguishes stated vs. likely hidden concerns |
 
 ---
 
-## Mission 03 — DEPLOY
+## Stage 03 — DECIDE  (choose under a real trade-off · Bloom: Evaluate)
 
 | Criterion | 1 | 3 | 5 |
 |---|---|---|---|
-| **Language Quality (timed)** | Frequent errors compromise meaning | Generally clear, minor errors | Crisp under pressure; controlled register |
-| **Strategic Coherence** | Strategy contradicts stated values | Strategy aligns but is generic | Strategy is specific, defensible, and traceable to scenario evidence |
-| **Consequence Awareness** | Ignores second-order effects | Names one consequence | Anticipates the trade-off the AI is most likely to surface |
-| **Response Under Pressure** | Defensive or incomplete | Holds the position with simple justification | Refines the position in response to feedback |
+| **Strategic coherence** | Choice contradicts stated values | Aligns but generic | Specific, defensible, traceable to scenario evidence |
+| **Consequence awareness** | Ignores second-order effects | Names one consequence | Anticipates the trade-off the counter-position will raise |
+| **Confidence calibration** | High confidence on weak reasoning (trap) | Confidence loosely matched to evidence | Confidence honestly tracks evidence strength |
+
+**Token band:** the arc's highest-stakes scoring — −10 (high-confidence
+trap) … +25 (calibrated, defensible). The confidence-trap item is
+deliberate.
 
 ---
 
-## Mission 04 — DISSECT
+## Stage 04 — ACT  (communicate the decision · Bloom: Apply)
 
 | Criterion | 1 | 3 | 5 |
 |---|---|---|---|
-| **Analytical Depth** | Surface comparison | Two-axis comparison | Multi-axis comparison with weighting |
-| **Evidence Quality** | Cites no evidence | Cites evidence loosely | Cites specific evidence with provenance |
-| **Leverage Identification** | Picks the most visible point | Picks a defensible point | Picks the highest-leverage point and defends *why it's not* others |
-| **Counterargument Handling** | Dismisses or capitulates | Acknowledges, partially answers | Acknowledges, refutes, refines own position |
+| **Language quality** | Errors compromise meaning | Generally clear, minor errors | Controlled register, audience-appropriate |
+| **Audience awareness** | Generic "audience" | Names one audience-specific concern | Anticipates and addresses audience objections |
+| **Justification** | One-sentence assertion | Reasoned but thin | Explicit, specific, names the trade-off |
 
 ---
 
-## Mission 05 — TRIBUNAL
+## Stage 05 — DEBRIEF  (reflect on consequence · Bloom: Metacognition)
 
 | Criterion | 1 | 3 | 5 |
 |---|---|---|---|
-| **Ethical Reasoning** | Stage-2/3 (tit-for-tat / conformist) | Stage 4 (law-and-order, rule-respecting) | Stage 5/6 (social contract / universal principle) |
-| **Argumentation Under Pressure** | Position collapses or stiffens | Holds position with effort | Refines position thoughtfully |
-| **Language Precision** | Hedging absent or excessive | Hedging present, occasionally clumsy | Hedging deployed strategically |
-| **Willingness to Revise** | None | Performs revision in form only | Genuinely incorporates the strongest counterargument |
+| **Counterargument handling** | Dismisses or capitulates | Acknowledges, partially answers | Acknowledges, refutes, refines own position |
+| **Willingness to revise** | None | Revision in form only | Genuinely incorporates the strongest counter |
+| **Evidence commitment** | None recorded | Names evidence vaguely | Commits to specific evidence (carried to the Final Task) |
 
-**Token band:** 10 → 25 (this is the highest-stakes formative scoring in the curriculum).
-
----
-
-## Mission 06 — FORGE
-
-This mission is graded by Rubric A (teacher) — Rubric B's role here is limited to in-Studio language coach feedback, evaluated on the Language Coach prompt schema.
+The DEBRIEF result drives the composite; clearing the pass bar awards the
+SDG Keystone for that region. **No dead-ends:** a learner below the bar
+may replay DECIDE/ACT, or a teacher may grant the Keystone for assessed
+offline-equivalent work (logged, audited — see the teacher guide).
 
 ---
 
 ## Calibration Notes
 
-- AI Judge calibration is checked weekly during pilot by random sampling 5% of decisions and comparing AI scores against teacher scores. Drift triggers prompt revision.
-- AI Judge always returns a `growthEdge` — never null. If unable to identify one, the prompt fails validation and the call is retried.
+- AI-Judge calibration: during the pilot, random-sample ~5% of decisions
+  and compare AI scores to a teacher's; drift triggers prompt revision.
+- `growthEdge` is mandatory on every return; a null fails validation and
+  the call is retried (graceful — never blocks the journey).
+- Pass threshold is the engine's composite (default 0.60) **or** the
+  scenario's net-token bar (8 ◆ in the two built missions). Tokens
+  reward process; the Keystone records "met the bar for this region."
+- The capstone is excluded here by design — Rubric A (teacher) owns it.

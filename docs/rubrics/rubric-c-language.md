@@ -1,22 +1,50 @@
 # Rubric C — CEFR-Aligned Language Development (Pre/Post)
 
 **Used by:** Course-level evaluators
-**Applies to:** A single learner's writing and speaking samples taken at three timepoints — diagnostic (Day 4), mid-course (after Mission 03), and post-Pitch-Capsule (after Mission 06)
+**Applies to:** a single learner's writing and speaking samples at three
+timepoints — **diagnostic** (the readiness check, which also sets the
+reading tier), **mid-journey** (after the learner's first passed region
+mission), and **post-capstone** (after the Voice for Change).
 **Scale:** CEFR bands A2 → C2 with intra-band markers (A2/B1-/B1/B1+/B2-/B2/B2+/C1)
+
+> v2 note: "Mission 03 / Pitch Capsule" timepoints are replaced by
+> "first passed regional mission / Voice for Change". The diagnostic now
+> additionally maps the learner to a **reading tier** {1,2,3}; see the
+> tier-fairness rule below — it changes how growth is read, not the
+> descriptors.
 
 ---
 
 ## Methodology
 
-The same five language dimensions are scored at each timepoint. Growth = post-band − pre-band, computed in half-band increments.
+The same five dimensions are scored at each timepoint. Growth =
+post-band − pre-band, in half-band increments.
 
-| Dimension | Diagnostic source | Mid-course source | Post source |
+| Dimension | Diagnostic source | Mid-journey source | Post source |
 |---|---|---|---|
-| **Lexical range** | Vocabulary section + writing prompt | Mission 03 written communication | Pitch Capsule + audio transcript |
-| **Grammatical control** | Cloze + writing prompt | Mission 03 + Mission 04 written rationale | Pitch Capsule + Voice transcript |
-| **Discourse organization** | Writing prompt | Mission 04 leverage-point defense | Pitch Capsule synthesis |
-| **Register flexibility** | Writing prompt (single register) | Mission 02 audience-specific explanation | Pitch Capsule (5 registers) |
-| **Phonological control (speaking)** | Optional pre-recording | Mission 03 spoken response | Pitch Capsule audio narration |
+| **Lexical range** | Vocabulary section + writing prompt | DECIDE/ACT written reasoning in the first passed mission | Voice for Change + transcript |
+| **Grammatical control** | Cloze + writing prompt | ACT written communication + DEBRIEF rationale | Voice for Change + transcript |
+| **Discourse organization** | Writing prompt | PROBE source-weighing + DEBRIEF reflection | Voice for Change synthesis |
+| **Register flexibility** | Writing prompt (single register) | ACT audience-specific communication | Voice for Change (address to a real audience) |
+| **Phonological control (speaking)** | Optional pre-recording | (optional) spoken stage response | Voice for Change audio narration (live or uploaded lane) |
+
+### Tier-fairness rule (v2, load-bearing)
+
+Reading text is served at the learner's tier; **audio/video is not
+tiered** (authentic input, caption-scaffolded — the SLA asymmetry).
+Therefore:
+
+- **Measure growth, not tier.** A Tier-1 learner who moves A2 → B1 has
+  demonstrated the same half-band gain as a Tier-3 learner who moves
+  B2 → B2+. Report the **delta**, never the absolute band as a verdict
+  on the learner.
+- **Receptive vs. productive.** The diagnostic and capstone are
+  *productive* samples (writing/speaking) and are tier-neutral to
+  produce — grade them directly. Do not infer a ceiling from the
+  learner's reading tier.
+- **Listening is assessed against authentic input** with the caption
+  scaffold available; do not down-rate a lower-tier learner for needing
+  the caption — using the provided scaffold is the designed behaviour.
 
 ---
 
