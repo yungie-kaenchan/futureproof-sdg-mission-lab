@@ -93,6 +93,56 @@
     }
     /* push the existing main below the new 64px header */
     body { padding-top: 64px; }
+
+    /* ─── Compact header nav buttons (Back / Sign out) ─── */
+    .btn-sm {
+      padding: 6px 14px !important;
+      font-size: 12px !important;
+      border-radius: 999px;
+    }
+    .shell-header-right .btn-secondary {
+      background: transparent;
+      border: 1px solid rgba(244, 241, 234, 0.22);
+      color: #F4F1EA;
+      text-decoration: none;
+      display: inline-flex; align-items: center;
+      font-family: 'DM Sans', system-ui, sans-serif; font-weight: 600;
+      cursor: pointer;
+      transition: background 180ms, border-color 180ms;
+    }
+    .shell-header-right .btn-secondary:hover {
+      background: rgba(244, 241, 234, 0.08);
+      border-color: #b57c34;
+    }
+
+    /* ─── Formal consent document — solemn, indented, black text, EN+TH ─── */
+    .consent-formal-doc {
+      background: #FBFAF7;
+      border-color: rgba(20, 20, 22, 0.14) !important;
+    }
+    .consent-doc-body p {
+      color: #16161A;                 /* formal black text */
+      padding-left: 1.5rem;           /* hanging indent for legal paragraphs */
+      text-indent: -0.75rem;
+      margin: 0;
+    }
+    .consent-doc-body p strong { color: #0A0A0B; }
+    .consent-doc-body p + p.consent-doc-th { margin-top: 0.15rem; }
+    .consent-doc-body p + p:not(.consent-doc-th) { margin-top: 0.9rem; }
+    .consent-doc-th {
+      font-family: 'IBM Plex Sans Thai', 'DM Sans', sans-serif;
+      color: #4A4A52 !important;       /* quieter than the EN line it mirrors */
+      padding-left: 2.25rem !important;
+      font-size: 0.92em;
+    }
+    .consent-doc-link {
+      color: #8a5a16; font-weight: 600; text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .consent-doc-link:hover { color: #b57c34; }
+    @media (max-width: 767px) {
+      .shell-header-right .btn-secondary span { font-size: 11px; }
+    }
   </style>
 </head>
 
@@ -114,10 +164,12 @@
     </div>
 
     <div class="shell-header-right">
-      <div class="lang-pill" role="group" aria-label="Language">
-        <button id="lang-en" class="lang-pill-opt is-active" type="button" data-lang="en">EN</button>
-        <button id="lang-th" class="lang-pill-opt" type="button" data-lang="th">ไทย</button>
-      </div>
+      <a href="./signup.html" class="btn-secondary btn-sm">
+        <span>← Back</span>
+      </a>
+      <button id="signout-btn" type="button" class="btn-secondary btn-sm">
+        <span>Sign out</span>
+      </button>
     </div>
   </header>
 
@@ -142,20 +194,18 @@
         <div class="h-line flex-1 max-w-32"></div>
       </div>
 
-      <div class="flex items-end justify-between gap-6 flex-wrap mb-6">
-        <h1 class="display-heading text-5xl lg:text-6xl text-on-surface" data-i18n>
-          <span data-en>Your data, your <em class="text-primary">call</em>.</span>
-          <span data-th hidden>ข้อมูลของคุณ <em class="text-primary">คุณตัดสินใจ</em>.</span>
+      <div class="mb-6">
+        <h1 class="display-heading text-5xl lg:text-6xl text-on-surface">
+          Your data, your <em class="text-primary">call</em>.
         </h1>
-        <div class="lang-pill lang-pill-inline" role="group" aria-label="Language">
-          <button class="lang-pill-opt is-active" type="button" data-lang="en">EN</button>
-          <button class="lang-pill-opt" type="button" data-lang="th">ไทย</button>
-        </div>
+        <p class="thai-meta text-xl text-on-surface/70 mt-2">ข้อมูลของคุณ คุณเป็นผู้ตัดสินใจ</p>
       </div>
 
-      <p class="text-lg text-on-surface/80 leading-relaxed mb-10" data-i18n>
-        <span data-en>Two things are required so we can run the platform. Three are optional — flip them on or off and you can change your mind any time.</span>
-        <span data-th hidden>มี 2 อย่างที่จำเป็นเพื่อให้ระบบทำงานได้ และอีก 3 อย่างเป็นทางเลือก — คุณเปิดหรือปิดได้ตามใจ และเปลี่ยนใจได้ตลอดเวลา</span>
+      <p class="text-lg text-on-surface/80 leading-relaxed mb-2">
+        Two things are required so we can run the platform. Three are optional — flip them on or off and you can change your mind any time.
+      </p>
+      <p class="thai-meta text-base text-on-surface/65 leading-relaxed mb-10">
+        มี 2 อย่างที่จำเป็นเพื่อให้ระบบทำงานได้ และอีก 3 อย่างเป็นทางเลือก — คุณเปิดหรือปิดได้ตามใจ และเปลี่ยนใจได้ตลอดเวลา
       </p>
 
       <div id="pdpa-redirect-note" class="alert-info mb-8" hidden>
@@ -169,7 +219,7 @@
       </div>
 
       <div id="config-warning" class="alert-warn mb-8" hidden>
-        <strong>Heads up:</strong> Firebase isn't connected in this build, so consent submission is disabled. Aj. Yungie will provision the project before student onboarding goes live.
+        <strong>One moment:</strong> saving your choices isn't switched on just yet. You'll be able to record your consent as soon as your teacher activates the platform.
       </div>
 
       <script>
@@ -185,38 +235,41 @@
 
         <div id="consent-cards" class="space-y-4"></div>
 
-        <details class="border border-panel-line p-6 mt-8">
-          <summary class="cursor-pointer console-label-gold" data-i18n>
-            <span data-en>READ THE FORMAL CONSENT DOCUMENT</span>
-            <span data-th hidden>อ่านเอกสารความยินยอมฉบับเต็ม</span>
-          </summary>
-          <div class="mt-6 text-sm text-on-surface/80 leading-relaxed space-y-4" data-i18n>
-            <div data-en>
-              <p><strong>Data Controller:</strong> Faculty of Liberal Arts, Mahidol University. Contact: <a class="text-gold-primary hover:text-gold-glow" href="mailto:payungsak.kaenchan@gmail.com">payungsak.kaenchan@gmail.com</a>.</p>
-              <p><strong>Lawful basis:</strong> Performance of an educational task and informed consent under the Personal Data Protection Act B.E. 2562 (PDPA).</p>
-              <p><strong>What we collect:</strong> Identifying information (name, email, institution, year of study), competency assessment results, decisions made during missions, written and recorded responses, AI-generated feedback you receive, and (with separate consent) your photo and voice recordings.</p>
-              <p><strong>Why we collect it:</strong> To deliver the course, calibrate AI-generated content to your level, and evaluate your work.</p>
-              <p><strong>Where it goes:</strong> Stored on Firebase Realtime Database and Storage in the asia-southeast1 region. Encrypted in transit and at rest. Access is logged.</p>
-              <p><strong>How long we keep it:</strong> Personal data is auto-deleted 90 days after the course ends. Audit logs are retained for 7 years per institutional policy.</p>
-              <p><strong>Your rights under PDPA:</strong> access, correction, erasure, restriction, portability, objection, and withdrawal of consent. Exercise these from your <a class="text-gold-primary hover:text-gold-glow" href="./my-data.html">My Data panel</a> at any time.</p>
-              <p><strong>If you withdraw a consent:</strong> the corresponding data is deleted. Required consents (Basic profile, Mission decisions) cannot be withdrawn while you're enrolled — withdrawing them ends your enrollment.</p>
-              <p><strong>Children's data:</strong> the platform is intended for users 18+. Users under 20 may be subject to additional consent requirements per Thai law; we'll prompt for parental consent if applicable.</p>
-              <p><strong>Complaints:</strong> direct to the Personal Data Protection Committee of Thailand or the Mahidol University DPO.</p>
-            </div>
-            <div data-th hidden class="thai-meta">
-              <p><strong>ผู้ควบคุมข้อมูล:</strong> คณะศิลปศาสตร์ มหาวิทยาลัยมหิดล ติดต่อ: <a class="text-gold-primary hover:text-gold-glow" href="mailto:payungsak.kaenchan@gmail.com">payungsak.kaenchan@gmail.com</a></p>
-              <p><strong>ฐานทางกฎหมาย:</strong> การปฏิบัติภารกิจทางการศึกษาและความยินยอมโดยแจ้งภายใต้พระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562 (PDPA)</p>
-              <p><strong>ข้อมูลที่เก็บ:</strong> ข้อมูลระบุตัวตน (ชื่อ อีเมล สถาบัน ชั้นปี) ผลประเมินความพร้อม การตัดสินใจระหว่างทำภารกิจ คำตอบที่เขียนและบันทึกเสียง ฟีดแบ็กที่ AI สร้างขึ้น และ (เมื่อยินยอมแยกต่างหาก) ภาพถ่ายและเสียงของคุณ</p>
-              <p><strong>เหตุผลในการเก็บ:</strong> เพื่อจัดการเรียนการสอน ปรับเนื้อหาที่สร้างโดย AI ให้เหมาะกับระดับของคุณ และประเมินผลงาน</p>
-              <p><strong>สถานที่จัดเก็บ:</strong> เก็บบน Firebase Realtime Database และ Storage ภูมิภาค asia-southeast1 เข้ารหัสทั้งระหว่างส่งและขณะจัดเก็บ การเข้าถึงถูกบันทึกไว้</p>
-              <p><strong>ระยะเวลาจัดเก็บ:</strong> ข้อมูลส่วนบุคคลจะถูกลบอัตโนมัติ 90 วันหลังจบหลักสูตร บันทึกการตรวจสอบจะเก็บไว้ 7 ปีตามนโยบายของสถาบัน</p>
-              <p><strong>สิทธิของคุณตาม PDPA:</strong> สิทธิเข้าถึง แก้ไข ลบ จำกัดการประมวลผล โอนย้ายข้อมูล คัดค้าน และถอนความยินยอม คุณสามารถใช้สิทธิเหล่านี้ได้จาก <a class="text-gold-primary hover:text-gold-glow" href="./my-data.html">แผงข้อมูลของฉัน</a> ตลอดเวลา</p>
-              <p><strong>ถ้าคุณถอนความยินยอม:</strong> ข้อมูลที่เกี่ยวข้องจะถูกลบ ความยินยอมที่จำเป็น (โปรไฟล์พื้นฐาน การตัดสินใจในภารกิจ) ไม่สามารถถอนได้ขณะที่คุณยังลงทะเบียนเรียน — การถอนความยินยอมเหล่านี้คือการสิ้นสุดการเข้าร่วม</p>
-              <p><strong>ข้อมูลของผู้เยาว์:</strong> ระบบนี้สำหรับผู้ใช้อายุ 18 ปีขึ้นไป ผู้ใช้อายุต่ำกว่า 20 ปีอาจต้องมีการขอความยินยอมเพิ่มเติมตามกฎหมายไทย เราจะแจ้งเมื่อจำเป็นต้องขอความยินยอมจากผู้ปกครอง</p>
-              <p><strong>ร้องเรียน:</strong> ติดต่อคณะกรรมการคุ้มครองข้อมูลส่วนบุคคลของประเทศไทย หรือเจ้าหน้าที่คุ้มครองข้อมูลของมหาวิทยาลัยมหิดล</p>
-            </div>
+        <section class="consent-formal-doc border border-panel-line p-8 mt-8" aria-label="Formal consent document">
+          <div class="console-label-gold mb-6">FORMAL CONSENT DOCUMENT · เอกสารความยินยอมฉบับเต็ม</div>
+
+          <div class="consent-doc-body text-sm leading-relaxed space-y-3">
+            <p><strong>Data Controller:</strong> Faculty of Liberal Arts, Mahidol University. Contact: <a class="consent-doc-link" href="mailto:payungsak.kaenchan@gmail.com">payungsak.kaenchan@gmail.com</a>.</p>
+            <p class="consent-doc-th"><strong>ผู้ควบคุมข้อมูล:</strong> คณะศิลปศาสตร์ มหาวิทยาลัยมหิดล ติดต่อ: <a class="consent-doc-link" href="mailto:payungsak.kaenchan@gmail.com">payungsak.kaenchan@gmail.com</a></p>
+
+            <p><strong>Lawful basis:</strong> Performance of an educational task and informed consent under the Personal Data Protection Act B.E. 2562 (PDPA).</p>
+            <p class="consent-doc-th"><strong>ฐานทางกฎหมาย:</strong> การปฏิบัติภารกิจทางการศึกษาและความยินยอมโดยแจ้งภายใต้พระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562 (PDPA)</p>
+
+            <p><strong>What we collect:</strong> Identifying information (name, email, institution, year of study), competency assessment results, decisions made during missions, written and recorded responses, AI-generated feedback you receive, and (with separate consent) your photo and voice recordings.</p>
+            <p class="consent-doc-th"><strong>ข้อมูลที่เก็บ:</strong> ข้อมูลระบุตัวตน (ชื่อ อีเมล สถาบัน ชั้นปี) ผลประเมินความพร้อม การตัดสินใจระหว่างทำภารกิจ คำตอบที่เขียนและบันทึกเสียง ฟีดแบ็กที่ AI สร้างขึ้น และ (เมื่อยินยอมแยกต่างหาก) ภาพถ่ายและเสียงของคุณ</p>
+
+            <p><strong>Why we collect it:</strong> To deliver the course, calibrate AI-generated content to your level, and evaluate your work.</p>
+            <p class="consent-doc-th"><strong>เหตุผลในการเก็บ:</strong> เพื่อจัดการเรียนการสอน ปรับเนื้อหาที่สร้างโดย AI ให้เหมาะกับระดับของคุณ และประเมินผลงาน</p>
+
+            <p><strong>Where it goes:</strong> Stored securely in the asia-southeast1 region. Encrypted in transit and at rest. Access is logged.</p>
+            <p class="consent-doc-th"><strong>สถานที่จัดเก็บ:</strong> เก็บอย่างปลอดภัยในภูมิภาค asia-southeast1 เข้ารหัสทั้งระหว่างส่งและขณะจัดเก็บ การเข้าถึงถูกบันทึกไว้</p>
+
+            <p><strong>How long we keep it:</strong> Personal data is auto-deleted 90 days after the course ends. Audit logs are retained for 7 years per institutional policy.</p>
+            <p class="consent-doc-th"><strong>ระยะเวลาจัดเก็บ:</strong> ข้อมูลส่วนบุคคลจะถูกลบอัตโนมัติ 90 วันหลังจบหลักสูตร บันทึกการตรวจสอบจะเก็บไว้ 7 ปีตามนโยบายของสถาบัน</p>
+
+            <p><strong>Your rights under PDPA:</strong> access, correction, erasure, restriction, portability, objection, and withdrawal of consent. Exercise these from your <a class="consent-doc-link" href="./my-data.html">My Data panel</a> at any time.</p>
+            <p class="consent-doc-th"><strong>สิทธิของคุณตาม PDPA:</strong> สิทธิเข้าถึง แก้ไข ลบ จำกัดการประมวลผล โอนย้ายข้อมูล คัดค้าน และถอนความยินยอม คุณสามารถใช้สิทธิเหล่านี้ได้จาก <a class="consent-doc-link" href="./my-data.html">แผงข้อมูลของฉัน</a> ตลอดเวลา</p>
+
+            <p><strong>If you withdraw a consent:</strong> the corresponding data is deleted. Required consents (Basic profile, Mission decisions) cannot be withdrawn while you're enrolled — withdrawing them ends your enrollment.</p>
+            <p class="consent-doc-th"><strong>ถ้าคุณถอนความยินยอม:</strong> ข้อมูลที่เกี่ยวข้องจะถูกลบ ความยินยอมที่จำเป็น (โปรไฟล์พื้นฐาน การตัดสินใจในภารกิจ) ไม่สามารถถอนได้ขณะที่คุณยังลงทะเบียนเรียน — การถอนความยินยอมเหล่านี้คือการสิ้นสุดการเข้าร่วม</p>
+
+            <p><strong>Children's data:</strong> the platform is intended for users 18+. Users under 20 may be subject to additional consent requirements per Thai law; we'll prompt for parental consent if applicable.</p>
+            <p class="consent-doc-th"><strong>ข้อมูลของผู้เยาว์:</strong> ระบบนี้สำหรับผู้ใช้อายุ 18 ปีขึ้นไป ผู้ใช้อายุต่ำกว่า 20 ปีอาจต้องมีการขอความยินยอมเพิ่มเติมตามกฎหมายไทย เราจะแจ้งเมื่อจำเป็นต้องขอความยินยอมจากผู้ปกครอง</p>
+
+            <p><strong>Complaints:</strong> direct to the Personal Data Protection Committee of Thailand or the Mahidol University DPO.</p>
+            <p class="consent-doc-th"><strong>ร้องเรียน:</strong> ติดต่อคณะกรรมการคุ้มครองข้อมูลส่วนบุคคลของประเทศไทย หรือเจ้าหน้าที่คุ้มครองข้อมูลของมหาวิทยาลัยมหิดล</p>
           </div>
-        </details>
+        </section>
 
         <div id="form-error" class="field-error" hidden></div>
 
@@ -240,31 +293,26 @@
 
   <script type="module">
     import { CONSENT_FLAGS, defaultFlags, validateFlags, submitConsent, getCurrentVersion } from '../src/consent.js';
-    import { getFlowState, setFlowStep, isFirebaseAvailable } from '../src/auth.js';
+    import { getFlowState, setFlowStep, isFirebaseAvailable, signOutCurrent, clearFlowState } from '../src/auth.js';
+
+    // Header Sign-out — clears the in-progress onboarding flow and returns home.
+    document.getElementById('signout-btn').addEventListener('click', async () => {
+      try { if (isFirebaseAvailable()) await signOutCurrent(); } catch (_) { /* non-fatal */ }
+      try { clearFlowState(); } catch (_) { /* non-fatal */ }
+      location.href = '../home.html';
+    });
 
     let lang = localStorage.getItem('fp_lang') ||
                ((navigator.language || 'en').toLowerCase().startsWith('th') ? 'th' : 'en');
 
+    // The language toggle was removed per QC: the formal consent document
+    // now shows English and Thai together. The consent cards still render in
+    // the reader's detected language (these are choices, not legal text, so
+    // a single clear language is correct here).
     function applyLang() {
       document.documentElement.lang = lang;
-      document.querySelectorAll('[data-en]').forEach((el) => el.hidden = lang !== 'en');
-      document.querySelectorAll('[data-th]').forEach((el) => el.hidden = lang !== 'th');
-      // Highlight the active option in the language pill
-      document.querySelectorAll('.lang-pill-opt').forEach((btn) => {
-        btn.classList.toggle('is-active', btn.dataset.lang === lang);
-        btn.setAttribute('aria-pressed', btn.dataset.lang === lang ? 'true' : 'false');
-      });
       localStorage.setItem('fp_lang', lang);
     }
-
-    document.querySelectorAll('.lang-pill-opt').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        if (btn.dataset.lang === lang) return;
-        lang = btn.dataset.lang;
-        applyLang();
-        renderCards();
-      });
-    });
 
     const flags = { ...defaultFlags() };
     const cardsContainer = document.getElementById('consent-cards');
@@ -320,7 +368,7 @@
       submitBtn.querySelector('span:first-child').textContent = 'Saving consent…';
 
       if (!isFirebaseAvailable()) {
-        showError('Firebase is not connected in this build. Consent submission is disabled.');
+        showError("Saving your choices isn't available just yet. Please try again later, or ask your teacher.");
         submitBtn.disabled = false;
         submitBtn.querySelector('span:first-child').textContent = 'Save & Continue';
         return;
