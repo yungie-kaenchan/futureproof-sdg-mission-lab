@@ -117,7 +117,7 @@ export const STAKEHOLDERS = [
     location: "Nong Rua District, Khon Kaen",
     flags: ["vulnerable", "male"],
     accent: "ochre",
-    portrait: "/assets/scenarios/sdg06-khonkaen/images/stakeholder-01.svg",
+    portrait: "/assets/scenarios/sdg06-khonkaen/images/stakeholder-01.png",
     video: "/assets/scenarios/sdg06-khonkaen/video/01-rice-farmer.mp4",
     duration: 32,
     position:
@@ -134,7 +134,7 @@ export const STAKEHOLDERS = [
     location: "Provincial Waterworks Authority — Khon Kaen Branch",
     flags: ["institutional", "female"],
     accent: "steel",
-    portrait: "/assets/scenarios/sdg06-khonkaen/images/stakeholder-02.svg",
+    portrait: "/assets/scenarios/sdg06-khonkaen/images/stakeholder-02.png",
     video: "/assets/scenarios/sdg06-khonkaen/video/02-pwa-manager.mp4",
     duration: 32,
     position:
@@ -151,7 +151,7 @@ export const STAKEHOLDERS = [
     location: "Regional food-processing facility, Khon Kaen basin",
     flags: ["private", "male"],
     accent: "bronze",
-    portrait: "/assets/scenarios/sdg06-khonkaen/images/stakeholder-03.svg",
+    portrait: "/assets/scenarios/sdg06-khonkaen/images/stakeholder-03.png",
     video: "/assets/scenarios/sdg06-khonkaen/video/03-plant-director.mp4",
     duration: 30,
     position:
@@ -168,7 +168,7 @@ export const STAKEHOLDERS = [
     location: "Rural sub-district near Ban Phai, Khon Kaen",
     flags: ["vulnerable-adjacent", "female"],
     accent: "sage",
-    portrait: "/assets/scenarios/sdg06-khonkaen/images/stakeholder-04.svg",
+    portrait: "/assets/scenarios/sdg06-khonkaen/images/stakeholder-04.png",
     video: "/assets/scenarios/sdg06-khonkaen/video/04-health-volunteer.mp4",
     duration: 34,
     position:

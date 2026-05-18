@@ -3386,10 +3386,15 @@ body.font-dyslexia {
   .stake-card.is-open .stake-toggle { border-bottom-color: #EAEAED; }
   .stake-card-head { display: flex; align-items: center; gap: 12px; }
   .stake-portrait {
+    position: relative; overflow: hidden;
     width: 48px; height: 48px; border-radius: 999px;
     background: linear-gradient(180deg, #F4F4F4 0%, #EAEAED 100%);
     display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
+  }
+  .stake-portrait-img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%; object-fit: cover; display: block;
   }
   .stake-portrait-placeholder { color: #647293; }
   .stake-portrait-placeholder .material-symbols-rounded { font-size: 28px; }

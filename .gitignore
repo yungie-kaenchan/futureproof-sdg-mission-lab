@@ -18,3 +18,7 @@ assets/landing/source/
 
 # Local backups of in-place file overrides
 *.bak
+
+# Affinity / editor lock files
+*.af~lock~
+*~lock~

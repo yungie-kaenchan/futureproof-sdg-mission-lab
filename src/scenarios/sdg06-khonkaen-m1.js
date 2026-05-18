@@ -340,6 +340,8 @@ function renderStakeholderCard(s, isViewed) {
       <button class="stake-toggle" type="button" aria-expanded="${isViewed ? "true" : "false"}">
         <div class="stake-card-head">
           <div class="stake-portrait" aria-hidden="true">
+            <img class="stake-portrait-img" src="${s.portrait}" alt="" loading="lazy"
+                 onerror="this.remove();" />
             <div class="stake-portrait-placeholder">
               <span class="material-symbols-rounded">${stakeholderIcon(s)}</span>
             </div>
