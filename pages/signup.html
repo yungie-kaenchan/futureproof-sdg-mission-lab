@@ -79,6 +79,11 @@
     display:flex;align-items:flex-start;gap:8px}
   #form-error::before{content:"info";font-family:'Material Symbols Rounded';font-size:18px;color:#2E7D46;flex-shrink:0}
   #form-error[hidden]{display:none}
+  /* Green, reassuring password-guidance text */
+  .field-help.is-secure{color:#1E6B3A;font-weight:600}
+  .req{color:#A82424;font-weight:700}
+  .form-section-title{font-family:var(--display,'Fraunces',serif);font-size:1.05rem;
+    color:var(--ink-deep,#0A0A0B);margin:6px 0 2px;font-weight:600}
   </style>
 </head>
 
@@ -139,47 +144,67 @@
       <form id="signup-form" class="space-y-6" novalidate>
 
         <div>
-          <label class="field-label" for="displayName">Display name</label>
+          <label class="field-label" for="displayName">Display name <span class="req">*</span></label>
           <input class="field-input" type="text" id="displayName" name="displayName" autocomplete="name" required maxlength="60" />
           <p class="field-help">This is how teammates and your teacher will see you. Use what you'd like to go by.</p>
         </div>
 
         <div>
-          <label class="field-label" for="email">Email</label>
+          <label class="field-label" for="email">Email <span class="req">*</span></label>
           <input class="field-input" type="email" id="email" name="email" autocomplete="email" required />
           <p class="field-help">We'll send a verification email after sign-up.</p>
         </div>
 
         <div>
-          <label class="field-label" for="password">Password</label>
+          <label class="field-label" for="password">Password <span class="req">*</span></label>
           <input class="field-input" type="password" id="password" name="password" autocomplete="new-password" required minlength="8" />
-          <p class="field-help">Use at least 8 characters with letters and numbers. Don\u2019t use your name or the word \u201cpassword\u201d \u2014 a strong password keeps your account and data safe.</p>
+          <p class="field-help is-secure">Choose a password with at least 8 characters, including both letters and numbers. Avoid your own name or easy-to-guess words like \u201cpassword\u201d or \u201c123456\u201d. A strong, unique password keeps your account and personal data safe.</p>
         </div>
+
+        <div class="form-section-title">About you</div>
+        <p class="field-help" style="margin-top:0">Please fill these in yourself — nothing is pre-filled. Fields marked <span class="req">*</span> are required.</p>
 
         <div class="grid md:grid-cols-2 gap-6">
           <div>
-            <label class="field-label" for="institution">Institution</label>
-            <select class="field-select" id="institution" name="institution" required>
-              <option value="">Select your institution</option>
-              <option value="MU">Mahidol University</option>
-              <option value="MUIC">Mahidol University International College</option>
-              <option value="TU">Thammasat University</option>
-              <option value="CU">Chulalongkorn University</option>
-              <option value="KMUTT">King Mongkut's University of Technology Thonburi</option>
-              <option value="other">Other</option>
-            </select>
+            <label class="field-label" for="firstNameEn">First name — English <span class="req">*</span></label>
+            <input class="field-input" type="text" id="firstNameEn" name="firstNameEn" autocomplete="given-name" maxlength="60" required />
           </div>
-
           <div>
-            <label class="field-label" for="yearOfStudy">Year of study</label>
-            <select class="field-select" id="yearOfStudy" name="yearOfStudy" required>
-              <option value="">Select year</option>
-              <option value="1">Year 1</option>
-              <option value="2">Year 2</option>
-              <option value="3">Year 3</option>
-              <option value="4">Year 4</option>
-              <option value="grad">Graduate</option>
-            </select>
+            <label class="field-label" for="lastNameEn">Surname — English <span class="req">*</span></label>
+            <input class="field-input" type="text" id="lastNameEn" name="lastNameEn" autocomplete="family-name" maxlength="60" required />
+          </div>
+          <div>
+            <label class="field-label" for="firstNameTh">ชื่อจริง — ภาษาไทย <span class="req">*</span></label>
+            <input class="field-input" type="text" id="firstNameTh" name="firstNameTh" lang="th" maxlength="60" required />
+          </div>
+          <div>
+            <label class="field-label" for="lastNameTh">นามสกุล — ภาษาไทย <span class="req">*</span></label>
+            <input class="field-input" type="text" id="lastNameTh" name="lastNameTh" lang="th" maxlength="60" required />
+          </div>
+          <div>
+            <label class="field-label" for="age">Age <span class="req">*</span></label>
+            <input class="field-input" type="number" id="age" name="age" min="15" max="99" inputmode="numeric" required />
+          </div>
+          <div>
+            <label class="field-label" for="gender">Gender <span class="req">*</span></label>
+            <input class="field-input" type="text" id="gender" name="gender" maxlength="40" required />
+            <p class="field-help">Write it however you identify — your words.</p>
+          </div>
+          <div>
+            <label class="field-label" for="institution">Institution <span class="req">*</span></label>
+            <input class="field-input" type="text" id="institution" name="institution" autocomplete="organization" maxlength="120" required />
+          </div>
+          <div>
+            <label class="field-label" for="yearOfStudy">Year of study <span class="req">*</span></label>
+            <input class="field-input" type="text" id="yearOfStudy" name="yearOfStudy" maxlength="30" required />
+          </div>
+          <div>
+            <label class="field-label" for="province">Province <span class="req">*</span></label>
+            <input class="field-input" type="text" id="province" name="province" maxlength="60" required />
+          </div>
+          <div>
+            <label class="field-label" for="location">District / Location</label>
+            <input class="field-input" type="text" id="location" name="location" maxlength="120" />
           </div>
         </div>
 
@@ -249,8 +274,26 @@
       if (pwIssues.length) {
         return showError(`Please choose a stronger password \u2014 it needs ${pwIssues.join(', ')}.`);
       }
-      if (!data.institution) return showError('Pick your institution.');
-      if (!data.yearOfStudy) return showError('Pick your year of study.');
+
+      // Required demographic fields (location is the only optional one).
+      const need = {
+        firstNameEn: 'your first name in English',
+        lastNameEn: 'your surname in English',
+        firstNameTh: 'your first name in Thai',
+        lastNameTh: 'your surname in Thai',
+        age: 'your age',
+        gender: 'your gender',
+        institution: 'your institution',
+        yearOfStudy: 'your year of study',
+        province: 'your province',
+      };
+      for (const [k, label] of Object.entries(need)) {
+        if (!data[k] || !String(data[k]).trim()) return showError(`Please add ${label}.`);
+      }
+      const ageNum = parseInt(data.age, 10);
+      if (isNaN(ageNum) || ageNum < 15 || ageNum > 99) {
+        return showError('Please enter a valid age (15\u201399).');
+      }
 
       submitBtn.disabled = true;
       submitBtn.querySelector('span:first-child').textContent = 'Creating account…';
@@ -267,8 +310,18 @@
           email: data.email.trim(),
           password: data.password,
           displayName: data.displayName.trim(),
-          institution: data.institution,
-          yearOfStudy: data.yearOfStudy,
+          institution: data.institution.trim(),
+          yearOfStudy: data.yearOfStudy.trim(),
+          demographics: {
+            firstNameEn: data.firstNameEn.trim(),
+            lastNameEn: data.lastNameEn.trim(),
+            firstNameTh: data.firstNameTh.trim(),
+            lastNameTh: data.lastNameTh.trim(),
+            age: ageNum,
+            gender: data.gender.trim(),
+            province: data.province.trim(),
+            location: (data.location || '').trim(),
+          },
         });
         location.href = './consent.html';
       } catch (err) {

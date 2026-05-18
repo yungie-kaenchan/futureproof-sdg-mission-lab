@@ -60,7 +60,7 @@ export function nextStepHref(currentStep) {
   return `${FLOW_STEPS[idx + 1]}.html`;
 }
 
-export async function signUpWithProfile({ email, password, displayName, institution, yearOfStudy }) {
+export async function signUpWithProfile({ email, password, displayName, institution, yearOfStudy, demographics }) {
   const fb = await ensureFirebase();
   const user = await fb.signUp(email, password);
 
@@ -71,9 +71,21 @@ export async function signUpWithProfile({ email, password, displayName, institut
     institution,
   });
 
+  // Demographic / identifying data is PDPA-sensitive — it lives in the
+  // PRIVATE profile (rules scope it to the learner + admins only), never
+  // in the public node teammates can read.
+  const demo = demographics && typeof demographics === 'object' ? demographics : {};
   await fb.writePath(fb.paths.userPrivate(user.uid), {
     email,
     yearOfStudy,
+    firstNameEn: demo.firstNameEn || null,
+    lastNameEn: demo.lastNameEn || null,
+    firstNameTh: demo.firstNameTh || null,
+    lastNameTh: demo.lastNameTh || null,
+    age: typeof demo.age === 'number' ? demo.age : null,
+    gender: demo.gender || null,
+    province: demo.province || null,
+    location: demo.location || null,
     consentVersion: null,
     lastActiveAt: Date.now(),
   });
