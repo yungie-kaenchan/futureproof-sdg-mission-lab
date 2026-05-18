@@ -126,13 +126,98 @@ export class MissionEngine {
   /* Back-compat alias — v1 scenario modules called this "PhaseHandler". */
   registerPhaseHandler(stageId, fn) { this.handlers[stageId] = fn; }
 
-  async start({ profile } = {}) {
+  async start({ profile, resume } = {}) {
     this.profile = profile || (getFlowState() && getFlowState().learnerProfile) || null;
     this.tier = getReadingTier(this.profile); // static tier-on-entry (Spec §5)
     if (typeof this.scenario.installStages === "function") {
       this.scenario.installStages(this);
     }
+    if (resume) this.loadSavedState(); // restore stageIndex + decisions (#4)
     this.renderStage();
+    this.emitProgress();
+  }
+
+  /* ──────────────────────────────────────────────────────────────────
+   * Save / resume (Reconstruction follow-up #4 — "Save for later")
+   *
+   * The whole engine state (stageIndex, scores, decisions, retries,
+   * tokens) is the resumable unit. Scenario handlers already read their
+   * sub-progress from state.decisions (quizIndex, dossierProgress,
+   * stakeholderViews…), so restoring state mid-mission resumes them.
+   * Keyed per user + mission so two missions don't collide. Best-effort,
+   * never throws — a failed save must never block the journey.
+   * ──────────────────────────────────────────────────────────────── */
+  saveKey() {
+    const flow = getFlowState();
+    const uid = (flow && flow.uid) || "anon";
+    return `fp_mission_save_${uid}_${this.missionId}`;
+  }
+  hasSavedState() {
+    try { return Boolean(localStorage.getItem(this.saveKey())); }
+    catch (_) { return false; }
+  }
+  saveState() {
+    try {
+      // Sets (e.g. dossierProgress.read) are not JSON-serialisable —
+      // convert to arrays; the scenario's ensureReadSet rehydrates them.
+      const json = JSON.stringify(
+        { v: 1, savedAt: Date.now(), missionId: this.missionId, state: this.state },
+        (_k, val) => (val instanceof Set ? Array.from(val) : val),
+      );
+      localStorage.setItem(this.saveKey(), json);
+      return true;
+    } catch (_) { return false; }
+  }
+  loadSavedState() {
+    try {
+      const raw = localStorage.getItem(this.saveKey());
+      if (!raw) return false;
+      const parsed = JSON.parse(raw);
+      if (parsed && parsed.state && typeof parsed.state.stageIndex === "number") {
+        this.state = { ...this.state, ...parsed.state };
+        if (this.state.stageIndex >= this.stages.length) {
+          this.state.stageIndex = this.stages.length - 1;
+        }
+        return true;
+      }
+    } catch (_) { /* corrupt save — ignore, start fresh */ }
+    return false;
+  }
+  clearSavedState() {
+    try { localStorage.removeItem(this.saveKey()); } catch (_) {}
+  }
+  savedAt() {
+    try {
+      const p = JSON.parse(localStorage.getItem(this.saveKey()) || "null");
+      return p && p.savedAt ? p.savedAt : null;
+    } catch (_) { return null; }
+  }
+
+  /* Broadcast macro-stage progress so the host chrome (right pane, rail)
+     can reflect it live without coupling to scenario internals. */
+  emitProgress() {
+    try {
+      const stage = this.currentStage() || {};
+      window.dispatchEvent(new CustomEvent("fp:stage", { detail: {
+        missionId: this.missionId,
+        stageIndex: this.state.stageIndex,
+        stageId: stage.id || null,
+        stageLabel: stage.label || stage.id || "",
+        total: this.stages.length,
+        stages: this.stages.map((s) => ({ id: s.id, label: s.label || s.id })),
+        tokensEarned: this.state.tokensEarned || 0,
+        passed: this.state.passed,
+        keystoneAwarded: this.state.keystoneAwarded,
+        hasSave: this.hasSavedState(),
+      }}));
+    } catch (_) { /* CustomEvent unsupported — non-fatal */ }
+  }
+
+  goToStage(i) {
+    if (typeof i !== "number" || i < 0 || i >= this.stages.length) return;
+    this.state.stageIndex = i;
+    this.renderStage();
+    this.emitProgress();
   }
 
   currentStage() { return this.stages[this.state.stageIndex]; }
@@ -182,12 +267,14 @@ export class MissionEngine {
     this.state.stageIndex += 1;
     if (this.state.stageIndex >= this.stages.length) return this.finishMission();
     this.renderStage();
+    this.emitProgress();
   }
 
   back() {
     if (this.state.stageIndex === 0) return;
     this.state.stageIndex -= 1;
     this.renderStage();
+    this.emitProgress();
   }
 
   computeComposite() {
@@ -249,7 +336,9 @@ export class MissionEngine {
         this.state.keystoneAwarded = Boolean(res && res.earned);
       } catch (_) { /* graceful — local pass still recorded */ }
     }
+    this.clearSavedState(); // mission finished — no stale resume point
     this.renderOutcome();
+    this.emitProgress();
   }
 
   renderOutcome() {
@@ -306,4 +395,43 @@ export function humanizeKey(key) {
 }
 export function escapeHtml(s) {
   return String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+}
+
+/* ──────────────────────────────────────────────────────────────────
+ * Vocabulary pronunciation (follow-up #5)
+ *
+ * Reading-text vocabulary should be hearable. We use the Web Speech API
+ * (SpeechSynthesis) rather than shipping an audio file per term: zero
+ * assets, offline-capable, instant, and UDL-aligned (CLAUDE.md §15 —
+ * "all text content has a TTS alternative"). The term is an authored
+ * controlled-vocabulary string but is still escaped into the attribute.
+ * ──────────────────────────────────────────────────────────────── */
+export function vocabSayButton(term) {
+  const t = escapeHtml(term);
+  return `<button class="vocab-say" type="button" data-say="${t}" tabindex="0" aria-label="Hear how to pronounce ${t}"><span class="material-symbols-rounded" aria-hidden="true">volume_up</span></button>`;
+}
+
+/* One delegated listener per dossier render. Feature-detected and
+   graceful — a browser without speech simply does nothing harmful. */
+export function wireVocabAudio(rootEl) {
+  if (!rootEl || rootEl.__vocabAudioWired) return;
+  rootEl.__vocabAudioWired = true;
+  rootEl.addEventListener("click", (e) => {
+    const btn = e.target.closest && e.target.closest(".vocab-say");
+    if (!btn) return;
+    e.preventDefault();
+    e.stopPropagation(); // don't toggle the tooltip / mark-read parent
+    const word = btn.getAttribute("data-say") || "";
+    try {
+      const synth = window.speechSynthesis;
+      if (!synth || !window.SpeechSynthesisUtterance || !word) return;
+      synth.cancel();
+      const u = new SpeechSynthesisUtterance(word);
+      u.lang = "en-US";
+      u.rate = 0.9;
+      synth.speak(u);
+      btn.classList.add("is-speaking");
+      u.onend = u.onerror = () => btn.classList.remove("is-speaking");
+    } catch (_) { /* speech unsupported — silent, non-fatal */ }
+  });
 }

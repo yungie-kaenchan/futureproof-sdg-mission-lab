@@ -12,99 +12,482 @@
 
 <style>
   :root{
-    --ink:#071734; --bone:#F4F1EA; --bronze:#b57c34; --bronze-light:#E8C77A;
+    --ink:#071734; --ink-deep:#050D1F; --ink-soft:#42526E;
+    --bone:#F4F1EA; --paper:#FBFAF6; --white:#fff;
+    --bronze:#b57c34; --bronze-light:#E8C77A; --bronze-faint:#F4E9D4;
+    --crimson:#7B1B1B; --steel:#647293;
+    --line:rgba(7,23,52,.10); --line-strong:rgba(7,23,52,.20);
+    --display:'Fraunces',Georgia,serif; --titles:'Cinzel',serif;
+    --sans:'DM Sans',system-ui,sans-serif; --thai:'IBM Plex Sans Thai',sans-serif;
+    --mono:'JetBrains Mono',monospace;
+    --rail-w:260px; --right-w:330px; --header-h:64px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html,body{font-family:'DM Sans',system-ui,sans-serif;color:#0F1729;background:#FBFAF6;-webkit-font-smoothing:antialiased}
-  body{min-height:100vh;padding-top:64px}
-  .shell-header{position:fixed;top:0;left:0;right:0;height:64px;z-index:50;
-    background:rgba(7,23,52,0.95);backdrop-filter:blur(8px);
-    border-bottom:1px solid rgba(232,199,122,0.18);
-    display:flex;align-items:center;justify-content:space-between;padding:0 24px;color:var(--bone)}
+  html,body{height:100%}
+  body{font-family:var(--sans);color:#0F1729;background:var(--paper);-webkit-font-smoothing:antialiased}
+
+  /* ── Header ── */
+  .shell-header{position:fixed;top:0;left:0;right:0;height:var(--header-h);z-index:60;
+    background:rgba(7,23,52,.96);backdrop-filter:blur(8px);
+    border-bottom:1px solid rgba(232,199,122,.18);
+    display:flex;align-items:center;justify-content:space-between;padding:0 20px;color:var(--bone)}
   .shell-header-brand{display:flex;align-items:center;gap:14px;text-decoration:none}
-  .shell-header-brand .logo{font-family:'Fraunces',serif;font-weight:600;font-size:20px;letter-spacing:.02em;color:var(--bronze-light)}
-  .shell-header-brand .sub{font-family:'Cinzel',serif;font-weight:600;font-size:11px;letter-spacing:.32em;color:rgba(244,241,234,.65);text-transform:uppercase;border-left:1px solid rgba(232,199,122,.22);padding-left:14px}
-  .shell-header-btn{background:transparent;border:1px solid rgba(244,241,234,.18);color:var(--bone);border-radius:999px;padding:6px 14px;font-size:12px;font-weight:600;text-decoration:none;transition:.2s}
+  .shell-header-brand .logo{font-family:var(--display);font-weight:600;font-size:20px;letter-spacing:.02em;color:var(--bronze-light)}
+  .shell-header-brand .sub{font-family:var(--titles);font-weight:600;font-size:11px;letter-spacing:.32em;color:rgba(244,241,234,.65);text-transform:uppercase;border-left:1px solid rgba(232,199,122,.22);padding-left:14px}
+  .shell-header-right{display:flex;align-items:center;gap:10px}
+  .shell-header-btn{background:transparent;border:1px solid rgba(244,241,234,.18);color:var(--bone);border-radius:999px;padding:6px 14px;font-size:12px;font-weight:600;text-decoration:none;cursor:pointer;transition:.2s}
   .shell-header-btn:hover{background:rgba(244,241,234,.08);border-color:var(--bronze)}
-  @media (max-width:767px){.shell-header-brand .sub{display:none}}
+  .hamburger{display:none;background:transparent;border:1px solid rgba(244,241,234,.18);color:var(--bone);border-radius:10px;width:38px;height:38px;align-items:center;justify-content:center;cursor:pointer}
+  .hamburger .material-symbols-rounded{font-size:22px}
 
-  .mission-wrap{max-width:920px;margin:0 auto;padding:32px 22px 100px}
-  #mission-root{min-height:50vh}
+  /* ── Left rail ── */
+  .rail{position:fixed;top:var(--header-h);left:0;bottom:0;width:var(--rail-w);
+    background:var(--white);border-right:1px solid var(--line);
+    display:flex;flex-direction:column;z-index:40;padding:14px 0;transition:transform .3s}
+  .rail-nav{display:flex;flex-direction:column;gap:2px;padding:0 12px;flex:1;overflow-y:auto;scrollbar-width:none}
+  .rail-nav::-webkit-scrollbar{display:none}
+  .rail-section-label{padding:14px 12px 6px;display:flex;flex-direction:column}
+  .rail-section-en{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--bronze)}
+  .rail-section-th{font-family:var(--thai);font-size:11px;color:var(--steel)}
+  .rail-item{position:relative;display:flex;align-items:center;gap:11px;padding:9px 11px;border-radius:13px;
+    background:transparent;color:var(--ink-soft);text-decoration:none;cursor:pointer;
+    transition:background .2s,color .2s,transform .24s cubic-bezier(.34,1.56,.64,1)}
+  .rail-item:hover{background:rgba(181,124,52,.08);color:var(--ink-deep)}
+  .rail-item.active{background:rgba(181,124,52,.14);color:var(--ink-deep)}
+  .rail-item.active::before{content:"";position:absolute;left:-12px;top:8px;bottom:8px;width:3px;background:var(--bronze);border-radius:0 3px 3px 0}
+  .rail-item.passed .rail-ic{background:linear-gradient(135deg,var(--bronze),var(--bronze-light));color:#fff}
+  .rail-ic{width:36px;height:36px;border-radius:999px;background:rgba(7,23,52,.05);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .rail-ic .material-symbols-rounded{font-size:19px}
+  .rail-tx{display:flex;flex-direction:column;gap:1px;min-width:0;flex:1}
+  .rail-step{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.08em;color:var(--bronze)}
+  .rail-label{font-size:13px;font-weight:600;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .rail-label-th{font-family:var(--thai);font-size:10px;color:var(--steel);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .rail-ks{margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--bronze);flex-shrink:0}
 
-  /* Boot / error states (host-owned, static text only — no injection) */
-  .boot{display:flex;flex-direction:column;align-items:center;justify-content:center;
-    min-height:50vh;text-align:center;gap:14px;color:#4A5A7A}
-  .boot .spinner{width:38px;height:38px;border-radius:999px;
-    border:3px solid rgba(181,124,52,.25);border-top-color:#b57c34;animation:spin 1s linear infinite}
-  @keyframes spin{to{transform:rotate(360deg)}}
-  .boot h1{font-family:'Fraunces',serif;font-weight:500;font-size:26px;color:#0F1729}
-  .boot a.btn{display:inline-flex;align-items:center;gap:8px;margin-top:8px;
-    background:linear-gradient(135deg,#b57c34,#E8C77A);color:#071734;
-    font-weight:700;font-size:14px;padding:11px 22px;border-radius:999px;text-decoration:none}
-  @media (prefers-reduced-motion:reduce){.boot .spinner{animation:none}}
+  /* ── Bottom-left profile ── */
+  .rail-profile{border-top:1px solid var(--line);margin:8px 12px 0;padding-top:10px}
+  .rail-profile-header{width:100%;display:flex;align-items:center;gap:10px;background:transparent;border:none;
+    padding:9px 8px;border-radius:12px;cursor:pointer;text-align:left;transition:background .2s}
+  .rail-profile-header:hover{background:rgba(7,23,52,.04)}
+  .rail-avatar{width:38px;height:38px;border-radius:999px;flex-shrink:0;position:relative;
+    background:linear-gradient(135deg,var(--ink),#16305c);color:var(--bronze-light);
+    display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;font-family:var(--mono)}
+  .rail-avatar .online-dot{position:absolute;right:-1px;bottom:-1px;width:10px;height:10px;border-radius:999px;background:#3FB984;border:2px solid var(--white)}
+  .rail-profile-info{flex:1;min-width:0}
+  .rail-profile-name{font-size:13px;font-weight:700;color:var(--ink-deep);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .rail-profile-role{font-family:var(--mono);font-size:10px;color:var(--steel);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .rail-profile-chev{color:var(--steel);font-size:18px;transition:transform .25s}
+  .rail-profile.is-open .rail-profile-chev{transform:rotate(180deg)}
+  .rail-profile-menu{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .rail-profile.is-open .rail-profile-menu{max-height:340px}
+  .rail-profile-stats{display:flex;gap:8px;padding:10px 4px}
+  .rps{flex:1;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+  .rps .l{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--steel)}
+  .rps .v{font-size:16px;font-weight:700;color:var(--ink-deep);margin-top:2px}
+  .rps.tok .v{color:var(--bronze)}
+  .rail-profile-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;
+    color:var(--ink-soft);text-decoration:none;font-size:12.5px;transition:background .2s}
+  .rail-profile-item:hover{background:rgba(181,124,52,.08);color:var(--ink-deep)}
+  .rail-profile-item .material-symbols-rounded{font-size:17px}
+  .rail-profile-lang{display:flex;align-items:center;justify-content:space-between;padding:8px 10px 4px}
+  .rail-profile-lang .cap{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--steel)}
+  .langpill{display:flex;border:1px solid var(--line-strong);border-radius:999px;overflow:hidden}
+  .langpill button{border:none;background:transparent;font-size:11px;font-weight:700;padding:4px 11px;cursor:pointer;color:var(--steel)}
+  .langpill button.is-active{background:var(--bronze);color:#fff}
+  .rail-signout{display:flex;align-items:center;gap:9px;margin-top:8px;padding:9px 10px;border-radius:10px;
+    color:var(--crimson);text-decoration:none;font-size:12.5px;font-weight:600;transition:background .2s}
+  .rail-signout:hover{background:rgba(123,27,27,.08)}
+  .rail-signout .material-symbols-rounded{font-size:17px}
 
+  /* ── Center ── */
+  .center{position:fixed;top:var(--header-h);left:var(--rail-w);right:var(--right-w);bottom:0;
+    overflow-y:auto;padding:24px 30px 90px}
+  body.right-collapsed .center{right:0}
+  .center-inner{max-width:860px;margin:0 auto}
+  .resume-banner{display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+    background:linear-gradient(135deg,rgba(232,199,122,.16),rgba(7,23,52,.04));
+    border:1px solid rgba(181,124,52,.34);border-left:4px solid var(--bronze);
+    border-radius:14px;padding:14px 18px;margin-bottom:20px}
+  .resume-banner p{font-size:13.5px;color:var(--ink);flex:1;min-width:200px;line-height:1.5}
+  .resume-banner strong{color:var(--ink-deep)}
+  .mini-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:999px;
+    font-weight:700;font-size:12.5px;cursor:pointer;border:none;text-decoration:none;transition:transform .2s,box-shadow .2s}
+  .mini-btn.gold{background:linear-gradient(135deg,var(--bronze),var(--bronze-light));color:var(--ink-deep)}
+  .mini-btn.gold:hover{transform:translateY(-1px);box-shadow:0 8px 18px rgba(181,124,52,.32)}
+  .mini-btn.ghost{background:transparent;border:1px solid var(--line-strong);color:var(--ink-soft)}
+  .mini-btn.ghost:hover{border-color:var(--bronze);color:var(--bronze)}
+  .save-bar{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-bottom:14px}
+  .save-hint{font-size:11.5px;color:var(--steel);margin-right:auto}
+  #mission-root{min-height:46vh}
   #phase-controls{display:flex;justify-content:flex-end;gap:10px;margin-top:24px}
+  .toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(20px);
+    background:var(--ink-deep);color:var(--bone);padding:11px 22px;border-radius:999px;
+    font-size:13px;font-weight:600;opacity:0;pointer-events:none;transition:.35s;z-index:80}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  /* ── Right pane ── */
+  .right{position:fixed;top:var(--header-h);right:0;bottom:0;width:var(--right-w);
+    background:var(--white);border-left:1px solid var(--line);overflow-y:auto;
+    padding:22px 20px;z-index:35;transition:transform .3s}
+  body.right-collapsed .right{transform:translateX(100%)}
+  .right-toggle{position:fixed;top:calc(var(--header-h) + 16px);right:var(--right-w);z-index:45;
+    width:26px;height:42px;border:1px solid var(--line);border-right:none;background:var(--white);
+    border-radius:10px 0 0 10px;cursor:pointer;color:var(--steel);display:flex;align-items:center;justify-content:center;transition:right .3s}
+  body.right-collapsed .right-toggle{right:0}
+  .right-toggle .material-symbols-rounded{font-size:18px;transition:transform .3s}
+  body.right-collapsed .right-toggle .material-symbols-rounded{transform:rotate(180deg)}
+  .right-sec{margin-bottom:24px}
+  .right-sec-label{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--bronze);margin-bottom:10px}
+  .prog-stage{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}
+  .prog-stage:last-child{border-bottom:none}
+  .prog-dot{width:22px;height:22px;border-radius:999px;border:2px solid var(--line-strong);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:var(--steel);font-family:var(--mono);font-weight:700}
+  .prog-stage.done .prog-dot{background:linear-gradient(135deg,var(--bronze),var(--bronze-light));border-color:transparent;color:#fff}
+  .prog-stage.current .prog-dot{border-color:var(--bronze);color:var(--bronze)}
+  .prog-stage.current{font-weight:700}
+  .prog-name{font-size:13px;color:var(--ink-soft)}
+  .prog-stage.done .prog-name,.prog-stage.current .prog-name{color:var(--ink-deep)}
+  .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .stat-box{background:var(--paper);border:1px solid var(--line);border-radius:11px;padding:11px 12px}
+  .stat-box .l{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--steel)}
+  .stat-box .v{font-size:18px;font-weight:700;color:var(--ink-deep);margin-top:3px;font-family:var(--display)}
+  .stat-box.tok .v{color:var(--bronze)}
+  .todo-item{display:flex;align-items:flex-start;gap:9px;padding:7px 0;font-size:12.5px;color:var(--ink-soft);line-height:1.45}
+  .todo-item .material-symbols-rounded{font-size:17px;flex-shrink:0;color:var(--line-strong)}
+  .todo-item.done{color:var(--steel)}
+  .todo-item.done .material-symbols-rounded{color:var(--bronze)}
+  .todo-item.done span{text-decoration:line-through}
+  .remain-item{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid var(--line);font-size:12.5px}
+  .remain-item:last-child{border-bottom:none}
+  .remain-item .sdg{width:24px;height:24px;border-radius:7px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+    font-family:var(--mono);font-size:9px;font-weight:700;color:#fff}
+  .remain-item .nm{flex:1;color:var(--ink-soft);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .remain-item .st{font-family:var(--mono);font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--steel)}
+  .remain-item.passed .st{color:var(--bronze)}
+  .remain-item.current .nm{color:var(--ink-deep);font-weight:700}
+
+  /* Boot / fail */
+  .boot{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:46vh;text-align:center;gap:14px;color:var(--ink-soft)}
+  .boot .spinner{width:38px;height:38px;border-radius:999px;border:3px solid rgba(181,124,52,.25);border-top-color:var(--bronze);animation:spin 1s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .boot h1{font-family:var(--display);font-weight:500;font-size:24px;color:#0F1729}
+  .boot a.btn{display:inline-flex;align-items:center;gap:8px;margin-top:8px;background:linear-gradient(135deg,var(--bronze),var(--bronze-light));color:var(--ink);font-weight:700;font-size:14px;padding:11px 22px;border-radius:999px;text-decoration:none}
+
+  .rail-scrim{display:none}
+  @media (max-width:1180px){
+    :root{--right-w:0px}
+    .right{transform:translateX(100%)}
+    body.right-open .right{transform:translateX(0);width:330px}
+    .right-toggle{display:none}
+  }
+  @media (max-width:880px){
+    :root{--rail-w:0px}
+    .hamburger{display:flex}
+    .rail{transform:translateX(-100%);width:264px;box-shadow:0 0 40px rgba(0,0,0,.2)}
+    body.rail-open .rail{transform:translateX(0)}
+    body.rail-open .rail-scrim{display:block;position:fixed;inset:var(--header-h) 0 0 0;background:rgba(7,23,52,.4);z-index:38}
+    .center{left:0;right:0;padding:20px 18px 80px}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
 
 <header class="shell-header">
-  <a href="../home.html" class="shell-header-brand">
-    <span class="logo">FUTUREPROOF</span>
-    <span class="sub">SDGs Mission Lab</span>
-  </a>
-  <a href="./mission-select.html" class="shell-header-btn">&larr; Journey map</a>
+  <div style="display:flex;align-items:center;gap:14px">
+    <button class="hamburger" id="hamburger" aria-label="Open menu"><span class="material-symbols-rounded">menu</span></button>
+    <a href="../home.html" class="shell-header-brand">
+      <span class="logo">FUTUREPROOF</span>
+      <span class="sub">SDGs Mission Lab</span>
+    </a>
+  </div>
+  <div class="shell-header-right">
+    <button class="shell-header-btn" id="save-exit" type="button" title="Save your progress and return to the journey map">
+      <span class="material-symbols-rounded" style="font-size:16px;vertical-align:-3px">bookmark_add</span> Save &amp; exit
+    </button>
+    <a href="./mission-select.html" class="shell-header-btn">&larr; Journey map</a>
+  </div>
 </header>
 
-<main class="mission-wrap">
-  <div id="mission-root">
-    <div class="boot" id="boot">
-      <div class="spinner" aria-hidden="true"></div>
-      <h1>Loading the mission…</h1>
-      <p>Reading your tier and preparing the dossier.</p>
+<div class="rail-scrim" id="rail-scrim"></div>
+
+<aside class="rail" id="rail" aria-label="Missions and tools">
+  <nav class="rail-nav">
+    <div class="rail-section-label">
+      <span class="rail-section-en">The Six Regions</span>
+      <span class="rail-section-th" lang="th">หกภูมิภาค</span>
     </div>
+    <div id="rail-missions"><!-- injected from JOURNEY_MISSIONS --></div>
+
+    <div class="rail-section-label">
+      <span class="rail-section-en">Workspace</span>
+      <span class="rail-section-th" lang="th">พื้นที่ทำงาน</span>
+    </div>
+    <a href="./mission-select.html" class="rail-item">
+      <span class="rail-ic"><span class="material-symbols-rounded">map</span></span>
+      <span class="rail-tx"><span class="rail-label">Thailand Journey</span><span class="rail-label-th" lang="th">แผนที่การเดินทาง</span></span>
+    </a>
+    <a href="./final-task.html" class="rail-item">
+      <span class="rail-ic"><span class="material-symbols-rounded">campaign</span></span>
+      <span class="rail-tx"><span class="rail-label">Voice for Change</span><span class="rail-label-th" lang="th">ภารกิจสุดท้าย</span></span>
+    </a>
+    <a href="./portfolio.html" class="rail-item">
+      <span class="rail-ic"><span class="material-symbols-rounded">school</span></span>
+      <span class="rail-tx"><span class="rail-label">Learning Portfolio</span><span class="rail-label-th" lang="th">พอร์ตโฟลิโอ</span></span>
+    </a>
+    <a href="./hall-of-excellence.html" class="rail-item">
+      <span class="rail-ic"><span class="material-symbols-rounded">emoji_events</span></span>
+      <span class="rail-tx"><span class="rail-label">Hall of Voices</span><span class="rail-label-th" lang="th">หอเสียงเพื่อการเปลี่ยนแปลง</span></span>
+    </a>
+  </nav>
+
+  <div class="rail-profile" id="rail-profile">
+    <button class="rail-profile-header" id="rail-profile-toggle" aria-expanded="false" aria-controls="rail-profile-menu">
+      <div class="rail-avatar"><span id="rp-initials">··</span><span class="online-dot" aria-hidden="true"></span></div>
+      <div class="rail-profile-info">
+        <div class="rail-profile-name" id="rp-name">Loading…</div>
+        <div class="rail-profile-role" id="rp-role">—</div>
+      </div>
+      <span class="rail-profile-chev material-symbols-rounded" aria-hidden="true">expand_more</span>
+    </button>
+    <div class="rail-profile-menu" id="rail-profile-menu" role="region" aria-label="Profile menu">
+      <div class="rail-profile-stats">
+        <div class="rps tok"><div class="l">Keystones</div><div class="v" id="rp-keystones">0 / 6</div></div>
+        <div class="rps"><div class="l">Reading tier</div><div class="v" id="rp-tier">—</div></div>
+      </div>
+      <a href="./portfolio.html" class="rail-profile-item"><span class="material-symbols-rounded">school</span><span>My Portfolio</span></a>
+      <a href="./reflections.html" class="rail-profile-item"><span class="material-symbols-rounded">mic</span><span>My Reflections</span></a>
+      <a href="./my-data.html" class="rail-profile-item"><span class="material-symbols-rounded">lock</span><span>My Data · PDPA</span></a>
+      <a href="../home.html#contact" class="rail-profile-item"><span class="material-symbols-rounded">help</span><span>Help &amp; Support</span></a>
+      <div class="rail-profile-lang">
+        <span class="cap">Language</span>
+        <div class="langpill" role="tablist" aria-label="Interface language">
+          <button class="is-active" data-lang="en" role="tab" aria-selected="true">EN</button>
+          <button data-lang="th" role="tab" aria-selected="false">ไทย</button>
+        </div>
+      </div>
+    </div>
+    <a href="../index.html" class="rail-signout" id="rail-signout"><span class="material-symbols-rounded">logout</span><span>Sign Out</span></a>
   </div>
-  <div id="phase-controls"></div>
+</aside>
+
+<main class="center">
+  <div class="center-inner">
+    <div class="resume-banner" id="resume-banner" hidden>
+      <span class="material-symbols-rounded" style="color:var(--bronze);font-size:24px">history</span>
+      <p><strong>Welcome back.</strong> You have a saved point in this mission <span id="resume-when"></span>. Resume where you left off, or start the mission over.</p>
+      <button class="mini-btn gold" id="resume-yes" type="button">Resume</button>
+      <button class="mini-btn ghost" id="resume-no" type="button">Start over</button>
+    </div>
+
+    <div class="save-bar" id="save-bar" hidden>
+      <span class="save-hint">Your work on this stage is kept on this device. Save a resume point any time.</span>
+      <button class="mini-btn ghost" id="save-later" type="button">
+        <span class="material-symbols-rounded" style="font-size:15px">bookmark_add</span> Save for later
+      </button>
+    </div>
+
+    <div id="mission-root">
+      <div class="boot" id="boot">
+        <div class="spinner" aria-hidden="true"></div>
+        <h1>Loading the mission…</h1>
+        <p>Reading your tier and preparing the dossier.</p>
+      </div>
+    </div>
+    <div id="phase-controls"></div>
+  </div>
 </main>
 
-<!-- Optional dev config (graceful if absent) -->
+<button class="right-toggle" id="right-toggle" title="Hide / show the progress pane" aria-label="Toggle progress pane">
+  <span class="material-symbols-rounded">chevron_right</span>
+</button>
+
+<aside class="right" id="right" aria-label="Progress and analytics">
+  <div class="right-sec">
+    <div class="right-sec-label">Mission Progress</div>
+    <div id="progress-list"><p style="font-size:12.5px;color:var(--steel)">Starting…</p></div>
+  </div>
+  <div class="right-sec">
+    <div class="right-sec-label">This Mission</div>
+    <div class="stat-grid">
+      <div class="stat-box tok"><div class="l">Tokens</div><div class="v" id="an-tokens">0 ◆</div></div>
+      <div class="stat-box"><div class="l">Reading tier</div><div class="v" id="an-tier">—</div></div>
+      <div class="stat-box"><div class="l">Keystone</div><div class="v" id="an-keystone">—</div></div>
+      <div class="stat-box"><div class="l">Stage</div><div class="v" id="an-stage">—</div></div>
+    </div>
+  </div>
+  <div class="right-sec">
+    <div class="right-sec-label">What to do here</div>
+    <div id="todo-list"></div>
+  </div>
+  <div class="right-sec">
+    <div class="right-sec-label">Remaining Regions</div>
+    <div id="remaining-list"><p style="font-size:12.5px;color:var(--steel)">Loading…</p></div>
+  </div>
+</aside>
+
+<div class="toast" id="toast"></div>
+
 <script src="../config.local.js" onerror="window.__noConfig = true;"></script>
 
 <script type="module">
   import { MissionEngine } from "../src/mission-engine.js";
+  import { getFlowState } from "../src/auth.js";
+  import { JOURNEY_MISSIONS, getJourneyProgress } from "../src/keystones.js";
+  import { tierLabel } from "../src/adaptive.js";
 
-  // Whitelisted, playable scenarios → adapter module path.
-  // (Documented-only missions 3–6 are intentionally absent; the journey
-  //  map routes them to their field reports instead.)
   const REGISTRY = {
     "sdg06-khonkaen":  "../src/scenarios/sdg06-khonkaen.js",
     "sdg13-chiangmai": "../src/scenarios/sdg13-chiangmai.js",
   };
-
-  const root = document.getElementById("mission-root");
-  const boot = document.getElementById("boot");
-
-  function fail(titleText, bodyText) {
-    // Static DOM only — never inject untrusted text via innerHTML.
-    root.replaceChildren();
-    const wrap = document.createElement("div");
-    wrap.className = "boot";
-    const h = document.createElement("h1");
-    h.textContent = titleText;
-    const p = document.createElement("p");
-    p.textContent = bodyText;
-    const a = document.createElement("a");
-    a.className = "btn";
-    a.href = "./mission-select.html";
-    a.textContent = "← Back to the Thailand journey";
-    wrap.append(h, p, a);
-    root.replaceChildren(wrap);
-  }
+  const SDG_COLOR = { 6:"#26BDE2", 13:"#3F7E44", 11:"#FD9D24", 14:"#0A97D9", 4:"#C5192D", 3:"#4C9F38" };
+  const STAGE_TODO = {
+    briefing:     ["Read the setting and the core tension", "Note the ethical axes in play", "Acknowledge the scenario notice"],
+    dossier:      ["Read all four dossier parts at your tier", "Tap a highlighted word to hear it", "Mark each section read"],
+    stakeholders: ["Play all four stakeholder dispatches", "Open each transcript", "Note each primary concern"],
+    quiz:         ["Answer each item and rate your confidence", "Read the feedback before continuing", "Aim to clear the pass bar"],
+    complete:     ["Review your debrief", "Check your Keystone status", "Return to the journey or replay"],
+  };
 
   const params = new URLSearchParams(location.search);
   const scenarioId = (params.get("scenario") || "").trim();
-  const modPath = REGISTRY[scenarioId];
+  const wantResume = params.get("resume") === "1";
+  const flow = getFlowState();
+  const uid = flow && flow.uid;
 
+  /* ── Profile (bottom-left) ── */
+  const name = (flow && flow.displayName) || "Operator";
+  const initials = name.trim().split(/\s+/).map(w => w[0]).slice(0,2).join("").toUpperCase() || "OP";
+  const lp = (flow && flow.learnerProfile) || {};
+  const tierNum = lp.readingTier || (lp.language && lp.language.readingTier) || null;
+  const rank = (flow && flow.rank) || "Cadet";
+  document.getElementById("rp-initials").textContent = initials;
+  document.getElementById("rp-name").textContent = name;
+  document.getElementById("rp-role").textContent =
+    rank + (lp.cefrEstimate ? " · CEFR " + lp.cefrEstimate : "");
+  document.getElementById("rp-tier").textContent = tierNum ? ("T" + tierNum) : "—";
+  const tierTxt = tierNum ? (tierNum + " · " + tierLabel(tierNum)) : "default";
+  document.getElementById("an-tier").textContent = tierTxt;
+
+  // Profile expander + language + signout
+  const rpToggle = document.getElementById("rail-profile-toggle");
+  const rpWrap = document.getElementById("rail-profile");
+  rpToggle.addEventListener("click", () => {
+    const open = rpWrap.classList.toggle("is-open");
+    rpToggle.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+  document.querySelectorAll(".langpill button").forEach(b => b.addEventListener("click", () => {
+    document.querySelectorAll(".langpill button").forEach(x => {
+      const on = x === b; x.classList.toggle("is-active", on); x.setAttribute("aria-selected", on ? "true" : "false");
+    });
+    document.documentElement.lang = b.dataset.lang;
+  }));
+  document.getElementById("rail-signout").addEventListener("click", () => {
+    try { localStorage.removeItem("fp_flow_state_v1"); } catch (_) {}
+  });
+
+  // Mobile rail toggle
+  const ham = document.getElementById("hamburger");
+  const scrim = document.getElementById("rail-scrim");
+  ham.addEventListener("click", () => document.body.classList.toggle("rail-open"));
+  scrim.addEventListener("click", () => document.body.classList.remove("rail-open"));
+
+  // Right pane toggle
+  document.getElementById("right-toggle").addEventListener("click", () => {
+    document.body.classList.toggle("right-collapsed");
+    document.body.classList.toggle("right-open");
+  });
+
+  /* ── Rail missions + Remaining list (from journey progress) ── */
+  let progress = [];
+  try { progress = await getJourneyProgress(uid); } catch (_) {
+    progress = JOURNEY_MISSIONS.map(m => ({ ...m, status: "available" }));
+  }
+  const railMissions = document.getElementById("rail-missions");
+  const remainingList = document.getElementById("remaining-list");
+  railMissions.replaceChildren();
+  remainingList.replaceChildren();
+  progress.forEach((m, i) => {
+    const passed = m.status === "passed";
+    const isCurrent = m.id === scenarioId;
+    const playable = REGISTRY[m.id];
+
+    const a = document.createElement("a");
+    a.className = "rail-item" + (isCurrent ? " active" : "") + (passed ? " passed" : "");
+    a.href = playable ? ("./mission-run.html?scenario=" + m.id) : "./mission-select.html";
+    const ic = document.createElement("span"); ic.className = "rail-ic";
+    const ici = document.createElement("span"); ici.className = "material-symbols-rounded";
+    ici.textContent = passed ? "verified" : (playable ? "play_circle" : "lock");
+    ic.appendChild(ici);
+    const tx = document.createElement("span"); tx.className = "rail-tx";
+    const st = document.createElement("span"); st.className = "rail-step"; st.textContent = "SDG " + m.sdg + " · " + m.region;
+    const lb = document.createElement("span"); lb.className = "rail-label"; lb.textContent = m.title;
+    tx.append(st, lb);
+    a.append(ic, tx);
+    if (passed) { const k = document.createElement("span"); k.className = "rail-ks material-symbols-rounded"; k.textContent = "key"; a.appendChild(k); }
+    railMissions.appendChild(a);
+
+    const r = document.createElement("div");
+    r.className = "remain-item" + (passed ? " passed" : "") + (isCurrent ? " current" : "");
+    const rs = document.createElement("span"); rs.className = "sdg"; rs.style.background = SDG_COLOR[m.sdg] || "#b57c34"; rs.textContent = m.sdg;
+    const rn = document.createElement("span"); rn.className = "nm"; rn.textContent = m.title;
+    const rst = document.createElement("span"); rst.className = "st";
+    rst.textContent = passed ? "earned" : (isCurrent ? "in progress" : (playable ? "ready" : "documented"));
+    r.append(rs, rn, rst);
+    remainingList.appendChild(r);
+  });
+
+  /* ── Helpers ── */
+  const root = document.getElementById("mission-root");
+  const toastEl = document.getElementById("toast");
+  function toast(msg) {
+    toastEl.textContent = msg; toastEl.classList.add("show");
+    setTimeout(() => toastEl.classList.remove("show"), 2600);
+  }
+  function fail(t, b) {
+    root.replaceChildren();
+    const w = document.createElement("div"); w.className = "boot";
+    const h = document.createElement("h1"); h.textContent = t;
+    const p = document.createElement("p"); p.textContent = b;
+    const a = document.createElement("a"); a.className = "btn"; a.href = "./mission-select.html";
+    a.textContent = "← Back to the Thailand journey";
+    w.append(h, p, a); root.replaceChildren(w);
+  }
+
+  /* ── Right-pane live progress (driven by engine 'fp:stage' events) ── */
+  const progressList = document.getElementById("progress-list");
+  const todoList = document.getElementById("todo-list");
+  function paintProgress(d) {
+    progressList.replaceChildren();
+    (d.stages || []).forEach((s, i) => {
+      const row = document.createElement("div");
+      const state = i < d.stageIndex ? "done" : (i === d.stageIndex ? "current" : "");
+      row.className = "prog-stage " + state;
+      const dot = document.createElement("span"); dot.className = "prog-dot";
+      dot.textContent = i < d.stageIndex ? "✓" : String(i + 1);
+      const nm = document.createElement("span"); nm.className = "prog-name"; nm.textContent = s.label || s.id;
+      row.append(dot, nm); progressList.appendChild(row);
+    });
+    document.getElementById("an-tokens").textContent = (d.tokensEarned >= 0 ? "" : "") + (d.tokensEarned || 0) + " ◆";
+    document.getElementById("an-stage").textContent = (d.stageIndex + 1) + " / " + d.total;
+    document.getElementById("an-keystone").textContent = d.keystoneAwarded ? "◆ EARNED" : (d.passed ? "◆" : "—");
+    // To-do for the current stage
+    todoList.replaceChildren();
+    const items = STAGE_TODO[d.stageId] || ["Work through this stage", "Continue when ready"];
+    items.forEach(t => {
+      const it = document.createElement("div"); it.className = "todo-item";
+      const ic = document.createElement("span"); ic.className = "material-symbols-rounded"; ic.textContent = "radio_button_unchecked";
+      const sp = document.createElement("span"); sp.textContent = t;
+      it.append(ic, sp); todoList.appendChild(it);
+    });
+  }
+  window.addEventListener("fp:stage", (e) => { if (e.detail) paintProgress(e.detail); });
+
+  /* ── Mount the engine ── */
+  let engine = null;
+  const modPath = REGISTRY[scenarioId];
   if (!scenarioId) {
     fail("No mission selected", "Choose a region from the journey map to begin.");
   } else if (!modPath) {
@@ -113,25 +496,43 @@
   } else {
     try {
       const scenario = await import(modPath);
-      if (!scenario || !scenario.meta || !scenario.meta.id) {
-        throw new Error("scenario module missing meta.id");
-      }
-      // Clear the boot splash, hand the container to the engine.
+      if (!scenario || !scenario.meta || !scenario.meta.id) throw new Error("scenario module missing meta.id");
       root.replaceChildren();
-
-      const engine = new MissionEngine({
-        scenario,
-        container: root,
-        onComplete: (result) => {
-          // The DEBRIEF handler already renders its own outcome + CTA;
-          // this is a safety net if a scenario delegates to the engine.
-          try {
-            sessionStorage.setItem("fp_last_mission_result", JSON.stringify(result || {}));
-          } catch (_) {}
-        },
+      engine = new MissionEngine({
+        scenario, container: root,
+        onComplete: (result) => { try { sessionStorage.setItem("fp_last_mission_result", JSON.stringify(result || {})); } catch (_) {} },
       });
 
-      await engine.start();
+      const saveBar = document.getElementById("save-bar");
+      const banner = document.getElementById("resume-banner");
+
+      const begin = async (resume) => {
+        banner.hidden = true;
+        await engine.start({ resume });
+        saveBar.hidden = false;
+      };
+
+      if (engine.hasSavedState() && !wantResume) {
+        const ts = engine.savedAt();
+        document.getElementById("resume-when").textContent =
+          ts ? ("(saved " + new Date(ts).toLocaleString() + ")") : "";
+        banner.hidden = false;
+        document.getElementById("resume-yes").addEventListener("click", () => begin(true));
+        document.getElementById("resume-no").addEventListener("click", () => { engine.clearSavedState(); begin(false); });
+      } else {
+        await begin(wantResume);
+      }
+
+      // Save-for-later (center bar + header) → both persist engine.state
+      const doSave = () => {
+        if (engine.saveState()) toast("Saved. You can resume from here later.");
+        else toast("Couldn't save on this device — your work stays on screen.");
+      };
+      document.getElementById("save-later").addEventListener("click", doSave);
+      document.getElementById("save-exit").addEventListener("click", () => {
+        engine.saveState();
+        location.href = "./mission-select.html";
+      });
     } catch (err) {
       console.error("[FUTUREPROOF] Mission failed to load:", err);
       fail("Something went wrong loading this mission",

@@ -31,7 +31,7 @@ import { awardTokens } from "../tokens.js";
 import { getFlowState, isFirebaseAvailable } from "../auth.js";
 import { getReadingTier, pickTier, glossDensity, scaffoldsEnabled, tierLabel } from "../adaptive.js";
 import { awardKeystone } from "../keystones.js";
-import { escapeHtml } from "../mission-engine.js";
+import { escapeHtml, vocabSayButton, wireVocabAudio } from "../mission-engine.js";
 
 const SCENARIO_PHASES = ["briefing", "dossier", "stakeholders", "quiz", "complete"];
 const MISSION_ID = "sdg13-chiangmai"; // must match keystones.js JOURNEY_MISSIONS id
@@ -168,7 +168,7 @@ async function probeDossier(container, state, engine) {
           <div class="vocab-chip-row">
             ${VOCABULARY.map((v) => `
               <span class="vocab-chip" tabindex="0" data-term="${v.term}">
-                <strong>${v.term}</strong>
+                <strong>${v.term}</strong>${vocabSayButton(v.term)}
                 <span class="vocab-tip"><em>${v.gloss}</em><span class="vocab-th" lang="th">${v.th}</span></span>
               </span>`).join("")}
           </div>
@@ -213,6 +213,7 @@ async function probeDossier(container, state, engine) {
   });
 
   refreshDossierProgress(container, readSet);
+  wireVocabAudio(container); // #5 — tap a highlighted/legend word to hear it
 
   container.querySelector("#dossier-continue").addEventListener("click", () => {
     state.decisions.dossierProgress.read = Array.from(readSet);
@@ -257,7 +258,7 @@ function renderBodyWithVocab(body, density) {
     .map((para) => `<p>${para.replace(/<vocab>([^<]+)<\/vocab>/g, (_, term) => {
       const v = VOCABULARY.find((x) => x.term === term);
       if (!v || stripOnly) return term;
-      return `<span class="vocab-inline" tabindex="0">${term}<span class="vocab-tip"><em>${v.gloss}</em><span class="vocab-th" lang="th">${v.th}</span></span></span>`;
+      return `<span class="vocab-inline" tabindex="0">${term}<span class="vocab-tip"><em>${v.gloss}</em><span class="vocab-th" lang="th">${v.th}</span>${vocabSayButton(term)}</span></span>`;
     })}</p>`)
     .join("");
 }

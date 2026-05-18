@@ -16,6 +16,7 @@ import { QUIZ_ITEMS, CONFIDENCE_LEVELS, computeTokenAward, shouldShowScaffold, Q
 import { ensureDisclaimerAcknowledged, showDisclaimer } from "./scenario-disclaimer.js";
 import { awardTokens } from "../tokens.js";
 import { getFlowState, isFirebaseAvailable } from "../auth.js";
+import { vocabSayButton, wireVocabAudio } from "../mission-engine.js";
 
 const SCENARIO_PHASES_M1 = ["briefing", "dossier", "stakeholders", "quiz", "complete"];
 
@@ -138,7 +139,7 @@ async function reconDossier(container, state, engine) {
           <div class="vocab-chip-row">
             ${VOCABULARY.map((v) => `
               <span class="vocab-chip" tabindex="0" data-term="${v.term}">
-                <strong>${v.term}</strong>
+                <strong>${v.term}</strong>${vocabSayButton(v.term)}
                 <span class="vocab-tip"><em>${v.gloss}</em><span class="vocab-th" lang="th">${v.th}</span></span>
               </span>`).join("")}
           </div>
@@ -184,6 +185,7 @@ async function reconDossier(container, state, engine) {
   });
 
   refreshDossierProgress(container, readSet);
+  wireVocabAudio(container); // #5 — tap a highlighted/legend word to hear it
 
   container.querySelector("#dossier-continue").addEventListener("click", () => {
     state.decisions.dossierProgress.read = Array.from(readSet);
@@ -217,7 +219,7 @@ function renderBodyWithVocab(body) {
     .map((para) => `<p>${para.replace(/<vocab>([^<]+)<\/vocab>/g, (_, term) => {
       const v = VOCABULARY.find((x) => x.term === term);
       if (!v) return term;
-      return `<span class="vocab-inline" tabindex="0">${term}<span class="vocab-tip"><em>${v.gloss}</em><span class="vocab-th" lang="th">${v.th}</span></span></span>`;
+      return `<span class="vocab-inline" tabindex="0">${term}<span class="vocab-tip"><em>${v.gloss}</em><span class="vocab-th" lang="th">${v.th}</span>${vocabSayButton(term)}</span></span>`;
     })}</p>`)
     .join("");
   return html;

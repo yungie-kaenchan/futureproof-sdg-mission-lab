@@ -3259,6 +3259,24 @@ body.font-dyslexia {
   }
   .vocab-chip.is-static { background: #FAFAFB; border-color: #EAEAED; color: #647293; cursor: default; }
   .vocab-chip strong { font-weight: 600; }
+  /* Pronunciation button (#5 — Web Speech). Appears in the legend chip
+     and inside the gloss tooltip; small, keyboard-focusable, UDL TTS. */
+  .vocab-say {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 20px; height: 20px; margin-left: 6px; padding: 0;
+    border: none; border-radius: 999px; cursor: pointer; flex-shrink: 0;
+    background: rgba(181, 124, 52, 0.16); color: #b57c34;
+    transition: background 160ms, transform 160ms, color 160ms;
+    vertical-align: middle;
+  }
+  .vocab-say .material-symbols-rounded { font-size: 14px; }
+  .vocab-say:hover { background: #b57c34; color: #fff; transform: scale(1.1); }
+  .vocab-say:focus-visible { outline: 2px solid #E8C77A; outline-offset: 2px; }
+  .vocab-say.is-speaking { background: #b57c34; color: #fff; animation: vocabSay 1s ease-in-out infinite; }
+  @keyframes vocabSay { 0%,100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+  /* Inside the dark gloss tooltip, lift contrast. */
+  .vocab-tip .vocab-say { background: rgba(244, 241, 234, 0.18); color: #F4F1EA; margin-top: 8px; }
+  .vocab-tip .vocab-say:hover { background: #E8C77A; color: #071734; }
 
   .institutions-cited { border-top: 1px dashed #EAEAED; padding-top: 16px; }
   .cited-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 4px; }
