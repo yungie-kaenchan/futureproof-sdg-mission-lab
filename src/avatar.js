@@ -16,12 +16,19 @@
 const STABILITY_PROXY = "/.netlify/functions/stability-proxy";
 const TARGET_SIZE = 1024;
 
+// QC simplification: the avatar flow no longer asks students to pick a
+// style. There is one optional, one-time "make it a cartoon" pass. The
+// preset list is kept (back end maps the id to a prompt) but only the
+// single `cartoon` entry is used now.
 export const STYLE_PRESETS = [
+  { id: "cartoon",  label: "Cartoon",          hint: "A friendly stylized cartoon portrait." },
   { id: "classic",  label: "Classic Operator", hint: "Composed, professional, neutral." },
   { id: "field",    label: "Field Agent",      hint: "Alert and a little weatherworn." },
   { id: "diplomat", label: "Diplomat",         hint: "Confident, open, tailored silhouette." },
   { id: "scholar",  label: "Scholar",          hint: "Thoughtful, soft natural light." },
 ];
+
+export const AVATAR_STYLE = "cartoon";
 
 /* ──────────────────────────────────────────────────────────────────
  * Webcam
@@ -157,6 +164,18 @@ export async function saveAvatar(uid, dataUrl /* , version = 1 */) {
   await fb.writePath(`${fb.paths.userPublic(uid)}/avatarUrl`, compressed);
   await fb.writePath(`${fb.paths.userPublic(uid)}/avatarUpdatedAt`, Date.now());
   return compressed;
+}
+
+/**
+ * Persist the operator tagline / call-sign shown on the profile dashboard.
+ * Trimmed and capped; empty taglines are simply skipped (non-fatal).
+ */
+export async function saveOperatorTagline(uid, tagline) {
+  const clean = (tagline || "").trim().slice(0, 80);
+  if (!uid || !clean) return clean;
+  const fb = await import("./firebase-init.js");
+  await fb.writePath(`${fb.paths.userPublic(uid)}/tagline`, clean);
+  return clean;
 }
 
 /**

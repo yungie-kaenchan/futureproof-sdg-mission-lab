@@ -105,10 +105,17 @@ body.theme-high-contrast .console-label,
 body.theme-high-contrast .console-label-gold { color: #1A1A1A !important; }
 body.theme-high-contrast .border-panel-line { border-color: #000000 !important; }
 
-/* ── A11y: text size toggle (body.text-large adds 12.5% over baseline) ── */
+/* ── A11y: 3-level text size (Normal · Large · Extra-large) ──
+   Driven by a11y.js: body.text-large = level 1, body.text-xl = level 2.
+   The "A+" toolbar button cycles Normal → Large → Extra-large. */
 body.text-large { font-size: 22px; }
 body.text-large .text-lg { font-size: 1.3rem; }
 body.text-large .text-base { font-size: 1.15rem; }
+
+body.text-xl { font-size: 26px; }
+body.text-xl .text-lg { font-size: 1.5rem; }
+body.text-xl .text-base { font-size: 1.3rem; }
+body.text-xl h1, body.text-xl .display-heading { line-height: 1.15; }
 
 /* ── A11y: dyslexia-friendly font (Atkinson Hyperlegible) ── */
 body.font-dyslexia {

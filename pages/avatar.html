@@ -69,6 +69,7 @@
       transition: background 200ms, border-color 200ms; text-decoration: none;
     }
     .shell-header-btn:hover { background: rgba(244, 241, 234, 0.08); border-color: #b57c34; }
+    .shell-header-right { display: flex; align-items: center; gap: 8px; }
     @media (max-width: 1199px) { .shell-header-status { max-width: 360px; margin: 0 8px; } }
     @media (max-width: 899px) { .shell-header-brand .sub { display: none; } }
     @media (max-width: 767px) { .shell-header-status { display: none; } }
@@ -93,7 +94,10 @@
       </div>
     </div>
 
-    <a href="./assessment.html" class="shell-header-btn">← Back</a>
+    <div class="shell-header-right">
+      <a href="./assessment.html" class="shell-header-btn">← Back</a>
+      <button id="signout-btn" type="button" class="shell-header-btn">Sign out</button>
+    </div>
   </header>
 
   <main id="main" class="max-w-1600 mx-auto px-6 lg:px-12 pt-32 pb-24">
@@ -121,11 +125,11 @@
     </h1>
 
     <p class="text-lg text-on-surface/80 leading-relaxed mb-10 max-w-2xl">
-      Your avatar shows up next to every decision you log. Snap a quick photo or upload one — we'll generate a stylized portrait that looks like you, only more cinematic.
+      Three quick steps: <strong>add a photo</strong>, <strong>write a short tagline</strong>, then — if you like — <strong>turn it into a cartoon once</strong>. Your avatar and tagline show up next to every decision you log.
     </p>
 
     <div id="config-warning" class="alert-warn mb-8 max-w-3xl" hidden>
-      <strong>Heads up:</strong> The avatar service isn't connected in this build. The page works as a preview — generation and saving are disabled until Aj. Yungie deploys to Netlify and sets the <code>STABILITY_API_KEY</code> environment variable.
+      <strong>One moment:</strong> the cartoon maker isn't switched on just yet. You can still add a photo, write your tagline, and continue — your photo will be used as your avatar.
     </div>
 
     <div id="consent-block" class="alert-warn mb-8 max-w-3xl" hidden>
@@ -136,6 +140,8 @@
 
       <!-- Capture column -->
       <section class="lg:col-span-7 space-y-6">
+
+        <div class="console-label-gold">STEP 1 · ADD A PHOTO</div>
 
         <div class="flex items-center gap-3 flex-wrap">
           <button type="button" class="avatar-tab active" data-tab="upload">Upload</button>
@@ -182,32 +188,36 @@
           <div class="console-label-gold mb-3">PREVIEW</div>
           <div id="preview-stage" class="avatar-stage">
             <div class="placeholder">
-              Your stylized portrait will appear here after generation.
+              Your photo will appear here once you add one.
             </div>
           </div>
         </div>
 
         <div>
-          <div class="mission-title text-sm text-on-surface mb-3">Style</div>
-          <div id="style-grid" class="grid sm:grid-cols-2 gap-3"></div>
+          <div class="console-label-gold mb-3">STEP 2 · YOUR TAGLINE</div>
+          <label class="field-label" for="operator-tagline">A short line that's yours</label>
+          <input id="operator-tagline" type="text" class="field-input" maxlength="80" placeholder="e.g. Calm under pressure. Always asks why." />
+          <p class="field-help">Shows under your name on the profile dashboard. One sentence is plenty.</p>
         </div>
 
         <div>
-          <label class="field-label" for="subject-hint">Optional notes for the artist</label>
-          <input id="subject-hint" type="text" class="field-input" maxlength="120" placeholder="e.g. wears glasses, short hair" />
-          <p class="field-help">Help the model with details a single photo might miss. Keep it short.</p>
+          <div class="console-label-gold mb-3">STEP 3 · CARTOON (OPTIONAL)</div>
+          <p class="text-sm text-on-surface/75 leading-relaxed mb-3">
+            Want a friendly cartoon version instead of your photo? You can do this <strong>once</strong>. If you skip it, your photo is used as-is.
+          </p>
+          <button id="generate-btn" type="button" class="btn-secondary w-full justify-center" disabled>
+            <span id="generate-label">✨ Make it a cartoon</span>
+          </button>
         </div>
 
         <div id="form-error" class="field-error" hidden></div>
 
-        <div class="flex flex-wrap items-center gap-4">
-          <button id="generate-btn" type="button" class="btn-primary" disabled>
-            <span id="generate-label">Generate</span>
-            <span id="generate-icon">→</span>
+        <div class="pt-2 border-t border-panel-line">
+          <button id="save-btn" type="button" class="btn-primary w-full justify-center text-base" disabled>
+            <span>Save &amp; continue</span>
+            <span>→</span>
           </button>
-          <button id="save-btn" type="button" class="btn-secondary" disabled>
-            <span>Save & Continue</span>
-          </button>
+          <p class="field-help text-center mt-3">Your tagline saves with your avatar. You can change both later from your profile.</p>
         </div>
 
       </section>
@@ -220,15 +230,23 @@
 
   <script type="module">
     import {
-      STYLE_PRESETS, startWebcam, stopWebcam, captureFromVideo,
+      AVATAR_STYLE, startWebcam, stopWebcam, captureFromVideo,
       readFileAsDataURL, resizeDataUrlToSquare, generateAvatar, saveAvatar,
+      saveOperatorTagline,
     } from '../src/avatar.js';
-    import { getFlowState, setFlowStep, isFirebaseAvailable } from '../src/auth.js';
+    import { getFlowState, setFlowStep, isFirebaseAvailable, signOutCurrent, clearFlowState } from '../src/auth.js';
+
+    /* ─────── Header Sign-out ─────── */
+    document.getElementById('signout-btn').addEventListener('click', async () => {
+      try { if (isFirebaseAvailable()) await signOutCurrent(); } catch (_) {}
+      try { clearFlowState(); } catch (_) {}
+      location.href = '../home.html';
+    });
 
     /* ─────── State ─────── */
-    let sourceDataUrl = null;     // squared input (1024×1024 PNG)
-    let generatedDataUrl = null;  // result from Stability
-    let selectedStyle = STYLE_PRESETS[0].id;
+    let sourceDataUrl = null;     // squared input photo (the default avatar)
+    let generatedDataUrl = null;  // optional one-time cartoon result
+    let cartoonUsed = false;      // the cartoon pass is one-time only
     let webcamStream = null;
 
     /* ─────── Consent gate ─────── */
@@ -264,23 +282,7 @@
       if (id !== 'webcam' && webcamStream) { stopWebcam(webcamStream); webcamStream = null; resetWebcamButtons(); }
     }));
 
-    /* ─────── Style picker ─────── */
-    const styleGrid = document.getElementById('style-grid');
-    function renderStyles() {
-      styleGrid.innerHTML = '';
-      for (const s of STYLE_PRESETS) {
-        const card = document.createElement('button');
-        card.type = 'button';
-        card.className = 'style-card text-left' + (s.id === selectedStyle ? ' selected' : '');
-        card.innerHTML = `<div class="mission-title text-sm text-on-surface mb-1">${s.label}</div><p class="text-sm text-on-surface/70">${s.hint}</p>`;
-        card.addEventListener('click', () => {
-          selectedStyle = s.id;
-          renderStyles();
-        });
-        styleGrid.appendChild(card);
-      }
-    }
-    renderStyles();
+    /* Style choices were removed per QC — there is one fixed cartoon style. */
 
     /* ─────── Upload + drag/drop ─────── */
     const fileInput = document.getElementById('file-input');
@@ -306,10 +308,17 @@
         const raw = await readFileAsDataURL(file);
         sourceDataUrl = await resizeDataUrlToSquare(raw);
         showSourcePreview();
-        document.getElementById('generate-btn').disabled = false;
+        photoReady();
       } catch (err) {
         showError(err.message);
       }
+    }
+
+    // Once a photo exists the student can save immediately (photo = avatar).
+    // The cartoon pass stays optional and one-time.
+    function photoReady() {
+      if (!cartoonUsed) document.getElementById('generate-btn').disabled = false;
+      document.getElementById('save-btn').disabled = false;
     }
 
     /* ─────── Webcam ─────── */
@@ -334,7 +343,7 @@
       stopWebcam(webcamStream); webcamStream = null;
       resetWebcamButtons();
       showSourcePreview();
-      document.getElementById('generate-btn').disabled = false;
+      photoReady();
     });
     stopBtn.addEventListener('click', () => {
       stopWebcam(webcamStream); webcamStream = null;
@@ -384,45 +393,53 @@
     function showError(msg) { errorBox.textContent = msg; errorBox.hidden = false; }
     function clearError() { errorBox.hidden = true; errorBox.textContent = ''; }
 
+    // One-time cartoon pass. Optional: if skipped, the photo is the avatar.
     generateBtn.addEventListener('click', async () => {
       if (!sourceDataUrl) return showError("Add a photo first.");
+      if (cartoonUsed) return;
       clearError();
       generateBtn.disabled = true;
-      generateLabel.innerHTML = '<span class="spinner"></span> Generating…';
+      generateLabel.innerHTML = '<span class="spinner"></span> Making your cartoon…';
 
       try {
-        const subjectHint = document.getElementById('subject-hint').value.trim();
-        const data = await generateAvatar({ imageBase64: sourceDataUrl, style: selectedStyle, subjectHint });
+        const tagline = document.getElementById('operator-tagline').value.trim();
+        const data = await generateAvatar({ imageBase64: sourceDataUrl, style: AVATAR_STYLE, subjectHint: tagline });
         generatedDataUrl = data.imageBase64;
+        cartoonUsed = true;
         showGeneratedPreview();
         saveBtn.disabled = false;
+        generateLabel.textContent = '✓ Cartoon applied';
       } catch (err) {
-        showError(err.message);
+        showError("The cartoon maker isn't available just yet — your photo will be used instead. You can still save and continue.");
         document.getElementById('config-warning').hidden = false;
-      } finally {
         generateBtn.disabled = false;
-        generateLabel.textContent = 'Regenerate';
+        generateLabel.textContent = '✨ Make it a cartoon';
       }
     });
 
     /* ─────── Save & continue ─────── */
     saveBtn.addEventListener('click', async () => {
-      if (!generatedDataUrl) return;
+      // The avatar is the cartoon if one was made, otherwise the photo.
+      const finalAvatar = generatedDataUrl || sourceDataUrl;
+      if (!finalAvatar) return showError("Add a photo first, then save.");
       clearError();
+      const tagline = document.getElementById('operator-tagline').value.trim();
       const flow = getFlowState();
       if (!flow?.uid || !isFirebaseAvailable()) {
-        showError("Firebase isn't connected, so the avatar can't be saved here. Continuing in preview mode.");
-        setFlowStep('mission-select');
+        // Preview mode — carry the tagline forward locally so the flow continues.
+        try { sessionStorage.setItem('fp_pending_tagline', tagline); } catch (_) {}
+        setFlowStep('mission-select', { avatarSaved: false });
         location.href = './mission-select.html';
         return;
       }
       saveBtn.disabled = true;
       try {
-        await saveAvatar(flow.uid, generatedDataUrl);
+        await saveAvatar(flow.uid, finalAvatar);
+        await saveOperatorTagline(flow.uid, tagline);
         setFlowStep('mission-select', { avatarSaved: true });
         location.href = './mission-select.html';
       } catch (err) {
-        showError(err.message);
+        showError("We couldn't save just now. Please try again in a moment.");
         saveBtn.disabled = false;
       }
     });
