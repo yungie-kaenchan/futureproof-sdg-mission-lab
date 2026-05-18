@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Command — FUTUREPROOF</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <style>
+    body{background:#0A0A0B;color:#F4F1EA;font-family:'Space Grotesk',system-ui,sans-serif}
+    .wrap{max-width:1200px;margin:0 auto;padding:88px 20px 64px}
+    .topbar{position:fixed;inset:0 0 auto 0;height:60px;display:flex;align-items:center;
+      justify-content:space-between;padding:0 20px;background:rgba(10,10,11,.92);
+      backdrop-filter:blur(8px);border-bottom:1px solid #1F1F23;z-index:50}
+    .brand{font-family:'Fraunces',serif;font-weight:600;color:#E8C77A;letter-spacing:.02em}
+    .brand small{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.28em;
+      color:#8B8B92;display:block;text-transform:uppercase}
+    .btn{border:1px solid #C9A961;background:transparent;color:#E8C77A;border-radius:8px;
+      padding:8px 16px;font-weight:600;cursor:pointer;font-size:13px;transition:.15s}
+    .btn:hover{background:rgba(201,169,97,.12)}
+    .btn.solid{background:#C9A961;color:#0A0A0B}
+    .btn.danger{border-color:#A82424;color:#E08585}
+    .btn.danger:hover{background:rgba(168,36,36,.16)}
+    .btn.sm{padding:5px 10px;font-size:12px}
+    .card{background:#141416;border:1px solid #1F1F23;border-radius:14px;padding:22px;margin-bottom:18px}
+    .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+    .tab{padding:9px 16px;border-radius:8px;border:1px solid #1F1F23;background:#141416;
+      color:#8B8B92;cursor:pointer;font-weight:600;font-size:13px}
+    .tab.active{color:#0A0A0B;background:#C9A961;border-color:#C9A961}
+    table{width:100%;border-collapse:collapse;font-size:13.5px}
+    th,td{text-align:left;padding:10px 12px;border-bottom:1px solid #1F1F23;vertical-align:middle}
+    th{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;
+      text-transform:uppercase;color:#8B8B92}
+    tr:hover td{background:rgba(255,255,255,.02)}
+    .pill{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;
+      padding:3px 9px;border-radius:999px;border:1px solid #1F1F23;color:#8B8B92}
+    .pill.gold{color:#E8C77A;border-color:rgba(201,169,97,.4)}
+    input,select{background:#0A0A0B;border:1px solid #1F1F23;color:#F4F1EA;border-radius:8px;
+      padding:9px 12px;font-size:14px;width:100%;font-family:inherit}
+    label{display:block;font-size:12px;color:#8B8B92;margin:0 0 6px;font-weight:600}
+    .row{display:flex;gap:12px;flex-wrap:wrap;align-items:end}
+    .muted{color:#8B8B92;font-size:13px}
+    .drawer{position:fixed;inset:0 0 0 auto;width:min(560px,94vw);background:#141416;
+      border-left:1px solid #1F1F23;padding:28px;overflow-y:auto;z-index:60;
+      transform:translateX(100%);transition:transform .28s}
+    .drawer.open{transform:none}
+    .scrim{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:55;display:none}
+    .scrim.open{display:block}
+    .ks-grid{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center;
+      font-size:13px;border-bottom:1px solid #1F1F23;padding:8px 0}
+    .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#1E6B3A;
+      color:#fff;padding:12px 22px;border-radius:10px;font-weight:600;font-size:14px;
+      z-index:90;opacity:0;transition:.25s;pointer-events:none}
+    .toast.show{opacity:1}
+    .toast.err{background:#A82424}
+    h1,h2,h3{font-family:'Fraunces',serif}
+    h2{font-size:22px;margin:0 0 14px}
+    .gate{max-width:380px;margin:14vh auto 0}
+    .switch{display:flex;align-items:center;justify-content:space-between;
+      padding:13px 0;border-bottom:1px solid #1F1F23}
+    .toggle{width:46px;height:26px;border-radius:999px;background:#1F1F23;border:none;
+      position:relative;cursor:pointer;transition:.2s}
+    .toggle.on{background:#1E6B3A}
+    .toggle::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;
+      border-radius:50%;background:#F4F1EA;transition:.2s}
+    .toggle.on::after{left:23px}
+    [hidden]{display:none!important}
+  </style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="brand">FUTUREPROOF<small>Admin Command</small></div>
+    <div id="who" class="row" style="align-items:center;gap:10px">
+      <span class="muted" id="admin-email"></span>
+      <button class="btn sm" id="signout" hidden>Sign out</button>
+    </div>
+  </div>
+
+  <!-- GATE -->
+  <div class="wrap" id="gate-view">
+    <div class="card gate">
+      <h2>Administrator sign-in</h2>
+      <p class="muted" style="margin:-6px 0 18px">Restricted. Your account must be on the
+        administrator allowlist.</p>
+      <div style="margin-bottom:12px">
+        <label for="g-email">Email</label>
+        <input id="g-email" type="email" autocomplete="username" />
+      </div>
+      <div style="margin-bottom:18px">
+        <label for="g-pass">Password</label>
+        <input id="g-pass" type="password" autocomplete="current-password" />
+      </div>
+      <button class="btn solid" id="g-go" style="width:100%">Enter console</button>
+      <p id="g-err" class="muted" style="color:#E08585;margin:14px 0 0" hidden></p>
+    </div>
+  </div>
+
+  <!-- CONSOLE -->
+  <div class="wrap" id="console-view" hidden>
+    <div class="tabs">
+      <button class="tab active" data-tab="roster">Learners</button>
+      <button class="tab" data-tab="missions">Missions on/off</button>
+      <button class="tab" data-tab="system">System</button>
+    </div>
+
+    <!-- ROSTER -->
+    <section id="tab-roster">
+      <div class="card">
+        <div class="row" style="justify-content:space-between;margin-bottom:14px">
+          <h2 style="margin:0">Learners <span class="pill gold" id="user-count">—</span></h2>
+          <div class="row">
+            <input id="search" placeholder="Filter name / email…" style="width:240px" />
+            <button class="btn" id="refresh">Refresh</button>
+            <button class="btn solid" id="export">Export CSV</button>
+          </div>
+        </div>
+        <div style="overflow-x:auto">
+          <table>
+            <thead><tr>
+              <th>Name</th><th>Email</th><th>Institution</th><th>Rank</th>
+              <th>Keystones</th><th>In progress</th><th></th>
+            </tr></thead>
+            <tbody id="user-rows"><tr><td colspan="7" class="muted">Loading…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- MISSIONS -->
+    <section id="tab-missions" hidden>
+      <div class="card">
+        <h2>Mission availability</h2>
+        <p class="muted" style="margin:-6px 0 16px">Turn a mission off and learners can't
+          start or resume it — the journey pin is locked until you switch it back on.</p>
+        <div id="mission-switches"><p class="muted">Loading…</p></div>
+      </div>
+    </section>
+
+    <!-- SYSTEM -->
+    <section id="tab-system" hidden>
+      <div class="card" style="max-width:560px">
+        <h2>System configuration</h2>
+        <div class="switch">
+          <div><strong>Demo / judge mode</strong><div class="muted">Pre-grants all 6
+            Keystones with <code>?demo=keystones</code> so judges reach the Final Task fast.</div></div>
+          <button class="toggle" id="t-demo" aria-label="Toggle demo mode"></button>
+        </div>
+        <div style="padding:16px 0">
+          <label for="s-thresh">Mission pass threshold (composite ≥ this earns a Keystone)</label>
+          <div class="row">
+            <input id="s-thresh" type="number" min="0" max="1" step="0.05" style="width:140px" />
+            <button class="btn" id="s-save">Save</button>
+          </div>
+          <p class="muted" style="margin:8px 0 0">Default 0.60. Affects future mission passes.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- USER DRAWER -->
+  <div class="scrim" id="scrim"></div>
+  <aside class="drawer" id="drawer" aria-label="Learner detail">
+    <div class="row" style="justify-content:space-between;margin-bottom:6px">
+      <h2 id="d-name" style="margin:0">—</h2>
+      <button class="btn sm" id="d-close">Close</button>
+    </div>
+    <p class="muted" id="d-meta" style="margin:0 0 18px"></p>
+
+    <h3 style="font-size:15px;margin:0 0 10px">Edit profile</h3>
+    <div class="row" style="margin-bottom:8px">
+      <div style="flex:1;min-width:160px"><label for="d-dn">Display name</label>
+        <input id="d-dn" /></div>
+      <div style="flex:1;min-width:160px"><label for="d-inst">Institution</label>
+        <input id="d-inst" /></div>
+    </div>
+    <div class="row" style="margin-bottom:8px">
+      <div style="flex:1"><label for="d-rank">Rank</label>
+        <select id="d-rank">
+          <option>cadet</option><option>field-agent</option><option>analyst</option>
+          <option>strategist</option><option>director</option><option>ambassador</option>
+        </select></div>
+      <button class="btn solid" id="d-save-profile" style="align-self:end">Save profile</button>
+    </div>
+
+    <h3 style="font-size:15px;margin:22px 0 10px">Keystones — grant / revoke / reset</h3>
+    <div id="d-keystones"></div>
+
+    <h3 style="font-size:15px;margin:24px 0 10px;color:#E08585">Danger zone</h3>
+    <p class="muted" style="margin:-4px 0 10px">PDPA erasure — permanently deletes this
+      learner's profile, consents, progress and reflections. Cannot be undone.</p>
+    <button class="btn danger" id="d-delete">Delete all data for this learner</button>
+  </aside>
+
+  <div class="toast" id="toast"></div>
+
+  <script type="module">
+    import * as Admin from "../../src/admin.js";
+    import { JOURNEY_MISSIONS } from "../../src/keystones.js";
+
+    const $ = (id) => document.getElementById(id);
+    let ADMIN_UID = null, ROSTER = [], CURRENT = null;
+
+    function toast(msg, isErr) {
+      const t = $("toast"); t.textContent = msg;
+      t.className = "toast show" + (isErr ? " err" : "");
+      setTimeout(() => { t.className = "toast"; }, 2600);
+    }
+    const fmt = (ms) => ms ? new Date(ms).toLocaleDateString() : "—";
+
+    function emptyRow(text) {
+      const tr = document.createElement("tr");
+      const td = document.createElement("td");
+      td.colSpan = 7; td.className = "muted"; td.textContent = text;
+      tr.appendChild(td); return tr;
+    }
+
+    /* ── Gate ── */
+    $("g-go").addEventListener("click", async () => {
+      $("g-err").hidden = true;
+      const email = $("g-email").value.trim();
+      const pass = $("g-pass").value;
+      if (!email || !pass) { $("g-err").textContent = "Enter email and password."; $("g-err").hidden = false; return; }
+      $("g-go").textContent = "Checking…"; $("g-go").disabled = true;
+      try {
+        const user = await Admin.signInAdmin(email, pass);
+        ADMIN_UID = user.uid;
+        $("admin-email").textContent = user.email || "";
+        $("signout").hidden = false;
+        enterConsole();
+      } catch (err) {
+        $("g-err").textContent = (err && err.message) ? err.message
+          : "Sign-in failed. Check your details.";
+        $("g-err").hidden = false;
+      } finally { $("g-go").textContent = "Enter console"; $("g-go").disabled = false; }
+    });
+
+    $("signout").addEventListener("click", async () => {
+      try { await Admin.signOutAdmin(); } catch (_) {}
+      location.reload();
+    });
+
+    function enterConsole() {
+      $("gate-view").hidden = true;
+      $("console-view").hidden = false;
+      loadRoster(); loadMissions(); loadSystem();
+    }
+
+    /* ── Tabs ── */
+    document.querySelectorAll(".tab").forEach((t) => t.addEventListener("click", () => {
+      document.querySelectorAll(".tab").forEach((x) => x.classList.remove("active"));
+      t.classList.add("active");
+      const id = t.dataset.tab;
+      ["roster", "missions", "system"].forEach((s) =>
+        $("tab-" + s).hidden = (s !== id));
+    }));
+
+    /* ── Roster ── */
+    async function loadRoster() {
+      try {
+        ROSTER = await Admin.listUsers();
+        $("user-count").textContent = ROSTER.length;
+        renderRoster();
+      } catch (err) {
+        const tb = $("user-rows"); tb.replaceChildren();
+        tb.appendChild(emptyRow("Couldn't load learners. "
+          + (err && err.message ? err.message : "")));
+      }
+    }
+    function renderRoster() {
+      const q = $("search").value.trim().toLowerCase();
+      const rows = ROSTER.filter((r) =>
+        !q || r.displayName.toLowerCase().includes(q) || r.email.toLowerCase().includes(q));
+      const tb = $("user-rows"); tb.replaceChildren();
+      if (!rows.length) { tb.appendChild(emptyRow("No learners yet.")); return; }
+      for (const r of rows) {
+        const tr = document.createElement("tr");
+        const cells = [
+          r.displayName, r.email, r.institution || "—", r.rank,
+          r.keystoneCount + " / 6",
+          r.missionsInProgress.length ? r.missionsInProgress.join(", ") : "—",
+        ];
+        for (const c of cells) {
+          const td = document.createElement("td"); td.textContent = c; tr.appendChild(td);
+        }
+        const tdA = document.createElement("td");
+        const b = document.createElement("button");
+        b.className = "btn sm"; b.textContent = "Manage";
+        b.addEventListener("click", () => openDrawer(r.uid));
+        tdA.appendChild(b); tr.appendChild(tdA);
+        tb.appendChild(tr);
+      }
+    }
+    $("search").addEventListener("input", renderRoster);
+    $("refresh").addEventListener("click", loadRoster);
+    $("export").addEventListener("click", async () => {
+      try {
+        const csv = await Admin.exportUsersCsv();
+        const blob = new Blob([csv], { type: "text/csv" });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "futureproof-learners-" + new Date().toISOString().slice(0, 10) + ".csv";
+        a.click(); URL.revokeObjectURL(a.href);
+        toast("CSV exported.");
+      } catch (err) { toast("Export failed: " + (err && err.message), true); }
+    });
+
+    /* ── Drawer ── */
+    function closeDrawer() {
+      $("drawer").classList.remove("open"); $("scrim").classList.remove("open"); CURRENT = null;
+    }
+    $("d-close").addEventListener("click", closeDrawer);
+    $("scrim").addEventListener("click", closeDrawer);
+
+    async function openDrawer(uid) {
+      CURRENT = uid;
+      $("drawer").classList.add("open"); $("scrim").classList.add("open");
+      $("d-name").textContent = "Loading…"; $("d-meta").textContent = "";
+      $("d-keystones").replaceChildren();
+      let detail;
+      try { detail = await Admin.getUserDetail(uid); }
+      catch (err) { $("d-name").textContent = "Error"; $("d-meta").textContent = (err && err.message) || ""; return; }
+      const pub = (detail.user.profile && detail.user.profile.public) || {};
+      const priv = (detail.user.profile && detail.user.profile.private) || {};
+      $("d-name").textContent = pub.displayName || "(no name)";
+      $("d-meta").textContent = (priv.email || "no email") + " · joined " + fmt(pub.joinedAt)
+        + " · " + Object.keys(detail.progress || {}).length + " mission(s) in progress";
+      $("d-dn").value = pub.displayName || "";
+      $("d-inst").value = pub.institution || "";
+      $("d-rank").value = pub.rank || "cadet";
+
+      const ksWrap = $("d-keystones"); ksWrap.replaceChildren();
+      const earned = (detail.user.keystones) || {};
+      for (const m of JOURNEY_MISSIONS) {
+        const g = document.createElement("div"); g.className = "ks-grid";
+        const name = document.createElement("div");
+        name.textContent = "SDG " + m.sdg + " · " + m.title;
+        const has = Boolean(earned[m.id]);
+        const stat = document.createElement("span");
+        stat.className = "pill" + (has ? " gold" : "");
+        stat.textContent = has ? "earned" : "—";
+        const act = document.createElement("div"); act.className = "row"; act.style.gap = "6px";
+        const gB = document.createElement("button");
+        gB.className = "btn sm"; gB.textContent = has ? "Revoke" : "Grant";
+        gB.addEventListener("click", async () => {
+          try {
+            if (has) await Admin.revokeKeystone(uid, m.id);
+            else await Admin.grantKeystone(uid, m.id, ADMIN_UID, "Admin console grant");
+            toast(has ? "Keystone revoked." : "Keystone granted.");
+            openDrawer(uid); loadRoster();
+          } catch (e) { toast("Failed: " + (e && e.message), true); }
+        });
+        const rB = document.createElement("button");
+        rB.className = "btn sm"; rB.textContent = "Reset progress";
+        rB.title = "Clear this mission's saved resume point for this learner";
+        rB.addEventListener("click", async () => {
+          try { await Admin.resetMissionProgress(uid, m.id); toast("Mission progress reset."); }
+          catch (e) { toast("Failed: " + (e && e.message), true); }
+        });
+        act.appendChild(gB); act.appendChild(rB);
+        g.appendChild(name); g.appendChild(stat); g.appendChild(act);
+        ksWrap.appendChild(g);
+      }
+    }
+
+    $("d-save-profile").addEventListener("click", async () => {
+      if (!CURRENT) return;
+      try {
+        await Admin.updateUserProfile(CURRENT, {
+          displayName: $("d-dn").value.trim(),
+          institution: $("d-inst").value.trim(),
+          rank: $("d-rank").value,
+        });
+        toast("Profile saved."); loadRoster();
+      } catch (e) { toast("Save failed: " + (e && e.message), true); }
+    });
+
+    $("d-delete").addEventListener("click", async () => {
+      if (!CURRENT) return;
+      const r = ROSTER.find((x) => x.uid === CURRENT);
+      const nm = r ? r.displayName : CURRENT;
+      if (!confirm("Permanently delete ALL data for " + nm + "?\n\nThis erases their profile, "
+        + "consents, progress and reflections. This cannot be undone.")) return;
+      try {
+        await Admin.deleteUserData(CURRENT);
+        toast("Learner data deleted."); closeDrawer(); loadRoster();
+      } catch (e) { toast("Delete failed: " + (e && e.message), true); }
+    });
+
+    /* ── Missions on/off ── */
+    async function loadMissions() {
+      const wrap = $("mission-switches");
+      try {
+        const flags = await Admin.getMissionFlags();
+        wrap.replaceChildren();
+        for (const m of JOURNEY_MISSIONS) {
+          const on = flags[m.id] !== false;
+          const row = document.createElement("div"); row.className = "switch";
+          const lbl = document.createElement("div");
+          const strong = document.createElement("strong");
+          strong.textContent = "SDG " + m.sdg + " · " + m.title;
+          const sub = document.createElement("div"); sub.className = "muted";
+          sub.textContent = m.region + " · " + m.id;
+          lbl.appendChild(strong); lbl.appendChild(sub);
+          const tg = document.createElement("button");
+          tg.className = "toggle" + (on ? " on" : "");
+          tg.setAttribute("aria-label", "Toggle " + m.title);
+          tg.addEventListener("click", async () => {
+            const next = !tg.classList.contains("on");
+            try {
+              await Admin.setMissionEnabled(m.id, next);
+              tg.classList.toggle("on", next);
+              toast(next ? "Mission enabled." : "Mission turned off.");
+            } catch (e) { toast("Failed: " + (e && e.message), true); }
+          });
+          row.appendChild(lbl); row.appendChild(tg);
+          wrap.appendChild(row);
+        }
+      } catch (err) {
+        wrap.replaceChildren();
+        const p = document.createElement("p"); p.className = "muted";
+        p.textContent = "Couldn't load mission flags. " + (err && err.message ? err.message : "");
+        wrap.appendChild(p);
+      }
+    }
+
+    /* ── System ── */
+    async function loadSystem() {
+      try {
+        const c = await Admin.getSystemConfig();
+        $("t-demo").classList.toggle("on", c.demoMode === true);
+        $("s-thresh").value = c.passThreshold;
+      } catch (_) {}
+    }
+    $("t-demo").addEventListener("click", async () => {
+      const next = !$("t-demo").classList.contains("on");
+      try { await Admin.setSystemConfig({ demoMode: next });
+        $("t-demo").classList.toggle("on", next);
+        toast("Demo mode " + (next ? "on" : "off") + ".");
+      } catch (e) { toast("Failed: " + (e && e.message), true); }
+    });
+    $("s-save").addEventListener("click", async () => {
+      const v = parseFloat($("s-thresh").value);
+      if (isNaN(v) || v < 0 || v > 1) { toast("Threshold must be 0–1.", true); return; }
+      try { await Admin.setSystemConfig({ passThreshold: v }); toast("Threshold saved."); }
+      catch (e) { toast("Failed: " + (e && e.message), true); }
+    });
+
+    /* ── Resume an existing admin session ── */
+    (async () => {
+      try {
+        await Admin.watchAdminAuth(async (user) => {
+          if (user && await Admin.isAdminUid(user.uid)) {
+            ADMIN_UID = user.uid;
+            $("admin-email").textContent = user.email || "";
+            $("signout").hidden = false;
+            enterConsole();
+          }
+        });
+      } catch (_) { /* not signed in — gate stays */ }
+    })();
+  </script>
+</body>
+</html>

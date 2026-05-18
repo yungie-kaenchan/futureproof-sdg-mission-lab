@@ -433,6 +433,18 @@
   const flow = getFlowState();
   const uid = flow && flow.uid;
 
+  /* Admin "mission on/off" gate. config/missions is public-readable
+     (not personal data). Fail-OPEN: any error → treat as enabled, so a
+     transient read failure can never lock a learner out of the journey. */
+  async function missionDisabled(id) {
+    try {
+      if (!window.FUTUREPROOF_CONFIG) return false;
+      const fb = await import("../src/firebase-init.js");
+      const node = await fb.readPath(`config/missions/${id}`);
+      return Boolean(node && node.enabled === false);
+    } catch (_) { return false; }
+  }
+
   /* ── Profile (bottom-left) ── */
   const name = (flow && flow.displayName) || "Operator";
   const initials = name.trim().split(/\s+/).map(w => w[0]).slice(0,2).join("").toUpperCase() || "OP";
@@ -643,6 +655,9 @@
   } else if (!modPath) {
     fail("This mission isn't playable yet",
          `“${scenarioId}” is documented in its production master but not built in this release. Khon Kaen and Chiang Mai are live now.`);
+  } else if (await missionDisabled(scenarioId)) {
+    fail("This mission is currently closed",
+         "Your teacher has temporarily turned this mission off. Choose another region, or check back soon.");
   } else {
     try {
       const scenario = await import(modPath);
