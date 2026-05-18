@@ -16,7 +16,7 @@ import { QUIZ_ITEMS, CONFIDENCE_LEVELS, computeTokenAward, shouldShowScaffold, Q
 import { ensureDisclaimerAcknowledged, showDisclaimer } from "./scenario-disclaimer.js";
 import { awardTokens } from "../tokens.js";
 import { getFlowState, isFirebaseAvailable } from "../auth.js";
-import { vocabSayButton, wireVocabAudio } from "../mission-engine.js";
+import { vocabSayButton, wireVocabAudio, escapeHtml } from "../mission-engine.js";
 
 const SCENARIO_PHASES_M1 = ["briefing", "dossier", "stakeholders", "quiz", "complete"];
 
@@ -875,18 +875,22 @@ function renderQuizSummary(container, state, engine) {
  * Phase 5 — Complete
  * ──────────────────────────────────────────────────────────────── */
 
+const PASS_THRESHOLD_TOKENS = 8; // same bar the adapter uses to award the Keystone
+
 async function reconComplete(container, state, engine) {
   const totalTokens = state.decisions.quizTokens || 0;
-  const evidence = state.decisions.quizAnswers?.q6?.answer || "";
+  const evidenceSafe = escapeHtml((state.decisions.quizAnswers?.q6?.answer || "").trim());
+  const passed = totalTokens >= PASS_THRESHOLD_TOKENS;
 
   container.innerHTML = `
     <section class="mission-complete">
       <div class="complete-banner">
-        <div class="console-label-gold">MISSION 01 // RECON · COMPLETE</div>
-        <h2 class="display-heading text-3xl mt-2">Briefing absorbed.</h2>
+        <div class="console-label-gold">STAGE 05 // DEBRIEF · ${passed ? "KEYSTONE EARNED" : "NOT YET PASSED"}</div>
+        <h2 class="display-heading text-3xl mt-2">${passed ? "The Aquifer Below Khon Kaen — cleared." : "Close. One more pass."}</h2>
         <p class="body-l text-on-surface-variant mt-2">
-          You've reviewed the dossier, heard from four stakeholders, and worked through
-          a six-item Field Mentor diagnostic. Your reasoning trace will follow you into Mission 2.
+          ${passed
+            ? "You read the dossier, heard four stakeholders, and built a defensible position under a real trade-off. That earns this region's SDG&nbsp;6 Keystone."
+            : `This mission needs a net ${PASS_THRESHOLD_TOKENS} ◆ across the diagnostic to pass. You finished on ${totalTokens} ◆. Replay the DECIDE stage — the dossier and voices are still open to re-read.`}
         </p>
       </div>
 
@@ -896,21 +900,27 @@ async function reconComplete(container, state, engine) {
           <div class="stat-value">${totalTokens >= 0 ? "+" : ""}${totalTokens} ◆</div>
         </div>
         <div class="complete-stat">
-          <div class="console-label-gold">DOSSIER SECTIONS</div>
-          <div class="stat-value">${DOSSIER.length} / ${DOSSIER.length} read</div>
-        </div>
-        <div class="complete-stat">
           <div class="console-label-gold">STAKEHOLDERS</div>
           <div class="stat-value">${STAKEHOLDERS.length} / ${STAKEHOLDERS.length} heard</div>
         </div>
+        <div class="complete-stat">
+          <div class="console-label-gold">SDG 6 KEYSTONE</div>
+          <div class="stat-value">${passed ? "◆ EARNED" : "— LOCKED"}</div>
+        </div>
       </div>
 
-      ${evidence ? `
+      ${passed ? `
+      <div class="feedback-callout mt-4">
+        <span class="material-symbols-rounded size-20">key</span>
+        <span>SDG&nbsp;6 Keystone recorded. Collect all six across Thailand's regions to unlock your Voice for Change.</span>
+      </div>` : ""}
+
+      ${evidenceSafe ? `
       <div class="complete-callback">
-        <div class="console-label-gold mb-2">YOUR M1 EVIDENCE COMMITMENT</div>
-        <p class="body-m" style="font-style: italic;">"${evidence}"</p>
+        <div class="console-label-gold mb-2">YOUR EVIDENCE COMMITMENT</div>
+        <p class="body-m" style="font-style: italic;">"${evidenceSafe}"</p>
         <p class="body-s text-on-surface-variant mt-2">
-          This will resurface in Mission 5. Make sure your final position cites it — or be ready to explain why not.
+          This resurfaces in your Voice for Change. Make sure your final proposal cites it — or be ready to explain why not.
         </p>
       </div>
       ` : ""}
@@ -922,35 +932,35 @@ async function reconComplete(container, state, engine) {
         </div>
       </div>
 
-      <div class="complete-next mt-8">
-        <div class="next-card">
-          <div class="next-card-head">
-            <span class="console-label-gold">UP NEXT</span>
-            <span class="badge-pill"><span class="material-symbols-rounded size-20">lock</span><span>Available in next session</span></span>
-          </div>
-          <h3 class="title-l mt-1">Mission 02 · DECODE</h3>
-          <p class="body-m text-on-surface-variant mt-1">
-            Same crisis, two conflicting sources. You'll resolve them — and write a brief to an audience the AI assigns.
-          </p>
-          <button id="mission-next" type="button" class="btn-primary mt-4" disabled>
-            <span>Continue to Mission 02</span>
-            <span class="material-symbols-rounded size-20">arrow_forward</span>
-          </button>
-        </div>
-      </div>
-
-      <div class="complete-actions mt-6">
-        <a href="./mission-select.html" class="btn-secondary">
+      <div class="complete-actions mt-8">
+        <a href="../pages/mission-select.html" class="btn-primary">
           <span class="material-symbols-rounded size-20">map</span>
-          <span>Back to Mission Select</span>
+          <span>Back to the Thailand journey</span>
         </a>
-        <a href="./portfolio.html" class="btn-text">
+        ${!passed ? `<button id="retry-decide" type="button" class="btn-secondary">
+          <span class="material-symbols-rounded size-20">replay</span>
+          <span>Replay the DECIDE stage</span>
+        </button>` : ""}
+        <a href="../pages/portfolio.html" class="btn-text">
           <span class="material-symbols-rounded size-20">school</span>
           <span>View your portfolio</span>
         </a>
       </div>
     </section>
   `;
+
+  const retry = container.querySelector("#retry-decide");
+  if (retry) {
+    retry.addEventListener("click", () => {
+      state.decisions.quizAnswers = {};
+      state.decisions.quizTokens = 0;
+      state.decisions.quizIndex = 0;
+      const i = SCENARIO_PHASES_M1.indexOf("quiz");
+      if (typeof engine.goToStage === "function") engine.goToStage(i);
+      else if (typeof engine.goTo === "function") engine.goTo(i);
+      else { engine.state.stageIndex = i; engine.renderStage ? engine.renderStage() : engine.renderPhase(); }
+    });
+  }
 
   toggleEngineControls(false);
 }
