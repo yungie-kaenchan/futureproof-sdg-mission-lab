@@ -457,22 +457,38 @@
     w.append(h, p, a); root.replaceChildren(w);
   }
 
-  /* ── Right-pane live progress (driven by engine 'fp:stage' events) ── */
+  /* ── Right-pane live progress (driven by engine 'fp:stage' events) ──
+   * The mission has 5 internal PHASES (briefing, dossier, stakeholders,
+   * quiz, complete) but the learner-facing model is the canonical
+   * 5-stage arc: BRIEF · PROBE · DECIDE · ACT · DEBRIEF. They are not
+   * 1:1 — PROBE spans the dossier + the four stakeholder dispatches, and
+   * the quiz is where DECIDE then ACT happen. We render the canonical
+   * arc and map the current phase onto it so the pane reads correctly.
+   */
+  const ARC = ["BRIEF", "PROBE", "DECIDE", "ACT", "DEBRIEF"];
+  const PHASE_TO_ARC = { briefing: 0, dossier: 1, stakeholders: 1, quiz: 2, complete: 4 };
   const progressList = document.getElementById("progress-list");
   const todoList = document.getElementById("todo-list");
   function paintProgress(d) {
+    // Resolve the current arc step from the engine's current phase id;
+    // fall back to a proportional map if a scenario uses other ids.
+    let curArc = PHASE_TO_ARC[d.stageId];
+    if (curArc == null) {
+      const tot = d.total || 5;
+      curArc = Math.min(ARC.length - 1, Math.round((d.stageIndex / Math.max(1, tot - 1)) * (ARC.length - 1)));
+    }
     progressList.replaceChildren();
-    (d.stages || []).forEach((s, i) => {
+    ARC.forEach((label, i) => {
       const row = document.createElement("div");
-      const state = i < d.stageIndex ? "done" : (i === d.stageIndex ? "current" : "");
+      const state = i < curArc ? "done" : (i === curArc ? "current" : "");
       row.className = "prog-stage " + state;
       const dot = document.createElement("span"); dot.className = "prog-dot";
-      dot.textContent = i < d.stageIndex ? "✓" : String(i + 1);
-      const nm = document.createElement("span"); nm.className = "prog-name"; nm.textContent = s.label || s.id;
+      dot.textContent = i < curArc ? "✓" : String(i + 1);
+      const nm = document.createElement("span"); nm.className = "prog-name"; nm.textContent = label;
       row.append(dot, nm); progressList.appendChild(row);
     });
     document.getElementById("an-tokens").textContent = (d.tokensEarned >= 0 ? "" : "") + (d.tokensEarned || 0) + " ◆";
-    document.getElementById("an-stage").textContent = (d.stageIndex + 1) + " / " + d.total;
+    document.getElementById("an-stage").textContent = (curArc + 1) + " / " + ARC.length;
     document.getElementById("an-keystone").textContent = d.keystoneAwarded ? "◆ EARNED" : (d.passed ? "◆" : "—");
     // To-do for the current stage
     todoList.replaceChildren();

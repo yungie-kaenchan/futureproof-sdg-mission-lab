@@ -22,11 +22,14 @@ export const meta = {
 /* Stage ids match the handlers registered by installChiangMaiMission.
  * Labels/codes use the v2 BRIEF·PROBE·DECIDE·ACT·DEBRIEF arc vocabulary. */
 export const stages = [
-  { id: "briefing",     label: "BRIEF",   code: "STAGE 01 // BRIEF" },
-  { id: "dossier",      label: "PROBE",   code: "STAGE 02 // PROBE" },
-  { id: "stakeholders", label: "PROBE",   code: "STAGE 02 // PROBE" },
-  { id: "quiz",         label: "DECIDE",  code: "STAGE 03 // DECIDE" },
-  { id: "complete",     label: "DEBRIEF", code: "STAGE 05 // DEBRIEF" },
+  // 5 internal phases mapped onto the canonical 5-stage arc
+  // (BRIEF · PROBE · DECIDE · ACT · DEBRIEF). PROBE spans the dossier +
+  // the stakeholder dispatches; the quiz is where DECIDE then ACT happen.
+  { id: "briefing",     label: "BRIEF",        code: "STAGE 01 // BRIEF" },
+  { id: "dossier",      label: "PROBE",        code: "STAGE 02 // PROBE" },
+  { id: "stakeholders", label: "PROBE",        code: "STAGE 02 // PROBE \u00b7 VOICES" },
+  { id: "quiz",         label: "DECIDE \u00b7 ACT", code: "STAGE 03\u201304 // DECIDE \u00b7 ACT" },
+  { id: "complete",     label: "DEBRIEF",      code: "STAGE 05 // DEBRIEF" },
 ];
 
 export function installStages(engine) {
