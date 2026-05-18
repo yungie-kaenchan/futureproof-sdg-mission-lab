@@ -696,7 +696,7 @@ function renderQuizFeedback(container, item, answer, confidence, award, state, e
     <div class="feedback-token-row ${award >= 0 ? "is-positive" : "is-negative"}">
       <span class="feedback-token-amount">${award >= 0 ? "+" : ""}${award} ◆</span>
       <span class="feedback-verdict">
-        ${item.type === "open" ? "Logged for Mission 5 callback." :
+        ${item.type === "open" ? "Logged for your Voice for Change." :
           isCorrect ? "Correct." :
           award === 0 ? "Honest uncertainty — fair." :
           "Take a closer look."}
@@ -816,10 +816,10 @@ function renderPerOptionFeedback(item, answer) {
     return `
       <div class="feedback-open">
         <div class="console-label-gold mb-2">YOUR EVIDENCE COMMITMENT</div>
-        <p class="body-m" style="font-style: italic;">"${(answer || "").trim()}"</p>
+        <p class="body-m" style="font-style: italic;">"${escapeHtml((answer || "").trim())}"</p>
         <p class="body-s text-on-surface-variant mt-3">
-          This is logged and will be surfaced in Mission 5. If your final tribunal position
-          does not reference this evidence, the cross-examiner will ask why.
+          This is logged and will be surfaced in your Voice for Change. If your final
+          proposal does not reference this evidence, you'll be asked why.
         </p>
       </div>
     `;
