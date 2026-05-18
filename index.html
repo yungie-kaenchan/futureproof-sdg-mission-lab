@@ -81,6 +81,24 @@
     /* Slight desaturation + contrast bump so the image reads as cinematic
        editorial and the SDG aurora colours never go neon */
     filter: saturate(0.92) contrast(1.04);
+    z-index: 0; /* fallback layer — sits beneath the video */
+  }
+  /* Looping background video — same crop + cinematic grade as the still,
+     painted above the fallback image but below the .bg-overlay vignette. */
+  .bg-layer video {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center;
+    filter: saturate(0.92) contrast(1.04);
+    z-index: 1;
+  }
+  .bg-overlay { z-index: 2; }
+  /* If the video can't/shouldn't play, hide it and let the still show. */
+  body[data-bg-mode="image"] .bg-layer video { display: none; }
+  /* Honour "reduce motion": no autoplaying video — show the still instead. */
+  @media (prefers-reduced-motion: reduce) {
+    .bg-layer video { display: none; }
   }
 
   /* Three-zone overlay — RE-TUNED for "new_landing.png" (two subjects on
@@ -313,11 +331,13 @@
 
 <body>
 
-<!-- ─── FULL-BLEED BACKGROUND IMAGE LAYER ───
-   When you drop your AI-generated image files into /assets/landing/,
-   the picture element below picks them up automatically. Until then,
-   the body's fallback gradient + starfield remain visible.
-   No code changes required after dropping the images in. -->
+<!-- ─── FULL-BLEED BACKGROUND VIDEO LAYER ───
+   landing-video.mp4 loops silently behind the hero. The <picture> image
+   sits underneath as a graceful fallback: it shows if the video can't
+   play (old browser, autoplay blocked) and is used instead of motion
+   when the visitor has "reduce motion" enabled (UDL / CLAUDE.md §15).
+   The video's poster is the same desktop still, so there's never a
+   black flash before the first frame. -->
 <div class="bg-layer" aria-hidden="true">
   <picture>
     <source media="(max-width: 768px)"
@@ -333,6 +353,11 @@
          decoding="async"
          fetchpriority="high">
   </picture>
+  <video id="bg-video"
+         autoplay muted loop playsinline preload="auto"
+         poster="assets/landing/bg-landing-desktop.webp">
+    <source src="assets/landing/landing-video.mp4" type="video/mp4">
+  </video>
   <div class="bg-overlay"></div>
 </div>
 
@@ -406,21 +431,46 @@
 </footer>
 
 <script>
-  // Detect whether the background image actually loaded.
-  // - On success: set body[data-bg-loaded="true"], which (via CSS) fades
-  //   the image in, hides the fallback starfield, and removes the
-  //   placeholder badge.
-  // - On failure (file not yet dropped in): do nothing — fallback gradient
-  //   + starfield + placeholder badge remain.
+  // Background = looping video, with the still image as a graceful
+  // fallback. We fade the .bg-layer in (data-bg-loaded) as soon as
+  // EITHER the video can play OR the still has loaded — whichever is
+  // first — so there's never a bare gradient flash.
+  //
+  // The video is dropped to the image ("image" mode) when:
+  //   • the visitor prefers reduced motion (UDL — CLAUDE.md §15)
+  //   • the <source> errors (missing/again old browser)
+  //   • autoplay is blocked by the browser policy
   (function () {
-    var img = document.getElementById('bg-image');
-    if (!img) return;
-    function markLoaded() { document.body.dataset.bgLoaded = 'true'; }
-    if (img.complete && img.naturalWidth > 0) { markLoaded(); }
-    else {
-      img.addEventListener('load',  markLoaded);
-      img.addEventListener('error', function () { /* leave fallback in place */ });
+    var img   = document.getElementById('bg-image');
+    var video = document.getElementById('bg-video');
+    var done  = false;
+    function reveal() { if (!done) { done = true; document.body.dataset.bgLoaded = 'true'; } }
+    function useImage() { document.body.dataset.bgMode = 'image'; reveal(); }
+
+    // Still-image fallback wiring (also the reduced-motion path).
+    if (img) {
+      if (img.complete && img.naturalWidth > 0) reveal();
+      else {
+        img.addEventListener('load', reveal);
+        img.addEventListener('error', function () { /* leave gradient */ });
+      }
     }
+
+    var reduceMotion = window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!video || reduceMotion) { if (reduceMotion) useImage(); return; }
+
+    video.addEventListener('canplay', reveal);
+    video.addEventListener('playing', reveal);
+    video.addEventListener('error', useImage);
+    video.querySelector('source')
+         && video.querySelector('source').addEventListener('error', useImage);
+
+    // Some browsers need an explicit play() and may still reject it
+    // (autoplay policy). If rejected, fall back to the still.
+    var p = video.play && video.play();
+    if (p && typeof p.catch === 'function') p.catch(useImage);
   })();
 </script>
 
