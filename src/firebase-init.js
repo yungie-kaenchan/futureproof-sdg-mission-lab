@@ -105,6 +105,10 @@ export const paths = {
   consents: (uid) => `consents/${uid}`,
   tokens: (tid) => `tokens/${tid}`,
   reflections: (uid) => `reflections/${uid}`,
+  // Mid-mission resume snapshots — durable mirror of the engine's
+  // localStorage save so a learner resumes on any device and never
+  // redoes a stage after a cache clear. One child per missionId.
+  progress: (uid) => `progress/${uid}`,
   // v2 journey — one Keystone per completed SDG mission (max 6)
   keystones: (uid) => `users/${uid}/keystones`,
   // v2 capstone — Voice for Change submission metadata

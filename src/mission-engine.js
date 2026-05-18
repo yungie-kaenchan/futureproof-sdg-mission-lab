@@ -165,6 +165,17 @@ export class MissionEngine {
         (_k, val) => (val instanceof Set ? Array.from(val) : val),
       );
       localStorage.setItem(this.saveKey(), json);
+      // Durable mirror to RTDB (fire-and-forget — never blocks the save,
+      // localStorage already holds the authoritative copy locally).
+      try {
+        const flow = getFlowState();
+        const uid = flow && flow.uid;
+        if (uid) {
+          import("./progress-sync.js")
+            .then((m) => m.pushProgress(uid, this.missionId, json))
+            .catch(() => {});
+        }
+      } catch (_) { /* non-fatal */ }
       return true;
     } catch (_) { return false; }
   }
@@ -185,6 +196,17 @@ export class MissionEngine {
   }
   clearSavedState() {
     try { localStorage.removeItem(this.saveKey()); } catch (_) {}
+    // Also drop the cloud snapshot so "Start over" can't be resurrected
+    // from another device's mirror on the next visit.
+    try {
+      const flow = getFlowState();
+      const uid = flow && flow.uid;
+      if (uid) {
+        import("./progress-sync.js")
+          .then((m) => m.clearCloudProgress(uid, this.missionId))
+          .catch(() => {});
+      }
+    } catch (_) { /* non-fatal */ }
   }
   savedAt() {
     try {

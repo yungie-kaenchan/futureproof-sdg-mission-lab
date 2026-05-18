@@ -409,6 +409,7 @@
 <script type="module">
   import { MissionEngine } from "../src/mission-engine.js";
   import { getFlowState } from "../src/auth.js";
+  import { pullProgressToLocal } from "../src/progress-sync.js";
   import { JOURNEY_MISSIONS, getJourneyProgress } from "../src/keystones.js";
   import { tierLabel } from "../src/adaptive.js";
 
@@ -656,6 +657,11 @@
         const _sdg = scenario.meta && scenario.meta.sdg;
         if (_sdg && SDG_COLOR[_sdg]) document.documentElement.style.setProperty("--sdg-accent", SDG_COLOR[_sdg]);
       } catch (_) {}
+
+      // Hydrate localStorage from the cloud BEFORE we look for a saved
+      // point — so a resume started on another device (or before a cache
+      // clear) is honoured. Best-effort; never blocks if offline.
+      await pullProgressToLocal(uid);
 
       const saveBar = document.getElementById("save-bar");
       const banner = document.getElementById("resume-banner");
