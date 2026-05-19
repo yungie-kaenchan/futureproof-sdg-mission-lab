@@ -1620,17 +1620,37 @@ body.font-dyslexia {
   #architecture .mission-tribunal { --accent: #C5192D; --accent-bg: #FBE8EA; } /* SDG 4  */
   #architecture .mission-forge    { --accent: #4C9F38; --accent-bg: #EDF5EA; background: linear-gradient(135deg, #FFFFFF 0%, #EDF5EA 60%, #DCEBD3 100%); border-color: rgba(76, 159, 56, 0.5); } /* SDG 3 */
   #architecture .mission-forge::before { background: linear-gradient(90deg, transparent, #4C9F38, transparent); }
+  /* Thai sits BELOW the English, always visible, set off by an indented
+     accent rule so the two languages read as distinct blocks (QC). */
   #architecture .mission-card .mission-th {
-    margin-top: 14px; padding-top: 14px;
-    border-top: 1px dashed rgba(0, 0, 0, 0.14);
+    margin-top: 16px;
+    padding: 2px 0 2px 16px;
+    border-left: 3px solid var(--accent, #C9A961);
+    color: #000;
+    font-family: 'IBM Plex Sans Thai', 'DM Sans', sans-serif;
+    font-size: 0.98rem; line-height: 1.75;
+  }
+  /* 5-stage arc panel (Brief…Debrief): the English blurb is hover-
+     revealed, so the Thai mirrors that exact behaviour to stay truly
+     alongside it — collapsed by default, in on hover/focus, indented. */
+  #architecture .panel-card .panel-blurb-th {
+    display: block;
+    padding-left: 14px;
+    border-left: 3px solid var(--accent, #C9A961);
     color: #000;
     font-family: 'IBM Plex Sans Thai', 'DM Sans', sans-serif;
     font-size: 0.95rem; line-height: 1.7;
-    max-height: 0; opacity: 0; overflow: hidden;
-    transition: max-height 0.4s ease, opacity 0.3s ease, margin-top 0.3s ease, padding-top 0.3s ease;
+    max-height: 0; opacity: 0; overflow: hidden; margin-top: 0;
+    transition: max-height 360ms cubic-bezier(0.2,0,0,1), opacity 220ms ease 80ms, margin-top 360ms cubic-bezier(0.2,0,0,1);
   }
-  #architecture .mission-card:hover .mission-th,
-  #architecture .mission-card:focus-within .mission-th { max-height: 280px; opacity: 1; }
+  #architecture .panel-card:hover .panel-blurb-th,
+  #architecture .panel-card:focus-visible .panel-blurb-th {
+    max-height: 200px; opacity: 1; margin-top: 10px;
+  }
+  /* Debrief (panel-voice) is featured/expanded by default — Thai too. */
+  #architecture .panel-voice .panel-blurb-th {
+    max-height: 200px; opacity: 1; margin-top: 10px;
+  }
 
   /* ── TIER CARDS — 4 judging tiers, same physics, brand palette ─ */
   .tier-card {
