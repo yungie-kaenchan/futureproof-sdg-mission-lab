@@ -944,6 +944,12 @@ async function debriefComplete(container, state, engine) {
         source: "mission",
         reason: `The Klong and the City passed (net ${totalTokens} tokens >= ${PASS_THRESHOLD_TOKENS}).`,
       });
+      // Sync engine state so the right-pane indicator updates live.
+      if (res && (res.earned || res.alreadyHad) && engine && engine.state) {
+        engine.state.passed = true;
+        engine.state.keystoneAwarded = true;
+        if (typeof engine.emitProgress === "function") engine.emitProgress();
+      }
       keystoneMsg = res.alreadyHad
         ? "You already held this Keystone — no double-count."
         : (res.earned ? "SDG 11 Keystone earned and recorded."

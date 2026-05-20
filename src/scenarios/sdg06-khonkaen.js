@@ -46,10 +46,16 @@ export function installStages(engine) {
       const net = (state && state.decisions && state.decisions.quizTokens) || 0;
       if (net >= PASS_THRESHOLD_TOKENS) {
         const flow = getFlowState();
-        await awardKeystone(flow && flow.uid, meta.id, {
+        const res = await awardKeystone(flow && flow.uid, meta.id, {
           source: "mission",
           reason: `Khon Kaen passed (net ${net} tokens >= ${PASS_THRESHOLD_TOKENS}).`,
         });
+        // Sync engine state so the right-pane indicator updates live.
+        if (res && (res.earned || res.alreadyHad) && eng && eng.state) {
+          eng.state.passed = true;
+          eng.state.keystoneAwarded = true;
+          if (typeof eng.emitProgress === "function") eng.emitProgress();
+        }
       }
     } catch (_) { /* graceful — local pass still recorded */ }
   });

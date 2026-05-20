@@ -234,6 +234,45 @@
     font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--steel)}
   .tp-meta .tp-label{color:var(--bronze);font-weight:700}
   .tp-bar.is-passed .tp-fill{background:linear-gradient(90deg,#3FB984 0%,#7FE0B0 80%,#C9F4DC 100%);box-shadow:0 0 16px rgba(63,185,132,.6) inset}
+  /* Keystones Collected — 6 SDG pins (lit/dim) */
+  .ks-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:4px}
+  .ks-pin{position:relative;aspect-ratio:1/1;border-radius:12px;
+    background:var(--paper);border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--mono);font-size:10px;font-weight:700;color:var(--steel);
+    transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .25s}
+  .ks-pin .ks-num{position:relative;z-index:2}
+  .ks-pin::before{content:"";position:absolute;inset:0;border-radius:11px;
+    background:var(--ks-c,#ccc);opacity:.10;transition:opacity .3s}
+  .ks-pin.earned{color:#fff;border-color:transparent}
+  .ks-pin.earned::before{opacity:1;background:linear-gradient(135deg,var(--ks-c,#ccc),color-mix(in srgb,var(--ks-c) 60%,#fff))}
+  .ks-pin.earned{box-shadow:0 4px 14px color-mix(in srgb,var(--ks-c) 40%,transparent)}
+  .ks-pin.is-current{outline:2px solid var(--ks-c);outline-offset:2px}
+  .ks-pin:hover{transform:translateY(-2px)}
+  /* Dossier re-read button + modal */
+  .dossier-btn{position:fixed;left:calc(var(--rail-w) + 18px);bottom:18px;z-index:55;
+    display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;
+    background:linear-gradient(135deg,var(--ink-deep),var(--ink));color:var(--bone);
+    border:1px solid var(--bronze);font-family:var(--ui);font-size:13.5px;font-weight:600;
+    cursor:pointer;box-shadow:0 8px 22px rgba(0,0,0,.18);transition:transform .2s,box-shadow .2s}
+  .dossier-btn:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(0,0,0,.24)}
+  .dossier-btn .material-symbols-rounded{font-size:18px;color:var(--bronze-light)}
+  .dossier-btn[hidden]{display:none}
+  .dossier-modal{border:none;border-radius:18px;padding:0;width:min(820px,94vw);max-height:86vh;
+    background:var(--white);box-shadow:0 24px 80px rgba(0,0,0,.32);color:var(--ink-deep)}
+  .dossier-modal::backdrop{background:rgba(8,12,26,.62);backdrop-filter:blur(2px)}
+  .dossier-head{display:flex;justify-content:space-between;align-items:center;gap:10px;
+    padding:18px 24px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--white);z-index:2}
+  .dossier-head h3{font-family:var(--display);font-size:22px;font-weight:600;margin:0;color:var(--ink-deep)}
+  .dossier-close{border:1px solid var(--line);background:transparent;border-radius:999px;
+    width:34px;height:34px;cursor:pointer;font-size:16px;color:var(--steel);display:flex;align-items:center;justify-content:center}
+  .dossier-close:hover{background:rgba(7,23,52,.05);color:var(--ink-deep)}
+  .dossier-body{padding:18px 28px 28px;overflow-y:auto;max-height:calc(86vh - 64px);
+    font-size:16px;line-height:1.7;color:var(--ink)}
+  .dossier-body h4{font-family:var(--display);font-size:19px;font-weight:600;color:var(--ink-deep);
+    margin:18px 0 8px}
+  .dossier-body h4:first-child{margin-top:0}
+  .dossier-body p{margin:0 0 12px}
   .todo-item{display:flex;align-items:flex-start;gap:9px;padding:7px 0;font-size:12.5px;color:var(--ink-soft);line-height:1.45}
   .todo-item .material-symbols-rounded{font-size:17px;flex-shrink:0;color:var(--line-strong)}
   .todo-item.done{color:var(--steel)}
@@ -475,6 +514,11 @@
       </div>
     </div>
   </div>
+  <!-- Keystones Collected — 6 SDG dots, lit when the user holds that Keystone -->
+  <div class="right-sec">
+    <div class="right-sec-label">Keystones Collected <span class="rsl-hint" id="ks-count">0 / 6</span></div>
+    <div class="ks-grid" id="ks-grid" role="list" aria-label="SDG Keystones collected"></div>
+  </div>
   <div class="right-sec">
     <div class="right-sec-label">Live Progress</div>
     <div id="progress-list"><p style="font-size:12.5px;color:var(--steel)">Starting…</p></div>
@@ -485,6 +529,19 @@
   </div>
 </aside>
 
+<!-- Re-read the dossier from any post-Brief stage. Opens a modal with the
+     scenario's authored DOSSIER (loaded lazily by scenarioId). -->
+<button id="open-dossier" class="dossier-btn" type="button" hidden aria-haspopup="dialog">
+  <span class="material-symbols-rounded">menu_book</span><span>View dossier</span>
+</button>
+<dialog id="dossier-modal" class="dossier-modal" aria-labelledby="dossier-title">
+  <header class="dossier-head">
+    <h3 id="dossier-title">Dossier</h3>
+    <button id="close-dossier" class="dossier-close" type="button" aria-label="Close dossier">✕</button>
+  </header>
+  <div id="dossier-body" class="dossier-body"></div>
+</dialog>
+
 <div class="toast" id="toast"></div>
 
 <script src="../config.local.js" onerror="window.__noConfig = true;"></script>
@@ -493,7 +550,7 @@
   import { MissionEngine } from "../src/mission-engine.js";
   import { getFlowState } from "../src/auth.js";
   import { pullProgressToLocal } from "../src/progress-sync.js";
-  import { JOURNEY_MISSIONS, getJourneyProgress } from "../src/keystones.js";
+  import { JOURNEY_MISSIONS, getJourneyProgress, getKeystones } from "../src/keystones.js";
   import { tierLabel } from "../src/adaptive.js";
 
   const REGISTRY = {
@@ -575,6 +632,89 @@
     document.body.classList.toggle("right-collapsed");
     document.body.classList.toggle("right-open");
   });
+
+  /* ── Re-readable Dossier modal — opens during/after Brief ── */
+  let __dossierCache = null;
+  async function loadDossier() {
+    if (__dossierCache) return __dossierCache;
+    try {
+      const mod = await import("../src/scenarios/" + scenarioId + "-content.js");
+      __dossierCache = {
+        title: (mod.SCENARIO_META && mod.SCENARIO_META.title) || "Dossier",
+        parts: Array.isArray(mod.DOSSIER) ? mod.DOSSIER : [],
+      };
+      return __dossierCache;
+    } catch (_) { return { title: "Dossier", parts: [] }; }
+  }
+  function renderDossierInto(node, data) {
+    node.replaceChildren();
+    if (!data.parts.length) {
+      const p = document.createElement("p"); p.className = "muted";
+      p.textContent = "The dossier is not available for this scenario yet.";
+      node.appendChild(p); return;
+    }
+    for (const part of data.parts) {
+      const h = document.createElement("h4"); h.textContent = part.heading || "";
+      node.appendChild(h);
+      // Strip <vocab>…</vocab> wrappers (runtime-only); split into paragraphs.
+      const text = String(part.body || "").replace(/<\/?vocab>/g, "");
+      for (const para of text.split(/\n\s*\n/)) {
+        const t = para.trim(); if (!t) continue;
+        const p = document.createElement("p"); p.textContent = t;
+        node.appendChild(p);
+      }
+    }
+  }
+  const dossierBtn = document.getElementById("open-dossier");
+  const dossierModal = document.getElementById("dossier-modal");
+  const dossierBody = document.getElementById("dossier-body");
+  const dossierTitle = document.getElementById("dossier-title");
+  if (dossierBtn && dossierModal) {
+    dossierBtn.addEventListener("click", async () => {
+      const data = await loadDossier();
+      dossierTitle.textContent = data.title + " · dossier";
+      renderDossierInto(dossierBody, data);
+      if (typeof dossierModal.showModal === "function") dossierModal.showModal();
+      else dossierModal.setAttribute("open", "");
+    });
+    document.getElementById("close-dossier").addEventListener("click", () => dossierModal.close && dossierModal.close());
+    dossierModal.addEventListener("click", (e) => {
+      // Click outside content (on backdrop) → close
+      if (e.target === dossierModal) dossierModal.close && dossierModal.close();
+    });
+  }
+  // Show the button on any stage after Brief (so dossier is always re-readable).
+  function updateDossierBtnVisibility(stageId, stageIndex) {
+    if (!dossierBtn) return;
+    const showOn = ["dossier", "stakeholders", "quiz", "decide", "act", "complete"];
+    const onBrief = stageId === "briefing" || stageId === "brief";
+    dossierBtn.hidden = onBrief || !(showOn.includes(stageId) || stageIndex >= 1);
+  }
+
+  /* ── Keystones Collected widget — six SDG pins, lit when earned ── */
+  async function refreshKeystoneGrid() {
+    const wrap = document.getElementById("ks-grid");
+    if (!wrap) return;
+    let earned = {};
+    try { earned = await getKeystones(uid); } catch (_) { earned = {}; }
+    wrap.replaceChildren();
+    let count = 0;
+    for (const m of JOURNEY_MISSIONS) {
+      const hasIt = Boolean(earned[m.id]);
+      if (hasIt) count++;
+      const pin = document.createElement("div");
+      pin.className = "ks-pin" + (hasIt ? " earned" : "") + (m.id === scenarioId ? " is-current" : "");
+      pin.setAttribute("role", "listitem");
+      pin.setAttribute("title", "SDG " + m.sdg + " · " + m.region + " · " + m.title + (hasIt ? " — earned" : " — not yet"));
+      pin.style.setProperty("--ks-c", SDG_COLOR[m.sdg] || "#999");
+      const n = document.createElement("span"); n.className = "ks-num"; n.textContent = String(m.sdg);
+      pin.appendChild(n);
+      wrap.appendChild(pin);
+    }
+    const lbl = document.getElementById("ks-count");
+    if (lbl) lbl.textContent = count + " / 6";
+  }
+  refreshKeystoneGrid();
 
   /* ── Rail missions + Remaining list (from journey progress) ── */
   let progress = [];
@@ -692,9 +832,16 @@
       const nm = document.createElement("span"); nm.className = "prog-name"; nm.textContent = label;
       row.append(dot, nm); progressList.appendChild(row);
     });
-    document.getElementById("an-tokens").textContent = (d.tokensEarned >= 0 ? "" : "") + (d.tokensEarned || 0) + " ◆";
+    // Belt-and-braces: prefer the live engine state over the event detail,
+    // so if a scenario awards a Keystone outside engine.finishMission()
+    // (most v1 scenarios do), the right pane still updates.
+    const liveState = (window.__fpEngine && window.__fpEngine.state) || {};
+    const tokensEarned = (typeof d.tokensEarned === "number" ? d.tokensEarned : liveState.tokensEarned) || 0;
+    const passed = Boolean(d.passed || liveState.passed);
+    const keystoneAwarded = Boolean(d.keystoneAwarded || liveState.keystoneAwarded);
+    document.getElementById("an-tokens").textContent = (tokensEarned >= 0 ? "+" : "") + tokensEarned + " ◆";
     document.getElementById("an-stage").textContent = (curArc + 1) + " / " + ARC.length;
-    document.getElementById("an-keystone").textContent = d.keystoneAwarded ? "◆ EARNED" : (d.passed ? "◆" : "—");
+    document.getElementById("an-keystone").textContent = keystoneAwarded ? "◆ EARNED" : (passed ? "◆" : "—");
     // Progress % + graphical Power bar fill. Stage progress is the most
     // intuitive in-mission metric ("Stage 3/5" → 60%); the 60% notch on
     // the bar is the Keystone pass bar by coincidence and design.
@@ -704,10 +851,10 @@
     const fill = document.getElementById("tp-fill");
     if (fill) fill.style.width = pct + "%";
     const tpBar = fill && fill.parentElement;
-    if (tpBar) tpBar.classList.toggle("is-passed", Boolean(d.keystoneAwarded || d.passed));
+    if (tpBar) tpBar.classList.toggle("is-passed", keystoneAwarded || passed);
     const tpPct = document.getElementById("tp-pct");
-    if (tpPct) tpPct.textContent = d.keystoneAwarded ? "Keystone earned ✓"
-      : (d.passed ? (pct + "% · passed") : (pct + "% / 60% to Keystone"));
+    if (tpPct) tpPct.textContent = keystoneAwarded ? "Keystone earned ✓"
+      : (passed ? (pct + "% · passed") : (pct + "% / 60% to Keystone"));
     // To-do for the current stage — tap to tick, persisted per user+mission+stage
     todoList.replaceChildren();
     const items = STAGE_TODO[d.stageId] || ["Work through this stage", "Continue when ready"];
@@ -782,10 +929,15 @@
     if (!e.detail) return;
     paintProgress(e.detail);
     paintStageIntro(e.detail.stageId, e.detail.stageIndex);
+    updateDossierBtnVisibility(e.detail.stageId, e.detail.stageIndex);
     let ca = PHASE_TO_ARC[e.detail.stageId];
     if (ca == null) ca = Math.min(4, Math.round((e.detail.stageIndex / 4) * 4));
     highlightStage(ca);
     try { if (window.__fpEngine && window.__fpEngine.saveState) window.__fpEngine.saveState(); } catch (_) {}
+    // If a Keystone just landed (or we resumed past completion), refresh the grid.
+    if (e.detail.keystoneAwarded || (window.__fpEngine && window.__fpEngine.state && window.__fpEngine.state.keystoneAwarded)) {
+      refreshKeystoneGrid();
+    }
   });
 
   /* ── Mount the engine ── */
