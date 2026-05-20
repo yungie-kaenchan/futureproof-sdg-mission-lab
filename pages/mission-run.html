@@ -46,8 +46,17 @@
   .rail{position:fixed;top:var(--header-h);left:0;bottom:0;width:var(--rail-w);
     background:var(--white);border-right:1px solid var(--line);
     display:flex;flex-direction:column;z-index:40;padding:14px 0;transition:transform .3s}
-  .rail-nav{display:flex;flex-direction:column;gap:2px;padding:0 12px;flex:1;overflow-y:auto;scrollbar-width:none}
-  .rail-nav::-webkit-scrollbar{display:none}
+  /* Rail scrolls when content exceeds viewport. Subtle but visible
+     scrollbar so the affordance is clear; stable gutter prevents layout
+     shift when it appears. */
+  .rail-nav{display:flex;flex-direction:column;gap:2px;padding:0 12px 24px;flex:1;
+    overflow-y:auto;overscroll-behavior:contain;scroll-behavior:smooth;
+    scrollbar-width:thin;scrollbar-color:rgba(181,124,52,.35) transparent;
+    scrollbar-gutter:stable}
+  .rail-nav::-webkit-scrollbar{width:8px}
+  .rail-nav::-webkit-scrollbar-track{background:transparent}
+  .rail-nav::-webkit-scrollbar-thumb{background:rgba(181,124,52,.30);border-radius:999px;border:2px solid transparent;background-clip:content-box}
+  .rail-nav::-webkit-scrollbar-thumb:hover{background:rgba(181,124,52,.55);background-clip:content-box}
   .rail-section-label{padding:14px 12px 6px;display:flex;flex-direction:column}
   .rail-section-en{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--bronze)}
   .rail-section-th{font-family:var(--thai);font-size:11px;color:var(--steel)}
@@ -73,11 +82,12 @@
     background:color-mix(in srgb,var(--sdg-accent) 12%,#fff);color:var(--ink-deep);
     box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--sdg-accent) 30%,transparent)}
   .rail-mainmenu .rail-ic{background:var(--sdg-accent);color:#fff}
+  /* All 5 stages are always visible and naturally height-flexible.
+     Cap + overflow:hidden (collapse-animation leftovers) removed so
+     the 5th stage isn't cropped by the larger two-line EN+Thai labels. */
   .rail-stages{position:relative;margin:0 0 6px 26px;padding-left:14px;
     border-left:2px solid color-mix(in srgb,var(--sdg-accent) 35%,transparent);
-    display:flex;flex-direction:column;gap:3px;overflow:hidden;
-    max-height:420px;opacity:1;transition:max-height .4s cubic-bezier(.22,1,.36,1),opacity .3s,margin .3s}
-  /* Stages are always-on now: collapse rule removed by design. */
+    display:flex;flex-direction:column;gap:3px;opacity:1}
   .rail-stage{display:flex;align-items:center;gap:9px;padding:8px 10px;border:none;background:transparent;
     border-radius:10px;cursor:pointer;color:var(--ink-soft);font-family:var(--sans);font-size:13px;font-weight:600;
     text-align:left;transform:translateX(-6px);opacity:0;
