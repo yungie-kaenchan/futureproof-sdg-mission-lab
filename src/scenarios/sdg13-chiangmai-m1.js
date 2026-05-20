@@ -938,18 +938,20 @@ async function debriefComplete(container, state, engine) {
 
   let keystoneMsg = "";
   if (passed) {
+    // Sync engine state on the LOCAL pass criterion first — independent
+    // of the cloud write succeeding (uid may be missing on admin/guest
+    // sessions). This is what the right-pane indicator reads.
+    if (engine && engine.state) {
+      engine.state.passed = true;
+      engine.state.keystoneAwarded = true;
+      if (typeof engine.emitProgress === "function") engine.emitProgress();
+    }
     try {
       const flow = getFlowState();
       const res = await awardKeystone(flow && flow.uid, MISSION_ID, {
         source: "mission",
         reason: `The Burning Season passed (net ${totalTokens} tokens >= ${PASS_THRESHOLD_TOKENS}).`,
       });
-      // Sync engine state so the right-pane indicator updates live.
-      if (res && (res.earned || res.alreadyHad) && engine && engine.state) {
-        engine.state.passed = true;
-        engine.state.keystoneAwarded = true;
-        if (typeof engine.emitProgress === "function") engine.emitProgress();
-      }
       keystoneMsg = res.alreadyHad
         ? "You already held this Keystone — no double-count."
         : (res.earned ? "SDG 13 Keystone earned and recorded."
