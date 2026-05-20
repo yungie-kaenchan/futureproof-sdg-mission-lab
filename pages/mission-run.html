@@ -21,7 +21,7 @@
     --display:'Fraunces',Georgia,serif; --titles:'Cinzel',serif;
     --sans:'DM Sans',system-ui,sans-serif; --thai:'IBM Plex Sans Thai',sans-serif;
     --mono:'JetBrains Mono',monospace;
-    --rail-w:260px; --right-w:330px; --header-h:64px;
+    --rail-w:310px; --right-w:340px; --header-h:64px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{height:100%}
@@ -54,9 +54,18 @@
   .rail-item{position:relative;display:flex;align-items:center;gap:11px;padding:9px 11px;border-radius:13px;
     background:transparent;color:var(--ink-soft);text-decoration:none;cursor:pointer;
     transition:background .2s,color .2s,transform .24s cubic-bezier(.34,1.56,.64,1)}
-  .rail-item:hover{background:rgba(181,124,52,.08);color:var(--ink-deep)}
-  .rail-item.active{background:color-mix(in srgb,var(--sdg-accent) 14%,transparent);color:var(--ink-deep)}
-  .rail-item.active::before{content:"";position:absolute;left:-12px;top:8px;bottom:8px;width:3px;background:var(--sdg-accent);border-radius:0 3px 3px 0}
+  /* When --mission-accent is set (six SDG cards), each card carries its
+     own colour — left rule, hover tint, icon halo. Falls back to gold. */
+  .rail-item{
+    --c: var(--mission-accent, var(--bronze));
+    border-left:3px solid color-mix(in srgb,var(--c) 55%,transparent);
+    padding-left:10px;
+    background:color-mix(in srgb,var(--c) 5%,transparent);
+  }
+  .rail-item:hover{background:color-mix(in srgb,var(--c) 14%,#fff);color:var(--ink-deep);transform:translateX(2px)}
+  .rail-item .rail-ic{background:color-mix(in srgb,var(--c) 18%,#fff);color:var(--c)}
+  .rail-item.active{background:color-mix(in srgb,var(--c) 16%,#fff);color:var(--ink-deep)}
+  .rail-item.active::before{content:"";position:absolute;left:-3px;top:8px;bottom:8px;width:3px;background:var(--c);border-radius:0 3px 3px 0}
   .rail-item.passed .rail-ic{background:linear-gradient(135deg,var(--bronze),var(--bronze-light));color:#fff}
   /* Left branching "Six Missions · Six Regions" → 5-stage menu (motion physics) */
   .rail-mainmenu{position:relative;display:flex;align-items:center;gap:11px;width:calc(100% - 0px);
@@ -88,6 +97,10 @@
   .rail-stage.is-current{background:color-mix(in srgb,var(--sdg-accent) 18%,transparent);color:var(--ink-deep);font-weight:700}
   .rail-stage.is-current .material-symbols-rounded{color:var(--sdg-accent)}
   .rail-stage .rs-n{font-family:var(--mono);font-size:10px;color:var(--sdg-accent);font-weight:700;margin-left:auto}
+  .rail-stage .rs-label{display:flex;flex-direction:column;line-height:1.1;min-width:0;flex:1}
+  .rail-stage .rs-en{font-size:13.5px;font-weight:600;color:inherit}
+  .rail-stage .rs-th{font-family:var(--thai);font-size:11px;color:var(--steel);margin-top:2px;font-weight:500;letter-spacing:.01em}
+  .rail-stage.is-current .rs-th{color:var(--sdg-accent)}
   @media (prefers-reduced-motion:reduce){.rail-stages,.rail-stage,.rail-mm-chev{transition:none!important}}
   .rail-ic{width:36px;height:36px;border-radius:999px;background:rgba(7,23,52,.05);
     display:flex;align-items:center;justify-content:center;flex-shrink:0}
@@ -153,6 +166,22 @@
   .save-bar{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-bottom:14px}
   .save-hint{font-size:11.5px;color:var(--steel);margin-right:auto}
   #mission-root{min-height:46vh}
+  /* Per-stage intro — large, readable, calm. Sits above the stage body. */
+  .stage-intro{background:linear-gradient(135deg,#FBFAF7 0%,#fff 100%);
+    border:1px solid var(--line);border-left:4px solid var(--sdg-accent,var(--bronze));
+    border-radius:18px;padding:24px 28px;margin:8px 0 22px;box-shadow:0 6px 24px rgba(20,20,22,.04)}
+  .stage-intro[hidden]{display:none}
+  .stage-intro .si-bar{display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:6px}
+  .stage-intro .si-step{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--sdg-accent,var(--bronze))}
+  .stage-intro .si-th{font-family:var(--thai);font-size:18px;color:var(--ink-deep);font-weight:600}
+  .stage-intro .si-title{font-family:var(--display);font-size:clamp(22px,2.4vw,30px);font-weight:600;
+    color:var(--ink-deep);margin:2px 0 14px;line-height:1.2}
+  .stage-intro .si-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media (max-width:780px){.stage-intro .si-grid{grid-template-columns:1fr}}
+  .stage-intro .si-label{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--bronze);margin-bottom:6px}
+  .stage-intro .si-body{font-size:16.5px;line-height:1.6;color:var(--ink);margin:0}
   #phase-controls{display:flex;justify-content:flex-end;gap:10px;margin-top:24px}
   .toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(20px);
     background:var(--ink-deep);color:var(--bone);padding:11px 22px;border-radius:999px;
@@ -187,6 +216,24 @@
   .stat-box .l{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--steel)}
   .stat-box .v{font-size:18px;font-weight:700;color:var(--ink-deep);margin-top:3px;font-family:var(--display)}
   .stat-box.tok .v{color:var(--bronze)}
+  /* Reading-Tier card — single, prominent row (sketch). */
+  .rt-card{display:flex;align-items:center;gap:10px;background:var(--paper);border:1px solid var(--line);
+    border-radius:12px;padding:11px 14px}
+  .rt-card .material-symbols-rounded{font-size:20px;color:var(--bronze)}
+  .rt-card .rt-val{font-family:var(--display);font-size:16px;font-weight:600;color:var(--ink-deep)}
+  /* Token / Power bar — graphical progress with a 60% Keystone notch. */
+  .tp-wrap{margin-top:12px}
+  .tp-bar{position:relative;height:10px;border-radius:999px;background:var(--paper);border:1px solid var(--line);overflow:hidden}
+  .tp-fill{height:100%;background:linear-gradient(90deg,var(--bronze) 0%,var(--bronze-light) 70%,#FFE6A8 100%);
+    border-radius:999px;transition:width .55s cubic-bezier(.2,0,0,1);box-shadow:0 0 12px rgba(232,199,122,.55) inset}
+  .tp-pass{position:absolute;left:60%;top:-3px;bottom:-3px;width:2px;background:var(--sdg-accent,#3FB984);
+    box-shadow:0 0 6px var(--sdg-accent,#3FB984)}
+  .tp-pass::after{content:"60%";position:absolute;top:-14px;left:50%;transform:translateX(-50%);
+    font-family:var(--mono);font-size:9px;color:var(--sdg-accent,#3FB984);font-weight:700;letter-spacing:.08em}
+  .tp-meta{display:flex;justify-content:space-between;margin-top:8px;font-family:var(--mono);
+    font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--steel)}
+  .tp-meta .tp-label{color:var(--bronze);font-weight:700}
+  .tp-bar.is-passed .tp-fill{background:linear-gradient(90deg,#3FB984 0%,#7FE0B0 80%,#C9F4DC 100%);box-shadow:0 0 16px rgba(63,185,132,.6) inset}
   .todo-item{display:flex;align-items:flex-start;gap:9px;padding:7px 0;font-size:12.5px;color:var(--ink-soft);line-height:1.45}
   .todo-item .material-symbols-rounded{font-size:17px;flex-shrink:0;color:var(--line-strong)}
   .todo-item.done{color:var(--steel)}
@@ -350,6 +397,23 @@
       </button>
     </div>
 
+    <!-- Per-stage "What to do / What to expect" intro. Big, readable;
+         rewritten by JS on each fp:stage event. Hidden until first event. -->
+    <section id="stage-intro" class="stage-intro" hidden aria-live="polite">
+      <div class="si-bar"><span class="si-step" id="si-step">STAGE 1 / 5</span><span class="si-th" id="si-th" lang="th"></span></div>
+      <h2 class="si-title" id="si-title">—</h2>
+      <div class="si-grid">
+        <div class="si-block">
+          <div class="si-label">What to do</div>
+          <p class="si-body" id="si-do">—</p>
+        </div>
+        <div class="si-block">
+          <div class="si-label">What to expect</div>
+          <p class="si-body" id="si-expect">—</p>
+        </div>
+      </div>
+    </section>
+
     <div id="mission-root">
       <div class="boot" id="boot">
         <div class="spinner" aria-hidden="true"></div>
@@ -384,17 +448,36 @@
     </div>
   </div>
   <div class="right-sec">
-    <div class="right-sec-label">Mission Progress</div>
-    <div id="progress-list"><p style="font-size:12.5px;color:var(--steel)">Starting…</p></div>
+    <div class="right-sec-label">Reading Tier</div>
+    <div class="rt-card" id="rt-card">
+      <span class="material-symbols-rounded">menu_book</span>
+      <span class="rt-val" id="an-tier">—</span>
+    </div>
   </div>
   <div class="right-sec">
     <div class="right-sec-label">This Mission</div>
     <div class="stat-grid">
       <div class="stat-box tok"><div class="l">Tokens</div><div class="v" id="an-tokens">0 ◆</div></div>
-      <div class="stat-box"><div class="l">Reading tier</div><div class="v" id="an-tier">—</div></div>
+      <div class="stat-box"><div class="l">Progress</div><div class="v" id="an-progress">0%</div></div>
       <div class="stat-box"><div class="l">Keystone</div><div class="v" id="an-keystone">—</div></div>
       <div class="stat-box"><div class="l">Stage</div><div class="v" id="an-stage">—</div></div>
     </div>
+    <!-- Token / Power bar (graphical) — fills with stage progress; the
+         60% notch is the Keystone pass bar (DEFAULT_PASS_THRESHOLD). -->
+    <div class="tp-wrap" aria-hidden="false">
+      <div class="tp-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="Mission progress toward Keystone">
+        <div class="tp-fill" id="tp-fill" style="width:0%"></div>
+        <div class="tp-pass" title="Keystone pass bar (60%)"></div>
+      </div>
+      <div class="tp-meta">
+        <span class="tp-label">Power</span>
+        <span class="tp-pct" id="tp-pct">0% / 60% to Keystone</span>
+      </div>
+    </div>
+  </div>
+  <div class="right-sec">
+    <div class="right-sec-label">Live Progress</div>
+    <div id="progress-list"><p style="font-size:12.5px;color:var(--steel)">Starting…</p></div>
   </div>
   <div class="right-sec">
     <div class="right-sec-label">What to do here <span class="rsl-hint">tap to tick ✓</span></div>
@@ -508,6 +591,8 @@
     const a = document.createElement("a");
     a.className = "rail-item" + (isCurrent ? " active" : "") + (passed ? " passed" : "");
     a.href = playable ? ("./mission-run.html?scenario=" + m.id) : "./mission-select.html";
+    // Per-card SDG colour so the six entries read as distinct cards (sketch).
+    if (m.sdg && SDG_COLOR[m.sdg]) a.style.setProperty("--mission-accent", SDG_COLOR[m.sdg]);
     const ic = document.createElement("span"); ic.className = "rail-ic";
     const ici = document.createElement("span"); ici.className = "material-symbols-rounded";
     ici.textContent = passed ? "verified" : (playable ? "play_circle" : "lock");
@@ -549,6 +634,44 @@
    */
   const ARC = ["BRIEF", "PROBE", "DECIDE", "ACT", "DEBRIEF"];
   const PHASE_TO_ARC = { briefing: 0, dossier: 1, stakeholders: 1, quiz: 2, complete: 4 };
+
+  // Shared per-stage intro copy — "What to do / What to expect". Generic
+  // enough to work across all six missions; specific enough to be useful.
+  // The Thai header is the catchy two-word label from the rail.
+  const STAGE_INTRO = {
+    0: { th: "อ่านพื้นที่",   title: "Read the land — and the trade-off in it",
+         do: "Read the brief slowly. Note the region, the people, the moment in time, and the one hard trade-off the scenario turns on. Don't decide yet — just absorb.",
+         expect: "About 10–15 minutes of reading. The text adapts to your reading tier. No quiz here — this is where you build the context the next stages will test." },
+    1: { th: "ขุดความจริง",   title: "Follow the evidence. Hear the stakeholders",
+         do: "Open every dossier section and play every stakeholder dispatch. Ask: who benefits, who pays, and which sources are most trustworthy — and why.",
+         expect: "Reading + 4 short stakeholder voices (text + audio). You'll mark each section read; the engine tracks coverage so you can return where you left off." },
+    2: { th: "ฟันธง",         title: "Hold the line. Choose under the trade-off",
+         do: "Answer each item, then rate how sure you are. Honest confidence matters more than a perfect score — under-confidence and over-confidence both cost you.",
+         expect: "A short quiz weighted at 30% of the mission — the heaviest stage. You may retry once after seeing feedback. The bar for the Keystone is composite ≥ 60%." },
+    3: { th: "ลงมือสื่อสาร",  title: "Send word. Communicate the decision",
+         do: "Write or speak the decision to the people it actually lands on. Be specific: who, what, when, the cost, and the trade-off you accepted.",
+         expect: "A short written/spoken response (weighted 25%). The AI judge will look for clarity, audience awareness, and honest acknowledgement of what someone gives up." },
+    4: { th: "ทบทวนผล",       title: "Reflect on consequence. Earn the Keystone",
+         do: "Read your composite and the feedback. Name one thing you'd do differently and one thing that surprised you. This is metacognition — not a re-litigation.",
+         expect: "5% weight, but a Keystone moment: if your composite ≥ 60%, the mission's SDG Keystone is awarded here. You can replay any stage to lift your score." },
+  };
+  function paintStageIntro(stageId, stageIndex) {
+    const si = document.getElementById("stage-intro");
+    if (!si) return;
+    let curArc = PHASE_TO_ARC[stageId];
+    if (curArc == null) {
+      const tot = 5;
+      curArc = Math.min(4, Math.round(((stageIndex || 0) / Math.max(1, tot - 1)) * 4));
+    }
+    const intro = STAGE_INTRO[curArc];
+    if (!intro) { si.hidden = true; return; }
+    document.getElementById("si-step").textContent = "Stage " + (curArc + 1) + " / 5 · " + ARC[curArc];
+    document.getElementById("si-th").textContent = intro.th;
+    document.getElementById("si-title").textContent = intro.title;
+    document.getElementById("si-do").textContent = intro.do;
+    document.getElementById("si-expect").textContent = intro.expect;
+    si.hidden = false;
+  }
   const progressList = document.getElementById("progress-list");
   const todoList = document.getElementById("todo-list");
   function paintProgress(d) {
@@ -572,6 +695,19 @@
     document.getElementById("an-tokens").textContent = (d.tokensEarned >= 0 ? "" : "") + (d.tokensEarned || 0) + " ◆";
     document.getElementById("an-stage").textContent = (curArc + 1) + " / " + ARC.length;
     document.getElementById("an-keystone").textContent = d.keystoneAwarded ? "◆ EARNED" : (d.passed ? "◆" : "—");
+    // Progress % + graphical Power bar fill. Stage progress is the most
+    // intuitive in-mission metric ("Stage 3/5" → 60%); the 60% notch on
+    // the bar is the Keystone pass bar by coincidence and design.
+    const pct = Math.round(((curArc + 1) / ARC.length) * 100);
+    const anPct = document.getElementById("an-progress");
+    if (anPct) anPct.textContent = pct + "%";
+    const fill = document.getElementById("tp-fill");
+    if (fill) fill.style.width = pct + "%";
+    const tpBar = fill && fill.parentElement;
+    if (tpBar) tpBar.classList.toggle("is-passed", Boolean(d.keystoneAwarded || d.passed));
+    const tpPct = document.getElementById("tp-pct");
+    if (tpPct) tpPct.textContent = d.keystoneAwarded ? "Keystone earned ✓"
+      : (d.passed ? (pct + "% · passed") : (pct + "% / 60% to Keystone"));
     // To-do for the current stage — tap to tick, persisted per user+mission+stage
     todoList.replaceChildren();
     const items = STAGE_TODO[d.stageId] || ["Work through this stage", "Continue when ready"];
@@ -601,12 +737,13 @@
     });
   }
   /* Left branching menu — the 5-stage arc, clickable to jump */
+  // Two-word catchy Thai per stage — selected by Aj. Yungie for the rail.
   const STAGE_NAV = [
-    { label: "Brief",   ic: "menu_book",      idx: 0 },
-    { label: "Probe",   ic: "travel_explore", idx: 1 },
-    { label: "Decide",  ic: "balance",        idx: 3 },
-    { label: "Act",     ic: "campaign",       idx: 3 },
-    { label: "Debrief", ic: "verified",       idx: 4 },
+    { label: "Brief",   th: "อ่านพื้นที่",   ic: "menu_book",      idx: 0 },
+    { label: "Probe",   th: "ขุดความจริง",   ic: "travel_explore", idx: 1 },
+    { label: "Decide",  th: "ฟันธง",         ic: "balance",        idx: 3 },
+    { label: "Act",     th: "ลงมือสื่อสาร",  ic: "campaign",       idx: 3 },
+    { label: "Debrief", th: "ทบทวนผล",       ic: "verified",       idx: 4 },
   ];
   const stagesWrap = document.getElementById("rail-stages");
   const mainMenuBtn = document.getElementById("rail-mainmenu");
@@ -616,7 +753,10 @@
       const b = document.createElement("button");
       b.type = "button"; b.className = "rail-stage"; b.dataset.arc = String(i);
       const ic = document.createElement("span"); ic.className = "material-symbols-rounded"; ic.textContent = sgn.ic;
-      const tx = document.createElement("span"); tx.textContent = sgn.label;
+      const tx = document.createElement("span"); tx.className = "rs-label";
+      const en = document.createElement("span"); en.className = "rs-en"; en.textContent = sgn.label;
+      const th = document.createElement("span"); th.className = "rs-th"; th.lang = "th"; th.textContent = sgn.th;
+      tx.append(en, th);
       const n = document.createElement("span"); n.className = "rs-n"; n.textContent = String(i + 1);
       b.append(ic, tx, n);
       b.addEventListener("click", () => {
@@ -641,6 +781,7 @@
   window.addEventListener("fp:stage", (e) => {
     if (!e.detail) return;
     paintProgress(e.detail);
+    paintStageIntro(e.detail.stageId, e.detail.stageIndex);
     let ca = PHASE_TO_ARC[e.detail.stageId];
     if (ca == null) ca = Math.min(4, Math.round((e.detail.stageIndex / 4) * 4));
     highlightStage(ca);
