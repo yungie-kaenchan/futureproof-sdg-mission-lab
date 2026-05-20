@@ -68,19 +68,16 @@
   .rail-item.active::before{content:"";position:absolute;left:-3px;top:8px;bottom:8px;width:3px;background:var(--c);border-radius:0 3px 3px 0}
   .rail-item.passed .rail-ic{background:linear-gradient(135deg,var(--bronze),var(--bronze-light));color:#fff}
   /* Left branching "Six Missions · Six Regions" → 5-stage menu (motion physics) */
-  .rail-mainmenu{position:relative;display:flex;align-items:center;gap:11px;width:calc(100% - 0px);
-    margin:2px 0 4px;padding:11px 11px;border:none;border-radius:13px;cursor:pointer;text-align:left;
+  .rail-mainmenu{position:relative;display:flex;align-items:center;gap:11px;width:100%;
+    margin:2px 0 4px;padding:11px 11px;border:none;border-radius:13px;text-align:left;
     background:color-mix(in srgb,var(--sdg-accent) 12%,#fff);color:var(--ink-deep);
-    box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--sdg-accent) 30%,transparent);transition:background .2s}
-  .rail-mainmenu:hover{background:color-mix(in srgb,var(--sdg-accent) 18%,#fff)}
+    box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--sdg-accent) 30%,transparent)}
   .rail-mainmenu .rail-ic{background:var(--sdg-accent);color:#fff}
-  .rail-mm-chev{margin-left:auto;color:var(--steel);font-size:20px;transition:transform .35s cubic-bezier(.34,1.56,.64,1)}
-  .rail-mainmenu[aria-expanded="false"] .rail-mm-chev{transform:rotate(-90deg)}
   .rail-stages{position:relative;margin:0 0 6px 26px;padding-left:14px;
     border-left:2px solid color-mix(in srgb,var(--sdg-accent) 35%,transparent);
     display:flex;flex-direction:column;gap:3px;overflow:hidden;
     max-height:420px;opacity:1;transition:max-height .4s cubic-bezier(.22,1,.36,1),opacity .3s,margin .3s}
-  .rail-stages:not(.is-open){max-height:0;opacity:0;margin-bottom:0}
+  /* Stages are always-on now: collapse rule removed by design. */
   .rail-stage{display:flex;align-items:center;gap:9px;padding:8px 10px;border:none;background:transparent;
     border-radius:10px;cursor:pointer;color:var(--ink-soft);font-family:var(--sans);font-size:13px;font-weight:600;
     text-align:left;transform:translateX(-6px);opacity:0;
@@ -96,6 +93,12 @@
   .rail-stage .material-symbols-rounded{font-size:18px;color:var(--steel)}
   .rail-stage.is-current{background:color-mix(in srgb,var(--sdg-accent) 18%,transparent);color:var(--ink-deep);font-weight:700}
   .rail-stage.is-current .material-symbols-rounded{color:var(--sdg-accent)}
+  .rail-stage.is-current .rs-n{background:var(--sdg-accent);color:#fff;border-radius:999px;
+    padding:1px 7px;letter-spacing:0;font-size:9.5px}
+  .rail-stage.is-done{color:var(--bronze)}
+  .rail-stage.is-done .material-symbols-rounded{color:var(--bronze)}
+  .rail-stage.is-done .rs-n{color:var(--bronze);font-size:13px}
+  .rail-stage.is-pending{opacity:.62}
   .rail-stage .rs-n{font-family:var(--mono);font-size:10px;color:var(--sdg-accent);font-weight:700;margin-left:auto}
   .rail-stage .rs-label{display:flex;flex-direction:column;line-height:1.1;min-width:0;flex:1}
   .rail-stage .rs-en{font-size:13.5px;font-weight:600;color:inherit}
@@ -212,6 +215,7 @@
   .prog-name{font-size:13px;color:var(--ink-soft)}
   .prog-stage.done .prog-name,.prog-stage.current .prog-name{color:var(--ink-deep)}
   .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .stat-grid-3{grid-template-columns:1fr 1fr 1fr}
   .stat-box{background:var(--paper);border:1px solid var(--line);border-radius:11px;padding:11px 12px}
   .stat-box .l{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--steel)}
   .stat-box .v{font-size:18px;font-weight:700;color:var(--ink-deep);margin-top:3px;font-family:var(--display)}
@@ -234,21 +238,27 @@
     font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--steel)}
   .tp-meta .tp-label{color:var(--bronze);font-weight:700}
   .tp-bar.is-passed .tp-fill{background:linear-gradient(90deg,#3FB984 0%,#7FE0B0 80%,#C9F4DC 100%);box-shadow:0 0 16px rgba(63,185,132,.6) inset}
-  /* Keystones Collected — 6 SDG pins (lit/dim) */
-  .ks-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:4px}
-  .ks-pin{position:relative;aspect-ratio:1/1;border-radius:12px;
+  /* Keystones Collected — 6 SDG tiles. Bigger, labelled, hover-tooltip. */
+  .ks-blurb{font-size:12px;color:var(--steel);line-height:1.5;margin:2px 0 10px}
+  .ks-blurb strong{color:var(--ink-deep)}
+  .ks-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:4px}
+  .ks-pin{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:3px;padding:10px 6px;aspect-ratio:1/1;border-radius:14px;
     background:var(--paper);border:1px solid var(--line);
-    display:flex;align-items:center;justify-content:center;
-    font-family:var(--mono);font-size:10px;font-weight:700;color:var(--steel);
+    color:var(--steel);text-decoration:none;
     transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .25s}
-  .ks-pin .ks-num{position:relative;z-index:2}
-  .ks-pin::before{content:"";position:absolute;inset:0;border-radius:11px;
-    background:var(--ks-c,#ccc);opacity:.10;transition:opacity .3s}
+  .ks-pin::before{content:"";position:absolute;inset:0;border-radius:13px;
+    background:var(--ks-c,#ccc);opacity:.08;transition:opacity .3s}
+  .ks-pin .ks-num{position:relative;z-index:2;font-family:var(--mono);font-size:14px;font-weight:700;letter-spacing:.04em}
+  .ks-pin .ks-region{position:relative;z-index:2;font-family:var(--mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--steel)}
+  .ks-pin .ks-state{position:relative;z-index:2;font-size:14px;line-height:1}
   .ks-pin.earned{color:#fff;border-color:transparent}
   .ks-pin.earned::before{opacity:1;background:linear-gradient(135deg,var(--ks-c,#ccc),color-mix(in srgb,var(--ks-c) 60%,#fff))}
-  .ks-pin.earned{box-shadow:0 4px 14px color-mix(in srgb,var(--ks-c) 40%,transparent)}
+  .ks-pin.earned{box-shadow:0 6px 18px color-mix(in srgb,var(--ks-c) 35%,transparent)}
+  .ks-pin.earned .ks-region{color:rgba(255,255,255,.85)}
   .ks-pin.is-current{outline:2px solid var(--ks-c);outline-offset:2px}
   .ks-pin:hover{transform:translateY(-2px)}
+  .ks-pin .ks-state .material-symbols-rounded{font-size:16px;vertical-align:middle}
   /* Dossier re-read button + modal */
   .dossier-btn{position:fixed;left:calc(var(--rail-w) + 18px);bottom:18px;z-index:55;
     display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;
@@ -298,6 +308,13 @@
     color:var(--ink-deep);background:rgba(232,199,122,.16);border:1px solid rgba(181,124,52,.3);transition:.2s}
   .rpd-edit:hover{background:linear-gradient(135deg,var(--bronze),var(--bronze-light));color:#fff}
   .rpd-edit .material-symbols-rounded{font-size:16px}
+  /* Quick-action links inside the right-pane profile card (replaces the
+     bottom-left profile menu). Compact rows, hover highlight. */
+  .rpd-links{margin-top:8px;padding-top:8px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:2px}
+  .rpd-links a{display:flex;align-items:center;gap:9px;padding:7px 9px;border-radius:9px;
+    color:var(--ink-soft);font-size:12.5px;text-decoration:none;transition:background .15s,color .15s}
+  .rpd-links a:hover{background:rgba(181,124,52,.08);color:var(--ink-deep)}
+  .rpd-links .material-symbols-rounded{font-size:16px;color:var(--steel)}
   .remain-item{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid var(--line);font-size:12.5px}
   .remain-item:last-child{border-bottom:none}
   .remain-item .sdg{width:24px;height:24px;border-radius:7px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
@@ -357,15 +374,16 @@
 
 <aside class="rail" id="rail" aria-label="Missions and tools">
   <nav class="rail-nav">
-    <button class="rail-mainmenu" id="rail-mainmenu" type="button" aria-expanded="true" aria-controls="rail-stages">
+    <!-- In-progress mission header (non-interactive section heading) -->
+    <div class="rail-mainmenu" id="rail-mainmenu" aria-controls="rail-stages">
       <span class="rail-ic"><span class="material-symbols-rounded">hub</span></span>
       <span class="rail-tx">
-        <span class="rail-label">Six Missions · Six Regions</span>
-        <span class="rail-label-th" lang="th">หกภารกิจ · หกภูมิภาค</span>
+        <span class="rail-label">Current Mission</span>
+        <span class="rail-label-th" lang="th">ภารกิจปัจจุบัน</span>
       </span>
-      <span class="rail-mm-chev material-symbols-rounded" aria-hidden="true">expand_more</span>
-    </button>
-    <div class="rail-stages is-open" id="rail-stages" role="group" aria-label="Jump to a mission stage"><!-- 5 stages injected --></div>
+    </div>
+    <!-- All 5 stages always visible, vertically, beneath the current mission -->
+    <div class="rail-stages is-open" id="rail-stages" role="group" aria-label="Mission stages"><!-- 5 stages injected --></div>
 
     <div class="rail-section-label">
       <span class="rail-section-en">The Six Regions</span>
@@ -391,33 +409,8 @@
     </a>
   </nav>
 
-  <div class="rail-profile" id="rail-profile">
-    <button class="rail-profile-header" id="rail-profile-toggle" aria-expanded="false" aria-controls="rail-profile-menu">
-      <div class="rail-avatar"><span id="rp-initials">··</span><span class="online-dot" aria-hidden="true"></span></div>
-      <div class="rail-profile-info">
-        <div class="rail-profile-name" id="rp-name">Loading…</div>
-        <div class="rail-profile-role" id="rp-role">—</div>
-      </div>
-      <span class="rail-profile-chev material-symbols-rounded" aria-hidden="true">expand_more</span>
-    </button>
-    <div class="rail-profile-menu" id="rail-profile-menu" role="region" aria-label="Profile menu">
-      <div class="rail-profile-stats">
-        <div class="rps tok"><div class="l">Keystones</div><div class="v" id="rp-keystones">0 / 6</div></div>
-        <div class="rps"><div class="l">Reading tier</div><div class="v" id="rp-tier">—</div></div>
-      </div>
-      <a href="./reflections.html" class="rail-profile-item"><span class="material-symbols-rounded">mic</span><span>My Reflections</span></a>
-      <a href="./my-data.html" class="rail-profile-item"><span class="material-symbols-rounded">lock</span><span>My Data · PDPA</span></a>
-      <a href="../home.html#contact" class="rail-profile-item"><span class="material-symbols-rounded">help</span><span>Help &amp; Support</span></a>
-      <div class="rail-profile-lang">
-        <span class="cap">Language</span>
-        <div class="langpill" role="tablist" aria-label="Interface language">
-          <button class="is-active" data-lang="en" role="tab" aria-selected="true">EN</button>
-          <button data-lang="th" role="tab" aria-selected="false">ไทย</button>
-        </div>
-      </div>
-    </div>
-    <a href="../index.html" class="rail-signout" id="rail-signout"><span class="material-symbols-rounded">logout</span><span>Sign Out</span></a>
-  </div>
+  <!-- Bottom-left profile removed — Your Profile lives in the right pane,
+       Sign Out lives in the page header. Single source of truth. -->
 </aside>
 
 <main class="center">
@@ -484,6 +477,11 @@
         <span class="material-symbols-rounded">edit</span>
         <span>Edit profile &amp; avatar</span>
       </a>
+      <div class="rpd-links">
+        <a href="./reflections.html"><span class="material-symbols-rounded">mic</span><span>My Reflections</span></a>
+        <a href="./my-data.html"><span class="material-symbols-rounded">lock</span><span>My Data · PDPA</span></a>
+        <a href="../home.html#contact"><span class="material-symbols-rounded">help</span><span>Help &amp; Support</span></a>
+      </div>
     </div>
   </div>
   <div class="right-sec">
@@ -495,11 +493,15 @@
   </div>
   <div class="right-sec">
     <div class="right-sec-label">This Mission</div>
-    <div class="stat-grid">
+    <!-- KEYSTONE moved into the Keystones Collected widget below (one
+         place for that signal, not two). 3-stat row instead of 2x2. -->
+    <div class="stat-grid stat-grid-3">
       <div class="stat-box tok"><div class="l">Tokens</div><div class="v" id="an-tokens">0 ◆</div></div>
       <div class="stat-box"><div class="l">Progress</div><div class="v" id="an-progress">0%</div></div>
-      <div class="stat-box"><div class="l">Keystone</div><div class="v" id="an-keystone">—</div></div>
       <div class="stat-box"><div class="l">Stage</div><div class="v" id="an-stage">—</div></div>
+      <!-- Hidden field preserved so paintProgress can still write to it
+           without throwing; kept off-DOM-flow via aria-hidden + CSS. -->
+      <span id="an-keystone" hidden aria-hidden="true">—</span>
     </div>
     <!-- Token / Power bar (graphical) — fills with stage progress; the
          60% notch is the Keystone pass bar (DEFAULT_PASS_THRESHOLD). -->
@@ -514,15 +516,16 @@
       </div>
     </div>
   </div>
-  <!-- Keystones Collected — 6 SDG dots, lit when the user holds that Keystone -->
+  <!-- Keystones Collected — 6 SDG-coloured tiles. Lit when earned, dim
+       when not yet. Click a tile to jump to that mission's brief. -->
   <div class="right-sec">
     <div class="right-sec-label">Keystones Collected <span class="rsl-hint" id="ks-count">0 / 6</span></div>
+    <p class="ks-blurb">Earn one for each region you pass. Collect <strong>all six</strong> to unlock your Voice for Change.</p>
     <div class="ks-grid" id="ks-grid" role="list" aria-label="SDG Keystones collected"></div>
   </div>
-  <div class="right-sec">
-    <div class="right-sec-label">Live Progress</div>
-    <div id="progress-list"><p style="font-size:12.5px;color:var(--steel)">Starting…</p></div>
-  </div>
+  <!-- Live Progress merged into the left rail's 5 stages. Kept hidden
+       for any legacy reads (paintProgress writes to it). -->
+  <div id="progress-list" hidden aria-hidden="true"></div>
   <div class="right-sec">
     <div class="right-sec-label">What to do here <span class="rsl-hint">tap to tick ✓</span></div>
     <div id="todo-list"></div>
@@ -585,17 +588,12 @@
     } catch (_) { return false; }
   }
 
-  /* ── Profile (bottom-left) ── */
+  /* ── Profile (right pane is the single source of truth now) ── */
   const name = (flow && flow.displayName) || "Operator";
   const initials = name.trim().split(/\s+/).map(w => w[0]).slice(0,2).join("").toUpperCase() || "OP";
   const lp = (flow && flow.learnerProfile) || {};
   const tierNum = lp.readingTier || (lp.language && lp.language.readingTier) || null;
   const rank = (flow && flow.rank) || "Cadet";
-  document.getElementById("rp-initials").textContent = initials;
-  document.getElementById("rp-name").textContent = name;
-  document.getElementById("rp-role").textContent =
-    rank + (lp.cefrEstimate ? " · CEFR " + lp.cefrEstimate : "");
-  document.getElementById("rp-tier").textContent = tierNum ? ("T" + tierNum) : "—";
   { const _i=document.getElementById("rpd-initials"); if(_i)_i.textContent=initials;
     const _n=document.getElementById("rpd-name"); if(_n)_n.textContent=name;
     const _r=document.getElementById("rpd-role"); if(_r)_r.textContent=rank+(lp.cefrEstimate?(" \u00b7 CEFR "+lp.cefrEstimate):"");
@@ -604,22 +602,8 @@
   const tierTxt = tierNum ? (tierNum + " · " + tierLabel(tierNum)) : "default";
   document.getElementById("an-tier").textContent = tierTxt;
 
-  // Profile expander + language + signout
-  const rpToggle = document.getElementById("rail-profile-toggle");
-  const rpWrap = document.getElementById("rail-profile");
-  rpToggle.addEventListener("click", () => {
-    const open = rpWrap.classList.toggle("is-open");
-    rpToggle.setAttribute("aria-expanded", open ? "true" : "false");
-  });
-  document.querySelectorAll(".langpill button").forEach(b => b.addEventListener("click", () => {
-    document.querySelectorAll(".langpill button").forEach(x => {
-      const on = x === b; x.classList.toggle("is-active", on); x.setAttribute("aria-selected", on ? "true" : "false");
-    });
-    document.documentElement.lang = b.dataset.lang;
-  }));
-  document.getElementById("rail-signout").addEventListener("click", () => {
-    try { localStorage.removeItem("fp_flow_state_v1"); } catch (_) {}
-  });
+  // The bottom-left profile / language pill / rail sign-out are gone.
+  // Sign-out lives in the page header (#hdr-signout) and is wired above.
 
   // Mobile rail toggle
   const ham = document.getElementById("hamburger");
@@ -702,13 +686,20 @@
     for (const m of JOURNEY_MISSIONS) {
       const hasIt = Boolean(earned[m.id]);
       if (hasIt) count++;
-      const pin = document.createElement("div");
+      // Use a link when the mission is playable, plain div otherwise.
+      const playable = Boolean(REGISTRY[m.id]);
+      const pin = document.createElement(playable ? "a" : "div");
+      if (playable) pin.href = "./mission-run.html?scenario=" + m.id;
       pin.className = "ks-pin" + (hasIt ? " earned" : "") + (m.id === scenarioId ? " is-current" : "");
       pin.setAttribute("role", "listitem");
       pin.setAttribute("title", "SDG " + m.sdg + " · " + m.region + " · " + m.title + (hasIt ? " — earned" : " — not yet"));
       pin.style.setProperty("--ks-c", SDG_COLOR[m.sdg] || "#999");
-      const n = document.createElement("span"); n.className = "ks-num"; n.textContent = String(m.sdg);
-      pin.appendChild(n);
+      const n = document.createElement("span"); n.className = "ks-num"; n.textContent = "SDG " + m.sdg;
+      const r = document.createElement("span"); r.className = "ks-region"; r.textContent = m.region;
+      const s = document.createElement("span"); s.className = "ks-state";
+      if (hasIt) { const i = document.createElement("span"); i.className = "material-symbols-rounded"; i.textContent = "verified"; s.appendChild(i); }
+      else { s.textContent = "—"; }
+      pin.append(n, r, s);
       wrap.appendChild(pin);
     }
     const lbl = document.getElementById("ks-count");
@@ -914,15 +905,19 @@
       stagesWrap.appendChild(b);
     });
   }
-  if (mainMenuBtn && stagesWrap) {
-    mainMenuBtn.addEventListener("click", () => {
-      const open = stagesWrap.classList.toggle("is-open");
-      mainMenuBtn.setAttribute("aria-expanded", open ? "true" : "false");
-    });
-  }
+  // The 5-stage section is permanently expanded — collapse toggle removed
+  // so navigation between stages never requires a hidden affordance.
+  // Each rail stage tile reflects done / current / pending — replacing
+  // the old right-pane Live Progress strip (one stage tracker, not two).
   function highlightStage(curArc) {
     document.querySelectorAll(".rail-stage").forEach((el) => {
-      el.classList.toggle("is-current", Number(el.dataset.arc) === curArc);
+      const i = Number(el.dataset.arc);
+      el.classList.toggle("is-current", i === curArc);
+      el.classList.toggle("is-done", i < curArc);
+      el.classList.toggle("is-pending", i > curArc);
+      // Number → ✓ on done; restore number otherwise.
+      const n = el.querySelector(".rs-n");
+      if (n) n.textContent = (i < curArc) ? "✓" : String(i + 1);
     });
   }
   window.addEventListener("fp:stage", (e) => {
