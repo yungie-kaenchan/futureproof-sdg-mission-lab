@@ -2,75 +2,45 @@
 
 > **Mission 02 of 06 · SDG 13 — Climate Action · North / Chiang Mai · CEFR B1+/B2**
 >
-> This master is the authoring spec for the runtime mission already shipped in
-> `src/scenarios/sdg13-chiangmai-content.js`, `sdg13-chiangmai-quiz.js`,
-> `sdg13-chiangmai-m1.js`. It mirrors the structure of the other five SDG
-> design folders so the platform's documentation is consistent.
+> This master is the authoring spec for the runtime mission already
+> shipped in `src/scenarios/sdg13-chiangmai-content.js`,
+> `sdg13-chiangmai-quiz.js`, `sdg13-chiangmai-m1.js`. It mirrors the
+> 5-section structure of the other four "remaining" SDG masters
+> (Bangkok, Andaman, Mae Sot, EEC fringe) so the platform's design
+> documentation reads identically across all six missions.
 
 ## TABLE OF CONTENTS
 
 - §1 RESEARCHER'S BRIEF
-- §2 SCENARIO TEXT (title · setting · tension · decision · ethical axes)
-- §3 ADAPTIVE DOSSIER — Mission 1 reading (T1 · T2 · T3)
-- §4 STAKEHOLDER QUARTET — Mission 2 dispatches (positions + transcripts)
-- §5 VOCABULARY KIT
-- §6 QUIZ ITEMS — Mission 2 / 3 / 4 (six items, scoring + scaffolds)
-- §7 AUDIO + VIDEO PRODUCTION KIT
-- §8 IMAGE PRODUCTION KIT
-- §9 SCORING + KEYSTONE RUBRIC
-- §10 CULTURAL & ETHICAL GUARD-RAILS
-- §11 INSTITUTIONS CITED + REFERENCE STACK
+- §2 SCENARIO TEXT
+- §3 ADAPTIVE & ASSESSMENT NOTES
+- §4 ASSET MANIFEST
+- §5 PRODUCTION CHECKLIST + OPEN VETTING QUESTIONS
 
 ---
 
-# §1 RESEARCHER'S BRIEF
+# 1. RESEARCHER'S BRIEF
 
 ## 1.1 Geography & meteorology
 
-The mission is set in the **Upper Ping basin** — the Chiang Mai valley with
-**Mae Hong Son** and the uplands of **Mae Chaem, Omkoi, Doi Saket, Samoeng,
-and Chom Thong** ringing it. The Ping flows south through the city before
-joining the Wang, Yom and Nan to form the Chao Phraya. The basin is
-**topographically closed at the eastern, western and southern rims** by the
-foothills of the Khun Tan and Thanon Thong Chai ranges (1,200–2,500 m).
+The mission is set in the **Upper Ping basin** — the Chiang Mai valley
+with **Mae Hong Son** and the uplands of **Mae Chaem, Omkoi, Doi Saket,
+Samoeng, and Chom Thong** ringing it. The Ping flows south through the
+city before joining the Wang, Yom and Nan to form the Chao Phraya. The
+basin is **topographically closed at the eastern, western and southern
+rims** by the foothills of the Khun Tan and Thanon Thong Chai ranges
+(1,200–2,500 m).
 
 From **mid-February through late April** the regional synoptic pattern
 favours **persistent low-level temperature inversions**: a layer of warm
-air slides over the cooler valley floor and acts as a lid. Vertical mixing
-is suppressed, so combustion aerosols accumulate over multiple days until
-the southwest monsoon arrives in May. During this window, AQI readings in
-Chiang Mai municipality routinely exceed 200 μg/m³ PM2.5 — among the
-worst sustained levels recorded anywhere on the planet.
+air slides over the cooler valley floor and acts as a lid. Vertical
+mixing is suppressed, so combustion aerosols accumulate over multiple
+days until the southwest monsoon arrives in May. During this window,
+AQI readings in Chiang Mai municipality routinely exceed 200 μg/m³
+PM2.5 — among the worst sustained levels recorded anywhere on the
+planet.
 
-## 1.2 The empirical spine of the tension
-
-Four facts the mission rests on (each verifiable from PCD, GISTDA, MOPH,
-or the Chiang Mai University environmental-health literature):
-
-1. **Source apportionment.** The seasonal aerosol load is **roughly equal
-   parts** (i) crop-residue / forest fire across Northern Thai uplands and
-   (ii) **transboundary smoke** drifting in from outside Thai borders.
-   Independent monitoring repeatedly puts the transboundary share between
-   **30 % and 55 %** by season.
-2. **Domestic ignition profile.** The Thai share is overwhelmingly
-   attributable to **upland smallholders** burning crop residue — primarily
-   feed maize stover — to clear fields ahead of a tight, **buyer-set
-   replanting window** (10–14 days post-harvest in many contracts).
-3. **Mechanised alternatives exist but are unaffordable.** Stalk shredders /
-   incorporators run **฿1.2 – ฿2.0 million** per unit; smallholder net
-   seasonal income from a 5–10 rai contract is typically a few tens of
-   thousands of baht. **Rental capacity is structurally inadequate** during
-   the narrow turnaround window.
-4. **Public-health signal is consistent.** Chiang Mai hospitals report a
-   recurring seasonal escalation in respiratory presentations — paediatric,
-   geriatric, asthmatic cohorts disproportionately. The PM2.5 ↔ admissions
-   association is robust and replicated across multiple seasons.
-
-These four facts produce the **canonical trade-off**: the public-health case
-for prohibition is real; the prohibition's instrument falls hardest on the
-people with the **least latitude to comply**.
-
-## 1.3 Institutional landscape
+## 1.2 Institutional landscape (REAL bodies — context only)
 
 | Body | Mandate / role in this scenario |
 |---|---|
@@ -82,53 +52,90 @@ people with the **least latitude to comply**.
 | **Chiang Mai University** (environmental & public-health programmes) | Independent academic monitoring + compliance research |
 | **ASEAN Agreement on Transboundary Haze Pollution** | Regional framework — limited enforceability |
 
-## 1.4 Anti-pattern check (what this mission must NOT become)
+All bodies above are real and accurately scoped. None are positioned as
+endorsing or opposing any particular outcome — they are present so the
+student can ask *"who actually has standing to do what?"* during the
+PROBE stage.
 
-- **Not a "burning vs. not burning" debate.** It is a **burning-WITHOUT-
-  alternative vs. enforcement-WITHOUT-justice** debate. Both flat positions
-  fail under cross-examination.
+## 1.3 The empirical spine of the tension
+
+Four facts the mission rests on (each verifiable from PCD, GISTDA, MOPH,
+or the Chiang Mai University environmental-health literature):
+
+1. **Source apportionment.** The seasonal aerosol load is **roughly
+   equal parts** (i) crop-residue / forest fire across Northern Thai
+   uplands and (ii) **transboundary smoke** drifting in from outside
+   Thai borders. Independent monitoring repeatedly puts the
+   transboundary share between **30 % and 55 %** by season.
+2. **Domestic ignition profile.** The Thai share is overwhelmingly
+   attributable to **upland smallholders** burning crop residue —
+   primarily feed maize stover — to clear fields ahead of a tight,
+   **buyer-set replanting window** (10–14 days post-harvest in many
+   contracts).
+3. **Mechanised alternatives exist but are unaffordable.** Stalk
+   shredders / incorporators run **฿1.2 – ฿2.0 million** per unit;
+   smallholder net seasonal income from a 5–10 rai contract is
+   typically a few tens of thousands of baht. Rental capacity is
+   **structurally inadequate** during the narrow turnaround window.
+4. **Public-health signal is consistent.** Chiang Mai hospitals report
+   a recurring seasonal escalation in respiratory presentations —
+   paediatric, geriatric, asthmatic cohorts disproportionately. The
+   PM2.5 ↔ admissions association is robust and replicated across
+   multiple seasons.
+
+These four facts produce the **canonical trade-off**: the public-health
+case for prohibition is real; the prohibition's instrument falls
+hardest on the people with the **least latitude to comply**.
+
+## 1.4 Anti-pattern check
+
+- **Not a "burning vs. not burning" debate.** It is a
+  *burning-WITHOUT-alternative* vs. *enforcement-WITHOUT-justice*
+  debate. Both flat positions fail under cross-examination.
 - **Not a savior-pitch.** Students must NOT propose "I will educate the
-  farmers" or "I will donate machines." The agronomic calendar, financing,
-  and market-power asymmetry are the constraints to engage with.
+  farmers" or "I will donate machines." The agronomic calendar,
+  financing, and market-power asymmetry are the constraints to engage
+  with.
 - **Not nationalistic.** The transboundary fact must be presented as
-  **physical**, not political. The mission is not anti-Burma, anti-Lao, or
-  anti-anyone — it is anti-displacement-of-burden.
+  **physical**, not political. The mission is not anti-Burma, anti-Lao,
+  or anti-anyone — it is anti-displacement-of-burden.
 - **Not anti-rural.** The smallholder is not stupid for burning. The
-  buyer's contract and the absent rental fleet make burning the **rational
-  least-cost choice** at the smallholder margin.
+  buyer's contract and the absent rental fleet make burning the
+  **rational least-cost choice** at the smallholder margin.
 
 ## 1.5 Flagged uncertainties — use ranges, never invent
 
-The dossier and stakeholder voices are deliberately written to **avoid
-fabricated precise statistics** where the underlying empirical literature
-disagrees. Where bounds are needed, use:
+Use clearly-labelled illustrative ranges. The runtime AI Judge prompt
+explicitly **rewards range-based hedging** and **penalises invented
+precision**.
 
-- Transboundary share of seasonal PM2.5 in Chiang Mai: **30–55 %**
-- Mechanised shredder/incorporator capital cost: **฿1.2 – ฿2.0 M**
-- Seasonal admissions escalation (PM2.5-attributable, Chiang Mai
-  hospitals): **+15 % to +40 %** above baseline weeks
-- Number of upland smallholders directly affected: **tens of thousands**
-
-The AI Judge prompt for this mission explicitly **rewards range-based
-hedging over fabricated precision** and **penalises invented numbers**.
+| Quantity | Range to use | Rationale |
+|---|---|---|
+| Transboundary share of seasonal PM2.5 in Chiang Mai | **30 – 55 %** | Multiple peer-reviewed monitoring studies disagree on the precise share. |
+| Mechanised shredder/incorporator capital cost | **฿1.2 – ฿2.0 M** | Market quotes vary by capacity and brand. |
+| Seasonal admissions escalation (PM2.5-attributable) | **+15 % to +40 %** above baseline weeks | Site-, age- and year-dependent. |
+| Smallholders directly affected (Chiang Mai uplands) | **tens of thousands** of households | No single official register; deliberately qualitative. |
 
 ## 1.6 Cultural-authenticity guard
 
 - **The northern voice is not the central Thai voice.** Stakeholder 01
   (Mae Chaem maize grower) speaks in northern Thai cadence in the audio
-  source — captions render in standard English; the Thai metalanguage
-  uses คำเหนือ register sparingly and never as caricature.
+  source; captions render in standard English; the Thai metalanguage
+  uses **คำเหนือ** register sparingly and never as caricature.
 - **Khon mueang sensitivity.** The northern (Lanna) urban identity that
-  experiences the haze is not interchangeable with Bangkok-centric "city
-  vs. countryside" framing. The clinician (stakeholder 02) is positioned
-  in Chiang Mai, not Bangkok.
-- **The enforcement officer is sympathetic.** The mission is not anti-
-  enforcement — it is anti-enforcement-without-provision. Stakeholder 04
-  exists to make that distinction non-tribal.
+  experiences the haze is not interchangeable with Bangkok-centric
+  *"city vs. countryside"* framing. The clinician (stakeholder 02) is
+  positioned in Chiang Mai, not Bangkok.
+- **The enforcement officer is sympathetic.** The mission is not
+  anti-enforcement — it is anti-enforcement-without-provision.
+  Stakeholder 04 exists to make that distinction non-tribal.
+- **No identifiable faces in portraits.** All stakeholder visuals use
+  three-quarter / shadowed / implied poses (consistent with the
+  dignity guard across all six missions).
 
 ---
 
-# §2 SCENARIO TEXT
+# 2. SCENARIO TEXT
 
 ## 2.1 Title
 
@@ -137,84 +144,82 @@ hedging over fabricated precision** and **penalises invented numbers**.
 
 ## 2.2 Setting (28 words)
 
-> Each year from February to April, a grey haze settles over Chiang Mai.
-> Much of it is smoke from crop-residue and forest burning across the
-> northern uplands and from across the border. The city's air quality
-> becomes among the worst in the world.
+> Each year from February to April, a grey haze settles over Chiang
+> Mai. Much of it is smoke from crop-residue and forest burning across
+> the northern uplands and from across the border. The city's air
+> quality becomes among the worst in the world.
 
 ## 2.3 Core tension (38 words)
 
 > A hard zero-burning order with satellite-hotspot fines would cut the
 > smoke that sickens hundreds of thousands of city residents — but it
 > criminalises upland farmers who burn because no funded alternative
-> exists and the maize-contract economy demands a fast field turnaround.
+> exists and the maize-contract economy demands a fast field
+> turnaround.
 
-## 2.4 Decision point (Mission 5 framing)
+## 2.4 Decision point (DECIDE stage)
 
-> Should the province enforce a province-wide zero-burning order this dry
-> season, backed by satellite-hotspot fines, **before** a funded residue-
-> management alternative is in place for upland smallholders?
+> Should the province enforce a province-wide zero-burning order this
+> dry season, backed by satellite-hotspot fines, **before** a funded
+> residue-management alternative is in place for upland smallholders?
 
-## 2.5 Ethical axes
+## 2.5 Ethical axes (controlled vocabulary)
 
-1. **Public health vs. rural livelihood** — the binary the mission opens
-   with, and the binary the mission deliberately complicates.
-2. **Procedural justice** — does enforcement without provision retain the
-   legitimacy a public-health rule depends on?
+1. **Public health vs. rural livelihood** — the binary the mission
+   opens with, and the binary the mission deliberately complicates.
+2. **Procedural justice** — does enforcement without provision retain
+   the legitimacy a public-health rule depends on?
 
-(A third axis — *intergenerational climate harm vs. immediate compliance
-cost* — is held in reserve for the Final Task / Voice for Change capstone,
-where the student transfers the SDG-13 reasoning to a wider frame.)
+A third axis — *intergenerational climate harm vs. immediate compliance
+cost* — is held in reserve for the Final Task / Voice for Change
+capstone, where the student transfers the SDG-13 reasoning to a wider
+frame.
 
----
-
-# §3 ADAPTIVE DOSSIER — Mission 1 reading
+## 2.6 Dossier — BRIEF stage reading, authored at ALL THREE TIERS
 
 Every dossier part exists in **three tiered registers** (T1 = A2–B1,
-T2 = B1+–B2 baseline, T3 = B2+–C1). The tiered versions carry the **same
-facts, stakeholders, numbers, and decision** — they differ only in lexical
-density, sentence length, and clause embedding. The runtime selects a tier
-based on the learner's diagnostic.
+T2 = B1+–B2 baseline, T3 = B2+–C1). The tiered versions carry the
+**same facts, stakeholders, numbers, and decision** — they differ only
+in lexical density, sentence length, and clause embedding. The runtime
+selects a tier based on the learner's diagnostic.
 
-## 3.1 Part 1 — Why the air turns grey  *(≈ 200 words at T2)*
+T2 is the canonical reference register; the full T1 and T3 variants
+live in `src/scenarios/sdg13-chiangmai-content.js` →
+`DOSSIER[N].body.{1,3}`.
 
-**T2 (canonical reference):**
+### Part 1 — Why the air turns grey *(≈ 200 words at T2)*
 
-> Each year, from February to April, a grey haze settles over Chiang Mai.
-> People here call it the burning season. Most of the smoke comes from
-> crop-**residue** and forest fires across the northern uplands; a
-> significant share also drifts in from across the border.
+> Each year, from February to April, a grey haze settles over Chiang
+> Mai. People here call it the burning season. Most of the smoke comes
+> from crop-**residue** and forest fires across the northern uplands;
+> a significant share also drifts in from across the border.
 >
-> The fine dust in that smoke is **PM2.5** — **particulate** matter small
-> enough to pass deep into the lungs and into the bloodstream. For several
-> weeks each year, Chiang Mai records some of the worst air quality
-> measurements on the planet.
+> The fine dust in that smoke is **PM2.5** — **particulate** matter
+> small enough to pass deep into the lungs and into the bloodstream.
+> For several weeks each year, Chiang Mai records some of the worst
+> air quality measurements on the planet.
 >
 > The terrain makes it worse. Cool, polluted air pools in the Ping
 > valley, and a warmer layer above it acts as a lid — a temperature
-> **inversion**. The smoke has nowhere to go, so concentrations climb day
-> after day until the rains arrive.
+> **inversion**. The smoke has nowhere to go, so concentrations climb
+> day after day until the rains arrive.
 >
 > The province has approved a plan: a zero-burning order for the whole
 > season. Satellite imagery will locate every active fire — every
 > **hotspot** — and those responsible can be fined. The plan is legal.
-> Whether it is just is a different question — and the answer depends on
-> whose situation you weigh first.
+> Whether it is just is a different question — and the answer depends
+> on whose situation you weigh first.
 
-**T1 (A2–B1)** and **T3 (B2+–C1)** variants live in
-`src/scenarios/sdg13-chiangmai-content.js` → `DOSSIER[0].body.{1,3}`.
-The same facts; lighter / heavier register only.
+### Part 2 — Who lights the fires, and why *(≈ 195 words at T2)*
 
-## 3.2 Part 2 — Who lights the fires, and why  *(≈ 195 words at T2)*
+Establishes: (i) the **smallholder-as-contract-bound** profile;
+(ii) the agribusiness procurement timetable; (iii) the **capital cost**
+of mechanised alternatives; (iv) the **clinical signal** in the city
+hospitals. Closes with: *"Two true things therefore sit in tension. The
+smoke makes city residents ill. The burning is how upland families stay
+solvent."*
 
-Establishes: (i) the **smallholder-as-contract-bound** profile; (ii) the
-agribusiness procurement timetable; (iii) the **capital cost** of
-mechanised alternatives; (iv) the **clinical signal** in the city
-hospitals. Concludes with the load-bearing sentence: *"Two true things
-therefore sit in tension. The smoke makes city residents ill. The burning
-is how upland families stay solvent."*
-
-## 3.3 Part 3 — Why a ban alone may not fix it  *(≈ 220 words at T2)*
+### Part 3 — Why a ban alone may not fix it *(≈ 220 words at T2)*
 
 Establishes the **three structural complications**:
 
@@ -224,440 +229,409 @@ Establishes the **three structural complications**:
 3. **Procedural fairness** — rules perceived as unjust receive lower
    compliance (Chiang Mai University compliance research).
 
-Concludes with the load-bearing sentence: *"Genuine mitigation, then,
-requires more than a prohibition. It requires an affordable substitute
-for burning and the farmers' acceptance of it — otherwise the rule
-displaces the smoke rather than removing it."*
+Closes with: *"Genuine mitigation, then, requires more than a
+prohibition. It requires an affordable substitute for burning and the
+farmers' acceptance of it — otherwise the rule displaces the smoke
+rather than removing it."*
 
-## 3.4 Part 4 — The decision before you  *(≈ 130 words at T2)*
+### Part 4 — The decision before you *(≈ 130 words at T2)*
 
 Frames the **provincial haze committee briefing** the team must give.
 Two facts non-negotiable: (a) the order is **legally available**;
 (b) no funded alternative exists *this season*. Closes with: *"The
-committee will not accept 'it depends.' It needs a defensible position —
-and reasoning that survives when other stakeholders push back."*
+committee will not accept 'it depends.' It needs a defensible position
+— and reasoning that survives when other stakeholders push back."*
 
----
+### Vocabulary kit (foregrounded in `<vocab>…</vocab>` tags)
 
-# §4 STAKEHOLDER QUARTET — Mission 2 dispatches
+| Term | POS | EN gloss | TH |
+|---|---|---|---|
+| particulate | n. | tiny solid particles floating in the air | ฝุ่นละออง |
+| PM2.5 | n. | particles < 2.5 microns — small enough to enter the lungs and blood | ฝุ่นละอองขนาดไม่เกิน 2.5 ไมครอน |
+| residue | n. | the matter left behind after something is used or removed | เศษวัสดุที่เหลือ |
+| hotspot | n. | a point of intense activity that a system flags — here, an active fire seen by satellite | จุดความร้อน / จุดเผา |
+| transboundary | adj. | crossing a national border | ข้ามพรมแดน |
+| mitigation | n. | action taken to reduce the severity of a problem | การลดทอน / การบรรเทา |
+| enforcement | n. | the act of making people obey a rule, usually with penalties | การบังคับใช้กฎหมาย |
+| subsistence | n. | producing only just enough to survive, with little to spare or sell | การยังชีพ / พอกินพอใช้ |
+| inversion | n. | a layer of warm air sitting over cooler air that traps pollution below it | ชั้นอากาศแบบผกผันที่กักมลพิษ |
 
-Each is **30–35 seconds** of authentic-cadence video with **burned-in
-English subtitles**; not tiered (authentic audio is the canonical input,
-the .vtt caption file is the scaffold). Same schema as Khon Kaen so the
-M1 renderer is shared.
+Full glosses with example sentences live in
+`src/scenarios/sdg13-chiangmai-content.js` → `VOCABULARY`.
 
-## 4.1 Stakeholder 01 — Upland maize smallholder (Mae Chaem)
+## 2.7 Conflicting source pair — PROBE stage
 
-| | |
-|---|---|
-| Asset | `assets/scenarios/sdg13-chiangmai/video/01-maize-grower.mp4` |
-| Caption | `assets/scenarios/sdg13-chiangmai/audio/01-maize-grower.vtt` |
-| Duration | 33 s |
-| Flags | vulnerable, male |
-| Accent | ochre |
+This mission's PROBE source-weighting exercise is delivered through the
+runtime quiz item **Q2 (rank · medium)** in
+`src/scenarios/sdg13-chiangmai-quiz.js`. The student ranks four sources
+from most → least authoritative for the question *"Will a zero-burning
+order, alone, meaningfully cut Chiang Mai's seasonal PM2.5?"*:
 
-**Position (full transcript on screen — 33 s read):**
+| Rank | Source | Why this rank |
+|---:|---|---|
+| 1 | **Chiang Mai University air-quality & compliance study** (peer-reviewed) | Methodology disclosed; causal reasoning; independent of interested parties. |
+| 2 | **GISTDA satellite hotspot + PCD monitoring** | Strong observational evidence — answers *where/when* but not *will-it-work*. |
+| 3 | **Maize-industry association position paper** (interested party) | Real data but conflict of interest must be disclosed and weighted. |
+| 4 | **Viral social-media post blaming a single province** | No verifiable provenance; not evidence. |
+
+**Trap (−3 tokens):** placing the industry paper or the social-media
+post at #1. The trap is *interested-party authority* and *virality*
+masquerading as evidence.
+
+## 2.8 Stakeholder 1 — Upland maize smallholder, Mae Chaem *(108 words spoken)*
+
+- **Role · TH:** เกษตรกรปลูกข้าวโพดบนพื้นที่สูง
+- **Flags:** vulnerable, male · **Accent token:** ochre
+- **Duration target:** 33 s (subtitle burn-in on the video)
 
 > I know the smoke is bad. My own children cough too — we breathe it up
 > here first, before it ever reaches the city. But the buyer sets the
-> date. The field must be clear and planted again within days, or I lose
-> the contract, and the contract is the only cash my family sees all
-> year. A machine to bury the stalks costs more than I earn in two
-> seasons. There is none to rent near my village when I need it. If you
-> fine me, I will still have to clear the field. I will just do it at
-> night, where the satellite cannot see. Give me a real choice and I
-> will take it. A fine is not a choice.
+> date. The field must be clear and planted again within days, or I
+> lose the contract, and the contract is the only cash my family sees
+> all year. A machine to bury the stalks costs more than I earn in two
+> seasons. There is none to rent near my village when I need it. If
+> you fine me, I will still have to clear the field. I will just do it
+> at night, where the satellite cannot see. Give me a real choice and
+> I will take it. A fine is not a choice.
 
-**Primary concern (M2 match item):** *"No funded alternative — a fine
-without a choice forces night burning."*
-**Thai:** *"ไม่มีทางเลือกที่รัฐสนับสนุน การปรับโดยไม่มีทางเลือกผลักให้ต้องเผากลางคืน"*
+**Primary concern (Q3 match):** *No funded alternative — a fine without
+a choice forces night burning.*
+*"ไม่มีทางเลือกที่รัฐสนับสนุน การปรับโดยไม่มีทางเลือกผลักให้ต้องเผากลางคืน"*
 
-## 4.2 Stakeholder 02 — Respiratory clinician (Chiang Mai public hospital)
+## 2.9 Stakeholder 2 — Respiratory clinician, Chiang Mai public hospital *(112 words spoken)*
 
-| | |
-|---|---|
-| Asset | `02-clinician.mp4` |
-| Caption | `02-clinician.vtt` |
-| Duration | 32 s |
-| Flags | institutional, female |
-| Accent | steel |
-
-**Position:**
+- **Role · TH:** แพทย์ระบบทางเดินหายใจ โรงพยาบาลรัฐ
+- **Flags:** institutional, female · **Accent token:** steel
+- **Duration target:** 32 s
 
 > Every burning season I see the same ward fill up. Children on
 > nebulisers, elderly patients whose oxygen saturation falls for weeks,
-> asthma cases that should be stable and are not. PM2.5 at the levels we
-> record here is not a discomfort — it is a measurable rise in
+> asthma cases that should be stable and are not. PM2.5 at the levels
+> we record here is not a discomfort — it is a measurable rise in
 > admissions and, in the most fragile patients, in deaths. I am not
-> asking the committee to ignore the farmers. I am asking them to count
-> the children in my ward as stakeholders too. Every season we delay a
-> real solution, we pay for it in lung function that does not fully come
-> back.
+> asking the committee to ignore the farmers. I am asking them to
+> count the children in my ward as stakeholders too. Every season we
+> delay a real solution, we pay for it in lung function that does not
+> fully come back.
 
-**Primary concern (M2 match item):** *"Measurable seasonal rise in
-admissions and deaths among fragile patients."*
+**Primary concern (Q3 match):** *Measurable seasonal rise in admissions
+and deaths among fragile patients.*
 
-## 4.3 Stakeholder 03 — Agribusiness maize-procurement manager
+## 2.10 Stakeholder 3 — Agribusiness maize-procurement manager *(104 words spoken)*
 
-| | |
-|---|---|
-| Asset | `03-procurement.mp4` |
-| Caption | `03-procurement.vtt` |
-| Duration | 30 s |
-| Flags | private, male |
-| Accent | bronze |
-
-**Position:**
+- **Role · TH:** ผู้จัดการฝ่ายจัดซื้อข้าวโพด บริษัทเกษตรอุตสาหกรรม
+- **Flags:** private, male · **Accent token:** bronze
+- **Duration target:** 30 s
 
 > Our contracts specify volume and delivery windows because the feed
 > mills downstream run on a schedule we do not control. We do not
 > instruct any grower to burn — that is their field decision. We are
-> open to a certified no-burn supply line and we have piloted one. But a
-> certified line needs a price premium the market has not yet agreed,
-> and it needs the province to fund the machinery gap, not the buyer
-> alone. We will move when the incentives move. We are not the regulator
-> and we cannot subsidise the whole basin by ourselves.
+> open to a certified no-burn supply line and we have piloted one. But
+> a certified line needs a price premium the market has not yet
+> agreed, and it needs the province to fund the machinery gap, not the
+> buyer alone. We will move when the incentives move. We are not the
+> regulator and we cannot subsidise the whole basin by ourselves.
 
-**Primary concern (M2 match item):** *"Will shift only when price
-premium + public machinery funding align."*
+**Primary concern (Q3 match):** *Will shift only when price premium +
+public machinery funding align.*
 
-## 4.4 Stakeholder 04 — District enforcement officer (haze task force)
+## 2.11 Stakeholder 4 — District enforcement officer, haze task force *(114 words spoken)*
 
-| | |
-|---|---|
-| Asset | `04-officer.mp4` |
-| Caption | `04-officer.vtt` |
-| Duration | 34 s |
-| Flags | institutional, female |
-| Accent | sage |
+- **Role · TH:** เจ้าหน้าที่บังคับใช้กฎหมายระดับอำเภอ ชุดเฉพาะกิจหมอกควัน
+- **Flags:** institutional, female · **Accent token:** sage
+- **Duration target:** 34 s
 
-**Position:**
+> I am the one who has to knock on the door after the satellite flags
+> a hotspot. I will be honest with the committee: a blanket ban with
+> fines and nothing else makes my job harder, not easier. People stop
+> talking to us. Fires move to the night. Last season we wrote
+> penalties we could not collect from families who had nothing to pay
+> with — and we lost the cooperation we had spent years building.
+> Enforcement works when it is the last step after a real alternative,
+> not the first step instead of one. Give me a ban with a funded
+> option behind it and I can make it hold. Give me a ban alone and I
+> am managing a game of hide-and-seek in the dark.
 
-> I am the one who has to knock on the door after the satellite flags a
-> hotspot. I will be honest with the committee: a blanket ban with fines
-> and nothing else makes my job harder, not easier. People stop talking
-> to us. Fires move to the night. Last season we wrote penalties we
-> could not collect from families who had nothing to pay with — and we
-> lost the cooperation we had spent years building. Enforcement works
-> when it is the last step after a real alternative, not the first step
-> instead of one. Give me a ban with a funded option behind it and I can
-> make it hold. Give me a ban alone and I am managing a game of
-> hide-and-seek in the dark.
-
-**Primary concern (M2 match item):** *"Fines-first enforcement destroys
-community cooperation and drives night burning."*
+**Primary concern (Q3 match):** *Fines-first enforcement destroys
+community cooperation and drives night burning.*
 
 > **Authoring note.** Officer-04 and Grower-01 voice **the same failure
-> from two sides** — this convergence is intentional. The runtime quiz
-> (Q3 match `afterCorrect`) surfaces it so the student carries it into
-> the ACT-stage brief.
+> from two sides** — this convergence is intentional. The Q3 match
+> `afterCorrect` line surfaces it so the student carries it into the
+> ACT-stage brief.
+
+## 2.12 DECIDE — decision frame
+
+A four-round committee briefing pattern (same shape as Khon Kaen
+§2.13). The student team takes one of three defensible positions on
+the §2.4 decision; the AI applier presses with the strongest
+counter-objection from a different stakeholder; the team may concede
+one point per round (concession bonus); the round closes when the
+team's position survives or is materially revised.
+
+The runtime currently delivers this through quiz item Q5 (confidence
+trap) and Q6 (open evidence-commitment) followed by the DECIDE-stage
+adaptive register artefact in
+`src/scenarios/sdg13-chiangmai-m1.js`.
+
+## 2.13 DEBRIEF — reflection prompt + Keystone
+
+**Reflection prompt (30-second voice or 50-word text):**
+
+> Looking back at your committee briefing — what is the single
+> structural reason your position would survive an industry-association
+> counter-paper that *did* disclose its methodology honestly? Name it
+> in one sentence.
+
+**SDG-13 Keystone awarded when** the composite stage score reaches
+**60 %** (engine.passThreshold) **OR** net quiz tokens ≥
+**PASS_THRESHOLD_TOKENS = 8** in the v1 quiz arc. Idempotent and binary
+(`users/{uid}/keystones/sdg13-chiangmai-haze-v1`).
 
 ---
 
-# §5 VOCABULARY KIT
+# 3. ADAPTIVE & ASSESSMENT NOTES
 
-Foregrounded in `<vocab>…</vocab>` tags inside the dossier. Hover/tap
-opens the Thai gloss + example. The runtime adaptive layer adjusts
-**gloss density** (how many tips show) per learner tier; the gloss text
-is constant.
+## 3.1 The 3-tier mapping (explicit)
 
-| Term | POS | EN gloss | TH | Example |
-|---|---|---|---|---|
-| **particulate** | n. | tiny solid particles floating in the air | ฝุ่นละออง | The carpenter wore a mask because sanding throws fine particulate into the workshop air. |
-| **PM2.5** | n. | particles < 2.5 microns — small enough to enter the lungs and blood | ฝุ่นละอองขนาดไม่เกิน 2.5 ไมครอน | When the app showed PM2.5 above 150, the school moved sports day indoors. |
-| **residue** | n. | the matter left behind after something is used or removed | เศษวัสดุที่เหลือ | She scrubbed a sticky residue of glue off the table. |
-| **hotspot** | n. | a point of intense activity that a system flags — here, an active fire seen by satellite | จุดความร้อน / จุดเผา | Border patrols watch the map for any new hotspot lighting up after dark. |
-| **transboundary** | adj. | crossing a national border | ข้ามพรมแดน | Acid rain is a transboundary problem: one country's smoke falls as another country's rain. |
-| **mitigation** | n. | action taken to reduce the severity of a problem | การลดทอน / การบรรเทา | Planting mangroves is a cheap mitigation against storm surges. |
-| **enforcement** | n. | the act of making people obey a rule, usually with penalties | การบังคับใช้กฎหมาย | Speed cameras sharply improved enforcement of the limit on that highway. |
-| **subsistence** | n. | producing only just enough to survive, with little to spare or sell | การยังชีพ / พอกินพอใช้ | After the factory closed, the family went back to subsistence fishing. |
-| **inversion** | n. | a layer of warm air sitting over cooler air that traps pollution below it | ชั้นอากาศแบบผกผันที่กักมลพิษ | A winter inversion held car exhaust over the city for a whole week. |
+Reading tier is **static-on-entry** (D2 in the Reconstruction Master
+§5) — set once from the diagnostic, not adapted within a mission.
+Per-part dossier text exists at:
 
----
-
-# §6 QUIZ ITEMS — Mission 2 / 3 / 4
-
-Six items, mixed types, **TOKEN_MATRIX** scoring with confidence
-calibration: correct {low:1, med:2, high:3}; wrong {low:0, med:-1,
-high:-2}. The `QUIZ_TOKEN_CAP` is **+25**; the `PASS_THRESHOLD_TOKENS`
-to award a Keystone is **net 8**.
-
-## 6.1 Q1 — Foundational fact vs. contested claim *(MCQ · easy)*
-
-**Diegetic frame.** *"Before we brief the haze committee, let's confirm
-what the dossier actually establishes. Three of these are supported. One
-is a claim the dossier presents as contested."*
-
-**Stem.** Which statement does the dossier **NOT** present as established
-fact?
-
-| ID | Option | Verdict |
+| Tier | CEFR band | Lexical density · sentence-length cue |
 |---|---|---|
-| a | A significant share of Chiang Mai's dry-season smoke is transboundary | Supported (Part 3) |
-| b | A temperature inversion traps polluted air in the Ping valley | Supported (Part 1) |
-| **c** | **A zero-burning order with hotspot fines, applied alone, will reduce total seasonal PM2.5 to safe levels** | **Correct — dossier deliberately does NOT claim this** |
-| d | Most upland burning is done by smallholders clearing crop residue under contract timetables | Supported (Part 2) |
+| **T1** | A2 – B1 | 9–13 words per sentence; minimal subordination; high-frequency vocab. |
+| **T2** | B1+ – B2 *(canonical)* | 18–25 wps; one nested clause; topic-vocabulary with `<vocab>` glosses. |
+| **T3** | B2+ – C1 | 28–40 wps; multi-clause periods; abstract / discipline register. |
 
-**Scaffold (on wrong):** *"Re-read Part 3. Separate what the dossier
-asserts (transboundary share, night-burning risk) from what a ban is
-being claimed to achieve. The dossier never promises a ban alone fixes
-the air."*
+All three carry **identical facts, stakeholders, numbers, and the
+decision** — only register varies. Audio is **not** tiered (authentic
+input; the `.vtt` caption is the scaffold).
 
-## 6.2 Q2 — Source-provenance ranking *(rank · medium)*
+## 3.2 Gloss-density rule
 
-**Stem.** Rank these sources from most → least authoritative for the
-question: *"Will a zero-burning order, alone, meaningfully cut Chiang
-Mai's seasonal PM2.5?"*
+Vocabulary text is constant across tiers; **density of glosses shown**
+varies by `adaptive.glossDensity(tier)`:
 
-Correct order:
-
-1. **Chiang Mai University air-quality & compliance study** (peer-reviewed)
-2. **GISTDA satellite hotspot dataset + PCD monitoring record**
-3. **Maize-industry association position paper** (interested party)
-4. **Viral social-media post blaming a single province**
-
-**Trap (penalty −3):** putting the industry paper OR the viral post at #1.
-**Adjacent-swap partial credit (+5):** any single neighbouring swap.
-
-**Diagnostic.** *"Peer-reviewed academic work is weighted above the raw
-satellite/monitoring record here because the question is interpretive
-('will a ban alone work?'), not merely observational — it needs disclosed
-methodology and causal reasoning, not just hotspot counts."*
-
-## 6.3 Q3 — Stakeholder → primary concern *(match · medium)*
-
-| Stakeholder | Concern |
+| Tier | Glosses surfaced |
 |---|---|
-| Upland maize smallholder | **No funded alternative — a fine forces night burning** |
-| Respiratory clinician | **Measurable seasonal rise in admissions and deaths** |
-| Agribusiness procurement manager | **Will shift only when price premium + public funding align** |
-| District enforcement officer | **Fines-first enforcement destroys community cooperation** |
+| T1 | all `<vocab>` tags expanded |
+| T2 | tags expanded on hover/tap only |
+| T3 | tags hidden by default; toggle reveals |
 
-Scoring: 4/4 = +5 · 3/4 = +3 · 2/4 = +2 · else 0.
+## 3.3 Pass-threshold → SDG-13 Keystone
 
-`afterCorrect`: *"Notice the enforcement officer and the grower describe
-the SAME failure from two sides. You'll use that convergence in the ACT
-stage."*
+- **Composite weights** (`MISSION_ARC`): Brief 0.15 · Probe 0.25 ·
+  Decide **0.30** · Act 0.25 · Debrief 0.05 · composite ≥ 0.60 awards
+  the Keystone.
+- **Quiz proxy** (v1, `sdg13-chiangmai-m1.js`):
+  `PASS_THRESHOLD_TOKENS = 8` (net across Q1–Q6).
+- **TOKEN_MATRIX:** correct {low:+1, med:+2, high:+3} · wrong {low:0,
+  med:−1, high:−2}. Rank perfect +8 / 1-adjacent-swap +5 / top-pair
+  reversed +3 / trap −3.
+- **Cap:** `QUIZ_TOKEN_CAP = 25`.
 
-## 6.4 Q4 — Vocabulary in context *(MCQ · medium)*
+## 3.4 Longitudinal evidence-commitment → Voice for Change
 
-**Stem.** *"A warm layer of air settles over the cooler, polluted valley
-air and prevents it from rising — an effect called a temperature ______."*
+Q6 ("open" item) asks the student to name *the single most important
+piece of evidence* they would use to support their eventual
+recommendation, regardless of which side they take. The submission is
+stored under `users/{uid}/evidenceCommitments/sdg13-chiangmai` and
+surfaced back to the student during the Voice for Change capstone:
 
-Correct: **inversion** (option c). Distractors: *blockage*, *ceiling*,
-*gradient* (generic / metaphoric / wrong meaning).
+> *"In The Burning Season you named [evidence] as your most important
+> piece of evidence. Where does it appear in your Voice for Change
+> proposal?"*
 
-Scaffold: re-read Part 1.
+This is the longitudinal hook that turns one mission's decision into
+the capstone's accountability.
 
-## 6.5 Q5 — Confidence trap *(MCQ · hard)*
+## 3.5 Calibration anchors (for the AI applier and the teacher)
 
-**Stem.** Which is the STRONGEST single reason the dossier gives for not
-relying on a zero-burning order by itself?
+The AI Judge prompt for this mission rewards:
 
-| ID | Option |
-|---|---|
-| a (trap) | Farmers should not be punished because farming is a traditional way of life. |
-| b | A ban is illegal, so the province cannot impose one. |
-| **c** | **A material share of the smoke is transboundary AND enforcement without a funded alternative pushes burning into the night** |
-| d | Satellites sometimes miss small fires, so hotspot data is useless. |
+- **Range-based hedging** ("the transboundary share is 30–55 %", not
+  "40 % exactly").
+- **Stacking ≥ 2 structural reasons** (transboundary + behavioural
+  displacement is stronger than either alone — this is exactly the Q5
+  correct answer C).
+- **Naming the counter-argument** *before* it lands ("an industry
+  paper would say… and the strongest response is…").
 
-**Trap (a)** is the **sympathy argument** — emotionally resonant, fragile
-under cross-examination. Choosing it with **high confidence** is
-penalised most severely by design. The pedagogical point: a strong
-structural objection stacks **two independent reasons** (an irreducible
-external source AND a behavioural-evasion effect).
+It **penalises**:
 
-## 6.6 Q6 — Open capstone (carries to Voice for Change)
+- Invented precise statistics.
+- "Tradition" or "they have always burned" reasoning (Q5 trap A).
+- "It's illegal" or "satellites are useless" overstatements (Q5
+  distractors B / D).
+- Savior-pitch language ("I will donate machines", "I will educate the
+  farmers").
 
-**Stem.** *"One last thing before you brief the committee. In one
-sentence, name the single most important piece of evidence you would use
-to support your eventual recommendation — whatever it turns out to be.
-You will be asked for this again in your Voice for Change."*
+## 3.6 PROBE / quiz-design notes
 
-15–40 words. Token award: **+2 on minimum-length submit.**
-`longitudinalCallback` to the Final Task surfaces this exact sentence
-back to the student when they draft their Voice for Change proposal.
+Six items in `src/scenarios/sdg13-chiangmai-quiz.js`. Summary table:
+
+| # | Type | Difficulty | What it tests | Scaffold trigger |
+|---:|---|---|---|---|
+| Q1 | MCQ | easy | Fact vs. contested claim — *the dossier never promises a ban alone fixes the air.* | wrong → re-read Part 3 |
+| Q2 | rank | medium | Source provenance under conflict of interest | trap → "authority and virality are not evidence" |
+| Q3 | match | medium | Stakeholder → primary concern | low score → re-play dispatches |
+| Q4 | MCQ | medium | Vocabulary in scientific context ("inversion") | wrong → re-read Part 1 |
+| Q5 | MCQ | hard (confidence trap) | Strongest structural objection (stacks ≥ 2 reasons) | wrong → "structural, not sentimental" |
+| Q6 | open | open | Longitudinal evidence-commitment (carries to Voice for Change) | n/a — minimum-word gate only |
+
+Scoring detail is data-driven in `computeTokenAward()`. The Q2
+rank-trap detection is **data-driven from `correctOrder`** (last two
+ids are the trap-top set) — no hardcoded ids, so future scenarios can
+reuse the function.
 
 ---
 
-# §7 AUDIO + VIDEO PRODUCTION KIT
+# 4. ASSET MANIFEST
 
-## 7.1 Stakeholder videos — 4 × 30–35 s
+> Path pattern: `/assets/scenarios/sdg13-chiangmai/...`. Filenames
+> follow the Khon Kaen / Bangkok conventions so the shared M1 BRIEF /
+> PROBE / DECIDE renderer resolves them without special-casing.
+> **Voice-direction kit follows the Khon Kaen template** (per-asset
+> ElevenLabs voice profile + performance direction + script + QA
+> checklist) — not reproduced exhaustively here; a concise production
+> brief per asset is given below. Cloning budget concentrates on the
+> two voices judges hear most closely: **Stakeholder 1 (upland maize
+> smallholder)** and **Stakeholder 4 (district enforcement officer)** —
+> both cloned from real Thai speakers; the rest from library voices,
+> per the Khon Kaen Q4 decision.
 
-For each stakeholder:
-- **Visual.** Cinematic portrait video — face + chest + immediate
-  context (a maize field at smoky dusk, a hospital corridor, a feed-mill
-  office, a district hall). 9:16 vertical preferred for mobile (the
-  M2 player is portrait-first); 16:9 landscape acceptable.
-- **Audio.** ElevenLabs voice cloning OR native Thai/English speaker
-  recording. The character cadence in §4 is the script; vary the
-  voice profile (age, gender, dialect colouring) to match the role.
-- **Subtitle burn-in.** English subtitles burned into the video so the
-  student can read in addition to listen. Caption file (.vtt) is also
-  delivered for accessibility and the M2 transcript panel.
+## 4.1 Audio assets
 
-## 7.2 ElevenLabs prompt templates (per voice)
-
-> *"Read the following monologue as a [role] speaking honestly to a
-> provincial committee. [Age]. [Gender]. [Accent colour]. Pacing slightly
-> uneven, weighted on the phrase that carries the speaker's main concern.
-> No background music. Studio reference: a quiet office; some room tone
-> retained for authenticity."*
-
-Where:
-
-| Voice | Age band | Gender | Accent colour |
+| # | Filename | Asset | Production brief |
 |---|---|---|---|
-| Grower-01 | 40–50 | M | northern Thai cadence in English |
-| Clinician-02 | 35–45 | F | educated Bangkok / Chiang Mai mixed |
-| Buyer-03 | 45–55 | M | corporate Thai-English, mid-formal |
-| Officer-04 | 35–45 | F | civil-service Thai-English, controlled |
+| A1 | `/assets/scenarios/sdg13-chiangmai/audio/01-maize-grower.mp3` (+ `.vtt`) | Stakeholder 1 dispatch — upland maize smallholder, Mae Chaem | ~33 s. Thai male, 40–50, northern Thai cadence in English — practical and proud, *not folksy and not a victim*. Energy: pressed but steady; the final line *"A fine is not a choice"* lands flat and resolute, not pleading. **Clone** from a Thai male speaker (40s) reading working-context material. Silent background, no foley. MP3 mono 128 kbps. `.vtt` is the SLA caption scaffold (audio is **not** tiered). |
+| A2 | `/assets/scenarios/sdg13-chiangmai/audio/02-clinician.mp3` (+ `.vtt`) | Stakeholder 2 dispatch — respiratory clinician, Chiang Mai public hospital | ~32 s. Thai female, 35–45, educated Bangkok / Chiang Mai mixed register; measured, evidence-bound, **never hostile to the farmers**. Lightly stress *"measurable rise in admissions"* and *"count the children in my ward as stakeholders too."* Library voice ("Professional / Briefing", female). Silent background. |
+| A3 | `/assets/scenarios/sdg13-chiangmai/audio/03-procurement.mp3` (+ `.vtt`) | Stakeholder 3 dispatch — agribusiness maize-procurement manager | ~30 s. Thai male, 45–55, polished commercial Thai-English (corporate procurement register); confident, unhurried, **never villainous**. Lightly stress *"we will move when the incentives move"* and *"we cannot subsidise the whole basin by ourselves."* Library voice ("Executive / Corporate", male). Silent background. |
+| A4 | `/assets/scenarios/sdg13-chiangmai/audio/04-officer.mp3` (+ `.vtt`) | Stakeholder 4 dispatch — district enforcement officer, haze task force | ~34 s. Thai female, 35–45, civil-service Thai-English (controlled, district-public-meeting register). Lightly stress *"hide-and-seek in the dark"* and *"the last step after a real alternative."* **Clone** from a Thai female speaker (40s) reading civic / officer material — judges hear this voice carry the structural moral of the mission. Silent background. |
+| A5 | `/assets/scenarios/sdg13-chiangmai/audio/05-crisis-dispatch.mp3` (+ `.vtt`) *(optional)* | Crisis dispatch — surfaces in DECIDE under a visible timer | ~38–45 s. Neutral Thai radio-advisory register (PCD-advisory voice family). Content: GISTDA flags a sudden cluster of nocturnal hotspots in a Mae Chaem subdistrict three days after the order takes effect; no injuries; the committee requests the team's 90–130-word public position within a short countdown — must acknowledge the night-burning displacement, the unchanged public-health case, and a credible next operational step. Library voice (newsroom/advisory). Silent background; tight, urgent, unembellished. |
 
-## 7.3 Caption file structure
+## 4.2 Image assets
 
-Already shipped at:
+| # | Filename | Asset | Production brief |
+|---|---|---|---|
+| I1 | `/assets/scenarios/sdg13-chiangmai/images/hero.webp` | Hero (Mission Select card) | 16:9 · ≥ 1600 px · ≤ ~600 KB. The Ping valley under grey burning-season haze at first light — Doi Suthep a faint silhouette, an upland field edge with thin smoke rising at the treeline, terraced maize stubble in the mid-distance. Muted, smoky, cinematic; a deep-green SDG-13 ambient undertone breaking through the haze. **No people, no text.** Slightly desaturated so gold UI text stays legible if overlaid. Mood: serious, dignified, hopeful — not disaster-porn. *(Canonical brief mirrored from `scenarios/HERO-IMAGE-PROMPTS.md`.)* |
+| I2 | `/assets/scenarios/sdg13-chiangmai/images/diagram-inversion.svg` | Explanatory diagram — temperature inversion + Ping valley cross-section (BRIEF reading) | Hand-drawn scientific-illustration register (mid-century textbook / NYT explainer). Two-panel valley cross-section: **left** "without inversion" — pollutants disperse vertically; **right** "with inversion" — warm-air lid traps cool valley air, PM2.5 accumulates day by day. Doi Suthep ridge as the visual reference on one rim. Labels in EN with `<vocab>` reserve space for TH hover labels. Palette: bone background, navy linework, restrained ochre fills, deep-green SDG-13 accent for the trapped layer. Calm, explanatory, **not** alarming-red. |
+| I3 | `/assets/scenarios/sdg13-chiangmai/images/chart-pm25-season.svg` | Data chart — seasonal PM2.5 (PROBE data interpretation) | Clean editorial chart, hand-finished (FT / Reuters Graphics feel), **not** a default spreadsheet chart. X-axis: Jan → Dec. Y-axis: relative PM2.5 concentration. A clearly elevated **Feb–April band** annotated as "burning season" with a thin baseline reference. Caption must read as illustrative ("illustrative — based on PCD monthly aggregates; absolute values held by PCD"). Muted palette, one bronze accent on the seasonal peak. **No fabricated precise figures anywhere on the chart.** |
+| I4 | `/assets/scenarios/sdg13-chiangmai/images/chart-source-apportionment.svg` | Data graphic — domestic vs. transboundary share | A simple stacked-band or split-pie schematic showing **domestic-upland** vs. **transboundary** contribution to seasonal PM2.5. The transboundary band must be drawn as a **30 – 55 % range** with both edges visible and labelled, never collapsed to a point estimate. SDG-13 accent on the domestic band; bronze accent on the transboundary band. Caption explicitly flags the range as illustrative per §1.5. |
+| I5a | `/assets/scenarios/sdg13-chiangmai/images/stakeholder-01.svg` | Portrait — Stakeholder 1 (upland maize grower) | Stylised console portrait (line/duotone, consistent with Khon Kaen / Bangkok portrait treatment), accent token **ochre**. Three-quarter / shadowed pose, **no identifiable face**. Working clothes, smoke-tinged horizon implied behind. Dignified, alert; tired-not-broken. |
+| I5b | `/assets/scenarios/sdg13-chiangmai/images/stakeholder-02.svg` | Portrait — Stakeholder 2 (respiratory clinician) | Same treatment, accent token **steel**. Composed, professional, late-30s–40s woman in a hospital corridor — clipboard or stethoscope suggested, **never costume-clichéd**. No identifiable face. |
+| I5c | `/assets/scenarios/sdg13-chiangmai/images/stakeholder-03.svg` | Portrait — Stakeholder 3 (procurement manager) | Same treatment, accent token **bronze**. Assured corporate posture, 45–55 man — at a desk or in a procurement-office context, **not** caricature villain. No identifiable face. |
+| I5d | `/assets/scenarios/sdg13-chiangmai/images/stakeholder-04.svg` | Portrait — Stakeholder 4 (enforcement officer) | Same treatment, accent token **sage**. Civic-service register, 35–45 woman — district hall or task-force vehicle suggested in the background. Calm, structural; the cooperative-not-enforcer reading. No identifiable face. |
 
-- `assets/scenarios/sdg13-chiangmai/audio/01-maize-grower.vtt`
-- `assets/scenarios/sdg13-chiangmai/audio/02-clinician.vtt`
-- `assets/scenarios/sdg13-chiangmai/audio/03-procurement.vtt`
-- `assets/scenarios/sdg13-chiangmai/audio/04-officer.vtt`
+## 4.3 Production notes
 
-Format: WebVTT, 4–6 second cue windows, hard line-breaks at sense units.
-The M2 player reads the .vtt to populate the transcript panel below the
-video.
-
----
-
-# §8 IMAGE PRODUCTION KIT
-
-## 8.1 Image 01 — Hero (Mission Select card)
-
-**Path.** `/assets/scenarios/sdg13-chiangmai/images/hero.webp`
-**Aspect.** 16:9 · ≥ 1600 px wide · ≤ ~600 KB
-**Prompt (cinematic editorial photograph):**
-
-> The Ping valley under grey burning-season haze at first light — Doi
-> Suthep a faint silhouette, an upland field edge with thin smoke rising
-> at the treeline, terraced maize stubble in the mid-distance; muted,
-> smoky, cinematic, a deep-green SDG-13 ambient undertone breaking
-> through the haze. No people, no text. Slightly desaturated so gold UI
-> text stays legible if overlaid. Mood: serious, dignified, hopeful —
-> not disaster-porn.
-
-## 8.2 Image 02 — Inversion / valley cross-section diagram (M1 reading)
-
-A clean editorial diagram of the Ping valley showing: cool valley floor,
-warm-air lid, accumulated PM2.5, ridge-line silhouettes. Bilingual
-labels (EN top / TH below). Tone matches the hero — restrained, not
-infographic-y.
-
-## 8.3 Image 03 — PM2.5 seasonal chart (M2 data interpretation)
-
-Time-series chart, Jan → Dec, with the **Feb-April peak band** annotated.
-Source: PCD monthly data, real values rounded. No invented precision.
-
-## 8.4 Image 04 — Source-apportionment diagram (M2)
-
-Simple stacked-bar or pie: domestic-upland vs. transboundary share
-(with the 30–55 % range honestly bracketed, not picked as a single
-number). Used in the dossier's footer + the Q2 ranking prompt.
-
-## 8.5 Image 05 — Stakeholder portraits (× 4)
-
-`stakeholder-01.svg` through `stakeholder-04.svg`. Style: editorial
-illustration, not photo-real, **uniform palette per stakeholder accent**
-(ochre / steel / bronze / sage). Same visual schema as Khon Kaen's
-portraits so the M1 renderer is shared.
+- **Voice-direction kit.** Generate the full per-asset ElevenLabs
+  profile / direction / script / QA blocks at build time using the
+  Khon Kaen §3 template verbatim as the structural pattern; scripts
+  are the §2.8 – §2.11 spoken transcripts (A1–A4) and a new
+  90–130-word dispatch for A5.
+- **Captions.** Every audio asset ships a `.vtt` (Whisper draft →
+  manual clean). The caption is the SLA scaffold that justifies
+  holding audio constant across tiers. Caption files are already
+  shipped at:
+  - `assets/scenarios/sdg13-chiangmai/audio/01-maize-grower.vtt`
+  - `assets/scenarios/sdg13-chiangmai/audio/02-clinician.vtt`
+  - `assets/scenarios/sdg13-chiangmai/audio/03-procurement.vtt`
+  - `assets/scenarios/sdg13-chiangmai/audio/04-officer.vtt`
+- **Subtitle burn-in.** Stakeholder videos burn the EN subtitle into
+  the file (verified via the v2 captions commit `4a8a2bf`) — the
+  `.vtt` remains the authoritative caption source for the M2 transcript
+  panel and accessibility.
+- **Thai pass.** Role labels, `primaryConcernTh`, the §2.6 gloss-table
+  Thai column, and the §2.13 reflection prompt require a native-Thai
+  reviewer pass before sign-off (Local Lens authority).
+- **Manifest figures.** Record `narrativeFigures: { transboundaryShare:
+  { value: "30–55 %", status: "illustrative-range" }, shredderCost:
+  { value: "฿1.2–2.0 M", status: "illustrative-range" } }` in
+  `scenarios/sdg13-chiangmai-burningseason-v1/manifest.json` at build.
 
 ---
 
-# §9 SCORING + KEYSTONE RUBRIC
+# 5. PRODUCTION CHECKLIST + OPEN VETTING QUESTIONS
 
-## 9.1 Per-item token award (TOKEN_MATRIX)
+## 5.1 Delivered in this master
 
-| Result | Low confidence | Medium | High |
-|---|---:|---:|---:|
-| Correct (MCQ) | +1 | +2 | +3 |
-| Wrong (MCQ) | 0 | −1 | −2 |
-| Rank: perfect | — | — | **+8** |
-| Rank: 1 adjacent-swap | — | — | +5 |
-| Rank: top reversed only | — | — | +3 |
-| Rank: trap (industry / viral on top) | — | — | **−3** |
-| Match: 4/4 | — | — | +5 |
-| Match: 3/4 | — | — | +3 |
-| Match: 2/4 | — | — | +2 |
-| Open (Q6, meets min-words) | — | — | +2 |
+- [x] Researcher's Brief — geography & meteorology, real-institution
+      attribution, 4-fact empirical spine, anti-pattern check, flagged
+      uncertainties (4 quantities with ranges), cultural-authenticity
+      guard (northern voice, khon mueang sensitivity, sympathetic
+      officer, no identifiable faces)
+- [x] Full scenario text — title (EN+TH), setting (28 w), core tension
+      (38 w), decision point, 2 ethical axes (+ 1 reserved for the
+      capstone)
+- [x] **Dossier authored at all three reading tiers** — 4 parts ×
+      {T1 A2–B1, T2 B1+–B2 baseline, T3 B2+–C1}, identical facts /
+      stakeholders / decision, register-only variation. T2 verbatim
+      above; T1/T3 in the runtime module.
+- [x] 9-term vocabulary gloss table (EN gloss + Thai gloss), tier-
+      constant text; full glosses with example sentences in the
+      runtime
+- [x] Source-provenance ranking spec (PROBE / Q2 in runtime)
+- [x] 4 stakeholders (upland smallholder · clinician · procurement
+      manager · enforcement officer) — role, Thai role, accent token,
+      duration target, spoken transcript, primary concern EN + Thai
+- [x] DECIDE-stage decision frame
+- [x] DEBRIEF reflection prompt → SDG-13 Keystone logic
+- [x] Adaptive & Assessment notes — 3-tier mapping, gloss-density
+      rule, pass-threshold, longitudinal evidence-commitment,
+      calibration anchors, PROBE / quiz-design notes
+- [x] Asset manifest — 5 audio + 8 image assets with filenames +
+      production briefs
 
-## 9.2 Pass threshold
+## 5.2 Production work still owned (post-sign-off)
 
-`PASS_THRESHOLD_TOKENS = 8` (net across Q1–Q6).
+| Task | Owner | Tool | Est. |
+|---|---|---|---|
+| Generate full ElevenLabs voice-direction kit from §4.1 (Khon Kaen template) | Production | ElevenLabs | ~2 hr |
+| Generate 5 audio assets (2 cloned: S1, S4) | Production | ElevenLabs | ~2 hr |
+| Generate 4 stakeholder videos (with burned-in EN subtitles) | Production | Video tool | ~3 hr |
+| Generate 8 image assets (hero, inversion diagram, PM2.5 chart, source-apportionment, 4 portraits) | Production | Image model | ~3 hr |
+| `.vtt` captions for A5 crisis dispatch (the other four are shipped) | Production | Whisper + manual | ~30 min |
+| Thai pass — role labels, `primaryConcernTh`, gloss-table Thai column, reflection prompt | Native Thai reviewer | — | ~2 hr |
+| End-to-end playtest on this mission | You | Live | ~2 hr |
+| Named Thai pedagogy reviewer sign-off | You | — | ~1 hr |
 
-A net of **≥ 8** earns this mission's **SDG-13 Keystone**, recorded at
-`users/{uid}/keystones/sdg13-chiangmai-haze-v1` in RTDB. The Keystone is
-idempotent and binary — earning it twice does not double-count, and it
-is never graded as a number.
+## 5.3 Open vetting questions
 
-## 9.3 Composite weighting (5-stage arc)
+1. **Transboundary share band.** Retained as a labelled illustrative
+   range (30–55 %) per §1.5 and the manifest. Confirm you want it kept
+   as a range vs. settled on a single peer-reviewed point estimate.
+2. **Shredder/incorporator cost band.** Kept as ฿1.2–฿2.0 M. Confirm
+   the range band is acceptable, or supply a tighter band if a real
+   procurement quote is available.
+3. **No named subdistrict / cooperative.** The dossier uses *"upland
+   smallholders in Mae Chaem"* generically and never names a real
+   cooperative or village. Confirm you do not want a specific
+   community named — naming risks reading as targeting an actual
+   community, which the dignity guard advises against.
+4. **Chiang Mai University by name.** §1.3 and §1.4 cite CMU's
+   environmental & public-health research **by institution name**, not
+   by paper title. Confirm this is the right level of specificity
+   (recommended: yes — it grounds the procedural-fairness argument in
+   a real, internationally documented research strand).
+5. **Voice cloning split.** S1 (upland grower) and S4 (enforcement
+   officer) cloned; S2, S3, A5 from library — mirrors the Khon Kaen
+   and Bangkok Q4 decisions. Confirm budget split.
+6. **Crisis dispatch (A5).** Marked optional. Confirm whether the
+   DECIDE-stage crisis dispatch is in scope for the v1 build or
+   deferred (it is documented here either way; the captioning step
+   would be the only outstanding production work).
 
-Same as the platform standard (`MISSION_ARC` in `src/mission-engine.js`):
+## 5.4 Conventions inherited from `sdg06-khonkaen-aquifer-v1`
 
-| Stage | Weight |
-|---|---:|
-| Brief | 0.15 |
-| Probe | 0.25 |
-| Decide | **0.30** |
-| Act | 0.25 |
-| Debrief | 0.05 |
-| **Composite ≥ 0.60** → Keystone | |
-
-## 9.4 AI Judge rubric prompt (formative, not summative)
-
-Stored server-side in `api/claude-proxy.js` (kind=`evaluate`). Scores
-each criterion 1–5 with **evidence quotes from the student's own work**:
-
-- Analytical depth (does the student stack ≥ 2 structural reasons?)
-- Evidence quality (does the student cite the dossier or a stakeholder
-  rather than gesturing at "I think…"?)
-- Counter-argument awareness (does the student name the strongest
-  objection to their own position?)
-- Language quality (CEFR-appropriate clarity + register)
-
-The AI returns evidence + a **suggested** score; **the teacher's grade
-is the official one** (4-tier judging — CLAUDE.md §10).
-
----
-
-# §10 CULTURAL & ETHICAL GUARD-RAILS
-
-| Risk | Guard |
-|---|---|
-| Romanticising rural burning ("traditional way of life") | Q5 traps this sentiment explicitly; the scaffold reframes it as structural, not sentimental. |
-| Demonising the smallholder | Grower-01's transcript names the cost to his own children; the buyer-03 voice owns the structural pressure; the officer-04 voice owns the enforcement failure. |
-| Demonising the buyer | Buyer-03 is positioned as "open to shift, when incentives align" — not as a villain. The savior-pitch is the villain. |
-| Nationalist framing of transboundary share | The dossier names the share as **physical**, never as "blame country X." The decision is about what a Thai instrument can and cannot do. |
-| Fabricated precision | Use ranges (30–55 %, ฿1.2 – ฿2.0 M, +15 – +40 %). The AI Judge prompt rewards range-hedging and penalises invented numbers. |
-| Erasure of khon mueang voice | Stakeholder 02 (clinician) is located in Chiang Mai, not Bangkok. Stakeholder 01 carries northern cadence in the audio source. |
-
----
-
-# §11 INSTITUTIONS CITED + REFERENCE STACK
-
-Surfaced in the dossier viewer footer for discipline-of-citation:
-
-| Institution | Role |
-|---|---|
-| Pollution Control Department (PCD) | National air-quality standards & monitoring under MNRE |
-| GISTDA | Satellite hotspot / burn-scar detection |
-| Royal Forest Department (RFD) | Forest-fire control & burning regulation |
-| Chiang Mai University — environmental & public-health research | Independent academic monitoring & compliance research |
-| Ministry of Public Health (MOPH) | Respiratory-morbidity surveillance |
-| ASEAN Agreement on Transboundary Haze Pollution | Regional framework for cross-border smoke |
-
-## External resource stack (in-app footer + the dossier modal)
-
-- UN SDG 13 — Climate Action · <https://sdgs.un.org/goals/goal13>
-- UNFCCC — UN Climate Change · <https://unfccc.int>
-- SDG Move — Thailand SDG knowledge hub · <https://www.sdgmove.com>
+This master adopts the locked Khon Kaen conventions without
+re-litigation: institutions named for context only (no DOIs in
+student-facing text); illustrative figures disclosed in manifest, not
+foregrounded in-mission; cloning budget concentrated on the two
+vulnerable / bridging voices; tribunal concession economy; shared
+stakeholder schema and asset-path pattern for renderer reuse; identical
+TOKEN_MATRIX, QUIZ_TOKEN_CAP, and the data-driven rank-trap detection.
 
 ---
 
@@ -665,15 +639,23 @@ Surfaced in the dossier viewer footer for discipline-of-citation:
 
 | Module | What it owns |
 |---|---|
-| `src/scenarios/sdg13-chiangmai-content.js` | SCENARIO_META · VOCABULARY · DOSSIER (× 3 tiers) · STAKEHOLDERS · INSTITUTIONS_CITED · RESOURCES |
-| `src/scenarios/sdg13-chiangmai-quiz.js` | TOKEN_MATRIX · CONFIDENCE_LEVELS · QUIZ_ITEMS × 6 · `computeTokenAward()` · `shouldShowScaffold()` |
-| `src/scenarios/sdg13-chiangmai-m1.js` | Stage registrations · PASS_THRESHOLD_TOKENS = 8 · debriefComplete handler (awards Keystone + syncs engine state) |
-| `src/scenarios/sdg13-chiangmai.js` | Public adapter (re-exports SCENARIO_META + `installStages`) |
+| `src/scenarios/sdg13-chiangmai-content.js` | `SCENARIO_META` · `VOCABULARY` · `DOSSIER` (× 3 tiers) · `STAKEHOLDERS` · `INSTITUTIONS_CITED` · `RESOURCES` |
+| `src/scenarios/sdg13-chiangmai-quiz.js` | `TOKEN_MATRIX` · `CONFIDENCE_LEVELS` · `QUIZ_ITEMS` × 6 · `computeTokenAward()` · `shouldShowScaffold()` |
+| `src/scenarios/sdg13-chiangmai-m1.js` | Stage registrations · `PASS_THRESHOLD_TOKENS = 8` · `debriefComplete` handler (awards Keystone + syncs engine state) |
+| `src/scenarios/sdg13-chiangmai.js` | Public adapter (re-exports `SCENARIO_META` + `installStages`) |
 | `assets/scenarios/sdg13-chiangmai/video/*` | 4 stakeholder dispatch videos |
 | `assets/scenarios/sdg13-chiangmai/audio/*.vtt` | 4 caption files (WebVTT) |
-| `assets/scenarios/sdg13-chiangmai/images/*` | Hero, inversion diagram, source-apportionment graphic, stakeholder portraits |
+| `assets/scenarios/sdg13-chiangmai/images/*` | Hero, inversion diagram, PM2.5 chart, source-apportionment graphic, stakeholder portraits |
 
-— *Authored 2026-05-22 from the live runtime modules for documentation
-parity with the other 5 SDG design folders. The runtime mission shipped
-earlier; this file is the canonical authoring spec for design review,
-asset re-generation, and the SPU 2026 submission package.*
+---
+
+*End of PRODUCTION MASTER — `sdg13-chiangmai-burningseason-v1` ·
+"The Burning Season" / ฤดูแห่งการเผา. Mirrors the
+`sdg06-khonkaen-aquifer-v1` gold-standard structure and the Bangkok /
+Andaman / Mae Sot / EEC five-section template adopted across the
+documented-only missions. Dossier authored at all three reading tiers.
+Pending Aj. Yungie + named Thai pedagogy / public-health reviewer
+sign-off.*
+
+*Normalised: 2026-05-22 (b2 — section structure brought in line with
+the other five masters).*
