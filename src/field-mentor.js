@@ -22,7 +22,7 @@ export function startMentorChat({ logEl, profile, missionConfig, scenario }) {
   let usage = readUsage(missionConfig.code);
 
   appendBot(
-    `Hi — I'm your Field Mentor. I won't give you answers, but I'll ask the right questions and help with English. ` +
+    `Hi — I'm Mr. Compass, your Field Mentor. I won't give you answers, but I'll ask the right questions and help with English. ` +
     `You've got ${PER_MISSION_LIMIT - usage.count} questions left for this mission.`
   );
 
