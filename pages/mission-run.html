@@ -161,9 +161,22 @@
 
   /* ── Center ── */
   .center{position:fixed;top:var(--header-h);left:var(--rail-w);right:var(--right-w);bottom:0;
-    overflow-y:auto;padding:24px 30px 90px}
+    overflow-y:auto;padding:24px 30px 96px}    /* bottom padding leaves room for the fixed footer */
   body.right-collapsed .center{right:0}
   .center-inner{max-width:860px;margin:0 auto}
+  /* Mission-tool footer pinned to the bottom of the centre column. */
+  .center-footer{position:fixed;left:var(--rail-w);right:var(--right-w);bottom:0;z-index:45;
+    display:flex;align-items:center;justify-content:flex-end;gap:12px;
+    padding:11px 30px;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);
+    border-top:1px solid var(--line)}
+  body.right-collapsed .center-footer{right:0}
+  /* Inside the footer the two buttons sit inline — neutralise the old
+     fixed positioning that put them in opposite corners of the viewport. */
+  .center-footer .dossier-btn,
+  .center-footer .compass-launcher{position:static;left:auto;right:auto;bottom:auto}
+  @media (max-width:900px){
+    .center-footer{padding:9px 16px;gap:8px}
+  }
   .resume-banner{display:flex;align-items:center;gap:14px;flex-wrap:wrap;
     background:linear-gradient(135deg,rgba(232,199,122,.16),rgba(7,23,52,.04));
     border:1px solid rgba(181,124,52,.34);border-left:4px solid var(--bronze);
@@ -385,7 +398,8 @@
   }
 
   /* Chat panel — slides up from bottom-right with a soft spring */
-  .compass-panel{position:fixed;right:calc(var(--right-w) + 18px);bottom:84px;z-index:60;
+  /* Sits above the new center-pane footer (footer is ~62px tall). */
+  .compass-panel{position:fixed;right:calc(var(--right-w) + 18px);bottom:78px;z-index:60;
     width:380px;max-width:92vw;height:540px;max-height:calc(100vh - 130px);
     display:flex;flex-direction:column;overflow:hidden;
     background:#fff;border-radius:20px;border:1px solid var(--line);
@@ -811,11 +825,29 @@
   </footer>
 </dialog>
 
-<!-- Re-read the dossier from any post-Brief stage. Opens a modal with the
-     scenario's authored DOSSIER (loaded lazily by scenarioId). -->
-<button id="open-dossier" class="dossier-btn" type="button" hidden aria-haspopup="dialog">
-  <span class="material-symbols-rounded">menu_book</span><span>View dossier</span>
-</button>
+<!-- Center-pane footer · holds the mission action buttons (View dossier
+     + Mr. Compass) in one tidy strip pinned to the bottom of the centre
+     column. Previously these were two fixed-positioned floaters at the
+     opposite corners of the viewport — now they sit together. -->
+<div class="center-footer" id="center-footer" aria-label="Mission tools">
+  <button id="open-dossier" class="dossier-btn" type="button" hidden aria-haspopup="dialog">
+    <span class="material-symbols-rounded">menu_book</span><span>View dossier</span>
+  </button>
+  <button id="compass-launcher" class="compass-launcher" type="button"
+          aria-label="Open Mr. Compass — your mission mentor" aria-haspopup="dialog">
+    <span class="compass-icon" aria-hidden="true">
+      <span class="compass-rose"></span>
+      <span class="compass-needle"></span>
+    </span>
+    <span class="compass-launcher-tx">
+      <span class="compass-launcher-n">Mr. Compass</span>
+      <span class="compass-launcher-s">Need a nudge?</span>
+    </span>
+    <span class="compass-pulse" aria-hidden="true"></span>
+  </button>
+</div>
+
+<!-- Dossier popover (opens on demand — sits over the footer). -->
 <dialog id="dossier-modal" class="dossier-modal" aria-labelledby="dossier-title">
   <header class="dossier-head">
     <h3 id="dossier-title">Dossier</h3>
@@ -823,22 +855,6 @@
   </header>
   <div id="dossier-body" class="dossier-body"></div>
 </dialog>
-
-<!-- Compass · Field Mentor — floating Socratic chat companion (English only).
-     Launcher sits bottom-right, just inside the right pane gutter; click
-     opens a chat drawer wired to src/field-mentor.js + claude-proxy. -->
-<button id="compass-launcher" class="compass-launcher" type="button"
-        aria-label="Open Mr. Compass — your mission mentor" aria-haspopup="dialog">
-  <span class="compass-icon" aria-hidden="true">
-    <span class="compass-rose"></span>
-    <span class="compass-needle"></span>
-  </span>
-  <span class="compass-launcher-tx">
-    <span class="compass-launcher-n">Mr. Compass</span>
-    <span class="compass-launcher-s">Need a nudge?</span>
-  </span>
-  <span class="compass-pulse" aria-hidden="true"></span>
-</button>
 <aside id="compass-panel" class="compass-panel" role="dialog"
        aria-label="Mr. Compass — Field Mentor" aria-modal="false" hidden>
   <header class="compass-head">
