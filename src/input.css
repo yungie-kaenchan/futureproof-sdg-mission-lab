@@ -3207,8 +3207,13 @@ body.font-dyslexia {
     background: #FFFFFF; border: 1px solid #EAEAED; border-radius: 14px;
     border-left: 4px solid #b57c34; padding: 16px 18px;
   }
-  .learn-list { margin: 0; padding-left: 18px; }
-  .learn-list li { line-height: 1.65; color: #1A1F2E; font-size: 15px; margin: 0 0 9px; }
+  /* Learning Objectives + Outcomes: explicit readable bullets. The
+     renderer wraps the first word (Bloom verb) in <strong> so it
+     stands out without per-item authoring. */
+  .learn-list { margin: 0; padding-left: 22px; list-style: disc outside; }
+  .learn-list li { line-height: 1.7; color: #1A1F2E; font-size: 15.5px; margin: 0 0 11px; padding-left: 4px; }
+  .learn-list li::marker { color: #b57c34; font-size: 1em; }
+  .learn-list li strong { color: #0A0A0B; font-weight: 700; }
   .learn-list li:last-child { margin-bottom: 0; }
   .briefing-banner {
     display: flex; align-items: center; justify-content: space-between;

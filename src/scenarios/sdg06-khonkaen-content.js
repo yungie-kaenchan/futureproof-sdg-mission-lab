@@ -24,17 +24,18 @@ export const SCENARIO_META = {
   region: "Nam Phong / Ubolratana watershed, Khon Kaen Province",
   cefr: "B1+/B2",
   hero: "/assets/scenarios/sdg06-khonkaen/images/hero.png",
+  // 3 objectives — what the learner does during this mission. Each opens
+  // with a Bloom action verb at the cognitive level the stage demands.
   objectives: [
-    "Read a multi-source water-governance dossier and pin down the core resource trade-off.",
-    "Weigh four stakeholders' competing claims on one shared aquifer.",
-    "Decide, under uncertainty, whether to authorise the wellfield expansion — and defend it.",
-    "Communicate that decision in precise, audience-appropriate English.",
+    "Analyse a multi-source water-governance dossier to identify the core resource trade-off.",
+    "Evaluate four stakeholders' competing claims on one shared aquifer.",
+    "Defend a decision on the wellfield expansion in precise, audience-appropriate English.",
   ],
+  // 3 outcomes — what the learner can do AFTER the mission. Higher-Bloom verbs.
   outcomes: [
-    "explain the intergenerational- vs. distributive-justice tension in plain and academic English",
-    "judge a source by methodology, recency and conflict of interest",
-    "hold a position that survives a strong counter-argument",
-    "connect this local SDG-6 case to wider water-security principles",
+    "Explain the intergenerational-justice vs. distributive-justice tension in plain and academic English.",
+    "Judge a source by methodology, recency, and conflict of interest.",
+    "Argue a position that survives a strong counter-argument.",
   ],
 };
 

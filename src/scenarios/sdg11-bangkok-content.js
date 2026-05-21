@@ -37,17 +37,17 @@ export const SCENARIO_META = {
   region: "Klong-side community, lower Chao Phraya delta, Bangkok",
   cefr: "B1+/B2",
   hero: "/assets/scenarios/sdg11-bangkok/images/hero.webp",
+  // 3 objectives — what the learner does during this mission.
   objectives: [
-    "Read an urban flood-defence dossier and map who is protected vs. displaced.",
-    "Weigh resilience for 80,000 commuters against klong-side tenure justice.",
-    "Decide whether to proceed with the corridor before a funded relocation exists.",
+    "Analyse an urban flood-defence dossier to map who is protected vs. displaced.",
+    "Evaluate resilience for 80,000 commuters against klong-side tenure justice.",
     "Argue the decision to power and to affected residents in the right registers.",
   ],
+  // 3 outcomes — what the learner can do AFTER the mission.
   outcomes: [
-    "explain the urban-resilience vs. housing-justice and procedural-justice tensions in English",
-    "assess informal tenure and the Baan Mankong precedent fairly",
-    "defend a position against the strongest counter-claim",
-    "generalise this SDG-11 reasoning to other sustainable-cities dilemmas",
+    "Explain the urban-resilience, housing-justice and procedural-justice tensions in English.",
+    "Assess informal tenure and the Baan Mankong precedent fairly.",
+    "Generalise this SDG-11 reasoning to other sustainable-cities dilemmas.",
   ],
 };
 

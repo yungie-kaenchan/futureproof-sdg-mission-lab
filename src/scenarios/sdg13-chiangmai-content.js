@@ -37,17 +37,17 @@ export const SCENARIO_META = {
   region: "Upper Ping basin, Chiang Mai & Mae Hong Son uplands",
   cefr: "B1+/B2",
   hero: "/assets/scenarios/sdg13-chiangmai/images/hero.webp",
+  // 3 objectives — what the learner does during this mission.
   objectives: [
     "Analyse why upland burning persists despite known PM2.5 harm.",
     "Compare enforcement-only vs. enforcement-plus-alternative under a real trade-off.",
-    "Judge the strongest structural objection to a zero-burning order.",
-    "Communicate the decision to the people who bear its consequences.",
+    "Justify a policy choice to the people who bear its consequences.",
   ],
+  // 3 outcomes — what the learner can do AFTER the mission.
   outcomes: [
-    "articulate the public-health vs. rural-livelihood tension precisely in English",
-    "reason about transboundary causation and behavioural displacement (night burning)",
-    "calibrate your confidence to the strength of the evidence",
-    "transfer this SDG-13 reasoning to other climate-action dilemmas",
+    "Articulate the public-health vs. rural-livelihood tension precisely in English.",
+    "Evaluate transboundary causation and behavioural displacement (night burning).",
+    "Transfer this SDG-13 reasoning to other climate-action dilemmas.",
   ],
 };
 

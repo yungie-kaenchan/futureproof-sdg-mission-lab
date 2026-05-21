@@ -84,11 +84,11 @@ async function reconBriefing(container, state, engine) {
       <div class="learn-block mt-6">
         <div class="learn-col">
           <div class="console-label-gold mb-2">LEARNING OBJECTIVES</div>
-          <ul class="learn-list">${(SCENARIO_META.objectives||[]).map((o)=>`<li>${o}</li>`).join("")}</ul>
+          <ul class="learn-list">${(SCENARIO_META.objectives||[]).map((o)=>`<li>${String(o).replace(/^(\S+)/,"<strong>$1</strong>")}</li>`).join("")}</ul>
         </div>
         <div class="learn-col">
           <div class="console-label-gold mb-2">LEARNING OUTCOMES — by the end you can…</div>
-          <ul class="learn-list">${(SCENARIO_META.outcomes||[]).map((o)=>`<li>${o}</li>`).join("")}</ul>
+          <ul class="learn-list">${(SCENARIO_META.outcomes||[]).map((o)=>`<li>${String(o).replace(/^(\S+)/,"<strong>$1</strong>")}</li>`).join("")}</ul>
         </div>
       </div>
 
