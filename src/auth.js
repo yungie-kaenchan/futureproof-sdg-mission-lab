@@ -119,6 +119,49 @@ export async function fetchUserProfile(uid) {
 }
 
 /**
+ * Update a user's PUBLIC profile (visible to teammates / admins).
+ * Pass only the fields you want to change — the others are preserved.
+ */
+export async function updateUserPublic(uid, patch) {
+  if (!uid || !patch || typeof patch !== 'object') return;
+  const fb = await ensureFirebase();
+  const cur = (await fb.readPath(fb.paths.userPublic(uid))) || {};
+  await fb.writePath(fb.paths.userPublic(uid), { ...cur, ...patch });
+}
+
+/**
+ * Update a user's PRIVATE profile (demographics — PDPA-protected).
+ * Pass only the fields you want to change — the others are preserved.
+ */
+export async function updateUserPrivate(uid, patch) {
+  if (!uid || !patch || typeof patch !== 'object') return;
+  const fb = await ensureFirebase();
+  const cur = (await fb.readPath(fb.paths.userPrivate(uid))) || {};
+  await fb.writePath(fb.paths.userPrivate(uid), { ...cur, ...patch });
+}
+
+/**
+ * Change the signed-in user's password. Firebase requires re-auth for
+ * security-sensitive operations, so we ask for the current password,
+ * reauthenticate, then update. Errors propagate so the UI can show them.
+ */
+export async function changePassword(currentPassword, newPassword) {
+  const fb = await ensureFirebase();
+  // Pull the Firebase Auth SDK pieces we need on demand.
+  const [{ EmailAuthProvider, reauthenticateWithCredential, updatePassword: fbUpdatePassword }, authObj] =
+    await Promise.all([
+      import('https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js'),
+      Promise.resolve(fb.auth),
+    ]);
+  const user = authObj.currentUser;
+  if (!user) throw new Error('You are not signed in.');
+  if (!user.email) throw new Error('This account has no email — password change is unavailable.');
+  const cred = EmailAuthProvider.credential(user.email, currentPassword);
+  await reauthenticateWithCredential(user, cred);
+  await fbUpdatePassword(user, newPassword);
+}
+
+/**
  * Lightweight, framework-free email validation.
  * Intentionally permissive — we let Firebase Auth do the canonical validation.
  */

@@ -14,17 +14,34 @@
 
 const STABILITY_ENDPOINT = "https://api.stability.ai/v2beta/stable-image/generate/sd3";
 
-const PROMPT_TEMPLATE = (subject) =>
+// Cartoon (default per QC) — Pixar/DreamWorks-style 3D animation render.
+// The realistic preset is kept for back-compat with any caller still
+// passing the legacy style ids; the platform UI now only sends "cartoon".
+const CARTOON_PROMPT = (subject) =>
+  `Super-realistic 3D animation-style portrait of a cute, friendly cartoon character. ` +
+  `Pixar / DreamWorks feature-film render quality. Soft volumetric studio lighting, ` +
+  `vibrant colourful palette, large expressive eyes, gentle warm smile, ` +
+  `head-and-shoulders crop facing the viewer, smooth subsurface-scattered skin, ` +
+  `detailed hair shading, clean soft-gradient background. Wholesome, modern, ` +
+  `professional-quality animated film aesthetic. ${subject}`.trim();
+
+const CARTOON_NEGATIVE =
+  "photorealistic human, dull desaturated palette, monochrome, sketch, line art, " +
+  "low quality, deformed, distorted face, extra limbs, watermark, text, signature, " +
+  "blurry, multiple subjects, scary, uncanny, gritty, dark, horror";
+
+const REALISTIC_PROMPT = (subject) =>
   `Stylized professional character portrait, semi-realistic, cinematic lighting, ` +
   `dark professional aesthetic, mission-console operative, ` +
   `looking directly at viewer, head-and-shoulders crop, neutral background, ` +
   `editorial photography, sharp focus, high detail. ${subject}`.trim();
 
-const NEGATIVE_PROMPT =
+const REALISTIC_NEGATIVE =
   "low quality, deformed, distorted face, extra limbs, watermark, text, signature, " +
   "cartoon, anime, oversaturated, blurry, multiple subjects";
 
 const STYLE_NOTES = {
+  cartoon:    "cheerful, expressive, approachable, light-hearted",
   classic:    "professional posture, calm composed expression",
   field:      "alert focused expression, subtle field-jacket suggestion",
   diplomat:   "confident open expression, clean tailored silhouette",
@@ -73,15 +90,18 @@ export async function handler(event) {
     return jsonResponse(413, { error: "Source image is too large. Try a smaller photo." });
   }
 
-  const styleNote = STYLE_NOTES[style] || STYLE_NOTES.classic;
-  const prompt = PROMPT_TEMPLATE([styleNote, subjectHint].filter(Boolean).join(", "));
+  const isCartoon = String(style).toLowerCase() === "cartoon";
+  const styleNote = STYLE_NOTES[style] || STYLE_NOTES.cartoon;
+  const promptFn = isCartoon ? CARTOON_PROMPT : REALISTIC_PROMPT;
+  const negPrompt = isCartoon ? CARTOON_NEGATIVE : REALISTIC_NEGATIVE;
+  const prompt = promptFn([styleNote, subjectHint].filter(Boolean).join(", "));
 
   // Decode base64 → Buffer for multipart/form-data submission to Stability.
   const imgBuffer = Buffer.from(imageBase64.replace(/^data:image\/\w+;base64,/, ""), "base64");
   const formData = new FormData();
   formData.append("image", new Blob([imgBuffer], { type: "image/png" }), "input.png");
   formData.append("prompt", prompt);
-  formData.append("negative_prompt", NEGATIVE_PROMPT);
+  formData.append("negative_prompt", negPrompt);
   formData.append("strength", "0.65");
   formData.append("mode", "image-to-image");
   formData.append("output_format", "png");

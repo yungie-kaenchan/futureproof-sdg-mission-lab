@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit profile — FUTUREPROOF</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0..1,-50..200&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    body{background:var(--paper,#FBFAF7);color:var(--ink-deep,#0A0A0B);
+      font-family:'Space Grotesk',system-ui,sans-serif;padding-top:72px}
+    .top{position:fixed;top:0;left:0;right:0;height:60px;display:flex;align-items:center;
+      justify-content:space-between;padding:0 22px;background:#0F1729;color:#F4F1EA;
+      border-bottom:1px solid #1F1F23;z-index:50}
+    .brand{font-family:'Fraunces',serif;font-weight:600;color:#E8C77A;font-size:18px}
+    .top a, .top button{color:#F4F1EA;text-decoration:none;background:transparent;border:1px solid rgba(244,241,234,.2);
+      border-radius:999px;padding:6px 14px;font-size:12.5px;font-weight:600;cursor:pointer;
+      display:inline-flex;align-items:center;gap:6px;margin-left:8px}
+    .top a:hover, .top button:hover{background:rgba(244,241,234,.08);border-color:#C9A961}
+    .wrap{max-width:880px;margin:14px auto 70px;padding:0 22px}
+    h1{font-family:'Fraunces',serif;font-size:34px;font-weight:600;color:#0A0A0B;margin:14px 0 4px}
+    .subtitle{color:#6E7383;font-size:15px;margin:0 0 26px}
+    .card{background:#fff;border:1px solid #E6E1D6;border-radius:18px;padding:24px 28px;margin-bottom:18px;
+      box-shadow:0 6px 22px rgba(20,20,22,.04)}
+    .card h2{font-family:'Fraunces',serif;font-size:20px;font-weight:600;margin:0 0 6px;color:#0A0A0B}
+    .card .desc{color:#6E7383;font-size:13.5px;margin:0 0 18px;line-height:1.55}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    @media (max-width:680px){.grid{grid-template-columns:1fr}}
+    label{display:block;font-size:12px;color:#6E7383;font-weight:600;margin:0 0 6px}
+    input,select{width:100%;background:#fff;border:1px solid #E6E1D6;border-radius:10px;
+      padding:11px 13px;font-size:14.5px;font-family:inherit;color:#0A0A0B}
+    input:focus,select:focus{outline:none;border-color:#C9A961;box-shadow:0 0 0 3px rgba(201,169,97,.18)}
+    .req{color:#A82424;font-weight:700}
+    .row-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:6px}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:999px;
+      font-weight:700;font-size:14px;cursor:pointer;border:none;font-family:inherit}
+    .btn.primary{background:linear-gradient(135deg,#C9A961,#E8C77A);color:#0A0A0B;
+      box-shadow:0 6px 18px rgba(201,169,97,.30)}
+    .btn.primary:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(201,169,97,.36)}
+    .btn.ghost{background:transparent;color:#0A0A0B;border:1px solid #E6E1D6}
+    .btn.ghost:hover{background:#FBFAF7;border-color:#C9A961}
+    .btn[disabled]{opacity:.5;cursor:not-allowed}
+    .av-row{display:flex;align-items:center;gap:18px;margin-top:4px}
+    .av-img{width:90px;height:90px;border-radius:22px;background:#F4F1EA url("../assets/images/avatar-default.svg") center/cover no-repeat;
+      border:1px solid #E6E1D6;flex-shrink:0;overflow:hidden}
+    .av-img img{width:100%;height:100%;object-fit:cover;display:block}
+    .av-meta{flex:1;min-width:0}
+    .av-meta p{margin:0;font-size:13.5px;color:#6E7383;line-height:1.55}
+    .notice{padding:11px 14px;border-radius:10px;font-size:13.5px;font-weight:600;
+      display:flex;align-items:flex-start;gap:8px;line-height:1.5}
+    .notice.ok{background:#E9F7EF;border:1px solid #3E9D5E;color:#1E6B3A}
+    .notice.err{background:#FBE9EA;border:1px solid #C58C8F;color:#7B1B1B}
+    .notice[hidden]{display:none}
+    .pw-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+    @media (max-width:680px){.pw-grid{grid-template-columns:1fr}}
+    .field-help{font-size:12px;color:#6E7383;margin:6px 0 0;line-height:1.5}
+  </style>
+</head>
+<body>
+
+<header class="top">
+  <a href="./mission-select.html" class="brand" style="text-decoration:none">FUTUREPROOF</a>
+  <div>
+    <a href="./mission-select.html">← Journey map</a>
+    <button id="hdr-signout" type="button">Sign out</button>
+  </div>
+</header>
+
+<main class="wrap">
+  <h1>Edit your profile</h1>
+  <p class="subtitle">Update what teammates and your teacher see, change your password, and tune your avatar.</p>
+
+  <div id="msg" class="notice" hidden></div>
+
+  <!-- Avatar -->
+  <section class="card">
+    <h2>Avatar</h2>
+    <p class="desc">Your avatar shows up beside every decision you log. Re-upload a photo or regenerate the cartoon character below.</p>
+    <div class="av-row">
+      <div class="av-img" id="av-img"></div>
+      <div class="av-meta">
+        <p>Click <strong>Open avatar editor</strong> to upload a new photo, retake from webcam, or run a new cartoon attempt (up to 3 per account).</p>
+        <div class="row-actions" style="justify-content:flex-start;margin-top:10px">
+          <a href="./avatar.html" class="btn primary"><span class="material-symbols-rounded">face</span><span>Open avatar editor</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Profile -->
+  <form id="profile-form" class="card" novalidate>
+    <h2>Your details</h2>
+    <p class="desc">Required fields are marked with <span class="req">*</span>. Demographic fields stay in your private profile under PDPA rules — only you and your teacher can see them.</p>
+    <div class="grid">
+      <div><label>Display name <span class="req">*</span></label><input id="p-display" maxlength="60" autocomplete="nickname" /></div>
+      <div><label>Rank</label>
+        <select id="p-rank">
+          <option>cadet</option><option>field-agent</option><option>analyst</option>
+          <option>strategist</option><option>director</option><option>ambassador</option>
+        </select>
+      </div>
+      <div><label>First name — English <span class="req">*</span></label><input id="p-fnEn" autocomplete="given-name" /></div>
+      <div><label>Surname — English <span class="req">*</span></label><input id="p-lnEn" autocomplete="family-name" /></div>
+      <div><label>ชื่อจริง — ภาษาไทย <span class="req">*</span></label><input id="p-fnTh" lang="th" /></div>
+      <div><label>นามสกุล — ภาษาไทย <span class="req">*</span></label><input id="p-lnTh" lang="th" /></div>
+      <div><label>Age <span class="req">*</span></label><input id="p-age" type="number" min="15" max="99" /></div>
+      <div><label>Gender <span class="req">*</span></label><input id="p-gender" maxlength="40" /></div>
+      <div><label>Institution <span class="req">*</span></label><input id="p-inst" autocomplete="organization" maxlength="120" /></div>
+      <div><label>Year of study <span class="req">*</span></label><input id="p-year" maxlength="30" /></div>
+      <div><label>Province <span class="req">*</span></label><input id="p-prov" maxlength="60" /></div>
+      <div><label>District / Location</label><input id="p-loc" maxlength="120" /></div>
+    </div>
+    <div class="row-actions">
+      <button type="button" class="btn ghost" id="p-reset">Reset</button>
+      <button type="submit" class="btn primary" id="p-save"><span class="material-symbols-rounded">save</span><span>Save profile</span></button>
+    </div>
+  </form>
+
+  <!-- Password -->
+  <form id="pwd-form" class="card" novalidate>
+    <h2>Change password</h2>
+    <p class="desc">Use at least 8 characters with both letters and numbers. You'll be asked for your current password for security.</p>
+    <div class="pw-grid">
+      <div><label>Current password</label><input id="pw-cur" type="password" autocomplete="current-password" /></div>
+      <div><label>New password</label><input id="pw-new" type="password" autocomplete="new-password" /></div>
+      <div><label>Confirm new password</label><input id="pw-conf" type="password" autocomplete="new-password" /></div>
+    </div>
+    <div class="row-actions">
+      <button type="submit" class="btn primary" id="pw-save"><span class="material-symbols-rounded">lock</span><span>Update password</span></button>
+    </div>
+  </form>
+</main>
+
+<script src="../config.local.js" onerror="window.__noConfig = true;"></script>
+
+<script type="module">
+  import {
+    fetchUserProfile, updateUserPublic, updateUserPrivate, changePassword,
+    getFlowState, isFirebaseAvailable, signOutCurrent, looksLikeEmail, passwordIssues
+  } from "../src/auth.js";
+
+  const $ = (id) => document.getElementById(id);
+  const flow = getFlowState();
+  const uid = flow && flow.uid;
+
+  function flash(kind, text) {
+    const m = $("msg");
+    m.className = "notice " + (kind === "ok" ? "ok" : "err");
+    m.textContent = text;
+    m.hidden = false;
+    if (kind === "ok") setTimeout(() => { m.hidden = true; }, 4500);
+  }
+
+  $("hdr-signout").addEventListener("click", async () => {
+    try { if (isFirebaseAvailable()) await signOutCurrent(); } catch (_) {}
+    location.href = "../index.html";
+  });
+
+  if (!uid || !isFirebaseAvailable()) {
+    flash("err", "Sign in first to edit your profile.");
+    document.querySelectorAll("input, select, button[type='submit'], #p-reset").forEach((el) => el.disabled = true);
+  } else {
+    initialise();
+  }
+
+  let original = null;
+
+  async function initialise() {
+    try {
+      const data = await fetchUserProfile(uid);
+      const pub = (data && data.public) || {};
+      const priv = (data && data.private) || {};
+      original = { pub, priv };
+      $("p-display").value = pub.displayName || "";
+      $("p-rank").value    = pub.rank || "cadet";
+      $("p-fnEn").value    = priv.firstNameEn || "";
+      $("p-lnEn").value    = priv.lastNameEn || "";
+      $("p-fnTh").value    = priv.firstNameTh || "";
+      $("p-lnTh").value    = priv.lastNameTh || "";
+      $("p-age").value     = priv.age || "";
+      $("p-gender").value  = priv.gender || "";
+      $("p-inst").value    = pub.institution || "";
+      $("p-year").value    = priv.yearOfStudy || "";
+      $("p-prov").value    = priv.province || "";
+      $("p-loc").value     = priv.location || "";
+      // Avatar preview
+      const url = pub.avatarUrl || "";
+      if (url) {
+        const img = document.createElement("img");
+        img.alt = "Your avatar";
+        img.src = url;
+        $("av-img").replaceChildren(img);
+      }
+    } catch (err) {
+      flash("err", "Couldn't load your profile. " + (err && err.message ? err.message : ""));
+    }
+  }
+
+  $("p-reset").addEventListener("click", () => { if (original) initialise(); });
+
+  $("profile-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const need = {
+      "p-display": "your display name",
+      "p-fnEn": "first name in English",
+      "p-lnEn": "surname in English",
+      "p-fnTh": "first name in Thai",
+      "p-lnTh": "surname in Thai",
+      "p-age": "your age",
+      "p-gender": "your gender",
+      "p-inst": "your institution",
+      "p-year": "your year of study",
+      "p-prov": "your province",
+    };
+    for (const [id, label] of Object.entries(need)) {
+      if (!$(id).value.trim()) return flash("err", "Please add " + label + ".");
+    }
+    const ageNum = parseInt($("p-age").value, 10);
+    if (isNaN(ageNum) || ageNum < 15 || ageNum > 99)
+      return flash("err", "Please enter a valid age (15–99).");
+
+    const btn = $("p-save");
+    btn.disabled = true; btn.querySelector("span:last-child").textContent = "Saving…";
+    try {
+      await updateUserPublic(uid, {
+        displayName: $("p-display").value.trim(),
+        rank: $("p-rank").value,
+        institution: $("p-inst").value.trim(),
+      });
+      await updateUserPrivate(uid, {
+        firstNameEn: $("p-fnEn").value.trim(),
+        lastNameEn:  $("p-lnEn").value.trim(),
+        firstNameTh: $("p-fnTh").value.trim(),
+        lastNameTh:  $("p-lnTh").value.trim(),
+        age: ageNum,
+        gender: $("p-gender").value.trim(),
+        yearOfStudy: $("p-year").value.trim(),
+        province: $("p-prov").value.trim(),
+        location: $("p-loc").value.trim(),
+        lastActiveAt: Date.now(),
+      });
+      flash("ok", "Profile saved.");
+    } catch (err) {
+      flash("err", "Save failed. " + (err && err.message ? err.message : "Please try again."));
+    } finally {
+      btn.disabled = false; btn.querySelector("span:last-child").textContent = "Save profile";
+    }
+  });
+
+  $("pwd-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const cur = $("pw-cur").value, nw = $("pw-new").value, cf = $("pw-conf").value;
+    if (!cur || !nw || !cf) return flash("err", "Fill all three password fields.");
+    if (nw !== cf) return flash("err", "New password and confirmation do not match.");
+    const issues = passwordIssues(nw);
+    if (issues.length) return flash("err", "Please choose a stronger new password — it needs " + issues.join(", ") + ".");
+
+    const btn = $("pw-save");
+    btn.disabled = true; btn.querySelector("span:last-child").textContent = "Updating…";
+    try {
+      await changePassword(cur, nw);
+      $("pw-cur").value = $("pw-new").value = $("pw-conf").value = "";
+      flash("ok", "Password updated.");
+    } catch (err) {
+      const msg = (err && err.code === "auth/wrong-password") ? "Current password did not match."
+        : (err && err.code === "auth/weak-password") ? "That new password is too weak — try a longer one."
+        : (err && err.message) ? err.message : "Could not update password.";
+      flash("err", msg);
+    } finally {
+      btn.disabled = false; btn.querySelector("span:last-child").textContent = "Update password";
+    }
+  });
+</script>
+</body>
+</html>

@@ -21,7 +21,7 @@
     --display:'Fraunces',Georgia,serif; --titles:'Cinzel',serif;
     --sans:'DM Sans',system-ui,sans-serif; --thai:'IBM Plex Sans Thai',sans-serif;
     --mono:'JetBrains Mono',monospace;
-    --rail-w:310px; --right-w:340px; --header-h:64px;
+    --rail-w:341px; --right-w:340px; --header-h:64px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{height:100%}
@@ -293,6 +293,46 @@
     margin:18px 0 8px}
   .dossier-body h4:first-child{margin-top:0}
   .dossier-body p{margin:0 0 12px}
+  /* Pre-mission Brief modal — bilingual instructions + scoring criteria. */
+  .prelude-modal{border:none;border-radius:22px;padding:0;width:min(880px,94vw);max-height:90vh;
+    background:linear-gradient(180deg,#FBFAF7 0%,#fff 100%);box-shadow:0 28px 80px rgba(0,0,0,.35);color:var(--ink-deep);overflow:hidden}
+  .prelude-modal::backdrop{background:rgba(8,12,26,.7);backdrop-filter:blur(3px)}
+  .prelude-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;
+    padding:24px 28px 18px;border-bottom:1px solid var(--line);
+    background:linear-gradient(135deg,var(--ink-deep) 0%,var(--ink) 100%);color:var(--bone)}
+  .prelude-head h2{font-family:var(--display);font-size:26px;font-weight:600;margin:4px 0 0;color:var(--bone)}
+  .prelude-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--bronze-light);font-weight:700}
+  .prelude-langpill{display:flex;gap:2px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);
+    border-radius:999px;padding:3px}
+  .prelude-langpill button{border:none;background:transparent;color:var(--bone);font-family:var(--ui);font-weight:600;font-size:12px;
+    padding:5px 12px;border-radius:999px;cursor:pointer;letter-spacing:.04em}
+  .prelude-langpill button.is-active{background:var(--bronze);color:var(--ink-deep)}
+  .prelude-body{padding:22px 28px;overflow-y:auto;max-height:calc(90vh - 200px)}
+  .p-card{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:18px 22px;margin-bottom:14px;
+    box-shadow:0 4px 18px rgba(20,20,22,.04)}
+  .p-card-title{font-family:var(--display);font-size:18px;font-weight:600;color:var(--ink-deep);margin-bottom:14px}
+  .p-stages{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
+  .p-stages li{display:grid;grid-template-columns:60px auto 1fr;gap:14px;align-items:center;
+    padding:10px 12px;background:var(--paper);border-radius:11px;border:1px solid var(--line)}
+  .p-stages li strong{font-family:var(--display);font-size:17px;color:var(--ink-deep);font-weight:600;white-space:nowrap}
+  .p-stages li .p-desc{font-size:14px;color:var(--ink-soft);line-height:1.5}
+  .p-w{display:inline-flex;align-items:center;justify-content:center;width:54px;height:30px;border-radius:8px;
+    background:color-mix(in srgb,var(--c) 22%,#fff);color:var(--c);font-family:var(--mono);font-weight:700;font-size:13px;
+    border:1px solid color-mix(in srgb,var(--c) 50%,transparent)}
+  .p-criteria{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
+  .p-criteria li{display:flex;gap:12px;font-size:14.5px;line-height:1.55;color:var(--ink)}
+  .p-criteria li strong{color:var(--ink-deep)}
+  .p-tick{display:inline-flex;flex-shrink:0;align-items:center;justify-content:center;width:24px;height:24px;
+    border-radius:999px;background:rgba(232,199,122,.18);color:var(--bronze);font-size:13px;font-weight:700;margin-top:1px}
+  .p-foot{font-size:13px;color:var(--steel);text-align:center;margin:10px 4px 0;padding:10px 14px;
+    border-top:1px dashed var(--line)}
+  .p-foot em{color:var(--bronze);font-style:normal;font-weight:600}
+  .prelude-foot{display:flex;justify-content:flex-end;gap:12px;padding:18px 28px;border-top:1px solid var(--line);background:#fff}
+  .prelude-begin{display:inline-flex;align-items:center;gap:10px;padding:13px 26px;border-radius:999px;
+    background:linear-gradient(135deg,var(--bronze) 0%,var(--bronze-light) 100%);color:var(--ink-deep);
+    border:none;font-family:var(--ui);font-weight:700;font-size:15px;cursor:pointer;
+    box-shadow:0 8px 22px rgba(181,124,52,.30);transition:transform .2s,box-shadow .2s}
+  .prelude-begin:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(181,124,52,.40)}
   .todo-item{display:flex;align-items:flex-start;gap:9px;padding:7px 0;font-size:12.5px;color:var(--ink-soft);line-height:1.45}
   .todo-item .material-symbols-rounded{font-size:17px;flex-shrink:0;color:var(--line-strong)}
   .todo-item.done{color:var(--steel)}
@@ -370,6 +410,9 @@
     </a>
   </div>
   <div class="shell-header-right">
+    <button class="shell-header-btn" id="open-prelude" type="button" title="How does this mission work?">
+      <span class="material-symbols-rounded" style="font-size:16px;vertical-align:-3px">help</span> How it works
+    </button>
     <button class="shell-header-btn" id="save-exit" type="button" title="Save your progress and return to the journey map">
       <span class="material-symbols-rounded" style="font-size:16px;vertical-align:-3px">bookmark_add</span> Save for later
     </button>
@@ -483,7 +526,7 @@
           <div class="rpd-tag" id="rpd-tag" hidden></div>
         </div>
       </div>
-      <a href="./avatar.html" class="rpd-edit">
+      <a href="./profile.html" class="rpd-edit">
         <span class="material-symbols-rounded">edit</span>
         <span>Edit profile &amp; avatar</span>
       </a>
@@ -541,6 +584,72 @@
     <div id="todo-list"></div>
   </div>
 </aside>
+
+<!-- Pre-mission Brief — instructions + scoring criteria. Shown on first
+     visit per (user, mission); re-openable from the header. EN/TH. -->
+<dialog id="prelude-modal" class="prelude-modal" aria-labelledby="prelude-title">
+  <header class="prelude-head">
+    <div>
+      <div class="prelude-eyebrow"><span id="prelude-mission">Mission</span> · <span id="prelude-region">—</span></div>
+      <h2 id="prelude-title">How this mission works</h2>
+    </div>
+    <div class="prelude-langpill" role="tablist" aria-label="Language">
+      <button class="is-active" data-lang="en" role="tab" aria-selected="true">EN</button>
+      <button data-lang="th" role="tab" aria-selected="false">ไทย</button>
+    </div>
+  </header>
+  <div class="prelude-body">
+    <!-- EN content -->
+    <section class="p-lang" data-p-lang="en">
+      <div class="p-card">
+        <div class="p-card-title">The five stages</div>
+        <ol class="p-stages">
+          <li><span class="p-w" style="--c:#7e8aa3">15%</span><strong>Brief</strong><span class="p-desc">Read the land — absorb the region, the people, and the trade-off at your reading tier.</span></li>
+          <li><span class="p-w" style="--c:#4D7CB3">25%</span><strong>Probe</strong><span class="p-desc">Question the sources. Hear four stakeholder voices and weigh conflicting evidence.</span></li>
+          <li><span class="p-w" style="--c:var(--bronze)">30%</span><strong>Decide</strong><span class="p-desc">Hold the line. Answer the quiz, calibrate your confidence — the heaviest stage.</span></li>
+          <li><span class="p-w" style="--c:#3FB984">25%</span><strong>Act</strong><span class="p-desc">Send word. Write a short communication to the people the decision lands on.</span></li>
+          <li><span class="p-w" style="--c:var(--bronze-light)">5%</span><strong>Debrief</strong><span class="p-desc">Reflect on consequence — and earn this region's SDG Keystone.</span></li>
+        </ol>
+      </div>
+      <div class="p-card">
+        <div class="p-card-title">How to earn the Keystone</div>
+        <ul class="p-criteria">
+          <li><span class="p-tick">◆</span><strong>Composite score ≥ 60%</strong> — the weighted average across all five stages.</li>
+          <li><span class="p-tick">◆</span><strong>Insight Tokens</strong> are awarded per stage (−10 to +25). They're spendable scaffolding, separate from your mission grade.</li>
+          <li><span class="p-tick">◆</span><strong>Decide and Act can be retried once</strong> after seeing AI feedback. Use that retry — it lifts your composite the most.</li>
+          <li><span class="p-tick">◆</span><strong>Save for later</strong> at any point. Your progress syncs to your account; resume on any device.</li>
+        </ul>
+      </div>
+      <p class="p-foot">Tip · The <em>View dossier</em> button (bottom-left) is available from Probe onwards — re-read any passage at any time.</p>
+    </section>
+    <!-- TH content -->
+    <section class="p-lang" data-p-lang="th" hidden>
+      <div class="p-card">
+        <div class="p-card-title">ห้าขั้นของภารกิจ</div>
+        <ol class="p-stages">
+          <li><span class="p-w" style="--c:#7e8aa3">15%</span><strong>Brief — อ่านพื้นที่</strong><span class="p-desc">รับโจทย์ ซึมซับภูมิภาค ผู้คน และทางเลือกที่ต้องแลก ในระดับการอ่านที่พอดีกับคุณ</span></li>
+          <li><span class="p-w" style="--c:#4D7CB3">25%</span><strong>Probe — ขุดความจริง</strong><span class="p-desc">ตั้งคำถามกับแหล่งข้อมูล ฟังเสียงผู้มีส่วนได้ส่วนเสียทั้งสี่ฝ่าย ชั่งน้ำหนักหลักฐานที่ขัดแย้ง</span></li>
+          <li><span class="p-w" style="--c:var(--bronze)">30%</span><strong>Decide — ฟันธง</strong><span class="p-desc">ตัดสินใจเลือก ประเมินความมั่นใจของตนอย่างซื่อตรง — ขั้นที่ถ่วงน้ำหนักหนักที่สุด</span></li>
+          <li><span class="p-w" style="--c:#3FB984">25%</span><strong>Act — ลงมือสื่อสาร</strong><span class="p-desc">ส่งสารถึงผู้ที่ได้รับผลกระทบจากการตัดสินใจของคุณ</span></li>
+          <li><span class="p-w" style="--c:var(--bronze-light)">5%</span><strong>Debrief — ทบทวนผล</strong><span class="p-desc">ทบทวนผลที่ตามมา และคว้า Keystone ของภูมิภาคนี้</span></li>
+        </ol>
+      </div>
+      <div class="p-card">
+        <div class="p-card-title">เกณฑ์การได้รับ Keystone</div>
+        <ul class="p-criteria">
+          <li><span class="p-tick">◆</span><strong>คะแนนรวม ≥ 60%</strong> — ค่าเฉลี่ยถ่วงน้ำหนักของทั้งห้าขั้น</li>
+          <li><span class="p-tick">◆</span><strong>Insight Tokens</strong> ได้รับในแต่ละขั้น (−10 ถึง +25) ใช้แลกเครื่องมือช่วยเหลือ แยกจากคะแนนผ่านภารกิจ</li>
+          <li><span class="p-tick">◆</span><strong>Decide และ Act ทำซ้ำได้หนึ่งครั้ง</strong>หลังเห็นฟีดแบ็กจาก AI — ใช้สิทธิ์นี้ จะช่วยยกคะแนนรวมได้มาก</li>
+          <li><span class="p-tick">◆</span><strong>บันทึกไว้ทำต่อภายหลัง</strong>ได้ทุกเมื่อ ความก้าวหน้าซิงก์เข้าบัญชีของคุณ ทำต่อจากเครื่องใดก็ได้</li>
+        </ul>
+      </div>
+      <p class="p-foot">เคล็ดลับ · ปุ่ม <em>View dossier</em> (มุมล่างซ้าย) ใช้ได้ตั้งแต่ Probe เป็นต้นไป — กลับไปอ่านเนื้อหาเดิมได้ทุกเมื่อ</p>
+    </section>
+  </div>
+  <footer class="prelude-foot">
+    <button id="prelude-begin" class="prelude-begin" type="button"><span>Begin mission</span><span>→</span></button>
+  </footer>
+</dialog>
 
 <!-- Re-read the dossier from any post-Brief stage. Opens a modal with the
      scenario's authored DOSSIER (loaded lazily by scenarioId). -->
@@ -984,6 +1093,50 @@
         await engine.start({ resume });
         saveBar.hidden = false;
       };
+
+      // ── Pre-mission Brief overlay (bilingual instructions + scoring) ──
+      // Shown on first visit per (uid, scenario); re-openable via "How
+      // does this work?" button (next to the dossier button).
+      const preludeKey = "fp_prelude_seen_" + (uid || "anon") + "_" + scenarioId;
+      const preludeModal = document.getElementById("prelude-modal");
+      function openPrelude() {
+        try {
+          document.getElementById("prelude-mission").textContent =
+            "SDG " + (scenario.meta.sdg || "—");
+          document.getElementById("prelude-region").textContent =
+            (scenario.meta.region || "") + " · " + (scenario.meta.title || "");
+        } catch (_) {}
+        if (preludeModal.showModal) preludeModal.showModal();
+        else preludeModal.setAttribute("open", "");
+      }
+      // EN/TH toggle inside the prelude
+      preludeModal.querySelectorAll(".prelude-langpill button").forEach((b) => {
+        b.addEventListener("click", () => {
+          preludeModal.querySelectorAll(".prelude-langpill button").forEach((x) => {
+            const on = x === b;
+            x.classList.toggle("is-active", on);
+            x.setAttribute("aria-selected", on ? "true" : "false");
+          });
+          const lang = b.dataset.lang;
+          preludeModal.querySelectorAll(".p-lang").forEach((s) => {
+            s.hidden = s.dataset.pLang !== lang;
+          });
+        });
+      });
+      document.getElementById("prelude-begin").addEventListener("click", () => {
+        try { localStorage.setItem(preludeKey, String(Date.now())); } catch (_) {}
+        if (preludeModal.close) preludeModal.close();
+      });
+
+      // Show prelude on the first time this user opens this mission.
+      // Don't gate engine.start on it — show it modally over the page so
+      // it overlays the resume banner / mission boot too. Skip if seen.
+      let __preludeSeen = false;
+      try { __preludeSeen = Boolean(localStorage.getItem(preludeKey)); } catch (_) {}
+      if (!__preludeSeen) openPrelude();
+      // "How does this work?" re-open button (header)
+      const helpBtn = document.getElementById("open-prelude");
+      if (helpBtn) helpBtn.addEventListener("click", openPrelude);
 
       if (engine.hasSavedState() && !wantResume) {
         const ts = engine.savedAt();

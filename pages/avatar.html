@@ -203,11 +203,14 @@
         <div>
           <div class="console-label-gold mb-3">STEP 3 · CARTOON (OPTIONAL)</div>
           <p class="text-sm text-on-surface/75 leading-relaxed mb-3">
-            Want a friendly cartoon version instead of your photo? You can do this <strong>once</strong>. If you skip it, your photo is used as-is.
+            Want a friendly, colourful 3D cartoon version of your photo? You can try this up to
+            <strong>3 times</strong> — each attempt makes a fresh character. If none of the
+            three feel right, your original photo will be used as your avatar.
           </p>
           <button id="generate-btn" type="button" class="btn-secondary w-full justify-center" disabled>
             <span id="generate-label">✨ Make it a cartoon</span>
           </button>
+          <p id="attempts-info" class="field-help" style="text-align:center;margin-top:8px">Attempts remaining: <strong id="attempts-left">3</strong> of 3</p>
         </div>
 
         <div id="form-error" class="field-error" hidden></div>
@@ -245,9 +248,30 @@
 
     /* ─────── State ─────── */
     let sourceDataUrl = null;     // squared input photo (the default avatar)
-    let generatedDataUrl = null;  // optional one-time cartoon result
-    let cartoonUsed = false;      // the cartoon pass is one-time only
+    let generatedDataUrl = null;  // most recent cartoon result
     let webcamStream = null;
+    const MAX_ATTEMPTS = 3;
+    // Per-user attempt counter — survives reloads. Once depleted, the
+    // cartoon button locks and the photo is used as the avatar.
+    const flow0 = getFlowState();
+    const attemptsKey = "fp_avatar_attempts_" + ((flow0 && flow0.uid) || "anon");
+    let attemptsUsed = 0;
+    try { attemptsUsed = parseInt(localStorage.getItem(attemptsKey) || "0", 10) || 0; } catch (_) {}
+    function attemptsLeft() { return Math.max(0, MAX_ATTEMPTS - attemptsUsed); }
+    function paintAttempts() {
+      const el = document.getElementById("attempts-left");
+      if (el) el.textContent = String(attemptsLeft());
+      // If all 3 attempts are gone before any photo is even uploaded,
+      // surface that on the button label so the user isn't confused.
+      const gBtn = document.getElementById("generate-btn");
+      const gLbl = document.getElementById("generate-label");
+      if (attemptsLeft() === 0 && gBtn && gLbl) {
+        gBtn.disabled = true;
+        gLbl.textContent = '3 of 3 attempts used — upload a photo to use';
+      }
+    }
+    document.addEventListener("DOMContentLoaded", paintAttempts);
+    paintAttempts();
 
     /* ─────── Consent gate ─────── */
     // Best-effort: when the consent flag is available, hide capture if the
@@ -317,7 +341,7 @@
     // Once a photo exists the student can save immediately (photo = avatar).
     // The cartoon pass stays optional and one-time.
     function photoReady() {
-      if (!cartoonUsed) document.getElementById('generate-btn').disabled = false;
+      if (attemptsLeft() > 0) document.getElementById('generate-btn').disabled = false;
       document.getElementById('save-btn').disabled = false;
     }
 
@@ -396,7 +420,9 @@
     // One-time cartoon pass. Optional: if skipped, the photo is the avatar.
     generateBtn.addEventListener('click', async () => {
       if (!sourceDataUrl) return showError("Add a photo first.");
-      if (cartoonUsed) return;
+      if (attemptsLeft() <= 0) {
+        return showError("You've used all 3 cartoon attempts. Your uploaded photo will be saved as your avatar.");
+      }
       clearError();
       generateBtn.disabled = true;
       generateLabel.innerHTML = '<span class="spinner"></span> Making your cartoon…';
@@ -405,10 +431,19 @@
         const tagline = document.getElementById('operator-tagline').value.trim();
         const data = await generateAvatar({ imageBase64: sourceDataUrl, style: AVATAR_STYLE, subjectHint: tagline });
         generatedDataUrl = data.imageBase64;
-        cartoonUsed = true;
+        attemptsUsed += 1;
+        try { localStorage.setItem(attemptsKey, String(attemptsUsed)); } catch (_) {}
+        paintAttempts();
         showGeneratedPreview();
         saveBtn.disabled = false;
-        generateLabel.textContent = '✓ Cartoon applied';
+        const left = attemptsLeft();
+        if (left > 0) {
+          generateBtn.disabled = false;
+          generateLabel.textContent = '✨ Try a different cartoon (' + left + ' left)';
+        } else {
+          generateBtn.disabled = true;
+          generateLabel.textContent = '3 of 3 attempts used — upload a photo to retry';
+        }
       } catch (err) {
         showError("The cartoon maker isn't available just yet — your photo will be used instead. You can still save and continue.");
         document.getElementById('config-warning').hidden = false;
