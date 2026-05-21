@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Help & FAQ — FUTUREPROOF</title>
+<meta name="description" content="Common questions and clear answers about how to use the FUTUREPROOF SDGs Mission Journey portal — missions, tokens, Keystones, Mr. Compass, privacy and more." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  :root{
+    --ink-deep:#0A0A0B;--ink:#1A1F2E;--ink-soft:#3E4654;--steel:#647293;--line:#E5E1D6;
+    --paper:#FBFAF7;--bronze:#b57c34;--bronze-light:#E8C77A;--white:#fff
+  }
+  body{background:var(--paper);color:var(--ink);font-family:'Space Grotesk',system-ui,sans-serif;
+    margin:0;line-height:1.6}
+  .topbar{position:fixed;inset:0 0 auto 0;height:60px;display:flex;align-items:center;
+    justify-content:space-between;padding:0 22px;background:rgba(10,10,11,.94);color:#F4F1EA;
+    backdrop-filter:blur(8px);border-bottom:1px solid #1F1F23;z-index:50}
+  .brand{font-family:'Fraunces',serif;font-weight:600;color:var(--bronze-light);letter-spacing:.02em;
+    text-decoration:none;display:flex;align-items:center;gap:11px}
+  .brand small{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.28em;
+    color:#8B8B92;display:block;text-transform:uppercase}
+  .nav-btns{display:flex;gap:8px}
+  .nav-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:999px;
+    border:1px solid rgba(244,241,234,.18);background:transparent;color:#F4F1EA;
+    font-family:'DM Sans',system-ui,sans-serif;font-size:13px;font-weight:600;
+    text-decoration:none;cursor:pointer;transition:background .15s,border-color .15s}
+  .nav-btn:hover{background:rgba(244,241,234,.08);border-color:var(--bronze)}
+  .nav-btn .material-symbols-rounded{font-size:16px}
+
+  main{max-width:920px;margin:0 auto;padding:90px 22px 80px}
+  .hero{text-align:center;margin-bottom:36px}
+  .hero .eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--bronze)}
+  .hero h1{font-family:'Fraunces',serif;font-weight:500;font-size:clamp(36px,5vw,52px);
+    line-height:1.1;margin:8px 0 10px;color:var(--ink-deep)}
+  .hero h1 em{font-style:italic;color:var(--bronze)}
+  .hero p{font-size:17px;color:var(--ink-soft);max-width:620px;margin:0 auto}
+
+  .search-bar{position:sticky;top:60px;background:var(--paper);padding:14px 0 8px;z-index:10}
+  .search-input{width:100%;padding:13px 16px 13px 44px;border-radius:14px;
+    border:1px solid var(--line);background:var(--white);font-size:15px;
+    color:var(--ink-deep);font-family:inherit;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23647293' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.3-4.3'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:14px center;background-size:18px}
+  .search-input:focus{outline:none;border-color:var(--bronze);
+    box-shadow:0 0 0 3px rgba(201,169,97,.18)}
+
+  .toc{display:flex;flex-wrap:wrap;gap:7px;margin:6px 0 28px;justify-content:center}
+  .toc a{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:999px;
+    background:var(--white);border:1px solid var(--line);color:var(--ink-soft);font-size:12.5px;
+    font-weight:600;text-decoration:none;transition:.15s}
+  .toc a:hover{background:rgba(201,169,97,.12);border-color:var(--bronze);color:var(--ink-deep)}
+
+  section.cat{margin-bottom:32px;scroll-margin-top:160px}
+  .cat-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+  .cat-ic{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;
+    border-radius:12px;background:linear-gradient(135deg,#F4ECDB 0%,#E8D6A8 100%);
+    color:var(--bronze);box-shadow:inset 0 0 0 1px rgba(181,124,52,.22)}
+  .cat-ic .material-symbols-rounded{font-size:22px}
+  .cat-head h2{font-family:'Fraunces',serif;font-weight:600;font-size:24px;margin:0;color:var(--ink-deep)}
+  .cat-head h2 small{display:block;font-family:'JetBrains Mono',monospace;font-size:10px;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--steel);font-weight:600;margin-top:3px}
+
+  details.q{background:var(--white);border:1px solid var(--line);border-radius:14px;
+    margin-bottom:10px;overflow:hidden;transition:box-shadow .2s,border-color .2s}
+  details.q[open]{border-color:var(--bronze);box-shadow:0 6px 20px rgba(181,124,52,.10)}
+  details.q summary{display:flex;align-items:center;justify-content:space-between;gap:14px;
+    list-style:none;padding:16px 18px;cursor:pointer;font-weight:600;font-size:15.5px;
+    color:var(--ink-deep);line-height:1.4}
+  details.q summary::-webkit-details-marker{display:none}
+  details.q summary::after{content:"";flex-shrink:0;width:24px;height:24px;border-radius:999px;
+    background:var(--paper);
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b57c34' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:center;background-size:16px;
+    transition:transform .25s}
+  details.q[open] summary::after{transform:rotate(180deg)}
+  details.q .ans{padding:4px 18px 18px 18px;color:var(--ink-soft);font-size:14.5px;line-height:1.7}
+  details.q .ans p{margin:0 0 10px}
+  details.q .ans p:last-child{margin-bottom:0}
+  details.q .ans strong{color:var(--ink-deep)}
+  details.q .ans a{color:var(--bronze);font-weight:600;text-decoration:none;border-bottom:1px solid rgba(181,124,52,.4)}
+  details.q .ans a:hover{color:var(--ink-deep);border-color:var(--ink-deep)}
+  details.q.is-hidden{display:none}
+
+  .empty-state{text-align:center;padding:40px 20px;color:var(--steel);font-size:14.5px}
+  .empty-state strong{color:var(--ink-deep);display:block;margin-bottom:4px}
+
+  .contact-foot{margin-top:42px;padding:24px;background:var(--white);border:1px solid var(--line);
+    border-radius:16px;text-align:center}
+  .contact-foot h3{font-family:'Fraunces',serif;font-size:20px;margin:0 0 8px;color:var(--ink-deep)}
+  .contact-foot p{color:var(--ink-soft);margin:0 0 14px;font-size:14.5px}
+  .contact-foot a{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border-radius:999px;
+    background:linear-gradient(135deg,var(--bronze),var(--bronze-light));color:var(--ink-deep);
+    font-weight:700;font-size:14px;text-decoration:none;transition:.2s}
+  .contact-foot a:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(201,169,97,.36)}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a href="../home.html" class="brand">FUTUREPROOF <small>Help &amp; FAQ</small></a>
+  <nav class="nav-btns">
+    <a href="../home.html" class="nav-btn"><span class="material-symbols-rounded">home</span><span>Home</span></a>
+    <a href="./mission-select.html" class="nav-btn"><span class="material-symbols-rounded">map</span><span>Journey map</span></a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="eyebrow">Help · Frequently Asked Questions</div>
+    <h1>How can we <em>help</em>?</h1>
+    <p>Short answers to the questions most learners and teachers ask about how FUTUREPROOF works — missions, scoring, the AI mentor, privacy, and more.</p>
+  </section>
+
+  <div class="search-bar">
+    <input type="search" id="faq-search" class="search-input" placeholder="Search the FAQ…" aria-label="Search the FAQ" />
+  </div>
+
+  <nav class="toc" aria-label="FAQ sections">
+    <a href="#starting">Getting started</a>
+    <a href="#missions">Missions</a>
+    <a href="#scoring">Tokens &amp; Keystones</a>
+    <a href="#compass">Mr. Compass</a>
+    <a href="#voice">Voice for Change</a>
+    <a href="#privacy">Privacy &amp; PDPA</a>
+    <a href="#technical">Technical</a>
+  </nav>
+
+  <!-- ─── Getting Started ─── -->
+  <section class="cat" id="starting">
+    <div class="cat-head">
+      <span class="cat-ic"><span class="material-symbols-rounded">rocket_launch</span></span>
+      <h2>Getting started<small>Section 01</small></h2>
+    </div>
+
+    <details class="q"><summary>What is FUTUREPROOF: SDGs Mission Journey?</summary>
+      <div class="ans">
+        <p>FUTUREPROOF is an AI-guided learning platform where you take on real Sustainable Development Goal (SDG) challenges across <strong>six regions of Thailand</strong>. Each mission asks you to investigate a real-world trade-off, weigh stakeholder voices, decide under uncertainty, and defend your reasoning in English.</p>
+        <p>You'll build English fluency, analytical thinking and ethical judgment together — not as separate subjects.</p>
+      </div>
+    </details>
+
+    <details class="q"><summary>How do I sign up?</summary>
+      <div class="ans">
+        <p>From the home page, click <strong>Begin your journey</strong> and complete the sign-up form. You'll be asked for your email, a password, your name in English and Thai, and a few demographic details (age, gender, institution, year of study, province).</p>
+        <p>After sign-up you'll be guided through <strong>PDPA consent</strong> → a short <strong>readiness check</strong> → your <strong>avatar</strong> → the <strong>Thailand journey map</strong>.</p>
+      </div>
+    </details>
+
+    <details class="q"><summary>Do I need to install anything?</summary>
+      <div class="ans">
+        <p>No. FUTUREPROOF runs entirely in your browser. Chrome, Edge, Safari, and Firefox all work. Mobile is supported but a tablet or laptop is more comfortable for the reading-heavy stages.</p>
+      </div>
+    </details>
+
+    <details class="q"><summary>How long does one mission take?</summary>
+      <div class="ans">
+        <p>About <strong>60–90 minutes</strong> for the full five-stage arc (Brief · Probe · Decide · Act · Debrief). You don't have to finish in one sitting — every stage auto-saves, and you can <strong>Save for later</strong> any time. When you come back, click <strong>Resume</strong> on the welcome banner.</p>
+      </div>
+    </details>
+
+    <details class="q"><summary>What's the readiness check at the start?</summary>
+      <div class="ans">
+        <p>A brief, 8–10 minute diagnostic in four sections (language, critical thinking, analytical thinking, collaboration). It's <strong>not graded</strong> — its only job is to calibrate the missions to your reading level so they're challenging without being overwhelming.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ─── Missions ─── -->
+  <section class="cat" id="missions">
+    <div class="cat-head">
+      <span class="cat-ic"><span class="material-symbols-rounded">explore</span></span>
+      <h2>Missions<small>Section 02</small></h2>
+    </div>
+
+    <details class="q"><summary>What are the six missions?</summary>
+      <div class="ans">
+        <p>Each mission is a real SDG trade-off in a Thai region:</p>
+        <p>
+          <strong>SDG 6 · Northeast / Khon Kaen</strong> — The Aquifer Below<br>
+          <strong>SDG 13 · North / Chiang Mai</strong> — The Burning Season<br>
+          <strong>SDG 11 · Central / Bangkok</strong> — The Klong and the City<br>
+          <strong>SDG 14 · South / Andaman</strong> — The Reef and the Tide<br>
+          <strong>SDG 4 · West / Mae Sot</strong> — The Children at the Border<br>
+          <strong>SDG 3 · East / EEC fringe</strong> — The Village the Boom Left Behind
+        </p>
+        <p>You can take them <strong>in any order</strong>.</p>
+      </div>
+    </details>
+
+    <details class="q"><summary>What are the five stages in each mission?</summary>
+      <div class="ans">
+        <p>Every mission runs the same arc — different verbs, same shape:</p>
+        <p>
+          <strong>① Brief</strong> (อ่านพื้นที่) — read the land, absorb the trade-off<br>
+          <strong>② Probe</strong> (ขุดความจริง) — question the sources, weigh stakeholders<br>
+          <strong>③ Decide</strong> (ฟันธง) — choose under pressure, calibrate your confidence<br>
+          <strong>④ Act</strong> (ลงมือสื่อสาร) — communicate the decision to those it lands on<br>
+          <strong>⑤ Debrief</strong> (ทบทวนผล) — reflect on consequence, earn the Keystone
+        </p>
+      </div>
+    </details>
+
+    <details class="q"><summary>Can I redo a mission?</summary>
+      <div class="ans">
+        <p>Yes. On the journey map you can replay any region. If you pass again, you keep the Keystone (it's idempotent — you can't double-count). If you fail, your previous pass is preserved.</p>
+        <p>Within a single attempt, the <strong>Decide</strong> and <strong>Act</strong> stages let you retry once after seeing AI feedback.</p>
+      </div>
+    </details>
+
+    <details class="q"><summary>What if I'm stuck on a question?</summary>
+      <div class="ans">
+        <p>Three lifelines: (1) open <strong>Mr. Compass</strong> bottom-right for Socratic questions and English help, (2) re-read the dossier with the <strong>View dossier</strong> button bottom-left of the play area, (3) take a break and <strong>Save for later</strong> — your work is kept across devices.</p>
+      </div>
+    </details>
+
+    <details class="q"><summary>Are missions in Thai or English?</summary>
+      <div class="ans">
+        <p><strong>English primary, Thai metalanguage.</strong> Mission content (dossiers, decisions, AI evaluation) is in English. Thai supports navigation, key labels, and clarifying notes. You're learning to do consequential work in English — the missions are the practice ground.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ─── Tokens + Keystones ─── -->
+  <section class="cat" id="scoring">
+    <div class="cat-head">
+      <span class="cat-ic"><span class="material-symbols-rounded">diamond</span></span>
+      <h2>Tokens &amp; Keystones<small>Section 03</small></h2>
+    </div>
+
+    <details class="q"><summary>What are Insight Tokens?</summary>
+      <div class="ans">
+        <p>Tokens are the <strong>process reward</strong>. You earn them for accurate intel, strong reasoning, and good language; you lose a small amount for weak arguments or factual errors. They're shown in your right-pane stats during the mission.</p>
+        <p>Tokens are <strong>spendable</strong>: in future versions you'll be able to use them in a shop for Expert Consultant questions, language-coach feedback, premium templates, and hints.</p>
+      </div>
+    </details>
+
+    <details class="q"><summary>What is an SDG Keystone?</summary>
+      <div class="ans">
+        <p>A Keystone is the <strong>narrative key</strong> you earn by passing a mission's bar. Each region awards one Keystone. They are <strong>not</strong> spendable, and they are binary — you either hold a Keystone or you don't.</p>
+        <p>Collect <strong>all six</strong> to unlock the Voice for Change capstone.</p>
+      </div>
+    </details>
+
+    <details class="q"><summary>What score do I need to earn the Keystone?</summary>
+      <div class="ans">
+        <p>Your <strong>composite score must reach 60%</strong>. The composite is a weighted average of all five stages: Brief 15% · Probe 25% · Decide 30% · Act 25% · Debrief 5%. The heaviest weight sits where the thinking matters most (Decide).</p>
+      </div>
+    </details>
+
+    <details class="q"><summary>How does the AI Judge score my decisions?</summary>
+      <div class="ans">
+        <p>It scores against a published rubric (1–5 per criterion) for analytical depth, evidence quality, language quality, and counter-argument awareness — and tells you why with quotes from your own work. The score is <strong>formative</strong> (a draft for your teacher), not the final official grade.</p>
+      </div>
+    </details>
+
+    <details class="q"><summary>Where can I see my progress?</summary>
+      <div class="ans">
+        <p>The right-pane stats show your tokens, your composite, and which stage you're on. The <strong>Keystones Collected</strong> strip below shows all six SDG regions and lights the ones you've earned. The journey map on <a href="./mission-select.html">the mission select page</a> shows the same at the platform level.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ─── Mr. Compass ─── -->
+  <section class="cat" id="compass">
+    <div class="cat-head">
+      <span class="cat-ic"><span class="material-symbols-rounded">explore</span></span>
+      <h2>Mr. Compass · the Field Mentor<small>Section 04</small></h2>
+    </div>
+
+    <details class="q"><summary>What is Mr. Compass?</summary>
+      <div class="ans">
+        <p>Mr. Compass is your <strong>AI Socratic mentor</strong>, available bottom-right on every mission page. He'll ask reflective questions, help with English (vocabulary, grammar, register), and suggest which teammate's role might address your question.</p>
+      </div>
+    </details>
+
+    <details class="q"><summary>What will Mr. Compass NOT do?</summary>
+      <div class="ans">
+        <p>By design, Mr. Compass <strong>will not</strong>: give you mission answers, evaluate your decisions, predict consequences, reveal hidden information, or translate the dossier. He guides; he doesn't decide. (That's what makes him useful — not what limits him.)</p>
+      </div>
+    </details>
+
+    <details class="q"><summary>What language does Mr. Compass speak?</summary>
+      <div class="ans">
+        <p><strong>English only.</strong> If you write to him in another language he'll ask you to try again in English. He'll match your CEFR level — simpler sentences for beginners, academic register for advanced.</p>
+      </div>
+    </details>
+
+    <details class="q"><summary>How many questions can I ask?</summary>
+      <div class="ans">
+        <p>Up to <strong>10 per mission</strong>. The count is shown in the chat panel. When you reach the cap he'll suggest you lean on your team — your Research Analyst, Communications Director, or Ethics Officer will see angles he can't.</p>
+      </div>
+    </details>
+
+    <details class="q"><summary>Will my conversations with Mr. Compass be private?</summary>
+      <div class="ans">
+        <p>Conversations are <strong>logged for your teacher to review</strong> as part of formative assessment. They're stored in your private profile under PDPA rules and auto-deleted 90 days after the course ends.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ─── Voice for Change ─── -->
+  <section class="cat" id="voice">
+    <div class="cat-head">
+      <span class="cat-ic"><span class="material-symbols-rounded">campaign</span></span>
+      <h2>Voice for Change<small>Section 05</small></h2>
+    </div>
+
+    <details class="q"><summary>What is the Voice for Change capstone?</summary>
+      <div class="ans">
+        <p>After you've collected all six SDG Keystones, you'll write or record a <strong>proposal for a project that could help a Thai community</strong> — as if you were pitching it to a UN funder. Built around concrete fields: who it helps, what problem, what action, what it costs, and which mission insights informed it.</p>
+      </div>
+    </details>
+
+    <details class="q"><summary>Can I submit by writing or audio?</summary>
+      <div class="ans">
+        <p>Both. You can write it, record live audio (transcribed in real time), or upload a pre-recorded file. UDL principle: multiple ways to demonstrate the same competency.</p>
+      </div>
+    </details>
+
+    <details class="q"><summary>Who grades the Voice for Change?</summary>
+      <div class="ans">
+        <p>Both an <strong>AI evaluator</strong> (criterion-by-criterion evidence + suggested score) <em>and</em> your <strong>teacher</strong> (the official final grade). The AI's job is to give your teacher a strong starting draft, not to replace their judgment.</p>
+      </div>
+    </details>
+
+    <details class="q"><summary>What is the Hall of Voices?</summary>
+      <div class="ans">
+        <p>A public gallery of exceptional Voice for Change pieces — <strong>only published with the learner's explicit consent</strong>. Some pieces also travel to real Thai youth SDG forums, with additional consent. It's an authentic audience beyond the classroom.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ─── Privacy / PDPA ─── -->
+  <section class="cat" id="privacy">
+    <div class="cat-head">
+      <span class="cat-ic"><span class="material-symbols-rounded">shield_lock</span></span>
+      <h2>Privacy &amp; PDPA<small>Section 06</small></h2>
+    </div>
+
+    <details class="q"><summary>What data does FUTUREPROOF collect about me?</summary>
+      <div class="ans">
+        <p>Your sign-up information (name, age, gender, institution, year of study, province, location), your readiness-check results, the decisions you make in missions, your written and recorded responses, the AI feedback you receive, and — with separate consent — your photo and voice recordings.</p>
+        <p>See the full breakdown on the <a href="./consent.html">consent screen</a>.</p>
+      </div>
+    </details>
+
+    <details class="q"><summary>Where is my data stored?</summary>
+      <div class="ans">
+        <p>On Firebase in the <strong>asia-southeast1 (Singapore)</strong> region. Encrypted in transit and at rest. Access is logged. Your private data is only readable by you and your teacher (administrator); your public profile (display name, institution) is visible to teammates and the Hall of Voices if you consent.</p>
+      </div>
+    </details>
+
+    <details class="q"><summary>How long is my data kept?</summary>
+      <div class="ans">
+        <p>Personal data is auto-deleted <strong>90 days after the course ends</strong>. Audit logs are retained for 7 years per institutional policy.</p>
+      </div>
+    </details>
+
+    <details class="q"><summary>Can I see or delete my data?</summary>
+      <div class="ans">
+        <p>Yes — from your <a href="./my-data.html">My Data panel</a> you can review what's stored and request deletion at any time. Withdrawing required consents (Basic profile, Mission decisions) ends your enrollment.</p>
+      </div>
+    </details>
+
+    <details class="q"><summary>Who is the Data Controller?</summary>
+      <div class="ans">
+        <p>Faculty of Liberal Arts, Mahidol University. Contact: <a href="mailto:payungsak.kaenchan@gmail.com">payungsak.kaenchan@gmail.com</a>. Complaints may also be raised with the Personal Data Protection Committee of Thailand.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ─── Technical ─── -->
+  <section class="cat" id="technical">
+    <div class="cat-head">
+      <span class="cat-ic"><span class="material-symbols-rounded">tune</span></span>
+      <h2>Technical<small>Section 07</small></h2>
+    </div>
+
+    <details class="q"><summary>I lost progress / clicked refresh — is my work safe?</summary>
+      <div class="ans">
+        <p>Yes. Every stage transition auto-saves to both your device and the cloud. When you reload you'll see <strong>"Welcome back — Resume / Start over"</strong>. Click Resume to continue exactly where you left off.</p>
+      </div>
+    </details>
+
+    <details class="q"><summary>Can I work across devices?</summary>
+      <div class="ans">
+        <p>Yes. Progress is mirrored to your Firebase profile. Sign in from any device and your resume points are there.</p>
+      </div>
+    </details>
+
+    <details class="q"><summary>The cartoon avatar won't generate.</summary>
+      <div class="ans">
+        <p>The cartoon pass is limited to <strong>3 attempts per account</strong>. After the cap, you can still upload a photo as your avatar — and you can always change it later from <a href="./profile.html">your profile</a>.</p>
+      </div>
+    </details>
+
+    <details class="q"><summary>I see "Sign-up is not switched on just yet" — what does that mean?</summary>
+      <div class="ans">
+        <p>The platform's Firebase backend isn't connected for this build. Ask your teacher — they'll know when student onboarding goes live.</p>
+      </div>
+    </details>
+
+    <details class="q"><summary>I changed my mind about a consent option.</summary>
+      <div class="ans">
+        <p>You can flip optional consents (photo, voice, AI generation) on or off at any time from <a href="./my-data.html">My Data</a>. Required consents (Basic profile, Mission decisions) cannot be withdrawn while you're enrolled — withdrawing them ends your enrollment.</p>
+      </div>
+    </details>
+
+    <details class="q"><summary>The page looks broken on my phone.</summary>
+      <div class="ans">
+        <p>Hard-refresh (pull-to-refresh on mobile) to clear any cached version. If the issue persists, take a screenshot and email <a href="mailto:payungsak.kaenchan@gmail.com">payungsak.kaenchan@gmail.com</a>.</p>
+      </div>
+    </details>
+  </section>
+
+  <div class="empty-state" id="empty-state" hidden>
+    <strong>No questions match that search.</strong>
+    <span>Try a different word, or browse the sections above.</span>
+  </div>
+
+  <div class="contact-foot">
+    <h3>Still stuck?</h3>
+    <p>Email Aj. Yungie if your question isn't here. Real humans answer real questions.</p>
+    <a href="mailto:payungsak.kaenchan@gmail.com"><span class="material-symbols-rounded">mail</span><span>Email support</span></a>
+  </div>
+</main>
+
+<script>
+  // Lightweight client search — filter <details.q> by text contains.
+  (function(){
+    var search = document.getElementById("faq-search");
+    var empty = document.getElementById("empty-state");
+    if (!search) return;
+    search.addEventListener("input", function() {
+      var q = this.value.trim().toLowerCase();
+      var qs = document.querySelectorAll("details.q");
+      var anyVisible = false;
+      qs.forEach(function(d) {
+        var t = (d.textContent || "").toLowerCase();
+        var match = !q || t.indexOf(q) !== -1;
+        d.classList.toggle("is-hidden", !match);
+        if (match) anyVisible = true;
+        if (q && match) d.setAttribute("open", "");
+        if (!q) d.removeAttribute("open");
+      });
+      if (empty) empty.hidden = !!anyVisible || !q;
+    });
+  })();
+</script>
+
+<script type="module" src="../src/back-link.js"></script>
+</body>
+</html>

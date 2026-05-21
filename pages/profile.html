@@ -95,12 +95,6 @@
     <p class="desc">Required fields are marked with <span class="req">*</span>. Demographic fields stay in your private profile under PDPA rules — only you and your teacher can see them.</p>
     <div class="grid">
       <div><label>Display name <span class="req">*</span></label><input id="p-display" maxlength="60" autocomplete="nickname" /></div>
-      <div><label>Rank</label>
-        <select id="p-rank">
-          <option>cadet</option><option>field-agent</option><option>analyst</option>
-          <option>strategist</option><option>director</option><option>ambassador</option>
-        </select>
-      </div>
       <div><label>First name — English <span class="req">*</span></label><input id="p-fnEn" autocomplete="given-name" /></div>
       <div><label>Surname — English <span class="req">*</span></label><input id="p-lnEn" autocomplete="family-name" /></div>
       <div><label>ชื่อจริง — ภาษาไทย <span class="req">*</span></label><input id="p-fnTh" lang="th" /></div>
@@ -174,7 +168,6 @@
       const priv = (data && data.private) || {};
       original = { pub, priv };
       $("p-display").value = pub.displayName || "";
-      $("p-rank").value    = pub.rank || "cadet";
       $("p-fnEn").value    = priv.firstNameEn || "";
       $("p-lnEn").value    = priv.lastNameEn || "";
       $("p-fnTh").value    = priv.firstNameTh || "";
@@ -226,7 +219,6 @@
     try {
       await updateUserPublic(uid, {
         displayName: $("p-display").value.trim(),
-        rank: $("p-rank").value,
         institution: $("p-inst").value.trim(),
       });
       await updateUserPrivate(uid, {
@@ -273,5 +265,6 @@
     }
   });
 </script>
+<script type="module" src="../src/back-link.js"></script>
 </body>
 </html>
