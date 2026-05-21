@@ -3371,6 +3371,32 @@ body.font-dyslexia {
   .dossier-part-body { padding: 16px 24px 20px; }
   .dossier-part-body p { line-height: 1.78; color: #1A1F2E; margin: 0 0 14px 0; font-size: 16.5px; }
   .dossier-part-body p:last-child { margin-bottom: 0; }
+  /* Authored figure inside a dossier part (cross-section / map / chart). */
+  .dossier-part .dossier-figure {
+    margin: 0 24px 20px;
+    background: #FBFAF7;
+    border: 1px solid #E5E1D6;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 14px rgba(20, 20, 22, 0.04);
+  }
+  .dossier-part .dossier-figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 480px;
+    object-fit: contain;
+    background: #fff;
+  }
+  .dossier-part .dossier-figure figcaption {
+    padding: 10px 16px;
+    background: #fff;
+    border-top: 1px solid #E5E1D6;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #4A4F5C;
+    font-style: italic;
+  }
   /* Probe red-text: instruction callout + bigger readable body + linked resources */
   .dossier-howto {
     display: flex; align-items: flex-start; gap: 10px;

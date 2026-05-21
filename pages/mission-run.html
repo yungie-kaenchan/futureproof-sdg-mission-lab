@@ -306,6 +306,13 @@
     margin:18px 0 8px}
   .dossier-body h4:first-child{margin-top:0}
   .dossier-body p{margin:0 0 12px}
+  /* Authored cross-section / map / chart figures inside a dossier part */
+  .dossier-figure{margin:14px 0 18px;padding:0;background:var(--paper);border:1px solid var(--line);
+    border-radius:12px;overflow:hidden;text-align:center}
+  .dossier-figure img{max-width:100%;height:auto;display:block;margin:0 auto}
+  .dossier-figure figcaption{padding:10px 14px;background:rgba(255,255,255,.6);
+    font-size:12.5px;color:var(--ink-soft);line-height:1.5;text-align:left;
+    border-top:1px solid var(--line)}
   /* Pre-mission Brief modal — bilingual instructions + scoring criteria. */
   .prelude-modal{border:none;border-radius:22px;padding:0;width:min(880px,94vw);max-height:90vh;
     background:linear-gradient(180deg,#FBFAF7 0%,#fff 100%);box-shadow:0 28px 80px rgba(0,0,0,.35);color:var(--ink-deep);overflow:hidden}
@@ -1004,12 +1011,37 @@
     for (const part of data.parts) {
       const h = document.createElement("h4"); h.textContent = part.heading || "";
       node.appendChild(h);
+      // body is either a plain string (v1 scenarios) or a tier-keyed object
+      // {1,2,3} (v2 adaptive scenarios — Chiang Mai). Read T2 as the default.
+      let bodyText = "";
+      if (typeof part.body === "string") bodyText = part.body;
+      else if (part.body && typeof part.body === "object") {
+        bodyText = part.body[2] || part.body["2"] || part.body[1] || part.body["1"] || "";
+      }
       // Strip <vocab>…</vocab> wrappers (runtime-only); split into paragraphs.
-      const text = String(part.body || "").replace(/<\/?vocab>/g, "");
+      const text = String(bodyText).replace(/<\/?vocab>/g, "");
       for (const para of text.split(/\n\s*\n/)) {
         const t = para.trim(); if (!t) continue;
         const p = document.createElement("p"); p.textContent = t;
         node.appendChild(p);
+      }
+      // Authored figure (cross-section / map / chart) when present. Built
+      // with DOM methods (no innerHTML) — src/alt/caption are author-set.
+      const fig = part.figure;
+      if (fig && fig.src) {
+        const f = document.createElement("figure");
+        f.className = "dossier-figure";
+        const img = document.createElement("img");
+        img.src = fig.src;
+        img.alt = fig.alt || "";
+        img.loading = "lazy";
+        f.appendChild(img);
+        if (fig.caption) {
+          const c = document.createElement("figcaption");
+          c.textContent = fig.caption;
+          f.appendChild(c);
+        }
+        node.appendChild(f);
       }
     }
   }

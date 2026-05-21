@@ -256,7 +256,23 @@ function renderDossierPart(part, isRead) {
       <div class="dossier-part-body">
         ${renderBodyWithVocab(part.body)}
       </div>
+      ${renderDossierFigure(part.figure)}
     </article>
+  `;
+}
+
+// Optional authored figure (cross-section / map / chart). Rendered below
+// the part's body when the content module supplies `part.figure`.
+// Safe: src/alt/caption are author-controlled strings in the scenario.
+function renderDossierFigure(fig) {
+  if (!fig || !fig.src) return "";
+  const alt = escapeHtml(fig.alt || "");
+  const cap = escapeHtml(fig.caption || "");
+  return `
+    <figure class="dossier-figure">
+      <img src="${fig.src}" alt="${alt}" loading="lazy" />
+      ${cap ? `<figcaption>${cap}</figcaption>` : ""}
+    </figure>
   `;
 }
 

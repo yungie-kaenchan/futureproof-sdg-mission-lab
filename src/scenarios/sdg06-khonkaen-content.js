@@ -81,6 +81,11 @@ The <vocab>aquifer</vocab> below the plateau is not endless. Reports from the De
 
 The province has approved a plan to add 12 new deep wells this dry season. The plan is legal under the Groundwater Act B.E. 2520. Whether it is wise is a different question — and that question depends on whose interests you weigh first.
     `.trim(),
+    figure: {
+      src: "/assets/scenarios/sdg06-khonkaen/images/aquifer-crosssection.png",
+      alt: "Cross-section diagram of the Khorat Plateau aquifer beneath Khon Kaen.",
+      caption: "The Khorat Plateau aquifer in cross-section — shallow upper layer (smallholder wells) over a deeper layer that municipal and industrial wells tap.",
+    },
   },
   {
     id: "part2",
@@ -94,6 +99,11 @@ Industrial users — including food-processing facilities and beverage manufactu
 
 Community Health Volunteers (อสม.) in rural districts report a pattern: when household wells fail, families switch to surface ponds or unfiltered river water. Diarrhoea cases in young children rise within two weeks. The link is not catastrophic, but it is consistent.
     `.trim(),
+    figure: {
+      src: "/assets/scenarios/sdg06-khonkaen/images/watershed-map.svg",
+      alt: "Schematic watershed map of the Nam Phong basin around Khon Kaen.",
+      caption: "The Nam Phong basin — municipal wellfield, smallholder villages, and industrial permittees drawing from different layers of the same aquifer.",
+    },
   },
   {
     id: "part3",
@@ -103,6 +113,11 @@ The Khorat Plateau <vocab>aquifer</vocab> recharges slowly. Rainfall must percol
 
 Researchers at Khon Kaen University and at the Thailand Development Research Institute (TDRI) have warned that <vocab>allocation</vocab> decisions made today will lock in water-quality outcomes for the next generation. Once an <vocab>aquifer</vocab> turns saline, reversing the damage takes decades, if it can be done at all.
     `.trim(),
+    figure: {
+      src: "/assets/scenarios/sdg06-khonkaen/images/drawdown-chart.png",
+      alt: "Chart showing aquifer drawdown over recent dry seasons.",
+      caption: "Aquifer drawdown over recent dry seasons — illustrative, not measured. Recharge has not kept pace with extraction.",
+    },
   },
   {
     id: "part4",
