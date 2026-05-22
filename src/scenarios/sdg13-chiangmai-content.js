@@ -114,6 +114,11 @@ Topography compounds the loading. Cool, pollutant-laden air subsides into the Pi
 The province has authorised a season-long zero-burning order, with satellite-derived <vocab>hotspot</vocab> detection underwriting an <vocab>enforcement</vocab> regime of fines. The measure is lawful. Whether it is equitable is a separate question — one whose answer is contingent on whose circumstances are weighted first.
       `.trim(),
     },
+    figure: {
+      src: "/assets/scenarios/sdg13-chiangmai/images/inversion-diagram.svg",
+      alt: "Temperature-inversion cross-section of the Ping valley.",
+      caption: "The Ping valley cross-section — warm air lies over the cooler, polluted valley floor, trapping PM2.5 below for days at a time.",
+    },
   },
   {
     id: "part2",
@@ -185,6 +190,11 @@ Third, perceived procedural fairness is a determinant of compliance. Chiang Mai 
 
 Substantive <vocab>mitigation</vocab> therefore exceeds prohibition: it is contingent on a cost-feasible combustion substitute and on cultivator assent — failing which the instrument merely relocates the emission rather than abating it.
       `.trim(),
+    },
+    figure: {
+      src: "/assets/scenarios/sdg13-chiangmai/images/pm25-chart.svg",
+      alt: "Seasonal PM2.5 chart for Chiang Mai showing the February–April peak.",
+      caption: "PM2.5 across the year — the February–April burning season peak stands well above the safe-air baseline. Illustrative; underlying data held by the PCD.",
     },
   },
   {
