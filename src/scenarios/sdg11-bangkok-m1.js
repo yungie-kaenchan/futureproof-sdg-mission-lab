@@ -286,7 +286,23 @@ function renderDossierPart(part, isRead, density) {
       <div class="dossier-part-body">
         ${renderBodyWithVocab(body, density)}
       </div>
+      ${renderDossierFigure(part.figure)}
     </article>
+  `;
+}
+
+// Optional authored figure (cross-section / map / chart). Rendered below
+// the part's body when the content module supplies `part.figure`.
+// Same shape + classes as Chiang Mai so the shared CSS picks it up.
+function renderDossierFigure(fig) {
+  if (!fig || !fig.src) return "";
+  const alt = escapeHtml(fig.alt || "");
+  const cap = escapeHtml(fig.caption || "");
+  return `
+    <figure class="dossier-figure">
+      <img src="${fig.src}" alt="${alt}" loading="lazy" />
+      ${cap ? `<figcaption>${cap}</figcaption>` : ""}
+    </figure>
   `;
 }
 

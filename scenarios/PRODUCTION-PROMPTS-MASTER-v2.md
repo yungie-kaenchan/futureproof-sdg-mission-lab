@@ -17,7 +17,7 @@
 |--:|---|:---:|:---:|:---:|:---:|:---:|:---:|
 | 1 | Khon Kaen (SDG 6) | ✅ wired | ✅ live | ✅ 4/4 live | ❌ 0/4 — produce A1–A4 | ✅ live | ✅ live |
 | 2 | Chiang Mai (SDG 13) | ✅ wired | ✅ live | ✅ 4/4 live | ✅ 4/4 live | ✅ live | ✅ live |
-| 3 | Bangkok (SDG 11) | ✅ wired | ❌ produce | ❌ 0/4 — produce B1–B4 | ⚠ 1/4 live — produce A2–A4 | ✅ live | ❌ produce C2/C3 |
+| 3 | Bangkok (SDG 11) | ✅ wired | ✅ live | ✅ 4/4 live | ✅ 4/4 live | ✅ live | ✅ live |
 | 4 | Andaman (SDG 14) | ❌ not yet built | ❌ produce | ❌ 0/4 | ❌ 0/4 | ❌ author | ❌ produce |
 | 5 | Mae Sot (SDG 4) | ❌ not yet built | ❌ produce | ❌ 0/4 | ❌ 0/4 | ❌ author | ❌ produce |
 | 6 | EEC fringe (SDG 3) | ❌ not yet built | ❌ produce | ❌ 0/4 | ❌ 0/4 | ❌ author | ❌ produce |

@@ -36,7 +36,7 @@ export const SCENARIO_META = {
   ethicalAxes: ["Urban resilience vs. housing justice", "Procedural justice"],
   region: "Klong-side community, lower Chao Phraya delta, Bangkok",
   cefr: "B1+/B2",
-  hero: "/assets/scenarios/sdg11-bangkok/images/hero.webp",
+  hero: "/assets/scenarios/sdg11-bangkok/images/hero.png",
   // 3 objectives — what the learner does during this mission.
   objectives: [
     "Analyse an urban flood-defence dossier to map who is protected vs. displaced.",
@@ -137,6 +137,11 @@ The Bangkok Metropolitan Administration has authorised an engineered response: c
 Delivered on its current alignment, the corridor materially reduces flood exposure for the business district and those commuters — a substantial and defensible public benefit. What remains contested is the corridor's non-hydraulic cost, and the distribution of who is required to bear it.
       `.trim(),
     },
+    figure: {
+      src: "/assets/scenarios/sdg11-bangkok/images/diagram-flood-corridor.png",
+      alt: "Cross-section diagram of the proposed flood-defence corridor: widened klong with continuous floodwall on the reservation strip, separating canal-side stilt houses from the protected business district.",
+      caption: "Flood-defence corridor (planned alignment). The widened klong, floodwall and pump capacity protect the inland CBD; the canal reservation — currently home to long-settled households — becomes the works zone.",
+    },
   },
   {
     id: "part3",
@@ -163,6 +168,11 @@ The majority hold no land <vocab>title</vocab> — no secure instrument of owner
 
 Absent title, displacement can proceed with constrained compensation and minimal procedural voice, dissolving dwelling, social network, and a centrally located livelihood foothold concurrently. These households possess the least adaptive capacity to absorb forced relocation; the corridor, on its present alignment, concentrates its distributive burden precisely upon them.
       `.trim(),
+    },
+    figure: {
+      src: "/assets/scenarios/sdg11-bangkok/images/chart-tradeoff.png",
+      alt: "Trade-off chart comparing flood protection (commuters and CBD area protected) against displacement (households displaced under standard compensation vs. Baan Mankong settlement).",
+      caption: "Trade-off at a glance. The corridor protects ~80,000 commuters and the CBD; without a funded relocation-and-tenure settlement, several hundred to a few thousand informal-tenure households absorb the cost.",
     },
   },
   {
@@ -207,7 +217,7 @@ export const STAKEHOLDERS = [
     location: "A klong-side community inside the corridor alignment, Bangkok",
     flags: ["vulnerable", "female", "informal-tenure"],
     accent: "ochre",
-    portrait: "/assets/scenarios/sdg11-bangkok/images/stakeholder-01.svg",
+    portrait: "/assets/scenarios/sdg11-bangkok/images/stakeholder-01.png",
     video: "/assets/scenarios/sdg11-bangkok/video/01-resident.mp4",
     caption: "/assets/scenarios/sdg11-bangkok/audio/01-resident.vtt",
     duration: 33,
@@ -225,7 +235,7 @@ export const STAKEHOLDERS = [
     location: "BMA district flood-operations office, Bangkok",
     flags: ["institutional", "female"],
     accent: "steel",
-    portrait: "/assets/scenarios/sdg11-bangkok/images/stakeholder-02.svg",
+    portrait: "/assets/scenarios/sdg11-bangkok/images/stakeholder-02.png",
     video: "/assets/scenarios/sdg11-bangkok/video/02-engineer.mp4",
     caption: "/assets/scenarios/sdg11-bangkok/audio/02-engineer.vtt",
     duration: 32,
@@ -243,7 +253,7 @@ export const STAKEHOLDERS = [
     location: "Central business district, Bangkok",
     flags: ["private", "male"],
     accent: "bronze",
-    portrait: "/assets/scenarios/sdg11-bangkok/images/stakeholder-03.svg",
+    portrait: "/assets/scenarios/sdg11-bangkok/images/stakeholder-03.png",
     video: "/assets/scenarios/sdg11-bangkok/video/03-business.mp4",
     caption: "/assets/scenarios/sdg11-bangkok/audio/03-business.vtt",
     duration: 30,
@@ -261,7 +271,7 @@ export const STAKEHOLDERS = [
     location: "Bangkok — community-network field office",
     flags: ["bridging", "female"],
     accent: "sage",
-    portrait: "/assets/scenarios/sdg11-bangkok/images/stakeholder-04.svg",
+    portrait: "/assets/scenarios/sdg11-bangkok/images/stakeholder-04.png",
     video: "/assets/scenarios/sdg11-bangkok/video/04-organiser.mp4",
     caption: "/assets/scenarios/sdg11-bangkok/audio/04-organiser.vtt",
     duration: 34,
