@@ -234,7 +234,7 @@ _Status: wired, NOTHING on disk. Needs 4 MP3 + 4 .vtt + 4 portraits. The .vtt cu
 - **Tool:** Video production (filmed actor OR AI talking-avatar) with the EXACT English subtitle text BURNED INTO the picture — no sidecar track
 - **WIRE TO (exact path — drop file here, auto-wires):** /assets/scenarios/sdg13-chiangmai/video/01-maize-grower.mp4
 - **Subtitle burn-in source (.vtt):** /assets/scenarios/sdg13-chiangmai/audio/01-maize-grower.vtt
-- **Portrait pairs with:** /assets/scenarios/sdg13-chiangmai/images/stakeholder-01.svg
+- **Portrait pairs with:** /assets/scenarios/sdg13-chiangmai/images/stakeholder-01.png
 - **Target duration:** 33 s  (script ≈ 100 words → ~182 wpm)
 - **Voice profile:** Northern Thai (kham mueang–inflected) man, English with a northern-Thai highland accent. Hardworking, plain-spoken, carrying quiet frustration that does not tip into anger.
 - **Performance direction:** Steady and direct. A hard, deliberate landing on the last two sentences: 'I will just do it at night. … A fine is not a choice.'
@@ -257,7 +257,7 @@ _Status: wired, NOTHING on disk. Needs 4 MP3 + 4 .vtt + 4 portraits. The .vtt cu
 - **Tool:** Video production (filmed actor OR AI talking-avatar) with the EXACT English subtitle text BURNED INTO the picture — no sidecar track
 - **WIRE TO (exact path — drop file here, auto-wires):** /assets/scenarios/sdg13-chiangmai/video/02-clinician.mp4
 - **Subtitle burn-in source (.vtt):** /assets/scenarios/sdg13-chiangmai/audio/02-clinician.vtt
-- **Portrait pairs with:** /assets/scenarios/sdg13-chiangmai/images/stakeholder-02.svg
+- **Portrait pairs with:** /assets/scenarios/sdg13-chiangmai/images/stakeholder-02.png
 - **Target duration:** 32 s  (script ≈ 76 words → ~142 wpm)
 - **Voice profile:** Precise, caring Thai woman doctor, clear central-Thai English, clinical exactness softened by real concern.
 - **Performance direction:** Controlled urgency; the data stated flatly, then a direct appeal on 'count the children in my ward as stakeholders too.'
@@ -280,7 +280,7 @@ _Status: wired, NOTHING on disk. Needs 4 MP3 + 4 .vtt + 4 portraits. The .vtt cu
 - **Tool:** Video production (filmed actor OR AI talking-avatar) with the EXACT English subtitle text BURNED INTO the picture — no sidecar track
 - **WIRE TO (exact path — drop file here, auto-wires):** /assets/scenarios/sdg13-chiangmai/video/03-procurement.mp4
 - **Subtitle burn-in source (.vtt):** /assets/scenarios/sdg13-chiangmai/audio/03-procurement.vtt
-- **Portrait pairs with:** /assets/scenarios/sdg13-chiangmai/images/stakeholder-03.svg
+- **Portrait pairs with:** /assets/scenarios/sdg13-chiangmai/images/stakeholder-03.png
 - **Target duration:** 30 s  (script ≈ 78 words → ~156 wpm)
 - **Voice profile:** Smooth corporate Thai man, polished central-Thai English, the even delivery of someone used to deflecting responsibility politely.
 - **Performance direction:** Measured, non-defensive on the surface; faint firmness on 'We move when the incentives move.'
@@ -303,7 +303,7 @@ _Status: wired, NOTHING on disk. Needs 4 MP3 + 4 .vtt + 4 portraits. The .vtt cu
 - **Tool:** Video production (filmed actor OR AI talking-avatar) with the EXACT English subtitle text BURNED INTO the picture — no sidecar track
 - **WIRE TO (exact path — drop file here, auto-wires):** /assets/scenarios/sdg13-chiangmai/video/04-officer.mp4
 - **Subtitle burn-in source (.vtt):** /assets/scenarios/sdg13-chiangmai/audio/04-officer.vtt
-- **Portrait pairs with:** /assets/scenarios/sdg13-chiangmai/images/stakeholder-04.svg
+- **Portrait pairs with:** /assets/scenarios/sdg13-chiangmai/images/stakeholder-04.png
 - **Target duration:** 34 s  (script ≈ 73 words → ~129 wpm)
 - **Voice profile:** Frank, slightly weary Thai woman official, northern-inflected central-Thai English, the candour of someone telling an uncomfortable truth to a committee.
 - **Performance direction:** Honest and plain, a little tired; emphasis on 'the last step after a real alternative — not the first step instead of one.'
@@ -327,7 +327,7 @@ _No secondary audio for v1 of this mission. If a crisis dispatch is added later,
 ### B1. Portrait 01 — Upland maize smallholder
 
 - **Tool:** ChatGPT Image / Midjourney / SDXL — stylised editorial portrait
-- **WIRE TO (exact path):** /assets/scenarios/sdg13-chiangmai/images/stakeholder-01.svg
+- **WIRE TO (exact path):** /assets/scenarios/sdg13-chiangmai/images/stakeholder-01.png
 - **Note on format:** Code references a .svg path. Either (a) export the render as SVG-wrapped raster at this exact filename, or (b) save as .png/.webp and change only the file extension in src/scenarios/<mission>-content.js portrait field. Filename stem must stay the same.
 - **Prompt:** Stylised, dignified editorial portrait illustration of a upland maize smallholder — a COMPOSITE role, not a real person. Three-quarter view, calm direct gaze, neutral studio background, warm ochre / earth palette consistent with a serious editorial console UI. Mature, respectful, agency and competence in the face — never pitiable. Subtle Thai contextual cues appropriate to the role, understated. Flat-ish editorial vector-illustration feel, soft grain, no photo-realism.
 - **Negative prompt:** photoreal face of a real identifiable person, celebrity likeness, logos, brand marks, text, watermark, distorted hands, extra fingers, low-res, oversaturated, stereotyped 'poverty' tropes, pity framing
@@ -342,7 +342,7 @@ _No secondary audio for v1 of this mission. If a crisis dispatch is added later,
 ### B2. Portrait 02 — Respiratory clinician
 
 - **Tool:** ChatGPT Image / Midjourney / SDXL — stylised editorial portrait
-- **WIRE TO (exact path):** /assets/scenarios/sdg13-chiangmai/images/stakeholder-02.svg
+- **WIRE TO (exact path):** /assets/scenarios/sdg13-chiangmai/images/stakeholder-02.png
 - **Note on format:** Code references a .svg path. Either (a) export the render as SVG-wrapped raster at this exact filename, or (b) save as .png/.webp and change only the file extension in src/scenarios/<mission>-content.js portrait field. Filename stem must stay the same.
 - **Prompt:** Stylised, dignified editorial portrait illustration of a respiratory clinician — a COMPOSITE role, not a real person. Three-quarter view, calm direct gaze, neutral studio background, clean steel-blue / white palette consistent with a serious editorial console UI. Mature, respectful, agency and competence in the face — never pitiable. Subtle Thai contextual cues appropriate to the role, understated. Flat-ish editorial vector-illustration feel, soft grain, no photo-realism.
 - **Negative prompt:** photoreal face of a real identifiable person, celebrity likeness, logos, brand marks, text, watermark, distorted hands, extra fingers, low-res, oversaturated, stereotyped 'poverty' tropes, pity framing
@@ -357,7 +357,7 @@ _No secondary audio for v1 of this mission. If a crisis dispatch is added later,
 ### B3. Portrait 03 — Agribusiness procurement manager
 
 - **Tool:** ChatGPT Image / Midjourney / SDXL — stylised editorial portrait
-- **WIRE TO (exact path):** /assets/scenarios/sdg13-chiangmai/images/stakeholder-03.svg
+- **WIRE TO (exact path):** /assets/scenarios/sdg13-chiangmai/images/stakeholder-03.png
 - **Note on format:** Code references a .svg path. Either (a) export the render as SVG-wrapped raster at this exact filename, or (b) save as .png/.webp and change only the file extension in src/scenarios/<mission>-content.js portrait field. Filename stem must stay the same.
 - **Prompt:** Stylised, dignified editorial portrait illustration of a agribusiness procurement manager — a COMPOSITE role, not a real person. Three-quarter view, calm direct gaze, neutral studio background, warm bronze / corporate slate palette consistent with a serious editorial console UI. Mature, respectful, agency and competence in the face — never pitiable. Subtle Thai contextual cues appropriate to the role, understated. Flat-ish editorial vector-illustration feel, soft grain, no photo-realism.
 - **Negative prompt:** photoreal face of a real identifiable person, celebrity likeness, logos, brand marks, text, watermark, distorted hands, extra fingers, low-res, oversaturated, stereotyped 'poverty' tropes, pity framing
@@ -372,7 +372,7 @@ _No secondary audio for v1 of this mission. If a crisis dispatch is added later,
 ### B4. Portrait 04 — District enforcement officer
 
 - **Tool:** ChatGPT Image / Midjourney / SDXL — stylised editorial portrait
-- **WIRE TO (exact path):** /assets/scenarios/sdg13-chiangmai/images/stakeholder-04.svg
+- **WIRE TO (exact path):** /assets/scenarios/sdg13-chiangmai/images/stakeholder-04.png
 - **Note on format:** Code references a .svg path. Either (a) export the render as SVG-wrapped raster at this exact filename, or (b) save as .png/.webp and change only the file extension in src/scenarios/<mission>-content.js portrait field. Filename stem must stay the same.
 - **Prompt:** Stylised, dignified editorial portrait illustration of a district enforcement officer — a COMPOSITE role, not a real person. Three-quarter view, calm direct gaze, neutral studio background, muted sage / field khaki palette consistent with a serious editorial console UI. Mature, respectful, agency and competence in the face — never pitiable. Subtle Thai contextual cues appropriate to the role, understated. Flat-ish editorial vector-illustration feel, soft grain, no photo-realism.
 - **Negative prompt:** photoreal face of a real identifiable person, celebrity likeness, logos, brand marks, text, watermark, distorted hands, extra fingers, low-res, oversaturated, stereotyped 'poverty' tropes, pity framing
@@ -389,7 +389,7 @@ _No secondary audio for v1 of this mission. If a crisis dispatch is added later,
 ### C1. Hero image (journey card / briefing)
 
 - **Tool:** ChatGPT Image / Midjourney
-- **WIRE TO (exact path):** /assets/scenarios/sdg13-chiangmai/images/hero.webp
+- **WIRE TO (exact path):** /assets/scenarios/sdg13-chiangmai/images/hero.png
 - **Prompt:** Editorial wide image: the Ping valley under grey burning-season haze, Doi Suthep a faint silhouette, an upland field edge with thin smoke at the treeline; console-editorial palette, no people foreground, no text, restrained and cinematic.
 - **Negative prompt:** photoreal face of a real identifiable person, celebrity likeness, logos, brand marks, text, watermark, distorted hands, extra fingers, low-res, oversaturated, stereotyped 'poverty' tropes, pity framing
 - **Output spec:** 16:9, ≥ 1600px, .webp; muted for legible gold UI text.
@@ -402,7 +402,7 @@ _No secondary audio for v1 of this mission. If a crisis dispatch is added later,
 ### C2. Temperature-inversion diagram (dossier)
 
 - **Tool:** Illustrator / SVG
-- **WIRE TO (exact path):** /assets/scenarios/sdg13-chiangmai/images/inversion-diagram.svg
+- **WIRE TO (exact path):** /assets/scenarios/sdg13-chiangmai/images/inversion-diagram.png
 - **Prompt:** Labelled cross-section of the Ping basin: cool polluted air pooled in the valley, a warm 'lid' layer above trapping it, smoke sources (field + transboundary arrow at the border). Editorial, bilingual-ready labels, illustrative only.
 - **Negative prompt:** photoreal face of a real identifiable person, celebrity likeness, logos, brand marks, text, watermark, distorted hands, extra fingers, low-res, oversaturated, stereotyped 'poverty' tropes, pity framing
 - **Output spec:** SVG, viewBox ~ 1000×640, legible at 720px.
@@ -415,7 +415,7 @@ _No secondary audio for v1 of this mission. If a crisis dispatch is added later,
 ### C3. PM2.5 season chart (data-interpretation)
 
 - **Tool:** Vega/Observable → export SVG
-- **WIRE TO (exact path):** /assets/scenarios/sdg13-chiangmai/images/pm25-chart.svg
+- **WIRE TO (exact path):** /assets/scenarios/sdg13-chiangmai/images/pm25-chart.png
 - **Prompt:** Line chart: PM2.5 across a year, sharp Feb–Apr spike into hazardous band; a marked WHO-guideline reference line; footnote 'Illustrative pedagogical figures — shape is realistic, exact values are not field data.'
 - **Negative prompt:** photoreal face of a real identifiable person, celebrity likeness, logos, brand marks, text, watermark, distorted hands, extra fingers, low-res, oversaturated, stereotyped 'poverty' tropes, pity framing
 - **Output spec:** SVG, legible at 680px; colour-blind-safe.
