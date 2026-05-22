@@ -22,3 +22,8 @@ assets/landing/source/
 # Affinity / editor lock files
 *.af~lock~
 *~lock~
+
+# Word / Office documents — keep local, never deploy with the codebase
+*.docx
+*.doc
+~$*
