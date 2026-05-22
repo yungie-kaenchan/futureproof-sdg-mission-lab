@@ -3316,21 +3316,34 @@ body.font-dyslexia {
     margin-top: 6px; border: 1px solid #E6E6EA; border-radius: 12px;
   }
   .vocab-table {
-    width: 100%; min-width: 600px;
+    width: 100%; min-width: 720px;  /* widened so the term col can hold "transboundary" without mid-word breaks */
     table-layout: fixed;            /* columns obey set widths — no collisions */
     border-collapse: separate; border-spacing: 0;
     font-size: 14.5px; line-height: 1.55;
   }
-  /* 5 columns: Word · Part of speech · Meaning · Listen · Thai */
-  .vocab-table th:nth-child(1), .vocab-table td:nth-child(1) { width: 15%; }
-  .vocab-table th:nth-child(2), .vocab-table td:nth-child(2) { width: 14%; }
-  .vocab-table th:nth-child(3), .vocab-table td:nth-child(3) { width: 35%; }
+  /* 5 columns: Word · Part of speech · Meaning · Listen · Thai
+     Re-balanced so the term column fits the longest English term in the
+     bank ("transboundary" = 13 chars) on a single line. */
+  .vocab-table th:nth-child(1), .vocab-table td:nth-child(1) { width: 19%; }
+  .vocab-table th:nth-child(2), .vocab-table td:nth-child(2) { width: 11%; }
+  .vocab-table th:nth-child(3), .vocab-table td:nth-child(3) { width: 33%; }
   .vocab-table th:nth-child(4), .vocab-table td:nth-child(4) { width: 9%;  }
-  .vocab-table th:nth-child(5), .vocab-table td:nth-child(5) { width: 27%; }
+  .vocab-table th:nth-child(5), .vocab-table td:nth-child(5) { width: 28%; }
   .vocab-table th, .vocab-table td {
     text-align: left; vertical-align: top;
     padding: 14px 18px; border-bottom: 1px solid #EDEDF0;
-    overflow-wrap: anywhere; word-break: normal;
+    /* break-word (NOT anywhere) so long English words break only when truly
+       unavoidable — and at a natural boundary, never mid-character. Thai
+       (no spaces) still wraps correctly under this rule. */
+    overflow-wrap: break-word; word-break: normal;
+  }
+  /* Belt-and-braces: the term column should never break a single word at
+     all if it fits the column. nowrap forces horizontal scroll instead of
+     a mid-word break on very narrow viewports. */
+  .vocab-table td:nth-child(1) {
+    white-space: nowrap;
+    font-weight: 600;
+    color: #0F1729;
   }
   .vocab-table tbody tr:last-child td { border-bottom: none; }
   .vocab-table thead th {
