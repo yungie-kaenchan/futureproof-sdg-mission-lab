@@ -3324,9 +3324,9 @@ body.font-dyslexia {
   /* 5 columns: Word · Part of speech · Meaning · Listen · Thai
      Re-balanced so the term column fits the longest English term in the
      bank ("transboundary" = 13 chars) on a single line. */
-  .vocab-table th:nth-child(1), .vocab-table td:nth-child(1) { width: 19%; }
-  .vocab-table th:nth-child(2), .vocab-table td:nth-child(2) { width: 11%; }
-  .vocab-table th:nth-child(3), .vocab-table td:nth-child(3) { width: 33%; }
+  .vocab-table th:nth-child(1), .vocab-table td:nth-child(1) { width: 18%; }
+  .vocab-table th:nth-child(2), .vocab-table td:nth-child(2) { width: 14%; }
+  .vocab-table th:nth-child(3), .vocab-table td:nth-child(3) { width: 31%; }
   .vocab-table th:nth-child(4), .vocab-table td:nth-child(4) { width: 9%;  }
   .vocab-table th:nth-child(5), .vocab-table td:nth-child(5) { width: 28%; }
   .vocab-table th, .vocab-table td {
@@ -3359,8 +3359,22 @@ body.font-dyslexia {
     color: #0F1729; font-size: 15.5px; font-weight: 700; letter-spacing: -0.01em;
   }
   .vocab-table .vt-pos {
-    color: #8A6D3F; font-size: 12.5px; font-style: italic;
-    font-family: var(--font-mono); padding-top: 16px;
+    color: #6E6258;
+    font-size: 12px;
+    font-weight: 500;
+    font-style: normal;
+    font-family: var(--font-sans);
+    letter-spacing: 0.02em;
+    text-transform: lowercase;
+    white-space: nowrap;
+  }
+  .vocab-table .vt-pos > span {
+    display: inline-block;
+    padding: 3px 9px;
+    border-radius: 999px;
+    background: rgba(181, 124, 52, 0.08);
+    border: 1px solid rgba(181, 124, 52, 0.22);
+    color: #8A6D3F;
   }
   .vocab-table .vt-mean { color: #1A1F2E; }
   .vocab-table .vt-th {

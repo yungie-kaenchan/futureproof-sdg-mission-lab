@@ -195,7 +195,7 @@ async function probeDossier(container, state, engine) {
               <tbody>
                 ${VOCABULARY.map((v) => `<tr>
                   <td class="vt-word"><strong>${v.term}</strong></td>
-                  <td class="vt-pos">${v.pos || "—"}</td>
+                  <td class="vt-pos"><span>${v.pos || "—"}</span></td>
                   <td class="vt-mean">${v.gloss}</td>
                   <td class="vt-say">${vocabSayButton(v.term)}</td>
                   <td class="vt-th" lang="th">${v.th}</td>
