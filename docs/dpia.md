@@ -3,7 +3,7 @@
 
 **Status:** Final for submission · supersedes `docs/dpia-framework.md`
 **Legal basis:** Thailand Personal Data Protection Act B.E. 2562 (PDPA)
-**Controller (academic):** Aj. Yungie (Dr. Payungsak Kaenchan), Faculty of
+**Controller (academic):** Dr. Payungsak Kaenchan (Dr. Payungsak Kaenchan), Faculty of
 Liberal Arts — pilot context: Mahidol University / Thammasat University
 **Last reviewed:** 2026-05 (v2 reconstruction build)
 **Reviewer note:** This DPIA reflects the *as-built* v2 platform, including
@@ -43,7 +43,7 @@ Voices) ต้องได้รับความยินยอมชัดแ
 | Purpose | Deliver an adaptive EFL + SDG learning journey; formative feedback; teacher summative grading; optional curated public showcase |
 | Data subjects | Undergraduate students; teachers (controller-side users) |
 | Lawful basis (PDPA s.24) | Consent (explicit, granular, recorded, withdrawable) — primary basis for all student processing |
-| Roles | Academic controller: Aj. Yungie. Processors: Google Firebase (Auth, Realtime DB, Storage); Netlify (static hosting); Anthropic (Claude proxy, formative text only); Stability.ai (optional avatar). No advertising processors. |
+| Roles | Academic controller: Dr. Payungsak Kaenchan. Processors: Google Firebase (Auth, Realtime DB, Storage); Netlify (static hosting); Anthropic (Claude proxy, formative text only); Stability.ai (optional avatar). No advertising processors. |
 | Special-category data | Voice/video (biometric-adjacent) — **optional**, lane-selectable, separately consented; never required to complete the journey |
 
 ---

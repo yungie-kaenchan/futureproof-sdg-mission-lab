@@ -14,7 +14,7 @@
 | Ethical axes | Right to education vs. resource scarcity **×** Belonging & recognition (status, credentials, language) |
 | Local Lens | Mandatory, embedded throughout |
 | Dignity tier | **HIGH** — statelessness & migrant children; CLAUDE.md §11 + RECONSTRUCTION-MASTER §2 guardrails inherited |
-| Status | DRAFT v1 — pending Aj. Yungie + named Thai education-policy reviewer sign-off |
+| Status | DRAFT v1 — pending Dr. Payungsak Kaenchan + named Thai education-policy reviewer sign-off |
 | Hall of Voices eligible | Yes (showcase tier) |
 
 ---
@@ -483,4 +483,4 @@ Filenames are under `/assets/scenarios/sdg04-takmaesot/`. **Voice-direction kit 
 
 ---
 
-*End of PRODUCTION MASTER — `sdg04-takmaesot`. This document is dignity-first fiction grounded in the real Thai border-education context. It names institutions and policies for context only, uses clearly-labelled ranges in place of invented statistics, presents multiple legitimate Thai-policy perspectives fairly, and renders every stakeholder — especially the most vulnerable — with agency rather than pity. Pending Aj. Yungie + named Thai education-policy reviewer sign-off before production.*
+*End of PRODUCTION MASTER — `sdg04-takmaesot`. This document is dignity-first fiction grounded in the real Thai border-education context. It names institutions and policies for context only, uses clearly-labelled ranges in place of invented statistics, presents multiple legitimate Thai-policy perspectives fairly, and renders every stakeholder — especially the most vulnerable — with agency rather than pity. Pending Dr. Payungsak Kaenchan + named Thai education-policy reviewer sign-off before production.*

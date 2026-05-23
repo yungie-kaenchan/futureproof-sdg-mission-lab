@@ -2,7 +2,7 @@
 
 ## Innovation Concept Document — v1 (English)
 
-**Author:** Aj. Yungie (Dr. Payungsak Kaenchan), Faculty of Liberal Arts, Mahidol University
+**Author:** Dr. Payungsak Kaenchan (Dr. Payungsak Kaenchan), Faculty of Liberal Arts, Mahidol University
 **Submission:** SPU Tech Creative Learning Awards 2026 — โครงการประกวดนวัตกรรมการสอนในยุคดิจิทัล
 **Document Date:** May 2026
 **Version:** 1 (English working draft; Thai translation to follow on Day 18)
@@ -381,7 +381,7 @@ FUTUREPROOF is built on the belief that English language education, used well, i
 
 ## 16. Acknowledgments
 
-This work is being developed by **Aj. Yungie (Dr. Payungsak Kaenchan)** at the Faculty of Liberal Arts, Mahidol University. The author thanks Anthropic for the Claude API, Stability.ai for image generation tooling, the Firebase team for the underlying infrastructure, and the broader open-web ecosystem on which the platform is built.
+This work is being developed by **Dr. Payungsak Kaenchan (Dr. Payungsak Kaenchan)** at the Faculty of Liberal Arts, Mahidol University. The author thanks Anthropic for the Claude API, Stability.ai for image generation tooling, the Firebase team for the underlying infrastructure, and the broader open-web ecosystem on which the platform is built.
 
 Pedagogical foundations draw on the published work of Krashen, Bloom & Anderson & Krathwohl, Vygotsky, Wood & Bruner & Ross, Lave & Wenger, Hattie, Mayer, Mishra & Koehler, Kohlberg, Freire, Piaget, Bruner, Wiggins, Black & Wiliam, Schön, Toulmin, García, Deci & Ryan, Zimmerman, Flavell, Paivio, Papert, Hymes, Canale & Swain, the CAST UDL framework, and UNESCO's Education for Sustainable Development guidance.
 

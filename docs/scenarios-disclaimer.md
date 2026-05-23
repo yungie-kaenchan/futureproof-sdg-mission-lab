@@ -3,7 +3,7 @@
 **Document version:** 1.0
 **Issued:** 2026-05-13
 **Issuing entity:** FUTUREPROOF: SDG Mission Lab — Faculty of Liberal Arts, Mahidol University (with Thammasat University collaboration)
-**Contact:** Aj. Yungie · Dr. Payungsak Kaenchan · payungsak.kaenchan@gmail.com
+**Contact:** Dr. Payungsak Kaenchan · Dr. Payungsak Kaenchan · payungsak.kaenchan@gmail.com
 
 This document is presented to every student at first scenario entry (with acknowledgement), surfaced as a footer link on every mission page, and included in the submission appendix for judges, faculty reviewers, and any third-party reader who wishes to understand the scope, intent, and limits of scenario content on this platform.
 
@@ -63,7 +63,7 @@ A full Data Protection Impact Assessment (DPIA) is available in the submission a
 
 Any institution, organisation, community, or individual who believes that scenario content materially misrepresents their position, mischaracterises their actions, or causes unintended reputational impact is **invited to contact the platform's editorial team at the address below**. Substantive feedback will be reviewed by the pedagogical team. Where warranted, scenarios will be revised in subsequent versions; all revisions are logged in version-controlled scenario manifests, which are publicly auditable.
 
-**Editorial contact:** Faculty of Liberal Arts, Mahidol University · Aj. Yungie / Dr. Payungsak Kaenchan · `payungsak.kaenchan@gmail.com`
+**Editorial contact:** Faculty of Liberal Arts, Mahidol University · Dr. Payungsak Kaenchan / Dr. Payungsak Kaenchan · `payungsak.kaenchan@gmail.com`
 
 ### 10. Acknowledgement
 

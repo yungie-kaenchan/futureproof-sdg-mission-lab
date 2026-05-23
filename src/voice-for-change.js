@@ -93,8 +93,8 @@ const state = {
   audioUrl: null,
   uploadedFile: null,
   transcript: "",
-  consentHall: false,
-  consentForum: false,
+  // Hall of Voices consent removed per request — submissions go straight
+  // to the teacher's queue. Public curation policy is handled offline.
   evidenceCommitments: {},
 };
 
@@ -564,11 +564,7 @@ async function setupCompass() {
 /* ── Consent + Submit ───────────────────────────────────────────── */
 
 function setupConsentAndSubmit() {
-  const hall = document.getElementById("consent-hall");
-  const forum = document.getElementById("consent-forum");
-  hall.addEventListener("change", () => { state.consentHall = !!hall.checked; refreshSubmitGate(); saveDraftSilent(); });
-  forum.addEventListener("change", () => { state.consentForum = !!forum.checked; refreshSubmitGate(); saveDraftSilent(); });
-
+  // Hall of Voices consent section was removed — no consent toggles to wire.
   document.getElementById("save-draft").addEventListener("click", () => {
     saveDraft(true);
   });
@@ -616,8 +612,6 @@ function saveDraftSilent() {
       lane: state.lane,
       videoOn: state.videoOn,
       transcript: state.transcript,
-      consentHall: state.consentHall,
-      consentForum: state.consentForum,
       savedAt: Date.now(),
     }));
   } catch (_) {}
@@ -640,8 +634,6 @@ function loadDraftIfPresent() {
       const r = document.querySelector('input[name="lane"][value="upload"]');
       if (r) { r.checked = true; r.dispatchEvent(new Event("change")); }
     }
-    if (d.consentHall) document.getElementById("consent-hall").checked = state.consentHall = true;
-    if (d.consentForum) document.getElementById("consent-forum").checked = state.consentForum = true;
     refreshSubmitGate();
   } catch (_) {}
 }
@@ -663,7 +655,6 @@ async function submitProposal() {
     audienceLabel: state.audienceLabel,
     lane: state.lane,
     transcript: state.transcript,
-    consent: { hallOfVoices: state.consentHall, youthForum: state.consentForum },
     evidenceCommitments: state.evidenceCommitments,
     submittedAt: Date.now(),
     status: "submitted-awaiting-teacher",

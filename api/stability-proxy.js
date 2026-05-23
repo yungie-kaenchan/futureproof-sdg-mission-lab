@@ -71,7 +71,7 @@ export async function handler(event) {
   const apiKey = process.env.STABILITY_API_KEY;
   if (!apiKey) {
     return jsonResponse(500, {
-      error: "Server is missing STABILITY_API_KEY. Ask Aj. Yungie to set it in Netlify env vars.",
+      error: "Server is missing STABILITY_API_KEY. Ask Dr. Payungsak Kaenchan to set it in Netlify env vars.",
     });
   }
 

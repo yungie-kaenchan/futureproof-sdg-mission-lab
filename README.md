@@ -132,7 +132,7 @@ API keys never appear in the browser. Public Firebase config keys (apiKey, etc.)
 ## Visual identity (locked, see CLAUDE.md §12)
 
 **Aesthetic:** Mission Control × Editorial Elegance.
-**Background:** bright white (changed from obsidian black per Aj. Yungie's review).
+**Background:** bright white (changed from obsidian black per Dr. Payungsak Kaenchan's review).
 **Accents:** gold (`#A88A4A` primary, `#C9A961` glow) + crimson (`#A82424`) + the locked-SDG accent (set per team).
 **Type:** Cormorant Garamond (display) · Cinzel (mission titles) · DM Sans (body, console labels) · JetBrains Mono (data values) · IBM Plex Sans Thai (Thai metalanguage).
 
@@ -173,7 +173,7 @@ CC BY-NC 4.0 — free to use, adapt, and share for educational and non-commercia
 
 ## Credits
 
-Designed and developed by **Aj. Yungie (Dr. Payungsak Kaenchan)**, Faculty of Liberal Arts, Mahidol University.
+Designed and developed by **Dr. Payungsak Kaenchan (Dr. Payungsak Kaenchan)**, Faculty of Liberal Arts, Mahidol University.
 
 Submitted to **Sripatum University (SPU) Tech Creative Learning Awards 2026** — โครงการประกวดนวัตกรรมการสอนในยุคดิจิทัล. Royal trophy from HRH Princess Maha Chakri Sirindhorn.
 

@@ -11,7 +11,7 @@
 | Bloom anchors | Remember→Evaluate micro-arc (Create deferred to Final Task) |
 | Ethical axes | Economic development vs. health equity **×** Who bears the externalities of growth (rural ageing) |
 | Local Lens | Mandatory, embedded throughout |
-| Status | DRAFT v1 — pending Aj. Yungie + named Thai pedagogy/public-health reviewer sign-off |
+| Status | DRAFT v1 — pending Dr. Payungsak Kaenchan + named Thai pedagogy/public-health reviewer sign-off |
 | Hall of Voices eligible | Yes (showcase tier) |
 | Spec source | `docs/RECONSTRUCTION-MASTER.md` §2 (mission 6 of 6), §4 (5-stage arc), §5 (3-tier adaptive) |
 | Reference standard | `scenarios/sdg06-khonkaen-aquifer-v1/PRODUCTION-MASTER.md` (taxonomy, tone, citation discipline) |
@@ -518,4 +518,4 @@ All paths under `/assets/scenarios/sdg03-eecfringe/`. **Voice-direction kit foll
 
 ---
 
-*End of PRODUCTION MASTER — `sdg03-eecfringe`. Draft v1, pending Aj. Yungie + named Thai pedagogy/public-health reviewer sign-off. This document mirrors the Khon Kaen gold-standard taxonomy, tone, and citation discipline; the dossier is fully authored at all three reading tiers.*
+*End of PRODUCTION MASTER — `sdg03-eecfringe`. Draft v1, pending Dr. Payungsak Kaenchan + named Thai pedagogy/public-health reviewer sign-off. This document mirrors the Khon Kaen gold-standard taxonomy, tone, and citation discipline; the dossier is fully authored at all three reading tiers.*

@@ -1,6 +1,6 @@
 # MICRO-PILOT KIT — FUTUREPROOF: SDGs Mission Lab
 
-**Purpose:** a complete, ready-to-run instrument so Aj. Yungie can collect
+**Purpose:** a complete, ready-to-run instrument so Dr. Payungsak Kaenchan can collect
 credible learner-impact evidence from **N = 6–10** undergraduates in a
 single ~2-hour session, and so the results drop straight into the final
 report (§ Evidence of Learner Impact) and the competition poster.
@@ -268,6 +268,6 @@ as credibility.
 ---
 
 *This kit is the instrument; the evidence is produced by running it.
-Aj. Yungie executes the session with real undergraduates; the analysis
+Dr. Payungsak Kaenchan executes the session with real undergraduates; the analysis
 template (§7–§8) converts the captured sheets directly into the report
 and poster with no further design work required.*

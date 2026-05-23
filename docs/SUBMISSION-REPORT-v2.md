@@ -1,7 +1,7 @@
 # FUTUREPROOF: SDGs Mission Lab — Submission Report (v2 Final)
 
 **SPU Tech Creative Learning Awards 2026 · โครงการประกวดนวัตกรรมการสอนในยุคดิจิทัล**
-Author: Aj. Yungie (Dr. Payungsak Kaenchan), Faculty of Liberal Arts
+Author: Dr. Payungsak Kaenchan (Dr. Payungsak Kaenchan), Faculty of Liberal Arts
 Live build: https://futureproof-sdgs-lab.netlify.app
 Status: Final · supersedes the May-10 v1 concept docs for submission
 purposes (those remain in `docs/` as design history).
@@ -159,7 +159,7 @@ post-test, SUS-style usability, an adaptivity-&-authentic-audience
 perception battery, and a small-N-honest analysis plan whose outputs
 paste directly into this report and the poster. The headline quantitative
 check is the **assigned-tier vs. self-rated-proficiency table** — direct
-evidence the adaptive model behaves sensibly. *(Run by Aj. Yungie with
+evidence the adaptive model behaves sensibly. *(Run by Dr. Payungsak Kaenchan with
 real undergraduates; results inserted on completion.)*
 
 ## 8 · Honest scope & limitations (stated, not hidden)

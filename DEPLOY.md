@@ -1,6 +1,6 @@
 # Deployment Runbook — FUTUREPROOF
 
-Step-by-step guide for taking the platform from this repo to a live URL with working AI, scenario generation, avatar generation, and seeded demo data. Target audience: Aj. Yungie. Time budget: ~90 minutes for a clean deploy if all accounts are already provisioned, ~3 hours if starting from scratch.
+Step-by-step guide for taking the platform from this repo to a live URL with working AI, scenario generation, avatar generation, and seeded demo data. Target audience: Dr. Payungsak Kaenchan. Time budget: ~90 minutes for a clean deploy if all accounts are already provisioned, ~3 hours if starting from scratch.
 
 The architecture splits between two clouds:
 

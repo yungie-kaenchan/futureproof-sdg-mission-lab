@@ -5,7 +5,7 @@
 | Field | Value |
 |---|---|
 | Status | GOVERNING SPEC · supersedes CLAUDE.md §5 (mission architecture) and §19 (page structure) where they conflict |
-| Author | Aj. Yungie (Dr. Payungsak Kaenchan) · Faculty of Liberal Arts, Mahidol University |
+| Author | Dr. Payungsak Kaenchan (Dr. Payungsak Kaenchan) · Faculty of Liberal Arts, Mahidol University |
 | Co-author | Claude Sonnet (Anthropic) |
 | Created | 2026-05-16 |
 | Submission deadline | 2026-05-30 (14 days) |
@@ -339,7 +339,7 @@ architecture cannot substitute for them — only the scheduled blocks can.
 
 | Date | Change | By |
 |---|---|---|
-| 2026-05-16 | Spec created · D1–D6 locked · v2 architecture defined | Aj. Yungie + Claude |
+| 2026-05-16 | Spec created · D1–D6 locked · v2 architecture defined | Dr. Payungsak Kaenchan + Claude |
 
 ---
 

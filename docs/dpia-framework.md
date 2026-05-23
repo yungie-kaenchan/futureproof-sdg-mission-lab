@@ -13,7 +13,7 @@ This is the framework that the final DPIA document (Day 18) will populate. It de
 | Item | Detail |
 |---|---|
 | Data Controller | Faculty of Liberal Arts, Mahidol University |
-| Designated Contact (DPO liaison) | Aj. Yungie (Dr. Payungsak Kaenchan) — payungsak.kaenchan@gmail.com |
+| Designated Contact (DPO liaison) | Dr. Payungsak Kaenchan (Dr. Payungsak Kaenchan) — payungsak.kaenchan@gmail.com |
 | Processor | Self-hosted on Firebase (Google Cloud, asia-southeast1) |
 | Sub-processors | Anthropic (Claude API), Stability.ai (image generation), Netlify (static hosting) |
 | Data Subjects | Undergraduate university students aged 18+; participating teachers; admin staff |
@@ -108,7 +108,7 @@ The Day 18 final DPIA document will include the status column populated.
 
 ### 5.2 Organizational
 
-- Designated platform contact (Aj. Yungie) liaises with the Mahidol DPO.
+- Designated platform contact (Dr. Payungsak Kaenchan) liaises with the Mahidol DPO.
 - Quarterly security rules review with documented sign-off.
 - Annual DPIA refresh; ad-hoc refresh on any new sub-processor or data category.
 - Incident response runbook (Day 17) covering breach detection, containment, notification (PDPA s.37 — within 72 hours).
@@ -158,12 +158,12 @@ The platform requires users to be 18+. Some Thai undergraduates may be under 20 
 | Activity | Cadence | Owner |
 |---|---|---|
 | Security rules unit tests | On every rule change | Engineer of record |
-| Security rules formal review | Quarterly | Aj. Yungie + DPO |
-| DPIA refresh | Annual or on material change | Aj. Yungie |
+| Security rules formal review | Quarterly | Dr. Payungsak Kaenchan + DPO |
+| DPIA refresh | Annual or on material change | Dr. Payungsak Kaenchan |
 | Pen test | Annual | External vendor |
-| Audit log spot review | Monthly | Aj. Yungie |
-| Sub-processor list review | Quarterly | Aj. Yungie |
-| Incident response drill | Annual | Aj. Yungie + teacher cohort |
+| Audit log spot review | Monthly | Dr. Payungsak Kaenchan |
+| Sub-processor list review | Quarterly | Dr. Payungsak Kaenchan |
+| Incident response drill | Annual | Dr. Payungsak Kaenchan + teacher cohort |
 
 ---
 

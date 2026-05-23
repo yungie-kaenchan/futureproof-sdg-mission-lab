@@ -325,7 +325,7 @@ A test harness (Jest + `@firebase/rules-unit-testing`) will be set up on Day 3 a
 
 ## 6. Open Questions
 
-- [ ] Should `/scenarios` be readable by **any** authenticated user, or restricted to users in the class that owns the scenario? Current rule is permissive (auth required only). Discuss with Aj. Yungie before Day 6.
+- [ ] Should `/scenarios` be readable by **any** authenticated user, or restricted to users in the class that owns the scenario? Current rule is permissive (auth required only). Discuss with Dr. Payungsak Kaenchan before Day 6.
 - [ ] Should peer judges (Day 14) get a temporary cross-team read claim, or use a server-mediated handoff? Recommend the latter for auditability.
 - [ ] Do we need a `parental_consent_required` flag for under-20 cohorts under PDPA?
 

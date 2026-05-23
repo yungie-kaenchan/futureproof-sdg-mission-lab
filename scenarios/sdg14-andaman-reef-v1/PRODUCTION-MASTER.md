@@ -14,7 +14,7 @@
 | Ethical axes | Ecological recovery **vs.** coastal livelihood **×** Intergenerational stewardship |
 | Local Lens | Mandatory, embedded throughout |
 | Keystone | SDG-14 Keystone on pass (composite ≥ 60%) |
-| Status | DOCUMENT (RECONSTRUCTION-MASTER §2 mission 4) — DRAFT v1, pending Aj. Yungie + named Thai marine-science / pedagogy reviewer sign-off |
+| Status | DOCUMENT (RECONSTRUCTION-MASTER §2 mission 4) — DRAFT v1, pending Dr. Payungsak Kaenchan + named Thai marine-science / pedagogy reviewer sign-off |
 | Hall of Voices eligible | Yes (showcase tier) |
 
 ---
@@ -665,7 +665,7 @@ at the diagnostic score step.
 ---
 
 *End of Production Master — `sdg14-andaman` · "The Reef and the Tide" /
-แนวปะการังกับกระแสน้ำ. This document is DRAFT v1, pending Aj. Yungie + a
+แนวปะการังกับกระแสน้ำ. This document is DRAFT v1, pending Dr. Payungsak Kaenchan + a
 named Thai marine-science / pedagogy reviewer sign-off. It mirrors the
 Khon Kaen gold-standard taxonomy, tone and discipline: labelled
 illustrative ranges only, real institutions for context only, an

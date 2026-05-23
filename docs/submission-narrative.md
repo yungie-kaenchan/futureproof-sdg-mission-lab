@@ -2,10 +2,10 @@
 
 **SPU Tech Creative Learning Awards 2026 — โครงการประกวดนวัตกรรมการสอนในยุคดิจิทัล**
 **Submission:** FUTUREPROOF: SDG Mission Lab (ภารกิจเอสดีจีเพื่ออนาคต)
-**Submitter:** Aj. Yungie (Dr. Payungsak Kaenchan), Faculty of Liberal Arts, Mahidol University
+**Submitter:** Dr. Payungsak Kaenchan (Dr. Payungsak Kaenchan), Faculty of Liberal Arts, Mahidol University
 **Submission date:** May 30, 2026 (target: 10:00 ICT)
 
-> *Working draft. The final submission narrative is delivered in Thai-primary form with English supplement. The Thai translation is on Aj. Yungie's plate for Day 18–19; this English draft is the source.*
+> *Working draft. The final submission narrative is delivered in Thai-primary form with English supplement. The Thai translation is on Dr. Payungsak Kaenchan's plate for Day 18–19; this English draft is the source.*
 
 ---
 
@@ -96,4 +96,4 @@ The pedagogical scaffolding draws on the published work of Krashen, Bloom & Ande
 
 *Submitted with care. The world is waiting.*
 
-— Aj. Yungie
+— Dr. Payungsak Kaenchan

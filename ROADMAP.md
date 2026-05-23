@@ -26,7 +26,7 @@ Detailed day-by-day execution plan from May 10 to May 30, 2026.
 ### Day 2 — May 11 (Mon) ✅ BUILD TASKS COMPLETE
 **Focus:** Documentation foundation + Firebase setup
 
-**Morning Tasks (Aj. Yungie):**
+**Morning Tasks (Dr. Payungsak Kaenchan):**
 - Deploy Day 1 landing page to Netlify
 - Set up subdomain `futureproof.yungie.one`
 - Create Firebase project (Auth + Realtime DB + Storage)
@@ -40,7 +40,7 @@ Detailed day-by-day execution plan from May 10 to May 30, 2026.
 - [x] Firebase security rules draft — `docs/firebase-security-rules.md`
 - [x] Firebase initialization code — `src/firebase-init.js` (+ `config.example.js`)
 
-**End of day:** Aj. Yungie reviews docs, confirms direction for Day 3.
+**End of day:** Dr. Payungsak Kaenchan reviews docs, confirms direction for Day 3.
 
 ---
 
@@ -258,7 +258,7 @@ In this 20-day push, Day 7 work was distributed: end-to-end testing on Day 17 (s
 - [x] **Theoretical Grounding Map** — completed Day 2
 - [x] **DPIA framework** — completed Day 3 (cohort-specific items still need to be filled)
 
-**Human actions required (Aj. Yungie):**
+**Human actions required (Dr. Payungsak Kaenchan):**
 - [ ] Video script (5–7 minutes, EN narration with TH subtitles) — script can be drafted from the submission narrative; recording is yours
 - [ ] Screen recording of full platform walkthrough
 - [ ] Voiceover recording
@@ -276,7 +276,7 @@ In this 20-day push, Day 7 work was distributed: end-to-end testing on Day 17 (s
 - [x] Submission Narrative English working draft — `docs/submission-narrative.md`
 - [x] Documentation cross-reference review (all docs link to companions; consistent vocabulary)
 
-**Human actions required (Aj. Yungie):**
+**Human actions required (Dr. Payungsak Kaenchan):**
 - [ ] Thai translation of Submission Narrative (Thai primary, English supplement)
 - [ ] Final platform deployment: `git push` to repo connected to Netlify, or drag-and-drop deploy at app.netlify.com/drop
 - [ ] Provision Firebase project + set Netlify env vars (`ANTHROPIC_API_KEY`, `STABILITY_API_KEY`)
@@ -295,10 +295,10 @@ In this 20-day push, Day 7 work was distributed: end-to-end testing on Day 17 (s
 - [x] Rubric Suite — `docs/rubrics/{a,b,c,d}-*.md`
 - [x] DPIA Framework — `docs/dpia-framework.md`
 - [x] Submission Narrative — `docs/submission-narrative.md`
-- [ ] Video Demonstration — Aj. Yungie records
-- [ ] Live Platform URL with demo account credentials — Aj. Yungie deploys
+- [ ] Video Demonstration — Dr. Payungsak Kaenchan records
+- [ ] Live Platform URL with demo account credentials — Dr. Payungsak Kaenchan deploys
 
-**Final-day checklist (Aj. Yungie):**
+**Final-day checklist (Dr. Payungsak Kaenchan):**
 - [ ] Walk every flow on the live deployment
 - [ ] Verify Thai translations are in place
 - [ ] Verify env vars are set + functions return 200
@@ -330,7 +330,7 @@ Check these weekly:
 - [ ] Are we on track for the day's deliverables?
 - [ ] Any features being over-engineered? Simplify.
 - [ ] Documentation falling behind? Catch up immediately.
-- [ ] Aj. Yungie's competing commitments managed?
+- [ ] Dr. Payungsak Kaenchan's competing commitments managed?
 - [ ] Mobile responsive verified on real devices?
 - [ ] Are we testing each feature before moving on?
 

@@ -484,7 +484,7 @@ A user-initiated deletion request via the "My Data" panel triggers immediate exe
 
 ## 7. Open Questions for Day 3
 
-- [ ] Confirm with Aj. Yungie: encryption algorithm for PII fields (AES-GCM via Cloud Function, or use of Firebase App Check + envelope encryption?).
+- [ ] Confirm with Dr. Payungsak Kaenchan: encryption algorithm for PII fields (AES-GCM via Cloud Function, or use of Firebase App Check + envelope encryption?).
 - [ ] Confirm: deletion grace period — 90 days post-course end, or 90 days post-last-login?
 
 ---

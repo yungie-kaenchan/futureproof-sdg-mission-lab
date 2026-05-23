@@ -36,14 +36,14 @@
   .shell-header-btn{display:inline-flex; align-items:center; gap:6px; padding:8px 16px; border-radius:999px; border:1px solid rgba(244,241,234,.18); background:transparent; color:var(--bone); text-decoration:none; font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase}
   .shell-header-btn:hover{background:rgba(244,241,234,.08); border-color:var(--bronze)}
 
-  main{max-width:1080px; margin:0 auto; padding:48px 24px 96px}
+  main{max-width:1080px; margin:0 auto; padding:48px 24px 96px; font-size:16px}
   .submitted-hero{text-align:center; padding:32px 0 16px}
-  .submitted-hero .seal{display:inline-flex; align-items:center; justify-content:center; width:80px; height:80px; border-radius:999px; background:rgba(184,138,63,.10); color:var(--bronze-dim); border:1px solid rgba(184,138,63,.32); margin-bottom:18px}
-  .submitted-hero .seal .material-symbols-rounded{font-size:42px}
-  .submitted-hero h1{font-family:var(--display); font-weight:300; font-size:40px; color:var(--ink-deep); margin:0 0 8px}
+  .submitted-hero .seal{display:inline-flex; align-items:center; justify-content:center; width:88px; height:88px; border-radius:999px; background:rgba(184,138,63,.10); color:var(--bronze-dim); border:1px solid rgba(184,138,63,.32); margin-bottom:20px}
+  .submitted-hero .seal .material-symbols-rounded{font-size:46px}
+  .submitted-hero h1{font-family:var(--display); font-weight:300; font-size:44px; color:var(--ink-deep); margin:0 0 8px; line-height:1.2}
   .submitted-hero h1 em{font-style:italic; color:var(--bronze-dim)}
-  .submitted-hero .th{font-family:var(--th); font-size:18px; color:var(--ink-soft); margin:0 0 18px}
-  .submitted-hero .msg{max-width:640px; margin:0 auto; line-height:1.7; color:var(--ink); font-size:15.5px}
+  .submitted-hero .th{font-family:var(--th); font-size:20px; color:var(--ink-soft); margin:0 0 18px}
+  .submitted-hero .msg{max-width:700px; margin:0 auto; line-height:1.75; color:var(--ink); font-size:17px}
   .submitted-hero .msg strong{color:var(--ink-deep)}
 
   .grid{display:grid; grid-template-columns:1.4fr 1fr; gap:28px; margin-top:36px}
@@ -116,13 +116,59 @@
   .dl-btn.png{background:rgba(232,199,122,.16); color:var(--paper); border:1px solid var(--bronze)}
   .dl-btn.pdf{background:linear-gradient(135deg, var(--bronze) 0%, var(--bronze-light) 100%); color:var(--ink-deep); font-weight:700}
 
-  .next-steps{margin-top:48px; padding:28px 32px; background:var(--white); border:1px solid var(--line); border-radius:14px; box-shadow:0 4px 14px rgba(7,23,52,.04)}
-  .next-steps h3{font-family:var(--display); font-weight:300; font-size:22px; margin:0 0 8px; color:var(--ink-deep)}
+  .next-steps{margin-top:48px; padding:32px 36px; background:var(--white); border:1px solid var(--line); border-radius:14px; box-shadow:0 4px 14px rgba(7,23,52,.04)}
+  .next-steps h3{font-family:var(--display); font-weight:400; font-size:26px; margin:0 0 8px; color:var(--ink-deep)}
   .next-steps h3 em{font-style:italic; color:var(--bronze-dim)}
-  .next-steps .th{font-family:var(--th); font-size:14px; color:var(--ink-soft); margin-bottom:14px}
-  .next-steps ul{margin:14px 0 0; padding-left:20px; line-height:1.8}
-  .next-steps li{color:var(--ink); font-size:14.5px}
+  .next-steps .th{font-family:var(--th); font-size:15.5px; color:var(--ink-soft); margin-bottom:16px}
+  .next-steps ul{margin:16px 0 0; padding-left:22px; line-height:1.8}
+  .next-steps li{color:var(--ink); font-size:16px; margin-bottom:8px}
   .next-steps strong{color:var(--ink-deep)}
+
+  /* ─── AI Judges' Critique ─── */
+  .ai-judges{margin-top:48px}
+  .aij-header{margin-bottom:18px}
+  .aij-header h2{font-family:var(--display); font-weight:400; font-size:28px; color:var(--ink-deep); margin:0 0 4px; line-height:1.25}
+  .aij-eyebrow{font-family:var(--mono); font-size:13px; letter-spacing:.10em; text-transform:uppercase; color:var(--crimson); margin-left:8px; font-weight:700}
+  .aij-th{font-family:var(--th); font-size:15px; color:var(--ink-soft); margin:0}
+
+  .aij-shell{background:var(--white); border:1px solid var(--line); border-radius:16px; padding:28px 32px; box-shadow:0 4px 14px rgba(7,23,52,.05)}
+  .aij-banner{display:flex; gap:12px; align-items:flex-start; padding:14px 18px; background:rgba(168,36,36,.06); border-left:4px solid var(--crimson); border-radius:8px; margin-bottom:18px}
+  .aij-banner-glyph{font-size:20px; line-height:1}
+  .aij-banner strong{color:var(--crimson); font-size:15px; display:block}
+  .aij-banner .th{display:block; font-family:var(--th); font-size:13px; color:var(--ink-soft); margin-top:2px}
+
+  .aij-context{font-size:15.5px; line-height:1.7; color:var(--ink); margin:0 0 20px}
+  .aij-disclaimer-bottom{margin-top:18px; padding:12px 16px; background:var(--paper); border:1px solid var(--line); border-radius:8px; font-family:var(--mono); font-size:12.5px; letter-spacing:.04em; color:var(--ink-soft); text-align:center; font-weight:600}
+
+  .aij-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:18px}
+  .aij-card{background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:22px 24px; display:flex; flex-direction:column; gap:14px}
+  .aij-card-head{display:flex; gap:14px; align-items:flex-start}
+  .aij-avatar{width:54px; height:54px; border-radius:999px; display:flex; align-items:center; justify-content:center; flex:0 0 54px; box-shadow:0 4px 12px rgba(7,23,52,.10)}
+  .aij-avatar-f{background:linear-gradient(135deg, #C9A961 0%, #E8C77A 100%); color:var(--ink-deep)}
+  .aij-avatar-m{background:linear-gradient(135deg, #5D3A9B 0%, #7C5BB8 100%); color:var(--bone)}
+  .aij-avatar .material-symbols-rounded{font-size:26px}
+  .aij-id{flex:1; min-width:0}
+  .aij-name{font-family:var(--display); font-weight:600; font-size:17px; color:var(--ink-deep); margin:0; line-height:1.2}
+  .aij-title{font-family:var(--mono); font-size:11.5px; color:var(--ink-soft); line-height:1.4; margin-top:4px}
+  .aij-focus{font-family:var(--mono); font-size:11px; color:var(--bronze-dim); letter-spacing:.06em; text-transform:uppercase; padding:6px 10px; background:rgba(184,138,63,.08); border-radius:6px; font-weight:700}
+  .aij-critique{font-size:15px; line-height:1.65; color:var(--ink); font-family:var(--display); font-style:italic}
+  .aij-critique.aij-loading{font-style:normal; font-family:var(--mono); font-size:12.5px; color:var(--ink-soft); display:flex; align-items:center; gap:8px}
+  .aij-loading-pulse{display:inline-block; width:12px; height:12px; border-radius:999px; background:var(--bronze); animation:aijpulse 1.2s infinite}
+  @keyframes aijpulse{0%,100%{opacity:.3; transform:scale(0.85)} 50%{opacity:1; transform:scale(1)}}
+  .aij-tags{display:flex; flex-direction:column; gap:8px}
+  .aij-tag{padding:10px 12px; border-radius:8px; font-size:13.5px; line-height:1.55}
+  .aij-tag-label{font-family:var(--mono); font-size:10px; letter-spacing:.10em; text-transform:uppercase; font-weight:700; margin-bottom:4px}
+  .aij-tag-text{color:var(--ink); font-family:var(--sans)}
+  .aij-tag-strength{background:rgba(63,126,68,.08); border-left:3px solid #3F7E44}
+  .aij-tag-strength .aij-tag-label{color:#3F7E44}
+  .aij-tag-refine{background:rgba(184,138,63,.08); border-left:3px solid var(--bronze)}
+  .aij-tag-refine .aij-tag-label{color:var(--bronze-dim)}
+  .aij-unavail .aij-context{font-style:italic; color:var(--ink-soft)}
+  @media (max-width:720px){
+    .aij-header h2{font-size:24px}
+    .aij-shell{padding:22px 20px}
+    .aij-card{padding:20px}
+  }
 </style>
 </head>
 <body>
@@ -172,7 +218,7 @@
           </div>
           <div class="cert-foot">
             <div class="cert-flourish"></div>
-            <div class="sig">— Aj. Yungie · Programme Director, FUTUREPROOF</div>
+            <div class="sig">— Dr. Payungsak Kaenchan · Programme Director, FUTUREPROOF</div>
             <div class="date" id="cert-date">—</div>
             <div class="id" id="cert-id">—</div>
           </div>
@@ -208,14 +254,24 @@
 
   </div>
 
+  <!-- ─── AI Judges' Initial Critique (formative, advisory) ─── -->
+  <section class="ai-judges" aria-label="AI Judges' Initial Critique">
+    <div class="aij-header">
+      <h2>AI Judges' Initial Critique <span class="aij-eyebrow">— advisory only</span></h2>
+      <p class="aij-th">ผลวิจารณ์เบื้องต้นจาก AI — ใช้เป็นข้อเสนอแนะเท่านั้น</p>
+    </div>
+    <div id="ai-judges-root">
+      <!-- src/ai-judges.js renders here -->
+    </div>
+  </section>
+
   <section class="next-steps">
     <h3>What happens <em>next</em></h3>
     <p class="th">ขั้นตอนต่อไป</p>
     <ul>
-      <li><strong>Your teacher receives your submission</strong> in the admin grading queue and evaluates it with Rubric A.</li>
-      <li>If you consented, your work is considered for curation into the public <strong>Hall of Voices</strong>.</li>
-      <li>If you opted in to onward sharing, your teacher may propose your work to a real Thai youth SDG forum (with a further explicit opt-in before any specific forum).</li>
-      <li>The certificate and badge above are yours to keep — independent of the rubric result.</li>
+      <li><strong>Your teacher receives your submission</strong> in the admin grading queue and evaluates it with Rubric A — this is the official, final grade.</li>
+      <li>The three AI judges above have given you <strong>formative, advisory</strong> feedback only. They never grade and they never override the teacher's score.</li>
+      <li>Your certificate and badge above are yours to keep — independent of the rubric result.</li>
     </ul>
   </section>
 
@@ -223,6 +279,7 @@
 
 <script type="module" src="../src/a11y.js"></script>
 <script type="module" src="../src/certificate-gen.js"></script>
+<script type="module" src="../src/ai-judges.js"></script>
 
 </body>
 </html>

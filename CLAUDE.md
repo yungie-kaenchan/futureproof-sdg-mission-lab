@@ -1,6 +1,6 @@
 # CLAUDE.md — FUTUREPROOF Project Context
 
-This document is the authoritative context file for Claude Code working on the FUTUREPROOF: SDG Mission Lab project. It captures every architectural decision, pedagogical framework, design specification, and roadmap milestone established in collaboration with Aj. Yungie (Dr. Payungsak Kaenchan).
+This document is the authoritative context file for Claude Code working on the FUTUREPROOF: SDG Mission Lab project. It captures every architectural decision, pedagogical framework, design specification, and roadmap milestone established in collaboration with Dr. Payungsak Kaenchan (Dr. Payungsak Kaenchan).
 
 **Read this file fully before making any decisions on this project.**
 
@@ -11,7 +11,7 @@ This document is the authoritative context file for Claude Code working on the F
 **Full Name:** FUTUREPROOF: SDG Mission Lab
 **Thai Tagline:** ภารกิจเอสดีจีเพื่ออนาคต
 **Tagline (English):** "Where English Meets the World's Most Urgent Challenges"
-**Author:** Aj. Yungie (Dr. Payungsak Kaenchan), Faculty of Liberal Arts, Mahidol University & Thammasat University
+**Author:** Dr. Payungsak Kaenchan (Dr. Payungsak Kaenchan), Faculty of Liberal Arts, Mahidol University & Thammasat University
 **Domain:** Will be hosted at `futureproof.yungie.one` (Netlify subdomain of his existing brand)
 
 ---
@@ -498,14 +498,14 @@ futureproof/
 
 | Document | Lead | Status |
 |----------|------|--------|
-| Innovation Concept Document (10-12 pages, EN+TH) | Aj. Yungie + Claude | Day 2-7 |
+| Innovation Concept Document (10-12 pages, EN+TH) | Dr. Payungsak Kaenchan + Claude | Day 2-7 |
 | Theoretical Grounding Map (1-2 page visual) | Claude drafts | Day 2 |
 | Teacher's Guide (10-15 pages, TH primary) | Claude drafts | Day 18 |
 | Assessment Rubric Suite (4 rubrics) | Claude drafts | Day 14 |
 | Data Protection Impact Assessment (4-6 pages, TH legal) | Claude framework | Day 18 |
-| Video Demonstration (5-7 min, EN narration + TH subs) | Aj. Yungie records | Day 18 |
-| Live Platform URL with Demo Account | Aj. Yungie deploys | Throughout |
-| Submission Narrative (2-3 pages, TH primary) | Aj. Yungie writes | Day 18 |
+| Video Demonstration (5-7 min, EN narration + TH subs) | Dr. Payungsak Kaenchan records | Day 18 |
+| Live Platform URL with Demo Account | Dr. Payungsak Kaenchan deploys | Throughout |
+| Submission Narrative (2-3 pages, TH primary) | Dr. Payungsak Kaenchan writes | Day 18 |
 
 ---
 
@@ -544,7 +544,7 @@ futureproof/
 
 ---
 
-## 23. Aj. Yungie's Working Style (Important Context)
+## 23. Dr. Payungsak Kaenchan's Working Style (Important Context)
 
 - Wants honest critique over validation
 - Implements suggested fixes thoroughly
@@ -568,7 +568,7 @@ futureproof/
 5. Preserve all guardrails (especially Field Mentor in Section 9)
 6. Build with PDPA, UDL, mobile-first as defaults (Section 15)
 7. Keep documentation updated as features ship
-8. Ask Aj. Yungie before deviating from this document
+8. Ask Dr. Payungsak Kaenchan before deviating from this document
 
 **Default approach when starting a session:**
 1. Check current day in roadmap
@@ -602,7 +602,7 @@ futureproof/
 - ✅ Netlify deployment configuration
 - ✅ README documentation
 
-**Pending Aj. Yungie's actions:**
+**Pending Dr. Payungsak Kaenchan's actions:**
 - Deploy to Netlify
 - Set up custom subdomain (`futureproof.yungie.one`)
 - Provision Firebase project
@@ -652,4 +652,4 @@ npm run build
 
 **End of CLAUDE.md**
 
-This document supersedes any previous chat context. When in doubt, this is the source of truth. Aj. Yungie has reviewed and approved this architecture. The mission is clear. Build with discipline.
+This document supersedes any previous chat context. When in doubt, this is the source of truth. Dr. Payungsak Kaenchan has reviewed and approved this architecture. The mission is clear. Build with discipline.

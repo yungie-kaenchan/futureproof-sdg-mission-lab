@@ -35,7 +35,19 @@
   body{background:var(--paper); color:var(--ink-deep); font-family:var(--sans); margin:0; min-height:100vh; -webkit-font-smoothing:antialiased}
 
   /* Dark navy header — matches mission-run.html shell */
-  .shell-header{position:sticky; top:0; z-index:50; display:flex; align-items:center; justify-content:space-between; padding:14px 28px; background:rgba(7,23,52,0.96); backdrop-filter:blur(8px); border-bottom:1px solid rgba(232,199,122,.18); color:var(--bone)}
+  .shell-header{position:sticky; top:0; z-index:50; display:flex; align-items:center; justify-content:space-between; gap:18px; padding:14px 28px; background:rgba(7,23,52,0.96); backdrop-filter:blur(8px); border-bottom:1px solid rgba(232,199,122,.18); color:var(--bone)}
+  @media (max-width:720px){ .shell-header{padding:12px 16px; gap:10px} }
+
+  /* Final Task brand pill (replaces the confusing pulse-dot Step 12 status) */
+  .ft-brandpill{display:flex; flex-direction:column; align-items:center; padding:6px 18px; border-radius:12px; background:linear-gradient(135deg, rgba(184,138,63,.22) 0%, rgba(232,199,122,.10) 100%); border:1px solid rgba(232,199,122,.35); min-width:auto}
+  .ft-brandpill-eyebrow{font-family:var(--mono); font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--bronze-light); line-height:1.2}
+  .ft-brandpill-title{font-family:var(--titles); font-weight:700; font-size:14px; letter-spacing:.18em; text-transform:uppercase; color:var(--bone); line-height:1.2; margin-top:3px; display:flex; align-items:baseline; gap:8px; flex-wrap:wrap; justify-content:center}
+  .ft-brandpill-th{font-family:var(--th); font-weight:500; font-size:11px; letter-spacing:.04em; text-transform:none; color:rgba(232,199,122,.85)}
+  @media (max-width:720px){
+    .ft-brandpill-eyebrow{font-size:9px; letter-spacing:.14em}
+    .ft-brandpill-title{font-size:12px}
+    .ft-brandpill-th{display:none}
+  }
   .shell-header-brand{display:inline-flex; align-items:baseline; gap:14px; text-decoration:none; color:inherit}
   .shell-header-brand .logo{font-family:var(--titles); font-weight:700; font-size:18px; letter-spacing:.20em; color:var(--bone)}
   .shell-header-brand .sub{font-family:var(--titles); font-weight:600; font-size:11px; letter-spacing:.32em; color:rgba(244,241,234,.65); text-transform:uppercase; border-left:1px solid rgba(232,199,122,.22); padding-left:14px}
@@ -69,112 +81,142 @@
   .locked-screen .lk-btn.demo{background:linear-gradient(135deg, var(--bronze) 0%, var(--bronze-light) 100%); color:var(--ink-deep); font-weight:700; box-shadow:0 6px 18px rgba(181,124,52,.32)}
   .locked-screen .demo-note{margin-top:10px; font-family:var(--mono); font-size:10px; color:var(--ink-soft); max-width:440px; line-height:1.5}
 
-  main{max-width:1320px; margin:0 auto; padding:32px 24px 96px}
+  main{max-width:1320px; margin:0 auto; padding:32px 24px 96px; font-size:16px}
   @media (max-width:980px){ main{padding:24px 16px 80px} }
+
+  /* ── Student-friendly brief (top of page) ─────────────────────── */
+  .task-brief{background:var(--white); border:1px solid var(--line); border-radius:16px; padding:32px 36px; margin-bottom:28px; box-shadow:0 4px 14px rgba(7,23,52,.05)}
+  .task-brief-head{margin-bottom:24px; padding-bottom:18px; border-bottom:1px solid var(--line)}
+  .task-brief-eyebrow{font-family:var(--mono); font-size:13px; letter-spacing:.18em; text-transform:uppercase; color:var(--bronze-dim); margin-bottom:8px; font-weight:700}
+  .task-brief-title{font-family:var(--display); font-weight:400; font-size:28px; color:var(--ink-deep); margin:0; line-height:1.25}
+  .task-brief-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:18px}
+  .tb-step{padding:18px 20px; background:var(--paper); border-radius:12px; border-left:4px solid var(--bronze)}
+  .tb-step-num{display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px; border-radius:999px; background:var(--ink-deep); color:var(--bone); font-family:var(--mono); font-size:15px; font-weight:700; margin-bottom:10px}
+  .tb-step h3{font-family:var(--display); font-weight:500; font-size:18px; color:var(--ink-deep); margin:0 0 8px}
+  .tb-step p{margin:0; font-size:15.5px; line-height:1.65; color:var(--ink)}
+  .tb-step p strong{color:var(--ink-deep)}
+  .tb-step p em{color:var(--bronze-dim); font-style:italic}
+  .task-brief-note{display:block; margin-top:24px; padding:18px 22px; background:rgba(184,138,63,.08); border-radius:12px; border-left:4px solid var(--bronze); font-size:15px; line-height:1.65; color:var(--ink)}
+  .task-brief-note strong{color:var(--bronze-dim)}
+  .task-brief-note .th{display:block; margin-top:10px; font-family:var(--th); font-size:14px; color:var(--ink-soft)}
+  @media (max-width:720px){
+    .task-brief{padding:24px 22px}
+    .task-brief-title{font-size:24px}
+  }
 
   .grant-brief{background:var(--paper-warm); color:var(--ink-deep); border-radius:18px; padding:48px 56px; margin-bottom:36px; border:1px solid rgba(184,138,63,.30); box-shadow:0 12px 32px rgba(7,23,52,.10), 0 2px 8px rgba(7,23,52,.06); position:relative; overflow:hidden}
   .grant-brief::before{content:""; position:absolute; inset:18px; border:1px solid rgba(184,138,63,.20); border-radius:12px; pointer-events:none}
   .grant-brief::after{content:"CONFIDENTIAL · เฉพาะผู้รับ"; position:absolute; top:32px; right:32px; font-family:var(--mono); font-size:10px; letter-spacing:.18em; color:rgba(168,36,36,.7); transform:rotate(8deg)}
-  .gb-eyebrow{font-family:var(--mono); font-size:11px; letter-spacing:.20em; text-transform:uppercase; color:var(--bronze-dim); margin-bottom:18px}
-  .gb-title{font-family:var(--titles); font-weight:600; font-size:30px; letter-spacing:.04em; color:var(--ink-deep); margin:0 0 4px; line-height:1.2}
-  .gb-title-th{font-family:var(--th); font-weight:500; font-size:22px; color:var(--purple); margin:0 0 22px}
-  .gb-amount{display:inline-block; padding:6px 16px; border-radius:8px; background:rgba(184,138,63,.12); color:var(--bronze-dim); font-family:var(--mono); font-size:14px; font-weight:700; letter-spacing:.06em; margin-bottom:22px}
-  .gb-amount .baht{font-size:18px; vertical-align:-1px}
+  .gb-eyebrow{font-family:var(--mono); font-size:12px; letter-spacing:.20em; text-transform:uppercase; color:var(--crimson); margin-bottom:18px; font-weight:700}
+  .gb-title{font-family:var(--titles); font-weight:600; font-size:34px; letter-spacing:.04em; color:var(--ink-deep); margin:0 0 4px; line-height:1.2}
+  .gb-title-th{font-family:var(--th); font-weight:500; font-size:24px; color:var(--purple); margin:0 0 22px}
+  .gb-amount{display:inline-block; padding:8px 18px; border-radius:8px; background:rgba(184,138,63,.12); color:var(--bronze-dim); font-family:var(--mono); font-size:16px; font-weight:700; letter-spacing:.06em; margin-bottom:22px}
+  .gb-amount .baht{font-size:20px; vertical-align:-1px}
+  .gb-amount-note{font-family:var(--sans); font-style:italic; font-weight:400; font-size:13px; color:var(--crimson); margin-left:10px; letter-spacing:0; text-transform:none}
   .gb-funders{display:grid; grid-template-columns:1fr 1fr; gap:14px; padding:18px 0; border-top:1px solid rgba(7,23,52,.10); border-bottom:1px solid rgba(7,23,52,.10); margin-bottom:24px}
   @media (max-width:720px){ .gb-funders{grid-template-columns:1fr} }
   .gb-funder strong{display:block; font-size:13px; color:var(--ink-deep)}
   .gb-funder .th{display:block; font-family:var(--th); font-size:12px; color:var(--ink-soft); margin-top:2px}
-  .gb-body{font-size:15.5px; line-height:1.75; color:var(--ink-deep); margin:0 0 14px}
-  .gb-body strong{color:var(--purple)}
-  .gb-criteria{background:var(--paper-warm); padding:22px 28px; border-radius:12px; border:1px solid rgba(184,138,63,.20); margin:18px 0}
-  .gb-criteria ol{margin:0; padding-left:22px; counter-reset:gbc}
-  .gb-criteria li{list-style:none; counter-increment:gbc; padding:8px 0 8px 38px; position:relative; line-height:1.6; font-size:14.5px}
-  .gb-criteria li::before{content:counter(gbc); position:absolute; left:0; top:8px; width:26px; height:26px; border-radius:999px; background:var(--purple); color:var(--paper); display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:12px; font-weight:700}
+  .gb-body{font-size:17px; line-height:1.75; color:var(--ink-deep); margin:0 0 14px}
+  .gb-body strong{color:var(--purple); font-weight:700}
+  .gb-criteria{background:var(--white); padding:24px 30px; border-radius:12px; border:1px solid rgba(184,138,63,.30); margin:20px 0}
+  .gb-criteria ol{margin:0; padding-left:24px; counter-reset:gbc}
+  .gb-criteria li{list-style:none; counter-increment:gbc; padding:10px 0 10px 44px; position:relative; line-height:1.7; font-size:16px; color:var(--ink-deep)}
+  .gb-criteria li strong{color:var(--purple)}
+  .gb-criteria li::before{content:counter(gbc); position:absolute; left:0; top:10px; width:30px; height:30px; border-radius:999px; background:var(--purple); color:var(--white); display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:13px; font-weight:700}
   .gb-signature{text-align:right; margin-top:28px; padding-top:18px; border-top:1px solid rgba(7,23,52,.10); font-family:var(--display); font-style:italic; font-size:15px; color:var(--ink-soft)}
   .gb-signature .name{font-family:var(--display); font-style:normal; font-weight:600; font-size:17px; color:var(--ink-deep); display:block; margin-bottom:2px}
 
   /* All section cards · LIGHT THEME — white surface on cream body */
-  .ft-section{background:var(--white); border:1px solid var(--line); border-radius:14px; padding:28px 32px; margin-bottom:24px; box-shadow:0 4px 14px rgba(7,23,52,.04)}
-  .ft-section h2{font-family:var(--display); font-weight:400; font-size:24px; color:var(--ink-deep); margin:0 0 6px; line-height:1.3}
+  .ft-section{background:var(--white); border:1px solid var(--line); border-radius:14px; padding:32px 36px; margin-bottom:26px; box-shadow:0 4px 14px rgba(7,23,52,.05)}
+  .ft-section h2{font-family:var(--display); font-weight:500; font-size:28px; color:var(--ink-deep); margin:0 0 8px; line-height:1.25}
   .ft-section h2 em{font-style:italic; color:var(--bronze-dim)}
-  .ft-section .h2-th{font-family:var(--th); font-size:14px; color:var(--ink-soft); margin:0 0 18px}
-  .ft-section .h2-hint{font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--bronze-dim); margin-bottom:18px}
+  .ft-section .h2-th{font-family:var(--th); font-size:16px; color:var(--ink-soft); margin:0 0 20px}
+  .ft-section .h2-hint{font-family:var(--mono); font-size:12.5px; letter-spacing:.10em; text-transform:uppercase; color:var(--bronze-dim); margin-bottom:20px; font-weight:700}
 
-  /* Rubric (collapsible) — light card */
-  .rubric{border-radius:12px; background:var(--paper); border:1px solid var(--line); padding:18px 22px}
-  .rubric summary{cursor:pointer; list-style:none; font-family:var(--mono); font-size:12px; letter-spacing:.10em; color:var(--bronze-dim); display:flex; align-items:center; gap:8px; user-select:none; font-weight:700}
+  /* Rubric (collapsible) — light card, simplified */
+  .rubric{border-radius:12px; background:var(--paper); border:1px solid var(--line); padding:22px 26px}
+  .rubric summary{cursor:pointer; list-style:none; font-family:var(--mono); font-size:13px; letter-spacing:.10em; color:var(--bronze-dim); display:flex; align-items:center; gap:8px; user-select:none; font-weight:700}
   .rubric summary::-webkit-details-marker{display:none}
   .rubric summary .chev{transition:transform .25s ease-out}
   .rubric[open] summary .chev{transform:rotate(90deg)}
-  .rubric-dim{padding:14px 0; border-top:1px solid var(--line)}
-  .rubric-dim:first-of-type{border-top:1px solid var(--line-strong); margin-top:14px}
-  .rubric-dim h4{font-family:var(--display); font-weight:500; font-size:15.5px; color:var(--ink-deep); margin:0 0 6px}
-  .rubric-dim .weight{font-family:var(--mono); font-size:10px; color:var(--bronze-dim); margin-left:8px}
-  .rubric-dim table{width:100%; border-collapse:collapse; margin-top:6px; font-size:13px; line-height:1.55; color:var(--ink)}
-  .rubric-dim td{padding:6px 10px; vertical-align:top}
-  .rubric-dim td:first-child{width:48px; font-family:var(--mono); color:var(--bronze-dim); font-weight:700; text-align:right}
+  .rubric-dim{padding:18px 0; border-top:1px solid var(--line)}
+  .rubric-dim:first-of-type{border-top:1px solid var(--line-strong); margin-top:16px}
+  .rubric-dim h4{font-family:var(--display); font-weight:500; font-size:18px; color:var(--ink-deep); margin:0 0 4px}
+  .rubric-dim .what{font-size:14.5px; color:var(--ink-soft); margin:0 0 12px; line-height:1.5; font-style:italic}
+  .rubric-dim .weight{font-family:var(--mono); font-size:11px; color:var(--bronze-dim); margin-left:10px; font-weight:700}
+  .rubric-dim table{width:100%; border-collapse:collapse; margin-top:6px; font-size:15px; line-height:1.6; color:var(--ink)}
+  .rubric-dim td{padding:9px 12px; vertical-align:top}
+  .rubric-dim td:first-child{width:60px; font-family:var(--mono); color:var(--bronze-dim); font-weight:700; text-align:right; font-size:14px}
 
-  /* Five-part requirements — light cards */
-  .reqs{margin:0; padding:0; list-style:none; display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:14px}
-  .reqs li{background:var(--paper); border:1px solid var(--line); border-radius:10px; padding:14px 16px; position:relative}
-  .reqs .num{display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; border-radius:999px; background:var(--bronze); color:var(--white); font-family:var(--mono); font-size:13px; font-weight:700; margin-bottom:10px}
-  .reqs .label{font-family:var(--display); font-weight:500; font-size:15.5px; color:var(--ink-deep); display:block; margin-bottom:4px}
-  .reqs .th{font-family:var(--th); font-size:12.5px; color:var(--ink-soft); display:block; margin-bottom:8px}
-  .reqs .hint{font-size:13px; line-height:1.55; color:var(--ink)}
+  /* Five-part requirements — light cards, expanded explanation */
+  .reqs{margin:0; padding:0; list-style:none; display:grid; grid-template-columns:repeat(auto-fit, minmax(360px,1fr)); gap:18px}
+  .reqs li{background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:22px 24px; position:relative; display:flex; flex-direction:column; gap:8px}
+  .reqs .num{display:inline-flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:999px; background:var(--bronze); color:var(--white); font-family:var(--mono); font-size:16px; font-weight:700; margin-bottom:6px}
+  .reqs .label{font-family:var(--display); font-weight:500; font-size:20px; color:var(--ink-deep); display:block; line-height:1.25}
+  .reqs .th{font-family:var(--th); font-size:14.5px; color:var(--purple); display:block; margin-bottom:4px}
+  .reqs .hint{font-size:15px; line-height:1.65; color:var(--ink); display:block}
+  .reqs .hint strong{color:var(--ink-deep); font-weight:700}
+  .reqs .hint em{color:var(--bronze-dim); font-style:italic; font-weight:600}
+  .reqs .example{display:block; margin-top:8px; padding:12px 14px; background:var(--white); border-left:3px solid var(--bronze); border-radius:6px; font-size:14px; line-height:1.6; color:var(--ink-soft); font-style:italic}
+  .reqs .example strong{display:block; color:var(--bronze-dim); font-style:normal; font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; margin-bottom:4px; font-weight:700}
 
-  /* Evidence trail · light theme, SDG colours preserved */
-  .evidence-trail{position:relative; padding-left:8px; margin-top:18px}
-  .evidence-trail::before{content:""; position:absolute; left:14px; top:8px; bottom:8px; width:2px; background:linear-gradient(180deg, var(--bronze) 0%, rgba(184,138,63,.30) 50%, var(--bronze) 100%)}
-  .ev{position:relative; padding:14px 0 14px 44px; margin-bottom:6px; opacity:0; transform:translateY(8px); transition:opacity .5s ease-out, transform .5s ease-out}
+  /* Evidence trail · light theme, SDG colours preserved, BIGGER */
+  .evidence-trail{position:relative; padding-left:8px; margin-top:20px}
+  .evidence-trail::before{content:""; position:absolute; left:16px; top:8px; bottom:8px; width:3px; background:linear-gradient(180deg, var(--bronze) 0%, rgba(184,138,63,.30) 50%, var(--bronze) 100%); border-radius:999px}
+  .ev{position:relative; padding:16px 0 16px 50px; margin-bottom:8px; opacity:0; transform:translateY(8px); transition:opacity .5s ease-out, transform .5s ease-out}
   .ev.in{opacity:1; transform:translateY(0)}
-  .ev::before{content:""; position:absolute; left:6px; top:18px; width:18px; height:18px; border-radius:4px; transform:rotate(45deg); background:var(--sdg-color, var(--bronze)); box-shadow:0 0 0 3px var(--white), 0 0 12px var(--sdg-color, var(--bronze))}
-  .ev .ev-head{display:flex; align-items:baseline; gap:10px; margin-bottom:6px; flex-wrap:wrap}
-  .ev .sdg{font-family:var(--mono); font-size:10px; letter-spacing:.10em; color:var(--white); font-weight:700; padding:3px 9px; border-radius:4px; background:var(--sdg-color, var(--bronze))}
-  .ev .region{font-family:var(--mono); font-size:10px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.12em}
-  .ev .title{font-family:var(--display); font-style:italic; font-size:17px; color:var(--ink-deep); flex-basis:100%; margin-top:4px}
-  .ev .commitment{font-family:var(--display); font-style:italic; font-size:15.5px; line-height:1.65; color:var(--ink); margin:6px 0 0; padding:12px 16px; background:var(--paper); border-radius:8px; border-left:3px solid var(--sdg-color, var(--bronze))}
-  .ev .commitment.missing{font-style:normal; color:var(--ink-soft); font-size:13px; background:rgba(7,23,52,.03); border-left-color:var(--line-strong)}
+  .ev::before{content:""; position:absolute; left:6px; top:20px; width:22px; height:22px; border-radius:4px; transform:rotate(45deg); background:var(--sdg-color, var(--bronze)); box-shadow:0 0 0 3px var(--white), 0 0 12px var(--sdg-color, var(--bronze))}
+  .ev .ev-head{display:flex; align-items:baseline; gap:12px; margin-bottom:8px; flex-wrap:wrap}
+  .ev .sdg{font-family:var(--mono); font-size:11px; letter-spacing:.10em; color:var(--white); font-weight:700; padding:4px 10px; border-radius:4px; background:var(--sdg-color, var(--bronze))}
+  .ev .region{font-family:var(--mono); font-size:11.5px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.12em}
+  .ev .title{font-family:var(--display); font-style:italic; font-size:19px; color:var(--ink-deep); flex-basis:100%; margin-top:4px}
+  .ev .commitment{font-family:var(--display); font-style:italic; font-size:17px; line-height:1.7; color:var(--ink); margin:8px 0 0; padding:16px 20px; background:var(--paper); border-radius:8px; border-left:4px solid var(--sdg-color, var(--bronze))}
+  .ev .commitment.missing{font-style:normal; color:var(--ink-soft); font-size:14.5px; background:rgba(7,23,52,.03); border-left-color:var(--line-strong)}
 
-  /* Audience picker — light tiles */
-  .audiences{display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:12px; margin-top:14px}
-  .aud{display:block; cursor:pointer; padding:16px 18px; border-radius:10px; background:var(--paper); border:1px solid var(--line); transition:border-color .15s, background .15s, box-shadow .15s; position:relative}
+  /* Audience picker — bigger */
+  .audiences{display:grid; grid-template-columns:repeat(auto-fit, minmax(300px,1fr)); gap:14px; margin-top:16px}
+  .aud{display:block; cursor:pointer; padding:20px 22px; border-radius:12px; background:var(--paper); border:1px solid var(--line); transition:border-color .15s, background .15s, box-shadow .15s; position:relative}
   .aud:hover{border-color:var(--bronze)}
   .aud input{position:absolute; opacity:0; pointer-events:none}
   .aud:has(input:checked){border-color:var(--bronze); background:rgba(184,138,63,.06); box-shadow:0 0 0 2px rgba(184,138,63,.20)}
-  .aud .aud-en{font-family:var(--display); font-weight:500; font-size:15px; color:var(--ink-deep); display:block}
-  .aud .aud-th{font-family:var(--th); font-size:12.5px; color:var(--ink-soft); display:block; margin:2px 0 6px}
-  .aud .aud-sdg{font-family:var(--mono); font-size:10px; letter-spacing:.10em; color:var(--bronze-dim); font-weight:700}
+  .aud .aud-en{font-family:var(--display); font-weight:500; font-size:17px; color:var(--ink-deep); display:block; line-height:1.3}
+  .aud .aud-th{font-family:var(--th); font-size:14px; color:var(--purple); display:block; margin:4px 0 8px}
+  .aud .aud-sdg{font-family:var(--mono); font-size:11px; letter-spacing:.10em; color:var(--bronze-dim); font-weight:700}
 
-  /* Lane picker — light */
-  .lanes{display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:14px; margin-top:14px}
-  .lane{display:flex; flex-direction:column; gap:6px; cursor:pointer; padding:18px 20px; border-radius:12px; background:var(--paper); border:1px solid var(--line); transition:border-color .15s, background .15s, transform .15s, box-shadow .15s; position:relative}
+  /* Lane picker — bigger */
+  .lanes{display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:16px; margin-top:16px}
+  .lane{display:flex; flex-direction:column; gap:6px; cursor:pointer; padding:24px 26px; border-radius:14px; background:var(--paper); border:1px solid var(--line); transition:border-color .15s, background .15s, transform .15s, box-shadow .15s; position:relative}
   .lane:hover{border-color:var(--bronze); transform:translateY(-2px)}
   .lane input{position:absolute; opacity:0}
   .lane:has(input:checked){border-color:var(--bronze); background:rgba(184,138,63,.06); box-shadow:0 0 0 2px rgba(184,138,63,.20)}
-  .lane .icon{font-size:28px}
-  .lane .lane-name{font-family:var(--display); font-weight:500; font-size:17px; color:var(--ink-deep)}
-  .lane .lane-name-th{font-family:var(--th); font-size:13px; color:var(--ink-soft)}
-  .lane .desc{font-size:13px; color:var(--ink); line-height:1.55; margin-top:4px}
+  .lane .icon{font-size:36px}
+  .lane .lane-name{font-family:var(--display); font-weight:500; font-size:20px; color:var(--ink-deep)}
+  .lane .lane-name-th{font-family:var(--th); font-size:14.5px; color:var(--purple)}
+  .lane .desc{font-size:15px; color:var(--ink); line-height:1.6; margin-top:6px}
 
-  /* Recorder — light surface */
-  .recorder{background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:22px 26px; margin-top:18px}
-  .rec-stage{display:flex; align-items:center; gap:18px; flex-wrap:wrap}
-  .rec-stage .avatar-frame{width:96px; height:96px; border-radius:14px; overflow:hidden; background:var(--white); border:1px solid var(--line-strong); display:flex; align-items:center; justify-content:center; flex:0 0 96px}
+  /* Recorder — light surface, BIGGER, video display dominant */
+  .recorder{background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:28px 30px; margin-top:20px}
+  .rec-stage{display:flex; align-items:center; gap:22px; flex-wrap:wrap}
+  .rec-stage .avatar-frame{width:140px; height:140px; border-radius:16px; overflow:hidden; background:var(--white); border:1px solid var(--line-strong); display:flex; align-items:center; justify-content:center; flex:0 0 140px}
   .rec-stage .avatar-frame img{width:100%; height:100%; object-fit:cover}
-  .rec-stage .avatar-frame .placeholder{font-family:var(--mono); font-size:10px; color:var(--ink-soft); text-align:center; padding:8px}
-  .rec-stage video.cam{width:160px; height:120px; border-radius:10px; background:#000; border:1px solid var(--line-strong); object-fit:cover; display:none}
+  .rec-stage .avatar-frame .placeholder{font-family:var(--mono); font-size:11px; color:var(--ink-soft); text-align:center; padding:8px}
+  /* Bigger video stage — when on, becomes a real preview */
+  .rec-stage video.cam{width:420px; height:315px; max-width:100%; border-radius:14px; background:#000; border:2px solid var(--bronze); object-fit:cover; display:none; flex:0 0 auto; box-shadow:0 8px 24px rgba(7,23,52,.20)}
   .rec-stage video.cam.live{display:block}
-  .rec-stage .meter{flex:1; min-width:200px}
-  .rec-stage .level-bar{width:100%; height:8px; border-radius:999px; background:rgba(7,23,52,.06); overflow:hidden; margin-bottom:8px}
+  /* When video is live, hide the static avatar frame */
+  .rec-stage:has(video.cam.live) .avatar-frame{display:none}
+  .rec-stage .meter{flex:1; min-width:240px}
+  .rec-stage .level-bar{width:100%; height:10px; border-radius:999px; background:rgba(7,23,52,.06); overflow:hidden; margin-bottom:10px}
   .rec-stage .level-fill{height:100%; width:0%; background:linear-gradient(90deg, var(--bronze) 0%, var(--bronze-light) 60%, var(--crimson) 100%); transition:width .12s ease-out}
-  .rec-stage .timer{font-family:var(--mono); font-size:18px; color:var(--ink-deep); letter-spacing:.06em; font-weight:700}
-  .rec-stage .timer .target{font-size:11px; color:var(--ink-soft); margin-left:8px; font-weight:400}
-  .rec-stage .status-chip{display:inline-flex; align-items:center; gap:8px; padding:6px 12px; border-radius:999px; font-family:var(--mono); font-size:10px; letter-spacing:.10em; text-transform:uppercase; margin-top:4px; font-weight:700}
+  .rec-stage .timer{font-family:var(--mono); font-size:24px; color:var(--ink-deep); letter-spacing:.06em; font-weight:700}
+  .rec-stage .timer .target{font-size:13px; color:var(--ink-soft); margin-left:10px; font-weight:400; display:block; margin-top:2px}
+  .rec-stage .status-chip{display:inline-flex; align-items:center; gap:8px; padding:8px 14px; border-radius:999px; font-family:var(--mono); font-size:11.5px; letter-spacing:.10em; text-transform:uppercase; margin-top:8px; font-weight:700}
   .rec-stage .status-chip.idle{background:rgba(7,23,52,.04); color:var(--ink-soft); border:1px solid var(--line)}
   .rec-stage .status-chip.recording{background:rgba(168,36,36,.10); color:var(--crimson); border:1px solid rgba(168,36,36,.25)}
   .rec-stage .status-chip.recording .dot{width:8px; height:8px; border-radius:999px; background:var(--crimson); animation:pulse 1.2s infinite}
-  .rec-controls{display:flex; gap:10px; margin-top:18px; flex-wrap:wrap}
-  .rec-btn{display:inline-flex; align-items:center; gap:8px; padding:10px 18px; border-radius:999px; cursor:pointer; border:none; font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; transition:transform .15s, background .15s; font-weight:700}
+  .rec-controls{display:flex; gap:12px; margin-top:22px; flex-wrap:wrap}
+  .rec-btn{display:inline-flex; align-items:center; gap:8px; padding:14px 24px; border-radius:999px; cursor:pointer; border:none; font-family:var(--mono); font-size:13px; letter-spacing:.12em; text-transform:uppercase; transition:transform .15s, background .15s; font-weight:700}
   .rec-btn:hover{transform:translateY(-1px)}
   .rec-btn.start{background:var(--crimson); color:var(--white)}
   .rec-btn.stop{background:var(--white); color:var(--bronze-dim); border:1px solid var(--bronze)}
@@ -194,15 +236,26 @@
   .upload-zone .hint{margin-top:10px; font-size:12.5px; color:var(--ink-soft); font-family:var(--mono); letter-spacing:.04em}
   .upload-zone .filename{margin-top:8px; font-family:var(--mono); font-size:12.5px; color:var(--bronze-dim); font-weight:700}
 
-  /* Transcript — light input */
-  .transcript{margin-top:18px}
-  .transcript label{display:block; font-family:var(--mono); font-size:11px; letter-spacing:.12em; color:var(--bronze-dim); text-transform:uppercase; margin-bottom:8px; font-weight:700}
-  .transcript textarea{width:100%; min-height:180px; padding:14px 16px; border-radius:10px; background:var(--white); color:var(--ink-deep); border:1px solid var(--line-strong); font-family:var(--sans); font-size:14.5px; line-height:1.6; resize:vertical; box-sizing:border-box}
+  /* Transcript — bigger */
+  .transcript{margin-top:22px}
+  .transcript label{display:block; font-family:var(--mono); font-size:13px; letter-spacing:.12em; color:var(--bronze-dim); text-transform:uppercase; margin-bottom:10px; font-weight:700}
+  .transcript textarea{width:100%; min-height:240px; padding:18px 20px; border-radius:12px; background:var(--white); color:var(--ink-deep); border:1px solid var(--line-strong); font-family:var(--sans); font-size:16px; line-height:1.65; resize:vertical; box-sizing:border-box}
   .transcript textarea:focus{outline:none; border-color:var(--bronze); box-shadow:0 0 0 3px rgba(184,138,63,.15)}
-  .transcript .meta{display:flex; justify-content:space-between; margin-top:6px; font-family:var(--mono); font-size:11px; color:var(--ink-soft); letter-spacing:.04em}
+  .transcript .meta{display:flex; justify-content:space-between; margin-top:8px; font-family:var(--mono); font-size:13px; color:var(--ink-soft); letter-spacing:.04em}
   .transcript .meta .ok{color:var(--bronze-dim); font-weight:700}
 
-  /* Compass coach — light */
+  /* Compass trigger button — dark, matches the mission-page Compass button */
+  .compass-trigger-wrap{display:flex; justify-content:center; margin:6px 0 26px}
+  .compass-trigger{display:inline-flex; align-items:center; gap:14px; padding:16px 28px; border-radius:999px; border:none; cursor:pointer; background:var(--ink-deep); color:var(--bone); font-family:var(--mono); font-size:13px; letter-spacing:.10em; text-transform:uppercase; font-weight:700; box-shadow:0 8px 24px rgba(7,23,52,.20); transition:transform .15s, background .15s; min-width:280px; justify-content:flex-start}
+  .compass-trigger:hover{transform:translateY(-2px); background:#0A1A3D}
+  .compass-trigger .material-symbols-rounded{font-size:22px; color:var(--bronze-light)}
+  .compass-trigger-label{display:flex; flex-direction:column; align-items:flex-start; flex:1; line-height:1.2}
+  .compass-trigger-label strong{font-size:15px; letter-spacing:.04em; text-transform:none; font-family:var(--display); font-weight:600; color:var(--bone)}
+  .compass-trigger-label span{font-family:var(--th); font-size:11.5px; letter-spacing:.02em; color:var(--bronze-light); text-transform:none; font-weight:400; margin-top:2px}
+  .compass-trigger-chev{font-size:14px; color:var(--bronze-light); transition:transform .25s}
+  .compass-trigger[aria-expanded="true"] .compass-trigger-chev{transform:rotate(180deg)}
+
+  /* Compass coach panel — light, only visible when expanded */
   .compass-panel{background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:20px 22px; margin-top:18px}
   .compass-panel header{display:flex; align-items:center; gap:10px; margin-bottom:12px}
   .compass-panel header .badge{width:32px; height:32px; border-radius:999px; background:var(--bronze); color:var(--white); display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-weight:700}
@@ -248,12 +301,9 @@
     <span class="logo">FUTUREPROOF</span>
     <span class="sub">SDGs Mission Journey</span>
   </a>
-  <div class="shell-header-status">
-    <span class="live-dot" aria-hidden="true"></span>
-    <div>
-      <div class="shell-header-status-label">Final Task · Step 12</div>
-      <div class="shell-header-status-title">Voice for Change · เสียงเพื่อการเปลี่ยนแปลง</div>
-    </div>
+  <div class="ft-brandpill" aria-label="FUTUREPROOF Final Task — Voice for Change">
+    <div class="ft-brandpill-eyebrow">FUTUREPROOF · Final Task</div>
+    <div class="ft-brandpill-title">Voice for Change <span class="ft-brandpill-th">เสียงเพื่อการเปลี่ยนแปลง</span></div>
   </div>
   <a href="./mission-select.html" class="shell-header-btn">&larr; Back</a>
 </header>
@@ -279,11 +329,52 @@
 
   <div id="ft-content" hidden>
 
-    <article class="grant-brief" aria-label="Thailand SDG Catalyst Grant 2026 — letter of notification">
-      <div class="gb-eyebrow">LETTER OF NOTIFICATION · จดหมายแจ้งผล</div>
+    <!-- ─── Student-friendly brief · classroom-style task instructions ─── -->
+    <section class="task-brief">
+      <header class="task-brief-head">
+        <div class="task-brief-eyebrow">How this task works · วิธีทำภารกิจสุดท้าย</div>
+        <h2 class="task-brief-title">Read this first, before you start.</h2>
+      </header>
+
+      <div class="task-brief-grid">
+        <div class="tb-step">
+          <div class="tb-step-num">1</div>
+          <h3>Read the situation below</h3>
+          <p>You will be given a <strong>pretend scenario</strong>: you have been shortlisted for a one-million-baht Thai SDG grant. The grant is <strong>not real</strong> — it is a classroom simulation. Your job is to <em>speak as if it were real</em>, because that is how you learn to argue under pressure.</p>
+        </div>
+        <div class="tb-step">
+          <div class="tb-step-num">2</div>
+          <h3>Pick one Thai audience</h3>
+          <p>You will choose <strong>one real Thai institution</strong> to address — for example, the BMA Drainage Department or UNDP Thailand. You are speaking to <em>them</em>, not to your teacher. The platform records your choice; it does not send anything to the institution.</p>
+        </div>
+        <div class="tb-step">
+          <div class="tb-step-num">3</div>
+          <h3>Use your evidence trail</h3>
+          <p>The platform shows your <strong>six commitments</strong> from the six missions you completed — in your own words. Use any of them. Use all of them. They prove your argument was earned, not invented.</p>
+        </div>
+        <div class="tb-step">
+          <div class="tb-step-num">4</div>
+          <h3>Record a 2–5 minute proposal</h3>
+          <p>You can <strong>record live</strong> (audio or video) or <strong>upload a file</strong>. The system writes a transcript for you while you speak. You can edit it before you submit. Aim for 200–500 words in your transcript.</p>
+        </div>
+        <div class="tb-step">
+          <div class="tb-step-num">5</div>
+          <h3>Submit when you're ready</h3>
+          <p>Your work goes to your <strong>teacher</strong> for grading with Rubric A — the rubric is shown below, so you can see exactly how you'll be marked. Three AI judges will also give you <em>advisory</em> feedback right after you submit, but they never replace your teacher's grade.</p>
+        </div>
+      </div>
+
+      <aside class="task-brief-note">
+        <strong>One important note.</strong> The grant scenario is a <strong>simulation</strong> — no real money is awarded. It is the language, the argument, and the evidence that earn your grade. Take the simulation seriously, because that is the skill you will carry into your actual career.
+        <span class="th">ทุนในเรื่องเป็นสถานการณ์จำลองเพื่อการเรียนรู้ — ไม่มีเงินรางวัลจริง การให้คะแนนพิจารณาจากภาษา การให้เหตุผล และหลักฐานที่นำเสนอ</span>
+      </aside>
+    </section>
+
+    <article class="grant-brief" aria-label="Thailand SDG Catalyst Grant 2026 — simulation letter">
+      <div class="gb-eyebrow">CLASSROOM SIMULATION · LETTER OF NOTIFICATION (FICTIONAL) · สถานการณ์จำลอง</div>
       <h1 class="gb-title">The Thailand SDG Catalyst Grant · 2026</h1>
-      <p class="gb-title-th">ทุน SDG ประเทศไทย ประจำปี 2026</p>
-      <div class="gb-amount"><span class="baht">฿</span>1,000,000</div>
+      <p class="gb-title-th">ทุน SDG ประเทศไทย ประจำปี 2026 (สถานการณ์จำลอง)</p>
+      <div class="gb-amount"><span class="baht">฿</span>1,000,000 <span class="gb-amount-note">— pretend grant</span></div>
 
       <div class="gb-funders">
         <div class="gb-funder">
@@ -296,28 +387,30 @@
         </div>
       </div>
 
-      <p class="gb-body">Your team has been <strong>shortlisted</strong> for a Thailand SDG Catalyst Grant of <strong>one million baht</strong>.</p>
+      <p class="gb-body">Imagine that the Thai government and the United Nations have started a new grant programme. Each year, they choose <strong>one student team</strong> to receive one million baht for a community project that helps Thailand meet the Sustainable Development Goals.</p>
 
-      <p class="gb-body">You have, over the past weeks, walked six of the communities the Catalyst Grant prioritises this cycle: <strong>Khon Kaen</strong>, <strong>Chiang Mai</strong>, <strong>Bangkok</strong>, the <strong>Andaman coast</strong>, <strong>Mae Sot</strong>, and the <strong>EEC fringe</strong>. You have read their dossiers. You have heard their voices. You have decided under pressure.</p>
+      <p class="gb-body">Now imagine this: <strong>You</strong> have been chosen as a finalist.</p>
 
-      <p class="gb-body">The committee meets next Friday. They will not award the million baht to a wish, a slogan, or a sentiment. They will award it to <strong>one proposal</strong> that:</p>
+      <p class="gb-body">Over the past weeks, you visited six Thai communities through this platform: <strong>Khon Kaen</strong> (the dry-season aquifer), <strong>Chiang Mai</strong> (the burning season), <strong>Bangkok</strong> (the klong and the flood corridor), the <strong>Andaman coast</strong> (the reef and the tourism quota), <strong>Mae Sot</strong> (the migrant children's schools), and the <strong>EEC fringe villages</strong> (the elder-and-child households). You read their stories. You heard the people speak. You made hard choices.</p>
+
+      <p class="gb-body">The grant committee will meet next Friday. They will not give the money to a slogan or a wish. They will give it to <strong>one proposal</strong> that follows these five rules:</p>
 
       <div class="gb-criteria">
         <ol>
-          <li><strong>Addresses a real Thai audience by name</strong> — not your teacher, not "the public."</li>
-          <li><strong>Builds on the lived evidence you committed to during the missions</strong> — not aspirational claims.</li>
-          <li><strong>Names the trade-off it deliberately accepts</strong> — because there is always one, and pretending otherwise fails the committee.</li>
-          <li><strong>Proposes one action — concrete, costed, sequenced</strong> — within the million-baht envelope.</li>
-          <li><strong>Speaks in language the audience can actually act on</strong> — not academic, not slogan, not pitch-deck.</li>
+          <li><strong>Speak to one real Thai institution by name</strong> — for example, the BMA Drainage Department or the Tak District Education Office. Not "the public." Not your teacher.</li>
+          <li><strong>Use what you learned in the six missions.</strong> Quote your own commitments from the journey. The committee can tell the difference between real evidence and a wish.</li>
+          <li><strong>Name what your action will <em>not</em> do.</strong> Every choice has a cost. The committee respects students who say the cost out loud — and refuses students who pretend it does not exist.</li>
+          <li><strong>Propose one action that fits inside one million baht.</strong> Be concrete: who does what, where, by when, with how much money.</li>
+          <li><strong>Use language the audience can act on.</strong> Polite. Clear. Not academic. Not a sales pitch.</li>
         </ol>
       </div>
 
-      <p class="gb-body">You will not present in person. You will submit a <strong>recorded proposal</strong> — audio or video, <strong>2 to 5 minutes</strong> — with a written transcript the committee can refer back to.</p>
+      <p class="gb-body">You will not present in person. You will record a proposal between <strong>2 and 5 minutes</strong> long — audio or video — and submit it with a written transcript.</p>
 
-      <p class="gb-body" style="margin-top:18px"><em>The grant is real money. The decision is real. The community is real. <strong>Speak as if you mean it. Because you do.</strong></em></p>
+      <p class="gb-body" style="margin-top:18px"><em>This is a <strong>classroom simulation</strong>. No real money is awarded. What you <em>are</em> learning is real: how to argue for something that matters, in English that a Thai institution can act on. Take it seriously — that is the skill you will carry into your career.</em></p>
 
       <div class="gb-signature">
-        <span class="name">— Aj. Yungie</span>
+        <span class="name">— Dr. Payungsak Kaenchan</span>
         Programme Director · FUTUREPROOF
       </div>
     </article>
@@ -334,52 +427,57 @@
         </summary>
 
         <div class="rubric-dim">
-          <h4>1. Language Proficiency Across Registers <span class="weight">× 1.0</span></h4>
+          <h4>1. Your English <span class="weight">× 1.0</span></h4>
+          <p class="what">How well your English fits the audience — words, grammar, tone.</p>
           <table>
-            <tr><td>10</td><td>Controls academic, persuasive, and evaluative registers within one coherent piece. Hedging, modality, and metadiscourse used with intent. C1 alignment evident.</td></tr>
-            <tr><td>7</td><td>Generally appropriate register; occasional overreach or under-specification. B2 alignment evident.</td></tr>
-            <tr><td>4</td><td>Register slips (the appeal reads academic; the evidence reads conversational). B1 alignment.</td></tr>
-            <tr><td>1</td><td>Register undifferentiated; errors interfere with meaning. A2 or below.</td></tr>
+            <tr><td>10</td><td>Excellent. Your English is clear and polite. You use words like "would" and "could" when you ask. Few small errors. Easy to understand.</td></tr>
+            <tr><td>7</td><td>Good. Your English mostly fits the audience. A few word choices are too strong or too casual, but the meaning is clear.</td></tr>
+            <tr><td>4</td><td>Some problems. Your tone is sometimes too academic or too casual for the audience. Mistakes sometimes get in the way.</td></tr>
+            <tr><td>1</td><td>Many problems. Errors make the proposal hard to follow.</td></tr>
           </table>
         </div>
 
         <div class="rubric-dim">
-          <h4>2. Strength of Argument <span class="weight">× 1.0</span></h4>
+          <h4>2. The Strength of Your Argument <span class="weight">× 1.0</span></h4>
+          <p class="what">How well you defend your one proposed action — and whether you say what your action will <em>not</em> do.</p>
           <table>
-            <tr><td>10</td><td>One concrete action defended with evidence from the missions; the trade-off accepted is named and owned.</td></tr>
-            <tr><td>7</td><td>Concrete action with mission evidence; trade-off acknowledged but not fully owned.</td></tr>
-            <tr><td>4</td><td>Action present but evidence is general; trade-off avoided.</td></tr>
-            <tr><td>1</td><td>Wish or slogan, not an argument.</td></tr>
+            <tr><td>10</td><td>Strong. You propose one concrete action. You use real evidence from the missions. You name the trade-off honestly.</td></tr>
+            <tr><td>7</td><td>Mostly strong. You have an action and evidence, but you don't fully own the trade-off.</td></tr>
+            <tr><td>4</td><td>Weak. You have an action but not real evidence. You avoid the trade-off.</td></tr>
+            <tr><td>1</td><td>It is a wish or a slogan, not a real argument.</td></tr>
           </table>
         </div>
 
         <div class="rubric-dim">
-          <h4>3. Audience Address <span class="weight">× 1.0</span></h4>
+          <h4>3. Speaking to a Real Audience <span class="weight">× 1.0</span></h4>
+          <p class="what">Did you choose one real Thai institution and speak to <em>them</em>, not to your teacher?</p>
           <table>
-            <tr><td>10</td><td>Named real Thai audience; modality, deference, and ask all calibrated to them.</td></tr>
-            <tr><td>7</td><td>Named audience; mostly calibrated language.</td></tr>
-            <tr><td>4</td><td>Audience named generically; language register inconsistent.</td></tr>
-            <tr><td>1</td><td>Addressed to "the public" or the teacher. The committee will not act on this.</td></tr>
+            <tr><td>10</td><td>Yes. You named a real Thai institution. Your tone and request fit who they are and what they can do.</td></tr>
+            <tr><td>7</td><td>Mostly yes. You named the audience, but your tone slips in places.</td></tr>
+            <tr><td>4</td><td>Vague. You said "the public" or named the audience without changing your tone.</td></tr>
+            <tr><td>1</td><td>You spoke to your teacher, not to a real audience.</td></tr>
           </table>
         </div>
 
         <div class="rubric-dim">
-          <h4>4. Use of Journey Evidence <span class="weight">× 1.0</span></h4>
+          <h4>4. Using Your Journey <span class="weight">× 1.0</span></h4>
+          <p class="what">Did you use the six commitments you wrote at the end of each mission?</p>
           <table>
-            <tr><td>10</td><td>Uses at least three of your six mission Q6 commitments verbatim or in close paraphrase. The proposal is anchored in the journey.</td></tr>
-            <tr><td>7</td><td>Uses two commitments well.</td></tr>
-            <tr><td>4</td><td>Uses one commitment, or references missions generally.</td></tr>
-            <tr><td>1</td><td>No reference back to the missions. The capstone floats free of the work.</td></tr>
+            <tr><td>10</td><td>You used at least three of your six commitments. Your proposal is built on what you actually learned.</td></tr>
+            <tr><td>7</td><td>You used two commitments well.</td></tr>
+            <tr><td>4</td><td>You used one commitment, or you spoke about the missions in general.</td></tr>
+            <tr><td>1</td><td>You did not refer back to the missions at all.</td></tr>
           </table>
         </div>
 
         <div class="rubric-dim">
-          <h4>5. Production Discipline <span class="weight">× 0.5</span></h4>
+          <h4>5. Following the Rules <span class="weight">× 0.5</span></h4>
+          <p class="what">Length (2–5 minutes) and a transcript that matches what you said.</p>
           <table>
-            <tr><td>10</td><td>Within length cap (2–5 min); transcript matches audio; consent settings deliberate.</td></tr>
-            <tr><td>7</td><td>Length appropriate; transcript mostly matches.</td></tr>
-            <tr><td>4</td><td>Length off-target; transcript divergent.</td></tr>
-            <tr><td>1</td><td>Length or transcript breaks the submission frame.</td></tr>
+            <tr><td>10</td><td>Length is in range. Transcript matches your speech.</td></tr>
+            <tr><td>7</td><td>Length is fine. Transcript is mostly correct.</td></tr>
+            <tr><td>4</td><td>Length is too short or too long. Transcript has gaps.</td></tr>
+            <tr><td>1</td><td>Length or transcript breaks the rules of the submission.</td></tr>
           </table>
         </div>
       </details>
@@ -389,11 +487,41 @@
       <h2>What your proposal must contain · <em>five parts</em></h2>
       <p class="h2-th">โครงสร้างข้อเสนอ — ห้าส่วน</p>
       <ul class="reqs">
-        <li><div class="num">1</div><span class="label">The crisis</span><span class="th">วิกฤตที่กำลังกล่าวถึง</span><span class="hint">What problem in which community. One or two sentences. Not abstract.</span></li>
-        <li><div class="num">2</div><span class="label">The one action</span><span class="th">ข้อเสนอเดียวที่เป็นรูปธรรม</span><span class="hint">Concrete, costed, sequenced. Within the ฿1M envelope.</span></li>
-        <li><div class="num">3</div><span class="label">Who it helps</span><span class="th">ใครเป็นผู้ได้รับประโยชน์</span><span class="hint">Specific community, specific stakeholders, specific change.</span></li>
-        <li><div class="num">4</div><span class="label">The evidence</span><span class="th">หลักฐานสนับสนุน</span><span class="hint">From the missions you walked. Cite at least three of your six commitments.</span></li>
-        <li><div class="num">5</div><span class="label">The trade-off</span><span class="th">ต้นทุนที่คุณยอมรับ</span><span class="hint">Name what your action does NOT do. Honest. Owned. This wins the room.</span></li>
+        <li>
+          <div class="num">1</div>
+          <span class="label">The crisis</span>
+          <span class="th">วิกฤตที่กำลังกล่าวถึง</span>
+          <span class="hint"><strong>What is the problem, and where?</strong> Say which community you are talking about — for example, "the families along Klong Toey in Bangkok" or "the elder households in EEC-fringe villages." In one or two sentences, describe what is going wrong for them right now. Do not be abstract. Name the place, name the people, name the trouble.</span>
+          <span class="example"><strong>Example opening:</strong> "In the Mae Sot district of Tak province, more than 2,000 migrant children attend community learning centres that the Thai system does not yet recognise…"</span>
+        </li>
+        <li>
+          <div class="num">2</div>
+          <span class="label">Your one action</span>
+          <span class="th">ข้อเสนอเดียวที่เป็นรูปธรรม</span>
+          <span class="hint"><strong>What will you do, exactly?</strong> Propose ONE clear action — not three, not a list. Tell us <em>who</em> will do it, <em>where</em>, <em>by when</em>, and <em>how much money</em> it will take (inside the ฿1,000,000 envelope). The more specific, the stronger.</span>
+          <span class="example"><strong>Example:</strong> "Within 12 months, fund two bridging teachers in each of the 8 receiving Thai schools — ฿840,000 — and use the remaining ฿160,000 for shared learning materials."</span>
+        </li>
+        <li>
+          <div class="num">3</div>
+          <span class="label">Who it helps</span>
+          <span class="th">ใครเป็นผู้ได้รับประโยชน์</span>
+          <span class="hint"><strong>Be specific about the people.</strong> Not "students" in general — <em>which</em> students, in which schools, in which province? Say how their lives will be different in concrete ways. A grandmother who can now reach a clinic. A reef operator whose boat loan is not at risk. A child who can move from MLC to Thai school without losing a year.</span>
+          <span class="example"><strong>Example:</strong> "This helps roughly 600 migrant children currently enrolled in MLCs across Mae Sot district, ages 6–14, who would otherwise face a cohort gap during the phase-down."</span>
+        </li>
+        <li>
+          <div class="num">4</div>
+          <span class="label">The evidence</span>
+          <span class="th">หลักฐานสนับสนุน</span>
+          <span class="hint"><strong>Use what you learned in the missions.</strong> Quote at least <strong>three</strong> of your six commitments from the journey (shown below in the Evidence Trail). The committee can tell when a proposal is built on real evidence and when it is built on a wish — using your own commitments shows you did the work.</span>
+          <span class="example"><strong>Example:</strong> "As I committed in the Burning Season mission, enforcement without alternative income is just a fine in disguise — that is why bridging staff, not deadlines, matter here."</span>
+        </li>
+        <li>
+          <div class="num">5</div>
+          <span class="label">The trade-off you accept</span>
+          <span class="th">ต้นทุนที่คุณยอมรับ</span>
+          <span class="hint"><strong>What will your action NOT do?</strong> Every choice has a cost. Name it. Pretending there is no cost is the fastest way to lose the committee's respect. Saying "I know my plan does <em>not</em> solve X — and here is why I still accept that" is the fastest way to earn it.</span>
+          <span class="example"><strong>Example:</strong> "I accept that this plan does not reach the over-15 cohort this cycle. That is a real cost. I propose addressing them in Year 2, once the bridging staff are proven to work for the 6–14 group."</span>
+        </li>
       </ul>
     </section>
 
@@ -474,7 +602,19 @@
       </div>
     </section>
 
-    <section class="ft-section">
+    <!-- Mr Compass — collapsible black button (consistent with mission pages) -->
+    <div class="compass-trigger-wrap">
+      <button type="button" class="compass-trigger" id="compass-trigger" aria-expanded="false" aria-controls="compass-section">
+        <span class="material-symbols-rounded" aria-hidden="true">explore</span>
+        <span class="compass-trigger-label">
+          <strong>Mr Compass</strong>
+          <span>Language coach · ตัวช่วยภาษา (เปิด/ปิด)</span>
+        </span>
+        <span class="compass-trigger-chev" aria-hidden="true">▾</span>
+      </button>
+    </div>
+
+    <section class="ft-section compass-section" id="compass-section" hidden>
       <h2>Mr Compass — language coach (optional) · <em>same guardrails as in missions</em></h2>
       <p class="h2-th">ผู้ช่วยภาษา — คุณคอมพาส (ตามขอบเขตเดิม)</p>
       <div class="compass-panel">
@@ -491,29 +631,6 @@
           <textarea id="compass-input" rows="2" placeholder="e.g. 'Is this too formal for a District Education Officer?' or 'How do I hedge this claim?'"></textarea>
           <button type="button" id="compass-send">Ask</button>
         </div>
-      </div>
-    </section>
-
-    <section class="ft-section">
-      <h2>Hall of Voices · <em>optional, withdrawable</em></h2>
-      <p class="h2-th">หอเสียง — สมัครใจ ถอนได้</p>
-      <div class="consent">
-        <label>
-          <input type="checkbox" id="consent-hall" />
-          <div class="ctxt">
-            <strong>Curate to the public Hall of Voices (pseudonym).</strong>
-            Yes, I consent to my Voice for Change being considered for curation into the public Hall of Voices under a pseudonym. I can withdraw this consent at any time.
-            <span class="th">ยินยอมให้นำผลงานเข้าสู่หอเสียงสาธารณะภายใต้นามแฝง — สามารถถอนความยินยอมได้ทุกเมื่อ</span>
-          </div>
-        </label>
-        <label>
-          <input type="checkbox" id="consent-forum" />
-          <div class="ctxt">
-            <strong>Optional onward sharing to a Thai youth SDG forum.</strong>
-            Yes, my work may be optionally proposed to a real Thai youth SDG forum (further explicit opt-in is required before any specific forum sees it).
-            <span class="th">ยินยอมให้พิจารณาเสนอผลงานต่อเวทีเยาวชน SDG (ต้องขอความยินยอมเพิ่มเติมก่อนเวทีจริง)</span>
-          </div>
-        </label>
       </div>
     </section>
 
@@ -551,6 +668,20 @@
         var url = new URL(location.href);
         url.searchParams.set("demo", "keystones");
         location.href = url.toString();
+      });
+    }
+
+    // Mr Compass trigger — collapsible section
+    var trigger = document.getElementById("compass-trigger");
+    var section = document.getElementById("compass-section");
+    if (trigger && section) {
+      trigger.addEventListener("click", function () {
+        var open = trigger.getAttribute("aria-expanded") === "true";
+        trigger.setAttribute("aria-expanded", String(!open));
+        section.hidden = open;
+        if (!open) {
+          setTimeout(function () { section.scrollIntoView({ behavior:"smooth", block:"start" }); }, 50);
+        }
       });
     }
   })();

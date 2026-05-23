@@ -654,7 +654,7 @@ TOKEN_MATRIX, QUIZ_TOKEN_CAP, and the data-driven rank-trap detection.
 `sdg06-khonkaen-aquifer-v1` gold-standard structure and the Bangkok /
 Andaman / Mae Sot / EEC five-section template adopted across the
 documented-only missions. Dossier authored at all three reading tiers.
-Pending Aj. Yungie + named Thai pedagogy / public-health reviewer
+Pending Dr. Payungsak Kaenchan + named Thai pedagogy / public-health reviewer
 sign-off.*
 
 *Normalised: 2026-05-22 (b2 — section structure brought in line with

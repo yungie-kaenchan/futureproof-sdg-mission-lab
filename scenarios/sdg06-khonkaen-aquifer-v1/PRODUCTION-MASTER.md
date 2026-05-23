@@ -11,7 +11,7 @@
 | Bloom anchors | All six (one mission each) |
 | Ethical axes | Distributive justice **×** Intergenerational equity |
 | Local Lens | Mandatory, embedded throughout |
-| Status | DRAFT v1 — pending Aj. Yungie + named Thai pedagogy reviewer sign-off |
+| Status | DRAFT v1 — pending Dr. Payungsak Kaenchan + named Thai pedagogy reviewer sign-off |
 | Hall of Excellence eligible | Yes (showcase tier) |
 
 ---
@@ -1636,7 +1636,7 @@ The shape of the next two-week production sprint, in order:
 
 *End of Production Master v1 — `sdg06-khonkaen-aquifer-v1`*
 
-*Authored by Aj. Yungie (Dr. Payungsak Kaenchan) with [Reviewer Name, TBD] as Rubric Reviewer.*
+*Authored by Dr. Payungsak Kaenchan (Dr. Payungsak Kaenchan) with [Reviewer Name, TBD] as Rubric Reviewer.*
 
 *Last updated: 2026-05-13.*
 

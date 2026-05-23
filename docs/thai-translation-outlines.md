@@ -1,7 +1,7 @@
 # Thai Translation Outlines — Submission Documents
 
 **Audience:** Sripatum University SPU Tech Creative Learning Awards 2026 jury — Thai academic readers, Mahidol/Thammasat colleagues, MOE evaluators.
-**Translator:** Aj. Yungie (Dr. Payungsak Kaenchan) as native speaker + subject-matter expert.
+**Translator:** Dr. Payungsak Kaenchan (Dr. Payungsak Kaenchan) as native speaker + subject-matter expert.
 **Style register:** ภาษาเขียนทางวิชาการ (formal academic Thai), avoid English loanwords where a Thai academic equivalent exists, preserve technical terms (Bloom's, AI-TPACK, PICRAT) where direct translation would lose meaning — translate the *idea* on first use, then continue in English.
 
 These outlines list what each Thai section must accomplish — the equivalent of a section brief for a translator. Full prose is yours to write.
@@ -19,7 +19,7 @@ These outlines list what each Thai section must accomplish — the equivalent of
 | § | English heading | Thai title (suggested) | Must accomplish in Thai |
 |---|------------------|-------------------------|----|
 | 1 | Vision Statement | วิสัยทัศน์ | Establish that the project reframes English from "tested subject" to "vehicle of global citizenship." Use the Royal Trophy / Princess Sirindhorn frame to signal academic gravitas. |
-| 2 | The Problem We Address | ปัญหาที่โครงการนี้แก้ | Cite the gap between Thai high-school O-NET English scores and PISA-measured critical thinking. Reference specific cohort data Aj. Yungie has from Mahidol. |
+| 2 | The Problem We Address | ปัญหาที่โครงการนี้แก้ | Cite the gap between Thai high-school O-NET English scores and PISA-measured critical thinking. Reference specific cohort data Dr. Payungsak Kaenchan has from Mahidol. |
 | 3 | The Innovation in One Sentence | นวัตกรรมในประโยคเดียว | A single sentence: ภารกิจหกขั้นข้ามวงจรของ Bloom พร้อมบทบาทมืออาชีพและ AI โค้ช — สู่ Pitch Capsule ที่ใช้เป็นแฟ้มสะสมผลงานจริง |
 | 4 | The Six Missions Architecture | สถาปัตยกรรมหกภารกิจ | Each mission summary as ~3 Thai sentences. Preserve mission codenames (RECON / DECODE / etc.) as English brand terms. |
 | 5 | The Three Professional Roles | สามบทบาทมืออาชีพ | Translate Research Analyst / Communications Director / Ethics & Policy Officer as full Thai role names (นักวิเคราะห์ข้อมูล / ผู้อำนวยการสื่อสาร / เจ้าหน้าที่จริยธรรมและนโยบาย). |
@@ -34,7 +34,7 @@ These outlines list what each Thai section must accomplish — the equivalent of
 | 14 | Roadmap to Pilot | แผนสู่การนำร่อง | Q3/Q4 2026 pilot at Mahidol/Thammasat, scale plan for 2027. |
 | 15 | Why This Matters Now | เหตุใดจึงสำคัญในตอนนี้ | Tie to Thailand's 20-year national strategy, SDG localization, and ESD policy. |
 | 16 | Acknowledgments | กิตติกรรมประกาศ | Standard Thai academic acknowledgments. |
-| 17 | Contact & Live URL | ข้อมูลติดต่อ | `futureproof.yungie.one`, Aj. Yungie's institutional email. |
+| 17 | Contact & Live URL | ข้อมูลติดต่อ | `futureproof.yungie.one`, Dr. Payungsak Kaenchan's institutional email. |
 
 ### Translation glossary (recurring terms)
 
@@ -142,7 +142,7 @@ This document is the **first thing the jury reads**. It must feel polished and c
 
 ## Suggested production workflow
 
-1. Aj. Yungie translates **Document 4 (Submission Narrative)** first — shortest, most strategic, sets tone.
+1. Dr. Payungsak Kaenchan translates **Document 4 (Submission Narrative)** first — shortest, most strategic, sets tone.
 2. Then **Document 1 (Innovation Concept)** — longest but reuses much of the glossary.
 3. Then **Document 3 (Teacher's Guide)** — primary-Thai, takes longest because of length and tone.
 4. Last, **Document 2 (DPIA)** — most technical, glossary-driven, can be drafted quickly with the glossary table above.

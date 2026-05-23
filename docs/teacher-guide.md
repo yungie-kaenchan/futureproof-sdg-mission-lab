@@ -225,4 +225,4 @@ You are still the architect. The platform handles scale; it does not replace you
 
 ---
 
-**Questions?** Aj. Yungie — payungsak.kaenchan@gmail.com.
+**Questions?** Dr. Payungsak Kaenchan — payungsak.kaenchan@gmail.com.

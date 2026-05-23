@@ -85,7 +85,7 @@ futureproof-submission-2026/
 │   ├── 01-landing.png
 │   ├── 02-tour.png
 │   └── …
-├── 08-video-demo.mp4                ← Aj. Yungie's recording
+├── 08-video-demo.mp4                ← Dr. Payungsak Kaenchan's recording
 ├── 09-demo-credentials.txt          ← KEEP SEPARATE — judges only
 └── 10-live-url.txt                  ← futureproof.yungie.one
 ```

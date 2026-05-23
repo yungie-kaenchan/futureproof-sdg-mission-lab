@@ -13,7 +13,7 @@
 | Build status | 📄 DOCUMENTED to production-master depth (Reconstruction Master §2, D4 Option A). Dossier authored at all 3 tiers. |
 | Ethical axes | Urban resilience **×** Housing justice — crossed with Procedural justice (who is consulted) |
 | Local Lens | Mandatory, embedded throughout (Thai canal-community life, informal tenure, the real Baan Mankong precedent) |
-| Status | DRAFT v1 — pending Aj. Yungie + named Thai pedagogy reviewer sign-off |
+| Status | DRAFT v1 — pending Dr. Payungsak Kaenchan + named Thai pedagogy reviewer sign-off |
 | Hall of Voices eligible | Yes (feeds the longitudinal evidence-commitment into the Final Task "Voice for Change") |
 
 ---
@@ -627,6 +627,6 @@ This master adopts the locked Khon Kaen conventions without re-litigation: insti
 
 *End of Production Master v1 — `sdg11-bangkok` (folder `sdg11-bangkok-klong-v1`).*
 
-*Mirrors the `sdg06-khonkaen-aquifer-v1` gold-standard structure and the Reconstruction Master §2/§4/§5 spec. Dossier authored at all three reading tiers. Pending Aj. Yungie + named Thai pedagogy reviewer sign-off.*
+*Mirrors the `sdg06-khonkaen-aquifer-v1` gold-standard structure and the Reconstruction Master §2/§4/§5 spec. Dossier authored at all three reading tiers. Pending Dr. Payungsak Kaenchan + named Thai pedagogy reviewer sign-off.*
 
 *Drafted: 2026-05-18.*
