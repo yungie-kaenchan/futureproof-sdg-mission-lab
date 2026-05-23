@@ -155,31 +155,31 @@
   }
   .ap-play:active{transform:scale(0.98)}
   .ap-play:focus-visible{outline:3px solid var(--ink-deep); outline-offset:5px}
-  /* Both icons centered absolutely inside the round button.
-     position:absolute requires explicit top/left + transform centering;
-     filled (FILL:1) icons read as "button" clearly.
-     The play triangle is asymmetric — we nudge it +4px to the right
-     so it sits OPTICALLY centred, not just bounding-box centred. */
-  .ap-play-glyph,
-  .ap-pause-glyph{
+  /* Inline-SVG play/pause glyphs · pixel-perfect across all browsers
+     (no Material Symbols variable-font dependency). The play triangle
+     path itself is shifted right inside its 24×24 viewBox for OPTICAL
+     centering — the bounding-box centre of a right-pointing triangle
+     sits noticeably left of its visual centre. */
+  .ap-glyph{
     position:absolute; top:50%; left:50%;
-    font-size:40px !important; line-height:1;
-    font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 40;
-    transition:opacity .2s ease-out, transform .2s ease-out;
+    width:34px; height:34px; color:var(--white);
+    transition: opacity .22s ease-out, transform .22s ease-out;
     pointer-events:none;
+    /* Subtle drop-shadow so the glyph reads even on the bronze bg */
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,.12));
   }
   /* Default state (paused) — show play triangle, hide pause */
   .ap-play-glyph{
-    transform: translate(calc(-50% + 4px), -50%) scale(1);
+    transform: translate(-50%, -50%) scale(1);
     opacity:1;
   }
   .ap-pause-glyph{
     transform: translate(-50%, -50%) scale(.7);
     opacity:0;
   }
-  /* Playing state — hide play, show pause (tighter centre, no offset) */
+  /* Playing state — hide play, show pause */
   .ap-play.is-playing .ap-play-glyph{
-    transform: translate(calc(-50% + 4px), -50%) scale(.7);
+    transform: translate(-50%, -50%) scale(.7);
     opacity:0;
   }
   .ap-play.is-playing .ap-pause-glyph{
@@ -786,8 +786,16 @@
         <div class="audio-brief-player">
           <button type="button" class="ap-play" id="ap-play"
                   aria-label="Play audio brief" aria-pressed="false">
-            <span class="ap-play-glyph material-symbols-rounded" aria-hidden="true">play_arrow</span>
-            <span class="ap-pause-glyph material-symbols-rounded" aria-hidden="true">pause</span>
+            <!-- Inline SVG glyphs · pixel-perfect, no font dependency.
+                 The play triangle path is shifted right ~1.2 viewBox units
+                 (≈+4px at 32px render size) for OPTICAL centering. -->
+            <svg class="ap-glyph ap-play-glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M9.2 6.4v11.2c0 .9 1 1.5 1.8 1L19.6 13c.8-.5.8-1.6 0-2.1L11 5.4c-.8-.5-1.8.1-1.8 1z"/>
+            </svg>
+            <svg class="ap-glyph ap-pause-glyph" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <rect x="6.5"  y="5" width="4" height="14" rx="1.4"/>
+              <rect x="13.5" y="5" width="4" height="14" rx="1.4"/>
+            </svg>
             <span class="ap-ring" aria-hidden="true"></span>
             <span class="ap-ring ap-ring-2" aria-hidden="true"></span>
           </button>
