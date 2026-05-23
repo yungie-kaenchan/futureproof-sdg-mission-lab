@@ -19,7 +19,7 @@
 | 2 | Chiang Mai (SDG 13) | ✅ wired | ✅ live | ✅ 4/4 live | ✅ 4/4 live | ✅ live | ✅ live |
 | 3 | Bangkok (SDG 11) | ✅ wired | ✅ live | ✅ 4/4 live | ✅ 4/4 live | ✅ live | ✅ live |
 | 4 | Andaman (SDG 14) | ✅ wired | ✅ live | ✅ 4/4 live | ✅ 4/4 live | ✅ live | ✅ live |
-| 5 | Mae Sot (SDG 4) | ❌ not yet built | ❌ produce | ❌ 0/4 | ❌ 0/4 | ❌ author | ❌ produce |
+| 5 | Mae Sot (SDG 4) | ✅ wired | ✅ live | ✅ 4/4 live | ✅ 4/4 live | ✅ live | ✅ live |
 | 6 | EEC fringe (SDG 3) | ❌ not yet built | ❌ produce | ❌ 0/4 | ❌ 0/4 | ❌ author | ❌ produce |
 
 > Missions 4–6 do not yet have runtime modules under `src/scenarios/`. The prompts below are still authoritative for asset production — generation can happen in parallel with the runtime-code build. Once the code lands, each asset auto-wires at the stated path.
