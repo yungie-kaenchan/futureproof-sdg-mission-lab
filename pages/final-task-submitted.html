@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Submitted — Voice for Change · FUTUREPROOF</title>
+<meta name="description" content="Voice for Change submitted. Download your certificate and badge." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Cinzel:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+
+<!-- html2canvas + jsPDF for certificate export -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<style>
+  :root{
+    --ink-deep:#050D1F; --ink:#071734; --ink-soft:#4A5A7A;
+    --bronze:#B58A3F; --bronze-light:#E8C77A; --bronze-dim:#8A6D3F;
+    --purple:#5D3A9B; --paper:#F4F1EA; --paper-warm:#FBF8F0;
+    --display:'Fraunces',serif; --titles:'Cinzel',serif;
+    --sans:'DM Sans',sans-serif; --mono:'JetBrains Mono',monospace;
+    --th:'IBM Plex Sans Thai',sans-serif;
+  }
+  body{background:var(--ink-deep); color:var(--paper); font-family:var(--sans); margin:0; min-height:100vh}
+
+  .shell-header{position:sticky; top:0; z-index:50; display:flex; align-items:center; justify-content:space-between; padding:14px 28px; background:rgba(7,23,52,0.95); backdrop-filter:blur(8px); border-bottom:1px solid rgba(232,199,122,.18)}
+  .shell-header-brand{display:inline-flex; align-items:baseline; gap:14px; text-decoration:none; color:inherit}
+  .shell-header-brand .logo{font-family:var(--titles); font-weight:700; font-size:18px; letter-spacing:.20em; color:var(--paper)}
+  .shell-header-brand .sub{font-family:var(--titles); font-weight:600; font-size:11px; letter-spacing:.32em; color:rgba(244,241,234,.65); text-transform:uppercase; border-left:1px solid rgba(232,199,122,.22); padding-left:14px}
+  .shell-header-btn{display:inline-flex; align-items:center; gap:6px; padding:8px 16px; border-radius:999px; border:1px solid rgba(232,199,122,.3); background:rgba(232,199,122,.08); color:var(--paper); text-decoration:none; font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase}
+
+  main{max-width:1080px; margin:0 auto; padding:48px 24px 96px}
+  .submitted-hero{text-align:center; padding:32px 0 16px}
+  .submitted-hero .seal{display:inline-flex; align-items:center; justify-content:center; width:80px; height:80px; border-radius:999px; background:rgba(232,199,122,.16); color:var(--bronze-light); border:1px solid rgba(232,199,122,.40); margin-bottom:18px}
+  .submitted-hero .seal .material-symbols-rounded{font-size:42px}
+  .submitted-hero h1{font-family:var(--display); font-weight:300; font-size:40px; color:var(--paper); margin:0 0 8px}
+  .submitted-hero h1 em{font-style:italic; color:var(--bronze-light)}
+  .submitted-hero .th{font-family:var(--th); font-size:18px; color:rgba(244,241,234,.7); margin:0 0 18px}
+  .submitted-hero .msg{max-width:640px; margin:0 auto; line-height:1.7; color:rgba(244,241,234,.85)}
+
+  .grid{display:grid; grid-template-columns:1.4fr 1fr; gap:28px; margin-top:36px}
+  @media (max-width:900px){ .grid{grid-template-columns:1fr} }
+
+  /* ── Certificate (rendered live, then exported via html2canvas) ── */
+  .cert-card{background:#0A0A0B; border-radius:14px; padding:16px; border:1px solid rgba(232,199,122,.20); box-shadow:0 16px 48px rgba(0,0,0,.32)}
+  .cert-card h2{font-family:var(--mono); font-size:11px; letter-spacing:.14em; color:var(--bronze-light); text-transform:uppercase; margin:0 0 12px}
+  .cert{
+    position:relative; width:100%; aspect-ratio:2480/3508; max-height:900px;
+    background:#0A0A0B; color:var(--paper); border-radius:6px; overflow:hidden;
+    box-shadow:0 8px 24px rgba(0,0,0,.4);
+  }
+  /* Base art image (if delivered) */
+  .cert .base-art{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.95}
+  /* CSS-only fallback frame when no base art is delivered */
+  .cert .fallback-frame{
+    position:absolute; inset:24px; border:2px solid var(--bronze); border-radius:4px; pointer-events:none;
+  }
+  .cert .fallback-frame::before{
+    content:""; position:absolute; inset:8px; border:1px solid rgba(184,138,63,.4); border-radius:2px;
+  }
+  .cert .corners{position:absolute; inset:0; pointer-events:none}
+  .cert .corners span{position:absolute; width:36px; height:36px; border-color:var(--bronze-light); border-style:solid}
+  .cert .corners .tl{top:36px; left:36px; border-top-width:2px; border-left-width:2px; border-right:0; border-bottom:0}
+  .cert .corners .tr{top:36px; right:36px; border-top-width:2px; border-right-width:2px; border-left:0; border-bottom:0}
+  .cert .corners .bl{bottom:36px; left:36px; border-bottom-width:2px; border-left-width:2px; border-top:0; border-right:0}
+  .cert .corners .br{bottom:36px; right:36px; border-bottom-width:2px; border-right-width:2px; border-top:0; border-left:0}
+  .cert-overlay{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:space-between; padding:64px 56px; text-align:center}
+  .cert-brand{font-family:var(--titles); font-size:14px; letter-spacing:.28em; color:var(--bronze-light); text-transform:uppercase}
+  .cert-brand .th{font-family:var(--th); font-size:11px; color:rgba(232,199,122,.65); display:block; margin-top:4px; letter-spacing:.10em; text-transform:none}
+  .cert-body{display:flex; flex-direction:column; align-items:center; gap:18px; padding-top:24px}
+  .cert-eyebrow{font-family:var(--mono); font-size:11px; letter-spacing:.18em; color:rgba(232,199,122,.7); text-transform:uppercase}
+  .cert-title{font-family:var(--display); font-weight:300; font-size:34px; color:var(--paper); line-height:1.15; margin:0}
+  .cert-title em{font-style:italic; color:var(--bronze-light)}
+  .cert-this-is{font-family:var(--display); font-style:italic; font-size:13px; color:rgba(244,241,234,.60); margin-top:6px}
+  .cert-name{font-family:var(--display); font-weight:500; font-size:32px; color:var(--bronze-light); margin:6px 0; padding:8px 0; border-top:1px solid rgba(232,199,122,.30); border-bottom:1px solid rgba(232,199,122,.30); min-width:60%}
+  .cert-statement{font-family:var(--display); font-style:italic; font-size:14px; color:rgba(244,241,234,.82); line-height:1.6; max-width:80%}
+  .cert-keystones{display:flex; gap:10px; margin-top:8px}
+  .cert-keystones span{width:18px; height:18px; border-radius:4px; transform:rotate(45deg)}
+  .cert-foot{display:flex; flex-direction:column; align-items:center; gap:8px; padding-bottom:8px; width:100%}
+  .cert-foot .sig{font-family:var(--display); font-style:italic; font-size:12px; color:rgba(244,241,234,.7)}
+  .cert-foot .date{font-family:var(--mono); font-size:10px; letter-spacing:.14em; color:var(--bronze-light); text-transform:uppercase}
+  .cert-foot .id{font-family:var(--mono); font-size:9px; color:rgba(244,241,234,.4); letter-spacing:.10em}
+  .cert-flourish{width:80px; height:1px; background:var(--bronze); opacity:.5; margin:2px 0}
+
+  /* ── Badge (canvas/render) ── */
+  .badge-card{background:#0A0A0B; border-radius:14px; padding:16px; border:1px solid rgba(232,199,122,.20); box-shadow:0 16px 48px rgba(0,0,0,.32)}
+  .badge-card h2{font-family:var(--mono); font-size:11px; letter-spacing:.14em; color:var(--bronze-light); text-transform:uppercase; margin:0 0 12px}
+  .badge{position:relative; width:100%; aspect-ratio:1/1; max-height:480px; border-radius:6px; overflow:hidden; background:#0A0A0B}
+  .badge .base-art{position:absolute; inset:0; width:100%; height:100%; object-fit:cover}
+  .badge-overlay{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:18%; text-align:center}
+  .badge-overlay .label{font-family:var(--titles); font-weight:700; font-size:12px; letter-spacing:.24em; color:var(--bronze-light); text-transform:uppercase; margin-bottom:6px}
+  .badge-overlay .name{font-family:var(--display); font-weight:500; font-size:18px; color:var(--paper); margin:6px 0; min-height:1.4em}
+  .badge-overlay .role{font-family:var(--display); font-style:italic; font-size:11px; color:rgba(244,241,234,.7); margin-top:4px}
+  .badge-overlay .th{font-family:var(--th); font-size:9px; color:rgba(232,199,122,.65); display:block; margin-top:4px; letter-spacing:.06em}
+  /* CSS-only fallback hex when base art missing */
+  .badge .fallback-hex{
+    position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:78%; aspect-ratio:1.155/1;
+    background:radial-gradient(circle, #141416 0%, #0A0A0B 100%);
+    clip-path:polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+    border:none;
+  }
+  .badge .fallback-ring{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:79%; aspect-ratio:1.155/1; clip-path:polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); background:var(--bronze); padding:2px}
+  .badge .fallback-vertex{position:absolute; width:12px; height:12px; border-radius:999px; transform:translate(-50%,-50%)}
+
+  .downloads{display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:20px}
+  .dl-btn{display:inline-flex; align-items:center; gap:8px; padding:12px 22px; border-radius:999px; cursor:pointer; border:none; font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; transition:transform .15s}
+  .dl-btn:hover{transform:translateY(-2px)}
+  .dl-btn.png{background:rgba(232,199,122,.16); color:var(--paper); border:1px solid var(--bronze)}
+  .dl-btn.pdf{background:linear-gradient(135deg, var(--bronze) 0%, var(--bronze-light) 100%); color:var(--ink-deep); font-weight:700}
+
+  .next-steps{margin-top:48px; padding:28px 32px; background:rgba(244,241,234,.04); border:1px solid rgba(232,199,122,.18); border-radius:14px}
+  .next-steps h3{font-family:var(--display); font-weight:300; font-size:22px; margin:0 0 8px; color:var(--paper)}
+  .next-steps h3 em{font-style:italic; color:var(--bronze-light)}
+  .next-steps .th{font-family:var(--th); font-size:14px; color:rgba(244,241,234,.65); margin-bottom:14px}
+  .next-steps ul{margin:14px 0 0; padding-left:20px; line-height:1.8}
+  .next-steps li{color:rgba(244,241,234,.85)}
+  .next-steps strong{color:var(--bronze-light)}
+</style>
+</head>
+<body>
+
+<header class="shell-header">
+  <a href="../home.html" class="shell-header-brand">
+    <span class="logo">FUTUREPROOF</span>
+    <span class="sub">SDGs Mission Journey</span>
+  </a>
+  <a href="../home.html" class="shell-header-btn">Home</a>
+</header>
+
+<main>
+
+  <section class="submitted-hero">
+    <div class="seal"><span class="material-symbols-rounded">verified</span></div>
+    <h1>Submitted. <em>Now it is the committee's turn.</em></h1>
+    <p class="th">ส่งข้อเสนอเรียบร้อย — ขั้นต่อไปเป็นของคณะกรรมการ</p>
+    <p class="msg">Your Voice for Change proposal has been recorded and is in the queue for <strong>teacher grading with Rubric A</strong>. You will be notified when the result is in. Download your certificate and badge below — these are yours regardless of the grade.</p>
+  </section>
+
+  <div class="grid">
+
+    <!-- ─── Certificate ─── -->
+    <div class="cert-card">
+      <h2>Your Certificate · ใบรับรอง</h2>
+      <div class="cert" id="cert">
+        <img class="base-art" id="cert-base" alt="" />
+        <div class="fallback-frame" id="cert-fallback-frame"></div>
+        <div class="corners"><span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span></div>
+        <div class="cert-overlay">
+          <div class="cert-brand">
+            FUTUREPROOF · SDG Mission Lab
+            <span class="th">ภารกิจเอสดีจีเพื่ออนาคต</span>
+          </div>
+          <div class="cert-body">
+            <div class="cert-eyebrow">Certificate of Completion · ใบรับรองการสำเร็จภารกิจ</div>
+            <h3 class="cert-title">The <em>Voice for Change</em></h3>
+            <div class="cert-this-is">This is to certify that</div>
+            <div class="cert-name" id="cert-name">—</div>
+            <div class="cert-statement">
+              has walked all six SDG frontlines of the Thailand Journey,
+              earned all six Keystones, and submitted a defensible
+              proposal for the Thailand SDG Catalyst Grant 2026.
+            </div>
+            <div class="cert-keystones" id="cert-keystones"></div>
+          </div>
+          <div class="cert-foot">
+            <div class="cert-flourish"></div>
+            <div class="sig">— Aj. Yungie · Programme Director, FUTUREPROOF</div>
+            <div class="date" id="cert-date">—</div>
+            <div class="id" id="cert-id">—</div>
+          </div>
+        </div>
+      </div>
+      <div class="downloads">
+        <button type="button" class="dl-btn png" id="dl-cert-png">⬇ Download PNG</button>
+        <button type="button" class="dl-btn pdf" id="dl-cert-pdf">⬇ Download PDF</button>
+      </div>
+    </div>
+
+    <!-- ─── Badge ─── -->
+    <div class="badge-card">
+      <h2>Your Badge · ตราสัญลักษณ์</h2>
+      <div class="badge" id="badge">
+        <img class="base-art" id="badge-base" alt="" />
+        <!-- Fallback hex (visible when base art is missing) -->
+        <div class="fallback-ring" id="badge-fallback-ring" aria-hidden="true"></div>
+        <div class="fallback-hex"  id="badge-fallback-hex" aria-hidden="true"></div>
+        <!-- Six SDG vertex dots (always rendered on top, even if base art exists, but hidden by JS if base art has them) -->
+        <div id="badge-vertices"></div>
+        <div class="badge-overlay">
+          <div class="label">Voice for Change</div>
+          <div class="name" id="badge-name">—</div>
+          <div class="role">SDG Mission Lab Champion</div>
+          <div class="th">แชมป์ภารกิจเอสดีจี</div>
+        </div>
+      </div>
+      <div class="downloads">
+        <button type="button" class="dl-btn png" id="dl-badge-png">⬇ Download PNG</button>
+      </div>
+    </div>
+
+  </div>
+
+  <section class="next-steps">
+    <h3>What happens <em>next</em></h3>
+    <p class="th">ขั้นตอนต่อไป</p>
+    <ul>
+      <li><strong>Your teacher receives your submission</strong> in the admin grading queue and evaluates it with Rubric A.</li>
+      <li>If you consented, your work is considered for curation into the public <strong>Hall of Voices</strong>.</li>
+      <li>If you opted in to onward sharing, your teacher may propose your work to a real Thai youth SDG forum (with a further explicit opt-in before any specific forum).</li>
+      <li>The certificate and badge above are yours to keep — independent of the rubric result.</li>
+    </ul>
+  </section>
+
+</main>
+
+<script type="module" src="../src/a11y.js"></script>
+<script type="module" src="../src/certificate-gen.js"></script>
+
+</body>
+</html>

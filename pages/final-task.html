@@ -4,7 +4,16 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Voice for Change — FUTUREPROOF</title>
-<meta name="description" content="The FUTUREPROOF capstone: having walked all six of Thailand's frontlines, propose one concrete action for a Thai community — and address a real audience." />
+<meta name="description" content="The Thailand SDG Catalyst Grant 2026 — your Final Task. Six Keystones earned; one defensible proposal stands between you and ฿1,000,000." />
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="FUTUREPROOF — SDG Mission Lab">
+<meta property="og:title" content="Voice for Change — The Thailand SDG Catalyst Grant">
+<meta property="og:description" content="Six Keystones earned. The capstone is yours. ฿1,000,000 on the line.">
+<meta property="og:image" content="https://futureproof-sdgs-lab.netlify.app/assets/journey/thailand-map-og.png">
+<meta property="og:url" content="https://futureproof-sdgs-lab.netlify.app/pages/final-task.html">
+<meta name="twitter:card" content="summary_large_image">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,103 +23,195 @@
 <style>
   :root{
     --ink:#071734; --ink-deep:#050D1F; --ink-soft:#4A5A7A;
-    --bone:#F4F1EA; --white:#FFFFFF;
-    --bronze:#b57c34; --bronze-light:#E8C77A;
-    --crimson:#7B1B1B; --steel:#647293;
-    --line:rgba(7,23,52,0.10); --line-strong:rgba(7,23,52,0.20);
-    --display:'Fraunces','Cormorant Garamond',serif;
-    --titles:'Cinzel',serif; --sans:'DM Sans',system-ui,sans-serif;
-    --thai:'IBM Plex Sans Thai',sans-serif; --mono:'JetBrains Mono',monospace;
+    --bronze:#B58A3F; --bronze-light:#E8C77A; --bronze-dim:#8A6D3F;
+    --purple:#5D3A9B; --purple-soft:rgba(93,58,155,.10);
+    --paper:#F4F1EA; --paper-warm:#FBF8F0;
+    --crimson:#A82424; --line:rgba(7,23,52,.10); --line-strong:rgba(7,23,52,.18);
+    --white:#FFFFFF;
+    --display:'Fraunces',serif; --titles:'Cinzel',serif;
+    --sans:'DM Sans',sans-serif; --mono:'JetBrains Mono',monospace;
+    --th:'IBM Plex Sans Thai',sans-serif;
   }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html,body{font-family:var(--sans);color:var(--ink);background:var(--bone);-webkit-font-smoothing:antialiased}
-  body{background:radial-gradient(ellipse 1100px 700px at 78% 6%, rgba(232,199,122,0.10) 0%, transparent 60%),linear-gradient(180deg,#FBFAF6 0%,#F1ECE0 100%);min-height:100vh;padding-top:64px}
+  body{background:var(--ink-deep); color:var(--paper); font-family:var(--sans); margin:0; min-height:100vh}
 
-  .shell-header{position:fixed;top:0;left:0;right:0;height:64px;z-index:50;background:rgba(7,23,52,0.95);backdrop-filter:blur(8px);border-bottom:1px solid rgba(232,199,122,0.18);display:flex;align-items:center;justify-content:space-between;padding:0 24px;color:var(--bone)}
-  .shell-header-brand{display:flex;align-items:center;gap:14px;text-decoration:none}
-  .shell-header-brand .logo{font-family:var(--display);font-weight:600;font-size:20px;letter-spacing:.02em;color:var(--bronze-light)}
-  .shell-header-brand .sub{font-family:var(--titles);font-weight:600;font-size:11px;letter-spacing:.32em;color:rgba(244,241,234,.65);text-transform:uppercase;border-left:1px solid rgba(232,199,122,.22);padding-left:14px}
-  .shell-header-btn{background:transparent;border:1px solid rgba(244,241,234,.18);color:var(--bone);border-radius:999px;padding:6px 14px;font-size:12px;font-weight:600;text-decoration:none;transition:.2s}
-  .shell-header-btn:hover{background:rgba(244,241,234,.08);border-color:var(--bronze)}
-  @media (max-width:767px){.shell-header-brand .sub{display:none}}
+  .shell-header{position:sticky; top:0; z-index:50; display:flex; align-items:center; justify-content:space-between; padding:14px 28px; background:rgba(7,23,52,0.95); backdrop-filter:blur(8px); border-bottom:1px solid rgba(232,199,122,.18)}
+  .shell-header-brand{display:inline-flex; align-items:baseline; gap:14px; text-decoration:none; color:inherit}
+  .shell-header-brand .logo{font-family:var(--titles); font-weight:700; font-size:18px; letter-spacing:.20em; color:var(--paper)}
+  .shell-header-brand .sub{font-family:var(--titles); font-weight:600; font-size:11px; letter-spacing:.32em; color:rgba(244,241,234,.65); text-transform:uppercase; border-left:1px solid rgba(232,199,122,.22); padding-left:14px}
+  .shell-header-status{display:flex; align-items:center; gap:10px}
+  .shell-header-status-label{font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--bronze-light); line-height:1.15}
+  .shell-header-status-title{font-family:var(--display); font-style:italic; font-size:14px; color:var(--paper); line-height:1.15}
+  .live-dot{width:8px; height:8px; border-radius:999px; background:#A82424; box-shadow:0 0 12px rgba(168,36,36,.5); animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+  .shell-header-btn{display:inline-flex; align-items:center; gap:6px; padding:8px 16px; border-radius:999px; border:1px solid rgba(232,199,122,.3); background:rgba(232,199,122,.08); color:var(--paper); text-decoration:none; font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; transition:background .2s}
+  .shell-header-btn:hover{background:rgba(232,199,122,.18)}
 
-  .wrap{max-width:920px;margin:0 auto;padding:40px 22px 100px}
-  .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--bronze);margin-bottom:10px}
-  h1.title{font-family:var(--display);font-weight:500;font-size:clamp(32px,5vw,56px);line-height:1.05;color:var(--ink-deep)}
-  h1.title em{font-style:italic;color:var(--bronze)}
+  .locked-screen{min-height:60vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:48px 24px; text-align:center}
+  .locked-screen .lock-icon{width:96px; height:96px; border-radius:999px; background:rgba(232,199,122,.12); color:var(--bronze-light); display:flex; align-items:center; justify-content:center; margin-bottom:24px; border:1px solid rgba(232,199,122,.32)}
+  .locked-screen .lock-icon .material-symbols-rounded{font-size:48px}
+  .locked-screen h1{font-family:var(--display); font-weight:300; font-size:32px; margin:0 0 8px; color:var(--paper)}
+  .locked-screen h1 em{font-style:italic; color:var(--bronze-light)}
+  .locked-screen .th{font-family:var(--th); font-size:18px; color:rgba(244,241,234,.7); margin:0 0 16px}
+  .locked-screen p{max-width:560px; line-height:1.7; color:rgba(244,241,234,.85); margin:0 0 24px}
+  .locked-screen .keystone-progress{display:flex; gap:10px; margin:16px 0 28px}
+  .locked-screen .kp{width:24px; height:24px; border-radius:6px; transform:rotate(45deg); background:rgba(232,199,122,.10); border:1px solid rgba(232,199,122,.30)}
+  .locked-screen .kp.earned{background:linear-gradient(135deg,var(--bronze) 0%,var(--bronze-light) 100%); box-shadow:0 0 16px rgba(232,199,122,.4)}
 
-  /* Locked state */
-  .locked-card{background:var(--white);border:1px dashed var(--line-strong);border-radius:20px;padding:40px 32px;text-align:center;margin-top:28px}
-  .locked-card .lockic{font-family:'Material Symbols Rounded';font-size:46px;color:var(--steel)}
-  .locked-card h2{font-family:var(--display);font-weight:500;font-size:26px;color:var(--ink-deep);margin-top:10px}
-  .locked-card p{color:var(--ink-soft);font-size:15px;line-height:1.65;margin-top:10px;max-width:560px;margin-left:auto;margin-right:auto}
-  .ks-meter{display:flex;gap:8px;justify-content:center;margin:20px 0 6px}
-  .ks-dot{width:18px;height:18px;border-radius:4px;transform:rotate(45deg);background:var(--white);border:2px solid var(--line-strong)}
-  .ks-dot.on{background:linear-gradient(135deg,var(--bronze),var(--bronze-light));border-color:transparent}
-  .btn-go{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:999px;font-weight:700;font-size:14px;text-decoration:none;cursor:pointer;border:none;background:linear-gradient(135deg,var(--bronze),var(--bronze-light));color:var(--ink-deep);transition:transform .2s,box-shadow .2s}
-  .btn-go:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(181,124,52,.34)}
-  .btn-ghost{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:999px;font-weight:600;font-size:14px;text-decoration:none;cursor:pointer;background:transparent;border:1px solid var(--line-strong);color:var(--ink-soft)}
-  .btn-ghost:hover{border-color:var(--bronze);color:var(--bronze)}
+  main{max-width:1320px; margin:0 auto; padding:32px 24px 96px}
+  @media (max-width:980px){ main{padding:24px 16px 80px} }
 
-  /* Prompt */
-  .prompt-card{background:linear-gradient(135deg,var(--ink) 0%,var(--ink-deep) 100%);color:var(--bone);border-radius:20px;padding:34px 30px;margin-top:24px;position:relative;overflow:hidden}
-  .prompt-card::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 600px 280px at 50% 0%,rgba(232,199,122,.16) 0%,transparent 70%);pointer-events:none}
-  .prompt-card .pk{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--bronze-light);position:relative}
-  .prompt-card blockquote{font-family:var(--display);font-style:italic;font-weight:500;font-size:clamp(20px,3vw,28px);line-height:1.4;margin-top:12px;position:relative}
-  .prompt-card .th{font-family:var(--thai);font-size:14px;color:rgba(244,241,234,.78);margin-top:12px;line-height:1.7;position:relative}
+  .grant-brief{background:var(--paper); color:var(--ink-deep); border-radius:18px; padding:48px 56px; margin-bottom:36px; border:1px solid rgba(232,199,122,.32); box-shadow:0 24px 64px rgba(7,23,52,.32); position:relative; overflow:hidden}
+  .grant-brief::before{content:""; position:absolute; inset:18px; border:1px solid rgba(184,138,63,.20); border-radius:12px; pointer-events:none}
+  .grant-brief::after{content:"CONFIDENTIAL · เฉพาะผู้รับ"; position:absolute; top:32px; right:32px; font-family:var(--mono); font-size:10px; letter-spacing:.18em; color:rgba(168,36,36,.7); transform:rotate(8deg)}
+  .gb-eyebrow{font-family:var(--mono); font-size:11px; letter-spacing:.20em; text-transform:uppercase; color:var(--bronze-dim); margin-bottom:18px}
+  .gb-title{font-family:var(--titles); font-weight:600; font-size:30px; letter-spacing:.04em; color:var(--ink-deep); margin:0 0 4px; line-height:1.2}
+  .gb-title-th{font-family:var(--th); font-weight:500; font-size:22px; color:var(--purple); margin:0 0 22px}
+  .gb-amount{display:inline-block; padding:6px 16px; border-radius:8px; background:rgba(184,138,63,.12); color:var(--bronze-dim); font-family:var(--mono); font-size:14px; font-weight:700; letter-spacing:.06em; margin-bottom:22px}
+  .gb-amount .baht{font-size:18px; vertical-align:-1px}
+  .gb-funders{display:grid; grid-template-columns:1fr 1fr; gap:14px; padding:18px 0; border-top:1px solid rgba(7,23,52,.10); border-bottom:1px solid rgba(7,23,52,.10); margin-bottom:24px}
+  @media (max-width:720px){ .gb-funders{grid-template-columns:1fr} }
+  .gb-funder strong{display:block; font-size:13px; color:var(--ink-deep)}
+  .gb-funder .th{display:block; font-family:var(--th); font-size:12px; color:var(--ink-soft); margin-top:2px}
+  .gb-body{font-size:15.5px; line-height:1.75; color:var(--ink-deep); margin:0 0 14px}
+  .gb-body strong{color:var(--purple)}
+  .gb-criteria{background:var(--paper-warm); padding:22px 28px; border-radius:12px; border:1px solid rgba(184,138,63,.20); margin:18px 0}
+  .gb-criteria ol{margin:0; padding-left:22px; counter-reset:gbc}
+  .gb-criteria li{list-style:none; counter-increment:gbc; padding:8px 0 8px 38px; position:relative; line-height:1.6; font-size:14.5px}
+  .gb-criteria li::before{content:counter(gbc); position:absolute; left:0; top:8px; width:26px; height:26px; border-radius:999px; background:var(--purple); color:var(--paper); display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:12px; font-weight:700}
+  .gb-signature{text-align:right; margin-top:28px; padding-top:18px; border-top:1px solid rgba(7,23,52,.10); font-family:var(--display); font-style:italic; font-size:15px; color:var(--ink-soft)}
+  .gb-signature .name{font-family:var(--display); font-style:normal; font-weight:600; font-size:17px; color:var(--ink-deep); display:block; margin-bottom:2px}
 
-  .sec{margin-top:40px}
-  .sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:14px}
-  .sec-num{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--bronze);letter-spacing:.1em}
-  .sec-head h2{font-family:var(--display);font-weight:500;font-size:clamp(22px,3.2vw,30px);color:var(--ink-deep)}
-  .sec-sub{color:var(--ink-soft);font-size:14px;line-height:1.65;margin:-6px 0 18px;max-width:680px}
+  .ft-section{background:rgba(244,241,234,0.04); border:1px solid rgba(232,199,122,.18); border-radius:14px; padding:28px 32px; margin-bottom:24px}
+  .ft-section h2{font-family:var(--display); font-weight:300; font-size:24px; color:var(--paper); margin:0 0 6px; line-height:1.3}
+  .ft-section h2 em{font-style:italic; color:var(--bronze-light)}
+  .ft-section .h2-th{font-family:var(--th); font-size:14px; color:rgba(244,241,234,.65); margin:0 0 18px}
+  .ft-section .h2-hint{font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--bronze-light); margin-bottom:18px}
 
-  /* Lane tabs */
-  .lane-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
-  .lane-tab{display:flex;align-items:center;gap:8px;padding:10px 16px;border-radius:12px;border:1px solid var(--line);background:var(--white);color:var(--ink-soft);font-weight:600;font-size:13px;cursor:pointer;transition:.2s}
-  .lane-tab .material-symbols-rounded{font-size:18px}
-  .lane-tab[aria-selected="true"]{border-color:var(--bronze);color:var(--ink-deep);background:rgba(232,199,122,.12);box-shadow:0 4px 14px rgba(181,124,52,.16)}
-  .lane-panel{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:24px}
-  .lane-panel[hidden]{display:none}
-  .lane-panel h3{font-family:var(--display);font-size:20px;font-weight:500;color:var(--ink-deep)}
-  .lane-panel p{color:var(--ink-soft);font-size:14px;line-height:1.6;margin-top:8px}
-  .hint{font-size:12.5px;color:var(--steel);margin-top:10px;line-height:1.55}
+  .rubric{border-radius:12px; background:rgba(7,23,52,0.32); padding:18px 22px}
+  .rubric summary{cursor:pointer; list-style:none; font-family:var(--mono); font-size:12px; letter-spacing:.10em; color:var(--bronze-light); display:flex; align-items:center; gap:8px; user-select:none}
+  .rubric summary::-webkit-details-marker{display:none}
+  .rubric summary .chev{transition:transform .25s ease-out}
+  .rubric[open] summary .chev{transform:rotate(90deg)}
+  .rubric-dim{padding:14px 0; border-top:1px solid rgba(232,199,122,.12)}
+  .rubric-dim:first-of-type{border-top:1px solid rgba(232,199,122,.20); margin-top:14px}
+  .rubric-dim h4{font-family:var(--display); font-weight:500; font-size:15px; color:var(--bronze-light); margin:0 0 6px}
+  .rubric-dim .weight{font-family:var(--mono); font-size:10px; color:var(--bronze-dim); margin-left:8px}
+  .rubric-dim table{width:100%; border-collapse:collapse; margin-top:6px; font-size:13px; line-height:1.5}
+  .rubric-dim td{padding:4px 10px; vertical-align:top}
+  .rubric-dim td:first-child{width:80px; font-family:var(--mono); color:var(--bronze-light); font-weight:700}
 
-  .rec-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:18px}
-  .rec-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:999px;font-weight:700;font-size:14px;cursor:pointer;border:none;background:linear-gradient(135deg,var(--crimson),#A82424);color:#fff;transition:.2s}
-  .rec-btn[disabled]{opacity:.5;cursor:not-allowed}
-  .rec-btn.is-recording{animation:recpulse 1.4s infinite}
-  @keyframes recpulse{0%{box-shadow:0 0 0 0 rgba(168,36,36,.5)}70%{box-shadow:0 0 0 12px rgba(168,36,36,0)}100%{box-shadow:0 0 0 0 rgba(168,36,36,0)}}
-  .rec-timer{font-family:var(--mono);font-size:18px;font-weight:700;color:var(--ink-deep);letter-spacing:.05em}
-  .rec-status{font-size:13px;color:var(--ink-soft)}
-  audio,video{margin-top:16px;width:100%;border-radius:12px;background:#000}
-  video{max-height:320px}
-  input[type=file]{margin-top:14px;font-size:13px;color:var(--ink-soft)}
-  .filemeta{margin-top:10px;font-family:var(--mono);font-size:12px;color:var(--steel)}
+  .reqs{margin:0; padding:0; list-style:none; display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:14px}
+  .reqs li{background:rgba(7,23,52,0.32); border:1px solid rgba(232,199,122,.20); border-radius:10px; padding:14px 16px; position:relative}
+  .reqs .num{display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; border-radius:999px; background:var(--bronze); color:var(--ink-deep); font-family:var(--mono); font-size:13px; font-weight:700; margin-bottom:10px}
+  .reqs .label{font-family:var(--display); font-weight:500; font-size:15px; color:var(--paper); display:block; margin-bottom:4px}
+  .reqs .th{font-family:var(--th); font-size:12px; color:rgba(244,241,234,.6); display:block; margin-bottom:8px}
+  .reqs .hint{font-size:12.5px; line-height:1.55; color:rgba(244,241,234,.78)}
 
-  .consent-box{background:rgba(232,199,122,.08);border:1px solid rgba(181,124,52,.28);border-radius:14px;padding:18px 20px;margin-top:26px}
-  .consent-row{display:flex;gap:12px;align-items:flex-start;margin-top:10px}
-  .consent-row:first-of-type{margin-top:14px}
-  .consent-row input{margin-top:3px;width:18px;height:18px;accent-color:var(--bronze)}
-  .consent-row label{font-size:13.5px;color:var(--ink);line-height:1.55}
-  .consent-row label .th{display:block;font-family:var(--thai);font-size:12px;color:var(--ink-soft);margin-top:2px}
+  .evidence-trail{position:relative; padding-left:8px; margin-top:18px}
+  .evidence-trail::before{content:""; position:absolute; left:14px; top:8px; bottom:8px; width:2px; background:linear-gradient(180deg, var(--bronze-light) 0%, rgba(232,199,122,.30) 50%, var(--bronze) 100%)}
+  .ev{position:relative; padding:14px 0 14px 44px; margin-bottom:6px; opacity:0; transform:translateY(8px); transition:opacity .5s ease-out, transform .5s ease-out}
+  .ev.in{opacity:1; transform:translateY(0)}
+  .ev::before{content:""; position:absolute; left:6px; top:18px; width:18px; height:18px; border-radius:4px; transform:rotate(45deg); background:var(--sdg-color, var(--bronze)); box-shadow:0 0 0 3px var(--ink-deep), 0 0 12px var(--sdg-color, var(--bronze))}
+  .ev .ev-head{display:flex; align-items:baseline; gap:10px; margin-bottom:6px; flex-wrap:wrap}
+  .ev .sdg{font-family:var(--mono); font-size:10px; letter-spacing:.10em; color:var(--sdg-color, var(--bronze-light)); font-weight:700; padding:2px 8px; border-radius:4px; background:rgba(232,199,122,.10)}
+  .ev .region{font-family:var(--mono); font-size:10px; color:rgba(244,241,234,.55); text-transform:uppercase; letter-spacing:.12em}
+  .ev .title{font-family:var(--display); font-style:italic; font-size:17px; color:var(--paper); flex-basis:100%; margin-top:4px}
+  .ev .commitment{font-family:var(--display); font-style:italic; font-size:15.5px; line-height:1.65; color:rgba(244,241,234,.92); margin:6px 0 0; padding:12px 16px; background:rgba(232,199,122,.06); border-radius:8px; border-left:2px solid var(--sdg-color, var(--bronze-light))}
+  .ev .commitment.missing{font-style:normal; color:rgba(244,241,234,.45); font-size:13px}
 
-  .boundary{display:flex;gap:12px;align-items:flex-start;background:var(--white);border:1px solid var(--line);border-left:4px solid var(--bronze);border-radius:14px;padding:18px 20px;margin-top:26px}
-  .boundary .material-symbols-rounded{font-size:22px;color:var(--bronze)}
-  .boundary p{font-size:13.5px;color:var(--ink-soft);line-height:1.6}
-  .boundary strong{color:var(--ink-deep)}
+  .audiences{display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:12px; margin-top:14px}
+  .aud{display:block; cursor:pointer; padding:16px 18px; border-radius:10px; background:rgba(7,23,52,0.32); border:1px solid rgba(232,199,122,.18); transition:border-color .15s, background .15s; position:relative}
+  .aud:hover{border-color:var(--bronze)}
+  .aud input{position:absolute; opacity:0; pointer-events:none}
+  .aud:has(input:checked){border-color:var(--bronze-light); background:rgba(232,199,122,.10); box-shadow:0 0 0 2px rgba(232,199,122,.20)}
+  .aud .aud-en{font-family:var(--display); font-weight:500; font-size:15px; color:var(--paper); display:block}
+  .aud .aud-th{font-family:var(--th); font-size:12.5px; color:rgba(244,241,234,.70); display:block; margin:2px 0 6px}
+  .aud .aud-sdg{font-family:var(--mono); font-size:10px; letter-spacing:.10em; color:var(--bronze-light)}
 
-  .submit-row{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-top:30px}
-  .submit-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 30px;border-radius:999px;font-weight:700;font-size:15px;cursor:pointer;border:none;background:linear-gradient(135deg,var(--bronze),var(--bronze-light));color:var(--ink-deep);transition:transform .2s,box-shadow .2s}
-  .submit-btn[disabled]{opacity:.5;cursor:not-allowed}
-  .submit-btn:not([disabled]):hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(181,124,52,.36)}
-  .submit-note{font-size:12.5px;color:var(--steel)}
-  .submitted{background:var(--white);border:1px solid var(--bronze);border-radius:18px;padding:30px;text-align:center;margin-top:24px}
-  .submitted .material-symbols-rounded{font-size:42px;color:var(--bronze)}
-  .submitted h3{font-family:var(--display);font-size:24px;font-weight:500;color:var(--ink-deep);margin-top:8px}
-  .submitted p{color:var(--ink-soft);font-size:14px;line-height:1.6;margin-top:8px}
+  .lanes{display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:14px; margin-top:14px}
+  .lane{display:flex; flex-direction:column; gap:6px; cursor:pointer; padding:18px 20px; border-radius:12px; background:rgba(7,23,52,0.32); border:1px solid rgba(232,199,122,.20); transition:border-color .15s, background .15s, transform .15s; position:relative}
+  .lane:hover{border-color:var(--bronze); transform:translateY(-2px)}
+  .lane input{position:absolute; opacity:0}
+  .lane:has(input:checked){border-color:var(--bronze-light); background:rgba(232,199,122,.10); box-shadow:0 0 0 2px rgba(232,199,122,.20)}
+  .lane .icon{font-size:28px}
+  .lane .lane-name{font-family:var(--display); font-weight:500; font-size:17px; color:var(--paper)}
+  .lane .lane-name-th{font-family:var(--th); font-size:13px; color:rgba(244,241,234,.70)}
+  .lane .desc{font-size:13px; color:rgba(244,241,234,.75); line-height:1.5; margin-top:4px}
 
-  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  .recorder{background:rgba(7,23,52,0.45); border:1px solid rgba(232,199,122,.24); border-radius:14px; padding:22px 26px; margin-top:18px}
+  .rec-stage{display:flex; align-items:center; gap:18px; flex-wrap:wrap}
+  .rec-stage .avatar-frame{width:96px; height:96px; border-radius:14px; overflow:hidden; background:rgba(244,241,234,.06); border:1px solid rgba(232,199,122,.20); display:flex; align-items:center; justify-content:center; flex:0 0 96px}
+  .rec-stage .avatar-frame img{width:100%; height:100%; object-fit:cover}
+  .rec-stage .avatar-frame .placeholder{font-family:var(--mono); font-size:10px; color:var(--bronze-dim); text-align:center; padding:8px}
+  .rec-stage video.cam{width:160px; height:120px; border-radius:10px; background:#000; border:1px solid rgba(232,199,122,.32); object-fit:cover; display:none}
+  .rec-stage video.cam.live{display:block}
+  .rec-stage .meter{flex:1; min-width:200px}
+  .rec-stage .level-bar{width:100%; height:8px; border-radius:999px; background:rgba(244,241,234,.08); overflow:hidden; margin-bottom:8px}
+  .rec-stage .level-fill{height:100%; width:0%; background:linear-gradient(90deg, var(--bronze) 0%, var(--bronze-light) 60%, var(--crimson) 100%); transition:width .12s ease-out}
+  .rec-stage .timer{font-family:var(--mono); font-size:18px; color:var(--paper); letter-spacing:.06em}
+  .rec-stage .timer .target{font-size:11px; color:rgba(244,241,234,.55); margin-left:8px}
+  .rec-stage .status-chip{display:inline-flex; align-items:center; gap:8px; padding:6px 12px; border-radius:999px; font-family:var(--mono); font-size:10px; letter-spacing:.10em; text-transform:uppercase; margin-top:4px}
+  .rec-stage .status-chip.idle{background:rgba(244,241,234,.08); color:rgba(244,241,234,.65)}
+  .rec-stage .status-chip.recording{background:rgba(168,36,36,.18); color:#FFB3B3}
+  .rec-stage .status-chip.recording .dot{width:8px; height:8px; border-radius:999px; background:#A82424; animation:pulse 1.2s infinite}
+  .rec-controls{display:flex; gap:10px; margin-top:18px; flex-wrap:wrap}
+  .rec-btn{display:inline-flex; align-items:center; gap:8px; padding:10px 18px; border-radius:999px; cursor:pointer; border:none; font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; transition:transform .15s, background .15s}
+  .rec-btn:hover{transform:translateY(-1px)}
+  .rec-btn.start{background:var(--crimson); color:var(--paper)}
+  .rec-btn.stop{background:rgba(232,199,122,.18); color:var(--bronze-light); border:1px solid var(--bronze)}
+  .rec-btn.reset{background:transparent; color:rgba(244,241,234,.75); border:1px solid rgba(244,241,234,.20)}
+  .rec-btn.playback{background:var(--bronze); color:var(--ink-deep)}
+  .rec-btn:disabled{opacity:.4; cursor:not-allowed; transform:none}
+  .rec-playback{margin-top:14px; display:none}
+  .rec-playback.has-recording{display:block}
+  .rec-playback audio{width:100%}
+  .video-toggle{display:flex; align-items:center; gap:8px; font-size:12px; color:rgba(244,241,234,.75); margin-top:14px}
+  .video-toggle input{accent-color:var(--bronze)}
+
+  .upload-zone{margin-top:14px; padding:24px; border-radius:12px; background:rgba(7,23,52,0.32); border:1.5px dashed rgba(232,199,122,.30); text-align:center}
+  .upload-zone input[type=file]{display:none}
+  .upload-zone .upload-btn{display:inline-flex; align-items:center; gap:8px; padding:10px 18px; border-radius:999px; cursor:pointer; background:var(--bronze); color:var(--ink-deep); border:none; font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase}
+  .upload-zone .hint{margin-top:10px; font-size:12px; color:rgba(244,241,234,.6); font-family:var(--mono); letter-spacing:.04em}
+  .upload-zone .filename{margin-top:8px; font-family:var(--mono); font-size:12px; color:var(--bronze-light)}
+
+  .transcript{margin-top:18px}
+  .transcript label{display:block; font-family:var(--mono); font-size:11px; letter-spacing:.12em; color:var(--bronze-light); text-transform:uppercase; margin-bottom:8px}
+  .transcript textarea{width:100%; min-height:180px; padding:14px 16px; border-radius:10px; background:rgba(244,241,234,0.06); color:var(--paper); border:1px solid rgba(232,199,122,.24); font-family:var(--sans); font-size:14.5px; line-height:1.6; resize:vertical; box-sizing:border-box}
+  .transcript textarea:focus{outline:none; border-color:var(--bronze-light); background:rgba(244,241,234,.10)}
+  .transcript .meta{display:flex; justify-content:space-between; margin-top:6px; font-family:var(--mono); font-size:11px; color:rgba(244,241,234,.60); letter-spacing:.04em}
+  .transcript .meta .ok{color:var(--bronze-light)}
+
+  .compass-panel{background:rgba(7,23,52,0.45); border:1px solid rgba(232,199,122,.24); border-radius:14px; padding:20px 22px; margin-top:18px}
+  .compass-panel header{display:flex; align-items:center; gap:10px; margin-bottom:12px}
+  .compass-panel header .badge{width:32px; height:32px; border-radius:999px; background:var(--bronze); color:var(--ink-deep); display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-weight:700}
+  .compass-panel h3{margin:0; font-family:var(--display); font-weight:500; font-size:16px; color:var(--paper)}
+  .compass-panel .th{font-family:var(--th); font-size:12px; color:rgba(244,241,234,.55); display:block; margin-top:1px}
+  .compass-disclaimer{font-size:12px; color:rgba(244,241,234,.70); line-height:1.55; margin:0 0 14px; padding:10px 12px; border-radius:8px; background:rgba(232,199,122,.08); border-left:2px solid var(--bronze-light)}
+  .compass-log{min-height:120px; max-height:280px; overflow-y:auto; padding:10px 0; margin-bottom:10px; display:flex; flex-direction:column; gap:10px}
+  .mentor-msg{padding:10px 14px; border-radius:12px; max-width:90%; font-size:13.5px; line-height:1.5}
+  .mentor-msg.bot{background:rgba(244,241,234,.06); color:var(--paper); align-self:flex-start; border:1px solid rgba(232,199,122,.18)}
+  .mentor-msg.user{background:rgba(184,138,63,.18); color:var(--bronze-light); align-self:flex-end}
+  .compass-input{display:flex; gap:8px}
+  .compass-input textarea{flex:1; min-height:54px; padding:10px 12px; border-radius:10px; background:rgba(244,241,234,.06); color:var(--paper); border:1px solid rgba(232,199,122,.20); font-family:var(--sans); font-size:13.5px; resize:vertical; box-sizing:border-box}
+  .compass-input button{padding:10px 16px; border-radius:10px; border:none; cursor:pointer; background:var(--bronze); color:var(--ink-deep); font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase}
+  .compass-input button:disabled{opacity:.5; cursor:not-allowed}
+
+  .consent{margin-top:14px}
+  .consent label{display:flex; gap:12px; padding:14px 16px; border-radius:10px; background:rgba(7,23,52,0.32); border:1px solid rgba(232,199,122,.18); cursor:pointer; margin-bottom:10px; align-items:flex-start}
+  .consent input{flex:0 0 18px; margin-top:2px; accent-color:var(--bronze)}
+  .consent .ctxt{flex:1; font-size:13.5px; line-height:1.6; color:rgba(244,241,234,.90)}
+  .consent .ctxt strong{color:var(--paper)}
+  .consent .ctxt .th{display:block; font-family:var(--th); font-size:12px; color:rgba(244,241,234,.60); margin-top:4px}
+
+  .submit-bar{display:flex; gap:14px; justify-content:flex-end; margin-top:18px; flex-wrap:wrap; align-items:center}
+  .ft-btn{display:inline-flex; align-items:center; gap:8px; padding:14px 28px; border-radius:999px; cursor:pointer; border:none; font-family:var(--mono); font-size:12px; letter-spacing:.14em; text-transform:uppercase; transition:transform .15s, box-shadow .15s}
+  .ft-btn:hover{transform:translateY(-2px)}
+  .ft-btn.save{background:transparent; color:var(--paper); border:1px solid rgba(232,199,122,.30)}
+  .ft-btn.submit{background:linear-gradient(135deg, var(--bronze) 0%, var(--bronze-light) 100%); color:var(--ink-deep); font-weight:700; box-shadow:0 8px 24px rgba(232,199,122,.32)}
+  .ft-btn:disabled{opacity:.5; cursor:not-allowed; transform:none}
+  .submit-status{font-family:var(--mono); font-size:11px; color:var(--bronze-light); margin-right:auto}
+
+  @media (max-width:720px){ .grant-brief{padding:32px 24px} .gb-title{font-size:24px} .ft-section{padding:22px 18px} }
 </style>
 </head>
 <body>
@@ -120,372 +221,281 @@
     <span class="logo">FUTUREPROOF</span>
     <span class="sub">SDGs Mission Journey</span>
   </a>
-  <a href="./mission-select.html" class="shell-header-btn">&larr; Journey map</a>
+  <div class="shell-header-status">
+    <span class="live-dot" aria-hidden="true"></span>
+    <div>
+      <div class="shell-header-status-label">Final Task · Step 12</div>
+      <div class="shell-header-status-title">Voice for Change · เสียงเพื่อการเปลี่ยนแปลง</div>
+    </div>
+  </div>
+  <a href="./mission-select.html" class="shell-header-btn">&larr; Back</a>
 </header>
 
-<div class="wrap">
-  <div class="kicker">The capstone · ภารกิจสุดท้าย</div>
-  <h1 class="title">Your <em>Voice for Change</em>.</h1>
+<main id="main">
 
-  <!-- Locked state (shown until 6/6 Keystones, or teacher override / demo bypass) -->
-  <section id="locked" hidden>
-    <div class="locked-card">
-      <span class="lockic">lock</span>
-      <h2>The Final Task is sealed for now</h2>
-      <div class="ks-meter" id="ks-meter" aria-hidden="true"></div>
-      <p id="locked-msg">Earn all six SDG Keystones across Thailand's regions to unlock your Voice for Change. Each region you pass turns one Keystone bronze.</p>
-      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:18px">
-        <a href="./mission-select.html" class="btn-go">Back to the journey <span aria-hidden="true">→</span></a>
-      </div>
-      <p style="font-size:12px;color:var(--steel);margin-top:18px">
-        Struggling on a region? A teacher can grant a Keystone for assessed offline-equivalent work — you are never dead-ended.
-      </p>
-    </div>
-  </section>
+  <div id="locked" class="locked-screen" hidden>
+    <div class="lock-icon"><span class="material-symbols-rounded">lock</span></div>
+    <h1>The Voice for Change is <em>locked</em>.</h1>
+    <p class="th">ภารกิจสุดท้ายยังไม่ปลดล็อก</p>
+    <p>You need <strong>all six SDG Keystones</strong> before the Thailand SDG Catalyst Grant committee will see your proposal. Complete the remaining regions on the journey map — any order, your pace.</p>
+    <div class="keystone-progress" id="ks-progress" aria-label="Keystones earned"></div>
+    <a href="./mission-select.html" class="shell-header-btn" style="border-color:var(--bronze)">Return to the journey</a>
+  </div>
 
-  <!-- Unlocked: the task -->
-  <main id="task" hidden>
+  <div id="ft-content" hidden>
 
-    <div class="prompt-card">
-      <div class="pk">The prompt</div>
-      <blockquote>Having walked all six of Thailand's frontlines, propose one concrete action for a Thai community. Address a real audience — not your teacher, the people who live the problem.</blockquote>
-      <p class="th" lang="th">เมื่อคุณได้เดินผ่านแนวหน้าทั้ง 6 ของไทยแล้ว จงเสนอ “หนึ่งการกระทำที่เป็นรูปธรรม” สำหรับชุมชนไทยจริง และสื่อสารกับผู้ฟังจริง ไม่ใช่ครูของคุณ แต่เป็นผู้ที่เผชิญปัญหานั้น</p>
-    </div>
+    <article class="grant-brief" aria-label="Thailand SDG Catalyst Grant 2026 — letter of notification">
+      <div class="gb-eyebrow">LETTER OF NOTIFICATION · จดหมายแจ้งผล</div>
+      <h1 class="gb-title">The Thailand SDG Catalyst Grant · 2026</h1>
+      <p class="gb-title-th">ทุน SDG ประเทศไทย ประจำปี 2026</p>
+      <div class="gb-amount"><span class="baht">฿</span>1,000,000</div>
 
-    <div id="evidence-recall" class="boundary" hidden>
-      <span class="material-symbols-rounded">history_edu</span>
-      <p id="evidence-recall-text"></p>
-    </div>
-
-    <section class="sec">
-      <div class="sec-head"><span class="sec-num">01</span><h2>Choose how you'll speak</h2></div>
-      <p class="sec-sub">Three ways in — pick whichever lets your idea land hardest. None is "easier"; they are different means of expression (CAST UDL).</p>
-
-      <div class="lane-tabs" role="tablist" aria-label="Submission method">
-        <button class="lane-tab" role="tab" id="tab-live" aria-controls="panel-live" aria-selected="true" data-lane="live">
-          <span class="material-symbols-rounded">mic</span><span>Record live</span>
-        </button>
-        <button class="lane-tab" role="tab" id="tab-upload" aria-controls="panel-upload" aria-selected="false" data-lane="upload">
-          <span class="material-symbols-rounded">upload_file</span><span>Upload audio / video</span>
-        </button>
-        <button class="lane-tab" role="tab" id="tab-canva" aria-controls="panel-canva" aria-selected="false" data-lane="canva">
-          <span class="material-symbols-rounded">design_services</span><span>Create with Canva</span>
-        </button>
-      </div>
-
-      <!-- Lane 1: live recording -->
-      <div class="lane-panel" id="panel-live" role="tabpanel" aria-labelledby="tab-live">
-        <h3>Record live, in your own voice</h3>
-        <p>Speak for <strong>60–180 seconds</strong>. State the community, the one action, who it helps, and the evidence behind it. You can re-record as many times as you like.</p>
-        <div class="rec-row">
-          <button class="rec-btn" id="rec-toggle" type="button">
-            <span class="material-symbols-rounded">fiber_manual_record</span>
-            <span id="rec-label">Start recording</span>
-          </button>
-          <span class="rec-timer" id="rec-timer">00:00</span>
-          <span class="rec-status" id="rec-status"></span>
+      <div class="gb-funders">
+        <div class="gb-funder">
+          <strong>Ministry of Higher Education, Science, Research and Innovation</strong>
+          <span class="th">กระทรวงการอุดมศึกษา วิทยาศาสตร์ วิจัยและนวัตกรรม (อว.)</span>
         </div>
-        <audio id="rec-playback" controls hidden></audio>
-        <p class="hint" id="rec-hint">Your browser will ask for microphone permission. Audio stays on your device until you press <em>Submit</em>. Nothing is uploaded automatically.</p>
-      </div>
-
-      <!-- Lane 2: upload -->
-      <div class="lane-panel" id="panel-upload" role="tabpanel" aria-labelledby="tab-upload" hidden>
-        <h3>Upload something you've already made</h3>
-        <p>An audio file or a short video (max ~50&nbsp;MB). Good if you'd rather prepare offline or aren't comfortable recording live.</p>
-        <input type="file" id="upload-input" accept="audio/*,video/*" />
-        <div class="filemeta" id="upload-meta" hidden></div>
-        <video id="upload-preview" controls hidden></video>
-        <p class="hint">Your file is held in this page only and is sent when you press <em>Submit</em>. Large videos may take a moment.</p>
-      </div>
-
-      <!-- Lane 3: Canva (launch + export + upload — never iframe) -->
-      <div class="lane-panel" id="panel-canva" role="tabpanel" aria-labelledby="tab-canva" hidden>
-        <h3>Design it visually with Canva</h3>
-        <p>Open a Canva template in a <strong>new tab</strong>, design your one-action pitch, then export it as PDF / PNG / MP4 and bring it back here.</p>
-        <div class="rec-row">
-          <a class="btn-go" id="canva-launch" href="https://www.canva.com/design?create&type=TADQ_presentation" target="_blank" rel="noopener noreferrer">
-            <span class="material-symbols-rounded">open_in_new</span> Open Canva (new tab)
-          </a>
+        <div class="gb-funder">
+          <strong>UNDP Thailand</strong>
+          <span class="th">โครงการพัฒนาแห่งสหประชาชาติ ประเทศไทย</span>
         </div>
-        <p class="hint">Step 1 — design in the new tab. Step 2 — Canva → <em>Share → Download</em> (PDF, PNG, or MP4). Step 3 — upload the export below.</p>
-        <input type="file" id="canva-input" accept="application/pdf,image/*,video/*" />
-        <div class="filemeta" id="canva-meta" hidden></div>
+      </div>
+
+      <p class="gb-body">Your team has been <strong>shortlisted</strong> for a Thailand SDG Catalyst Grant of <strong>one million baht</strong>.</p>
+
+      <p class="gb-body">You have, over the past weeks, walked six of the communities the Catalyst Grant prioritises this cycle: <strong>Khon Kaen</strong>, <strong>Chiang Mai</strong>, <strong>Bangkok</strong>, the <strong>Andaman coast</strong>, <strong>Mae Sot</strong>, and the <strong>EEC fringe</strong>. You have read their dossiers. You have heard their voices. You have decided under pressure.</p>
+
+      <p class="gb-body">The committee meets next Friday. They will not award the million baht to a wish, a slogan, or a sentiment. They will award it to <strong>one proposal</strong> that:</p>
+
+      <div class="gb-criteria">
+        <ol>
+          <li><strong>Addresses a real Thai audience by name</strong> — not your teacher, not "the public."</li>
+          <li><strong>Builds on the lived evidence you committed to during the missions</strong> — not aspirational claims.</li>
+          <li><strong>Names the trade-off it deliberately accepts</strong> — because there is always one, and pretending otherwise fails the committee.</li>
+          <li><strong>Proposes one action — concrete, costed, sequenced</strong> — within the million-baht envelope.</li>
+          <li><strong>Speaks in language the audience can actually act on</strong> — not academic, not slogan, not pitch-deck.</li>
+        </ol>
+      </div>
+
+      <p class="gb-body">You will not present in person. You will submit a <strong>recorded proposal</strong> — audio or video, <strong>2 to 5 minutes</strong> — with a written transcript the committee can refer back to.</p>
+
+      <p class="gb-body" style="margin-top:18px"><em>The grant is real money. The decision is real. The community is real. <strong>Speak as if you mean it. Because you do.</strong></em></p>
+
+      <div class="gb-signature">
+        <span class="name">— Aj. Yungie</span>
+        Programme Director · FUTUREPROOF
+      </div>
+    </article>
+
+    <section class="ft-section">
+      <h2>How you'll be graded · <em>Rubric A</em></h2>
+      <p class="h2-th">เกณฑ์การให้คะแนน — เปิดเผยตามหลัก UDL 8.1</p>
+      <p class="h2-hint">Your teacher grades this — never the AI. AI judgement is advisory only.</p>
+
+      <details class="rubric" open>
+        <summary>
+          <span class="chev">▸</span>
+          <span>Five dimensions · click to expand / collapse</span>
+        </summary>
+
+        <div class="rubric-dim">
+          <h4>1. Language Proficiency Across Registers <span class="weight">× 1.0</span></h4>
+          <table>
+            <tr><td>10</td><td>Controls academic, persuasive, and evaluative registers within one coherent piece. Hedging, modality, and metadiscourse used with intent. C1 alignment evident.</td></tr>
+            <tr><td>7</td><td>Generally appropriate register; occasional overreach or under-specification. B2 alignment evident.</td></tr>
+            <tr><td>4</td><td>Register slips (the appeal reads academic; the evidence reads conversational). B1 alignment.</td></tr>
+            <tr><td>1</td><td>Register undifferentiated; errors interfere with meaning. A2 or below.</td></tr>
+          </table>
+        </div>
+
+        <div class="rubric-dim">
+          <h4>2. Strength of Argument <span class="weight">× 1.0</span></h4>
+          <table>
+            <tr><td>10</td><td>One concrete action defended with evidence from the missions; the trade-off accepted is named and owned.</td></tr>
+            <tr><td>7</td><td>Concrete action with mission evidence; trade-off acknowledged but not fully owned.</td></tr>
+            <tr><td>4</td><td>Action present but evidence is general; trade-off avoided.</td></tr>
+            <tr><td>1</td><td>Wish or slogan, not an argument.</td></tr>
+          </table>
+        </div>
+
+        <div class="rubric-dim">
+          <h4>3. Audience Address <span class="weight">× 1.0</span></h4>
+          <table>
+            <tr><td>10</td><td>Named real Thai audience; modality, deference, and ask all calibrated to them.</td></tr>
+            <tr><td>7</td><td>Named audience; mostly calibrated language.</td></tr>
+            <tr><td>4</td><td>Audience named generically; language register inconsistent.</td></tr>
+            <tr><td>1</td><td>Addressed to "the public" or the teacher. The committee will not act on this.</td></tr>
+          </table>
+        </div>
+
+        <div class="rubric-dim">
+          <h4>4. Use of Journey Evidence <span class="weight">× 1.0</span></h4>
+          <table>
+            <tr><td>10</td><td>Uses at least three of your six mission Q6 commitments verbatim or in close paraphrase. The proposal is anchored in the journey.</td></tr>
+            <tr><td>7</td><td>Uses two commitments well.</td></tr>
+            <tr><td>4</td><td>Uses one commitment, or references missions generally.</td></tr>
+            <tr><td>1</td><td>No reference back to the missions. The capstone floats free of the work.</td></tr>
+          </table>
+        </div>
+
+        <div class="rubric-dim">
+          <h4>5. Production Discipline <span class="weight">× 0.5</span></h4>
+          <table>
+            <tr><td>10</td><td>Within length cap (2–5 min); transcript matches audio; consent settings deliberate.</td></tr>
+            <tr><td>7</td><td>Length appropriate; transcript mostly matches.</td></tr>
+            <tr><td>4</td><td>Length off-target; transcript divergent.</td></tr>
+            <tr><td>1</td><td>Length or transcript breaks the submission frame.</td></tr>
+          </table>
+        </div>
+      </details>
+    </section>
+
+    <section class="ft-section">
+      <h2>What your proposal must contain · <em>five parts</em></h2>
+      <p class="h2-th">โครงสร้างข้อเสนอ — ห้าส่วน</p>
+      <ul class="reqs">
+        <li><div class="num">1</div><span class="label">The crisis</span><span class="th">วิกฤตที่กำลังกล่าวถึง</span><span class="hint">What problem in which community. One or two sentences. Not abstract.</span></li>
+        <li><div class="num">2</div><span class="label">The one action</span><span class="th">ข้อเสนอเดียวที่เป็นรูปธรรม</span><span class="hint">Concrete, costed, sequenced. Within the ฿1M envelope.</span></li>
+        <li><div class="num">3</div><span class="label">Who it helps</span><span class="th">ใครเป็นผู้ได้รับประโยชน์</span><span class="hint">Specific community, specific stakeholders, specific change.</span></li>
+        <li><div class="num">4</div><span class="label">The evidence</span><span class="th">หลักฐานสนับสนุน</span><span class="hint">From the missions you walked. Cite at least three of your six commitments.</span></li>
+        <li><div class="num">5</div><span class="label">The trade-off</span><span class="th">ต้นทุนที่คุณยอมรับ</span><span class="hint">Name what your action does NOT do. Honest. Owned. This wins the room.</span></li>
+      </ul>
+    </section>
+
+    <section class="ft-section">
+      <h2>Your evidence trail · <em>six promises you made to yourself</em></h2>
+      <p class="h2-th">หลักฐานจากภารกิจ — คำสัญญาที่คุณให้กับตัวเอง</p>
+      <p class="h2-hint">These are the commitments you wrote at the end of each mission. They are yours. Use any of them. Use all of them.</p>
+      <div class="evidence-trail" id="evidence-trail"></div>
+    </section>
+
+    <section class="ft-section">
+      <h2>Address it to a real Thai audience</h2>
+      <p class="h2-th">เลือกผู้รับข้อเสนอของคุณ (หน่วยงานไทยจริง)</p>
+      <p class="h2-hint">The platform does NOT send. It records the address you chose so the committee — and you — know exactly who you spoke to.</p>
+      <div class="audiences" id="audiences" role="radiogroup" aria-label="Audience"></div>
+    </section>
+
+    <section class="ft-section">
+      <h2>How will you submit?</h2>
+      <p class="h2-th">เลือกรูปแบบการนำเสนอ — บันทึกสด · อัปโหลด</p>
+      <p class="h2-hint">The lane is your means of expression. The rubric is the same in either lane.</p>
+      <div class="lanes" id="lanes" role="radiogroup" aria-label="Lane">
+        <label class="lane">
+          <input type="radio" name="lane" value="record" checked />
+          <div class="icon">🎙</div>
+          <div class="lane-name">Record in-browser</div>
+          <div class="lane-name-th">บันทึกเสียง / วิดีโอสดในเบราว์เซอร์</div>
+          <div class="desc">2–5 minutes. Unlimited re-records. Live transcription appears below as you speak.</div>
+        </label>
+        <label class="lane">
+          <input type="radio" name="lane" value="upload" />
+          <div class="icon">📤</div>
+          <div class="lane-name">Upload a file</div>
+          <div class="lane-name-th">อัปโหลดไฟล์ที่บันทึกไว้</div>
+          <div class="desc">MP3, MP4, WebM, M4A. ≤ 25 MB. You'll paste or type the transcript below.</div>
+        </label>
+      </div>
+
+      <div id="record-pane" class="recorder">
+        <div class="rec-stage">
+          <div class="avatar-frame" id="rec-avatar"><div class="placeholder">Your<br>avatar</div></div>
+          <video class="cam" id="rec-cam" muted playsinline></video>
+          <div class="meter">
+            <div class="level-bar"><div class="level-fill" id="level-fill"></div></div>
+            <div class="timer" id="timer">0:00 <span class="target">/ suggested 3:00 · max 5:00</span></div>
+            <div class="status-chip idle" id="status-chip"><span>Ready when you are</span></div>
+          </div>
+        </div>
+        <div class="rec-controls">
+          <button type="button" class="rec-btn start" id="rec-start">● Start recording</button>
+          <button type="button" class="rec-btn stop" id="rec-stop" disabled>■ Stop</button>
+          <button type="button" class="rec-btn reset" id="rec-reset" disabled>↻ Re-record</button>
+          <button type="button" class="rec-btn playback" id="rec-play" disabled>▶ Play back</button>
+        </div>
+        <div class="video-toggle">
+          <input type="checkbox" id="video-on" />
+          <label for="video-on">Record video too — show my face<span style="font-family:var(--th);margin-left:6px;color:rgba(244,241,234,.55)">บันทึกวิดีโอด้วย</span></label>
+        </div>
+        <div class="rec-playback" id="rec-playback-block">
+          <audio id="rec-audio" controls></audio>
+        </div>
+      </div>
+
+      <div id="upload-pane" class="upload-zone" hidden>
+        <input type="file" id="upload-input" accept="audio/*,video/*,.mp3,.mp4,.m4a,.webm,.wav" />
+        <button type="button" class="upload-btn" id="upload-pick">📁 Choose audio / video file</button>
+        <div class="hint">MP3 · MP4 · WebM · M4A · WAV — up to 25 MB</div>
+        <div class="filename" id="upload-filename"></div>
+      </div>
+
+      <div class="transcript">
+        <label for="transcript-area">Transcript · ถอดความ <span style="font-family:var(--mono);color:var(--bronze-light);margin-left:8px">(auto-fills from live recording — please review and correct)</span></label>
+        <textarea id="transcript-area" placeholder="Live transcription will appear here as you speak. After you stop, edit any words the speech recognition got wrong before you submit."></textarea>
+        <div class="meta">
+          <span><span id="word-count">0</span> words · suggested 200–500</span>
+          <span class="ok" id="transcript-status"></span>
+        </div>
       </div>
     </section>
 
-    <section class="sec">
-      <div class="sec-head"><span class="sec-num">02</span><h2>Reach a real audience</h2></div>
-      <p class="sec-sub">Authentic audience is the single biggest amplifier of learning. You decide — clearly and reversibly — how far your voice travels.</p>
-      <div class="consent-box">
-        <div style="font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--bronze)">Curation consent · PDPA</div>
-        <div class="consent-row">
+    <section class="ft-section">
+      <h2>Mr Compass — language coach (optional) · <em>same guardrails as in missions</em></h2>
+      <p class="h2-th">ผู้ช่วยภาษา — คุณคอมพาส (ตามขอบเขตเดิม)</p>
+      <div class="compass-panel">
+        <header>
+          <div class="badge">🧭</div>
+          <div>
+            <h3>Mr Compass</h3>
+            <span class="th">โหมดผู้ช่วยภาษา — ไม่ประเมินเนื้อหา</span>
+          </div>
+        </header>
+        <p class="compass-disclaimer"><strong>Mr Compass does not evaluate your proposal.</strong> He is here to help with English register only — modality (will / would / should), audience-appropriate hedging, and clarity. He will <strong>not</strong> tell you what to argue. He will <strong>not</strong> score your work. Same guardrails as the missions.</p>
+        <div class="compass-log" id="compass-log" aria-live="polite"></div>
+        <div class="compass-input">
+          <textarea id="compass-input" rows="2" placeholder="e.g. 'Is this too formal for a District Education Officer?' or 'How do I hedge this claim?'"></textarea>
+          <button type="button" id="compass-send">Ask</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="ft-section">
+      <h2>Hall of Voices · <em>optional, withdrawable</em></h2>
+      <p class="h2-th">หอเสียง — สมัครใจ ถอนได้</p>
+      <div class="consent">
+        <label>
           <input type="checkbox" id="consent-hall" />
-          <label for="consent-hall">
-            Publish my Voice for Change in the public <strong>Hall of Voices</strong> if a teacher curates it.
-            <span class="th" lang="th">ยินยอมให้เผยแพร่ผลงานใน Hall of Voices หากครูคัดเลือก</span>
-          </label>
-        </div>
-        <div class="consent-row">
+          <div class="ctxt">
+            <strong>Curate to the public Hall of Voices (pseudonym).</strong>
+            Yes, I consent to my Voice for Change being considered for curation into the public Hall of Voices under a pseudonym. I can withdraw this consent at any time.
+            <span class="th">ยินยอมให้นำผลงานเข้าสู่หอเสียงสาธารณะภายใต้นามแฝง — สามารถถอนความยินยอมได้ทุกเมื่อ</span>
+          </div>
+        </label>
+        <label>
           <input type="checkbox" id="consent-forum" />
-          <label for="consent-forum">
-            Also allow my piece to be forwarded to a real Thai youth SDG forum (optional, only with the above).
-            <span class="th" lang="th">ยินยอมให้ส่งต่อไปยังเวทีเยาวชน SDG ของไทย (ไม่บังคับ)</span>
-          </label>
-        </div>
-        <p style="font-size:12px;color:var(--steel);margin-top:14px">
-          Both default OFF. You can withdraw consent any time from <a href="./my-data.html" style="color:var(--bronze);font-weight:600">My Data</a>. Submitting without consent is completely fine — your teacher still grades it.
-        </p>
+          <div class="ctxt">
+            <strong>Optional onward sharing to a Thai youth SDG forum.</strong>
+            Yes, my work may be optionally proposed to a real Thai youth SDG forum (further explicit opt-in is required before any specific forum sees it).
+            <span class="th">ยินยอมให้พิจารณาเสนอผลงานต่อเวทีเยาวชน SDG (ต้องขอความยินยอมเพิ่มเติมก่อนเวทีจริง)</span>
+          </div>
+        </label>
       </div>
     </section>
 
-    <div class="boundary">
-      <span class="material-symbols-rounded">balance</span>
-      <p><strong>How this is judged.</strong> AI scaffolded every mission that brought you here — consistent, instant, at scale. This capstone is different on purpose: <strong>your teacher grades it</strong>, holistically, with Rubric&nbsp;A. The summative judgement of a human voice stays with a human. That boundary is deliberate (AI-TPACK).</p>
-    </div>
-
-    <div class="submit-row">
-      <button class="submit-btn" id="submit-btn" type="button" disabled>
-        <span class="material-symbols-rounded">send</span>
-        <span>Submit my Voice for Change</span>
-      </button>
-      <span class="submit-note" id="submit-note">Choose a lane and add your piece to enable submit.</span>
-    </div>
-
-    <div class="submitted" id="submitted" hidden>
-      <span class="material-symbols-rounded">verified</span>
-      <h3>Submitted. Your voice is in.</h3>
-      <p id="submitted-msg">Your teacher will grade it with Rubric&nbsp;A. If you consented, it may be curated into the Hall of Voices.</p>
-      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px">
-        <a href="./hall-of-excellence.html" class="btn-ghost">See the Hall of Voices</a>
-        <a href="./mission-select.html" class="btn-go">Back to the journey</a>
+    <section class="ft-section">
+      <div class="submit-bar">
+        <span class="submit-status" id="submit-status">Choose an audience, record or upload, write a transcript — then submit.</span>
+        <button type="button" class="ft-btn save" id="save-draft">💾 Save draft</button>
+        <button type="button" class="ft-btn submit" id="submit-btn" disabled>Submit for grading →</button>
       </div>
-    </div>
+    </section>
 
-  </main>
-</div>
+  </div>
 
-<script src="../config.local.js" onerror="window.__noConfig = true;"></script>
+</main>
 
-<script type="module">
-  import { isFinalTaskUnlocked, getKeystoneCount, isDemoBypassActive } from "../src/keystones.js";
-  import { getFlowState, isFirebaseAvailable } from "../src/auth.js";
+<script type="module" src="../src/a11y.js"></script>
+<script type="module" src="../src/voice-for-change.js"></script>
 
-  const flow = getFlowState();
-  const uid = flow && flow.uid;
-
-  /* ── Gate ─────────────────────────────────────────────────────── */
-  const lockedEl = document.getElementById("locked");
-  const taskEl = document.getElementById("task");
-  let unlocked = false, count = 0;
-  try {
-    count = await getKeystoneCount(uid);
-    unlocked = await isFinalTaskUnlocked(uid);
-  } catch (_) { unlocked = isDemoBypassActive(); }
-
-  if (unlocked) {
-    taskEl.hidden = false;
-  } else {
-    lockedEl.hidden = false;
-    const meter = document.getElementById("ks-meter");
-    for (let i = 0; i < 6; i++) {
-      const d = document.createElement("span");
-      d.className = "ks-dot" + (i < count ? " on" : "");
-      meter.appendChild(d);
-    }
-    const togo = Math.max(0, 6 - count);
-    document.getElementById("locked-msg").textContent =
-      `You have ${count} of 6 Keystones. ${togo} more ${togo === 1 ? "region" : "regions"} to walk before your Voice for Change unlocks. Each region you pass turns one Keystone bronze.`;
-  }
-
-  if (!unlocked) { /* nothing else to wire */ }
-  else {
-
-    /* ── Evidence-commitment recall (graceful, optional) ─────────── */
-    try {
-      const raw = sessionStorage.getItem("fp_last_mission_result");
-      const ev = (() => { try { return JSON.parse(sessionStorage.getItem("fp_evidence_commitment") || "null"); } catch (_) { return null; } })();
-      if (ev && typeof ev === "string" && ev.trim()) {
-        const box = document.getElementById("evidence-recall");
-        document.getElementById("evidence-recall-text").textContent =
-          `In a mission you committed to this evidence: “${ev.trim()}”. Your proposal should carry it — or be ready to say why it no longer holds.`;
-        box.hidden = false;
-      }
-    } catch (_) { /* non-fatal */ }
-
-    /* ── Lane tabs ───────────────────────────────────────────────── */
-    const tabs = Array.from(document.querySelectorAll(".lane-tab"));
-    const panels = {
-      live: document.getElementById("panel-live"),
-      upload: document.getElementById("panel-upload"),
-      canva: document.getElementById("panel-canva"),
-    };
-    let activeLane = "live";
-    tabs.forEach((t) => t.addEventListener("click", () => {
-      activeLane = t.dataset.lane;
-      tabs.forEach((x) => x.setAttribute("aria-selected", String(x === t)));
-      for (const k of Object.keys(panels)) panels[k].hidden = (k !== activeLane);
-      refreshSubmit();
-    }));
-
-    /* ── State the submit button reads ───────────────────────────── */
-    const captured = { live: null, upload: null, canva: null }; // {blob, name, type}
-    const submitBtn = document.getElementById("submit-btn");
-    const submitNote = document.getElementById("submit-note");
-    function refreshSubmit() {
-      const ready = !!captured[activeLane];
-      submitBtn.disabled = !ready;
-      submitNote.textContent = ready
-        ? "Ready. Submitting sends your piece for teacher grading."
-        : "Choose a lane and add your piece to enable submit.";
-    }
-
-    /* ── Lane 1: live recording (MediaRecorder) ──────────────────── */
-    const recToggle = document.getElementById("rec-toggle");
-    const recLabel = document.getElementById("rec-label");
-    const recTimer = document.getElementById("rec-timer");
-    const recStatus = document.getElementById("rec-status");
-    const recPlayback = document.getElementById("rec-playback");
-    let mediaRecorder = null, chunks = [], recTimerId = null, recSeconds = 0, recStream = null;
-    const MAX_SECONDS = 180, MIN_SECONDS = 60;
-
-    function fmt(s) { return String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0"); }
-
-    async function startRecording() {
-      if (!navigator.mediaDevices || !window.MediaRecorder) {
-        recStatus.textContent = "Live recording isn't supported in this browser — try the Upload lane.";
-        return;
-      }
-      try {
-        recStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      } catch (_) {
-        recStatus.textContent = "Microphone permission was declined. You can use the Upload or Canva lane instead.";
-        return;
-      }
-      chunks = [];
-      mediaRecorder = new MediaRecorder(recStream);
-      mediaRecorder.ondataavailable = (e) => { if (e.data && e.data.size) chunks.push(e.data); };
-      mediaRecorder.onstop = () => {
-        const blob = new Blob(chunks, { type: chunks[0]?.type || "audio/webm" });
-        captured.live = { blob, name: "voice-for-change.webm", type: blob.type };
-        recPlayback.src = URL.createObjectURL(blob);
-        recPlayback.hidden = false;
-        recStatus.textContent = recSeconds < MIN_SECONDS
-          ? `That was ${recSeconds}s — aim for at least ${MIN_SECONDS}s. You can re-record.`
-          : `Captured ${fmt(recSeconds)}. Re-record any time, or submit.`;
-        if (recStream) recStream.getTracks().forEach((t) => t.stop());
-        refreshSubmit();
-      };
-      mediaRecorder.start();
-      recSeconds = 0; recTimer.textContent = "00:00";
-      recToggle.classList.add("is-recording");
-      recLabel.textContent = "Stop recording";
-      recStatus.textContent = "Recording… speak clearly.";
-      recTimerId = setInterval(() => {
-        recSeconds += 1;
-        recTimer.textContent = fmt(recSeconds);
-        if (recSeconds >= MAX_SECONDS) stopRecording();
-      }, 1000);
-    }
-    function stopRecording() {
-      if (mediaRecorder && mediaRecorder.state !== "inactive") mediaRecorder.stop();
-      clearInterval(recTimerId);
-      recToggle.classList.remove("is-recording");
-      recLabel.textContent = "Re-record";
-    }
-    recToggle.addEventListener("click", () => {
-      if (mediaRecorder && mediaRecorder.state === "recording") stopRecording();
-      else startRecording();
-    });
-
-    /* ── Lane 2: upload ──────────────────────────────────────────── */
-    const upInput = document.getElementById("upload-input");
-    const upMeta = document.getElementById("upload-meta");
-    const upPrev = document.getElementById("upload-preview");
-    upInput.addEventListener("change", () => {
-      const f = upInput.files && upInput.files[0];
-      if (!f) return;
-      if (f.size > 50 * 1024 * 1024) {
-        upMeta.hidden = false;
-        upMeta.textContent = "That file is over ~50 MB. Please compress or trim it first.";
-        captured.upload = null; refreshSubmit(); return;
-      }
-      captured.upload = { blob: f, name: f.name, type: f.type };
-      upMeta.hidden = false;
-      upMeta.textContent = `${f.name} · ${(f.size / 1048576).toFixed(1)} MB`;
-      if (f.type.startsWith("video/")) { upPrev.src = URL.createObjectURL(f); upPrev.hidden = false; }
-      else { upPrev.hidden = true; }
-      refreshSubmit();
-    });
-
-    /* ── Lane 3: Canva export upload ─────────────────────────────── */
-    const cvInput = document.getElementById("canva-input");
-    const cvMeta = document.getElementById("canva-meta");
-    cvInput.addEventListener("change", () => {
-      const f = cvInput.files && cvInput.files[0];
-      if (!f) return;
-      if (f.size > 50 * 1024 * 1024) {
-        cvMeta.hidden = false;
-        cvMeta.textContent = "That export is over ~50 MB. Export at a smaller size and try again.";
-        captured.canva = null; refreshSubmit(); return;
-      }
-      captured.canva = { blob: f, name: f.name, type: f.type };
-      cvMeta.hidden = false;
-      cvMeta.textContent = `${f.name} · ${(f.size / 1048576).toFixed(1)} MB`;
-      refreshSubmit();
-    });
-
-    /* ── Submit (best-effort cloud; never blocks) ────────────────── */
-    submitBtn.addEventListener("click", async () => {
-      const piece = captured[activeLane];
-      if (!piece) return;
-      submitBtn.disabled = true;
-      submitNote.textContent = "Submitting…";
-      const consentHall = document.getElementById("consent-hall").checked;
-      const consentForum = document.getElementById("consent-forum").checked && consentHall;
-
-      let mediaUrl = null;
-      try {
-        if (uid && isFirebaseAvailable()) {
-          const fb = await import("../src/firebase-init.js");
-          try {
-            mediaUrl = await fb.uploadFile(
-              `voiceForChange/${uid}/${Date.now()}-${piece.name}`, piece.blob);
-          } catch (_) { /* storage optional — metadata still recorded */ }
-          await fb.writePath(fb.paths.voiceForChange(uid), {
-            lane: activeLane,
-            fileName: piece.name,
-            fileType: piece.type || "unknown",
-            mediaUrl: mediaUrl || null,
-            consent: { hallOfVoices: consentHall, youthForum: consentForum },
-            submittedAt: Date.now(),
-            status: "submitted-awaiting-teacher",
-          });
-        }
-      } catch (e) {
-        console.error("[FUTUREPROOF] Voice for Change submit (cloud) failed:", e);
-      }
-
-      // Local record so the UI is correct offline / in the judged demo.
-      try {
-        sessionStorage.setItem("fp_vfc_submitted", JSON.stringify({
-          lane: activeLane, at: Date.now(), consentHall, consentForum,
-        }));
-      } catch (_) {}
-
-      document.getElementById("task").hidden = true;
-      const done = document.getElementById("submitted");
-      document.getElementById("submitted-msg").textContent = consentHall
-        ? "Your teacher will grade it with Rubric A. Because you consented, it may be curated into the public Hall of Voices"
-          + (consentForum ? " and forwarded to a Thai youth SDG forum." : ".")
-        : "Your teacher will grade it with Rubric A. You did not consent to public curation — it stays private to your course.";
-      done.hidden = false;
-      done.scrollIntoView({ behavior: "smooth", block: "center" });
-    });
-
-    refreshSubmit();
-  }
-</script>
-<script type="module" src="../src/back-link.js"></script>
 </body>
 </html>
