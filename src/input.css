@@ -165,12 +165,31 @@ body.font-dyslexia {
 }
 
 @layer components {
+  /* Hero decoration · light golden gradient (replaces the legacy
+   * 80px console-grid table). Three soft layers, no patterns, no
+   * grid lines — just warm light bleeding in from three corners.
+   * The section's own background-color shows through wherever the
+   * gradient is transparent, so this works on any base colour. */
   .console-grid {
+    position: relative;
+    isolation: isolate;
     background-image:
-      linear-gradient(rgba(51, 72, 111, 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(51, 72, 111, 0.05) 1px, transparent 1px);
-    background-size: 80px 80px;
-    background-position: 0 0;
+      /* upper-left warm light source */
+      radial-gradient(ellipse 70% 50% at 8% 0%, rgba(232, 199, 122, 0.32) 0%, rgba(232, 199, 122, 0.10) 35%, transparent 70%),
+      /* upper-right gentler accent */
+      radial-gradient(ellipse 60% 45% at 92% 4%, rgba(255, 235, 180, 0.22) 0%, transparent 60%),
+      /* lower-centre faint warm wash */
+      radial-gradient(ellipse 80% 50% at 50% 100%, rgba(232, 199, 122, 0.12) 0%, transparent 55%);
+    background-repeat: no-repeat;
+  }
+  /* A second decorative layer for richness — soft diagonal sheen */
+  .console-grid::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(135deg, rgba(232, 199, 122, 0.05) 0%, transparent 35%, transparent 65%, rgba(232, 199, 122, 0.04) 100%);
+    pointer-events: none;
+    z-index: -1;
   }
 
   .glow-radial {
