@@ -38,8 +38,8 @@
 
   main{max-width:1080px; margin:0 auto; padding:48px 24px 96px; font-size:16px}
   .submitted-hero{text-align:center; padding:32px 0 16px}
-  .submitted-hero .seal{display:inline-flex; align-items:center; justify-content:center; width:88px; height:88px; border-radius:999px; background:rgba(184,138,63,.10); color:var(--bronze-dim); border:1px solid rgba(184,138,63,.32); margin-bottom:20px}
-  .submitted-hero .seal .material-symbols-rounded{font-size:46px}
+  .submitted-hero-img{display:block; margin:0 auto 22px; height:auto; max-width:min(720px, 92%); max-height:160px; object-fit:contain}
+  @media (max-width:720px){ .submitted-hero-img{ max-height:120px } }
   .submitted-hero h1{font-family:var(--display); font-weight:300; font-size:44px; color:var(--ink-deep); margin:0 0 8px; line-height:1.2}
   .submitted-hero h1 em{font-style:italic; color:var(--bronze-dim)}
   .submitted-hero .th{font-family:var(--th); font-size:20px; color:var(--ink-soft); margin:0 0 18px}
@@ -186,7 +186,9 @@
 <main>
 
   <section class="submitted-hero">
-    <div class="seal"><span class="material-symbols-rounded">verified</span></div>
+    <img src="../assets/journey/submitted-logo.png"
+         alt="FUTUREPROOF — SDGs Mission Journey · Submitted: Voice for Change"
+         class="submitted-hero-img" />
     <h1>Submitted. <em>Now it is the committee's turn.</em></h1>
     <p class="th">ส่งข้อเสนอเรียบร้อย — ขั้นต่อไปเป็นของคณะกรรมการ</p>
     <p class="msg">Your Voice for Change proposal has been recorded and is in the queue for <strong>teacher grading with Rubric A</strong>. You will be notified when the result is in. Download your certificate and badge below — these are yours regardless of the grade.</p>
