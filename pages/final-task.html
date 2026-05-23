@@ -68,8 +68,8 @@
 
   /* Locked screen — LIGHT THEME */
   .locked-screen{min-height:60vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:48px 24px; text-align:center}
-  .locked-screen .lock-icon{width:96px; height:96px; border-radius:999px; background:rgba(184,138,63,.10); color:var(--bronze-dim); display:flex; align-items:center; justify-content:center; margin-bottom:24px; border:1px solid rgba(184,138,63,.30)}
-  .locked-screen .lock-icon .material-symbols-rounded{font-size:48px}
+  .locked-hero-img{display:block; margin:0 auto 24px; height:auto; max-width:min(720px, 92%); max-height:180px; object-fit:contain}
+  @media (max-width:720px){ .locked-hero-img{ max-height:140px } }
   .locked-screen h1{font-family:var(--display); font-weight:300; font-size:32px; margin:0 0 8px; color:var(--ink-deep)}
   .locked-screen h1 em{font-style:italic; color:var(--bronze-dim)}
   .locked-screen .th{font-family:var(--th); font-size:18px; color:var(--ink-soft); margin:0 0 16px}
@@ -438,7 +438,9 @@
 <main id="main">
 
   <div id="locked" class="locked-screen" hidden>
-    <div class="lock-icon"><span class="material-symbols-rounded">lock</span></div>
+    <img src="../assets/journey/submitted-logo.png"
+         alt="FUTUREPROOF — Voice for Change"
+         class="locked-hero-img" />
     <h1>The Voice for Change is <em>locked</em>.</h1>
     <p class="th">ภารกิจสุดท้ายยังไม่ปลดล็อก</p>
     <p>You need <strong>all six SDG Keystones</strong> before the Thailand SDG Catalyst Grant committee will see your proposal. Complete the remaining regions on the journey map — any order, your pace.</p>
