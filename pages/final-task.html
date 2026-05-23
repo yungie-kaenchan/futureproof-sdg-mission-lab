@@ -155,14 +155,37 @@
   }
   .ap-play:active{transform:scale(0.98)}
   .ap-play:focus-visible{outline:3px solid var(--ink-deep); outline-offset:5px}
+  /* Both icons centered absolutely inside the round button.
+     position:absolute requires explicit top/left + transform centering;
+     filled (FILL:1) icons read as "button" clearly.
+     The play triangle is asymmetric — we nudge it +4px to the right
+     so it sits OPTICALLY centred, not just bounding-box centred. */
   .ap-play-glyph,
   .ap-pause-glyph{
-    font-size:38px !important; line-height:1;
-    position:absolute; transition:opacity .2s, transform .2s;
+    position:absolute; top:50%; left:50%;
+    font-size:40px !important; line-height:1;
+    font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 40;
+    transition:opacity .2s ease-out, transform .2s ease-out;
+    pointer-events:none;
   }
-  .ap-pause-glyph{opacity:0; transform:scale(.85)}
-  .ap-play.is-playing .ap-play-glyph{opacity:0; transform:scale(.85)}
-  .ap-play.is-playing .ap-pause-glyph{opacity:1; transform:scale(1)}
+  /* Default state (paused) — show play triangle, hide pause */
+  .ap-play-glyph{
+    transform: translate(calc(-50% + 4px), -50%) scale(1);
+    opacity:1;
+  }
+  .ap-pause-glyph{
+    transform: translate(-50%, -50%) scale(.7);
+    opacity:0;
+  }
+  /* Playing state — hide play, show pause (tighter centre, no offset) */
+  .ap-play.is-playing .ap-play-glyph{
+    transform: translate(calc(-50% + 4px), -50%) scale(.7);
+    opacity:0;
+  }
+  .ap-play.is-playing .ap-pause-glyph{
+    transform: translate(-50%, -50%) scale(1);
+    opacity:1;
+  }
 
   /* Pulsing rings when playing */
   .ap-ring{
