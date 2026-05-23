@@ -335,7 +335,9 @@ function setupRecorder() {
 
   playBtn.addEventListener("click", () => {
     const audio = document.getElementById("rec-audio");
-    audio.play().catch(() => {});
+    const video = document.getElementById("rec-video");
+    if (!video.hidden) video.play().catch(() => {});
+    else audio.play().catch(() => {});
   });
 }
 
@@ -350,7 +352,6 @@ function pickSupportedMimeType(wantVideo) {
 }
 
 function finalizeRecording() {
-  const ext = videoOnSession ? "webm" : "webm";
   const mime = chunks[0]?.type || (videoOnSession ? "video/webm" : "audio/webm");
   const blob = new Blob(chunks, { type: mime });
   state.audioBlob = blob;
@@ -358,7 +359,19 @@ function finalizeRecording() {
   state.audioUrl = URL.createObjectURL(blob);
 
   const audio = document.getElementById("rec-audio");
-  audio.src = state.audioUrl;
+  const video = document.getElementById("rec-video");
+  if (videoOnSession || mime.startsWith("video/")) {
+    // Show the recorded video playback (not just audio waveform)
+    video.src = state.audioUrl;
+    video.hidden = false;
+    audio.hidden = true;
+    audio.removeAttribute("src");
+  } else {
+    audio.src = state.audioUrl;
+    audio.hidden = false;
+    video.hidden = true;
+    video.removeAttribute("src");
+  }
   document.getElementById("rec-playback-block").classList.add("has-recording");
 
   document.getElementById("rec-start").disabled = false;
@@ -505,6 +518,19 @@ function updateWordCount() {
   const ta = document.getElementById("transcript-area");
   const words = (ta.value.trim().split(/\s+/).filter(Boolean)).length;
   document.getElementById("word-count").textContent = String(words);
+  const met = words >= 50;
+  ta.classList.toggle("is-met", met);
+  const countRow = document.getElementById("count-row");
+  const badge = document.getElementById("threshold-badge");
+  if (countRow) {
+    countRow.classList.toggle("met", met);
+    countRow.classList.toggle("under", !met);
+  }
+  if (badge) {
+    badge.classList.toggle("met", met);
+    badge.classList.toggle("under", !met);
+    badge.textContent = met ? "✓ Ready to submit" : "⚠ Need at least 50 words";
+  }
 }
 
 /* ── Compass coach ──────────────────────────────────────────────── */
@@ -648,16 +674,29 @@ async function submitProposal() {
   document.getElementById("submit-btn").disabled = true;
   document.getElementById("submit-status").textContent = "Submitting…";
 
+  // Detect demo mode (URL contained ?demo=keystones AND localStorage flag set)
+  let isDemo = false;
+  try {
+    const params = new URLSearchParams(location.search);
+    const localFlag = localStorage.getItem("fp_demo_mode") === "on";
+    isDemo = params.get("demo") === "keystones" && localFlag;
+    if (isDemo) {
+      sessionStorage.setItem("fp_demo_mode_certificate", "on");
+    }
+  } catch (_) {}
+
   const payload = {
     studentName: state.studentName,
     uid: state.uid,
     audienceId: state.audienceId,
     audienceLabel: state.audienceLabel,
     lane: state.lane,
+    videoOn: state.videoOn,
     transcript: state.transcript,
     evidenceCommitments: state.evidenceCommitments,
     submittedAt: Date.now(),
     status: "submitted-awaiting-teacher",
+    isDemo,
   };
 
   // Stash in sessionStorage so the confirmation page can render the certificate

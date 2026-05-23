@@ -84,32 +84,118 @@
   main{max-width:1320px; margin:0 auto; padding:32px 24px 96px; font-size:16px}
   @media (max-width:980px){ main{padding:24px 16px 80px} }
 
-  /* ── Student-friendly brief (top of page) ─────────────────────── */
-  .task-brief{background:var(--white); border:1px solid var(--line); border-radius:16px; padding:32px 36px; margin-bottom:28px; box-shadow:0 4px 14px rgba(7,23,52,.05)}
-  .task-brief-head{margin-bottom:24px; padding-bottom:18px; border-bottom:1px solid var(--line)}
-  .task-brief-eyebrow{font-family:var(--mono); font-size:13px; letter-spacing:.18em; text-transform:uppercase; color:var(--bronze-dim); margin-bottom:8px; font-weight:700}
-  .task-brief-title{font-family:var(--display); font-weight:400; font-size:28px; color:var(--ink-deep); margin:0; line-height:1.25}
-  .task-brief-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:18px}
-  .tb-step{padding:18px 20px; background:var(--paper); border-radius:12px; border-left:4px solid var(--bronze)}
-  .tb-step-num{display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px; border-radius:999px; background:var(--ink-deep); color:var(--bone); font-family:var(--mono); font-size:15px; font-weight:700; margin-bottom:10px}
-  .tb-step h3{font-family:var(--display); font-weight:500; font-size:18px; color:var(--ink-deep); margin:0 0 8px}
-  .tb-step p{margin:0; font-size:15.5px; line-height:1.65; color:var(--ink)}
+  /* ── Student-friendly brief (top of page) — LINEAR VERTICAL ───── */
+  .task-brief{background:var(--white); border:1px solid var(--line); border-radius:16px; padding:40px 44px; margin-bottom:28px; box-shadow:0 4px 14px rgba(7,23,52,.05)}
+  .task-brief-head{margin-bottom:32px; padding-bottom:22px; border-bottom:1px solid var(--line)}
+  .task-brief-headtop{display:flex; align-items:flex-start; gap:18px; flex-wrap:wrap; justify-content:space-between}
+  .task-brief-pdf{display:inline-flex; align-items:center; gap:8px; padding:12px 20px; border-radius:999px; border:1.5px solid var(--ink-deep); background:var(--ink-deep); color:var(--bone); font-family:var(--mono); font-size:12.5px; letter-spacing:.10em; text-transform:uppercase; font-weight:700; cursor:pointer; transition:transform .15s, background .15s; white-space:nowrap}
+  .task-brief-pdf:hover{transform:translateY(-2px); background:#1A2B52}
+  .task-brief-pdf .material-symbols-rounded{font-size:18px; color:var(--bronze-light)}
+  .task-brief-eyebrow{font-family:var(--mono); font-size:13px; letter-spacing:.18em; text-transform:uppercase; color:var(--bronze-dim); margin-bottom:10px; font-weight:700}
+  .task-brief-title{font-family:var(--display); font-weight:400; font-size:32px; color:var(--ink-deep); margin:0; line-height:1.25}
+  /* Vertical timeline — single column, numbered nodes with connector line */
+  .task-brief-list{position:relative; padding-left:48px; display:flex; flex-direction:column; gap:0}
+  .task-brief-list::before{content:""; position:absolute; left:19px; top:18px; bottom:18px; width:2px; background:linear-gradient(180deg, var(--bronze) 0%, rgba(184,138,63,.30) 50%, var(--bronze) 100%); border-radius:999px}
+  .tb-step{position:relative; padding:14px 0 28px; background:transparent; border-left:none}
+  .tb-step:last-child{padding-bottom:0}
+  .tb-step-num{position:absolute; left:-48px; top:14px; display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; border-radius:999px; background:var(--ink-deep); color:var(--bone); font-family:var(--mono); font-size:16px; font-weight:700; box-shadow:0 0 0 4px var(--white), 0 4px 12px rgba(7,23,52,.20); margin-bottom:0}
+  .tb-step h3{font-family:var(--display); font-weight:500; font-size:21px; color:var(--ink-deep); margin:0 0 8px; line-height:1.3}
+  .tb-step p{margin:0; font-size:16px; line-height:1.7; color:var(--ink); max-width:760px}
   .tb-step p strong{color:var(--ink-deep)}
   .tb-step p em{color:var(--bronze-dim); font-style:italic}
-  .task-brief-note{display:block; margin-top:24px; padding:18px 22px; background:rgba(184,138,63,.08); border-radius:12px; border-left:4px solid var(--bronze); font-size:15px; line-height:1.65; color:var(--ink)}
+  .task-brief-note{display:block; margin-top:24px; padding:22px 26px; background:rgba(184,138,63,.08); border-radius:12px; border-left:4px solid var(--bronze); font-size:16px; line-height:1.7; color:var(--ink)}
   .task-brief-note strong{color:var(--bronze-dim)}
-  .task-brief-note .th{display:block; margin-top:10px; font-family:var(--th); font-size:14px; color:var(--ink-soft)}
+  .task-brief-note .th{display:block; margin-top:10px; font-family:var(--th); font-size:14.5px; color:var(--ink-soft)}
   @media (max-width:720px){
-    .task-brief{padding:24px 22px}
-    .task-brief-title{font-size:24px}
+    .task-brief{padding:28px 22px}
+    .task-brief-title{font-size:26px}
+    .task-brief-list{padding-left:38px}
+    .task-brief-list::before{left:13px}
+    .tb-step-num{left:-38px; width:32px; height:32px; font-size:14px}
   }
 
-  .grant-brief{background:var(--paper-warm); color:var(--ink-deep); border-radius:18px; padding:48px 56px; margin-bottom:36px; border:1px solid rgba(184,138,63,.30); box-shadow:0 12px 32px rgba(7,23,52,.10), 0 2px 8px rgba(7,23,52,.06); position:relative; overflow:hidden}
-  .grant-brief::before{content:""; position:absolute; inset:18px; border:1px solid rgba(184,138,63,.20); border-radius:12px; pointer-events:none}
-  .grant-brief::after{content:"CONFIDENTIAL · เฉพาะผู้รับ"; position:absolute; top:32px; right:32px; font-family:var(--mono); font-size:10px; letter-spacing:.18em; color:rgba(168,36,36,.7); transform:rotate(8deg)}
-  .gb-eyebrow{font-family:var(--mono); font-size:12px; letter-spacing:.20em; text-transform:uppercase; color:var(--crimson); margin-bottom:18px; font-weight:700}
-  .gb-title{font-family:var(--titles); font-weight:600; font-size:34px; letter-spacing:.04em; color:var(--ink-deep); margin:0 0 4px; line-height:1.2}
-  .gb-title-th{font-family:var(--th); font-weight:500; font-size:24px; color:var(--purple); margin:0 0 22px}
+  /* ── DRASTICALLY REDESIGNED LETTER — "scanned on the desk" look ──
+   * - dark desk background visible around the paper
+   * - paper sheet tilts slightly left, slight uneven shadow
+   * - paper-grain texture (CSS gradient noise) on the sheet
+   * - red "RECEIVED" stamp diagonally across the top corner
+   * - typewriter monospace headings
+   * - signature in a handwritten cursive font (using Fraunces italic
+   *   as a serviceable fallback)
+   */
+  .grant-brief-stage{
+    position:relative; padding:32px 16px 36px;
+    background:linear-gradient(180deg, #14223D 0%, #0B1426 100%);
+    border-radius:18px; margin-bottom:36px;
+    box-shadow:inset 0 2px 12px rgba(0,0,0,.18);
+    overflow:hidden;
+  }
+  .grant-brief-stage::before{
+    /* subtle desk-grain noise */
+    content:""; position:absolute; inset:0;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(255,255,255,.02) 0, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(232,199,122,.04) 0, transparent 40%);
+    pointer-events:none;
+  }
+  .grant-brief-stage .stage-label{
+    position:absolute; top:14px; left:20px;
+    font-family:var(--mono); font-size:10.5px; letter-spacing:.20em;
+    color:rgba(232,199,122,.55); text-transform:uppercase; font-weight:700;
+  }
+  .grant-brief-stage .stage-label-th{
+    position:absolute; top:14px; right:20px;
+    font-family:var(--th); font-size:11.5px; color:rgba(232,199,122,.50);
+  }
+  .grant-brief{
+    background:#FBF7EB;
+    color:var(--ink-deep);
+    border-radius:4px;
+    padding:56px 64px 48px;
+    margin:48px auto 12px;
+    max-width:780px;
+    border:none;
+    box-shadow:
+      0 24px 48px -8px rgba(0,0,0,.55),
+      0 8px 20px -4px rgba(0,0,0,.35),
+      0 1px 0 rgba(255,255,255,.40) inset;
+    position:relative;
+    transform:rotate(-0.6deg);
+    transition:transform .3s ease-out;
+  }
+  .grant-brief:hover{ transform:rotate(0deg); }
+  /* Paper-grain texture via layered gradient */
+  .grant-brief::before{
+    content:""; position:absolute; inset:0; pointer-events:none; border-radius:inherit;
+    background-image:
+      repeating-linear-gradient(0deg, transparent 0, transparent 24px, rgba(132,90,28,.02) 25px),
+      radial-gradient(circle at 30% 40%, rgba(132,90,28,.04) 0, transparent 50%),
+      radial-gradient(circle at 70% 80%, rgba(132,90,28,.03) 0, transparent 50%);
+  }
+  /* Red "RECEIVED" stamp top-right corner — diagonal */
+  .grant-brief::after{
+    content:"RECEIVED · 22 MAY 2026"; position:absolute; top:28px; right:-20px;
+    font-family:var(--mono); font-size:13px; letter-spacing:.20em; font-weight:700;
+    color:#A82424; text-transform:uppercase;
+    transform:rotate(8deg);
+    padding:8px 22px;
+    border:2.5px solid #A82424; border-radius:4px;
+    background:rgba(255,255,255,.55);
+    opacity:.82;
+    pointer-events:none;
+  }
+  /* Hole-punch marks on the left edge (3 dots) */
+  .grant-brief .holes{
+    position:absolute; left:-2px; top:50%; transform:translateY(-50%);
+    display:flex; flex-direction:column; gap:120px;
+  }
+  .grant-brief .hole{
+    width:14px; height:14px; border-radius:999px;
+    background:radial-gradient(circle, rgba(0,0,0,.20) 0%, rgba(0,0,0,.10) 70%, transparent 100%);
+  }
+  .gb-eyebrow{font-family:var(--mono); font-size:12px; letter-spacing:.20em; text-transform:uppercase; color:var(--crimson); margin-bottom:22px; font-weight:700; padding-bottom:10px; border-bottom:2px solid rgba(132,90,28,.32)}
+  .gb-title{font-family:var(--mono); font-weight:700; font-size:26px; letter-spacing:.04em; color:var(--ink-deep); margin:0 0 6px; line-height:1.3; text-transform:uppercase}
+  .gb-title-th{font-family:var(--th); font-weight:600; font-size:20px; color:var(--purple); margin:0 0 22px}
   .gb-amount{display:inline-block; padding:8px 18px; border-radius:8px; background:rgba(184,138,63,.12); color:var(--bronze-dim); font-family:var(--mono); font-size:16px; font-weight:700; letter-spacing:.06em; margin-bottom:22px}
   .gb-amount .baht{font-size:20px; vertical-align:-1px}
   .gb-amount-note{font-family:var(--sans); font-style:italic; font-weight:400; font-size:13px; color:var(--crimson); margin-left:10px; letter-spacing:0; text-transform:none}
@@ -124,8 +210,8 @@
   .gb-criteria li{list-style:none; counter-increment:gbc; padding:10px 0 10px 44px; position:relative; line-height:1.7; font-size:16px; color:var(--ink-deep)}
   .gb-criteria li strong{color:var(--purple)}
   .gb-criteria li::before{content:counter(gbc); position:absolute; left:0; top:10px; width:30px; height:30px; border-radius:999px; background:var(--purple); color:var(--white); display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:13px; font-weight:700}
-  .gb-signature{text-align:right; margin-top:28px; padding-top:18px; border-top:1px solid rgba(7,23,52,.10); font-family:var(--display); font-style:italic; font-size:15px; color:var(--ink-soft)}
-  .gb-signature .name{font-family:var(--display); font-style:normal; font-weight:600; font-size:17px; color:var(--ink-deep); display:block; margin-bottom:2px}
+  .gb-signature{text-align:right; margin-top:36px; padding-top:24px; border-top:2px dashed rgba(132,90,28,.32); font-family:var(--mono); font-style:normal; font-size:13px; color:var(--ink-soft); letter-spacing:.04em}
+  .gb-signature .name{font-family:var(--display); font-style:italic; font-weight:600; font-size:24px; color:var(--ink-deep); display:block; margin-bottom:6px; transform:rotate(-1.5deg); transform-origin:right center}
 
   /* All section cards · LIGHT THEME — white surface on cream body */
   .ft-section{background:var(--white); border:1px solid var(--line); border-radius:14px; padding:32px 36px; margin-bottom:26px; box-shadow:0 4px 14px rgba(7,23,52,.05)}
@@ -134,20 +220,46 @@
   .ft-section .h2-th{font-family:var(--th); font-size:16px; color:var(--ink-soft); margin:0 0 20px}
   .ft-section .h2-hint{font-family:var(--mono); font-size:12.5px; letter-spacing:.10em; text-transform:uppercase; color:var(--bronze-dim); margin-bottom:20px; font-weight:700}
 
-  /* Rubric (collapsible) — light card, simplified */
-  .rubric{border-radius:12px; background:var(--paper); border:1px solid var(--line); padding:22px 26px}
-  .rubric summary{cursor:pointer; list-style:none; font-family:var(--mono); font-size:13px; letter-spacing:.10em; color:var(--bronze-dim); display:flex; align-items:center; gap:8px; user-select:none; font-weight:700}
-  .rubric summary::-webkit-details-marker{display:none}
-  .rubric summary .chev{transition:transform .25s ease-out}
-  .rubric[open] summary .chev{transform:rotate(90deg)}
-  .rubric-dim{padding:18px 0; border-top:1px solid var(--line)}
-  .rubric-dim:first-of-type{border-top:1px solid var(--line-strong); margin-top:16px}
-  .rubric-dim h4{font-family:var(--display); font-weight:500; font-size:18px; color:var(--ink-deep); margin:0 0 4px}
-  .rubric-dim .what{font-size:14.5px; color:var(--ink-soft); margin:0 0 12px; line-height:1.5; font-style:italic}
-  .rubric-dim .weight{font-family:var(--mono); font-size:11px; color:var(--bronze-dim); margin-left:10px; font-weight:700}
-  .rubric-dim table{width:100%; border-collapse:collapse; margin-top:6px; font-size:15px; line-height:1.6; color:var(--ink)}
-  .rubric-dim td{padding:9px 12px; vertical-align:top}
-  .rubric-dim td:first-child{width:60px; font-family:var(--mono); color:var(--bronze-dim); font-weight:700; text-align:right; font-size:14px}
+  /* ── Rubric · interactive accordion with animated reveal ────── */
+  .rubric{background:transparent; border:none; padding:0}
+  .rubric > summary{display:none}
+  .rubric-grid{display:flex; flex-direction:column; gap:10px; margin-top:8px}
+  .rubric-dim{
+    background:var(--white); border:1.5px solid var(--line); border-radius:14px;
+    padding:0; overflow:hidden; transition:border-color .2s, box-shadow .2s;
+  }
+  .rubric-dim:hover{border-color:var(--bronze)}
+  .rubric-dim.is-open{border-color:var(--bronze); box-shadow:0 8px 24px rgba(184,138,63,.16)}
+  .rubric-head{display:flex; align-items:center; gap:14px; padding:20px 22px; cursor:pointer; user-select:none}
+  .rubric-head:hover{background:rgba(184,138,63,.04)}
+  .rubric-head-num{
+    flex:0 0 44px; width:44px; height:44px; border-radius:999px;
+    background:var(--paper); color:var(--bronze-dim); border:1.5px solid var(--bronze);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono); font-size:17px; font-weight:700;
+    transition:background .25s, color .25s, transform .25s;
+  }
+  .rubric-dim.is-open .rubric-head-num{background:linear-gradient(135deg, var(--bronze) 0%, var(--bronze-light) 100%); color:var(--white); transform:scale(1.05)}
+  .rubric-head-text{flex:1; min-width:0}
+  .rubric-head-text h4{font-family:var(--display); font-weight:500; font-size:20px; color:var(--ink-deep); margin:0; line-height:1.25}
+  .rubric-head-text .what{font-size:15px; color:var(--ink-soft); margin:4px 0 0; line-height:1.5; font-style:italic}
+  .rubric-head .weight{font-family:var(--mono); font-size:12px; color:var(--bronze-dim); font-weight:700; padding:4px 10px; border-radius:6px; background:rgba(184,138,63,.10); white-space:nowrap}
+  .rubric-head .chev{font-family:var(--mono); font-size:18px; color:var(--bronze-dim); transition:transform .3s ease-out; padding-left:6px}
+  .rubric-dim.is-open .rubric-head .chev{transform:rotate(180deg)}
+  .rubric-body{
+    max-height:0; overflow:hidden; transition:max-height .35s ease-out, padding .25s ease-out;
+    padding:0 22px;
+  }
+  .rubric-dim.is-open .rubric-body{max-height:600px; padding:4px 22px 22px}
+  .rubric-body table{width:100%; border-collapse:collapse; font-size:15.5px; line-height:1.7; color:var(--ink); margin-top:6px}
+  .rubric-body td{padding:11px 14px; vertical-align:top; border-top:1px solid var(--line)}
+  .rubric-body td:first-child{width:80px; font-family:var(--mono); font-weight:700; text-align:center; font-size:15px}
+  .rubric-body tr td:first-child{background:rgba(184,138,63,.04); border-right:1px solid var(--line)}
+  /* Level color cues */
+  .rubric-body tr:nth-child(1) td:first-child{color:#3F7E44; background:rgba(63,126,68,.08)}
+  .rubric-body tr:nth-child(2) td:first-child{color:#8A6D3F; background:rgba(184,138,63,.10)}
+  .rubric-body tr:nth-child(3) td:first-child{color:#A36A1B}
+  .rubric-body tr:nth-child(4) td:first-child{color:#A82424; background:rgba(168,36,36,.06)}
 
   /* Five-part requirements — light cards, expanded explanation */
   .reqs{margin:0; padding:0; list-style:none; display:grid; grid-template-columns:repeat(auto-fit, minmax(360px,1fr)); gap:18px}
@@ -223,9 +335,10 @@
   .rec-btn.reset{background:transparent; color:var(--ink-soft); border:1px solid var(--line-strong)}
   .rec-btn.playback{background:var(--bronze); color:var(--white)}
   .rec-btn:disabled{opacity:.4; cursor:not-allowed; transform:none}
-  .rec-playback{margin-top:14px; display:none}
+  .rec-playback{margin-top:16px; display:none}
   .rec-playback.has-recording{display:block}
   .rec-playback audio{width:100%}
+  .rec-playback video{width:100%; max-height:480px; border-radius:12px; background:#000; display:block}
   .video-toggle{display:flex; align-items:center; gap:8px; font-size:13px; color:var(--ink); margin-top:14px}
   .video-toggle input{accent-color:var(--bronze)}
 
@@ -236,13 +349,21 @@
   .upload-zone .hint{margin-top:10px; font-size:12.5px; color:var(--ink-soft); font-family:var(--mono); letter-spacing:.04em}
   .upload-zone .filename{margin-top:8px; font-family:var(--mono); font-size:12.5px; color:var(--bronze-dim); font-weight:700}
 
-  /* Transcript — bigger */
+  /* Transcript — bigger + colour-coded threshold (red = under, green = ready) */
   .transcript{margin-top:22px}
   .transcript label{display:block; font-family:var(--mono); font-size:13px; letter-spacing:.12em; color:var(--bronze-dim); text-transform:uppercase; margin-bottom:10px; font-weight:700}
-  .transcript textarea{width:100%; min-height:240px; padding:18px 20px; border-radius:12px; background:var(--white); color:var(--ink-deep); border:1px solid var(--line-strong); font-family:var(--sans); font-size:16px; line-height:1.65; resize:vertical; box-sizing:border-box}
-  .transcript textarea:focus{outline:none; border-color:var(--bronze); box-shadow:0 0 0 3px rgba(184,138,63,.15)}
-  .transcript .meta{display:flex; justify-content:space-between; margin-top:8px; font-family:var(--mono); font-size:13px; color:var(--ink-soft); letter-spacing:.04em}
-  .transcript .meta .ok{color:var(--bronze-dim); font-weight:700}
+  .transcript textarea{width:100%; min-height:240px; padding:18px 20px; border-radius:12px; background:var(--white); color:var(--ink-deep); border:2px solid var(--crimson); font-family:var(--sans); font-size:16px; line-height:1.65; resize:vertical; box-sizing:border-box; transition:border-color .3s ease-out, box-shadow .3s ease-out, background .3s ease-out}
+  .transcript textarea:focus{outline:none; box-shadow:0 0 0 3px rgba(168,36,36,.15)}
+  .transcript textarea.is-met{border-color:#3F7E44; background:#FBFEFB; box-shadow:0 0 0 3px rgba(63,126,68,.10)}
+  .transcript textarea.is-met:focus{box-shadow:0 0 0 3px rgba(63,126,68,.20)}
+  .transcript .meta{display:flex; justify-content:space-between; margin-top:10px; font-family:var(--mono); font-size:13px; letter-spacing:.04em}
+  .transcript .meta .count-row{color:var(--ink); font-weight:700}
+  .transcript .meta .count-row.under{color:var(--crimson)}
+  .transcript .meta .count-row.met{color:#3F7E44}
+  .transcript .meta .ok{color:#3F7E44; font-weight:700}
+  .transcript .meta .threshold-badge{padding:2px 8px; border-radius:999px; font-size:11px; letter-spacing:.06em; text-transform:uppercase}
+  .transcript .meta .threshold-badge.under{background:rgba(168,36,36,.10); color:var(--crimson); border:1px solid rgba(168,36,36,.30)}
+  .transcript .meta .threshold-badge.met{background:rgba(63,126,68,.10); color:#3F7E44; border:1px solid rgba(63,126,68,.30)}
 
   /* Compass trigger button — dark, matches the mission-page Compass button */
   .compass-trigger-wrap{display:flex; justify-content:center; margin:6px 0 26px}
@@ -332,11 +453,19 @@
     <!-- ─── Student-friendly brief · classroom-style task instructions ─── -->
     <section class="task-brief">
       <header class="task-brief-head">
-        <div class="task-brief-eyebrow">How this task works · วิธีทำภารกิจสุดท้าย</div>
-        <h2 class="task-brief-title">Read this first, before you start.</h2>
+        <div class="task-brief-headtop">
+          <div>
+            <div class="task-brief-eyebrow">How this task works · วิธีทำภารกิจสุดท้าย</div>
+            <h2 class="task-brief-title">Read this first, before you start.</h2>
+          </div>
+          <button type="button" class="task-brief-pdf" id="brief-pdf-btn" title="Download a printable PDF of this task brief (instructions, requirements, rubric, audiences)">
+            <span class="material-symbols-rounded" aria-hidden="true">picture_as_pdf</span>
+            <span>Download task brief (PDF)</span>
+          </button>
+        </div>
       </header>
 
-      <div class="task-brief-grid">
+      <div class="task-brief-list">
         <div class="tb-step">
           <div class="tb-step-num">1</div>
           <h3>Read the situation below</h3>
@@ -370,7 +499,13 @@
       </aside>
     </section>
 
+    <div class="grant-brief-stage">
+      <span class="stage-label">📄 INCOMING · LETTER OF NOTIFICATION</span>
+      <span class="stage-label-th">จดหมายแจ้งผล</span>
     <article class="grant-brief" aria-label="Thailand SDG Catalyst Grant 2026 — simulation letter">
+      <div class="holes" aria-hidden="true">
+        <span class="hole"></span><span class="hole"></span><span class="hole"></span>
+      </div>
       <div class="gb-eyebrow">CLASSROOM SIMULATION · LETTER OF NOTIFICATION (FICTIONAL) · สถานการณ์จำลอง</div>
       <h1 class="gb-title">The Thailand SDG Catalyst Grant · 2026</h1>
       <p class="gb-title-th">ทุน SDG ประเทศไทย ประจำปี 2026 (สถานการณ์จำลอง)</p>
@@ -414,73 +549,117 @@
         Programme Director · FUTUREPROOF
       </div>
     </article>
+    </div><!-- /.grant-brief-stage -->
 
     <section class="ft-section">
       <h2>How you'll be graded · <em>Rubric A</em></h2>
       <p class="h2-th">เกณฑ์การให้คะแนน — เปิดเผยตามหลัก UDL 8.1</p>
       <p class="h2-hint">Your teacher grades this — never the AI. AI judgement is advisory only.</p>
 
-      <details class="rubric" open>
-        <summary>
-          <span class="chev">▸</span>
-          <span>Five dimensions · click to expand / collapse</span>
-        </summary>
+      <p class="h2-hint" style="margin-top:8px">Click any category below to see the score levels. Tap again to collapse.</p>
+      <div class="rubric-grid" id="rubric-grid">
 
-        <div class="rubric-dim">
-          <h4>1. Your English <span class="weight">× 1.0</span></h4>
-          <p class="what">How well your English fits the audience — words, grammar, tone.</p>
-          <table>
-            <tr><td>10</td><td>Excellent. Your English is clear and polite. You use words like "would" and "could" when you ask. Few small errors. Easy to understand.</td></tr>
-            <tr><td>7</td><td>Good. Your English mostly fits the audience. A few word choices are too strong or too casual, but the meaning is clear.</td></tr>
-            <tr><td>4</td><td>Some problems. Your tone is sometimes too academic or too casual for the audience. Mistakes sometimes get in the way.</td></tr>
-            <tr><td>1</td><td>Many problems. Errors make the proposal hard to follow.</td></tr>
-          </table>
+        <div class="rubric-dim" data-rubric>
+          <div class="rubric-head">
+            <div class="rubric-head-num">1</div>
+            <div class="rubric-head-text">
+              <h4>Your English</h4>
+              <p class="what">How well your English fits the audience — words, grammar, tone.</p>
+            </div>
+            <span class="weight">× 1.0</span>
+            <span class="chev" aria-hidden="true">▾</span>
+          </div>
+          <div class="rubric-body">
+            <table>
+              <tr><td>10</td><td>Excellent. Your English is clear and polite. You use words like "would" and "could" when you ask. Few small errors. Easy to understand.</td></tr>
+              <tr><td>7</td><td>Good. Your English mostly fits the audience. A few word choices are too strong or too casual, but the meaning is clear.</td></tr>
+              <tr><td>4</td><td>Some problems. Your tone is sometimes too academic or too casual for the audience. Mistakes sometimes get in the way.</td></tr>
+              <tr><td>1</td><td>Many problems. Errors make the proposal hard to follow.</td></tr>
+            </table>
+          </div>
         </div>
 
-        <div class="rubric-dim">
-          <h4>2. The Strength of Your Argument <span class="weight">× 1.0</span></h4>
-          <p class="what">How well you defend your one proposed action — and whether you say what your action will <em>not</em> do.</p>
-          <table>
-            <tr><td>10</td><td>Strong. You propose one concrete action. You use real evidence from the missions. You name the trade-off honestly.</td></tr>
-            <tr><td>7</td><td>Mostly strong. You have an action and evidence, but you don't fully own the trade-off.</td></tr>
-            <tr><td>4</td><td>Weak. You have an action but not real evidence. You avoid the trade-off.</td></tr>
-            <tr><td>1</td><td>It is a wish or a slogan, not a real argument.</td></tr>
-          </table>
+        <div class="rubric-dim" data-rubric>
+          <div class="rubric-head">
+            <div class="rubric-head-num">2</div>
+            <div class="rubric-head-text">
+              <h4>The Strength of Your Argument</h4>
+              <p class="what">How well you defend your one proposed action — and whether you say what your action will <em>not</em> do.</p>
+            </div>
+            <span class="weight">× 1.0</span>
+            <span class="chev" aria-hidden="true">▾</span>
+          </div>
+          <div class="rubric-body">
+            <table>
+              <tr><td>10</td><td>Strong. You propose one concrete action. You use real evidence from the missions. You name the trade-off honestly.</td></tr>
+              <tr><td>7</td><td>Mostly strong. You have an action and evidence, but you don't fully own the trade-off.</td></tr>
+              <tr><td>4</td><td>Weak. You have an action but not real evidence. You avoid the trade-off.</td></tr>
+              <tr><td>1</td><td>It is a wish or a slogan, not a real argument.</td></tr>
+            </table>
+          </div>
         </div>
 
-        <div class="rubric-dim">
-          <h4>3. Speaking to a Real Audience <span class="weight">× 1.0</span></h4>
-          <p class="what">Did you choose one real Thai institution and speak to <em>them</em>, not to your teacher?</p>
-          <table>
-            <tr><td>10</td><td>Yes. You named a real Thai institution. Your tone and request fit who they are and what they can do.</td></tr>
-            <tr><td>7</td><td>Mostly yes. You named the audience, but your tone slips in places.</td></tr>
-            <tr><td>4</td><td>Vague. You said "the public" or named the audience without changing your tone.</td></tr>
-            <tr><td>1</td><td>You spoke to your teacher, not to a real audience.</td></tr>
-          </table>
+        <div class="rubric-dim" data-rubric>
+          <div class="rubric-head">
+            <div class="rubric-head-num">3</div>
+            <div class="rubric-head-text">
+              <h4>Speaking to a Real Audience</h4>
+              <p class="what">Did you choose one real Thai institution and speak to <em>them</em>, not to your teacher?</p>
+            </div>
+            <span class="weight">× 1.0</span>
+            <span class="chev" aria-hidden="true">▾</span>
+          </div>
+          <div class="rubric-body">
+            <table>
+              <tr><td>10</td><td>Yes. You named a real Thai institution. Your tone and request fit who they are and what they can do.</td></tr>
+              <tr><td>7</td><td>Mostly yes. You named the audience, but your tone slips in places.</td></tr>
+              <tr><td>4</td><td>Vague. You said "the public" or named the audience without changing your tone.</td></tr>
+              <tr><td>1</td><td>You spoke to your teacher, not to a real audience.</td></tr>
+            </table>
+          </div>
         </div>
 
-        <div class="rubric-dim">
-          <h4>4. Using Your Journey <span class="weight">× 1.0</span></h4>
-          <p class="what">Did you use the six commitments you wrote at the end of each mission?</p>
-          <table>
-            <tr><td>10</td><td>You used at least three of your six commitments. Your proposal is built on what you actually learned.</td></tr>
-            <tr><td>7</td><td>You used two commitments well.</td></tr>
-            <tr><td>4</td><td>You used one commitment, or you spoke about the missions in general.</td></tr>
-            <tr><td>1</td><td>You did not refer back to the missions at all.</td></tr>
-          </table>
+        <div class="rubric-dim" data-rubric>
+          <div class="rubric-head">
+            <div class="rubric-head-num">4</div>
+            <div class="rubric-head-text">
+              <h4>Using Your Journey</h4>
+              <p class="what">Did you use the six commitments you wrote at the end of each mission?</p>
+            </div>
+            <span class="weight">× 1.0</span>
+            <span class="chev" aria-hidden="true">▾</span>
+          </div>
+          <div class="rubric-body">
+            <table>
+              <tr><td>10</td><td>You used at least three of your six commitments. Your proposal is built on what you actually learned.</td></tr>
+              <tr><td>7</td><td>You used two commitments well.</td></tr>
+              <tr><td>4</td><td>You used one commitment, or you spoke about the missions in general.</td></tr>
+              <tr><td>1</td><td>You did not refer back to the missions at all.</td></tr>
+            </table>
+          </div>
         </div>
 
-        <div class="rubric-dim">
-          <h4>5. Following the Rules <span class="weight">× 0.5</span></h4>
-          <p class="what">Length (2–5 minutes) and a transcript that matches what you said.</p>
-          <table>
-            <tr><td>10</td><td>Length is in range. Transcript matches your speech.</td></tr>
-            <tr><td>7</td><td>Length is fine. Transcript is mostly correct.</td></tr>
-            <tr><td>4</td><td>Length is too short or too long. Transcript has gaps.</td></tr>
-            <tr><td>1</td><td>Length or transcript breaks the rules of the submission.</td></tr>
-          </table>
+        <div class="rubric-dim" data-rubric>
+          <div class="rubric-head">
+            <div class="rubric-head-num">5</div>
+            <div class="rubric-head-text">
+              <h4>Following the Rules</h4>
+              <p class="what">Length (2–5 minutes) and a transcript that matches what you said.</p>
+            </div>
+            <span class="weight">× 0.5</span>
+            <span class="chev" aria-hidden="true">▾</span>
+          </div>
+          <div class="rubric-body">
+            <table>
+              <tr><td>10</td><td>Length is in range. Transcript matches your speech.</td></tr>
+              <tr><td>7</td><td>Length is fine. Transcript is mostly correct.</td></tr>
+              <tr><td>4</td><td>Length is too short or too long. Transcript has gaps.</td></tr>
+              <tr><td>1</td><td>Length or transcript breaks the rules of the submission.</td></tr>
+            </table>
+          </div>
         </div>
-      </details>
+
+      </div>
     </section>
 
     <section class="ft-section">
@@ -581,7 +760,8 @@
           <label for="video-on">Record video too — show my face<span style="font-family:var(--th);margin-left:6px;color:rgba(244,241,234,.55)">บันทึกวิดีโอด้วย</span></label>
         </div>
         <div class="rec-playback" id="rec-playback-block">
-          <audio id="rec-audio" controls></audio>
+          <audio id="rec-audio" controls hidden></audio>
+          <video id="rec-video" controls playsinline hidden></video>
         </div>
       </div>
 
@@ -596,8 +776,8 @@
         <label for="transcript-area">Transcript · ถอดความ <span style="font-family:var(--mono);color:var(--bronze-light);margin-left:8px">(auto-fills from live recording — please review and correct)</span></label>
         <textarea id="transcript-area" placeholder="Live transcription will appear here as you speak. After you stop, edit any words the speech recognition got wrong before you submit."></textarea>
         <div class="meta">
-          <span><span id="word-count">0</span> words · suggested 200–500</span>
-          <span class="ok" id="transcript-status"></span>
+          <span class="count-row under" id="count-row"><span id="word-count">0</span> words · minimum 50 to submit · suggested 200–500</span>
+          <span class="threshold-badge under" id="threshold-badge">⚠ Not yet</span>
         </div>
       </div>
     </section>
@@ -646,7 +826,11 @@
 
 </main>
 
+<!-- jsPDF for the downloadable task-brief PDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 <script type="module" src="../src/a11y.js"></script>
+<script src="../src/task-brief-pdf.js"></script>
 
 <!-- Demo / Judge mode entry — pre-grants 6 Keystones for preview. Watermarks submissions. -->
 <script>
@@ -683,6 +867,26 @@
           setTimeout(function () { section.scrollIntoView({ behavior:"smooth", block:"start" }); }, 50);
         }
       });
+    }
+
+    // Rubric accordion — click any dimension head to reveal its scoring table
+    var rubricGrid = document.getElementById("rubric-grid");
+    if (rubricGrid) {
+      rubricGrid.addEventListener("click", function (e) {
+        var head = e.target.closest(".rubric-head");
+        if (!head) return;
+        var dim = head.parentElement;
+        var isOpen = dim.classList.contains("is-open");
+        // Close all
+        rubricGrid.querySelectorAll(".rubric-dim.is-open").forEach(function (d) {
+          d.classList.remove("is-open");
+        });
+        // Open this one if it was closed
+        if (!isOpen) dim.classList.add("is-open");
+      });
+      // Open the first dimension by default so the affordance is visible
+      var first = rubricGrid.querySelector(".rubric-dim");
+      if (first) first.classList.add("is-open");
     }
   })();
 </script>

@@ -23,7 +23,7 @@ const MODELS = {
   evaluate:      "claude-sonnet-4-7",
   tribunal:      "claude-sonnet-4-7",
   languageCoach: "claude-haiku-4-5-20251001",
-  aiJudges:      "claude-sonnet-4-7",
+  aiJudges:      "claude-haiku-4-5-20251001",
 };
 
 const SYSTEM_PROMPTS = {

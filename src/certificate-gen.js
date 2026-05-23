@@ -34,9 +34,51 @@ const ORDER = [6, 13, 11, 14, 4, 3];
 
 /* ── Boot ───────────────────────────────────────────────────────── */
 
+/* ── Demo-mode judge names (used when payload says judge=true or
+ *    the URL had ?demo=keystones). Sequential cycle through a small
+ *    pool of friendly, neutral names. */
+const JUDGE_NAMES = [
+  "Judge Adelphi", "Judge Beatrice", "Judge Charlie", "Judge Dara",
+  "Judge Ethan",   "Judge Florence", "Judge Galen",   "Judge Hana",
+];
+function pickJudgeName(seed) {
+  const s = String(seed || Date.now());
+  let h = 0;
+  for (let i = 0; i < s.length; i++) h = ((h << 5) - h + s.charCodeAt(i)) | 0;
+  return JUDGE_NAMES[Math.abs(h) % JUDGE_NAMES.length];
+}
+
+function isDemoModeOn() {
+  try {
+    if (sessionStorage.getItem("fp_demo_mode_certificate") === "on") return true;
+    if (localStorage.getItem("fp_demo_mode") === "on") return true;
+  } catch (_) {}
+  return false;
+}
+
+/* Heuristics: a "good" display name has at least 2 letters and looks
+ * human-typed (mixed case, no firebase-uid junk). Falls back to the
+ * judge pool if missing or looks like a uid. */
+function looksLikeRealName(s) {
+  if (!s || typeof s !== "string") return false;
+  const t = s.trim();
+  if (t.length < 2) return false;
+  // Firebase uids are 28-char alphanumeric — reject those
+  if (/^[A-Za-z0-9]{20,}$/.test(t) && !/\s/.test(t)) return false;
+  return true;
+}
+
 async function boot() {
   const payload = readPayload();
-  const name = (payload && payload.studentName) || "Voice for Change Champion";
+  let name;
+  if (isDemoModeOn()) {
+    // Use a judge persona for demo submissions
+    name = pickJudgeName(payload?.uid || payload?.submittedAt);
+  } else if (payload && looksLikeRealName(payload.studentName)) {
+    name = payload.studentName;
+  } else {
+    name = "Voice for Change Champion";
+  }
   const submittedAt = (payload && payload.submittedAt) || Date.now();
 
   // Detect whether the user has shipped the base artwork

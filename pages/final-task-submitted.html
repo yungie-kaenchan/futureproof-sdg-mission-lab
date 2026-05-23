@@ -111,10 +111,12 @@
   .badge .fallback-vertex{position:absolute; width:12px; height:12px; border-radius:999px; transform:translate(-50%,-50%)}
 
   .downloads{display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:20px}
-  .dl-btn{display:inline-flex; align-items:center; gap:8px; padding:12px 22px; border-radius:999px; cursor:pointer; border:none; font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; transition:transform .15s}
-  .dl-btn:hover{transform:translateY(-2px)}
-  .dl-btn.png{background:rgba(232,199,122,.16); color:var(--paper); border:1px solid var(--bronze)}
-  .dl-btn.pdf{background:linear-gradient(135deg, var(--bronze) 0%, var(--bronze-light) 100%); color:var(--ink-deep); font-weight:700}
+  .dl-btn{display:inline-flex; align-items:center; gap:8px; padding:14px 26px; border-radius:999px; cursor:pointer; border:none; font-family:var(--mono); font-size:12.5px; letter-spacing:.12em; text-transform:uppercase; transition:transform .15s, box-shadow .15s; font-weight:700}
+  .dl-btn:hover{transform:translateY(-2px); box-shadow:0 8px 24px rgba(7,23,52,.18)}
+  .dl-btn.png{background:var(--ink-deep); color:var(--bone); border:1px solid var(--ink-deep)}
+  .dl-btn.png:hover{background:#1A2B52; border-color:#1A2B52}
+  .dl-btn.pdf{background:linear-gradient(135deg, var(--bronze) 0%, var(--bronze-light) 100%); color:var(--ink-deep); border:1px solid var(--bronze)}
+  .dl-btn.pdf:hover{box-shadow:0 8px 24px rgba(184,138,63,.32)}
 
   .next-steps{margin-top:48px; padding:32px 36px; background:var(--white); border:1px solid var(--line); border-radius:14px; box-shadow:0 4px 14px rgba(7,23,52,.04)}
   .next-steps h3{font-family:var(--display); font-weight:400; font-size:26px; margin:0 0 8px; color:var(--ink-deep)}
@@ -201,7 +203,7 @@
         <div class="corners"><span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span></div>
         <div class="cert-overlay">
           <div class="cert-brand">
-            FUTUREPROOF · SDG Mission Lab
+            FUTUREPROOF — SDGs Mission Journey
             <span class="th">ภารกิจเอสดีจีเพื่ออนาคต</span>
           </div>
           <div class="cert-body">

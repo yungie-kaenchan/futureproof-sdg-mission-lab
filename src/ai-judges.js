@@ -86,7 +86,11 @@ async function boot() {
     }
   } catch (e) {
     console.warn("[ai-judges] call failed:", e);
-    renderUnavailable(root, "The AI judges service is offline right now — your teacher will grade your submission with Rubric A as planned.");
+    const detail = (e && e.message) ? e.message : String(e);
+    renderUnavailable(root,
+      "The AI judges could not generate critique just now — your teacher will still grade your submission with Rubric A. " +
+      "Technical detail (for teachers / admins): " + detail
+    );
   }
 }
 
@@ -207,22 +211,38 @@ async function callJudges(payload) {
     evidenceCommitments: payload.evidenceCommitments || {},
   };
 
-  const res = await fetch(PROXY, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ kind: "aiJudges", userMessage, context }),
-  });
-  if (!res.ok) throw new Error("Proxy returned " + res.status);
-  const data = await res.json();
+  let res;
+  try {
+    res = await fetch(PROXY, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ kind: "aiJudges", userMessage, context }),
+    });
+  } catch (netErr) {
+    throw new Error("Network · could not reach the Claude proxy (Netlify function may not be deployed). Detail: " + netErr.message);
+  }
+
+  let data = null;
+  try { data = await res.json(); } catch (_) { /* non-JSON body */ }
+
+  if (!res.ok) {
+    const detail = data ? JSON.stringify(data).slice(0, 240) : "(no body)";
+    throw new Error("Proxy returned HTTP " + res.status + " — " + detail);
+  }
+
+  if (!data || typeof data.text !== "string" || !data.text.trim()) {
+    throw new Error("Proxy returned 200 but with no text content. Check ANTHROPIC_API_KEY in Netlify env vars.");
+  }
+
   // Strip ```json fences if Claude wrapped the output
-  const text = (data.text || "").replace(/^\s*```(?:json)?\s*|\s*```\s*$/g, "").trim();
+  const text = data.text.replace(/^\s*```(?:json)?\s*|\s*```\s*$/g, "").trim();
   let parsed;
   try { parsed = JSON.parse(text); }
   catch (_) {
-    // Try to extract the first JSON object from the text
     const m = text.match(/\{[\s\S]*\}/);
     if (m) { try { parsed = JSON.parse(m[0]); } catch (__) {} }
   }
+  if (!parsed) throw new Error("Could not parse the proxy's response as JSON. First 200 chars: " + text.slice(0, 200));
   return parsed;
 }
 
