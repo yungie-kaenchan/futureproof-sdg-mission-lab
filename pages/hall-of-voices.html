@@ -48,25 +48,42 @@
   @media (max-width:980px){ main{padding:28px 16px 80px} }
 
   /* ── Hero ─────────────────────────────────────────────────── */
-  .hov-hero{text-align:center; padding:32px 0 36px; border-bottom:1px solid var(--line); margin-bottom:36px}
+  .hov-hero{text-align:center; padding:36px 0 40px; border-bottom:1px solid var(--line); margin-bottom:36px; max-width:860px; margin-left:auto; margin-right:auto}
   .hov-hero .eyebrow{font-family:var(--mono); font-size:12px; letter-spacing:.20em; text-transform:uppercase; color:var(--bronze-dim); margin-bottom:14px; font-weight:700}
-  .hov-hero h1{font-family:var(--display); font-weight:300; font-size:52px; color:var(--ink-deep); margin:0 0 6px; line-height:1.1}
+  .hov-hero h1{font-family:var(--display); font-weight:300; font-size:52px; color:var(--ink-deep); margin:0 0 10px; line-height:1.1; text-align:center}
   .hov-hero h1 em{font-style:italic; color:var(--bronze-dim)}
-  .hov-hero .th{font-family:var(--th); font-size:22px; color:var(--purple); margin:0 0 22px}
-  .hov-hero p{max-width:720px; margin:0 auto; line-height:1.75; font-size:17px; color:var(--ink)}
+  .hov-hero .th{font-family:var(--th); font-size:21px; color:var(--purple); margin:0 auto 26px; text-align:center; line-height:1.5; max-width:720px}
+  .hov-hero p{max-width:720px; margin:0 auto; line-height:1.75; font-size:17px; color:var(--ink); text-align:center; text-wrap:pretty}
   .hov-hero p strong{color:var(--ink-deep)}
+  @media (max-width:720px){
+    .hov-hero h1{font-size:38px}
+    .hov-hero .th{font-size:17px}
+    .hov-hero p{font-size:15.5px}
+  }
 
   /* ── About-this-gallery banner ────────────────────────────── */
   .hov-banner{
     max-width:980px; margin:0 auto 36px;
     background:rgba(184,138,63,.06); border:1px solid rgba(184,138,63,.32); border-radius:14px;
-    padding:18px 24px; display:flex; gap:16px; align-items:flex-start;
+    padding:22px 28px; display:flex; gap:18px; align-items:flex-start;
   }
-  .hov-banner .icon{flex:0 0 36px; width:36px; height:36px; border-radius:999px; background:var(--bronze); color:var(--white); display:flex; align-items:center; justify-content:center}
+  .hov-banner .icon{flex:0 0 40px; width:40px; height:40px; border-radius:999px; background:var(--bronze); color:var(--white); display:flex; align-items:center; justify-content:center}
   .hov-banner .icon .material-symbols-rounded{font-size:22px}
-  .hov-banner strong{display:block; color:var(--bronze-dim); font-size:14px; margin-bottom:4px; letter-spacing:.02em}
-  .hov-banner p{margin:0; font-size:14px; line-height:1.6; color:var(--ink)}
-  .hov-banner .th{display:block; font-family:var(--th); font-size:13px; color:var(--ink-soft); margin-top:6px}
+  .hov-banner .content{flex:1; min-width:0; text-align:left}
+  /* Banner heading (only the very first <strong>, not the body emphasis) */
+  .hov-banner .banner-title{
+    display:block; color:var(--bronze-dim); font-size:15px; font-weight:700;
+    margin:0 0 6px; letter-spacing:.04em; line-height:1.3;
+  }
+  .hov-banner p{margin:0; font-size:14.5px; line-height:1.65; color:var(--ink); text-wrap:pretty}
+  /* Inline emphasis inside body paragraph — stays inline (NOT display:block) */
+  .hov-banner p strong{color:var(--ink-deep); font-weight:700}
+  .hov-banner .th{display:block; font-family:var(--th); font-size:13.5px; color:var(--ink-soft); margin-top:8px; line-height:1.55}
+  @media (max-width:600px){
+    .hov-banner{padding:18px 20px; gap:14px}
+    .hov-banner .icon{flex-basis:34px; width:34px; height:34px}
+    .hov-banner .icon .material-symbols-rounded{font-size:19px}
+  }
 
   /* ── Filter row ───────────────────────────────────────────── */
   .hov-filters{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-bottom:32px}
@@ -166,13 +183,10 @@
 
   <div class="hov-banner" role="note">
     <div class="icon"><span class="material-symbols-rounded">verified_user</span></div>
-    <div>
-      <strong>About this gallery</strong>
+    <div class="content">
+      <h2 class="banner-title">About this gallery</h2>
       <p>
-        The four pieces below are <strong>composite, anonymous exemplars</strong> built to show what a passing
-        Voice for Change proposal looks like — they are not the work of real students, and no real names appear.
-        Once the platform launches with cohorts, only submissions whose author has given <strong>explicit, withdrawable
-        consent</strong> appear here, under a chosen pseudonym.
+        The four pieces below are <strong>composite, anonymous exemplars</strong> built to show what a passing Voice for Change proposal looks like — they are not the work of real students, and no real names appear. Once the platform launches with cohorts, only submissions whose author has given <strong>explicit, withdrawable consent</strong> appear here, under a chosen pseudonym.
         <span class="th">ผลงานในตัวอย่างนี้สร้างขึ้นเพื่อแสดงเกณฑ์มาตรฐาน — เมื่อระบบเปิดใช้จริง จะปรากฏเฉพาะผลงานที่ผู้เขียนยินยอมเปิดเผยภายใต้นามแฝง</span>
       </p>
     </div>
