@@ -42,18 +42,23 @@ const MISSION_META = {
 
 /* ── Curated Thai audiences ──────────────────────────────────────── */
 
+/* ── Curated Thai audiences (REAL Thai government / UN canonical URLs) ──
+ * Each audience has the SDG-mapped accent colour used elsewhere on the
+ * platform (journey map, evidence trail). URLs verified against current
+ * canonical agency homepages (May 2026).
+ */
 const AUDIENCES = [
-  // SDG-mapped
-  { id: "dgr",     sdg: "SDG 6",  en: "Department of Groundwater Resources",                  th: "กรมทรัพยากรน้ำบาดาล" },
-  { id: "pcd",     sdg: "SDG 13", en: "Pollution Control Department",                         th: "กรมควบคุมมลพิษ" },
-  { id: "bma",     sdg: "SDG 11", en: "BMA Department of Drainage and Sewerage",              th: "สำนักการระบายน้ำ กรุงเทพมหานคร" },
-  { id: "dmcr",    sdg: "SDG 14", en: "Department of Marine and Coastal Resources",           th: "กรมทรัพยากรทางทะเลและชายฝั่ง" },
-  { id: "tak2",    sdg: "SDG 4",  en: "Tak Primary Educational Service Area Office 2",        th: "สำนักงานเขตพื้นที่การศึกษาประถมศึกษาตาก เขต 2" },
-  { id: "ppho",    sdg: "SDG 3",  en: "Provincial Public Health Office (Rayong / Chonburi)",  th: "สำนักงานสาธารณสุขจังหวัดระยอง / ชลบุรี" },
-  // Cross-cutting
-  { id: "ysdg",    sdg: "Cross",  en: "Thai Youth SDG Forum",                                 th: "เวทีเยาวชน SDG ประเทศไทย" },
-  { id: "undp",    sdg: "Cross",  en: "UNDP Thailand",                                        th: "โครงการพัฒนาแห่งสหประชาชาติ ประเทศไทย" },
-  { id: "council", sdg: "Cross",  en: "Your local Provincial Council",                        th: "สภาจังหวัดของคุณ" },
+  // SDG-mapped Thai agencies (the six mission audiences)
+  { id: "dgr",     sdg: "SDG 6 · Water",        color:"#26BDE2", short:"DGR",   en: "Department of Groundwater Resources",                  th: "กรมทรัพยากรน้ำบาดาล",                                                       url: "https://www.dgr.go.th/" },
+  { id: "pcd",     sdg: "SDG 13 · Climate",     color:"#3F7E44", short:"PCD",   en: "Pollution Control Department",                         th: "กรมควบคุมมลพิษ",                                                            url: "https://www.pcd.go.th/" },
+  { id: "bma",     sdg: "SDG 11 · Cities",      color:"#FD9D24", short:"BMA",   en: "BMA Department of Drainage and Sewerage",              th: "สำนักการระบายน้ำ กรุงเทพมหานคร",                                              url: "https://dds.bangkok.go.th/" },
+  { id: "dmcr",    sdg: "SDG 14 · Below Water", color:"#0A97D9", short:"DMCR",  en: "Department of Marine and Coastal Resources",           th: "กรมทรัพยากรทางทะเลและชายฝั่ง",                                              url: "https://www.dmcr.go.th/" },
+  { id: "tak2",    sdg: "SDG 4 · Education",    color:"#C5192D", short:"ESAO",  en: "Tak Primary Educational Service Area Office 2",        th: "สำนักงานเขตพื้นที่การศึกษาประถมศึกษาตาก เขต 2",                                  url: "https://www.takesa2.go.th/" },
+  { id: "ppho",    sdg: "SDG 3 · Health",       color:"#4C9F38", short:"PHO",   en: "Provincial Public Health Office (Rayong)",             th: "สำนักงานสาธารณสุขจังหวัดระยอง",                                              url: "https://www.rayong.moph.go.th/" },
+  // Cross-cutting national / international audiences
+  { id: "ysdg",    sdg: "Cross-cutting",        color:"#5D3A9B", short:"SDG",   en: "Thai SDG Move (national SDG knowledge platform)",      th: "เครือข่าย SDG Move ประเทศไทย",                                                url: "https://www.sdgmove.com/" },
+  { id: "undp",    sdg: "Cross-cutting",        color:"#0066A1", short:"UN",    en: "UNDP Thailand",                                        th: "โครงการพัฒนาแห่งสหประชาชาติ ประเทศไทย",                                      url: "https://www.undp.org/thailand" },
+  { id: "council", sdg: "Cross-cutting",        color:"#B58A3F", short:"PAO",   en: "Provincial Administrative Organisation (your province)",    th: "องค์การบริหารส่วนจังหวัด (จังหวัดของคุณ)",                                       url: "https://www.thailand.go.th/" },
 ];
 
 /* ── Tiny safe-DOM helper (no innerHTML) ─────────────────────────── */
@@ -209,21 +214,90 @@ function renderEvidenceTrail(evidence) {
 
 function renderAudiences() {
   const root = document.getElementById("audiences");
+
   for (const a of AUDIENCES) {
-    const id = "aud-" + a.id;
-    const label = el("label", { class: "aud" },
-      el("input", { type: "radio", name: "audience", id, value: a.id }),
-      el("span", { class: "aud-en", text: a.en }),
-      el("span", { class: "aud-th", text: a.th }),
-      el("span", { class: "aud-sdg", text: a.sdg.toUpperCase() }),
-    );
-    label.addEventListener("click", () => {
+    // Card root — div with role=button so we don't nest <a> in <button> (invalid)
+    const card = el("div", {
+      class: "aud-card",
+      role: "button",
+      tabindex: "0",
+      "aria-pressed": "false",
+      "data-aud-id": a.id,
+      style: { "--accent": a.color, "--accent-soft": a.color + "1A" }, // 10% alpha hex
+    });
+
+    // SDG-coloured top stripe
+    card.appendChild(el("div", { class: "aud-stripe" }));
+
+    // HEAD ROW · monogram chip (left) + visit link (right)
+    const head = el("div", { class: "aud-head" });
+    head.appendChild(el("div", { class: "aud-mono", text: a.short }));
+    // Real link — separate click target, opens in new tab, stops propagation
+    const link = el("a", {
+      class: "aud-link",
+      href: a.url,
+      target: "_blank",
+      rel: "noopener noreferrer",
+      title: "Open " + a.en + " website in a new tab",
+    });
+    link.appendChild(el("span", { text: "Website" }));
+    link.appendChild(el("span", { class: "material-symbols-rounded", text: "north_east" }));
+    link.addEventListener("click", (e) => e.stopPropagation());
+    link.addEventListener("keydown", (e) => e.stopPropagation());
+    head.appendChild(link);
+    card.appendChild(head);
+
+    // BODY · EN headline + Thai subtitle
+    const body = el("div", { class: "aud-body" });
+    body.appendChild(el("h3", { class: "aud-en", text: a.en }));
+    body.appendChild(el("p",  { class: "aud-th", text: a.th }));
+    card.appendChild(body);
+
+    // FOOT · SDG label + CTA
+    const foot = el("div", { class: "aud-foot" });
+    foot.appendChild(el("span", { class: "aud-sdg", text: a.sdg }));
+    foot.appendChild(el("span", { class: "aud-cta", text: "Choose this audience →" }));
+    card.appendChild(foot);
+
+    // Selection stamp — animates in via CSS when .is-selected
+    card.appendChild(el("div", { class: "aud-stamp", "aria-hidden": "true", text: "✓ ADDRESSED" }));
+
+    // Selection click — anywhere on the card EXCEPT the link
+    function select() {
+      // Clear previous selection
+      root.querySelectorAll(".aud-card.is-selected").forEach((n) => {
+        n.classList.remove("is-selected");
+        n.setAttribute("aria-pressed", "false");
+      });
+      card.classList.add("is-selected");
+      card.setAttribute("aria-pressed", "true");
       state.audienceId = a.id;
       state.audienceLabel = a.en + " · " + a.th;
       saveDraftSilent();
       refreshSubmitGate();
+    }
+    card.addEventListener("click", select);
+    card.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); select(); }
     });
-    root.appendChild(label);
+
+    // 3D tilt on mouse-move (physics-feeling parallax)
+    card.addEventListener("mousemove", (e) => {
+      const r = card.getBoundingClientRect();
+      const cx = (e.clientX - r.left) / r.width  - 0.5; // -0.5 ... +0.5
+      const cy = (e.clientY - r.top)  / r.height - 0.5;
+      // Subtle: max 6deg either axis
+      const rx = (-cy * 6).toFixed(2);
+      const ry = ( cx * 6).toFixed(2);
+      card.style.setProperty("--tilt-x", rx + "deg");
+      card.style.setProperty("--tilt-y", ry + "deg");
+    });
+    card.addEventListener("mouseleave", () => {
+      card.style.setProperty("--tilt-x", "0deg");
+      card.style.setProperty("--tilt-y", "0deg");
+    });
+
+    root.appendChild(card);
   }
 }
 
