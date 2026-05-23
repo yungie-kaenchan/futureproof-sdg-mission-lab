@@ -115,8 +115,89 @@
         </a>
       </div>
 
+      <!-- ─── Demo / Judge mode entry ─── -->
+      <div class="demo-entry animate-fadeUp delay-700" id="demo-entry">
+        <div class="demo-entry-inner">
+          <div class="demo-entry-icon" aria-hidden="true">
+            <span class="material-symbols-rounded">workspace_premium</span>
+          </div>
+          <div class="demo-entry-text">
+            <div class="demo-entry-eyebrow">For judges, teachers, and reviewers</div>
+            <h3 class="demo-entry-title">90 seconds to the <em>trophy moment</em></h3>
+            <p class="demo-entry-desc">
+              Skip the six missions and land directly on the platform's capstone —
+              the <strong>Voice for Change</strong> Final Task. Demo mode pre-grants all
+              six Keystones for this session. Submissions are watermarked and never graded.
+            </p>
+          </div>
+          <button type="button" class="demo-entry-cta" id="demo-entry-cta">
+            <span>▶ Enter Demo Mode</span>
+            <span class="demo-entry-cta-th">โหมดผู้ตรวจ · ดูภารกิจสุดท้ายทันที</span>
+          </button>
+        </div>
+        <div class="demo-entry-foot">
+          Or browse the public exemplars at the <a href="pages/hall-of-voices.html">Hall of Voices →</a>
+        </div>
+      </div>
+
     </div>
   </section>
+
+  <!-- Demo / Judge mode styling (inline so it works even before styles.css reloads) -->
+  <style>
+    .demo-entry{
+      margin-top:32px; max-width:760px;
+      background:linear-gradient(135deg, rgba(184,138,63,.08) 0%, rgba(232,199,122,.04) 100%);
+      border:1.5px solid rgba(184,138,63,.32);
+      border-radius:18px; padding:24px 28px;
+      box-shadow:0 12px 32px rgba(7,23,52,.08);
+    }
+    .demo-entry-inner{display:flex; gap:20px; align-items:flex-start; flex-wrap:wrap}
+    .demo-entry-icon{flex:0 0 56px; width:56px; height:56px; border-radius:14px;
+      background:linear-gradient(135deg, #B58A3F 0%, #E8C77A 100%);
+      color:#fff; display:flex; align-items:center; justify-content:center;
+      box-shadow:0 6px 16px rgba(184,138,63,.32);}
+    .demo-entry-icon .material-symbols-rounded{font-size:28px}
+    .demo-entry-text{flex:1; min-width:240px}
+    .demo-entry-eyebrow{font-family:'JetBrains Mono',monospace; font-size:11px;
+      letter-spacing:.18em; text-transform:uppercase; color:#8A6D3F; font-weight:700; margin-bottom:6px}
+    .demo-entry-title{font-family:'Fraunces',serif; font-weight:500; font-size:22px;
+      color:#0F1729; margin:0 0 8px; line-height:1.25}
+    .demo-entry-title em{font-style:italic; color:#B58A3F}
+    .demo-entry-desc{margin:0; font-size:14.5px; line-height:1.65; color:#1A1F2E}
+    .demo-entry-desc strong{color:#0F1729; font-weight:700}
+    .demo-entry-cta{flex:0 0 auto; display:inline-flex; flex-direction:column; align-items:flex-start;
+      gap:4px; padding:14px 22px; border-radius:999px; border:none; cursor:pointer;
+      background:#0F1729; color:#F4F1EA;
+      font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:700;
+      letter-spacing:.10em; text-transform:uppercase;
+      box-shadow:0 8px 24px rgba(7,23,52,.28);
+      transition:transform .15s ease-out, box-shadow .15s ease-out;}
+    .demo-entry-cta:hover{transform:translateY(-2px); box-shadow:0 12px 32px rgba(7,23,52,.34)}
+    .demo-entry-cta-th{font-family:'IBM Plex Sans Thai',sans-serif; font-size:10.5px;
+      letter-spacing:.04em; text-transform:none; color:#E8C77A; font-weight:400}
+    .demo-entry-foot{margin-top:14px; padding-top:14px; border-top:1px solid rgba(184,138,63,.20);
+      font-size:13.5px; color:#42526E; font-family:'DM Sans',sans-serif}
+    .demo-entry-foot a{color:#B58A3F; font-weight:700; text-decoration:none; border-bottom:1px solid rgba(184,138,63,.3)}
+    .demo-entry-foot a:hover{color:#8A6D3F; border-bottom-color:#8A6D3F}
+    @media (max-width:640px){
+      .demo-entry-inner{flex-direction:column}
+      .demo-entry-cta{width:100%; align-items:center; padding:16px 22px}
+    }
+  </style>
+
+  <!-- Demo / Judge mode activation -->
+  <script>
+    (function () {
+      var btn = document.getElementById("demo-entry-cta");
+      if (!btn) return;
+      btn.addEventListener("click", function () {
+        try { localStorage.setItem("fp_demo_mode", "on"); } catch (_) {}
+        // Take judges directly to the Final Task in demo mode
+        location.href = "pages/final-task.html?demo=keystones";
+      });
+    })();
+  </script>
 
   <!-- MISSION BRIEF SECTION -->
   <section id="mission" class="relative strip-host">
