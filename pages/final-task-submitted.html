@@ -17,8 +17,8 @@
 
 <style>
   :root{
-    --ink-deep:#0F1729; --ink:#071734; --ink-soft:#42526E;
-    --bronze:#B58A3F; --bronze-light:#E8C77A; --bronze-dim:#8A6D3F;
+    --ink-deep:#0F1729; --ink:#071734; --ink-soft:#2A3855;
+    --bronze:#B58A3F; --bronze-light:#E8C77A; --bronze-dim:#6E5320;
     --purple:#5D3A9B; --paper:#FBFAF6; --paper-warm:#F4F1EA; --bone:#F4F1EA;
     --white:#FFFFFF; --line:rgba(7,23,52,.10); --line-strong:rgba(7,23,52,.18);
     --crimson:#A82424;
@@ -31,19 +31,19 @@
   /* Dark navy header — consistent with mission shell */
   .shell-header{position:sticky; top:0; z-index:50; display:flex; align-items:center; justify-content:space-between; padding:14px 28px; background:rgba(7,23,52,0.96); backdrop-filter:blur(8px); border-bottom:1px solid rgba(232,199,122,.18); color:var(--bone)}
   .shell-header-brand{display:inline-flex; align-items:baseline; gap:14px; text-decoration:none; color:inherit}
-  .shell-header-brand .logo{font-family:var(--titles); font-weight:700; font-size:18px; letter-spacing:.20em; color:var(--bone)}
-  .shell-header-brand .sub{font-family:var(--titles); font-weight:600; font-size:11px; letter-spacing:.32em; color:rgba(244,241,234,.65); text-transform:uppercase; border-left:1px solid rgba(232,199,122,.22); padding-left:14px}
-  .shell-header-btn{display:inline-flex; align-items:center; gap:6px; padding:8px 16px; border-radius:999px; border:1px solid rgba(244,241,234,.18); background:transparent; color:var(--bone); text-decoration:none; font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase}
+  .shell-header-brand .logo{font-family:var(--titles); font-weight:700; font-size:20.7px; letter-spacing:.20em; color:var(--bone)}
+  .shell-header-brand .sub{font-family:var(--titles); font-weight:600; font-size:12.6px; letter-spacing:.32em; color:rgba(244,241,234,.65); text-transform:uppercase; border-left:1px solid rgba(232,199,122,.22); padding-left:14px}
+  .shell-header-btn{display:inline-flex; align-items:center; gap:6px; padding:8px 16px; border-radius:999px; border:1px solid rgba(244,241,234,.18); background:transparent; color:var(--bone); text-decoration:none; font-family:var(--mono); font-size:12.6px; letter-spacing:.12em; text-transform:uppercase}
   .shell-header-btn:hover{background:rgba(244,241,234,.08); border-color:var(--bronze)}
 
-  main{max-width:1080px; margin:0 auto; padding:48px 24px 96px; font-size:16px}
+  main{max-width:1080px; margin:0 auto; padding:48px 24px 96px; font-size:18.4px}
   .submitted-hero{text-align:center; padding:32px 0 16px}
   .submitted-hero-img{display:block; margin:0 auto 22px; height:auto; max-width:min(1631px, 99%); max-height:363px; object-fit:contain}
   @media (max-width:720px){ .submitted-hero-img{ max-height:276px } }
-  .submitted-hero h1{font-family:var(--display); font-weight:300; font-size:44px; color:var(--ink-deep); margin:0 0 8px; line-height:1.2}
+  .submitted-hero h1{font-family:var(--display); font-weight:300; font-size:50.6px; color:var(--ink-deep); margin:0 0 8px; line-height:1.2}
   .submitted-hero h1 em{font-style:italic; color:var(--bronze-dim)}
-  .submitted-hero .th{font-family:var(--th); font-size:20px; color:var(--ink-soft); margin:0 0 18px}
-  .submitted-hero .msg{max-width:700px; margin:0 auto; line-height:1.75; color:var(--ink); font-size:17px}
+  .submitted-hero .th{font-family:var(--th); font-size:23px; color:var(--ink-soft); margin:0 0 18px}
+  .submitted-hero .msg{max-width:700px; margin:0 auto; line-height:1.75; color:var(--ink); font-size:19.5px}
   .submitted-hero .msg strong{color:var(--ink-deep)}
 
   .grid{display:grid; grid-template-columns:1.4fr 1fr; gap:28px; margin-top:36px}
@@ -51,7 +51,7 @@
 
   /* Certificate card — light surface, the certificate INSIDE stays its own (dark) artefact */
   .cert-card{background:var(--white); border-radius:14px; padding:16px; border:1px solid var(--line); box-shadow:0 12px 32px rgba(7,23,52,.08)}
-  .cert-card h2{font-family:var(--mono); font-size:11px; letter-spacing:.14em; color:var(--bronze-dim); text-transform:uppercase; margin:0 0 12px; font-weight:700}
+  .cert-card h2{font-family:var(--mono); font-size:12.6px; letter-spacing:.14em; color:var(--bronze-dim); text-transform:uppercase; margin:0 0 12px; font-weight:700}
   .cert{
     position:relative; width:100%; aspect-ratio:2480/3508; max-height:900px;
     background:#0A0A0B; color:var(--paper); border-radius:6px; overflow:hidden;
@@ -73,33 +73,33 @@
   .cert .corners .bl{bottom:36px; left:36px; border-bottom-width:2px; border-left-width:2px; border-top:0; border-right:0}
   .cert .corners .br{bottom:36px; right:36px; border-bottom-width:2px; border-right-width:2px; border-top:0; border-left:0}
   .cert-overlay{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:space-between; padding:64px 56px; text-align:center}
-  .cert-brand{font-family:var(--titles); font-size:14px; letter-spacing:.28em; color:var(--bronze-light); text-transform:uppercase}
-  .cert-brand .th{font-family:var(--th); font-size:11px; color:rgba(232,199,122,.65); display:block; margin-top:4px; letter-spacing:.10em; text-transform:none}
+  .cert-brand{font-family:var(--titles); font-size:16.1px; letter-spacing:.28em; color:var(--bronze-light); text-transform:uppercase}
+  .cert-brand .th{font-family:var(--th); font-size:12.6px; color:rgba(232,199,122,.65); display:block; margin-top:4px; letter-spacing:.10em; text-transform:none}
   .cert-body{display:flex; flex-direction:column; align-items:center; gap:18px; padding-top:24px}
-  .cert-eyebrow{font-family:var(--mono); font-size:11px; letter-spacing:.18em; color:rgba(232,199,122,.7); text-transform:uppercase}
-  .cert-title{font-family:var(--display); font-weight:300; font-size:34px; color:var(--paper); line-height:1.15; margin:0}
+  .cert-eyebrow{font-family:var(--mono); font-size:12.6px; letter-spacing:.18em; color:rgba(232,199,122,.7); text-transform:uppercase}
+  .cert-title{font-family:var(--display); font-weight:300; font-size:39.1px; color:var(--paper); line-height:1.15; margin:0}
   .cert-title em{font-style:italic; color:var(--bronze-light)}
-  .cert-this-is{font-family:var(--display); font-style:italic; font-size:13px; color:rgba(244,241,234,.60); margin-top:6px}
-  .cert-name{font-family:var(--display); font-weight:500; font-size:32px; color:var(--bronze-light); margin:6px 0; padding:8px 0; border-top:1px solid rgba(232,199,122,.30); border-bottom:1px solid rgba(232,199,122,.30); min-width:60%}
-  .cert-statement{font-family:var(--display); font-style:italic; font-size:14px; color:rgba(244,241,234,.82); line-height:1.6; max-width:80%}
+  .cert-this-is{font-family:var(--display); font-style:italic; font-size:14.9px; color:rgba(244,241,234,.60); margin-top:6px}
+  .cert-name{font-family:var(--display); font-weight:500; font-size:36.8px; color:var(--bronze-light); margin:6px 0; padding:8px 0; border-top:1px solid rgba(232,199,122,.30); border-bottom:1px solid rgba(232,199,122,.30); min-width:60%}
+  .cert-statement{font-family:var(--display); font-style:italic; font-size:16.1px; color:rgba(244,241,234,.82); line-height:1.6; max-width:80%}
   .cert-keystones{display:flex; gap:10px; margin-top:8px}
   .cert-keystones span{width:18px; height:18px; border-radius:4px; transform:rotate(45deg)}
   .cert-foot{display:flex; flex-direction:column; align-items:center; gap:8px; padding-bottom:8px; width:100%}
-  .cert-foot .sig{font-family:var(--display); font-style:italic; font-size:12px; color:rgba(244,241,234,.7)}
-  .cert-foot .date{font-family:var(--mono); font-size:10px; letter-spacing:.14em; color:var(--bronze-light); text-transform:uppercase}
-  .cert-foot .id{font-family:var(--mono); font-size:9px; color:rgba(244,241,234,.4); letter-spacing:.10em}
+  .cert-foot .sig{font-family:var(--display); font-style:italic; font-size:13.8px; color:rgba(244,241,234,.7)}
+  .cert-foot .date{font-family:var(--mono); font-size:11.5px; letter-spacing:.14em; color:var(--bronze-light); text-transform:uppercase}
+  .cert-foot .id{font-family:var(--mono); font-size:10.3px; color:rgba(244,241,234,.4); letter-spacing:.10em}
   .cert-flourish{width:80px; height:1px; background:var(--bronze); opacity:.5; margin:2px 0}
 
   /* Badge card — light surface */
   .badge-card{background:var(--white); border-radius:14px; padding:16px; border:1px solid var(--line); box-shadow:0 12px 32px rgba(7,23,52,.08)}
-  .badge-card h2{font-family:var(--mono); font-size:11px; letter-spacing:.14em; color:var(--bronze-dim); text-transform:uppercase; margin:0 0 12px; font-weight:700}
+  .badge-card h2{font-family:var(--mono); font-size:12.6px; letter-spacing:.14em; color:var(--bronze-dim); text-transform:uppercase; margin:0 0 12px; font-weight:700}
   .badge{position:relative; width:100%; aspect-ratio:1/1; max-height:480px; border-radius:6px; overflow:hidden; background:#0A0A0B}
   .badge .base-art{position:absolute; inset:0; width:100%; height:100%; object-fit:cover}
   .badge-overlay{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:18%; text-align:center}
-  .badge-overlay .label{font-family:var(--titles); font-weight:700; font-size:12px; letter-spacing:.24em; color:var(--bronze-light); text-transform:uppercase; margin-bottom:6px}
-  .badge-overlay .name{font-family:var(--display); font-weight:500; font-size:18px; color:var(--paper); margin:6px 0; min-height:1.4em}
-  .badge-overlay .role{font-family:var(--display); font-style:italic; font-size:11px; color:rgba(244,241,234,.7); margin-top:4px}
-  .badge-overlay .th{font-family:var(--th); font-size:9px; color:rgba(232,199,122,.65); display:block; margin-top:4px; letter-spacing:.06em}
+  .badge-overlay .label{font-family:var(--titles); font-weight:700; font-size:13.8px; letter-spacing:.24em; color:var(--bronze-light); text-transform:uppercase; margin-bottom:6px}
+  .badge-overlay .name{font-family:var(--display); font-weight:500; font-size:20.7px; color:var(--paper); margin:6px 0; min-height:1.4em}
+  .badge-overlay .role{font-family:var(--display); font-style:italic; font-size:12.6px; color:rgba(244,241,234,.7); margin-top:4px}
+  .badge-overlay .th{font-family:var(--th); font-size:10.3px; color:rgba(232,199,122,.65); display:block; margin-top:4px; letter-spacing:.06em}
   /* CSS-only fallback hex when base art missing */
   .badge .fallback-hex{
     position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:78%; aspect-ratio:1.155/1;
@@ -111,7 +111,7 @@
   .badge .fallback-vertex{position:absolute; width:12px; height:12px; border-radius:999px; transform:translate(-50%,-50%)}
 
   .downloads{display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:20px}
-  .dl-btn{display:inline-flex; align-items:center; gap:8px; padding:14px 26px; border-radius:999px; cursor:pointer; border:none; font-family:var(--mono); font-size:12.5px; letter-spacing:.12em; text-transform:uppercase; transition:transform .15s, box-shadow .15s; font-weight:700}
+  .dl-btn{display:inline-flex; align-items:center; gap:8px; padding:14px 26px; border-radius:999px; cursor:pointer; border:none; font-family:var(--mono); font-size:14.4px; letter-spacing:.12em; text-transform:uppercase; transition:transform .15s, box-shadow .15s; font-weight:700}
   .dl-btn:hover{transform:translateY(-2px); box-shadow:0 8px 24px rgba(7,23,52,.18)}
   .dl-btn.png{background:var(--ink-deep); color:var(--bone); border:1px solid var(--ink-deep)}
   .dl-btn.png:hover{background:#1A2B52; border-color:#1A2B52}
@@ -119,28 +119,28 @@
   .dl-btn.pdf:hover{box-shadow:0 8px 24px rgba(184,138,63,.32)}
 
   .next-steps{margin-top:48px; padding:32px 36px; background:var(--white); border:1px solid var(--line); border-radius:14px; box-shadow:0 4px 14px rgba(7,23,52,.04)}
-  .next-steps h3{font-family:var(--display); font-weight:400; font-size:26px; margin:0 0 8px; color:var(--ink-deep)}
+  .next-steps h3{font-family:var(--display); font-weight:400; font-size:29.9px; margin:0 0 8px; color:var(--ink-deep)}
   .next-steps h3 em{font-style:italic; color:var(--bronze-dim)}
-  .next-steps .th{font-family:var(--th); font-size:15.5px; color:var(--ink-soft); margin-bottom:16px}
+  .next-steps .th{font-family:var(--th); font-size:17.8px; color:var(--ink-soft); margin-bottom:16px}
   .next-steps ul{margin:16px 0 0; padding-left:22px; line-height:1.8}
-  .next-steps li{color:var(--ink); font-size:16px; margin-bottom:8px}
+  .next-steps li{color:var(--ink); font-size:18.4px; margin-bottom:8px}
   .next-steps strong{color:var(--ink-deep)}
 
   /* ─── AI Judges' Critique ─── */
   .ai-judges{margin-top:48px}
   .aij-header{margin-bottom:18px}
-  .aij-header h2{font-family:var(--display); font-weight:400; font-size:28px; color:var(--ink-deep); margin:0 0 4px; line-height:1.25}
-  .aij-eyebrow{font-family:var(--mono); font-size:13px; letter-spacing:.10em; text-transform:uppercase; color:var(--crimson); margin-left:8px; font-weight:700}
-  .aij-th{font-family:var(--th); font-size:15px; color:var(--ink-soft); margin:0}
+  .aij-header h2{font-family:var(--display); font-weight:400; font-size:32.2px; color:var(--ink-deep); margin:0 0 4px; line-height:1.25}
+  .aij-eyebrow{font-family:var(--mono); font-size:14.9px; letter-spacing:.10em; text-transform:uppercase; color:var(--crimson); margin-left:8px; font-weight:700}
+  .aij-th{font-family:var(--th); font-size:17.2px; color:var(--ink-soft); margin:0}
 
   .aij-shell{background:var(--white); border:1px solid var(--line); border-radius:16px; padding:28px 32px; box-shadow:0 4px 14px rgba(7,23,52,.05)}
   .aij-banner{display:flex; gap:12px; align-items:flex-start; padding:14px 18px; background:rgba(168,36,36,.06); border-left:4px solid var(--crimson); border-radius:8px; margin-bottom:18px}
-  .aij-banner-glyph{font-size:20px; line-height:1}
-  .aij-banner strong{color:var(--crimson); font-size:15px; display:block}
-  .aij-banner .th{display:block; font-family:var(--th); font-size:13px; color:var(--ink-soft); margin-top:2px}
+  .aij-banner-glyph{font-size:23px; line-height:1}
+  .aij-banner strong{color:var(--crimson); font-size:17.2px; display:block}
+  .aij-banner .th{display:block; font-family:var(--th); font-size:14.9px; color:var(--ink-soft); margin-top:2px}
 
-  .aij-context{font-size:15.5px; line-height:1.7; color:var(--ink); margin:0 0 20px}
-  .aij-disclaimer-bottom{margin-top:18px; padding:12px 16px; background:var(--paper); border:1px solid var(--line); border-radius:8px; font-family:var(--mono); font-size:12.5px; letter-spacing:.04em; color:var(--ink-soft); text-align:center; font-weight:600}
+  .aij-context{font-size:17.8px; line-height:1.7; color:var(--ink); margin:0 0 20px}
+  .aij-disclaimer-bottom{margin-top:18px; padding:12px 16px; background:var(--paper); border:1px solid var(--line); border-radius:8px; font-family:var(--mono); font-size:14.4px; letter-spacing:.04em; color:var(--ink-soft); text-align:center; font-weight:600}
 
   .aij-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:18px}
   .aij-card{background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:22px 24px; display:flex; flex-direction:column; gap:14px}
@@ -148,18 +148,18 @@
   .aij-avatar{width:54px; height:54px; border-radius:999px; display:flex; align-items:center; justify-content:center; flex:0 0 54px; box-shadow:0 4px 12px rgba(7,23,52,.10)}
   .aij-avatar-f{background:linear-gradient(135deg, #C9A961 0%, #E8C77A 100%); color:var(--ink-deep)}
   .aij-avatar-m{background:linear-gradient(135deg, #5D3A9B 0%, #7C5BB8 100%); color:var(--bone)}
-  .aij-avatar .material-symbols-rounded{font-size:26px}
+  .aij-avatar .material-symbols-rounded{font-size:29.9px}
   .aij-id{flex:1; min-width:0}
-  .aij-name{font-family:var(--display); font-weight:600; font-size:17px; color:var(--ink-deep); margin:0; line-height:1.2}
-  .aij-title{font-family:var(--mono); font-size:11.5px; color:var(--ink-soft); line-height:1.4; margin-top:4px}
-  .aij-focus{font-family:var(--mono); font-size:11px; color:var(--bronze-dim); letter-spacing:.06em; text-transform:uppercase; padding:6px 10px; background:rgba(184,138,63,.08); border-radius:6px; font-weight:700}
-  .aij-critique{font-size:15px; line-height:1.65; color:var(--ink); font-family:var(--display); font-style:italic}
-  .aij-critique.aij-loading{font-style:normal; font-family:var(--mono); font-size:12.5px; color:var(--ink-soft); display:flex; align-items:center; gap:8px}
+  .aij-name{font-family:var(--display); font-weight:600; font-size:19.5px; color:var(--ink-deep); margin:0; line-height:1.2}
+  .aij-title{font-family:var(--mono); font-size:13.2px; color:var(--ink-soft); line-height:1.4; margin-top:4px}
+  .aij-focus{font-family:var(--mono); font-size:12.6px; color:var(--bronze-dim); letter-spacing:.06em; text-transform:uppercase; padding:6px 10px; background:rgba(184,138,63,.08); border-radius:6px; font-weight:700}
+  .aij-critique{font-size:17.2px; line-height:1.65; color:var(--ink); font-family:var(--display); font-style:italic}
+  .aij-critique.aij-loading{font-style:normal; font-family:var(--mono); font-size:14.4px; color:var(--ink-soft); display:flex; align-items:center; gap:8px}
   .aij-loading-pulse{display:inline-block; width:12px; height:12px; border-radius:999px; background:var(--bronze); animation:aijpulse 1.2s infinite}
   @keyframes aijpulse{0%,100%{opacity:.3; transform:scale(0.85)} 50%{opacity:1; transform:scale(1)}}
   .aij-tags{display:flex; flex-direction:column; gap:8px}
-  .aij-tag{padding:10px 12px; border-radius:8px; font-size:13.5px; line-height:1.55}
-  .aij-tag-label{font-family:var(--mono); font-size:10px; letter-spacing:.10em; text-transform:uppercase; font-weight:700; margin-bottom:4px}
+  .aij-tag{padding:10px 12px; border-radius:8px; font-size:15.5px; line-height:1.55}
+  .aij-tag-label{font-family:var(--mono); font-size:11.5px; letter-spacing:.10em; text-transform:uppercase; font-weight:700; margin-bottom:4px}
   .aij-tag-text{color:var(--ink); font-family:var(--sans)}
   .aij-tag-strength{background:rgba(63,126,68,.08); border-left:3px solid #3F7E44}
   .aij-tag-strength .aij-tag-label{color:#3F7E44}
@@ -167,7 +167,7 @@
   .aij-tag-refine .aij-tag-label{color:var(--bronze-dim)}
   .aij-unavail .aij-context{font-style:italic; color:var(--ink-soft)}
   @media (max-width:720px){
-    .aij-header h2{font-size:24px}
+    .aij-header h2{font-size:27.6px}
     .aij-shell{padding:22px 20px}
     .aij-card{padding:20px}
   }
