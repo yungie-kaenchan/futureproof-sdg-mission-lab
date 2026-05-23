@@ -17,7 +17,7 @@ See [`scenarios/PRODUCTION-PROMPTS-MASTER-v2.md`](../../scenarios/PRODUCTION-PRO
 
 | # | Folder | Mission | Region | Runtime | Hero | Portraits | Videos | Captions | Diagram + Chart |
 |--:|---|---|---|:---:|:---:|:---:|:---:|:---:|:---:|
-| 1 | `sdg06-khonkaen`  | The Aquifer Below            | Northeast | ✅ | ✅ | ✅ 4/4 | ❌ 0/4 | ✅ 4/4 | ✅ 2/2 |
+| 1 | `sdg06-khonkaen`  | The Aquifer Below            | Northeast | ✅ | ✅ | ✅ 4/4 | ✅ 4/4 | ✅ 4/4 | ✅ 2/2 |
 | 2 | `sdg13-chiangmai` | The Burning Season           | North     | ✅ | ✅ | ✅ 4/4 | ✅ 4/4 | ✅ 4/4 | ✅ 2/2 |
 | 3 | `sdg11-bangkok`   | The Klong and the City       | Central   | ✅ | ✅ | ✅ 4/4 | ✅ 4/4 | ✅ 4/4 | ✅ 2/2 |
 | 4 | `sdg14-andaman`   | The Reef and the Tide        | South     | ✅ | ✅ | ✅ 4/4 | ✅ 4/4 | ✅ 4/4 | ✅ 2/2 |

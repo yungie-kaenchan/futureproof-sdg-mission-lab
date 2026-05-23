@@ -15,7 +15,7 @@
 
 | # | Mission | Runtime code | Hero | Stakeholder portraits | Stakeholder videos | Captions (.vtt) | Diagrams/charts |
 |--:|---|:---:|:---:|:---:|:---:|:---:|:---:|
-| 1 | Khon Kaen (SDG 6) | ✅ wired | ✅ live | ✅ 4/4 live | ❌ 0/4 — produce A1–A4 | ✅ live | ✅ live |
+| 1 | Khon Kaen (SDG 6) | ✅ wired | ✅ live | ✅ 4/4 live | ✅ 4/4 live | ✅ live | ✅ live |
 | 2 | Chiang Mai (SDG 13) | ✅ wired | ✅ live | ✅ 4/4 live | ✅ 4/4 live | ✅ live | ✅ live |
 | 3 | Bangkok (SDG 11) | ✅ wired | ✅ live | ✅ 4/4 live | ✅ 4/4 live | ✅ live | ✅ live |
 | 4 | Andaman (SDG 14) | ✅ wired | ✅ live | ✅ 4/4 live | ✅ 4/4 live | ✅ live | ✅ live |
