@@ -22,7 +22,7 @@ See [`scenarios/PRODUCTION-PROMPTS-MASTER-v2.md`](../../scenarios/PRODUCTION-PRO
 | 3 | `sdg11-bangkok`   | The Klong and the City       | Central   | ✅ | ✅ | ✅ 4/4 | ✅ 4/4 | ✅ 4/4 | ✅ 2/2 |
 | 4 | `sdg14-andaman`   | The Reef and the Tide        | South     | ✅ | ✅ | ✅ 4/4 | ✅ 4/4 | ✅ 4/4 | ✅ 2/2 |
 | 5 | `sdg04-takmaesot` | The Children at the Border   | West      | ✅ | ✅ | ✅ 4/4 | ✅ 4/4 | ✅ 4/4 | ✅ 2/2 |
-| 6 | `sdg03-eecfringe` | The Village the Boom Left Behind | East  | ❌ | ❌ | ❌ 0/4 | ❌ 0/4 | ❌ 0/4 | ❌ 0/2 |
+| 6 | `sdg03-eecfringe` | The Village the Boom Left Behind | East  | ✅ | ✅ | ✅ 4/4 | ✅ 4/4 | ✅ 4/4 | ✅ 2/2 |
 
 Per-folder READMEs document the exact filename inventory and QA checklist
 for each mission.
