@@ -70,7 +70,14 @@ function el(tag, props, ...children) {
       if (v == null) continue;
       if (k === "class") e.className = v;
       else if (k === "text") e.textContent = v;
-      else if (k === "style" && typeof v === "object") Object.assign(e.style, v);
+      else if (k === "style" && typeof v === "object") {
+        // CSS custom properties (--name) require setProperty();
+        // Object.assign(e.style, ...) silently drops them.
+        for (const [sk, sv] of Object.entries(v)) {
+          if (sk.startsWith("--")) e.style.setProperty(sk, sv);
+          else e.style[sk] = sv;
+        }
+      }
       else if (k.startsWith("on") && typeof v === "function") e.addEventListener(k.slice(2).toLowerCase(), v);
       else if (k.startsWith("aria") || k.startsWith("data-") || k === "role" || k === "type" || k === "for" || k === "name" || k === "value" || k === "checked" || k === "id") e.setAttribute(k, v);
       else e[k] = v;

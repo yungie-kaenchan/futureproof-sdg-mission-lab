@@ -351,49 +351,55 @@ function buildPanel() {
 /* ── Attach ────────────────────────────────────────────────────────── */
 
 export function attach() {
-  if (document.getElementById("a11y-launcher")) return;
+  /* The visible Accessibility launcher + panel + backdrop are now disabled
+   * per user request. We still:
+   *   1. Keep the WCAG "Skip to content" link (invisible until focused)
+   *   2. Apply any prefs the user previously toggled (high-contrast,
+   *      dyslexia font, pace-mode timer-removal, reduce-motion, focus-mode)
+   *   3. Show the pace-mode banner when pace mode is on
+   * — so the underlying a11y BEHAVIOUR survives even though the launcher
+   * UI is gone. If you ever want the launcher back, simply restore the
+   * builder calls below. */
 
+  if (document.getElementById("a11y-pace-banner-marker")) return;
   injectStyles();
 
-  // Skip link (proven a11y primitive — keep)
+  // Skip link (proven a11y primitive — kept)
   if (!document.querySelector(".skip-link")) {
     const skip = el("a", { href: "#main", class: "skip-link", text: "Skip to content" });
     document.body.prepend(skip);
   }
 
-  // Pace-mode visible banner (CSS hides unless pace=true)
+  // Pace-mode banner — only shows when pace pref is true (CSS-controlled)
   const banner = el("div", {
     class: "a11y-pace-banner",
+    id: "a11y-pace-banner-marker",
     role: "status",
     text: "⏸ Pace mode is on · โหมดไม่กดดันด้านเวลา · ไม่มีตัวจับเวลา",
   });
   document.body.appendChild(banner);
 
-  // Launcher
-  const launcher = el("button", {
-    id: "a11y-launcher",
-    type: "button",
-    class: "a11y-launcher",
-    "aria-label": "Open accessibility settings",
-    "aria-haspopup": "dialog",
-    "aria-expanded": "false",
-  },
+  // Apply any stored prefs (text size, contrast, dyslexia font, pace,
+  // reduce motion, focus mode) — invisible affordances still work.
+  const prefs = readPrefs();
+  applyPrefs(prefs);
+
+  /* === Visible launcher / panel UI INTENTIONALLY OMITTED === */
+  return;
+
+  // ── (legacy launcher + panel code below is unreachable; kept as a
+  //     reference in case the UI needs to be restored) ──
+  /* eslint-disable */
+  const launcher = el("button", { id: "a11y-launcher", type: "button", class: "a11y-launcher", "aria-label": "Open accessibility settings", "aria-haspopup": "dialog", "aria-expanded": "false" },
     el("span", { class: "glyph", "aria-hidden": "true", text: "♿" }),
     document.createTextNode(" Accessibility "),
     el("span", { class: "th", "aria-hidden": "true", text: "· เข้าถึงง่าย" }),
   );
   document.body.appendChild(launcher);
-
-  // Backdrop
   const backdrop = el("div", { class: "a11y-backdrop" });
   document.body.appendChild(backdrop);
-
-  // Panel
   const panel = buildPanel();
   document.body.appendChild(panel);
-
-  const prefs = readPrefs();
-  applyPrefs(prefs);
   reflectAll();
 
   function openPanel() {
