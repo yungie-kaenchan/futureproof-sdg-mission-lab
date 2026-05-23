@@ -265,23 +265,6 @@
       </noscript>
       <!-- region pins injected here by the script below -->
     </div>
-
-    <!-- Full-screen map lightbox -->
-    <div class="map-lightbox" id="map-lightbox" role="dialog" aria-modal="true"
-         aria-labelledby="map-lightbox-caption" hidden>
-      <div class="map-lightbox-inner">
-        <button type="button" class="map-lightbox-close" id="map-lightbox-close"
-                aria-label="Close enlarged map">
-          <span class="material-symbols-rounded">close</span>
-        </button>
-        <img src="../assets/journey/thailand-map.png"
-             alt="Illustrated isometric map of Thailand — enlarged view"
-             loading="eager" />
-        <div class="map-lightbox-caption" id="map-lightbox-caption">
-          Six missions · ภารกิจหกพื้นที่ — press ESC or click anywhere to close
-        </div>
-      </div>
-    </div>
   </div>
 
   <div>
@@ -503,5 +486,24 @@
   }
 </script>
 <script type="module" src="../src/back-link.js"></script>
+<!-- Full-screen map lightbox · MUST be a direct child of <body> so that
+     position:fixed is interpreted relative to the viewport (not relative
+     to any positioned/transformed ancestor in the page tree). -->
+<div class="map-lightbox" id="map-lightbox" role="dialog" aria-modal="true"
+     aria-labelledby="map-lightbox-caption" hidden>
+  <div class="map-lightbox-inner">
+    <button type="button" class="map-lightbox-close" id="map-lightbox-close"
+            aria-label="Close enlarged map">
+      <span class="material-symbols-rounded">close</span>
+    </button>
+    <img src="../assets/journey/thailand-map.png"
+         alt="Illustrated isometric map of Thailand — enlarged view"
+         loading="eager" />
+    <div class="map-lightbox-caption" id="map-lightbox-caption">
+      Six missions · ภารกิจหกพื้นที่ — press ESC or click anywhere to close
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
