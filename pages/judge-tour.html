@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Judge Tour — FUTUREPROOF</title>
+<meta name="description" content="A guided 60-second tour of FUTUREPROOF: SDGs Mission Journey for the SPU Tech Creative Learning Awards competition committee. Start the demo journey, browse the curated capsules, or read the rubrics." />
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FUTUREPROOF — SDG Mission Lab">
+<meta property="og:title" content="Judge Tour — FUTUREPROOF">
+<meta property="og:description" content="A 60-second guided entry for competition judges.">
+<meta property="og:image" content="https://futureproof-sdgs-lab.netlify.app/assets/journey/thailand-map-og.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Cinzel:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+
+<style>
+  :root{
+    --ink:#071734; --ink-deep:#0F1729; --ink-soft:#2A3855;
+    --bronze:#B58A3F; --bronze-light:#E8C77A; --bronze-dim:#6E5320;
+    --purple:#5D3A9B;
+    --paper:#FBFAF6; --paper-warm:#F4F1EA; --bone:#F4F1EA; --white:#FFFFFF;
+    --line:rgba(7,23,52,.10); --line-strong:rgba(7,23,52,.18);
+    --crimson:#A82424;
+    --display:'Fraunces',serif; --titles:'Cinzel',serif;
+    --sans:'DM Sans',sans-serif; --mono:'JetBrains Mono',monospace;
+    --th:'IBM Plex Sans Thai',sans-serif;
+  }
+  body{background:var(--paper); color:var(--ink-deep); font-family:var(--sans); margin:0; min-height:100vh; -webkit-font-smoothing:antialiased; font-size:18px}
+
+  /* Dark navy header — consistent with the rest of the portal */
+  .shell-header{position:sticky; top:0; z-index:50; display:flex; align-items:center; justify-content:space-between; padding:14px 28px; background:rgba(7,23,52,0.96); backdrop-filter:blur(8px); border-bottom:1px solid rgba(232,199,122,.18); color:var(--bone)}
+  .shell-header-brand{display:inline-flex; align-items:baseline; gap:14px; text-decoration:none; color:inherit}
+  .shell-header-brand .logo{font-family:var(--titles); font-weight:700; font-size:20.7px; letter-spacing:.20em; color:var(--bone)}
+  .shell-header-brand .sub{font-family:var(--titles); font-weight:600; font-size:12.6px; letter-spacing:.32em; color:rgba(244,241,234,.65); text-transform:uppercase; border-left:1px solid rgba(232,199,122,.22); padding-left:14px}
+  .shell-header-btn{display:inline-flex; align-items:center; gap:6px; padding:8px 16px; border-radius:999px; border:1px solid rgba(244,241,234,.18); background:transparent; color:var(--bone); text-decoration:none; font-family:var(--mono); font-size:12.6px; letter-spacing:.12em; text-transform:uppercase}
+  .shell-header-btn:hover{background:rgba(244,241,234,.08); border-color:var(--bronze)}
+
+  /* Top judge-tour banner */
+  .judge-banner{padding:14px 24px; background:linear-gradient(90deg, var(--bronze) 0%, var(--bronze-light) 100%); color:var(--ink-deep); font-family:var(--mono); font-size:13px; letter-spacing:.14em; text-transform:uppercase; text-align:center; font-weight:700; border-bottom:1px solid var(--bronze-dim)}
+
+  main{max-width:1180px; margin:0 auto; padding:48px 24px 96px}
+
+  /* Hero */
+  .hero{text-align:center; padding:32px 0 48px; border-bottom:1px solid var(--line); margin-bottom:48px; max-width:920px; margin-left:auto; margin-right:auto}
+  .hero .eyebrow{font-family:var(--mono); font-size:13.5px; letter-spacing:.20em; text-transform:uppercase; color:var(--bronze-dim); margin-bottom:14px; font-weight:700}
+  .hero h1{font-family:var(--display); font-weight:300; font-size:62px; line-height:1.1; color:var(--ink-deep); margin:0 0 12px; letter-spacing:-.01em}
+  .hero h1 em{font-style:italic; color:var(--bronze-dim)}
+  .hero .th{font-family:var(--th); font-size:23px; color:var(--purple); margin:6px auto 24px; line-height:1.5; max-width:740px}
+  .hero p{max-width:780px; margin:0 auto; line-height:1.75; font-size:19px; color:var(--ink); text-wrap:pretty}
+  .hero p strong{color:var(--ink-deep)}
+  @media (max-width:720px){ .hero h1{font-size:42px} .hero .th{font-size:18px} .hero p{font-size:17px} }
+
+  /* 60-second overview band */
+  .overview{
+    margin:0 auto 56px; max-width:920px;
+    background:var(--white); border:1px solid var(--line); border-radius:18px;
+    padding:32px 36px; box-shadow:0 8px 28px rgba(7,23,52,.06);
+  }
+  .overview h2{font-family:var(--display); font-weight:400; font-size:30px; color:var(--ink-deep); margin:0 0 14px; line-height:1.3}
+  .overview h2 em{font-style:italic; color:var(--bronze-dim)}
+  .overview ul{margin:0; padding-left:22px; line-height:1.85; font-size:17.5px}
+  .overview li{margin-bottom:8px; color:var(--ink)}
+  .overview li strong{color:var(--ink-deep)}
+
+  /* Action card grid */
+  .grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:22px; margin-bottom:48px}
+
+  .card{
+    background:var(--white); border:1px solid var(--line); border-radius:18px;
+    padding:28px 28px 24px; display:flex; flex-direction:column;
+    box-shadow:0 8px 24px rgba(7,23,52,.06); position:relative; overflow:hidden;
+    transition:transform .25s ease-out, box-shadow .25s ease-out, border-color .25s;
+    text-decoration:none; color:inherit;
+  }
+  .card:hover{transform:translateY(-4px); box-shadow:0 18px 44px rgba(7,23,52,.12); border-color:rgba(184,138,63,.35)}
+  .card::before{content:""; position:absolute; left:0; top:0; right:0; height:5px; background:var(--accent, var(--bronze))}
+  .card .num{
+    width:52px; height:52px; border-radius:14px; background:rgba(7,23,52,.04); color:var(--ink-deep);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--display); font-weight:500; font-size:24px; margin-bottom:18px;
+    border:1px solid rgba(7,23,52,.08);
+  }
+  .card .num em{font-style:italic; color:var(--bronze-dim)}
+  .card .label{font-family:var(--mono); font-size:11.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--accent, var(--bronze-dim)); font-weight:700; margin-bottom:8px}
+  .card h3{font-family:var(--display); font-weight:500; font-size:25px; color:var(--ink-deep); margin:0 0 8px; line-height:1.3}
+  .card h3 em{font-style:italic; color:var(--bronze-dim)}
+  .card p{margin:0 0 18px; font-size:16px; line-height:1.65; color:var(--ink-soft); flex:1}
+  .card p strong{color:var(--ink-deep)}
+  .card .cta{display:inline-flex; align-items:center; gap:8px; padding:11px 20px; border-radius:999px; font-family:var(--mono); font-size:12.5px; letter-spacing:.14em; text-transform:uppercase; font-weight:700; transition:.15s; align-self:flex-start}
+  .card .cta.solid{background:var(--ink-deep); color:var(--bone); border:1px solid var(--ink-deep)}
+  .card .cta.solid:hover{background:#1A2B52}
+  .card .cta.outline{background:transparent; color:var(--ink-deep); border:1px solid var(--ink-deep)}
+  .card .cta.outline:hover{background:rgba(7,23,52,.06)}
+  .card .cta.gold{background:linear-gradient(135deg, var(--bronze) 0%, var(--bronze-light) 100%); color:var(--ink-deep); border:1px solid var(--bronze)}
+  .card .cta.gold:hover{box-shadow:0 6px 20px rgba(184,138,63,.32)}
+  .card .arrow{transition:transform .2s}
+  .card:hover .arrow{transform:translateX(4px)}
+
+  /* Pillars row */
+  .pillars{display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:18px; margin:48px 0}
+  .pillar{background:rgba(184,138,63,.06); border:1px solid rgba(184,138,63,.32); border-radius:14px; padding:22px 24px}
+  .pillar .label{font-family:var(--mono); font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--bronze-dim); font-weight:700; margin-bottom:6px}
+  .pillar h4{font-family:var(--display); font-weight:500; font-size:21px; color:var(--ink-deep); margin:0 0 8px}
+  .pillar p{margin:0; font-size:14.5px; line-height:1.6; color:var(--ink-soft)}
+
+  /* Bottom info strip */
+  .footer-strip{
+    margin-top:64px; padding:28px 36px;
+    background:var(--white); border:1px solid var(--line); border-radius:14px;
+    display:flex; gap:24px; justify-content:space-between; flex-wrap:wrap; align-items:center;
+    box-shadow:0 4px 14px rgba(7,23,52,.04);
+  }
+  .footer-strip .meta{font-size:14.5px; line-height:1.65; color:var(--ink); flex:1; min-width:280px}
+  .footer-strip .meta strong{color:var(--ink-deep)}
+  .footer-strip .meta .th{display:block; font-family:var(--th); font-size:13.5px; color:var(--ink-soft); margin-top:4px}
+  .footer-strip .contact{font-family:var(--mono); font-size:12.5px; color:var(--ink-soft); letter-spacing:.06em}
+  .footer-strip .contact a{color:var(--bronze-dim); text-decoration:none}
+  .footer-strip .contact a:hover{text-decoration:underline}
+
+  @media (max-width:720px){
+    .hero h1{font-size:42px}
+    .overview{padding:24px 22px}
+    .grid{grid-template-columns:1fr}
+    .footer-strip{padding:22px 24px}
+  }
+</style>
+</head>
+<body>
+
+<!-- Top judge banner -->
+<div class="judge-banner" role="status">
+  ⚖ JUDGE TOUR · SPU TECH CREATIVE LEARNING AWARDS 2569 · GUIDED PREVIEW FOR COMMITTEE MEMBERS · ลานสาธิตสำหรับคณะกรรมการ
+</div>
+
+<header class="shell-header">
+  <a href="../home.html" class="shell-header-brand">
+    <span class="logo">FUTUREPROOF</span>
+    <span class="sub">SDGs Mission Journey</span>
+  </a>
+  <a href="../home.html" class="shell-header-btn">&larr; Home</a>
+</header>
+
+<main>
+
+  <section class="hero">
+    <div class="eyebrow">For the Committee · สำหรับคณะกรรมการ</div>
+    <h1>Welcome to the <em>Judge Tour</em></h1>
+    <p class="th">ขอต้อนรับคณะกรรมการสู่การสาธิตแพลตฟอร์ม FUTUREPROOF</p>
+    <p>
+      A guided 60-second entry into <strong>FUTUREPROOF — SDGs Mission Journey</strong>, an AI-scaffolded
+      English-language learning platform built for LALA109 (Faculty of Liberal Arts, Mahidol University).
+      The five cards below give you the fastest possible read on what the platform does, how it works, and
+      what supports it pedagogically. Start with the demo journey if you have ten minutes — start with the
+      Hall of Voices if you have two.
+    </p>
+  </section>
+
+  <!-- 60-second overview -->
+  <section class="overview">
+    <h2>What you are about to see in <em>60 seconds</em></h2>
+    <ul>
+      <li><strong>Six adaptive missions</strong> across Thailand (one per SDG: 3, 4, 6, 11, 13, 14) each
+          built on a real Thai community tension — water, climate, cities, education, health, oceans.</li>
+      <li>Every mission runs the same <strong>five-stage arc</strong>
+          (BRIEF → PROBE → DECIDE → ACT → DEBRIEF), scored by three AI Judges against an auditable rubric.</li>
+      <li>Clear all six and you unlock <strong>Voice for Change</strong> — a multimodal capstone
+          proposal addressed to a real Thai institution. The teacher grades this; AI does not.</li>
+      <li>Throughout, <strong>Mr Compass</strong> (Socratic AI Field Mentor) offers language support only,
+          never content answers — enforcing the AI-TPACK boundary at the prompt level.</li>
+      <li>The Hall of Voices is a curated public gallery of capstone exemplars — your <em>fastest</em>
+          path to seeing the bar this platform sets.</li>
+    </ul>
+  </section>
+
+  <!-- Five action cards -->
+  <div class="grid">
+
+    <!-- 1 · Start demo journey -->
+    <a href="final-task.html?demo=keystones" class="card" id="card-demo" style="--accent:#A82424">
+      <div class="num"><em>01</em></div>
+      <div class="label">Hands-on Demo</div>
+      <h3>Start the <em>Demo Journey</em></h3>
+      <p>
+        Skip the readiness check and the six missions — start at the capstone with all six SDG Keystones
+        pre-granted. You will see the <strong>Voice for Change studio</strong>, submit a watermarked test
+        proposal, and receive feedback from all three AI Judges.
+      </p>
+      <span class="cta solid">▶ Begin demo <span class="arrow">→</span></span>
+    </a>
+
+    <!-- 2 · Hall of Voices -->
+    <a href="hall-of-voices.html" class="card" style="--accent:#26BDE2">
+      <div class="num"><em>02</em></div>
+      <div class="label">2-minute Read</div>
+      <h3>Browse the <em>Hall of Voices</em></h3>
+      <p>
+        Four <strong>composite, anonymous exemplars</strong> across the six SDGs — the quality bar a passing
+        Voice for Change submission must meet. Each carries the address, the evidence, and the trade-off
+        the student explicitly accepts.
+      </p>
+      <span class="cta outline">View gallery <span class="arrow">→</span></span>
+    </a>
+
+    <!-- 3 · Home / landing -->
+    <a href="../home.html" class="card" style="--accent:#5D3A9B">
+      <div class="num"><em>03</em></div>
+      <div class="label">Project Overview</div>
+      <h3>Explore the <em>Home Page</em></h3>
+      <p>
+        The public landing page — project narrative, six-mission tour, pedagogical foundations, and the
+        full Thailand journey map. Best if you want to read the <strong>full project context</strong> before
+        clicking into the demo.
+      </p>
+      <span class="cta outline">Open home <span class="arrow">→</span></span>
+    </a>
+
+    <!-- 4 · Read the rubrics -->
+    <a href="../docs/rubrics/rubric-a-voice-for-change.pdf" target="_blank" rel="noopener" class="card" style="--accent:#B58A3F">
+      <div class="num"><em>04</em></div>
+      <div class="label">Assessment Suite</div>
+      <h3>Read the <em>Four Rubrics</em></h3>
+      <p>
+        Rubric A (Voice for Change holistic, teacher-graded) · Rubric B (Mission decision quality, AI logic)
+        · Rubric C (CEFR language development pre/post) · Rubric D (soft skills).
+        <strong>All four PDFs available in the docs folder.</strong>
+      </p>
+      <span class="cta gold">Open Rubric A · PDF <span class="arrow">→</span></span>
+    </a>
+
+    <!-- 5 · Teacher manual -->
+    <a href="../docs/teacher-manual/FUTUREPROOF-Teacher-Manual.pdf" target="_blank" rel="noopener" class="card" style="--accent:#3F7E44">
+      <div class="num"><em>05</em></div>
+      <div class="label">Architecture Audit</div>
+      <h3>Read the <em>Teacher's Manual</em></h3>
+      <p>
+        A 28-page bilingual manual covering the pedagogical foundations (PICRAT, AI-TPACK, three learning
+        theories), the portal architecture, mission deep-dives, and the AI–human boundary.
+        <strong>Written for both teachers and competition judges.</strong>
+      </p>
+      <span class="cta gold">Open Manual · PDF <span class="arrow">→</span></span>
+    </a>
+
+  </div>
+
+  <!-- Pillars row -->
+  <section class="pillars" aria-label="Pedagogical pillars">
+    <div class="pillar">
+      <div class="label">Load-bearing framework</div>
+      <h4>PICRAT</h4>
+      <p>Every mission lives at Interactive-Amplifies or above. Capstone reaches Creative-Transforms (Kimmons et al. 2020).</p>
+    </div>
+    <div class="pillar">
+      <div class="label">Load-bearing framework</div>
+      <h4>AI-TPACK</h4>
+      <p>The boundary between what AI handles (scale, consistency) and what humans handle (authority, cultural judgement) — made auditable.</p>
+    </div>
+    <div class="pillar">
+      <div class="label">Three theories, operationalised</div>
+      <h4>Behaviorism · Cognitivism · Social Constructivism</h4>
+      <p>Each mapped to specific platform features — not cited decoratively.</p>
+    </div>
+    <div class="pillar">
+      <div class="label">Compliance from day one</div>
+      <h4>PDPA · UDL 3.0 · WCAG 2.1 AA</h4>
+      <p>Bilingual consent, granular flags, 90-day auto-deletion, multi-modal access, mobile-first from 360 px.</p>
+    </div>
+  </section>
+
+  <!-- Footer info -->
+  <section class="footer-strip">
+    <div class="meta">
+      <strong>FUTUREPROOF — SDGs Mission Journey</strong> · By Dr. Payungsak Kaenchan · Faculty of Liberal Arts, Mahidol University.
+      Submitted to SPU Tech Creative Learning Awards 2569.
+      <span class="th">นวัตกรรมการสอนภาษาอังกฤษเชิงเนื้อหา บูรณาการ AI ภายใต้กรอบ AI-TPACK · LALA109</span>
+    </div>
+    <div class="contact">
+      Contact: <a href="mailto:payungsak.kae@mahidol.ac.th">payungsak.kae@mahidol.ac.th</a>
+    </div>
+  </section>
+
+</main>
+
+<!-- Auto-set the demo flag the moment the judge clicks "Begin demo" -->
+<script>
+  (function () {
+    var demoLink = document.getElementById("card-demo");
+    if (demoLink) {
+      demoLink.addEventListener("click", function () {
+        try { localStorage.setItem("fp_demo_mode", "on"); } catch (_) {}
+      });
+    }
+  })();
+</script>
+
+<script type="module" src="../src/a11y.js"></script>
+
+</body>
+</html>

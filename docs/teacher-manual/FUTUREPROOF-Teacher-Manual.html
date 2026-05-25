@@ -1,0 +1,1357 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>FUTUREPROOF — Teacher's Manual</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@page {
+  size: A4;
+  margin: 0.85in 0.7in 0.95in 0.7in;
+  @bottom-center {
+    content: counter(page) " / " counter(pages);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8pt;
+    color: #8B8B92;
+    letter-spacing: 0.1em;
+  }
+  @top-right {
+    content: "FUTUREPROOF · TEACHER'S MANUAL";
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 7pt;
+    color: #C9A961;
+    letter-spacing: 0.18em;
+  }
+}
+@page:first { margin: 0; @bottom-center { content: ""; } @top-right { content: ""; } }
+@page chapter-opener { @top-right { content: ""; } }
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0; padding: 0;
+  font-family: 'DM Sans', 'IBM Plex Sans Thai', sans-serif;
+  color: #0A0A0B;
+  background: #FDFBF6;
+  font-size: 10.5pt;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+p { margin: 6pt 0; }
+ul, ol { margin: 6pt 0; padding-left: 18pt; }
+li { margin: 3pt 0; line-height: 1.5; }
+strong { color: #0A0A0B; font-weight: 600; }
+em { color: #42526E; }
+a { color: #6E5320; text-decoration: none; }
+
+/* ───── COVER ───────────────────────────────────────────────────── */
+.cover {
+  page-break-after: always;
+  position: relative;
+  min-height: 11.69in;
+  padding: 0.9in 0.85in 1.0in;
+  background:
+    radial-gradient(ellipse at 70% 90%, rgba(123,27,27,0.04) 0%, transparent 55%),
+    linear-gradient(135deg, rgba(201,169,97,0.05) 0%, rgba(253,251,246,0) 50%),
+    #FDFBF6;
+}
+.cover-header {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding-bottom: 0.4in;
+  border-bottom: 1px solid #C9A961;
+}
+.cover-tag, .cover-version {
+  font-family: 'JetBrains Mono', monospace; font-size: 8pt; letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+.cover-tag    { color: #C9A961; }
+.cover-version{ color: #8B8B92; letter-spacing: 0.18em; }
+
+.cover-title-block { margin: 0.7in 0 0.4in; }
+.cover-doc-letter {
+  font-family: 'Cinzel', serif; font-weight: 500;
+  font-size: 14pt; letter-spacing: 0.32em; color: #C9A961;
+  margin-bottom: 18pt; text-transform: uppercase;
+}
+.cover-title {
+  font-family: 'Cormorant Garamond', serif; font-weight: 300;
+  font-size: 64pt; line-height: 0.95; letter-spacing: -0.015em;
+  color: #0A0A0B; margin: 0;
+}
+.cover-title em {
+  font-style: italic; font-weight: 400; color: #6E5320;
+}
+.cover-subtitle {
+  font-family: 'Cormorant Garamond', serif; font-weight: 400;
+  font-size: 22pt; line-height: 1.25; color: #42526E;
+  margin: 14pt 0 0; font-style: italic;
+}
+.cover-thai {
+  font-family: 'IBM Plex Sans Thai', sans-serif; font-weight: 300;
+  font-size: 14pt; line-height: 1.45; color: #6E5320;
+  margin: 10pt 0 0;
+}
+
+.cover-block { margin: 0.22in 0; padding-left: 14pt; border-left: 2px solid #C9A961; }
+.cover-block.crimson { border-left-color: #7B1B1B; }
+.cover-block-label {
+  font-family: 'JetBrains Mono', monospace; font-size: 8pt; font-weight: 500;
+  letter-spacing: 0.2em; text-transform: uppercase; color: #8A6D3F;
+  margin-bottom: 5pt;
+}
+.cover-block.crimson .cover-block-label { color: #7B1B1B; }
+.cover-block-body { font-size: 10.5pt; line-height: 1.55; color: #1F1F23; }
+
+.cover-stats {
+  display: flex; justify-content: space-between; gap: 14pt;
+  margin: 0.35in 0 0.2in;
+}
+.cover-stat {
+  flex: 1; padding: 12pt 10pt; background: rgba(201,169,97,0.07);
+  border-top: 1px solid #C9A961; text-align: center;
+}
+.cover-stat-num {
+  font-family: 'Cormorant Garamond', serif; font-size: 32pt; font-weight: 400;
+  color: #0A0A0B; line-height: 1;
+}
+.cover-stat-label {
+  font-family: 'JetBrains Mono', monospace; font-size: 7pt;
+  letter-spacing: 0.18em; text-transform: uppercase; color: #6E5320;
+  margin-top: 6pt;
+}
+
+.cover-footer {
+  position: absolute; bottom: 0.55in; left: 0.85in; right: 0.85in;
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 14pt;
+  border-top: 1px solid rgba(201,169,97,0.4);
+  font-family: 'JetBrains Mono', monospace; font-size: 7.5pt;
+  letter-spacing: 0.18em; color: #8B8B92; text-transform: uppercase;
+}
+.cover-corner {
+  position: absolute; width: 0.4in; height: 0.4in; border-color: #C9A961; border-style: solid;
+}
+.cover-corner.tl { top: 0.35in; left: 0.35in; border-width: 1px 0 0 1px; }
+.cover-corner.tr { top: 0.35in; right: 0.35in; border-width: 1px 1px 0 0; }
+.cover-corner.bl { bottom: 0.35in; left: 0.35in; border-width: 0 0 1px 1px; }
+.cover-corner.br { bottom: 0.35in; right: 0.35in; border-width: 0 1px 1px 0; }
+
+/* ───── TABLE OF CONTENTS ─────────────────────────────────────────── */
+.toc-page {
+  page-break-after: always;
+}
+.toc-h {
+  font-family: 'Cormorant Garamond', serif; font-weight: 400;
+  font-size: 32pt; color: #0A0A0B; margin: 0 0 4pt;
+}
+.toc-h-th {
+  font-family: 'IBM Plex Sans Thai', sans-serif; font-weight: 300;
+  font-size: 14pt; color: #6E5320; margin: 0 0 24pt;
+}
+.toc-list {
+  list-style: none; padding: 0; margin: 24pt 0 0;
+  border-top: 1px solid rgba(201,169,97,0.4);
+}
+.toc-item {
+  display: flex; align-items: baseline; justify-content: space-between;
+  padding: 11pt 0;
+  border-bottom: 1px solid rgba(201,169,97,0.2);
+}
+.toc-num {
+  font-family: 'JetBrains Mono', monospace; font-size: 9pt;
+  font-weight: 500; letter-spacing: 0.1em; color: #C9A961;
+  width: 0.5in; flex-shrink: 0;
+}
+.toc-title {
+  flex: 1; font-family: 'Cormorant Garamond', serif; font-size: 14pt;
+  color: #0A0A0B; line-height: 1.3;
+}
+.toc-title-th {
+  display: block; font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-size: 10pt; color: #6E5320; margin-top: 2pt; font-weight: 300;
+}
+.toc-page-num {
+  font-family: 'JetBrains Mono', monospace; font-size: 9pt;
+  color: #8B8B92; letter-spacing: 0.08em; flex-shrink: 0;
+}
+
+/* ───── CHAPTER OPENER ────────────────────────────────────────────── */
+.chapter {
+  page-break-before: always;
+}
+.chapter-opener {
+  page-break-after: avoid;
+  padding-top: 0.2in;
+  margin-bottom: 28pt;
+  border-bottom: 1px solid #C9A961;
+  padding-bottom: 18pt;
+}
+.chapter-num {
+  font-family: 'Cinzel', serif; font-size: 10pt;
+  letter-spacing: 0.28em; color: #C9A961;
+  text-transform: uppercase; font-weight: 500;
+}
+.chapter-title {
+  font-family: 'Cormorant Garamond', serif; font-weight: 300;
+  font-size: 38pt; line-height: 1.05; color: #0A0A0B;
+  margin: 8pt 0 4pt;
+}
+.chapter-title-th {
+  font-family: 'IBM Plex Sans Thai', sans-serif; font-weight: 300;
+  font-size: 16pt; color: #6E5320;
+  margin: 0;
+}
+.chapter-lede {
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-size: 14pt; line-height: 1.5; color: #42526E;
+  margin: 18pt 0 0; max-width: 90%;
+}
+
+/* ───── SECTION HEADS ─────────────────────────────────────────────── */
+h2.sec {
+  font-family: 'Cinzel', serif; font-weight: 500;
+  font-size: 11pt; letter-spacing: 0.16em; text-transform: uppercase;
+  color: #C9A961;
+  border-top: 1px solid rgba(201,169,97,0.4);
+  border-bottom: 1px solid rgba(201,169,97,0.4);
+  padding: 6pt 0; margin: 24pt 0 12pt;
+  page-break-after: avoid;
+}
+h3.sub {
+  font-family: 'Cormorant Garamond', serif; font-weight: 500;
+  font-size: 16pt; color: #0A0A0B;
+  margin: 16pt 0 4pt; line-height: 1.2;
+  page-break-after: avoid;
+}
+h4.subsub {
+  font-family: 'DM Sans', sans-serif; font-weight: 600;
+  font-size: 11pt; color: #6E5320;
+  margin: 12pt 0 4pt; letter-spacing: 0.02em;
+  page-break-after: avoid;
+}
+
+/* ───── CALLOUTS ──────────────────────────────────────────────────── */
+.callout {
+  background: rgba(201,169,97,0.07);
+  border-left: 2px solid #C9A961;
+  padding: 10pt 14pt; margin: 12pt 0;
+  font-size: 10pt; line-height: 1.55; color: #1F1F23;
+  page-break-inside: avoid;
+}
+.callout-h {
+  font-family: 'JetBrains Mono', monospace; font-size: 8pt;
+  letter-spacing: 0.18em; text-transform: uppercase; color: #8A6D3F;
+  font-weight: 500; display: block; margin-bottom: 4pt;
+}
+.callout.crimson { background: rgba(123,27,27,0.04); border-left-color: #7B1B1B; }
+.callout.crimson .callout-h { color: #7B1B1B; }
+.callout.judge { background: rgba(31,62,74,0.05); border-left-color: #1F3E4A; }
+.callout.judge .callout-h { color: #1F3E4A; }
+
+/* ───── SCREENSHOT PLACEHOLDER ────────────────────────────────────── */
+.screenshot {
+  border: 1.5px dashed #C9A961;
+  background:
+    repeating-linear-gradient(45deg,
+      rgba(201,169,97,0.04) 0, rgba(201,169,97,0.04) 8pt,
+      transparent 8pt, transparent 16pt);
+  padding: 24pt 14pt;
+  margin: 14pt 0;
+  text-align: center;
+  page-break-inside: avoid;
+  color: #6E5320;
+}
+.screenshot-tag {
+  font-family: 'JetBrains Mono', monospace; font-size: 7pt;
+  letter-spacing: 0.22em; text-transform: uppercase; color: #C9A961;
+  display: block; margin-bottom: 8pt;
+}
+.screenshot-cap {
+  font-family: 'Cormorant Garamond', serif; font-size: 12pt;
+  font-style: italic; color: #6E5320; line-height: 1.35;
+}
+.screenshot-spec {
+  font-family: 'JetBrains Mono', monospace; font-size: 7pt;
+  color: #8B8B92; letter-spacing: 0.1em; margin-top: 8pt;
+}
+
+/* ───── DATA TABLES ───────────────────────────────────────────────── */
+table.data {
+  width: 100%; border-collapse: collapse; font-size: 9.5pt;
+  margin: 8pt 0; page-break-inside: avoid;
+}
+table.data th, table.data td {
+  border: 1px solid rgba(31,31,35,0.18); padding: 6pt 8pt;
+  text-align: left; vertical-align: top; line-height: 1.45;
+}
+table.data th {
+  background: #F4F1EA; font-family: 'JetBrains Mono', monospace;
+  font-size: 8pt; font-weight: 500; letter-spacing: 0.12em;
+  text-transform: uppercase; color: #6E5320;
+}
+table.data td.k { font-weight: 600; color: #0A0A0B; width: 28%; }
+
+/* ───── STAGE ARC DIAGRAM (CSS-only) ──────────────────────────────── */
+.stage-arc {
+  display: flex; gap: 8pt; margin: 18pt 0;
+  page-break-inside: avoid;
+}
+.stage {
+  flex: 1; text-align: center; padding: 12pt 6pt;
+  border: 1px solid #C9A961; background: rgba(201,169,97,0.05);
+  position: relative;
+}
+.stage::after {
+  content: "▸"; position: absolute; right: -14pt; top: 50%;
+  transform: translateY(-50%); color: #C9A961; font-size: 12pt;
+}
+.stage:last-child::after { content: ""; }
+.stage-name {
+  font-family: 'Cinzel', serif; font-size: 10pt; letter-spacing: 0.15em;
+  color: #0A0A0B; font-weight: 500; margin-bottom: 4pt;
+}
+.stage-bloom {
+  font-family: 'JetBrains Mono', monospace; font-size: 6.5pt;
+  letter-spacing: 0.12em; text-transform: uppercase; color: #8A6D3F;
+}
+.stage-desc {
+  font-size: 8.5pt; color: #42526E; margin-top: 4pt;
+  line-height: 1.3; font-style: italic;
+}
+
+/* ───── MISSION CARD ──────────────────────────────────────────────── */
+.mission {
+  border: 1px solid rgba(201,169,97,0.5);
+  background: rgba(253,251,246,1);
+  padding: 14pt 16pt; margin: 14pt 0;
+  page-break-inside: avoid;
+}
+.mission-h {
+  display: flex; justify-content: space-between; align-items: baseline;
+  border-bottom: 1px solid rgba(201,169,97,0.3);
+  padding-bottom: 6pt; margin-bottom: 8pt;
+}
+.mission-num {
+  font-family: 'Cinzel', serif; font-size: 22pt; color: #C9A961;
+  font-weight: 500; line-height: 1;
+}
+.mission-region {
+  font-family: 'JetBrains Mono', monospace; font-size: 8pt;
+  letter-spacing: 0.2em; text-transform: uppercase; color: #6E5320;
+}
+.mission-sdg {
+  font-family: 'JetBrains Mono', monospace; font-size: 8pt;
+  background: #7B1B1B; color: #FDFBF6; padding: 3pt 7pt;
+  letter-spacing: 0.1em; border-radius: 2px;
+}
+.mission-title {
+  font-family: 'Cormorant Garamond', serif; font-weight: 500;
+  font-size: 18pt; color: #0A0A0B; margin: 4pt 0 6pt;
+}
+.mission-tension {
+  font-style: italic; color: #42526E; font-size: 10pt;
+  margin: 4pt 0 8pt;
+}
+.mission-meta {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8pt 14pt;
+  font-size: 9pt; margin-top: 6pt;
+}
+.mission-meta-k {
+  font-family: 'JetBrains Mono', monospace; font-size: 7.5pt;
+  letter-spacing: 0.12em; text-transform: uppercase; color: #8A6D3F;
+}
+.mission-meta-v { color: #1F1F23; line-height: 1.4; }
+
+/* ───── FRAMEWORK CHIPS ───────────────────────────────────────────── */
+.chips {
+  display: flex; flex-wrap: wrap; gap: 6pt; margin: 10pt 0;
+}
+.chip {
+  font-family: 'JetBrains Mono', monospace; font-size: 8pt;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 4pt 9pt; border: 1px solid #C9A961; color: #6E5320;
+  background: rgba(201,169,97,0.06); border-radius: 2px;
+}
+
+/* ───── THREE-COLUMN TRIPTYCH ─────────────────────────────────────── */
+.triptych {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12pt;
+  margin: 14pt 0; page-break-inside: avoid;
+}
+.triptych-col {
+  padding: 14pt 12pt; border-top: 2px solid #C9A961;
+  background: rgba(201,169,97,0.04);
+}
+.triptych-col.theory-1 { background: rgba(217,185,138,0.10); }
+.triptych-col.theory-2 { background: rgba(156,166,111,0.10); }
+.triptych-col.theory-3 { background: rgba(168,198,204,0.10); }
+.triptych-h {
+  font-family: 'Cinzel', serif; font-size: 11pt; letter-spacing: 0.12em;
+  color: #0A0A0B; margin: 0 0 4pt; font-weight: 500;
+}
+.triptych-h-th {
+  font-family: 'IBM Plex Sans Thai', sans-serif; font-size: 9pt;
+  color: #6E5320; margin-bottom: 8pt; font-weight: 300;
+}
+.triptych-list { font-size: 9pt; line-height: 1.5; padding-left: 14pt; margin: 0; }
+.triptych-list li { margin: 4pt 0; }
+.triptych-list b { color: #0A0A0B; font-weight: 600; }
+
+/* ───── KEY-VALUE LIST ────────────────────────────────────────────── */
+.kv {
+  display: grid; grid-template-columns: 1.6in 1fr; gap: 6pt 14pt;
+  font-size: 10pt; margin: 8pt 0;
+}
+.kv-k {
+  font-family: 'JetBrains Mono', monospace; font-size: 8pt;
+  letter-spacing: 0.12em; text-transform: uppercase; color: #6E5320;
+  padding-top: 2pt;
+}
+.kv-v { color: #1F1F23; line-height: 1.5; }
+
+/* ───── DIVIDER ───────────────────────────────────────────────────── */
+hr.div {
+  border: 0; border-top: 1px solid rgba(201,169,97,0.4);
+  margin: 18pt 0;
+}
+
+/* ───── SYSTEM DIAGRAM (SVG-styled HTML) ──────────────────────────── */
+.sys-diagram {
+  margin: 16pt 0; padding: 18pt; border: 1px solid rgba(201,169,97,0.5);
+  background: #FDFBF6; page-break-inside: avoid;
+}
+.sys-diagram-h {
+  font-family: 'JetBrains Mono', monospace; font-size: 8pt;
+  letter-spacing: 0.18em; text-transform: uppercase; color: #8A6D3F;
+  margin-bottom: 10pt;
+}
+.sys-layer {
+  display: grid; grid-template-columns: 1.2in 1fr; gap: 8pt;
+  padding: 8pt 0; border-bottom: 1px dashed rgba(201,169,97,0.3);
+}
+.sys-layer:last-child { border-bottom: 0; }
+.sys-layer-name {
+  font-family: 'Cinzel', serif; font-size: 10pt; letter-spacing: 0.1em;
+  color: #C9A961; font-weight: 500;
+}
+.sys-layer-content { font-size: 9pt; color: #1F1F23; line-height: 1.5; }
+.sys-layer-content code {
+  font-family: 'JetBrains Mono', monospace; font-size: 8pt;
+  background: #F4F1EA; padding: 1pt 4pt; border-radius: 2px;
+}
+</style>
+</head>
+<body>
+<div class="cover">
+  <div class="cover-corner tl"></div><div class="cover-corner tr"></div>
+  <div class="cover-corner bl"></div><div class="cover-corner br"></div>
+
+  <div class="cover-header">
+    <div class="cover-tag">FUTUREPROOF · SDG Mission Journey</div>
+    <div class="cover-version">v2.0 · MAY 2026</div>
+  </div>
+
+  <div class="cover-title-block">
+    <div class="cover-doc-letter">Teacher's Manual · v1.0</div>
+    <h1 class="cover-title">The Field Manual<br/><em>for FUTUREPROOF</em></h1>
+    <div class="cover-subtitle">A practical guide for teachers, course coordinators, and competition judges — how the platform works, what it teaches, and why.</div>
+    <div class="cover-thai">คู่มือครูสำหรับการใช้งานแพลตฟอร์ม FUTUREPROOF — แนวทางการสอน การประเมินผล และการตรวจสอบเชิงทฤษฎีสำหรับคณะกรรมการตัดสิน</div>
+  </div>
+
+  <div class="cover-block crimson">
+    <div class="cover-block-label">Purpose · จุดมุ่งหมายของคู่มือ</div>
+    <div class="cover-block-body">This manual serves two readers at once: <strong>teachers</strong> who want to onboard a class and run the platform with confidence, and <strong>competition judges</strong> who need to audit the architecture and the pedagogical claims behind it. Every chapter is written so either audience can read it cold and answer their own first question.</div>
+  </div>
+
+  <div class="cover-stats">
+    <div class="cover-stat"><div class="cover-stat-num">6</div><div class="cover-stat-label">SDG Missions</div></div>
+    <div class="cover-stat"><div class="cover-stat-num">5</div><div class="cover-stat-label">Stage Arc</div></div>
+    <div class="cover-stat"><div class="cover-stat-num">4</div><div class="cover-stat-label">Rubrics</div></div>
+    <div class="cover-stat"><div class="cover-stat-num">3</div><div class="cover-stat-label">Learning Theories</div></div>
+    <div class="cover-stat"><div class="cover-stat-num">2</div><div class="cover-stat-label">Load-Bearing Frameworks</div></div>
+  </div>
+
+  <div class="cover-block">
+    <div class="cover-block-label">Pedagogical Spine · กระดูกสันหลังทฤษฎี</div>
+    <div class="cover-block-body">
+      <strong>PICRAT</strong> (Kimmons, Graham &amp; West 2020) &nbsp;·&nbsp;
+      <strong>AI-TPACK</strong> (Mishra &amp; Koehler, extended) &nbsp;·&nbsp;
+      Bloom's Revised Taxonomy &nbsp;·&nbsp; CAST UDL 3.0 &nbsp;·&nbsp; Krashen
+      i+1 &nbsp;·&nbsp; Vygotsky ZPD &nbsp;·&nbsp; Lave &amp; Wenger Situated
+      Cognition &nbsp;·&nbsp; Hattie Visible Learning &nbsp;·&nbsp; Mayer CTML
+      &nbsp;·&nbsp; UNESCO ESD
+    </div>
+  </div>
+
+  <div class="cover-footer">
+    <span>Author: Dr. Payungsak Kaenchan</span>
+    <span>Faculty of Liberal Arts · Mahidol University</span>
+  </div>
+</div>
+
+<div class="toc-page">
+  <div class="chapter-num">CONTENTS</div>
+  <h1 class="toc-h">In this manual</h1>
+  <div class="toc-h-th">สารบัญ</div>
+  <ul class="toc-list">
+        <li class="toc-item">
+          <div class="toc-num">01</div>
+          <div class="toc-title">How to read this manual<span class="toc-title-th">วิธีอ่านคู่มือเล่มนี้</span></div>
+          <div class="toc-page-num">p. 4</div>
+        </li>
+    
+
+        <li class="toc-item">
+          <div class="toc-num">02</div>
+          <div class="toc-title">At a glance<span class="toc-title-th">ภาพรวมแบบเร็ว</span></div>
+          <div class="toc-page-num">p. 5</div>
+        </li>
+    
+
+        <li class="toc-item">
+          <div class="toc-num">03</div>
+          <div class="toc-title">Pedagogical foundations<span class="toc-title-th">รากฐานเชิงทฤษฎี</span></div>
+          <div class="toc-page-num">p. 6</div>
+        </li>
+    
+
+        <li class="toc-item">
+          <div class="toc-num">04</div>
+          <div class="toc-title">Three learning theories, made operational<span class="toc-title-th">ทฤษฎีการเรียนรู้สามสำนักที่ปฏิบัติได้จริง</span></div>
+          <div class="toc-page-num">p. 9</div>
+        </li>
+    
+
+        <li class="toc-item">
+          <div class="toc-num">05</div>
+          <div class="toc-title">Portal architecture<span class="toc-title-th">สถาปัตยกรรมระบบ</span></div>
+          <div class="toc-page-num">p. 11</div>
+        </li>
+    
+
+        <li class="toc-item">
+          <div class="toc-num">06</div>
+          <div class="toc-title">The Thailand Journey · six missions<span class="toc-title-th">การเดินทาง ๖ ภูมิภาค</span></div>
+          <div class="toc-page-num">p. 13</div>
+        </li>
+    
+
+        <li class="toc-item">
+          <div class="toc-num">07</div>
+          <div class="toc-title">The 5-stage mission arc<span class="toc-title-th">วงจรการเรียนรู้ ๕ ระยะ</span></div>
+          <div class="toc-page-num">p. 17</div>
+        </li>
+    
+
+        <li class="toc-item">
+          <div class="toc-num">08</div>
+          <div class="toc-title">AI-enhanced features<span class="toc-title-th">ฟีเจอร์ที่ขับเคลื่อนด้วย AI</span></div>
+          <div class="toc-page-num">p. 19</div>
+        </li>
+    
+
+        <li class="toc-item">
+          <div class="toc-num">09</div>
+          <div class="toc-title">The Voice for Change capstone<span class="toc-title-th">ภารกิจปิดท้าย Voice for Change</span></div>
+          <div class="toc-page-num">p. 22</div>
+        </li>
+    
+
+        <li class="toc-item">
+          <div class="toc-num">10</div>
+          <div class="toc-title">Teacher console &amp; grading workflow<span class="toc-title-th">แดชบอร์ดครูและการตรวจคะแนน</span></div>
+          <div class="toc-page-num">p. 24</div>
+        </li>
+    
+
+        <li class="toc-item">
+          <div class="toc-num">11</div>
+          <div class="toc-title">Rubrics A · B · C · D at a glance<span class="toc-title-th">สรุปรูบริก A · B · C · D</span></div>
+          <div class="toc-page-num">p. 26</div>
+        </li>
+    
+
+        <li class="toc-item">
+          <div class="toc-num">12</div>
+          <div class="toc-title">PDPA + UDL compliance<span class="toc-title-th">การปฏิบัติตาม PDPA และ UDL</span></div>
+          <div class="toc-page-num">p. 27</div>
+        </li>
+    
+
+        <li class="toc-item">
+          <div class="toc-num">13</div>
+          <div class="toc-title">Resources, contact, &amp; FAQ<span class="toc-title-th">แหล่งข้อมูล ติดต่อ และคำถามที่พบบ่อย</span></div>
+          <div class="toc-page-num">p. 28</div>
+        </li>
+    </ul>
+</div>
+
+<div class="chapter">
+<section class="chapter-opener">
+  <div class="chapter-num">CHAPTER 01</div>
+  <h1 class="chapter-title">How to read this manual</h1>
+  <div class="chapter-title-th">วิธีอ่านคู่มือเล่มนี้</div>
+  <div class="chapter-lede">Two audiences are served by this single document. Read selectively — every chapter is self-contained, and the chapter opener tells you what's inside before you commit.</div>
+</section>
+
+<h2 class="sec">Who this manual is for</h2>
+<p>This manual addresses two readers with overlapping but distinct concerns:</p>
+<ol>
+  <li><strong>Teachers</strong> who will run FUTUREPROOF in a real classroom — what to do before, during, and after the course. The operational chapters (5, 7, 8, 10) are written for you. Time-to-first-class: <strong>~ 90 minutes of reading + 30 minutes of setup</strong>.</li>
+  <li><strong>Competition judges and academic reviewers</strong> who need to audit the pedagogical claims, the AI–human boundary, and the architectural decisions. The theory chapters (3, 4) and rubric summaries (11) are written for you. Time-to-confident-assessment: <strong>~ 45 minutes of reading</strong>.</li>
+</ol>
+
+<h2 class="sec">Reading paths</h2>
+<table class="data">
+  <thead><tr><th>If you are…</th><th>Read in this order</th></tr></thead>
+  <tbody>
+    <tr><td class="k">A teacher new to FUTUREPROOF</td><td>Chapters 2 → 5 → 6 → 7 → 10 → 13 (skip 3 / 4 first pass)</td></tr>
+    <tr><td class="k">A teacher with class already onboarded</td><td>Chapters 7 → 8 → 10 → 11</td></tr>
+    <tr><td class="k">A competition judge</td><td>Chapters 2 → 3 → 4 → 8 → 11 → cover-page of any Rubric PDF</td></tr>
+    <tr><td class="k">An academic reviewer / researcher</td><td>Chapters 3 → 4 → 5 → 8 → 11 → DPIA appendix</td></tr>
+  </tbody>
+</table>
+
+<h2 class="sec">Conventions</h2>
+<div class="kv">
+  <div class="kv-k">Thai gloss</div>
+  <div class="kv-v">All chapter and section heads carry an italic Thai parallel. Technical terms (PICRAT, AI-TPACK, CEFR, CTML) are left untranslated by convention — Thai academics use these terms in their original form.</div>
+  <div class="kv-k">Callouts</div>
+  <div class="kv-v">Gold callouts surface practical tips. Crimson callouts surface load-bearing rules — break these and you break the pedagogy. Teal callouts speak directly to competition judges.</div>
+  <div class="kv-k">Screenshot reservations</div>
+  <div class="kv-v">Dashed gold boxes mark where a screenshot of the live platform will appear in the print edition. The web edition links to a high-resolution version of each.</div>
+  <div class="kv-k">Cross-references</div>
+  <div class="kv-v">"See Rubric A §3" refers to chapter, section, or paragraph in another document in the FUTUREPROOF submission package.</div>
+</div>
+
+<div class="callout">
+  <span class="callout-h">A note on language</span>
+  The platform itself operates in English. Thai appears only in navigation labels, consent forms, and accessibility helpers — never in mission content, dossier text, or AI scoring. This is by design (see Chapter 3 §3.4 on Krashen i+1). The Teacher's Manual carries Thai parallel headings because <em>teachers</em> are bilingual professionals, not <em>learners</em> in the sense the platform addresses.
+</div>
+</div>
+<div class="chapter">
+<section class="chapter-opener">
+  <div class="chapter-num">CHAPTER 02</div>
+  <h1 class="chapter-title">At a glance</h1>
+  <div class="chapter-title-th">ภาพรวมแบบเร็ว</div>
+  <div class="chapter-lede">Two pages. The fastest possible orientation. If you read nothing else, read this.</div>
+</section>
+
+<h2 class="sec">One paragraph</h2>
+<p>FUTUREPROOF is a self-contained AI-scaffolded web platform that sends advanced Thai undergraduates on <strong>six adaptive missions across Thailand</strong>, each anchored to a UN Sustainable Development Goal. Every mission runs the same <strong>five-stage arc</strong> — BRIEF → PROBE → DECIDE → ACT → DEBRIEF — and is scored by an AI Judge against an auditable rubric. Clearing all six awards six SDG Keystones and unlocks <strong>Voice for Change</strong>, the multimodal capstone proposal addressed to a real Thai audience. Throughout, an in-app Socratic field mentor (Mr Compass) provides language scaffolding within strict guardrails. The teacher remains the summative grader; the AI handles the formative scale.</p>
+
+<h2 class="sec">Key facts</h2>
+<div class="kv">
+  <div class="kv-k">Course context</div>
+  <div class="kv-v">LALA109 · English for Digital Communication Skills · Faculty of Liberal Arts, Mahidol University · elective, advanced undergraduate (CEFR B1+ floor).</div>
+  <div class="kv-k">Cohort size</div>
+  <div class="kv-v">Up to 50 students per section × 6 sections = 300 max per term.</div>
+  <div class="kv-k">Term length</div>
+  <div class="kv-v">15 weeks · 3 in-class hours + 6 async hours per week.</div>
+  <div class="kv-k">Tech stack</div>
+  <div class="kv-v">HTML5 + Tailwind CSS + vanilla JS · Firebase (auth, Realtime DB, Storage) · Anthropic Claude API · Stability.ai for avatars · Netlify hosting.</div>
+  <div class="kv-k">First semester of use</div>
+  <div class="kv-v">Semester 1, Academic Year 2569 (Aug 2026).</div>
+</div>
+
+<h2 class="sec">The pedagogical spine, one sentence each</h2>
+<ul>
+  <li><strong>PICRAT</strong> — every mission lives in the Interactive-Amplifies cell or above; the capstone lives in Creative-Transforms.</li>
+  <li><strong>AI-TPACK</strong> — AI handles consistency at scale (formative feedback, dossier tiering, language coaching); the teacher handles authority (summative grade, intervention judgment, cultural authenticity).</li>
+  <li><strong>Three learning theories</strong> — Behaviorism (token economy), Cognitivism (5-stage chunking + CTML capstone), Social Constructivism (3-role asymmetric teams + Hall of Voices).</li>
+</ul>
+
+<h2 class="sec">What the judge sees at first glance</h2>
+
+<div class="screenshot">
+  <span class="screenshot-tag">Home screen · Thailand Journey</span>
+  <div class="screenshot-cap">Hand-illustrated map of Thailand with six numbered mission pins. Top status bar shows the learner's tokens, integrity meter, and current rank.</div>
+  <div class="screenshot-spec">futureproof.yungie.one/journey · 1920×1080 · capture date TBD</div>
+</div>
+
+
+<div class="callout judge">
+  <span class="callout-h">For the judge</span>
+  Every claim in this manual is anchored to a feature you can verify in the live platform. Where the manual cites "Mr Compass," you can open Mr Compass. Where it cites "AI Judges," you can read the actual scoring output on the Final Task screen. The platform is the proof of the manual.
+</div>
+</div>
+<div class="chapter">
+<section class="chapter-opener">
+  <div class="chapter-num">CHAPTER 03</div>
+  <h1 class="chapter-title">Pedagogical foundations</h1>
+  <div class="chapter-title-th">รากฐานเชิงทฤษฎี</div>
+  <div class="chapter-lede">Two frameworks are load-bearing — remove either and the platform collapses. Nine more are supporting frameworks that fill in the specifics.</div>
+</section>
+
+<h2 class="sec">The two load-bearing frameworks</h2>
+<p>Most ed-tech platforms cite a long list of frameworks decoratively. FUTUREPROOF declares <strong>two as load-bearing</strong> — they govern every design decision, and removing either would collapse the pedagogical architecture.</p>
+
+<h3 class="sub">PICRAT · the position on the matrix</h3>
+<p>Kimmons, Graham &amp; West (2020) plot any educational technology on a 3 × 3 matrix: the learner's relationship to the technology (<em>Passive · Interactive · Creative</em>) by the technology's relationship to traditional practice (<em>Replaces · Amplifies · Transforms</em>). FUTUREPROOF targets <strong>Interactive-Amplifies as the floor</strong> for every regional mission, and <strong>Creative-Transforms</strong> for the Voice for Change capstone.</p>
+
+<p>Practically: a mission that could be replaced by reading a textbook + answering a quiz lives in Passive-Replaces and is rejected at design review. A mission where the learner <em>generates a defensible decision under a real trade-off</em> lives at Interactive-Amplifies. A capstone where the learner <em>creates a multimodal artifact addressed to a real audience</em> lives at Creative-Transforms.</p>
+
+<div class="callout crimson">
+  <span class="callout-h">Load-bearing rule</span>
+  No feature ships if it sits in Passive-Replaces. This is the auditable test, and it has cut features from the design twice during development. See <em>Reconstruction Master §2</em> for the rejected-features list.
+</div>
+
+<h3 class="sub">AI-TPACK · the boundary</h3>
+<p>Mishra and Koehler's original TPACK framework asked which knowledge a teacher needs to teach with technology. The <em>AI-extended</em> version asks something sharper: <strong>what does the AI handle and what does the human handle</strong>, and why is that boundary the right one?</p>
+
+<table class="data">
+  <thead><tr><th>What AI handles</th><th>What the human (teacher / learner) handles</th></tr></thead>
+  <tbody>
+    <tr><td>Formative scoring at scale (Rubric B)</td><td>Summative grading (Rubric A)</td></tr>
+    <tr><td>Dossier reading at three CEFR tiers</td><td>Cultural authenticity vetting of dossier facts</td></tr>
+    <tr><td>Real-time language coaching (Mr Compass)</td><td>Intervention judgment when a team is stuck</td></tr>
+    <tr><td>Consistency across 300 learners</td><td>The voice of the learner in the capstone</td></tr>
+    <tr><td>Counter-position generation (DECIDE stage)</td><td>Ethical arbitration of the trade-off itself</td></tr>
+  </tbody>
+</table>
+
+<div class="callout crimson">
+  <span class="callout-h">Load-bearing rule</span>
+  AI never gives content answers about the SDG topic. AI never overturns the teacher's summative grade. The capstone (Voice for Change) is graded human-only. Mr Compass redirects content questions back to the team. These are not aspirations — they are enforced in the system prompts and the platform UX.
+</div>
+
+<h2 class="sec">The supporting frameworks (nine of them)</h2>
+<div class="chips">
+  <span class="chip">Bloom's Revised Taxonomy</span>
+  <span class="chip">CAST UDL 3.0</span>
+  <span class="chip">Krashen i+1</span>
+  <span class="chip">Vygotsky ZPD</span>
+  <span class="chip">Wood-Bruner-Ross Scaffolding</span>
+  <span class="chip">Lave &amp; Wenger Situated Cognition</span>
+  <span class="chip">Hattie Visible Learning</span>
+  <span class="chip">Mayer CTML</span>
+  <span class="chip">UNESCO ESD</span>
+</div>
+<p>Each of these fills in specifics that PICRAT and AI-TPACK demand. Bloom maps the cognitive level of each stage. CAST UDL governs the three submission lanes for Voice for Change. Krashen i+1 sets the reading-tier algorithm. Vygotsky ZPD justifies the deliberate confidence trap at DECIDE. Lave &amp; Wenger frames Hall of Voices as a Community of Practice. Hattie justifies the formative-feedback contract. Mayer CTML drives the multimodal capstone studio. UNESCO ESD provides the SDG content backbone.</p>
+
+<h2 class="sec">The auditable test</h2>
+<p>For any new feature, three questions are asked in order. If a feature fails any one, it is redesigned or rejected.</p>
+<ol>
+  <li><strong>PICRAT cell.</strong> Where does it sit? If <em>Passive-Replaces</em>, redesign.</li>
+  <li><strong>AI-TPACK boundary.</strong> Is the AI/human split defensible? If AI replaces judgment that should stay human, redesign.</li>
+  <li><strong>Supporting framework.</strong> Which of the nine justifies the specifics? If none, the feature is decoration — cut it.</li>
+</ol>
+
+<div class="callout judge">
+  <span class="callout-h">For the judge</span>
+  Ask any FUTUREPROOF feature this trio of questions. The platform's designers have answered them in writing for every shipped feature. If you spot one that fails the test, that is a fair finding and we want to know.
+</div>
+</div>
+<div class="chapter">
+<section class="chapter-opener">
+  <div class="chapter-num">CHAPTER 04</div>
+  <h1 class="chapter-title">Three learning theories, made operational</h1>
+  <div class="chapter-title-th">ทฤษฎีการเรียนรู้สามสำนักที่ปฏิบัติได้จริง</div>
+  <div class="chapter-lede">Behaviorism, Cognitivism, and Social Constructivism are the three classical schools every education faculty teaches. FUTUREPROOF doesn't just cite them — it maps each to specific platform features you can audit.</div>
+</section>
+
+<h2 class="sec">Why this chapter exists</h2>
+<p>Most ed-tech submissions cite Vygotsky once and move on. The premise of FUTUREPROOF is that the three classical schools of learning theory — <strong>Behaviorism, Cognitivism, Social Constructivism</strong> — are not in competition. They each model a different layer of how learners change. A well-designed platform operates all three simultaneously. This chapter shows which platform features execute each theory, so a judge or researcher can verify the claim feature by feature.</p>
+
+<div class="triptych">
+  <div class="triptych-col theory-1">
+    <h3 class="triptych-h">Behaviorism · Skinner · Pavlov · Watson</h3>
+    <div class="triptych-h-th">พฤติกรรมนิยม</div>
+    <ul class="triptych-list">
+      <li><b>Insight Token Economy</b> — operant conditioning. Positive reinforcement +5…+25 for quality work; negative −5…−10 for weak reasoning.</li>
+      <li><b>AI Judges (3 evaluators)</b> — immediate formative feedback within seconds, completing the stimulus-response loop.</li>
+      <li><b>Keystone Collection (6 dots)</b> — variable-interval reinforcement schedule that sustains persistence across the term.</li>
+      <li><b>Adaptive Reading Tiers</b> — successive-approximation shaping (Tier 1 → 3) so the learner is always inside their response range.</li>
+      <li><b>Verified Credentials</b> — terminal reinforcer at capstone completion.</li>
+    </ul>
+  </div>
+  <div class="triptych-col theory-2">
+    <h3 class="triptych-h">Cognitivism · Bruner · Ausubel · Sweller · Mayer</h3>
+    <div class="triptych-h-th">ปัญญานิยม</div>
+    <ul class="triptych-list">
+      <li><b>5-Stage Mission Arc</b> — chunking for cognitive load (Sweller). Each stage exposes only what working memory needs now.</li>
+      <li><b>Pre-Mission Brief</b> — Ausubel's advance organizer. Three objectives + three outcomes + scoring criteria before content.</li>
+      <li><b>Mission Dossier</b> — externalized schema. Read-anytime popup during Decide &amp; Act reduces extraneous load.</li>
+      <li><b>Voice for Change Studio</b> — text + audio + image (Mayer CTML dual-coding).</li>
+      <li><b>Integrity Meter &amp; Time Capsule</b> — metacognitive monitor (Flavell).</li>
+      <li><b>Consequence-aware decision branching</b> — forces mental-model update (Bruner schema-construction).</li>
+    </ul>
+  </div>
+  <div class="triptych-col theory-3">
+    <h3 class="triptych-h">Social Constructivism · Vygotsky · Lave &amp; Wenger</h3>
+    <div class="triptych-h-th">การสร้างความรู้เชิงสังคม</div>
+    <ul class="triptych-list">
+      <li><b>3-Role Asymmetric Team</b> — Research Analyst, Comms Director, Ethics Officer; each sees different data. Forces co-construction in English.</li>
+      <li><b>Mr Compass</b> — More Knowledgeable Other within ZPD; Socratic, never content.</li>
+      <li><b>NPC Stakeholder Interviews</b> — situated learning in authentic Thai contexts (Lave &amp; Wenger).</li>
+      <li><b>Hall of Voices</b> — Community of Practice; peripheral → full participation.</li>
+      <li><b>Peer Judges (Tier 2 of 4)</b> — peer rubric exchange; social mediation.</li>
+      <li><b>Stakeholder Dispatch videos</b> — four real-Thai voices per mission, in-classroom co-construction.</li>
+    </ul>
+  </div>
+</div>
+
+<h2 class="sec">Why this matters for scoring</h2>
+<p>Thai education-innovation rubrics typically award their highest marks under "การออกแบบเชิงทฤษฎี" (theoretical design) when a submission can show <em>operationalised theory</em> — not just cited theory. Every row above names a platform feature you can click on. Every theorist is named. Every claim is auditable in under 60 seconds with a live platform open. That is the standard we hold ourselves to.</p>
+
+<div class="callout judge">
+  <span class="callout-h">For the judge</span>
+  If any cell in the triptych appears to overstate what the platform does, please flag it. The architectural commitment is that every theory citation in this manual maps to a feature in the live build — not to a plan, not to a future roadmap.
+</div>
+</div>
+<div class="chapter">
+<section class="chapter-opener">
+  <div class="chapter-num">CHAPTER 05</div>
+  <h1 class="chapter-title">Portal architecture</h1>
+  <div class="chapter-title-th">สถาปัตยกรรมระบบ</div>
+  <div class="chapter-lede">Six layers, top to bottom. What runs where, what data flows where, and how the AI–human boundary is enforced at every layer.</div>
+</section>
+
+<h2 class="sec">System layers</h2>
+
+<div class="sys-diagram">
+  <div class="sys-diagram-h">FUTUREPROOF · System Architecture</div>
+
+  <div class="sys-layer">
+    <div class="sys-layer-name">Presentation</div>
+    <div class="sys-layer-content">Static HTML5 pages compiled with Tailwind CSS CLI (no CDN). Vanilla JavaScript ES2020+. Mobile-first responsive from 360 px upward. PWA-ready. Served from Netlify CDN.</div>
+  </div>
+
+  <div class="sys-layer">
+    <div class="sys-layer-name">Identity</div>
+    <div class="sys-layer-content">Firebase Auth (email/password). Role flag on user profile: <code>learner</code> · <code>teacher</code> · <code>admin</code>. PDPA consent flags stored separately and gate any personal-data read.</div>
+  </div>
+
+  <div class="sys-layer">
+    <div class="sys-layer-name">Data</div>
+    <div class="sys-layer-content">Firebase Realtime Database — learner profiles, decision logs, token balances, Keystone state, consent flags. Firebase Storage — avatar images, Voice for Change uploads, audio recordings. Security rules in <code>firebase-rules.json</code> enforce per-user write access.</div>
+  </div>
+
+  <div class="sys-layer">
+    <div class="sys-layer-name">AI proxy</div>
+    <div class="sys-layer-content">Netlify Functions wrap Anthropic Claude API (Sonnet) and Stability.ai. API keys live in Netlify env vars — never reach the browser. Per-call rate-limiting and per-user daily quotas.</div>
+  </div>
+
+  <div class="sys-layer">
+    <div class="sys-layer-name">Pedagogy</div>
+    <div class="sys-layer-content">System prompts encode Rubric B logic (AI Judges) and Field Mentor guardrails. Every AI return includes a mandatory <code>growthEdge</code> — null fails validation and the call retries.</div>
+  </div>
+
+  <div class="sys-layer">
+    <div class="sys-layer-name">Content</div>
+    <div class="sys-layer-content">Six SDG scenarios stored as immutable production masters in <code>/scenarios/</code>. Each scenario carries the dossier at three CEFR tiers, four stakeholder dispatch videos, the AI Judge scoring criteria, and the regional trade-off statement.</div>
+  </div>
+</div>
+
+<h2 class="sec">Data flows</h2>
+<ol>
+  <li><strong>Sign-up → consent</strong>. PDPA consent recorded before any personal data write. The readiness check is hard-gated: it will not run and writes nothing until consent is granted.</li>
+  <li><strong>Readiness check → reading tier</strong>. Diagnostic sets the learner's CEFR tier (1, 2, or 3). Dossiers are served at the learner's tier; audio is never tiered.</li>
+  <li><strong>Mission decision → AI Judge → token award</strong>. Each decision call goes to Claude through the Netlify proxy with the Rubric B system prompt; the response includes scores per criterion, a growthEdge string, and a token delta.</li>
+  <li><strong>Keystone award</strong>. When the mission composite passes the threshold, the Keystone is awarded (idempotent — re-running cannot double-award).</li>
+  <li><strong>Capstone unlock</strong>. Six Keystones unlocks Voice for Change. Teacher overrides are logged with reason for audit.</li>
+  <li><strong>Hall of Voices curation</strong>. Capstone publication requires a second, explicit, withdrawable consent — separate from PDPA consent and revocable any time from <em>My Data</em>.</li>
+</ol>
+
+<h2 class="sec">Why the architecture matters for compliance</h2>
+<p>Three architectural choices carry compliance weight that competition judges will look for:</p>
+<ul>
+  <li><strong>API keys never in the browser.</strong> Every AI call goes through a Netlify Function. Inspect the page source; you will find no Anthropic key.</li>
+  <li><strong>Granular consent flags.</strong> Photo, voice, decision-history, public-showcase — each is a separate flag, separately revocable. PDPA's data-subject-access-request workflow is a built-in screen, not a manual process.</li>
+  <li><strong>90-day auto-deletion.</strong> Personal data tombstones after 90 days post-course; pseudonymized analytics survive for research.</li>
+</ul>
+
+
+<div class="screenshot">
+  <span class="screenshot-tag">Admin Dashboard · Architecture overview</span>
+  <div class="screenshot-cap">The seven-module Admin Command Platform: User Management, Mission Architect, Analytics, Content Moderation, PDPA Center, System Configuration, Hall of Voices Curator.</div>
+  <div class="screenshot-spec">futureproof.yungie.one/admin · capture date TBD</div>
+</div>
+</div>
+<div class="chapter">
+<section class="chapter-opener">
+  <div class="chapter-num">CHAPTER 06</div>
+  <h1 class="chapter-title">The Thailand Journey · six missions</h1>
+  <div class="chapter-title-th">การเดินทาง ๖ ภูมิภาค ๖ SDG</div>
+  <div class="chapter-lede">One country, six regions, six trade-offs. Each mission anchors a different SDG to a real Thai context. Learners may take them in any order; clearing all six unlocks the capstone.</div>
+</section>
+
+<h2 class="sec">Why six, not seventeen</h2>
+<p>The UN has 17 Sustainable Development Goals. Why does FUTUREPROOF run six? Because <em>six</em> is the maximum a 15-week term can carry at the depth we insist on. Each mission has been authored to <em>production-master</em> depth — real Thai stakeholder names, real trade-offs, vetted illustrative ranges, four-voice dispatch videos. A 17-SDG version would be a mile wide and an inch deep. The roadmap (Chapter 13) describes how the platform scales to 17 once a partner faculty wants to commission additional regions.</p>
+
+
+<div class="screenshot">
+  <span class="screenshot-tag">The Thailand Journey screen</span>
+  <div class="screenshot-cap">Hand-illustrated map of Thailand with six pinned missions. Earned Keystones light gold; unearned ones remain ink-line. The compass-rose in the upper right indicates the learner's current direction of travel.</div>
+  <div class="screenshot-spec">futureproof.yungie.one/journey · 1920×1080 · capture date TBD</div>
+</div>
+
+
+<h2 class="sec">The six missions at a glance</h2>
+
+<div class="mission">
+  <div class="mission-h">
+    <span class="mission-num">01</span>
+    <span class="mission-region">North · Chiang Mai</span>
+    <span class="mission-sdg">SDG 13 · CLIMATE</span>
+  </div>
+  <div class="mission-title">The Burning Season</div>
+  <div class="mission-tension">Clean air vs. agricultural livelihood — when burning is the cheapest pre-monsoon land clearance, who pays the cost of clear lungs?</div>
+  <div class="mission-meta">
+    <div><div class="mission-meta-k">Authentic context</div><div class="mission-meta-v">Hill farmers, urban respiratory clinics, Mae Hong Son provincial government, ASEAN haze treaty.</div></div>
+    <div><div class="mission-meta-k">Bloom focus</div><div class="mission-meta-v">Evaluate · Apply</div></div>
+    <div><div class="mission-meta-k">Key dossier figures</div><div class="mission-meta-v">PM2.5 readings, GISTDA hotspot maps, crop-residue tonnage estimates.</div></div>
+    <div><div class="mission-meta-k">Counter-position</div><div class="mission-meta-v">"A ban without alternatives criminalises poverty."</div></div>
+  </div>
+</div>
+
+<div class="mission">
+  <div class="mission-h">
+    <span class="mission-num">02</span>
+    <span class="mission-region">Northeast · Khon Kaen</span>
+    <span class="mission-sdg">SDG 6 · WATER</span>
+  </div>
+  <div class="mission-title">The Aquifer Below</div>
+  <div class="mission-tension">Today's water vs. the next generation's water — when the aquifer takes decades to refill and rice farming takes it in months, what does fairness mean across time?</div>
+  <div class="mission-meta">
+    <div><div class="mission-meta-k">Authentic context</div><div class="mission-meta-v">Smallholder rice farmers, Royal Irrigation Department, Khon Kaen Hospital, downstream Lao villages.</div></div>
+    <div><div class="mission-meta-k">Bloom focus</div><div class="mission-meta-v">Analyze · Evaluate</div></div>
+    <div><div class="mission-meta-k">Key dossier figures</div><div class="mission-meta-v">Aquifer recharge rates, well-depth survey ranges, paddy water-footprint estimates.</div></div>
+    <div><div class="mission-meta-k">Counter-position</div><div class="mission-meta-v">"This generation's poverty is a justice claim too."</div></div>
+  </div>
+</div>
+
+<div class="mission">
+  <div class="mission-h">
+    <span class="mission-num">03</span>
+    <span class="mission-region">Central · Bangkok</span>
+    <span class="mission-sdg">SDG 11 · CITIES</span>
+  </div>
+  <div class="mission-title">The Klong and the City</div>
+  <div class="mission-tension">Flood defence vs. canal-side tenure — when concrete embankments save the central city, what happens to the canal communities that have lived there for generations?</div>
+  <div class="mission-meta">
+    <div><div class="mission-meta-k">Authentic context</div><div class="mission-meta-v">BMA flood engineers, Khlong Toey community, Department of City Planning, riparian heritage advocates.</div></div>
+    <div><div class="mission-meta-k">Bloom focus</div><div class="mission-meta-v">Analyze · Apply</div></div>
+    <div><div class="mission-meta-k">Key dossier figures</div><div class="mission-meta-v">2011 flood data, urban-density gradients, tenure-displacement counts.</div></div>
+    <div><div class="mission-meta-k">Counter-position</div><div class="mission-meta-v">"Saving the centre is a defensible utilitarian choice."</div></div>
+  </div>
+</div>
+
+<div class="mission">
+  <div class="mission-h">
+    <span class="mission-num">04</span>
+    <span class="mission-region">West · Tak / Mae Sot</span>
+    <span class="mission-sdg">SDG 4 · EDUCATION</span>
+  </div>
+  <div class="mission-title">The Children at the Border</div>
+  <div class="mission-tension">National curriculum vs. cross-border continuity — when migrant children need recognized credentials but the home-country curriculum is unavailable, whose education system steps in?</div>
+  <div class="mission-meta">
+    <div><div class="mission-meta-k">Authentic context</div><div class="mission-meta-v">Migrant learning centres (MLCs), Thai MOE, UNHCR, Myanmar community elders.</div></div>
+    <div><div class="mission-meta-k">Bloom focus</div><div class="mission-meta-v">Understand · Evaluate</div></div>
+    <div><div class="mission-meta-k">Key dossier figures</div><div class="mission-meta-v">MLC enrolment estimates, dropout-to-work transitions, credential-recognition pathway data.</div></div>
+    <div><div class="mission-meta-k">Counter-position</div><div class="mission-meta-v">"Sovereignty over curriculum is a defensible state interest."</div></div>
+  </div>
+</div>
+
+<div class="mission">
+  <div class="mission-h">
+    <span class="mission-num">05</span>
+    <span class="mission-region">East · EEC Fringe</span>
+    <span class="mission-sdg">SDG 3 · HEALTH</span>
+  </div>
+  <div class="mission-title">The Village Left Behind</div>
+  <div class="mission-tension">Industrial growth vs. community health — when the Eastern Economic Corridor brings jobs but also air-quality and water-quality stress to neighbouring villages, what does "shared prosperity" mean?</div>
+  <div class="mission-meta">
+    <div><div class="mission-meta-k">Authentic context</div><div class="mission-meta-v">EEC Office, Mab Ta Phut Hospital, fishing-village leaders, Rayong public health.</div></div>
+    <div><div class="mission-meta-k">Bloom focus</div><div class="mission-meta-v">Analyze · Apply</div></div>
+    <div><div class="mission-meta-k">Key dossier figures</div><div class="mission-meta-v">VOC emission ranges, hospital-admission patterns, jobs-vs-relocation surveys.</div></div>
+    <div><div class="mission-meta-k">Counter-position</div><div class="mission-meta-v">"Growth that funds public health is itself a health investment."</div></div>
+  </div>
+</div>
+
+<div class="mission">
+  <div class="mission-h">
+    <span class="mission-num">06</span>
+    <span class="mission-region">South · Andaman</span>
+    <span class="mission-sdg">SDG 14 · OCEAN</span>
+  </div>
+  <div class="mission-title">The Reef and the Tide</div>
+  <div class="mission-tension">Tourism revenue vs. marine recovery — when a temporary closure of a famous reef would let coral recover but cost thousands of livelihoods, who decides and on what time horizon?</div>
+  <div class="mission-meta">
+    <div><div class="mission-meta-k">Authentic context</div><div class="mission-meta-v">Department of Marine and Coastal Resources, Phi Phi tour operators, marine biologists, hotel SME associations.</div></div>
+    <div><div class="mission-meta-k">Bloom focus</div><div class="mission-meta-v">Evaluate · Create</div></div>
+    <div><div class="mission-meta-k">Key dossier figures</div><div class="mission-meta-v">Coral cover %, visitor counts, livelihood-impact ranges.</div></div>
+    <div><div class="mission-meta-k">Counter-position</div><div class="mission-meta-v">"Permanent closure punishes the community for tourist behaviour."</div></div>
+  </div>
+</div>
+
+<div class="callout">
+  <span class="callout-h">Authoring discipline</span>
+  Every dossier figure is from a published Thai source (NESDB, GISTDA, DMCR, MOE, etc.) or is presented as an <em>illustrative range</em> rather than a precise number. The platform does not fabricate statistics. The four stakeholder dispatch videos per mission feature real-Thai voice actors performing real-context monologues authored from publicly-available stakeholder statements.
+</div>
+</div>
+<div class="chapter">
+<section class="chapter-opener">
+  <div class="chapter-num">CHAPTER 07</div>
+  <h1 class="chapter-title">The 5-stage mission arc</h1>
+  <div class="chapter-title-th">วงจรการเรียนรู้ ๕ ระยะ</div>
+  <div class="chapter-lede">Every mission, every region, runs the same arc. The structure is a mastery spiral — not a linear textbook chapter — and each stage is anchored to a level of Bloom's revised taxonomy.</div>
+</section>
+
+<h2 class="sec">The arc, end to end</h2>
+
+<div class="stage-arc">
+  <div class="stage"><div class="stage-name">BRIEF</div><div class="stage-bloom">Remember / Understand</div><div class="stage-desc">absorb the situation</div></div>
+  <div class="stage"><div class="stage-name">PROBE</div><div class="stage-bloom">Analyze</div><div class="stage-desc">question the sources</div></div>
+  <div class="stage"><div class="stage-name">DECIDE</div><div class="stage-bloom">Evaluate</div><div class="stage-desc">choose under trade-off</div></div>
+  <div class="stage"><div class="stage-name">ACT</div><div class="stage-bloom">Apply</div><div class="stage-desc">communicate the decision</div></div>
+  <div class="stage"><div class="stage-name">DEBRIEF</div><div class="stage-bloom">Metacognition</div><div class="stage-desc">reflect on consequence</div></div>
+</div>
+
+<h3 class="sub">BRIEF — absorb the situation</h3>
+<p>The mission opens with the dossier delivered at the learner's CEFR tier. Same facts, different language. Four stakeholder dispatch videos play in any order. The learner is expected to surface <em>the tension and whose interests it pits</em> — not just summarise.</p>
+
+<h3 class="sub">PROBE — question the sources</h3>
+<p>The learner is asked to evaluate source provenance (recency, methodology, conflict of interest) across the dossier. The AI Judge looks for whether the learner trusts the loudest voice or weighs provenance signals.</p>
+
+<h3 class="sub">DECIDE — choose under trade-off</h3>
+<p>The highest-stakes stage. A real trade-off is presented; the learner commits to a position with confidence calibration. A <strong>deliberate confidence trap</strong> rewards calibrated humility and penalises overclaim — modelling intellectual humility in line with Vygotsky's productive struggle.</p>
+
+<div class="callout crimson">
+  <span class="callout-h">The confidence trap</span>
+  At DECIDE, the AI Judge does not score "correctness." It scores <em>calibration</em>. A learner who commits to a position with 100% confidence on weak evidence loses tokens; a learner who commits with 70% confidence and names the residual uncertainty scores higher. This is the most-asked-about feature by judges, and it is the architectural reason the platform does not collapse into "guess what the AI wants."
+</div>
+
+<h3 class="sub">ACT — communicate the decision</h3>
+<p>The learner writes (or speaks) the decision to a specified audience — sometimes a community elder, sometimes a hostile policy panel, sometimes a hesitant SME. The Bloom level is <em>Apply</em> because the same reasoning must be re-cast across registers.</p>
+
+<h3 class="sub">DEBRIEF — reflect on consequence</h3>
+<p>The strongest counter-position from PROBE returns, generated by the AI. The learner refines, refutes, or revises. Genuine revision scores higher than restatement. The DEBRIEF result drives the mission composite that awards the SDG Keystone.</p>
+
+<h2 class="sec">Coach to the stage, not the Bloom level</h2>
+<p>A teacher walking between teams during a mission should coach to the stage in front of them. Some recipes for stage-specific intervention:</p>
+
+<table class="data">
+  <thead><tr><th>If you see…</th><th>Try this prompt</th></tr></thead>
+  <tbody>
+    <tr><td class="k">BRIEF · team summarising not analysing</td><td>"Whose interests does this pit against whose? Say it in one sentence."</td></tr>
+    <tr><td class="k">PROBE · team treating all sources as equal</td><td>"Which source has the most to lose from each version of the answer?"</td></tr>
+    <tr><td class="k">DECIDE · team overclaiming</td><td>"What's the strongest case <em>against</em> what you just committed to?"</td></tr>
+    <tr><td class="k">ACT · communication too generic</td><td>"Read your draft as if you were the audience. What would you push back on?"</td></tr>
+    <tr><td class="k">DEBRIEF · team capitulating to the counter</td><td>"You don't have to abandon the position — refine it. What did the counter get right?"</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="chapter">
+<section class="chapter-opener">
+  <div class="chapter-num">CHAPTER 08</div>
+  <h1 class="chapter-title">AI-enhanced features</h1>
+  <div class="chapter-title-th">ฟีเจอร์ที่ขับเคลื่อนด้วย AI</div>
+  <div class="chapter-lede">Five named features make the AI side of the platform visible and auditable. Each is bounded by the AI-TPACK rule — AI handles scale and consistency; humans handle authority and cultural judgment.</div>
+</section>
+
+<h2 class="sec">Mr Compass · the Socratic Field Mentor</h2>
+<p>Mr Compass is the in-app Field Mentor — a Socratic companion, <strong>not</strong> a content tutor. Without strict guardrails this kind of chatbot would undermine the entire pedagogical architecture. The system prompt is engineered to:</p>
+<ul>
+  <li>Ask reflective questions that promote team discussion.</li>
+  <li>Provide language support only (vocabulary, grammar, register).</li>
+  <li>Offer encouragement and emotional support.</li>
+  <li>Suggest which team role might address a question.</li>
+  <li>Model professional English.</li>
+</ul>
+<p>Mr Compass <strong>cannot</strong> give content answers, evaluate decisions, reveal earned-only information, predict consequences, or resolve ethical dilemmas. When asked for any of those, it redirects: <em>"That's something your team needs to work through together. What does your Ethics Officer think?"</em></p>
+
+
+<div class="screenshot">
+  <span class="screenshot-tag">Mr Compass conversation panel</span>
+  <div class="screenshot-cap">Three-message exchange: a learner asks for the answer; Mr Compass redirects to the team's Ethics Officer; learner reformulates as a language question; Mr Compass coaches a register shift.</div>
+  <div class="screenshot-spec">futureproof.yungie.one/mission/compass · capture date TBD</div>
+</div>
+
+
+<div class="callout crimson">
+  <span class="callout-h">Quota</span>
+  Mr Compass enforces ~10 messages per mission per learner. Unlimited use would degrade productive struggle. Language support is always free; strategic questions cost Insight Tokens (Expert Consultant, 15 tokens).
+</div>
+
+<h2 class="sec">AI Judges · three formative evaluators</h2>
+<p>Each decision a learner submits during a mission is scored by three AI Judges working from the Rubric B system prompt. The Judges score per stage, per criterion, with <strong>1 · 3 · 5</strong> bands. Every return must include a specific, actionable <code>growthEdge</code> — a null fails validation and the call retries.</p>
+
+<p>The three Judges differ slightly in instruction-following: one is calibrated stricter on factual grounding, one on language quality, one on ethical reasoning. The engine composes the mission pass-threshold from their combined output. Teacher audit on random-sample basis triggers prompt revision if drift exceeds 0.5 score-points.</p>
+
+
+<div class="screenshot">
+  <span class="screenshot-tag">AI Judge response card · Final Task screen</span>
+  <div class="screenshot-cap">Three Judge avatars with each Judge's score across the five stages, the composite score, the token delta, and the mandatory growthEdge — a specific actionable next step.</div>
+  <div class="screenshot-spec">futureproof.yungie.one/final-task · capture date TBD</div>
+</div>
+
+
+<h2 class="sec">Insight Tokens · the spendable process reward</h2>
+<p>Insight Tokens are awarded for in-mission decisions and spent on scaffolding tools. Critically, <strong>tokens cannot buy a Keystone</strong> — that separation protects the productive struggle. Tokens spend on:</p>
+
+<table class="data">
+  <thead><tr><th>Tool</th><th>Cost</th><th>Effect</th></tr></thead>
+  <tbody>
+    <tr><td class="k">Expert Consultant</td><td>15 ◆</td><td>One strategic AI question per mission</td></tr>
+    <tr><td class="k">Language Coach Session</td><td>10 ◆</td><td>Detailed AI feedback on a draft</td></tr>
+    <tr><td class="k">Hint Reveal</td><td>5 ◆</td><td>Unlock one hidden data point</td></tr>
+    <tr><td class="k">Decision Replay</td><td>25 ◆</td><td>Redo one decision point</td></tr>
+    <tr><td class="k">Pronunciation Drill</td><td>10 ◆</td><td>AI-guided pronunciation practice</td></tr>
+    <tr><td class="k">Premium Studio Template</td><td>20 ◆</td><td>Upgraded Voice for Change layout</td></tr>
+  </tbody>
+</table>
+
+<h2 class="sec">Voice for Change Studio · the capstone</h2>
+<p>See Chapter 9 for the full treatment.</p>
+
+<h2 class="sec">Hall of Voices · the Community of Practice</h2>
+<p>A public gallery of curated capstones, governed by explicit, withdrawable consent. Designed in the Lave &amp; Wenger Community-of-Practice tradition: learners enter as <em>peripheral participants</em> (viewing others' work) and graduate to <em>full participants</em> (their own work featured). Curation respects PDPA at every step — withdrawal of consent removes the work within 7 days.</p>
+</div>
+<div class="chapter">
+<section class="chapter-opener">
+  <div class="chapter-num">CHAPTER 09</div>
+  <h1 class="chapter-title">The Voice for Change capstone</h1>
+  <div class="chapter-title-th">ภารกิจปิดท้าย Voice for Change</div>
+  <div class="chapter-lede">Having walked all six frontlines, the learner proposes one concrete action to a real Thai audience. The capstone is multimodal, the audience is real, and the grader is human.</div>
+</section>
+
+<h2 class="sec">The prompt</h2>
+<p>The Voice for Change prompt is constant across all learners:</p>
+<div class="callout">
+  <em>Having walked all six frontlines, propose one concrete action for a Thai community — addressed to a real audience, not the teacher.</em>
+</div>
+
+<h2 class="sec">Three submission lanes (CAST UDL)</h2>
+<p>CAST UDL Guideline 5 (Multiple Means of Action and Expression) is implemented as three submission lanes. The lane is a means of expression — <strong>it never changes the bar</strong>:</p>
+<ol>
+  <li><strong>Record live</strong> — in-browser, 60–180 s, unlimited re-record.</li>
+  <li><strong>Upload</strong> — a prepared audio or short video file.</li>
+  <li><strong>Create with Canva</strong> — opens a template in a new tab (never embedded), exported and re-uploaded.</li>
+</ol>
+
+
+<div class="screenshot">
+  <span class="screenshot-tag">Voice for Change Studio · lane selector</span>
+  <div class="screenshot-cap">Three large lane cards (Record / Upload / Canva); a hover state explains each. Below: the unchanging prompt, and the five reusable evidence commitments carried from each mission's DEBRIEF.</div>
+  <div class="screenshot-spec">futureproof.yungie.one/final-task · capture date TBD</div>
+</div>
+
+
+<h2 class="sec">Why the audience matters</h2>
+<p>The address is <em>to the audience, not the teacher</em>. A learner addressing the Khlong Toey community leaders writes differently than one addressing the Department of City Planning. Audience adaptation is part of what Rubric A scores under <em>Critical &amp; Ethical Reasoning</em> and <em>Craft of the Chosen Medium</em>.</p>
+
+<h2 class="sec">The evidence commitment</h2>
+<p>At each mission's DEBRIEF the learner commits to a specific piece of evidence they will carry into the capstone. The Voice for Change either <strong>uses</strong> that evidence or argues explicitly why it no longer holds. Rubric A's Dimension 4 (Synthesis &amp; Evidence Commitment) scores this.</p>
+
+<h2 class="sec">The teacher grades, not the AI</h2>
+<p>By design, Voice for Change is the one place AI does not score. This is the AI-TPACK boundary made operational: every formative mission was AI-scaffolded for consistency; the summative grade — the one that goes on the transcript — stays human.</p>
+
+<div class="callout judge">
+  <span class="callout-h">For the judge</span>
+  If you take one architectural commitment away from this manual, take this one. The AI scales the journey; the human authorises the verdict. Removing this commitment would not save engineering time — it would unmake the platform.
+</div>
+</div>
+<div class="chapter">
+<section class="chapter-opener">
+  <div class="chapter-num">CHAPTER 10</div>
+  <h1 class="chapter-title">Teacher console &amp; grading workflow</h1>
+  <div class="chapter-title-th">แดชบอร์ดครูและการตรวจคะแนน</div>
+  <div class="chapter-lede">The Admin Command Platform has seven modules. Three you'll touch every week (User Management, Analytics, Moderation); four you'll touch occasionally.</div>
+</section>
+
+<h2 class="sec">Seven modules</h2>
+<table class="data">
+  <thead><tr><th>Module</th><th>Frequency</th><th>What you'll do</th></tr></thead>
+  <tbody>
+    <tr><td class="k">User Management</td><td>Weekly</td><td>Onboard a class, manage teams, reset password, process deletion request.</td></tr>
+    <tr><td class="k">Analytics Dashboard</td><td>Weekly</td><td>Engagement, mission completion, CEFR delta, soft-skills heatmap, decision-pattern analysis.</td></tr>
+    <tr><td class="k">Moderation</td><td>Weekly</td><td>Review flagged AI judgments, replay against rubric, override if warranted.</td></tr>
+    <tr><td class="k">Mission Architect</td><td>Per term</td><td>Add or edit scenarios for special cohorts. Risky during a live cohort — preview required.</td></tr>
+    <tr><td class="k">PDPA Center</td><td>Per term</td><td>Consent audit, data-subject access requests, audit log review.</td></tr>
+    <tr><td class="k">System Configuration</td><td>Per term</td><td>Model selection, difficulty parameters, feature flags.</td></tr>
+    <tr><td class="k">Hall of Voices Curator</td><td>End of term</td><td>Review consenting submissions and feature the strongest publicly.</td></tr>
+  </tbody>
+</table>
+
+
+<div class="screenshot">
+  <span class="screenshot-tag">Admin Dashboard · home</span>
+  <div class="screenshot-cap">Top stat tiles: active learners, missions cleared this week, AI Judge load, Hall of Voices submissions pending review. Left sidebar: the seven modules.</div>
+  <div class="screenshot-spec">futureproof.yungie.one/admin · capture date TBD</div>
+</div>
+
+
+<h2 class="sec">Grading the Voice for Change with Rubric A</h2>
+<p>Rubric A is the rubric your transcript grade depends on. The workflow:</p>
+<ol>
+  <li>Open the submission in Admin → Hall of Voices Curator → Pending.</li>
+  <li>Play the submission once end-to-end without scoring. Form an impression.</li>
+  <li>Score the five dimensions in the embedded scoring panel: Language Proficiency · Critical &amp; Ethical Reasoning · Craft · Synthesis &amp; Evidence Commitment · AI Collaboration Ethics.</li>
+  <li>Add a one-paragraph qualitative comment.</li>
+  <li>Save. The dashboard computes the composite and applies suggested band thresholds (38–45 A; 30–37 B; 22–29 C; ≤21 R&amp;R).</li>
+  <li>Decide independently of the AI Judges. Their scores are advisory.</li>
+</ol>
+
+<h2 class="sec">Suggested grade weighting</h2>
+<div class="kv">
+  <div class="kv-k">Voice for Change · Rubric A</div><div class="kv-v">50%</div>
+  <div class="kv-k">Language growth · Rubric C</div><div class="kv-v">20%</div>
+  <div class="kv-k">Soft skills · Rubric D</div><div class="kv-v">20%</div>
+  <div class="kv-k">Mission decision aggregate · Rubric B audit</div><div class="kv-v">10%</div>
+</div>
+<p>You may re-weight on your syllabus. The Keystones are a <em>gate</em>, not a grade — earning six unlocks the capstone; they are never averaged in.</p>
+
+<h2 class="sec">Auditing AI Judge scores</h2>
+<p>Random-sample 5% of AI Judge decisions across each cohort. Open the decision in Moderation, read the rubric criterion the AI scored against, and compare to what you would have scored. If you disagree, flag the decision; a daily report aggregates flags. Drift > 0.5 score-points on any criterion triggers a system-prompt revision in the next platform release.</p>
+</div>
+<div class="chapter">
+<section class="chapter-opener">
+  <div class="chapter-num">CHAPTER 11</div>
+  <h1 class="chapter-title">Rubrics A · B · C · D at a glance</h1>
+  <div class="chapter-title-th">สรุปรูบริก A · B · C · D</div>
+  <div class="chapter-lede">Four rubrics. Each has its own dedicated PDF in the submission package. This chapter is the at-a-glance reference card — read alongside the PDFs, not in place of them.</div>
+</section>
+
+<h2 class="sec">The four-tier judging system</h2>
+<p>FUTUREPROOF uses a four-tier hybrid judging architecture. Each tier has a specific job; together they cover formative scale, peer metacognition, summative authority, and authentic audience.</p>
+
+<table class="data">
+  <thead><tr><th>Tier</th><th>Judge</th><th>Job</th><th>Rubric</th><th>When</th></tr></thead>
+  <tbody>
+    <tr><td class="k">Tier 1</td><td>AI Judges</td><td>Real-time formative evaluation</td><td>B</td><td>Every decision</td></tr>
+    <tr><td class="k">Tier 2</td><td>Peer Judges</td><td>Cross-team rubric review</td><td>D</td><td>After a passed mission</td></tr>
+    <tr><td class="k">Tier 3</td><td>Teacher Judges</td><td>Holistic, summative, authoritative</td><td>A · C · D</td><td>Final capstone grading</td></tr>
+    <tr><td class="k">Tier 4</td><td>External Judges</td><td>Authentic audience recognition</td><td>—</td><td>Pitch Showcase event</td></tr>
+  </tbody>
+</table>
+
+<h2 class="sec">Rubric reference</h2>
+
+<div class="kv">
+  <div class="kv-k">Rubric A</div>
+  <div class="kv-v"><strong>Voice for Change — Holistic Evaluation</strong>. Teacher-graded summative. Five dimensions × 1.0/0.5 weighting · max 45 points · band thresholds 38/30/22.</div>
+
+  <div class="kv-k">Rubric B</div>
+  <div class="kv-v"><strong>Mission Decision Quality — AI Judge Logic</strong>. AI-graded formative. Five stages × 1·3·5 per criterion · Insight Token band −10 … +25 · composite passes Keystone gate.</div>
+
+  <div class="kv-k">Rubric C</div>
+  <div class="kv-v"><strong>CEFR-Aligned Language Development (Pre/Post)</strong>. Course-level. Five dimensions × CEFR half-band increments · composite growth ≥ 4 half-bands is the design target · tier-fairness rule applied.</div>
+
+  <div class="kv-k">Rubric D</div>
+  <div class="kv-v"><strong>Soft Skills Demonstration</strong>. Teacher + peer. Five dimensions × 1·4·6 · max 30 · culturally-blind descriptors · "insufficient evidence" allowed.</div>
+</div>
+
+<div class="callout">
+  <span class="callout-h">Cross-reference</span>
+  The four standalone Rubric PDFs are in the submission package as <code>rubric-a-voice-for-change.pdf</code>, <code>rubric-b-mission-decision.pdf</code>, <code>rubric-c-cefr-language.pdf</code>, <code>rubric-d-soft-skills.pdf</code>. Each carries a Purpose · Objectives · Audience · Pedagogical Anchors cover page and the full criterion tables.
+</div>
+</div>
+<div class="chapter">
+<section class="chapter-opener">
+  <div class="chapter-num">CHAPTER 12</div>
+  <h1 class="chapter-title">PDPA + UDL compliance</h1>
+  <div class="chapter-title-th">การปฏิบัติตาม PDPA และ UDL</div>
+  <div class="chapter-lede">Two compliance regimes are built into the platform's foundations, not retrofitted. Each contributes architecture, not policy paperwork.</div>
+</section>
+
+<h2 class="sec">PDPA · Thailand's Personal Data Protection Act</h2>
+<ul>
+  <li><strong>Bilingual consent at sign-up</strong> — Thai + English, granular flags (basic profile · photo · voice · decisions · public showcase).</li>
+  <li><strong>Hard-gated readiness check</strong> — the diagnostic does not run and writes nothing until consent is recorded.</li>
+  <li><strong>My Data</strong> screen — every learner can export, correct, or delete their data at any time, self-service.</li>
+  <li><strong>90-day auto-deletion</strong> — personal data tombstones after 90 days post-course; pseudonymized analytics survive for research.</li>
+  <li><strong>Audit logs</strong> — every admin access to personal data is logged with admin ID, timestamp, and reason.</li>
+  <li><strong>Encryption</strong> — in transit (TLS 1.3) and at rest (Firebase default encryption).</li>
+  <li><strong>DPIA</strong> — full Data Protection Impact Assessment is part of the submission package (<code>docs/dpia.md</code>).</li>
+</ul>
+
+<h2 class="sec">UDL · CAST Universal Design for Learning 3.0</h2>
+<p>UDL is implemented across the three CAST principles:</p>
+<table class="data">
+  <thead><tr><th>Principle</th><th>Implementation in FUTUREPROOF</th></tr></thead>
+  <tbody>
+    <tr><td class="k">Multiple Means of Engagement</td><td>Six SDG choice points · token economy · Hall of Voices public recognition · learner-paced missions.</td></tr>
+    <tr><td class="k">Multiple Means of Representation</td><td>CEFR-tiered dossiers (3 tiers) · audio + captions · stakeholder dispatch videos · pronunciation speakers on glossed terms · dyslexia-friendly font option.</td></tr>
+    <tr><td class="k">Multiple Means of Action / Expression</td><td>Voice for Change three lanes (live audio · upload · Canva) · Cognitive Pace Mode that removes time pressure · keyboard navigation · screen-reader ARIA labels.</td></tr>
+  </tbody>
+</table>
+
+<div class="callout">
+  <span class="callout-h">Mobile-first</span>
+  All breakpoints from 360 px upward. PWA-installable. Touch-optimised. Tested on actual mobile devices, not just desktop browser tools.
+</div>
+</div>
+<div class="chapter">
+<section class="chapter-opener">
+  <div class="chapter-num">CHAPTER 13</div>
+  <h1 class="chapter-title">Resources, contact, &amp; FAQ</h1>
+  <div class="chapter-title-th">แหล่งข้อมูล ติดต่อ และคำถามที่พบบ่อย</div>
+  <div class="chapter-lede">Where to find more, who to ask, and the answers to the questions you'll have first.</div>
+</section>
+
+<h2 class="sec">Where to find things</h2>
+<table class="data">
+  <thead><tr><th>Resource</th><th>Location</th></tr></thead>
+  <tbody>
+    <tr><td class="k">Submission Report (v2)</td><td><code>docs/SUBMISSION-REPORT-v2.md</code></td></tr>
+    <tr><td class="k">Reconstruction Master</td><td><code>docs/RECONSTRUCTION-MASTER.md</code></td></tr>
+    <tr><td class="k">Data Protection Impact Assessment</td><td><code>docs/dpia.md</code></td></tr>
+    <tr><td class="k">Rubric Suite (A · B · C · D)</td><td><code>docs/rubrics/</code></td></tr>
+    <tr><td class="k">Innovation Concept Document</td><td><code>docs/innovation-concept.md</code></td></tr>
+    <tr><td class="k">Theoretical Grounding Map</td><td><code>docs/theoretical-grounding.md</code></td></tr>
+    <tr><td class="k">Firebase schema + security rules</td><td><code>docs/firebase-schema.md</code> · <code>docs/firebase-security-rules.md</code></td></tr>
+    <tr><td class="k">Asset-production prompts</td><td><code>scenarios/PRODUCTION-PROMPTS-MASTER-v2.md</code></td></tr>
+    <tr><td class="k">Demo script &amp; Q&amp;A red-team</td><td><code>docs/DEMO-AND-QA-REDTEAM.md</code></td></tr>
+    <tr><td class="k">Micro-pilot kit</td><td><code>docs/MICRO-PILOT-KIT.md</code></td></tr>
+  </tbody>
+</table>
+
+<h2 class="sec">Frequently asked questions</h2>
+
+<h3 class="sub">For teachers</h3>
+<div class="kv">
+  <div class="kv-k">Can I run with fewer than 6 missions?</div>
+  <div class="kv-v">Yes. The capstone unlock requires 6 Keystones, but a teacher override (logged, audited) can grant a Keystone for assessed offline work. Three missions + three offline-equivalents is supported.</div>
+
+  <div class="kv-k">A learner can't finish a mission. What do I do?</div>
+  <div class="kv-v">First option: have them replay DECIDE / ACT (Decision Replay costs 25 tokens, or you can grant a free retry). Second option: teacher override to grant the Keystone for offline-equivalent work. No learner is dead-ended.</div>
+
+  <div class="kv-k">Do I need to teach the SDG content first?</div>
+  <div class="kv-v">No. The dossier and stakeholder dispatch videos teach the content as part of the mission. Your role is to coach the <em>reasoning</em>, not the facts.</div>
+
+  <div class="kv-k">What if Mr Compass gives a wrong answer?</div>
+  <div class="kv-v">Mr Compass is designed not to give answers at all. If you see one, flag it in Moderation — the system prompt will be revised.</div>
+</div>
+
+<h3 class="sub">For judges</h3>
+<div class="kv">
+  <div class="kv-k">How do I verify a theoretical claim?</div>
+  <div class="kv-v">Every claim in Chapter 4 maps to a named feature. Open the platform, open the feature, and the claim is verifiable in under a minute.</div>
+
+  <div class="kv-k">What's the AI–human boundary?</div>
+  <div class="kv-v">AI handles formative scale (Rubric B, Mr Compass language coaching, dossier tiering). Human handles summative authority (Rubric A capstone grade) and cultural authenticity (scenario vetting). See Chapter 3 §3.2.</div>
+
+  <div class="kv-k">Is the platform original?</div>
+  <div class="kv-v">All scenarios, the 5-stage arc, the four-tier judging architecture, Mr Compass guardrails, and the Hall of Voices are original to FUTUREPROOF. The pedagogical frameworks are cited; their operational application is original.</div>
+
+  <div class="kv-k">What's the path to 17 SDGs?</div>
+  <div class="kv-v">Each additional region requires ~ 80 hours of scenario authoring (dossier × 3 tiers, four dispatch videos, AI Judge prompt tuning). The platform engine generalises; the content is per-region. See <code>SUBMISSION-REPORT-v2.md</code> §expansion.</div>
+</div>
+
+<h2 class="sec">Contact</h2>
+<div class="callout">
+  <span class="callout-h">Author</span>
+  <strong>Dr. Payungsak Kaenchan</strong><br/>
+  Faculty of Liberal Arts · Mahidol University &amp; Thammasat University<br/>
+  Email: payungsak.kae@mahidol.ac.th · payungsak.kaenchan@gmail.com<br/>
+  Phone: 062-147-9555<br/>
+  Platform: futureproof.yungie.one
+</div>
+
+<hr class="div"/>
+<p style="text-align:center;font-family:'JetBrains Mono',monospace;font-size:8pt;letter-spacing:0.2em;color:#8B8B92;text-transform:uppercase;margin-top:24pt;">— End of Manual —</p>
+</div></body>
+</html>

@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Rubric A — Voice for Change Holistic</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@page {
+  size: A4;
+  margin: 0.75in 0.65in 0.85in 0.65in;
+  @bottom-center {
+    content: counter(page) " / " counter(pages);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8pt;
+    color: #8B8B92;
+    letter-spacing: 0.1em;
+  }
+  @top-right {
+    content: "FUTUREPROOF · SDG MISSION JOURNEY";
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 7pt;
+    color: #C9A961;
+    letter-spacing: 0.18em;
+  }
+}
+
+@page:first {
+  margin: 0;
+  @bottom-center { content: ""; }
+  @top-right { content: ""; }
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'DM Sans', 'IBM Plex Sans Thai', sans-serif;
+  color: #0A0A0B;
+  background: #FDFBF6;
+  font-size: 10.5pt;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── COVER ─────────────────────────────────────────────────────────── */
+.cover {
+  page-break-after: always;
+  position: relative;
+  min-height: 11.69in;
+  padding: 0.75in 0.85in 0.85in;
+  background:
+    linear-gradient(135deg, rgba(201,169,97,0.04) 0%, rgba(253,251,246,0) 50%),
+    #FDFBF6;
+}
+.cover-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-bottom: 0.5in;
+  border-bottom: 1px solid #C9A961;
+}
+.cover-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8pt;
+  letter-spacing: 0.22em;
+  color: #C9A961;
+  text-transform: uppercase;
+}
+.cover-version {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8pt;
+  letter-spacing: 0.18em;
+  color: #8B8B92;
+}
+
+.cover-letter-block {
+  margin: 0.6in 0 0.25in;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5in;
+}
+.cover-letter {
+  font-family: 'Cinzel', serif;
+  font-size: 96pt;
+  font-weight: 500;
+  line-height: 0.9;
+  color: #0A0A0B;
+  letter-spacing: -0.02em;
+  position: relative;
+}
+.cover-letter::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -8pt;
+  width: 1.2in;
+  height: 2px;
+  background: #C9A961;
+}
+.cover-rubric-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7.5pt;
+  letter-spacing: 0.18em;
+  color: #8B8B92;
+  text-transform: uppercase;
+  padding-top: 0.5in;
+}
+
+.cover-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  font-size: 36pt;
+  line-height: 1.05;
+  color: #0A0A0B;
+  margin: 0.05in 0 0.05in;
+  letter-spacing: -0.005em;
+}
+.cover-subtitle {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-weight: 300;
+  font-size: 16pt;
+  line-height: 1.4;
+  color: #42526E;
+  margin-bottom: 0.5in;
+}
+
+.cover-block {
+  margin: 0.25in 0;
+  padding-left: 14pt;
+  border-left: 2px solid #C9A961;
+}
+.cover-block.crimson {
+  border-left-color: #7B1B1B;
+}
+.cover-block-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8pt;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #7B1B1B;
+  margin-bottom: 6pt;
+}
+.cover-block.gold .cover-block-label { color: #8A6D3F; }
+.cover-block-body {
+  font-size: 10.5pt;
+  line-height: 1.55;
+  color: #1F1F23;
+}
+.cover-block-body ul {
+  margin: 0;
+  padding-left: 14pt;
+}
+.cover-block-body li {
+  margin-bottom: 4pt;
+}
+.cover-block-body strong {
+  font-weight: 600;
+  color: #0A0A0B;
+}
+
+.cover-footer {
+  position: absolute;
+  bottom: 0.6in;
+  left: 0.85in;
+  right: 0.85in;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 18pt;
+  border-top: 1px solid rgba(201,169,97,0.4);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7.5pt;
+  letter-spacing: 0.18em;
+  color: #8B8B92;
+  text-transform: uppercase;
+}
+.cover-corner {
+  position: absolute;
+  width: 0.4in;
+  height: 0.4in;
+  border-color: #C9A961;
+  border-style: solid;
+}
+.cover-corner.tl { top: 0.35in; left: 0.35in; border-width: 1px 0 0 1px; }
+.cover-corner.tr { top: 0.35in; right: 0.35in; border-width: 1px 1px 0 0; }
+.cover-corner.bl { bottom: 0.35in; left: 0.35in; border-width: 0 0 1px 1px; }
+.cover-corner.br { bottom: 0.35in; right: 0.35in; border-width: 0 1px 1px 0; }
+
+/* ── BODY PAGES ───────────────────────────────────────────────────── */
+.section-h {
+  font-family: 'Cinzel', serif;
+  font-weight: 500;
+  font-size: 11pt;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #C9A961;
+  border-top: 1px solid rgba(201,169,97,0.4);
+  border-bottom: 1px solid rgba(201,169,97,0.4);
+  padding: 6pt 0;
+  margin: 18pt 0 12pt;
+  page-break-after: avoid;
+}
+
+.criterion {
+  margin-bottom: 16pt;
+  page-break-inside: avoid;
+}
+.criterion-h {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-size: 16pt;
+  color: #0A0A0B;
+  margin: 4pt 0 4pt;
+  line-height: 1.2;
+}
+.criterion-h .stage-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8pt;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: #C9A961;
+  text-transform: uppercase;
+  margin-right: 8pt;
+}
+.criterion-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8pt;
+  letter-spacing: 0.12em;
+  color: #8B8B92;
+  text-transform: uppercase;
+  margin-bottom: 6pt;
+}
+.criterion-blurb {
+  font-style: italic;
+  color: #42526E;
+  font-size: 10pt;
+  margin: 4pt 0 6pt;
+}
+
+table.rubric {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 9.5pt;
+  margin: 6pt 0;
+  page-break-inside: avoid;
+}
+table.rubric th, table.rubric td {
+  border: 1px solid rgba(31,31,35,0.18);
+  padding: 6pt 8pt;
+  text-align: left;
+  vertical-align: top;
+  line-height: 1.45;
+}
+table.rubric th {
+  background: #F4F1EA;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8pt;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #6E5320;
+  text-align: center;
+  width: 18%;
+}
+table.rubric th.crit { text-align: left; width: 22%; color: #0A0A0B; }
+table.rubric td.score { font-weight: 600; text-align: center; color: #8A6D3F; font-family: 'JetBrains Mono', monospace; }
+
+.callout {
+  background: rgba(201,169,97,0.07);
+  border-left: 2px solid #C9A961;
+  padding: 8pt 12pt;
+  margin: 8pt 0;
+  font-size: 9.5pt;
+  line-height: 1.5;
+  color: #1F1F23;
+}
+.callout strong {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8pt;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #8A6D3F;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 3pt;
+}
+
+.note-box {
+  background: rgba(123,27,27,0.04);
+  border: 1px solid rgba(123,27,27,0.25);
+  padding: 10pt 14pt;
+  margin: 12pt 0;
+  font-size: 9.5pt;
+  line-height: 1.55;
+  page-break-inside: avoid;
+}
+.note-box-h {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8pt;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #7B1B1B;
+  font-weight: 500;
+  margin-bottom: 4pt;
+}
+
+code, pre {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8.5pt;
+  background: #F4F1EA;
+  color: #1F1F23;
+  border-radius: 2px;
+}
+code { padding: 1pt 4pt; }
+pre {
+  padding: 10pt 12pt;
+  border: 1px solid rgba(31,31,35,0.1);
+  white-space: pre-wrap;
+  page-break-inside: avoid;
+}
+
+p { margin: 5pt 0; }
+ul, ol { margin: 5pt 0; padding-left: 18pt; }
+li { margin: 2pt 0; }
+
+.divider {
+  border: 0;
+  border-top: 1px solid rgba(31,31,35,0.12);
+  margin: 18pt 0;
+}
+
+/* ── PAGE-HEADER STRIP for body pages ─────────────────────────────── */
+.page-strip {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7.5pt;
+  letter-spacing: 0.18em;
+  color: #8A6D3F;
+  text-transform: uppercase;
+  padding-bottom: 6pt;
+  margin-bottom: 12pt;
+  border-bottom: 1px solid rgba(201,169,97,0.3);
+}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="cover-corner tl"></div>
+  <div class="cover-corner tr"></div>
+  <div class="cover-corner bl"></div>
+  <div class="cover-corner br"></div>
+
+  <div class="cover-header">
+    <div class="cover-tag">FUTUREPROOF · SDG Mission Journey</div>
+    <div class="cover-version">v2.0 · MAY 2026</div>
+  </div>
+
+  <div class="cover-letter-block">
+    <div class="cover-letter">A</div>
+    <div class="cover-rubric-meta">
+      [ RUBRIC<br/>&nbsp;&nbsp;A ]<br/><br/>
+      ASSESSMENT<br/>INSTRUMENT
+    </div>
+  </div>
+
+  <div class="cover-title">Voice for Change — Holistic Evaluation</div>
+  <div class="cover-subtitle">รูบริก A · การประเมินผลงาน Voice for Change แบบองค์รวม</div>
+
+  <div class="cover-block crimson">
+    <div class="cover-block-label">Purpose · วัตถุประสงค์</div>
+    <div class="cover-block-body">Provide the final, official <strong>summative</strong> grade for the learner's capstone artifact — the <em>Voice for Change</em> proposal — independent of which expression lane (live audio, uploaded audio/video, or Canva visual) the learner selected. Grade the <strong>argument and its expression</strong>, not the production polish of the lane. This rubric is the rubric the teacher uses; the AI does not grade the capstone — that boundary is the AI-TPACK principle made operational.</div>
+  </div>
+
+  <div class="cover-block gold">
+    <div class="cover-block-label">Objectives · เป้าหมายเฉพาะ</div>
+    <div class="cover-block-body">
+      <ul><li>Measure language proficiency across academic, persuasive, and evaluative registers (C1 target for advanced LALA109 learners).</li>
+<li>Surface critical and ethical reasoning quality — especially how the learner engages the strongest counter-position.</li>
+<li>Assess craft of the chosen medium without privileging expensive production over a clearer cheaper one.</li>
+<li>Verify synthesis of the <strong>evidence the learner committed to in-mission</strong> (the q6 commitment carried forward).</li>
+<li>Document AI-collaboration ethics — what the learner did with AI vs. what they own as their own judgement.</li></ul>
+    </div>
+  </div>
+
+  
+      <div class="cover-block gold">
+        <div class="cover-block-label">Applies To · ขอบเขตการใช้</div>
+        <div class="cover-block-body">The learner's <em>Voice for Change</em> proposal — one concrete ask addressed to a real Thai community or institution — submitted in any one of three lanes (live audio recording · uploaded audio/video · Canva visual exported and uploaded). The lane is a <em>means of expression</em> (CAST UDL); it never changes the bar.</div>
+      </div>
+    
+  
+      <div class="cover-block gold">
+        <div class="cover-block-label">Scoring Scale · มาตราการให้คะแนน</div>
+        <div class="cover-block-body">Five dimensions, each scored 1 (Emerging) · 4 (Developing) · 7 (Proficient) · 10 (Distinguished). Dimensions 1–4 are weighted × 1.0; dimension 5 (AI Collaboration Ethics) × 0.5. Maximum: 45. Bands: 38–45 = A · 30–37 = B · 22–29 = C · ≤21 = Revise &amp; Resubmit.</div>
+      </div>
+    
+
+  <div class="cover-block gold">
+    <div class="cover-block-label">Used By · ผู้ใช้รูบริก</div>
+    <div class="cover-block-body">Teacher Judges (Tier 3 of the 4-tier hybrid judging system) — the human, summative, official grade. AI Judges produced formative feedback throughout the missions (Rubric B); peer judges scored soft skills (Rubric D); the capstone grade is human-only by design.</div>
+  </div>
+
+  <div class="cover-block gold">
+    <div class="cover-block-label">Pedagogical Anchors · กรอบทฤษฎีที่ใช้</div>
+    <div class="cover-block-body">PICRAT · Creative-Transforms cell · AI-TPACK boundary · CAST UDL 3.0 (multiple means of expression) · Bloom's Revised Taxonomy · Create · Mayer CTML (multimedia integration)</div>
+  </div>
+
+  <div class="cover-footer">
+    <span>Faculty of Liberal Arts · Mahidol University</span>
+    <span>Author: Dr. Payungsak Kaenchan</span>
+  </div>
+</div>
+
+<div class="page-strip">
+  <span>Rubric A · Voice for Change Holistic</span>
+  <span>FUTUREPROOF · SDG MISSION JOURNEY</span>
+</div>
+
+
+<div class="section-h">1 · Language Proficiency Across Registers · ×1.0</div>
+<table class="rubric">
+  <thead><tr><th class="crit">Score</th><th>Descriptor</th></tr></thead>
+  <tbody>
+    <tr><td class="score">10 · Distinguished</td><td>Controls academic, persuasive, and evaluative registers within one coherent piece. Hedging, modality, and metadiscourse used with intent. C1 alignment evident.</td></tr>
+    <tr><td class="score">7 · Proficient</td><td>Generally appropriate register; occasional overreach on persuasion or under-specification on the evidence claim. B2 alignment evident.</td></tr>
+    <tr><td class="score">4 · Developing</td><td>Register slips (the appeal reads academic; the evidence reads conversational). B1 alignment.</td></tr>
+    <tr><td class="score">1 · Emerging</td><td>Register undifferentiated; errors interfere with meaning. A2 or below.</td></tr>
+  </tbody>
+</table>
+<div class="callout"><strong>Look for</strong> Modal verbs in the policy ask; precise citation of the evidence committed in-mission; audience-appropriate affect when addressing the community. <em>Tier-fair grading:</em> judge proficiency against the learner's demonstrated control, not against native-likeness; a Tier-1 reader who argues precisely in plainer language is not penalised for plainness.</div>
+
+<div class="section-h">2 · Critical &amp; Ethical Reasoning · ×1.0</div>
+<table class="rubric">
+  <thead><tr><th class="crit">Score</th><th>Descriptor</th></tr></thead>
+  <tbody>
+    <tr><td class="score">10 · Distinguished</td><td>Defends a clear judgement that engages — not avoids — the strongest counter-position from the missions. The trade-off is named, not smoothed over. Reasoning chain explicit.</td></tr>
+    <tr><td class="score">7 · Proficient</td><td>Position clear; the counter-position is acknowledged but treated thinly.</td></tr>
+    <tr><td class="score">4 · Developing</td><td>Position stated, not defended; counter-position strawmanned or absent.</td></tr>
+    <tr><td class="score">1 · Emerging</td><td>No discernible ethical reasoning; the conclusion is asserted.</td></tr>
+  </tbody>
+</table>
+<div class="callout"><strong>Look for</strong> "however," "even so," "the strongest case against this is…"; explicit handling of the regional trade-off the learner walked (water vs. next generation, clean air vs. livelihood, flood defence vs. tenure, etc.).</div>
+
+<div class="section-h">3 · Craft of the Chosen Medium · ×1.0</div>
+<table class="rubric">
+  <thead><tr><th class="crit">Score</th><th>Descriptor</th></tr></thead>
+  <tbody>
+    <tr><td class="score">10 · Distinguished</td><td>Delivery and structure reinforce the argument: paced narration · clean visual hierarchy · coherent edit — the medium serves the message as one artifact.</td></tr>
+    <tr><td class="score">7 · Proficient</td><td>Structure mostly clear; minor issues (uneven pacing, a redundant slide, a soft open).</td></tr>
+    <tr><td class="score">4 · Developing</td><td>Structure uneven; the audience has to work to follow the argument.</td></tr>
+    <tr><td class="score">1 · Emerging</td><td>No discernible craft judgement in the chosen lane.</td></tr>
+  </tbody>
+</table>
+<div class="callout"><strong>Lane-specific cues</strong> <em>Audio</em> — pacing, emphasis, audible structure. <em>Video</em> — shot/edit clarity, sound. <em>Canva visual</em> — hierarchy, restraint, type scale. Do <strong>not</strong> reward expensive production over a clearer cheaper one; a phone recording can score 10.</div>
+
+<div class="section-h">4 · Synthesis &amp; the Evidence Commitment · ×1.0</div>
+<table class="rubric">
+  <thead><tr><th class="crit">Score</th><th>Descriptor</th></tr></thead>
+  <tbody>
+    <tr><td class="score">10 · Distinguished</td><td>The parts are inseparable; the proposal carries the <strong>evidence the learner committed to in a mission</strong> (the q6 commitment) — or argues explicitly why it no longer holds. The address to the audience resolves, not repeats.</td></tr>
+    <tr><td class="score">7 · Proficient</td><td>Parts relate, but one is decorative; the evidence commitment is referenced but thinly used.</td></tr>
+    <tr><td class="score">4 · Developing</td><td>Parts sequenced rather than synthesised; the prior evidence commitment is absent.</td></tr>
+    <tr><td class="score">1 · Emerging</td><td>Parts do not connect.</td></tr>
+  </tbody>
+</table>
+<div class="callout"><strong>Look for</strong> Does the proposed action <em>follow from</em> the crisis and the evidence, or just sit next to them? Cross-check the learner's recorded evidence-commitment surfaced on the Final Task screen.</div>
+
+<div class="section-h">5 · Documented AI Collaboration &amp; Authorship Ethics · ×0.5</div>
+<table class="rubric">
+  <thead><tr><th class="crit">Score</th><th>Descriptor</th></tr></thead>
+  <tbody>
+    <tr><td class="score">10 · Distinguished</td><td>AI use is named, contextualised, and reflected on; the learner states which judgements stayed their own.</td></tr>
+    <tr><td class="score">7 · Proficient</td><td>AI use named; reflection generic.</td></tr>
+    <tr><td class="score">4 · Developing</td><td>AI use acknowledged only in passing.</td></tr>
+    <tr><td class="score">1 · Emerging</td><td>AI use not acknowledged.</td></tr>
+  </tbody>
+</table>
+<div class="callout"><strong>Look for</strong> The learner's stated boundary between AI-assisted language and learner-owned judgement — the same boundary the platform models.</div>
+
+<div class="note-box">
+  <div class="note-box-h">Notes for the Grader</div>
+  Score on evidence in the submission, not impression of effort or lane cost. The diagnostic reading tier is a <em>fairness lens for dimension 1 only</em> — it never lowers the bar for reasoning, synthesis, or ethics. A learner who reached the capstone has six Keystones; this grade evaluates the capstone itself, independently.
+</div>
+
+</body>
+</html>

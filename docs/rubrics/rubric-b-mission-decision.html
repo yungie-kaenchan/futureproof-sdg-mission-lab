@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Rubric B — Mission Decision Quality</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@page {
+  size: A4;
+  margin: 0.75in 0.65in 0.85in 0.65in;
+  @bottom-center {
+    content: counter(page) " / " counter(pages);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8pt;
+    color: #8B8B92;
+    letter-spacing: 0.1em;
+  }
+  @top-right {
+    content: "FUTUREPROOF · SDG MISSION JOURNEY";
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 7pt;
+    color: #C9A961;
+    letter-spacing: 0.18em;
+  }
+}
+
+@page:first {
+  margin: 0;
+  @bottom-center { content: ""; }
+  @top-right { content: ""; }
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'DM Sans', 'IBM Plex Sans Thai', sans-serif;
+  color: #0A0A0B;
+  background: #FDFBF6;
+  font-size: 10.5pt;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── COVER ─────────────────────────────────────────────────────────── */
+.cover {
+  page-break-after: always;
+  position: relative;
+  min-height: 11.69in;
+  padding: 0.75in 0.85in 0.85in;
+  background:
+    linear-gradient(135deg, rgba(201,169,97,0.04) 0%, rgba(253,251,246,0) 50%),
+    #FDFBF6;
+}
+.cover-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-bottom: 0.5in;
+  border-bottom: 1px solid #C9A961;
+}
+.cover-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8pt;
+  letter-spacing: 0.22em;
+  color: #C9A961;
+  text-transform: uppercase;
+}
+.cover-version {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8pt;
+  letter-spacing: 0.18em;
+  color: #8B8B92;
+}
+
+.cover-letter-block {
+  margin: 0.6in 0 0.25in;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5in;
+}
+.cover-letter {
+  font-family: 'Cinzel', serif;
+  font-size: 96pt;
+  font-weight: 500;
+  line-height: 0.9;
+  color: #0A0A0B;
+  letter-spacing: -0.02em;
+  position: relative;
+}
+.cover-letter::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -8pt;
+  width: 1.2in;
+  height: 2px;
+  background: #C9A961;
+}
+.cover-rubric-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7.5pt;
+  letter-spacing: 0.18em;
+  color: #8B8B92;
+  text-transform: uppercase;
+  padding-top: 0.5in;
+}
+
+.cover-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  font-size: 36pt;
+  line-height: 1.05;
+  color: #0A0A0B;
+  margin: 0.05in 0 0.05in;
+  letter-spacing: -0.005em;
+}
+.cover-subtitle {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-weight: 300;
+  font-size: 16pt;
+  line-height: 1.4;
+  color: #42526E;
+  margin-bottom: 0.5in;
+}
+
+.cover-block {
+  margin: 0.25in 0;
+  padding-left: 14pt;
+  border-left: 2px solid #C9A961;
+}
+.cover-block.crimson {
+  border-left-color: #7B1B1B;
+}
+.cover-block-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8pt;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #7B1B1B;
+  margin-bottom: 6pt;
+}
+.cover-block.gold .cover-block-label { color: #8A6D3F; }
+.cover-block-body {
+  font-size: 10.5pt;
+  line-height: 1.55;
+  color: #1F1F23;
+}
+.cover-block-body ul {
+  margin: 0;
+  padding-left: 14pt;
+}
+.cover-block-body li {
+  margin-bottom: 4pt;
+}
+.cover-block-body strong {
+  font-weight: 600;
+  color: #0A0A0B;
+}
+
+.cover-footer {
+  position: absolute;
+  bottom: 0.6in;
+  left: 0.85in;
+  right: 0.85in;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 18pt;
+  border-top: 1px solid rgba(201,169,97,0.4);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7.5pt;
+  letter-spacing: 0.18em;
+  color: #8B8B92;
+  text-transform: uppercase;
+}
+.cover-corner {
+  position: absolute;
+  width: 0.4in;
+  height: 0.4in;
+  border-color: #C9A961;
+  border-style: solid;
+}
+.cover-corner.tl { top: 0.35in; left: 0.35in; border-width: 1px 0 0 1px; }
+.cover-corner.tr { top: 0.35in; right: 0.35in; border-width: 1px 1px 0 0; }
+.cover-corner.bl { bottom: 0.35in; left: 0.35in; border-width: 0 0 1px 1px; }
+.cover-corner.br { bottom: 0.35in; right: 0.35in; border-width: 0 1px 1px 0; }
+
+/* ── BODY PAGES ───────────────────────────────────────────────────── */
+.section-h {
+  font-family: 'Cinzel', serif;
+  font-weight: 500;
+  font-size: 11pt;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #C9A961;
+  border-top: 1px solid rgba(201,169,97,0.4);
+  border-bottom: 1px solid rgba(201,169,97,0.4);
+  padding: 6pt 0;
+  margin: 18pt 0 12pt;
+  page-break-after: avoid;
+}
+
+.criterion {
+  margin-bottom: 16pt;
+  page-break-inside: avoid;
+}
+.criterion-h {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-size: 16pt;
+  color: #0A0A0B;
+  margin: 4pt 0 4pt;
+  line-height: 1.2;
+}
+.criterion-h .stage-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8pt;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: #C9A961;
+  text-transform: uppercase;
+  margin-right: 8pt;
+}
+.criterion-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8pt;
+  letter-spacing: 0.12em;
+  color: #8B8B92;
+  text-transform: uppercase;
+  margin-bottom: 6pt;
+}
+.criterion-blurb {
+  font-style: italic;
+  color: #42526E;
+  font-size: 10pt;
+  margin: 4pt 0 6pt;
+}
+
+table.rubric {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 9.5pt;
+  margin: 6pt 0;
+  page-break-inside: avoid;
+}
+table.rubric th, table.rubric td {
+  border: 1px solid rgba(31,31,35,0.18);
+  padding: 6pt 8pt;
+  text-align: left;
+  vertical-align: top;
+  line-height: 1.45;
+}
+table.rubric th {
+  background: #F4F1EA;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8pt;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #6E5320;
+  text-align: center;
+  width: 18%;
+}
+table.rubric th.crit { text-align: left; width: 22%; color: #0A0A0B; }
+table.rubric td.score { font-weight: 600; text-align: center; color: #8A6D3F; font-family: 'JetBrains Mono', monospace; }
+
+.callout {
+  background: rgba(201,169,97,0.07);
+  border-left: 2px solid #C9A961;
+  padding: 8pt 12pt;
+  margin: 8pt 0;
+  font-size: 9.5pt;
+  line-height: 1.5;
+  color: #1F1F23;
+}
+.callout strong {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8pt;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #8A6D3F;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 3pt;
+}
+
+.note-box {
+  background: rgba(123,27,27,0.04);
+  border: 1px solid rgba(123,27,27,0.25);
+  padding: 10pt 14pt;
+  margin: 12pt 0;
+  font-size: 9.5pt;
+  line-height: 1.55;
+  page-break-inside: avoid;
+}
+.note-box-h {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8pt;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #7B1B1B;
+  font-weight: 500;
+  margin-bottom: 4pt;
+}
+
+code, pre {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8.5pt;
+  background: #F4F1EA;
+  color: #1F1F23;
+  border-radius: 2px;
+}
+code { padding: 1pt 4pt; }
+pre {
+  padding: 10pt 12pt;
+  border: 1px solid rgba(31,31,35,0.1);
+  white-space: pre-wrap;
+  page-break-inside: avoid;
+}
+
+p { margin: 5pt 0; }
+ul, ol { margin: 5pt 0; padding-left: 18pt; }
+li { margin: 2pt 0; }
+
+.divider {
+  border: 0;
+  border-top: 1px solid rgba(31,31,35,0.12);
+  margin: 18pt 0;
+}
+
+/* ── PAGE-HEADER STRIP for body pages ─────────────────────────────── */
+.page-strip {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7.5pt;
+  letter-spacing: 0.18em;
+  color: #8A6D3F;
+  text-transform: uppercase;
+  padding-bottom: 6pt;
+  margin-bottom: 12pt;
+  border-bottom: 1px solid rgba(201,169,97,0.3);
+}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="cover-corner tl"></div>
+  <div class="cover-corner tr"></div>
+  <div class="cover-corner bl"></div>
+  <div class="cover-corner br"></div>
+
+  <div class="cover-header">
+    <div class="cover-tag">FUTUREPROOF · SDG Mission Journey</div>
+    <div class="cover-version">v2.0 · MAY 2026</div>
+  </div>
+
+  <div class="cover-letter-block">
+    <div class="cover-letter">B</div>
+    <div class="cover-rubric-meta">
+      [ RUBRIC<br/>&nbsp;&nbsp;B ]<br/><br/>
+      ASSESSMENT<br/>INSTRUMENT
+    </div>
+  </div>
+
+  <div class="cover-title">Mission Decision Quality — AI Judge Logic</div>
+  <div class="cover-subtitle">รูบริก B · คุณภาพการตัดสินใจในภารกิจ (ตรรกะ AI Judge)</div>
+
+  <div class="cover-block crimson">
+    <div class="cover-block-label">Purpose · วัตถุประสงค์</div>
+    <div class="cover-block-body">Make the AI Judges' scoring logic <strong>transparent and auditable</strong> — for teachers, learners, and the competition judges. Every decision a learner submits inside a mission is scored against the criteria in this rubric. The platform's feedback prompts and Insight-Token awards are deterministic functions of these scores.</div>
+  </div>
+
+  <div class="cover-block gold">
+    <div class="cover-block-label">Objectives · เป้าหมายเฉพาะ</div>
+    <div class="cover-block-body">
+      <ul><li>Specify the exact dimensions on which AI Judges score each of the five mission stages (BRIEF → PROBE → DECIDE → ACT → DEBRIEF).</li>
+<li>Anchor every AI prompt to descriptors a teacher could audit by hand on a random-sample basis.</li>
+<li>Document the deliberate confidence-trap at the DECIDE stage and why it is pedagogically defensible.</li>
+<li>Define how stage scores compose into the mission pass-threshold that awards an SDG Keystone (idempotent — keystones cannot be double-counted).</li>
+<li>Specify the formative-feedback contract: every return includes a specific actionable <code>growthEdge</code>; a null fails validation and the call retries — the journey never blocks.</li></ul>
+    </div>
+  </div>
+
+  
+      <div class="cover-block gold">
+        <div class="cover-block-label">Applies To · ขอบเขตการใช้</div>
+        <div class="cover-block-body">Each decision logged during a mission. Six regional missions (EEC fringe health · Mae Sot education · Khon Kaen water · Bangkok cities · Chiang Mai climate · Andaman marine) all run the same 5-stage arc. The AI Judge scores per stage; the engine composes the mission pass-threshold from those scores.</div>
+      </div>
+    
+  
+      <div class="cover-block gold">
+        <div class="cover-block-label">Scoring Scale · มาตราการให้คะแนน</div>
+        <div class="cover-block-body">Each criterion 1 · 3 · 5. Insight Tokens awarded −10 … +25 from the integrated score (tokens are a process reward — they never buy a Keystone). Pass threshold: engine composite ≥ 0.60 OR net-token bar ≥ 8 ◆. Clearing the bar awards the SDG Keystone for that region (idempotent).</div>
+      </div>
+    
+
+  <div class="cover-block gold">
+    <div class="cover-block-label">Used By · ผู้ใช้รูบริก</div>
+    <div class="cover-block-body">AI Judges (Tier 1 of the 4-tier hybrid judging system, formative, every mission, every region). Teachers audit randomly-sampled scores against this rubric to calibrate the model. <em>The capstone (Voice for Change) is excluded by design</em> — it belongs to Rubric A (teacher), preserving the AI-TPACK boundary.</div>
+  </div>
+
+  <div class="cover-block gold">
+    <div class="cover-block-label">Pedagogical Anchors · กรอบทฤษฎีที่ใช้</div>
+    <div class="cover-block-body">AI-TPACK (boundary) · PICRAT · Interactive-Amplifies · Bloom's Revised Taxonomy (Remember → Metacognition) · Hattie Visible Learning (formative feedback) · Vygotsky ZPD (the confidence-trap forces productive struggle)</div>
+  </div>
+
+  <div class="cover-footer">
+    <span>Faculty of Liberal Arts · Mahidol University</span>
+    <span>Author: Dr. Payungsak Kaenchan</span>
+  </div>
+</div>
+
+<div class="page-strip">
+  <span>Rubric B · Mission Decision Quality</span>
+  <span>FUTUREPROOF · SDG MISSION JOURNEY</span>
+</div>
+
+
+<div class="section-h">Stage 01 · BRIEF — Absorb the situation</div>
+<div class="criterion-meta">Bloom: Remember / Understand</div>
+<table class="rubric">
+  <thead><tr><th class="crit">Criterion</th><th>1 · Emerging</th><th>3 · Developing</th><th>5 · Distinguished</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Factual grounding</strong></td><td>Multiple errors of fact</td><td>Mostly accurate, minor slips</td><td>All claims traceable to the dossier (at the learner's tier)</td></tr>
+    <tr><td><strong>Vocabulary recognition</strong></td><td>Misuses key terms</td><td>Uses key terms with occasional imprecision</td><td>Uses key terms precisely; differentiates near-synonyms</td></tr>
+    <tr><td><strong>Situation grasp</strong></td><td>Misses the core tension</td><td>States the tension</td><td>Names the tension <em>and</em> whose interests it pits</td></tr>
+  </tbody>
+</table>
+
+<div class="section-h">Stage 02 · PROBE — Question the sources</div>
+<div class="criterion-meta">Bloom: Analyze</div>
+<table class="rubric">
+  <thead><tr><th class="crit">Criterion</th><th>1 · Emerging</th><th>3 · Developing</th><th>5 · Distinguished</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Source provenance</strong></td><td>Trusts the most familiar / loudest source</td><td>Weighs one provenance signal</td><td>Weighs methodology, recency, and conflict of interest together</td></tr>
+    <tr><td><strong>Comprehension depth</strong></td><td>Surface restatement</td><td>Captures one layer</td><td>Captures multiple layers and the contested claim</td></tr>
+    <tr><td><strong>Stakeholder reading</strong></td><td>Conflates stakeholders</td><td>Maps each to a stated concern</td><td>Distinguishes stated vs. likely hidden concerns</td></tr>
+  </tbody>
+</table>
+
+<div class="section-h">Stage 03 · DECIDE — Choose under a real trade-off</div>
+<div class="criterion-meta">Bloom: Evaluate · highest-stakes scoring</div>
+<table class="rubric">
+  <thead><tr><th class="crit">Criterion</th><th>1 · Emerging</th><th>3 · Developing</th><th>5 · Distinguished</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Strategic coherence</strong></td><td>Choice contradicts stated values</td><td>Aligns but generic</td><td>Specific, defensible, traceable to scenario evidence</td></tr>
+    <tr><td><strong>Consequence awareness</strong></td><td>Ignores second-order effects</td><td>Names one consequence</td><td>Anticipates the trade-off the counter-position will raise</td></tr>
+    <tr><td><strong>Confidence calibration</strong></td><td>High confidence on weak reasoning <em>(deliberate trap)</em></td><td>Confidence loosely matched to evidence</td><td>Confidence honestly tracks evidence strength</td></tr>
+  </tbody>
+</table>
+<div class="callout"><strong>Token Band</strong> The arc's highest-stakes scoring — −10 (high-confidence trap) … +25 (calibrated, defensible). The confidence-trap is deliberate: it makes overclaiming costly, modelling intellectual humility (Vygotsky ZPD-style productive struggle).</div>
+
+<div class="section-h">Stage 04 · ACT — Communicate the decision</div>
+<div class="criterion-meta">Bloom: Apply</div>
+<table class="rubric">
+  <thead><tr><th class="crit">Criterion</th><th>1 · Emerging</th><th>3 · Developing</th><th>5 · Distinguished</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Language quality</strong></td><td>Errors compromise meaning</td><td>Generally clear, minor errors</td><td>Controlled register, audience-appropriate</td></tr>
+    <tr><td><strong>Audience awareness</strong></td><td>Generic "audience"</td><td>Names one audience-specific concern</td><td>Anticipates and addresses audience objections</td></tr>
+    <tr><td><strong>Justification</strong></td><td>One-sentence assertion</td><td>Reasoned but thin</td><td>Explicit, specific, names the trade-off</td></tr>
+  </tbody>
+</table>
+
+<div class="section-h">Stage 05 · DEBRIEF — Reflect on consequence</div>
+<div class="criterion-meta">Bloom: Metacognition</div>
+<table class="rubric">
+  <thead><tr><th class="crit">Criterion</th><th>1 · Emerging</th><th>3 · Developing</th><th>5 · Distinguished</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Counterargument handling</strong></td><td>Dismisses or capitulates</td><td>Acknowledges, partially answers</td><td>Acknowledges, refutes, refines own position</td></tr>
+    <tr><td><strong>Willingness to revise</strong></td><td>None</td><td>Revision in form only</td><td>Genuinely incorporates the strongest counter</td></tr>
+    <tr><td><strong>Evidence commitment</strong></td><td>None recorded</td><td>Names evidence vaguely</td><td>Commits to specific evidence (carried to the Voice for Change)</td></tr>
+  </tbody>
+</table>
+
+<div class="note-box">
+  <div class="note-box-h">Calibration &amp; Operational Notes</div>
+  <ul>
+    <li><strong>AI-Judge calibration:</strong> during the pilot, random-sample ~5% of decisions and compare AI scores to a teacher's; drift greater than 0.5 score-point on any criterion triggers prompt revision.</li>
+    <li><strong>growthEdge mandatory:</strong> every AI return must include a specific actionable <code>growthEdge</code>. A null fails validation and the call is retried — the journey never blocks.</li>
+    <li><strong>No dead-ends:</strong> a learner below the bar may replay DECIDE/ACT, or a teacher may grant the Keystone for assessed offline-equivalent work (logged, audited — see Teacher Guide).</li>
+    <li><strong>Composite pass rule:</strong> stage scores compose into the mission pass-threshold via the engine (default 0.60). Tokens reward process; the Keystone records "met the bar for this region."</li>
+  </ul>
+</div>
+
+</body>
+</html>

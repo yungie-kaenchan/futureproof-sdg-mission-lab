@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Rubric D — Soft Skills Demonstration</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@page {
+  size: A4;
+  margin: 0.75in 0.65in 0.85in 0.65in;
+  @bottom-center {
+    content: counter(page) " / " counter(pages);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8pt;
+    color: #8B8B92;
+    letter-spacing: 0.1em;
+  }
+  @top-right {
+    content: "FUTUREPROOF · SDG MISSION JOURNEY";
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 7pt;
+    color: #C9A961;
+    letter-spacing: 0.18em;
+  }
+}
+
+@page:first {
+  margin: 0;
+  @bottom-center { content: ""; }
+  @top-right { content: ""; }
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'DM Sans', 'IBM Plex Sans Thai', sans-serif;
+  color: #0A0A0B;
+  background: #FDFBF6;
+  font-size: 10.5pt;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── COVER ─────────────────────────────────────────────────────────── */
+.cover {
+  page-break-after: always;
+  position: relative;
+  min-height: 11.69in;
+  padding: 0.75in 0.85in 0.85in;
+  background:
+    linear-gradient(135deg, rgba(201,169,97,0.04) 0%, rgba(253,251,246,0) 50%),
+    #FDFBF6;
+}
+.cover-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-bottom: 0.5in;
+  border-bottom: 1px solid #C9A961;
+}
+.cover-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8pt;
+  letter-spacing: 0.22em;
+  color: #C9A961;
+  text-transform: uppercase;
+}
+.cover-version {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8pt;
+  letter-spacing: 0.18em;
+  color: #8B8B92;
+}
+
+.cover-letter-block {
+  margin: 0.6in 0 0.25in;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5in;
+}
+.cover-letter {
+  font-family: 'Cinzel', serif;
+  font-size: 96pt;
+  font-weight: 500;
+  line-height: 0.9;
+  color: #0A0A0B;
+  letter-spacing: -0.02em;
+  position: relative;
+}
+.cover-letter::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -8pt;
+  width: 1.2in;
+  height: 2px;
+  background: #C9A961;
+}
+.cover-rubric-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7.5pt;
+  letter-spacing: 0.18em;
+  color: #8B8B92;
+  text-transform: uppercase;
+  padding-top: 0.5in;
+}
+
+.cover-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  font-size: 36pt;
+  line-height: 1.05;
+  color: #0A0A0B;
+  margin: 0.05in 0 0.05in;
+  letter-spacing: -0.005em;
+}
+.cover-subtitle {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-weight: 300;
+  font-size: 16pt;
+  line-height: 1.4;
+  color: #42526E;
+  margin-bottom: 0.5in;
+}
+
+.cover-block {
+  margin: 0.25in 0;
+  padding-left: 14pt;
+  border-left: 2px solid #C9A961;
+}
+.cover-block.crimson {
+  border-left-color: #7B1B1B;
+}
+.cover-block-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8pt;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #7B1B1B;
+  margin-bottom: 6pt;
+}
+.cover-block.gold .cover-block-label { color: #8A6D3F; }
+.cover-block-body {
+  font-size: 10.5pt;
+  line-height: 1.55;
+  color: #1F1F23;
+}
+.cover-block-body ul {
+  margin: 0;
+  padding-left: 14pt;
+}
+.cover-block-body li {
+  margin-bottom: 4pt;
+}
+.cover-block-body strong {
+  font-weight: 600;
+  color: #0A0A0B;
+}
+
+.cover-footer {
+  position: absolute;
+  bottom: 0.6in;
+  left: 0.85in;
+  right: 0.85in;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 18pt;
+  border-top: 1px solid rgba(201,169,97,0.4);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7.5pt;
+  letter-spacing: 0.18em;
+  color: #8B8B92;
+  text-transform: uppercase;
+}
+.cover-corner {
+  position: absolute;
+  width: 0.4in;
+  height: 0.4in;
+  border-color: #C9A961;
+  border-style: solid;
+}
+.cover-corner.tl { top: 0.35in; left: 0.35in; border-width: 1px 0 0 1px; }
+.cover-corner.tr { top: 0.35in; right: 0.35in; border-width: 1px 1px 0 0; }
+.cover-corner.bl { bottom: 0.35in; left: 0.35in; border-width: 0 0 1px 1px; }
+.cover-corner.br { bottom: 0.35in; right: 0.35in; border-width: 0 1px 1px 0; }
+
+/* ── BODY PAGES ───────────────────────────────────────────────────── */
+.section-h {
+  font-family: 'Cinzel', serif;
+  font-weight: 500;
+  font-size: 11pt;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #C9A961;
+  border-top: 1px solid rgba(201,169,97,0.4);
+  border-bottom: 1px solid rgba(201,169,97,0.4);
+  padding: 6pt 0;
+  margin: 18pt 0 12pt;
+  page-break-after: avoid;
+}
+
+.criterion {
+  margin-bottom: 16pt;
+  page-break-inside: avoid;
+}
+.criterion-h {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-size: 16pt;
+  color: #0A0A0B;
+  margin: 4pt 0 4pt;
+  line-height: 1.2;
+}
+.criterion-h .stage-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8pt;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: #C9A961;
+  text-transform: uppercase;
+  margin-right: 8pt;
+}
+.criterion-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8pt;
+  letter-spacing: 0.12em;
+  color: #8B8B92;
+  text-transform: uppercase;
+  margin-bottom: 6pt;
+}
+.criterion-blurb {
+  font-style: italic;
+  color: #42526E;
+  font-size: 10pt;
+  margin: 4pt 0 6pt;
+}
+
+table.rubric {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 9.5pt;
+  margin: 6pt 0;
+  page-break-inside: avoid;
+}
+table.rubric th, table.rubric td {
+  border: 1px solid rgba(31,31,35,0.18);
+  padding: 6pt 8pt;
+  text-align: left;
+  vertical-align: top;
+  line-height: 1.45;
+}
+table.rubric th {
+  background: #F4F1EA;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8pt;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #6E5320;
+  text-align: center;
+  width: 18%;
+}
+table.rubric th.crit { text-align: left; width: 22%; color: #0A0A0B; }
+table.rubric td.score { font-weight: 600; text-align: center; color: #8A6D3F; font-family: 'JetBrains Mono', monospace; }
+
+.callout {
+  background: rgba(201,169,97,0.07);
+  border-left: 2px solid #C9A961;
+  padding: 8pt 12pt;
+  margin: 8pt 0;
+  font-size: 9.5pt;
+  line-height: 1.5;
+  color: #1F1F23;
+}
+.callout strong {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8pt;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #8A6D3F;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 3pt;
+}
+
+.note-box {
+  background: rgba(123,27,27,0.04);
+  border: 1px solid rgba(123,27,27,0.25);
+  padding: 10pt 14pt;
+  margin: 12pt 0;
+  font-size: 9.5pt;
+  line-height: 1.55;
+  page-break-inside: avoid;
+}
+.note-box-h {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8pt;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #7B1B1B;
+  font-weight: 500;
+  margin-bottom: 4pt;
+}
+
+code, pre {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8.5pt;
+  background: #F4F1EA;
+  color: #1F1F23;
+  border-radius: 2px;
+}
+code { padding: 1pt 4pt; }
+pre {
+  padding: 10pt 12pt;
+  border: 1px solid rgba(31,31,35,0.1);
+  white-space: pre-wrap;
+  page-break-inside: avoid;
+}
+
+p { margin: 5pt 0; }
+ul, ol { margin: 5pt 0; padding-left: 18pt; }
+li { margin: 2pt 0; }
+
+.divider {
+  border: 0;
+  border-top: 1px solid rgba(31,31,35,0.12);
+  margin: 18pt 0;
+}
+
+/* ── PAGE-HEADER STRIP for body pages ─────────────────────────────── */
+.page-strip {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7.5pt;
+  letter-spacing: 0.18em;
+  color: #8A6D3F;
+  text-transform: uppercase;
+  padding-bottom: 6pt;
+  margin-bottom: 12pt;
+  border-bottom: 1px solid rgba(201,169,97,0.3);
+}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="cover-corner tl"></div>
+  <div class="cover-corner tr"></div>
+  <div class="cover-corner bl"></div>
+  <div class="cover-corner br"></div>
+
+  <div class="cover-header">
+    <div class="cover-tag">FUTUREPROOF · SDG Mission Journey</div>
+    <div class="cover-version">v2.0 · MAY 2026</div>
+  </div>
+
+  <div class="cover-letter-block">
+    <div class="cover-letter">D</div>
+    <div class="cover-rubric-meta">
+      [ RUBRIC<br/>&nbsp;&nbsp;D ]<br/><br/>
+      ASSESSMENT<br/>INSTRUMENT
+    </div>
+  </div>
+
+  <div class="cover-title">Soft Skills Demonstration</div>
+  <div class="cover-subtitle">รูบริก D · การแสดงทักษะ Soft Skills ทั้ง ๕ มิติ</div>
+
+  <div class="cover-block crimson">
+    <div class="cover-block-label">Purpose · วัตถุประสงค์</div>
+    <div class="cover-block-body">Surface and grade the <strong>five soft skills</strong> the platform is designed to cultivate. Unlike a language rubric, this measures <em>visible behaviour</em> observable in the decision log and Mr Compass interaction history. It is deliberately blind to native-language background and cultural style; distinguished collaboration looks different in different cultures, and the descriptors describe behaviour, not personality.</div>
+  </div>
+
+  <div class="cover-block gold">
+    <div class="cover-block-label">Objectives · เป้าหมายเฉพาะ</div>
+    <div class="cover-block-body">
+      <ul><li>Score each learner on five framework-stable dimensions: <strong>Critical Thinking · Analytical Thinking · Collaboration · Ethical Reasoning · Decision-Making Under Uncertainty</strong>.</li>
+<li>Anchor every score to <em>specific evidence sources</em> in the platform — every dimension has a 'where to look' pointer that is auditable.</li>
+<li>Enable Peer Judging (Tier 2) — give peer teams a usable instrument to score each other after a passed regional mission.</li>
+<li>Surface AI / Peer / Self / Teacher score variance on the Admin Dashboard as a <em>learning signal</em>, not a calibration target.</li>
+<li>Where evidence is insufficient, allow the teacher to record 'insufficient evidence' rather than a default low score — this is not a penalty.</li></ul>
+    </div>
+  </div>
+
+  
+      <div class="cover-block gold">
+        <div class="cover-block-label">Applies To · ขอบเขตการใช้</div>
+        <div class="cover-block-body">The full Thailand journey — observable through decision logs, Mr Compass interaction history, peer-team observation, and the Voice for Change capstone reflection. Six regional missions provide six observation windows.</div>
+      </div>
+    
+  
+      <div class="cover-block gold">
+        <div class="cover-block-label">Scoring Scale · มาตราการให้คะแนน</div>
+        <div class="cover-block-body">Each dimension scored 1 (Emerging) · 4 (Proficient) · 6 (Distinguished). Maximum: 30 (5 × 6). Bands: 25–30 Distinguished · 18–24 Proficient · 12–17 Developing · ≤ 11 Emerging.</div>
+      </div>
+    
+
+  <div class="cover-block gold">
+    <div class="cover-block-label">Used By · ผู้ใช้รูบริก</div>
+    <div class="cover-block-body">Teacher Judges (summative reflection at end of course) + Peer Judges (Tier 2, cross-team, after a passed regional mission). Peer scores feed metacognition — they are not summative grades.</div>
+  </div>
+
+  <div class="cover-block gold">
+    <div class="cover-block-label">Pedagogical Anchors · กรอบทฤษฎีที่ใช้</div>
+    <div class="cover-block-body">Hattie Visible Learning (metacognition) · Vygotsky social mediation · Lave &amp; Wenger Legitimate Peripheral Participation · Bloom · Metacognition · Kohlberg moral development</div>
+  </div>
+
+  <div class="cover-footer">
+    <span>Faculty of Liberal Arts · Mahidol University</span>
+    <span>Author: Dr. Payungsak Kaenchan</span>
+  </div>
+</div>
+
+<div class="page-strip">
+  <span>Rubric D · Soft Skills Demonstration</span>
+  <span>FUTUREPROOF · SDG MISSION JOURNEY</span>
+</div>
+
+
+<div class="section-h">1 · Critical Thinking</div>
+<table class="rubric">
+  <thead><tr><th class="crit">Score</th><th>Descriptor</th></tr></thead>
+  <tbody>
+    <tr><td class="score">6 · Distinguished</td><td>Routinely tests own reasoning; volunteers counter-examples to own claims; revises position when warranted.</td></tr>
+    <tr><td class="score">4 · Proficient</td><td>Considers counter-examples when prompted; engages with feedback substantively.</td></tr>
+    <tr><td class="score">1 · Emerging</td><td>Treats first reasoning as final reasoning; resists or ignores feedback.</td></tr>
+  </tbody>
+</table>
+<div class="callout"><strong>Where to look</strong> DEBRIEF counterargument handling; DECIDE confidence-calibration; Mr Compass interaction history (Socratic, never answers).</div>
+
+<div class="section-h">2 · Analytical Thinking</div>
+<table class="rubric">
+  <thead><tr><th class="crit">Score</th><th>Descriptor</th></tr></thead>
+  <tbody>
+    <tr><td class="score">6 · Distinguished</td><td>Decomposes problems into multi-axis comparisons; distinguishes signal from noise; weighs evidence with stated criteria.</td></tr>
+    <tr><td class="score">4 · Proficient</td><td>Decomposes problems into recognizable parts; weighs evidence implicitly.</td></tr>
+    <tr><td class="score">1 · Emerging</td><td>Treats problems as unitary; offers conclusions without analytic chain.</td></tr>
+  </tbody>
+</table>
+<div class="callout"><strong>Where to look</strong> PROBE source-weighing across the dossier + four stakeholder voices; DECIDE strategy rationale under the regional trade-off.</div>
+
+<div class="section-h">3 · Collaboration</div>
+<table class="rubric">
+  <thead><tr><th class="crit">Score</th><th>Descriptor</th></tr></thead>
+  <tbody>
+    <tr><td class="score">6 · Distinguished</td><td>Distinguishes own role from teammates' roles; visibly defers and visibly leads at appropriate moments; surfaces unspoken disagreements.</td></tr>
+    <tr><td class="score">4 · Proficient</td><td>Plays role; contributes consistently; resolves disagreement when surfaced.</td></tr>
+    <tr><td class="score">1 · Emerging</td><td>Either dominates or withdraws; collaboration is performative.</td></tr>
+  </tbody>
+</table>
+<div class="callout"><strong>Where to look</strong> Decision-log byUid distribution; Mr Compass "what does your teammate think?" redirects; role-led contributions across the arc and in the Voice for Change.</div>
+
+<div class="section-h">4 · Ethical Reasoning</div>
+<table class="rubric">
+  <thead><tr><th class="crit">Score</th><th>Descriptor</th></tr></thead>
+  <tbody>
+    <tr><td class="score">6 · Distinguished</td><td>Articulates ethical stakes proactively; engages with the strongest counterargument; distinguishes ethical claims from preferences.</td></tr>
+    <tr><td class="score">4 · Proficient</td><td>Recognizes ethical stakes when prompted; engages with counterargument with effort.</td></tr>
+    <tr><td class="score">1 · Emerging</td><td>Treats ethics as either obvious or irrelevant.</td></tr>
+  </tbody>
+</table>
+<div class="callout"><strong>Where to look</strong> DECIDE / DEBRIEF ethical reasoning on the regional trade-off; the Voice for Change argument; documented AI-collaboration reflection.</div>
+
+<div class="section-h">5 · Decision-Making Under Uncertainty</div>
+<table class="rubric">
+  <thead><tr><th class="crit">Score</th><th>Descriptor</th></tr></thead>
+  <tbody>
+    <tr><td class="score">6 · Distinguished</td><td>Commits to a decision with stated trade-offs and reversibility analysis; updates the decision when new evidence demands it.</td></tr>
+    <tr><td class="score">4 · Proficient</td><td>Commits to a decision with stated rationale.</td></tr>
+    <tr><td class="score">1 · Emerging</td><td>Avoids committing; or commits without rationale.</td></tr>
+  </tbody>
+</table>
+<div class="callout"><strong>Where to look</strong> DECIDE under the trade-off (incl. the deliberate confidence trap); DEBRIEF revision; the evidence commitment carried into the Voice for Change.</div>
+
+<div class="note-box">
+  <div class="note-box-h">Peer Judging (Tier 2) and Variance as Learning Signal</div>
+  After a team has passed at least one regional mission, each team scores one peer team using Rubric D on that mission's decision trace. Peer scores feed <em>metacognition</em> — they are not summative grades. The Admin Dashboard surfaces the variance between AI · Peer · Self · Teacher scores as a learning signal, not a calibration target. Cultural-style blindness is intentional: distinguished collaboration looks different in different cultural contexts; the descriptors above describe <em>visible behavior</em>, not personality.
+</div>
+
+<div class="note-box">
+  <div class="note-box-h">Insufficient-Evidence Rule</div>
+  Where decision logs are insufficient to score a dimension (e.g., a learner exempted from a particular stage), the teacher records "insufficient evidence" rather than defaulting to a low score. This is not a penalty — it is honest accounting.
+</div>
+
+</body>
+</html>

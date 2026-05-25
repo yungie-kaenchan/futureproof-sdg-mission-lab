@@ -103,6 +103,10 @@
     <div class="tabs">
       <button class="tab active" data-tab="roster">Learners</button>
       <button class="tab" data-tab="missions">Missions on/off</button>
+      <button class="tab" data-tab="analytics">Analytics</button>
+      <button class="tab" data-tab="moderation">Moderation</button>
+      <button class="tab" data-tab="pdpa">PDPA Center</button>
+      <button class="tab" data-tab="hov">Hall of Voices</button>
       <button class="tab" data-tab="system">System</button>
     </div>
 
@@ -136,6 +140,252 @@
         <p class="muted" style="margin:-6px 0 16px">Turn a mission off and learners can't
           start or resume it — the journey pin is locked until you switch it back on.</p>
         <div id="mission-switches"><p class="muted">Loading…</p></div>
+      </div>
+    </section>
+
+    <!-- ANALYTICS -->
+    <section id="tab-analytics" hidden>
+      <div class="card">
+        <h2>Engagement at a glance <span class="pill gold">last 7 days · sample data</span></h2>
+        <div class="row" style="gap:14px;margin-bottom:8px">
+          <div style="flex:1;min-width:140px;padding:14px;background:#0A0A0B;border:1px solid #1F1F23;border-radius:10px">
+            <div class="muted" style="font-size:11px;letter-spacing:.14em;text-transform:uppercase">Active learners</div>
+            <div style="font-family:'Fraunces',serif;font-size:30px;color:#E8C77A">132</div>
+            <div class="muted" style="font-size:12px">+18 vs last week</div>
+          </div>
+          <div style="flex:1;min-width:140px;padding:14px;background:#0A0A0B;border:1px solid #1F1F23;border-radius:10px">
+            <div class="muted" style="font-size:11px;letter-spacing:.14em;text-transform:uppercase">Missions cleared</div>
+            <div style="font-family:'Fraunces',serif;font-size:30px;color:#E8C77A">87</div>
+            <div class="muted" style="font-size:12px">across all 6 SDGs</div>
+          </div>
+          <div style="flex:1;min-width:140px;padding:14px;background:#0A0A0B;border:1px solid #1F1F23;border-radius:10px">
+            <div class="muted" style="font-size:11px;letter-spacing:.14em;text-transform:uppercase">AI Judge calls</div>
+            <div style="font-family:'Fraunces',serif;font-size:30px;color:#E8C77A">1,438</div>
+            <div class="muted" style="font-size:12px">98.7% with growthEdge</div>
+          </div>
+          <div style="flex:1;min-width:140px;padding:14px;background:#0A0A0B;border:1px solid #1F1F23;border-radius:10px">
+            <div class="muted" style="font-size:11px;letter-spacing:.14em;text-transform:uppercase">Voice for Change submitted</div>
+            <div style="font-family:'Fraunces',serif;font-size:30px;color:#E8C77A">12</div>
+            <div class="muted" style="font-size:12px">awaiting teacher grade</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Mission completion · by region</h2>
+        <div id="analytics-bars" style="display:flex;flex-direction:column;gap:10px">
+          <!-- populated by JS -->
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Decision quality · AI Judge 5-stage average</h2>
+        <table>
+          <thead><tr><th>Stage</th><th>Bloom level</th><th>Avg score (1–5)</th><th>Most common growthEdge</th></tr></thead>
+          <tbody>
+            <tr><td><strong>BRIEF</strong></td><td>Remember / Understand</td><td><span class="pill gold">4.2</span></td><td>Name whose interests the tension pits</td></tr>
+            <tr><td><strong>PROBE</strong></td><td>Analyze</td><td><span class="pill gold">3.8</span></td><td>Weigh provenance, not loudness</td></tr>
+            <tr><td><strong>DECIDE</strong></td><td>Evaluate</td><td><span class="pill">3.3</span></td><td>Calibrate confidence to evidence (trap)</td></tr>
+            <tr><td><strong>ACT</strong></td><td>Apply</td><td><span class="pill gold">4.0</span></td><td>Anticipate audience objection</td></tr>
+            <tr><td><strong>DEBRIEF</strong></td><td>Metacognition</td><td><span class="pill gold">3.9</span></td><td>Refine, don't capitulate</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h2>CEFR language development · cohort delta</h2>
+        <div class="row" style="gap:12px;align-items:stretch">
+          <div style="flex:1;padding:14px;background:#0A0A0B;border:1px solid #1F1F23;border-radius:10px">
+            <div class="muted" style="font-size:11px;letter-spacing:.14em;text-transform:uppercase">Lexical range</div>
+            <div style="margin-top:8px">B1 → B2 <span class="pill gold">+2 half-bands</span></div>
+          </div>
+          <div style="flex:1;padding:14px;background:#0A0A0B;border:1px solid #1F1F23;border-radius:10px">
+            <div class="muted" style="font-size:11px;letter-spacing:.14em;text-transform:uppercase">Grammatical control</div>
+            <div style="margin-top:8px">B1 → B2− <span class="pill gold">+1 half-band</span></div>
+          </div>
+          <div style="flex:1;padding:14px;background:#0A0A0B;border:1px solid #1F1F23;border-radius:10px">
+            <div class="muted" style="font-size:11px;letter-spacing:.14em;text-transform:uppercase">Register flexibility</div>
+            <div style="margin-top:8px">B1+ → B2 <span class="pill gold">+1 half-band</span></div>
+          </div>
+        </div>
+        <p class="muted" style="margin:14px 0 0">Composite growth ≥ 4 half-bands is the design target (see Rubric C, tier-fairness rule).</p>
+      </div>
+    </section>
+
+    <!-- CONTENT MODERATION -->
+    <section id="tab-moderation" hidden>
+      <div class="card">
+        <h2>Flagged AI judgements <span class="pill gold">teacher review queue</span></h2>
+        <p class="muted" style="margin:-6px 0 16px">When a learner flags an AI Judge response as unfair,
+          it lands here for teacher review. Replay against the rubric and override if warranted —
+          override is logged.</p>
+        <table>
+          <thead><tr><th>Learner</th><th>Mission</th><th>Stage</th><th>AI score</th><th>Reason flagged</th><th></th></tr></thead>
+          <tbody>
+            <tr>
+              <td>Pongsri T.</td>
+              <td>SDG 6 · Aquifer</td>
+              <td>DECIDE</td>
+              <td><span class="pill">2.5</span></td>
+              <td>"I named the trade-off but got marked down for low confidence"</td>
+              <td><button class="btn sm">Replay</button></td>
+            </tr>
+            <tr>
+              <td>Anchalee S.</td>
+              <td>SDG 13 · Burning Season</td>
+              <td>ACT</td>
+              <td><span class="pill">3.0</span></td>
+              <td>"Register didn't match the audience I addressed"</td>
+              <td><button class="btn sm">Replay</button></td>
+            </tr>
+            <tr>
+              <td>Nattaphum K.</td>
+              <td>SDG 14 · Reef and Tide</td>
+              <td>DEBRIEF</td>
+              <td><span class="pill">2.0</span></td>
+              <td>"Counter-position was already addressed in my ACT"</td>
+              <td><button class="btn sm">Replay</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h2>AI Judge calibration drift · last 14 days</h2>
+        <p class="muted" style="margin:-6px 0 16px">Random 5% audit sample — teacher score vs. AI score.
+          Drift > 0.5 score-points on any criterion triggers a prompt revision.</p>
+        <table>
+          <thead><tr><th>Judge</th><th>Sampled</th><th>Mean delta</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td>Dr. Anchalee Suwannapong</td><td>23</td><td><span class="pill gold">+0.18</span></td><td>—</td></tr>
+            <tr><td>Khun Nattaphum Boonkrong</td><td>21</td><td><span class="pill gold">−0.22</span></td><td>—</td></tr>
+            <tr><td>Khun Suthida Phetcharat</td><td>22</td><td><span class="pill" style="color:#E08585">−0.61</span></td><td><button class="btn sm danger">Tighten prompt</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- PDPA CENTER -->
+    <section id="tab-pdpa" hidden>
+      <div class="card">
+        <h2>Consent overview <span class="pill gold">all learners</span></h2>
+        <div class="row" style="gap:12px;flex-wrap:wrap">
+          <div style="flex:1;min-width:160px;padding:14px;background:#0A0A0B;border:1px solid #1F1F23;border-radius:10px">
+            <div class="muted" style="font-size:11px;letter-spacing:.14em;text-transform:uppercase">Basic profile</div>
+            <div style="font-family:'Fraunces',serif;font-size:28px;color:#E8C77A">132 / 132</div>
+            <div class="muted" style="font-size:12px">required · all consented</div>
+          </div>
+          <div style="flex:1;min-width:160px;padding:14px;background:#0A0A0B;border:1px solid #1F1F23;border-radius:10px">
+            <div class="muted" style="font-size:11px;letter-spacing:.14em;text-transform:uppercase">Photo / avatar</div>
+            <div style="font-family:'Fraunces',serif;font-size:28px;color:#E8C77A">119 / 132</div>
+            <div class="muted" style="font-size:12px">90.1% opted in</div>
+          </div>
+          <div style="flex:1;min-width:160px;padding:14px;background:#0A0A0B;border:1px solid #1F1F23;border-radius:10px">
+            <div class="muted" style="font-size:11px;letter-spacing:.14em;text-transform:uppercase">Voice recording</div>
+            <div style="font-family:'Fraunces',serif;font-size:28px;color:#E8C77A">108 / 132</div>
+            <div class="muted" style="font-size:12px">81.8% opted in</div>
+          </div>
+          <div style="flex:1;min-width:160px;padding:14px;background:#0A0A0B;border:1px solid #1F1F23;border-radius:10px">
+            <div class="muted" style="font-size:11px;letter-spacing:.14em;text-transform:uppercase">Public showcase</div>
+            <div style="font-family:'Fraunces',serif;font-size:28px;color:#E8C77A">9 / 12</div>
+            <div class="muted" style="font-size:12px">of submitted capstones</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Data Subject Access Requests <span class="pill">pending: 1</span></h2>
+        <p class="muted" style="margin:-6px 0 16px">PDPA §30 — learners may export, correct, or delete
+          their data. Self-service is on the <em>My Data</em> page; admin support for the 1% who need it.</p>
+        <table>
+          <thead><tr><th>Learner</th><th>Type</th><th>Requested</th><th>Status</th><th></th></tr></thead>
+          <tbody>
+            <tr>
+              <td>Wanida P.</td>
+              <td>Withdraw photo consent</td>
+              <td>2 days ago</td>
+              <td><span class="pill gold">In progress</span></td>
+              <td><button class="btn sm">Resolve</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h2>Audit log <span class="pill gold">last 7 admin actions</span></h2>
+        <table>
+          <thead><tr><th>When</th><th>Admin</th><th>Action</th><th>Subject</th></tr></thead>
+          <tbody>
+            <tr><td>2 hrs ago</td><td>payungsak.kae@…</td><td>Granted SDG 11 Keystone</td><td>Anchalee S.</td></tr>
+            <tr><td>5 hrs ago</td><td>payungsak.kae@…</td><td>Exported learner CSV</td><td>cohort 2569-T1</td></tr>
+            <tr><td>1 day ago</td><td>payungsak.kae@…</td><td>Replayed AI judgement</td><td>Pongsri T. · SDG 6</td></tr>
+            <tr><td>2 days ago</td><td>payungsak.kae@…</td><td>Featured capstone</td><td>"The Quiet Aquifer" · Voice for Change</td></tr>
+            <tr><td>3 days ago</td><td>payungsak.kae@…</td><td>Toggled mission availability</td><td>SDG 4 · Mae Sot · ON</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h2>90-day auto-deletion · upcoming purges</h2>
+        <table>
+          <thead><tr><th>Cohort</th><th>Course end</th><th>Auto-delete on</th><th>Affected learners</th></tr></thead>
+          <tbody>
+            <tr><td>2569-T1 (Aug–Dec 2569)</td><td>Dec 15, 2569</td><td><strong>Mar 15, 2570</strong></td><td>132</td></tr>
+            <tr><td>2569-T2 (Jan–May 2570)</td><td>May 15, 2570</td><td><strong>Aug 13, 2570</strong></td><td>(open)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- HALL OF VOICES CURATOR -->
+    <section id="tab-hov" hidden>
+      <div class="card">
+        <h2>Capstone submissions <span class="pill gold">awaiting curation review</span></h2>
+        <p class="muted" style="margin:-6px 0 16px">Only submissions with <strong>explicit, withdrawable
+          public-showcase consent</strong> appear here for review. Feature, leave-pending, or withdraw.</p>
+        <table>
+          <thead><tr><th>Submission</th><th>SDG</th><th>Author (pseudonym)</th><th>Rubric A score</th><th>Status</th><th></th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>The Quiet Aquifer</strong><br><span class="muted" style="font-size:12px">Addressed to Khon Kaen Provincial Council</span></td>
+              <td><span class="pill" style="color:#26BDE2">SDG 6</span></td>
+              <td>Phoenix</td>
+              <td><span class="pill gold">A · 41/45</span></td>
+              <td><span class="pill gold">Featured</span></td>
+              <td><button class="btn sm">Unfeature</button></td>
+            </tr>
+            <tr>
+              <td><strong>Smoke Over Doi Suthep</strong><br><span class="muted" style="font-size:12px">Addressed to Chiang Mai Public Health Office</span></td>
+              <td><span class="pill" style="color:#3F7E44">SDG 13</span></td>
+              <td>Compass</td>
+              <td><span class="pill gold">A · 38/45</span></td>
+              <td><span class="pill gold">Featured</span></td>
+              <td><button class="btn sm">Unfeature</button></td>
+            </tr>
+            <tr>
+              <td><strong>Beneath the Boom</strong><br><span class="muted" style="font-size:12px">Addressed to EEC Office &amp; Rayong Hospital</span></td>
+              <td><span class="pill" style="color:#4C9F38">SDG 3</span></td>
+              <td>Driftwood</td>
+              <td><span class="pill gold">A · 36/45</span></td>
+              <td><span class="pill">Pending review</span></td>
+              <td><button class="btn solid sm">Feature</button></td>
+            </tr>
+            <tr>
+              <td><strong>A Tide That Returns</strong><br><span class="muted" style="font-size:12px">Addressed to DMCR &amp; Phi Phi tour operators</span></td>
+              <td><span class="pill" style="color:#0A97D9">SDG 14</span></td>
+              <td>Saltline</td>
+              <td><span class="pill gold">A · 39/45</span></td>
+              <td><span class="pill">Pending review</span></td>
+              <td><button class="btn solid sm">Feature</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h2>Consent withdrawals</h2>
+        <p class="muted">When a featured author withdraws public-showcase consent, the submission is
+          removed from the Hall within <strong>7 days</strong>. No pending withdrawals.</p>
       </div>
     </section>
 
@@ -254,13 +504,38 @@
     }
 
     /* ── Tabs ── */
+    const TAB_IDS = ["roster", "missions", "analytics", "moderation", "pdpa", "hov", "system"];
     document.querySelectorAll(".tab").forEach((t) => t.addEventListener("click", () => {
       document.querySelectorAll(".tab").forEach((x) => x.classList.remove("active"));
       t.classList.add("active");
       const id = t.dataset.tab;
-      ["roster", "missions", "system"].forEach((s) =>
-        $("tab-" + s).hidden = (s !== id));
+      TAB_IDS.forEach((s) => $("tab-" + s).hidden = (s !== id));
+      if (id === "analytics") renderAnalyticsBars();
     }));
+
+    /* ── Analytics · seed bars by region (demo data) ── */
+    function renderAnalyticsBars() {
+      const wrap = $("analytics-bars");
+      if (!wrap || wrap.dataset.rendered) return;
+      const regions = [
+        { name: "North · Chiang Mai (SDG 13)",      pct: 78, accent: "#3F7E44" },
+        { name: "Northeast · Khon Kaen (SDG 6)",    pct: 92, accent: "#26BDE2" },
+        { name: "Central · Bangkok (SDG 11)",       pct: 85, accent: "#FD9D24" },
+        { name: "West · Mae Sot (SDG 4)",           pct: 71, accent: "#C5192D" },
+        { name: "East · EEC Fringe (SDG 3)",        pct: 64, accent: "#4C9F38" },
+        { name: "South · Andaman (SDG 14)",         pct: 88, accent: "#0A97D9" },
+      ];
+      wrap.innerHTML = regions.map((r) => `
+        <div style="display:grid;grid-template-columns:280px 1fr 60px;gap:14px;align-items:center">
+          <div style="font-size:13.5px">${r.name}</div>
+          <div style="height:18px;background:#1F1F23;border-radius:9px;overflow:hidden">
+            <div style="height:100%;width:${r.pct}%;background:${r.accent};border-radius:9px;transition:width .6s"></div>
+          </div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#E8C77A;text-align:right">${r.pct}%</div>
+        </div>
+      `).join("");
+      wrap.dataset.rendered = "1";
+    }
 
     /* ── Roster ── */
     async function loadRoster() {

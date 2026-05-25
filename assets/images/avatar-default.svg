@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 90" width="90" height="90" role="img" aria-label="Default operator avatar">
+  <!-- Brand-warm parchment ground -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F4F1EA"/>
+      <stop offset="100%" stop-color="#E6DCC6"/>
+    </linearGradient>
+    <linearGradient id="ink" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0F1729"/>
+      <stop offset="100%" stop-color="#2A3855"/>
+    </linearGradient>
+  </defs>
+  <rect width="90" height="90" rx="22" fill="url(#bg)"/>
+  <!-- Stylized operator silhouette: head + shoulders -->
+  <circle cx="45" cy="35" r="14" fill="url(#ink)" opacity="0.85"/>
+  <path d="M15,90 Q15,60 45,60 Q75,60 75,90 Z" fill="url(#ink)" opacity="0.85"/>
+  <!-- Subtle gold halo accent — ties to brand -->
+  <circle cx="45" cy="35" r="14" fill="none" stroke="#C9A961" stroke-width="0.8" opacity="0.55"/>
+</svg>

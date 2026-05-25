@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Rubric C — CEFR Language Development</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@page {
+  size: A4;
+  margin: 0.75in 0.65in 0.85in 0.65in;
+  @bottom-center {
+    content: counter(page) " / " counter(pages);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8pt;
+    color: #8B8B92;
+    letter-spacing: 0.1em;
+  }
+  @top-right {
+    content: "FUTUREPROOF · SDG MISSION JOURNEY";
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 7pt;
+    color: #C9A961;
+    letter-spacing: 0.18em;
+  }
+}
+
+@page:first {
+  margin: 0;
+  @bottom-center { content: ""; }
+  @top-right { content: ""; }
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'DM Sans', 'IBM Plex Sans Thai', sans-serif;
+  color: #0A0A0B;
+  background: #FDFBF6;
+  font-size: 10.5pt;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── COVER ─────────────────────────────────────────────────────────── */
+.cover {
+  page-break-after: always;
+  position: relative;
+  min-height: 11.69in;
+  padding: 0.75in 0.85in 0.85in;
+  background:
+    linear-gradient(135deg, rgba(201,169,97,0.04) 0%, rgba(253,251,246,0) 50%),
+    #FDFBF6;
+}
+.cover-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-bottom: 0.5in;
+  border-bottom: 1px solid #C9A961;
+}
+.cover-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8pt;
+  letter-spacing: 0.22em;
+  color: #C9A961;
+  text-transform: uppercase;
+}
+.cover-version {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8pt;
+  letter-spacing: 0.18em;
+  color: #8B8B92;
+}
+
+.cover-letter-block {
+  margin: 0.6in 0 0.25in;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5in;
+}
+.cover-letter {
+  font-family: 'Cinzel', serif;
+  font-size: 96pt;
+  font-weight: 500;
+  line-height: 0.9;
+  color: #0A0A0B;
+  letter-spacing: -0.02em;
+  position: relative;
+}
+.cover-letter::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -8pt;
+  width: 1.2in;
+  height: 2px;
+  background: #C9A961;
+}
+.cover-rubric-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7.5pt;
+  letter-spacing: 0.18em;
+  color: #8B8B92;
+  text-transform: uppercase;
+  padding-top: 0.5in;
+}
+
+.cover-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  font-size: 36pt;
+  line-height: 1.05;
+  color: #0A0A0B;
+  margin: 0.05in 0 0.05in;
+  letter-spacing: -0.005em;
+}
+.cover-subtitle {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-weight: 300;
+  font-size: 16pt;
+  line-height: 1.4;
+  color: #42526E;
+  margin-bottom: 0.5in;
+}
+
+.cover-block {
+  margin: 0.25in 0;
+  padding-left: 14pt;
+  border-left: 2px solid #C9A961;
+}
+.cover-block.crimson {
+  border-left-color: #7B1B1B;
+}
+.cover-block-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8pt;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #7B1B1B;
+  margin-bottom: 6pt;
+}
+.cover-block.gold .cover-block-label { color: #8A6D3F; }
+.cover-block-body {
+  font-size: 10.5pt;
+  line-height: 1.55;
+  color: #1F1F23;
+}
+.cover-block-body ul {
+  margin: 0;
+  padding-left: 14pt;
+}
+.cover-block-body li {
+  margin-bottom: 4pt;
+}
+.cover-block-body strong {
+  font-weight: 600;
+  color: #0A0A0B;
+}
+
+.cover-footer {
+  position: absolute;
+  bottom: 0.6in;
+  left: 0.85in;
+  right: 0.85in;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 18pt;
+  border-top: 1px solid rgba(201,169,97,0.4);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7.5pt;
+  letter-spacing: 0.18em;
+  color: #8B8B92;
+  text-transform: uppercase;
+}
+.cover-corner {
+  position: absolute;
+  width: 0.4in;
+  height: 0.4in;
+  border-color: #C9A961;
+  border-style: solid;
+}
+.cover-corner.tl { top: 0.35in; left: 0.35in; border-width: 1px 0 0 1px; }
+.cover-corner.tr { top: 0.35in; right: 0.35in; border-width: 1px 1px 0 0; }
+.cover-corner.bl { bottom: 0.35in; left: 0.35in; border-width: 0 0 1px 1px; }
+.cover-corner.br { bottom: 0.35in; right: 0.35in; border-width: 0 1px 1px 0; }
+
+/* ── BODY PAGES ───────────────────────────────────────────────────── */
+.section-h {
+  font-family: 'Cinzel', serif;
+  font-weight: 500;
+  font-size: 11pt;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #C9A961;
+  border-top: 1px solid rgba(201,169,97,0.4);
+  border-bottom: 1px solid rgba(201,169,97,0.4);
+  padding: 6pt 0;
+  margin: 18pt 0 12pt;
+  page-break-after: avoid;
+}
+
+.criterion {
+  margin-bottom: 16pt;
+  page-break-inside: avoid;
+}
+.criterion-h {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-size: 16pt;
+  color: #0A0A0B;
+  margin: 4pt 0 4pt;
+  line-height: 1.2;
+}
+.criterion-h .stage-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8pt;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: #C9A961;
+  text-transform: uppercase;
+  margin-right: 8pt;
+}
+.criterion-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8pt;
+  letter-spacing: 0.12em;
+  color: #8B8B92;
+  text-transform: uppercase;
+  margin-bottom: 6pt;
+}
+.criterion-blurb {
+  font-style: italic;
+  color: #42526E;
+  font-size: 10pt;
+  margin: 4pt 0 6pt;
+}
+
+table.rubric {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 9.5pt;
+  margin: 6pt 0;
+  page-break-inside: avoid;
+}
+table.rubric th, table.rubric td {
+  border: 1px solid rgba(31,31,35,0.18);
+  padding: 6pt 8pt;
+  text-align: left;
+  vertical-align: top;
+  line-height: 1.45;
+}
+table.rubric th {
+  background: #F4F1EA;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8pt;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #6E5320;
+  text-align: center;
+  width: 18%;
+}
+table.rubric th.crit { text-align: left; width: 22%; color: #0A0A0B; }
+table.rubric td.score { font-weight: 600; text-align: center; color: #8A6D3F; font-family: 'JetBrains Mono', monospace; }
+
+.callout {
+  background: rgba(201,169,97,0.07);
+  border-left: 2px solid #C9A961;
+  padding: 8pt 12pt;
+  margin: 8pt 0;
+  font-size: 9.5pt;
+  line-height: 1.5;
+  color: #1F1F23;
+}
+.callout strong {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8pt;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #8A6D3F;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 3pt;
+}
+
+.note-box {
+  background: rgba(123,27,27,0.04);
+  border: 1px solid rgba(123,27,27,0.25);
+  padding: 10pt 14pt;
+  margin: 12pt 0;
+  font-size: 9.5pt;
+  line-height: 1.55;
+  page-break-inside: avoid;
+}
+.note-box-h {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8pt;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #7B1B1B;
+  font-weight: 500;
+  margin-bottom: 4pt;
+}
+
+code, pre {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8.5pt;
+  background: #F4F1EA;
+  color: #1F1F23;
+  border-radius: 2px;
+}
+code { padding: 1pt 4pt; }
+pre {
+  padding: 10pt 12pt;
+  border: 1px solid rgba(31,31,35,0.1);
+  white-space: pre-wrap;
+  page-break-inside: avoid;
+}
+
+p { margin: 5pt 0; }
+ul, ol { margin: 5pt 0; padding-left: 18pt; }
+li { margin: 2pt 0; }
+
+.divider {
+  border: 0;
+  border-top: 1px solid rgba(31,31,35,0.12);
+  margin: 18pt 0;
+}
+
+/* ── PAGE-HEADER STRIP for body pages ─────────────────────────────── */
+.page-strip {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7.5pt;
+  letter-spacing: 0.18em;
+  color: #8A6D3F;
+  text-transform: uppercase;
+  padding-bottom: 6pt;
+  margin-bottom: 12pt;
+  border-bottom: 1px solid rgba(201,169,97,0.3);
+}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="cover-corner tl"></div>
+  <div class="cover-corner tr"></div>
+  <div class="cover-corner bl"></div>
+  <div class="cover-corner br"></div>
+
+  <div class="cover-header">
+    <div class="cover-tag">FUTUREPROOF · SDG Mission Journey</div>
+    <div class="cover-version">v2.0 · MAY 2026</div>
+  </div>
+
+  <div class="cover-letter-block">
+    <div class="cover-letter">C</div>
+    <div class="cover-rubric-meta">
+      [ RUBRIC<br/>&nbsp;&nbsp;C ]<br/><br/>
+      ASSESSMENT<br/>INSTRUMENT
+    </div>
+  </div>
+
+  <div class="cover-title">CEFR-Aligned Language Development (Pre / Post)</div>
+  <div class="cover-subtitle">รูบริก C · พัฒนาการทางภาษาตามมาตรฐาน CEFR (เปรียบเทียบก่อน/หลัง)</div>
+
+  <div class="cover-block crimson">
+    <div class="cover-block-label">Purpose · วัตถุประสงค์</div>
+    <div class="cover-block-body">Measure each learner's <strong>delta</strong> — the gain in language proficiency — across the course, in CEFR half-band increments. The unit of evaluation is <em>growth</em>, not absolute level. This rubric exists to defend the claim that FUTUREPROOF causes measurable language development, not to rank learners against each other or against native-like norms.</div>
+  </div>
+
+  <div class="cover-block gold">
+    <div class="cover-block-label">Objectives · เป้าหมายเฉพาะ</div>
+    <div class="cover-block-body">
+      <ul><li>Establish each learner's CEFR band at three timepoints: <strong>diagnostic</strong>, <strong>mid-journey</strong> (after first passed regional mission), and <strong>post-capstone</strong> (after Voice for Change).</li>
+<li>Score five dimensions consistently at each timepoint: lexical, grammatical, discourse, register, phonological.</li>
+<li>Apply the <strong>tier-fairness rule</strong>: a Tier-1 learner's A2 → B1 half-band gain equals a Tier-3 learner's B2 → B2+ gain.</li>
+<li>Produce a structured growth record per learner suitable for institutional reporting and longitudinal research.</li>
+<li>Calibrate AI evaluator against human-scored audit samples; drift > 0.5 half-band on any dimension triggers prompt revision.</li></ul>
+    </div>
+  </div>
+
+  
+      <div class="cover-block gold">
+        <div class="cover-block-label">Applies To · ขอบเขตการใช้</div>
+        <div class="cover-block-body">A single learner's writing and speaking samples across the course. Reading and listening receptive skills are measured by the diagnostic instrument and by in-platform comprehension; productive samples (writing/speaking) drive band placement.</div>
+      </div>
+    
+  
+      <div class="cover-block gold">
+        <div class="cover-block-label">Scoring Scale · มาตราการให้คะแนน</div>
+        <div class="cover-block-body">CEFR bands A2 → C2 with intra-band markers (A2 · B1− · B1 · B1+ · B2− · B2 · B2+ · C1 · C1+ · C2). Growth = post-band − pre-band, in half-band increments. Composite growth ≥ 4 half-bands across the course is the design target.</div>
+      </div>
+    
+
+  <div class="cover-block gold">
+    <div class="cover-block-label">Used By · ผู้ใช้รูบริก</div>
+    <div class="cover-block-body">Course-level evaluators (the LALA109 teacher, course coordinator, and institutional researchers). This rubric does NOT generate a passing grade; it produces a <em>development record</em> that supplements Rubric A's holistic capstone grade.</div>
+  </div>
+
+  <div class="cover-block gold">
+    <div class="cover-block-label">Pedagogical Anchors · กรอบทฤษฎีที่ใช้</div>
+    <div class="cover-block-body">CEFR (Council of Europe) · Krashen Input Hypothesis (i+1) · Vygotsky ZPD · CAST UDL 3.0 (multiple means of representation — tier-fairness) · SLA receptive-vs-productive asymmetry</div>
+  </div>
+
+  <div class="cover-footer">
+    <span>Faculty of Liberal Arts · Mahidol University</span>
+    <span>Author: Dr. Payungsak Kaenchan</span>
+  </div>
+</div>
+
+<div class="page-strip">
+  <span>Rubric C · CEFR Language Development</span>
+  <span>FUTUREPROOF · SDG MISSION JOURNEY</span>
+</div>
+
+
+<div class="section-h">Methodology · Three Timepoints, Five Dimensions</div>
+<table class="rubric">
+  <thead><tr><th class="crit">Dimension</th><th>Diagnostic Source</th><th>Mid-Journey Source</th><th>Post Source</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Lexical range</strong></td><td>Vocabulary section + writing prompt</td><td>DECIDE / ACT written reasoning in first passed mission</td><td>Voice for Change + transcript</td></tr>
+    <tr><td><strong>Grammatical control</strong></td><td>Cloze + writing prompt</td><td>ACT written communication + DEBRIEF rationale</td><td>Voice for Change + transcript</td></tr>
+    <tr><td><strong>Discourse organization</strong></td><td>Writing prompt</td><td>PROBE source-weighing + DEBRIEF reflection</td><td>Voice for Change synthesis</td></tr>
+    <tr><td><strong>Register flexibility</strong></td><td>Writing prompt (single register)</td><td>ACT audience-specific communication</td><td>Voice for Change (address to a real audience)</td></tr>
+    <tr><td><strong>Phonological control</strong></td><td>Optional pre-recording</td><td>(optional) spoken stage response</td><td>Voice for Change audio narration</td></tr>
+  </tbody>
+</table>
+
+<div class="note-box">
+  <div class="note-box-h">Tier-Fairness Rule (load-bearing)</div>
+  <ul>
+    <li><strong>Measure growth, not tier.</strong> A Tier-1 learner who moves A2 → B1 has demonstrated the same half-band gain as a Tier-3 learner who moves B2 → B2+. Report the delta, never the absolute band as a verdict on the learner.</li>
+    <li><strong>Receptive vs. productive.</strong> The diagnostic and capstone are productive samples (writing/speaking) and are tier-neutral to produce — grade them directly. Do not infer a ceiling from the learner's reading tier.</li>
+    <li><strong>Listening</strong> is assessed against authentic input with the caption scaffold available; do not down-rate a lower-tier learner for needing the caption — using the provided scaffold is the designed behaviour.</li>
+  </ul>
+</div>
+
+<div class="section-h">CEFR Band Descriptors (FUTUREPROOF working set)</div>
+
+<div class="criterion">
+<div class="criterion-h">Lexical Range</div>
+<table class="rubric">
+  <tbody>
+    <tr><td class="score">A2</td><td>Limited stock of frequent words; topic-specific vocabulary is rare.</td></tr>
+    <tr><td class="score">B1</td><td>Sufficient vocabulary to discuss familiar topics; some imprecision.</td></tr>
+    <tr><td class="score">B1+</td><td>Reaches for precise vocabulary in familiar domains; occasionally produces lower-frequency word forms.</td></tr>
+    <tr><td class="score">B2</td><td>Range covers most general topics; circumlocutes around lexical gaps.</td></tr>
+    <tr><td class="score">C1</td><td>Reliable command of low-frequency vocabulary, idiomatic and colloquial usage; chosen with intent.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="criterion">
+<div class="criterion-h">Grammatical Control</div>
+<table class="rubric">
+  <tbody>
+    <tr><td class="score">A2</td><td>Simple structures; frequent errors in coordination and tense.</td></tr>
+    <tr><td class="score">B1</td><td>Reasonable accuracy in familiar contexts; complex structures attempted but uneven.</td></tr>
+    <tr><td class="score">B2</td><td>Good control of complex grammar; errors do not impede communication.</td></tr>
+    <tr><td class="score">C1</td><td>Consistent grammatical control; errors rare and self-correctable.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="criterion">
+<div class="criterion-h">Discourse Organization</div>
+<table class="rubric">
+  <tbody>
+    <tr><td class="score">A2</td><td>Linear listing; few connectors.</td></tr>
+    <tr><td class="score">B1</td><td>Linear with simple connectors (and, but, because).</td></tr>
+    <tr><td class="score">B2</td><td>Multiple connectors; clear paragraphing; topic sentences emerging.</td></tr>
+    <tr><td class="score">C1</td><td>Complex argument structures; subordination signals reliable; metadiscourse present.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="criterion">
+<div class="criterion-h">Register Flexibility</div>
+<table class="rubric">
+  <tbody>
+    <tr><td class="score">A2</td><td>Single register only.</td></tr>
+    <tr><td class="score">B1</td><td>Two recognizable registers (formal / informal) with crossover.</td></tr>
+    <tr><td class="score">B2</td><td>Distinguishes academic / persuasive / colloquial; minor leakage.</td></tr>
+    <tr><td class="score">C1</td><td>Selects register strategically; can blend registers for rhetorical effect.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="criterion">
+<div class="criterion-h">Phonological Control (Speaking)</div>
+<table class="rubric">
+  <tbody>
+    <tr><td class="score">A2</td><td>Pronunciation transparent enough to be understood with effort.</td></tr>
+    <tr><td class="score">B1</td><td>Generally intelligible; word stress sometimes off.</td></tr>
+    <tr><td class="score">B2</td><td>Generally clear; occasional pronunciation issues with low-frequency words.</td></tr>
+    <tr><td class="score">C1</td><td>Pronunciation contributes to meaning; intonation and stress are tools, not obstacles.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="section-h">Recording Growth · Per-Learner Output</div>
+<pre>{
+  "lexical":   { "pre": "B1",  "post": "B1+", "growthHalfBands": 1 },
+  "grammar":   { "pre": "B1",  "post": "B2",  "growthHalfBands": 2 },
+  "discourse": { "pre": "B1+", "post": "B2",  "growthHalfBands": 1 },
+  "register":  { "pre": "B1",  "post": "B2",  "growthHalfBands": 2 },
+  "phonology": { "pre": "B1",  "post": "B1+", "growthHalfBands": 1 },
+  "compositeGrowthHalfBands": 7
+}</pre>
+
+<div class="note-box">
+  <div class="note-box-h">Reliability &amp; Calibration</div>
+  <ul>
+    <li><strong>Inter-rater reliability:</strong> Cohen's κ ≥ 0.7 target between two human evaluators on a 10% audit sample.</li>
+    <li><strong>AI evaluator calibration:</strong> tuned against human-scored samples; drift &gt; 0.5 half-band on any dimension triggers prompt revision.</li>
+    <li><strong>Scope discipline:</strong> this rubric explicitly excludes content evaluation — that lives in Rubric A.</li>
+  </ul>
+</div>
+
+</body>
+</html>

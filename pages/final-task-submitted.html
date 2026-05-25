@@ -171,9 +171,20 @@
     .aij-shell{padding:22px 20px}
     .aij-card{padding:20px}
   }
+
+  /* Demo-mode banner (when fp_demo_mode === "on") — mirrors final-task.html */
+  .demo-banner{display:none; padding:10px 20px; background:linear-gradient(90deg, var(--bronze) 0%, var(--bronze-light) 100%); color:var(--ink-deep); font-family:var(--mono); font-size:12.6px; letter-spacing:.14em; text-transform:uppercase; text-align:center; font-weight:700; border-bottom:1px solid var(--bronze-dim)}
+  .demo-banner .exit{margin-left:14px; padding:3px 10px; border-radius:6px; border:1px solid var(--ink-deep); color:var(--ink-deep); background:rgba(255,255,255,.18); text-decoration:none; font-size:11.5px; font-weight:700; cursor:pointer; letter-spacing:.10em}
+  .demo-banner .exit:hover{background:rgba(255,255,255,.36)}
+  body.is-demo .demo-banner{display:block}
 </style>
 </head>
 <body>
+
+<div class="demo-banner" id="demo-banner" role="status">
+  ⚠ Demo / Judge mode active · This submission is watermarked and not graded · กำลังใช้งานโหมดสาธิต
+  <a href="#" class="exit" id="demo-exit">Exit demo mode</a>
+</div>
 
 <header class="shell-header">
   <a href="../home.html" class="shell-header-brand">
@@ -284,6 +295,26 @@
 <script type="module" src="../src/a11y.js"></script>
 <script type="module" src="../src/certificate-gen.js"></script>
 <script type="module" src="../src/ai-judges.js"></script>
+
+<!-- Demo / Judge mode — show banner when fp_demo_mode is sticky on the device -->
+<script>
+  (function () {
+    try {
+      if (localStorage.getItem("fp_demo_mode") === "on") {
+        document.body.classList.add("is-demo");
+      }
+    } catch (_) {}
+    var exit = document.getElementById("demo-exit");
+    if (exit) {
+      exit.addEventListener("click", function (ev) {
+        ev.preventDefault();
+        try { localStorage.removeItem("fp_demo_mode"); } catch (_) {}
+        document.body.classList.remove("is-demo");
+        location.href = "../home.html";
+      });
+    }
+  })();
+</script>
 
 </body>
 </html>
