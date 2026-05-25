@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Claude_Preview__preview_screenshot",
+      "mcp__Claude_Preview__preview_inspect",
+      "mcp__Claude_Preview__preview_console_logs",
+      "mcp__Claude_Preview__preview_list",
+      "mcp__plugin_playwright_playwright__browser_console_messages",
+      "mcp__Desktop_Commander__read_file",
+      "mcp__5dc9cf20-90a4-4a16-89e5-4519f3249e0c__netlify-project-services-reader",
+      "mcp__5dc9cf20-90a4-4a16-89e5-4519f3249e0c__netlify-deploy-services-reader",
+      "mcp__7226fced-1aba-4f64-a3e3-606b0ff1f0aa__get_themes"
+    ]
+  }
+}

@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"/>
+<title>FUTUREPROOF · Pilot &amp; Measurement Plan</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@page {
+  size: A4;
+  margin: 0;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'DM Sans', 'IBM Plex Sans Thai', sans-serif;
+  color: #0A0A0B;
+  background: #FDFBF6;
+  font-size: 9.5pt;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page {
+  width: 210mm;
+  height: 297mm;
+  padding: 18mm 18mm 16mm;
+  background: #FDFBF6;
+  position: relative;
+}
+
+.corner {
+  position: absolute;
+  width: 14mm; height: 14mm;
+  border-color: #C9A961; border-style: solid;
+}
+.corner.tl { top:6mm; left:6mm; border-width:1px 0 0 1px; }
+.corner.tr { top:6mm; right:6mm; border-width:1px 1px 0 0; }
+.corner.bl { bottom:6mm; left:6mm; border-width:0 0 1px 1px; }
+.corner.br { bottom:6mm; right:6mm; border-width:0 1px 1px 0; }
+
+.head {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding-bottom: 8pt;
+  border-bottom: 1px solid #C9A961;
+}
+.tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7.5pt; letter-spacing: 0.22em; color: #C9A961;
+  text-transform: uppercase;
+}
+.version {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7.5pt; letter-spacing: 0.18em; color: #8B8B92;
+}
+
+h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300; font-size: 36pt; line-height: 1.05;
+  color: #0A0A0B; margin: 12pt 0 4pt;
+  letter-spacing: -0.01em;
+}
+h1 em { font-style: italic; color: #6E5320; }
+.th-sub {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-weight: 300; font-size: 11pt; color: #6E5320; margin-bottom: 12pt;
+}
+.lede {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-size: 12.5pt; line-height: 1.55;
+  color: #42526E; margin: 0 0 16pt;
+}
+
+h2.sec {
+  font-family: 'Cinzel', serif;
+  font-weight: 500; font-size: 10pt;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: #C9A961;
+  border-top: 1px solid rgba(201,169,97,0.4);
+  border-bottom: 1px solid rgba(201,169,97,0.4);
+  padding: 5pt 0; margin: 14pt 0 8pt;
+}
+
+p { margin: 4pt 0 6pt; line-height: 1.5; }
+p strong { color: #0A0A0B; font-weight: 600; }
+
+ul { margin: 4pt 0 6pt; padding-left: 16pt; }
+ul li { margin: 3pt 0; line-height: 1.45; }
+ul li strong { color: #0A0A0B; }
+
+.cols {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 14pt;
+  margin: 8pt 0;
+}
+
+.callout {
+  background: rgba(201,169,97,0.08);
+  border-left: 2px solid #C9A961;
+  padding: 8pt 12pt;
+  margin: 8pt 0;
+  font-size: 9pt;
+  line-height: 1.5;
+}
+.callout strong {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7pt; letter-spacing: 0.18em; text-transform: uppercase;
+  color: #8A6D3F;
+  display: block; margin-bottom: 3pt; font-weight: 500;
+}
+
+.callout.crimson {
+  background: rgba(123,27,27,0.06); border-left-color: #7B1B1B;
+}
+.callout.crimson strong { color: #7B1B1B; }
+
+table {
+  width: 100%; border-collapse: collapse;
+  font-size: 8.5pt; margin: 6pt 0;
+}
+table th, table td {
+  border: 1px solid rgba(31,31,35,0.18);
+  padding: 5pt 7pt; text-align: left; vertical-align: top;
+  line-height: 1.4;
+}
+table th {
+  background: #F4F1EA;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7.5pt; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: #6E5320;
+}
+table td.k {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8pt; color: #1F1F23;
+  width: 32%; font-weight: 500;
+}
+
+.foot {
+  position: absolute; bottom: 12mm; left: 18mm; right: 18mm;
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 7pt;
+  border-top: 1px solid rgba(201,169,97,0.4);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7pt; letter-spacing: 0.16em;
+  color: #8B8B92; text-transform: uppercase;
+}
+
+.kv { display: grid; grid-template-columns: 80pt 1fr; gap: 6pt 12pt; font-size: 9pt; margin: 4pt 0 8pt; }
+.kv .kk {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7.5pt; letter-spacing: 0.12em;
+  text-transform: uppercase; color: #6E5320;
+  padding-top: 2pt;
+}
+.kv .vv { color: #1F1F23; line-height: 1.45; }
+
+.url-mono {
+  font-family: 'JetBrains Mono', monospace; font-size: 8.5pt;
+  color: #6E5320; word-break: break-all;
+}
+</style>
+</head><body>
+<div class="page">
+  <div class="corner tl"></div><div class="corner tr"></div>
+  <div class="corner bl"></div><div class="corner br"></div>
+
+  <div class="head">
+    <div class="tag">FUTUREPROOF · SDG MISSION JOURNEY</div>
+    <div class="version">PILOT &amp; MEASUREMENT · v1.0 · MAY 2026</div>
+  </div>
+
+  <h1>Pilot &amp; <em>Measurement Plan</em></h1>
+  <div class="th-sub">แผนการนำร่องและการวัดผลกระทบ · ภาคการศึกษา ๑ / ๒๕๖๙</div>
+  <div class="lede">This submission is a launch-ready innovation in its zero-cohort phase. Other submissions show what happened — we show what we are prepared to measure. The data study is the next phase, not the current one.</div>
+
+  <h2 class="sec">The pilot · semester 1 / academic year 2569</h2>
+
+  <div class="kv">
+    <div class="kk">First cohort</div>          <div class="vv">LALA109 · Sem 1 / AY 2569 · August 2026 · Mahidol University, Faculty of Liberal Arts</div>
+    <div class="kk">Cohort size</div>           <div class="vv">Up to 50 learners per section × up to 6 sections = up to 300 learners</div>
+    <div class="kk">Duration</div>              <div class="vv">15 weeks · 3 in-class hours + 6 async hours per week (135 hours total)</div>
+    <div class="kk">Within rayong</div>         <div class="vv">Replaces the existing Design-Thinking SDG project (weeks 7-14, currently 40% of grade)</div>
+    <div class="kk">Teacher preparation</div>   <div class="vv">10 hours pre-term · workshop + Teacher's Manual self-study</div>
+  </div>
+
+  <h2 class="sec">What we measure · five instruments</h2>
+
+  <table>
+    <tr><th>Instrument</th><th>Captures</th><th>Method</th></tr>
+    <tr><td class="k">Rubric A · capstone</td><td>Voice for Change argument + craft</td><td>Teacher · summative · 5 dimensions × 1.0/0.5 · max 45 pts</td></tr>
+    <tr><td class="k">Rubric B · in-mission</td><td>Decision quality across 5 stages</td><td>AI · formative · stage-anchored · token-graded</td></tr>
+    <tr><td class="k">Rubric C · CEFR delta</td><td>Language gain (pre / mid / post)</td><td>5 dimensions × half-band increments · target +4 half-bands</td></tr>
+    <tr><td class="k">Rubric D · soft skills</td><td>Critical · analytical · collaboration · ethics · decision</td><td>Teacher + peer · 5 dimensions × max 6 pts each</td></tr>
+    <tr><td class="k">Attitude shift</td><td>Pre / post attitudes toward SDGs · AI</td><td>Likert-scale survey · n = full cohort</td></tr>
+  </table>
+
+  <h2 class="sec">Reliability &amp; ethics safeguards</h2>
+  <ul>
+    <li><strong>Inter-rater reliability</strong> · Cohen's κ ≥ 0.7 target between two human evaluators on a 10% audit sample.</li>
+    <li><strong>AI evaluator calibration</strong> · random 5% audit against teacher score; drift &gt; 0.5 score-points triggers prompt revision.</li>
+    <li><strong>PDPA compliance</strong> · bilingual consent before any personal-data write; 90-day auto-deletion post-course; granular consent per data category.</li>
+    <li><strong>DPIA on file</strong> · Data Protection Impact Assessment per พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562 (<code>docs/dpia.md</code>).</li>
+    <li><strong>Withdrawal rule</strong> · learners may withdraw from research participation while continuing the course; their data is purged within 7 days.</li>
+  </ul>
+
+  <h2 class="sec">Dissemination path · once data lands</h2>
+  <div class="cols">
+    <div>
+      <p><strong>Conferences (target)</strong></p>
+      <ul>
+        <li>TESOL International Convention</li>
+        <li>AsiaTEFL Annual Conference</li>
+        <li>EuroCALL</li>
+        <li>AILA World Congress</li>
+      </ul>
+    </div>
+    <div>
+      <p><strong>Journals (target)</strong></p>
+      <ul>
+        <li>Computer Assisted Language Learning</li>
+        <li>ReCALL</li>
+        <li>Language Learning &amp; Technology</li>
+        <li>Journal of Digital Learning in Teacher Education</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2 class="sec">Why this matters · the strategic frame</h2>
+  <p>Past Thai education-innovation competitions have rewarded "evidence of impact" via retrospective classroom data. FUTUREPROOF inverts this: we provide <strong>auditable architecture + a rigorous design ready to produce data</strong>, not retrospective stories from a single uncontrolled term. This is a methodological choice, not a gap.</p>
+  <p>When the first cohort completes the pilot in December 2026, the measurement instruments above produce data that can be benchmarked against (a) the prior Design-Thinking version of LALA109 and (b) other Thai EAP/EMI courses for cross-institutional comparison.</p>
+
+  <div class="foot">
+    <span>Dr. Payungsak Kaenchan · payungsak.kae@mahidol.ac.th</span>
+    <span>v1.0 · 26 May 2026 · companion to the main application</span>
+  </div>
+</div>
+</body></html>

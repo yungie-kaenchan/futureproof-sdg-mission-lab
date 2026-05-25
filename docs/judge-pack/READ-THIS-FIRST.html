@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"/>
+<title>FUTUREPROOF · Read This First</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@page {
+  size: A4;
+  margin: 0;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'DM Sans', 'IBM Plex Sans Thai', sans-serif;
+  color: #0A0A0B;
+  background: #FDFBF6;
+  font-size: 9.5pt;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page {
+  width: 210mm;
+  height: 297mm;
+  padding: 18mm 18mm 16mm;
+  background: #FDFBF6;
+  position: relative;
+}
+
+.corner {
+  position: absolute;
+  width: 14mm; height: 14mm;
+  border-color: #C9A961; border-style: solid;
+}
+.corner.tl { top:6mm; left:6mm; border-width:1px 0 0 1px; }
+.corner.tr { top:6mm; right:6mm; border-width:1px 1px 0 0; }
+.corner.bl { bottom:6mm; left:6mm; border-width:0 0 1px 1px; }
+.corner.br { bottom:6mm; right:6mm; border-width:0 1px 1px 0; }
+
+.head {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding-bottom: 8pt;
+  border-bottom: 1px solid #C9A961;
+}
+.tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7.5pt; letter-spacing: 0.22em; color: #C9A961;
+  text-transform: uppercase;
+}
+.version {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7.5pt; letter-spacing: 0.18em; color: #8B8B92;
+}
+
+h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300; font-size: 36pt; line-height: 1.05;
+  color: #0A0A0B; margin: 12pt 0 4pt;
+  letter-spacing: -0.01em;
+}
+h1 em { font-style: italic; color: #6E5320; }
+.th-sub {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  font-weight: 300; font-size: 11pt; color: #6E5320; margin-bottom: 12pt;
+}
+.lede {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-size: 12.5pt; line-height: 1.55;
+  color: #42526E; margin: 0 0 16pt;
+}
+
+h2.sec {
+  font-family: 'Cinzel', serif;
+  font-weight: 500; font-size: 10pt;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: #C9A961;
+  border-top: 1px solid rgba(201,169,97,0.4);
+  border-bottom: 1px solid rgba(201,169,97,0.4);
+  padding: 5pt 0; margin: 14pt 0 8pt;
+}
+
+p { margin: 4pt 0 6pt; line-height: 1.5; }
+p strong { color: #0A0A0B; font-weight: 600; }
+
+ul { margin: 4pt 0 6pt; padding-left: 16pt; }
+ul li { margin: 3pt 0; line-height: 1.45; }
+ul li strong { color: #0A0A0B; }
+
+.cols {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 14pt;
+  margin: 8pt 0;
+}
+
+.callout {
+  background: rgba(201,169,97,0.08);
+  border-left: 2px solid #C9A961;
+  padding: 8pt 12pt;
+  margin: 8pt 0;
+  font-size: 9pt;
+  line-height: 1.5;
+}
+.callout strong {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7pt; letter-spacing: 0.18em; text-transform: uppercase;
+  color: #8A6D3F;
+  display: block; margin-bottom: 3pt; font-weight: 500;
+}
+
+.callout.crimson {
+  background: rgba(123,27,27,0.06); border-left-color: #7B1B1B;
+}
+.callout.crimson strong { color: #7B1B1B; }
+
+table {
+  width: 100%; border-collapse: collapse;
+  font-size: 8.5pt; margin: 6pt 0;
+}
+table th, table td {
+  border: 1px solid rgba(31,31,35,0.18);
+  padding: 5pt 7pt; text-align: left; vertical-align: top;
+  line-height: 1.4;
+}
+table th {
+  background: #F4F1EA;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7.5pt; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: #6E5320;
+}
+table td.k {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8pt; color: #1F1F23;
+  width: 32%; font-weight: 500;
+}
+
+.foot {
+  position: absolute; bottom: 12mm; left: 18mm; right: 18mm;
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 7pt;
+  border-top: 1px solid rgba(201,169,97,0.4);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7pt; letter-spacing: 0.16em;
+  color: #8B8B92; text-transform: uppercase;
+}
+
+.kv { display: grid; grid-template-columns: 80pt 1fr; gap: 6pt 12pt; font-size: 9pt; margin: 4pt 0 8pt; }
+.kv .kk {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7.5pt; letter-spacing: 0.12em;
+  text-transform: uppercase; color: #6E5320;
+  padding-top: 2pt;
+}
+.kv .vv { color: #1F1F23; line-height: 1.45; }
+
+.url-mono {
+  font-family: 'JetBrains Mono', monospace; font-size: 8.5pt;
+  color: #6E5320; word-break: break-all;
+}
+</style>
+</head><body>
+<div class="page">
+  <div class="corner tl"></div><div class="corner tr"></div>
+  <div class="corner bl"></div><div class="corner br"></div>
+
+  <div class="head">
+    <div class="tag">FUTUREPROOF · SDG MISSION JOURNEY</div>
+    <div class="version">READ THIS FIRST · v1.0 · MAY 2026</div>
+  </div>
+
+  <h1>Read this <em>first</em></h1>
+  <div class="th-sub">เอกสารแนะนำผลงานในหนึ่งหน้า · สำหรับคณะกรรมการ</div>
+  <div class="lede">If you read only one document in this submission package, read this one. Three claims, one verification URL, two-minute commitment.</div>
+
+  <h2 class="sec">What this is</h2>
+  <p>An AI-scaffolded English-language learning platform for <strong>LALA109 · English for Digital Communication Skills</strong> at the Faculty of Liberal Arts, Mahidol University. Six adaptive missions across Thailand, each anchored to a UN Sustainable Development Goal, culminating in a teacher-graded <em>Voice for Change</em> capstone — a 2-to-5-minute proposal addressed to a real Thai institution.</p>
+
+  <h2 class="sec">Three load-bearing claims · all auditable</h2>
+
+  <div class="callout crimson">
+    <strong>Claim 1 · AI-TPACK enforced at the System-Prompt level</strong>
+    The boundary between what AI handles (scale, formative feedback) and what humans handle (summative grading, cultural authenticity) is hard-coded into the Claude API system prompts of Mr Compass and the AI Judges — not merely declared in the application. Open <code style="font-family:monospace;background:#f4f1ea;padding:1px 4px">/pages/judge-tour.html</code> Step 8 to see this in the admin console.
+  </div>
+
+  <div class="callout">
+    <strong>Claim 2 · Three learning theories made operational</strong>
+    Behaviorism (Insight Token economy · operant conditioning), Cognitivism (5-stage arc · CTML multimedia), Social Constructivism (3-role asymmetric team · Mr Compass as MKO) — each cited theorist maps to a specific feature you can click on. See <em>Teacher's Manual</em> Chapter 4 for the triptych mapping.
+  </div>
+
+  <div class="callout">
+    <strong>Claim 3 · Compliance and accessibility built into the foundation</strong>
+    PDPA · พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562 · with bilingual consent + 90-day auto-deletion. CAST UDL 3.0 across the three principles. WCAG 2.1 AA verified by Google Lighthouse (Accessibility · 100 / 100 on home and Judge Tour). Mobile-first from 360 px upward.
+  </div>
+
+  <h2 class="sec">Where to verify, in one click each</h2>
+  <table>
+    <tr><td class="k">Live platform</td><td><span class="url-mono">https://futureproof-sdgs-lab.netlify.app</span></td></tr>
+    <tr><td class="k">Judge Tour (start here)</td><td><span class="url-mono">https://futureproof-sdgs-lab.netlify.app/pages/judge-tour.html</span></td></tr>
+    <tr><td class="k">Sample mission (pre-completed)</td><td>Judge Tour · Step 04 · SDG 6 · Khon Kaen · The Aquifer Below</td></tr>
+    <tr><td class="k">Voice for Change demo</td><td>"Skip to Voice for Change" button at Judge Tour · Step 04 bottom</td></tr>
+    <tr><td class="k">Hall of Voices</td><td>4 composite-anonymous exemplars · Judge Tour · Step 07</td></tr>
+    <tr><td class="k">Admin Console</td><td>7 modules · Judge Tour · Step 08 · sign-in required</td></tr>
+  </table>
+
+  <h2 class="sec">Where to read more (six artefacts in the submission)</h2>
+  <ul>
+    <li><strong>Application · </strong><em>หนังสือเข้าร่วมการประกวด-FINAL-15pp.docx</em> · 15 pp report + 36-source bibliography</li>
+    <li><strong>Rubric A</strong> · Voice for Change Holistic · teacher-graded · 5 pp PDF</li>
+    <li><strong>Rubric B · C · D</strong> · AI logic / CEFR delta / Soft skills · 4-5 pp PDFs each</li>
+    <li><strong>Teacher's Manual</strong> · 28 pp bilingual · written for both teachers and judges</li>
+    <li><strong>Pilot &amp; Measurement Plan</strong> · companion 1-page document</li>
+    <li><strong>Scrutiny Report</strong> · self-audit with Lighthouse numbers and competitive analysis</li>
+  </ul>
+
+  <div class="foot">
+    <span>Dr. Payungsak Kaenchan · Faculty of Liberal Arts</span>
+    <span>Submitted to SPU Tech Creative Learning Awards 2569</span>
+  </div>
+</div>
+</body></html>
