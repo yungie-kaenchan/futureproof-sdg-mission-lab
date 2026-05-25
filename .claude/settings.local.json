@@ -3,7 +3,32 @@
     "allow": [
       "Bash(mkdir -p /Users/yungie/futureproof-project/.claude)",
       "mcp__Claude_Preview__preview_start",
-      "Bash(npm run *)"
+      "Bash(npm run *)",
+      "Bash(python3)",
+      "Bash(/usr/bin/grep -nB2 -A5 \"landing-video\" home.html)",
+      "Bash(/usr/bin/head -40)",
+      "Bash(/usr/bin/grep -nB2 -A8 \"hero-feature.webp\" home.html)",
+      "Bash(/usr/bin/head -20)",
+      "Bash(/usr/bin/grep -nE \"Material+Symbols|material-symbols\" home.html)",
+      "Bash(/usr/bin/head -5)",
+      "Bash(/usr/bin/grep -rln \"landing-video\" --include=\"*.html\" --include=\"*.css\" --include=\"*.js\" .)",
+      "Bash(/usr/bin/grep -onE \"landing[-/][a-z0-9.-]+\\\\.\\(mp4|webp|png|jpg\\)\" styles.css)",
+      "Bash(/usr/bin/head -10)",
+      "Bash(/usr/bin/grep -nE \"<video|<source \" home.html)",
+      "Bash(/usr/bin/grep -nE \"landing|video|hero-feature\" index.html)",
+      "Bash(/usr/bin/grep -nB2 -A8 \"video\\\\b\" index.html)",
+      "Bash(/usr/bin/head -60)",
+      "Bash(/usr/bin/grep -nE \"</body>|<script\" /Users/yungie/futureproof-project/index.html)",
+      "Bash(/usr/bin/tail -10)",
+      "Bash(/usr/bin/grep -nE \"Material.Symbols|material-symbols\" index.html)",
+      "Bash(/usr/bin/grep -nE \"fonts\\\\.googleapis\" index.html)",
+      "Bash(/usr/bin/grep -nB2 -A2 \"arrow_forward\" index.html)",
+      "Bash(/usr/bin/tail -2)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(/usr/bin/tail -3)",
+      "Bash(npx --yes lighthouse@latest https://futureproof-sdgs-lab.netlify.app/ --only-categories=performance,accessibility,best-practices,seo '--chrome-flags=--headless=new --no-sandbox' --output=json --output-path=/tmp/lh-home-v3.json --quiet)"
     ]
   }
 }
