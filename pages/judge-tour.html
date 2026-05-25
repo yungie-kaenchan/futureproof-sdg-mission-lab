@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Judge Tour — FUTUREPROOF</title>
-<meta name="description" content="A guided 60-second tour of FUTUREPROOF: SDGs Mission Journey for the SPU Tech Creative Learning Awards competition committee. Start the demo journey, browse the curated capsules, or read the rubrics." />
+<title>Judge Tour · Guided Walkthrough — FUTUREPROOF</title>
+<meta name="description" content="An eight-step guided walkthrough of FUTUREPROOF: SDGs Mission Journey for the SPU Tech Creative Learning Awards committee. Sample mission pre-completed. Built for screencast-friendly review." />
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="FUTUREPROOF — SDG Mission Lab">
-<meta property="og:title" content="Judge Tour — FUTUREPROOF">
-<meta property="og:description" content="A 60-second guided entry for competition judges.">
+<meta property="og:title" content="Judge Tour · Guided Walkthrough — FUTUREPROOF">
+<meta property="og:description" content="An eight-step screencast-friendly tour with a pre-completed SDG 6 sample mission.">
 <meta property="og:image" content="https://futureproof-sdgs-lab.netlify.app/assets/journey/thailand-map-og.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,7 +21,7 @@
   :root{
     --ink:#071734; --ink-deep:#0F1729; --ink-soft:#2A3855;
     --bronze:#B58A3F; --bronze-light:#E8C77A; --bronze-dim:#6E5320;
-    --purple:#5D3A9B;
+    --purple:#5D3A9B; --green:#3F7E44;
     --paper:#FBFAF6; --paper-warm:#F4F1EA; --bone:#F4F1EA; --white:#FFFFFF;
     --line:rgba(7,23,52,.10); --line-strong:rgba(7,23,52,.18);
     --crimson:#A82424;
@@ -29,111 +29,170 @@
     --sans:'DM Sans',sans-serif; --mono:'JetBrains Mono',monospace;
     --th:'IBM Plex Sans Thai',sans-serif;
   }
+  *{box-sizing:border-box}
   body{background:var(--paper); color:var(--ink-deep); font-family:var(--sans); margin:0; min-height:100vh; -webkit-font-smoothing:antialiased; font-size:18px}
+  html{scroll-behavior:smooth}
 
-  /* Dark navy header — consistent with the rest of the portal */
-  .shell-header{position:sticky; top:0; z-index:50; display:flex; align-items:center; justify-content:space-between; padding:14px 28px; background:rgba(7,23,52,0.96); backdrop-filter:blur(8px); border-bottom:1px solid rgba(232,199,122,.18); color:var(--bone)}
+  /* ─── Top judge-tour banner ─────────────────────────────────────── */
+  .judge-banner{padding:14px 24px; background:linear-gradient(90deg, var(--bronze) 0%, var(--bronze-light) 100%); color:var(--ink-deep); font-family:var(--mono); font-size:13px; letter-spacing:.14em; text-transform:uppercase; text-align:center; font-weight:700; border-bottom:1px solid var(--bronze-dim); position:sticky; top:0; z-index:60}
+
+  /* ─── Shell header ──────────────────────────────────────────────── */
+  .shell-header{position:sticky; top:48px; z-index:55; display:flex; align-items:center; justify-content:space-between; padding:14px 28px; background:rgba(7,23,52,0.96); backdrop-filter:blur(8px); border-bottom:1px solid rgba(232,199,122,.18); color:var(--bone)}
   .shell-header-brand{display:inline-flex; align-items:baseline; gap:14px; text-decoration:none; color:inherit}
   .shell-header-brand .logo{font-family:var(--titles); font-weight:700; font-size:20.7px; letter-spacing:.20em; color:var(--bone)}
   .shell-header-brand .sub{font-family:var(--titles); font-weight:600; font-size:12.6px; letter-spacing:.32em; color:rgba(244,241,234,.65); text-transform:uppercase; border-left:1px solid rgba(232,199,122,.22); padding-left:14px}
   .shell-header-btn{display:inline-flex; align-items:center; gap:6px; padding:8px 16px; border-radius:999px; border:1px solid rgba(244,241,234,.18); background:transparent; color:var(--bone); text-decoration:none; font-family:var(--mono); font-size:12.6px; letter-spacing:.12em; text-transform:uppercase}
   .shell-header-btn:hover{background:rgba(244,241,234,.08); border-color:var(--bronze)}
 
-  /* Top judge-tour banner */
-  .judge-banner{padding:14px 24px; background:linear-gradient(90deg, var(--bronze) 0%, var(--bronze-light) 100%); color:var(--ink-deep); font-family:var(--mono); font-size:13px; letter-spacing:.14em; text-transform:uppercase; text-align:center; font-weight:700; border-bottom:1px solid var(--bronze-dim)}
+  /* ─── Sticky progress indicator ─────────────────────────────────── */
+  .progress-bar{position:sticky; top:118px; z-index:50; background:rgba(251,250,246,0.95); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); padding:14px 28px; display:flex; align-items:center; gap:18px}
+  .progress-meta{font-family:var(--mono); font-size:11.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--bronze-dim); font-weight:700; white-space:nowrap}
+  .progress-meta strong{color:var(--ink-deep)}
+  .progress-track{flex:1; height:5px; background:var(--paper-warm); border-radius:999px; overflow:hidden}
+  .progress-fill{height:100%; background:linear-gradient(90deg, var(--bronze) 0%, var(--bronze-light) 100%); border-radius:999px; transition:width .35s ease-out}
+  .progress-step-name{font-family:var(--display); font-style:italic; font-size:15.5px; color:var(--ink-soft); flex-shrink:0; max-width:260px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
 
-  main{max-width:1180px; margin:0 auto; padding:48px 24px 96px}
-
-  /* Hero */
-  .hero{text-align:center; padding:32px 0 48px; border-bottom:1px solid var(--line); margin-bottom:48px; max-width:920px; margin-left:auto; margin-right:auto}
-  .hero .eyebrow{font-family:var(--mono); font-size:13.5px; letter-spacing:.20em; text-transform:uppercase; color:var(--bronze-dim); margin-bottom:14px; font-weight:700}
-  .hero h1{font-family:var(--display); font-weight:300; font-size:62px; line-height:1.1; color:var(--ink-deep); margin:0 0 12px; letter-spacing:-.01em}
+  /* ─── Hero ─────────────────────────────────────────────────────── */
+  .hero{max-width:980px; margin:0 auto; padding:56px 28px 32px; text-align:center}
+  .hero .eyebrow{font-family:var(--mono); font-size:13.5px; letter-spacing:.20em; text-transform:uppercase; color:var(--bronze-dim); margin-bottom:18px; font-weight:700}
+  .hero h1{font-family:var(--display); font-weight:300; font-size:62px; line-height:1.05; color:var(--ink-deep); margin:0 0 14px; letter-spacing:-.01em}
   .hero h1 em{font-style:italic; color:var(--bronze-dim)}
-  .hero .th{font-family:var(--th); font-size:23px; color:var(--purple); margin:6px auto 24px; line-height:1.5; max-width:740px}
-  .hero p{max-width:780px; margin:0 auto; line-height:1.75; font-size:19px; color:var(--ink); text-wrap:pretty}
-  .hero p strong{color:var(--ink-deep)}
-  @media (max-width:720px){ .hero h1{font-size:42px} .hero .th{font-size:18px} .hero p{font-size:17px} }
+  .hero .th{font-family:var(--th); font-size:22px; color:var(--purple); margin:6px auto 26px; line-height:1.5; max-width:720px}
+  .hero p{max-width:780px; margin:0 auto 22px; line-height:1.75; font-size:18.5px; color:var(--ink); text-wrap:pretty}
+  .hero .start-btn{display:inline-flex; align-items:center; gap:10px; padding:18px 32px; border-radius:999px; background:var(--ink-deep); color:var(--bone); border:none; font-family:var(--mono); font-size:14px; letter-spacing:.14em; text-transform:uppercase; font-weight:700; cursor:pointer; text-decoration:none; transition:transform .2s, box-shadow .2s; box-shadow:0 10px 30px rgba(7,23,52,.18)}
+  .hero .start-btn:hover{transform:translateY(-2px); box-shadow:0 14px 40px rgba(7,23,52,.24)}
+  @media (max-width:720px){ .hero h1{font-size:42px} .hero .th{font-size:18px} }
 
-  /* 60-second overview band */
-  .overview{
-    margin:0 auto 56px; max-width:920px;
-    background:var(--white); border:1px solid var(--line); border-radius:18px;
-    padding:32px 36px; box-shadow:0 8px 28px rgba(7,23,52,.06);
-  }
-  .overview h2{font-family:var(--display); font-weight:400; font-size:30px; color:var(--ink-deep); margin:0 0 14px; line-height:1.3}
-  .overview h2 em{font-style:italic; color:var(--bronze-dim)}
-  .overview ul{margin:0; padding-left:22px; line-height:1.85; font-size:17.5px}
-  .overview li{margin-bottom:8px; color:var(--ink)}
-  .overview li strong{color:var(--ink-deep)}
+  /* ─── Step section ──────────────────────────────────────────────── */
+  .step{max-width:1180px; margin:0 auto; padding:80px 28px 64px; border-top:1px solid var(--line); scroll-margin-top:160px}
+  .step-eyebrow{display:flex; align-items:center; gap:14px; margin-bottom:18px}
+  .step-num{font-family:var(--display); font-weight:300; font-size:48px; color:var(--bronze); line-height:1; letter-spacing:-.02em}
+  .step-num em{font-style:italic; color:var(--bronze-dim)}
+  .step-of{font-family:var(--mono); font-size:11.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--bronze-dim); font-weight:700; padding-bottom:6px}
+  .step-h{display:grid; grid-template-columns:1fr; gap:6px; margin-bottom:26px}
+  .step-h h2{font-family:var(--display); font-weight:300; font-size:46px; line-height:1.1; color:var(--ink-deep); margin:0; letter-spacing:-.01em}
+  .step-h h2 em{font-style:italic; color:var(--bronze-dim)}
+  .step-h .th{font-family:var(--th); font-size:20px; color:var(--purple); font-weight:300; line-height:1.5}
+  .step-h .lede{font-family:var(--display); font-style:italic; font-size:18.5px; color:var(--ink-soft); line-height:1.6; max-width:820px; margin-top:6px}
+  @media (max-width:720px){ .step{padding:60px 22px 48px} .step-h h2{font-size:34px} .step-num{font-size:36px} }
 
-  /* Action card grid */
-  .grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:22px; margin-bottom:48px}
+  /* ─── Step body layout ──────────────────────────────────────────── */
+  .step-body{display:grid; grid-template-columns:1.4fr 1fr; gap:36px; margin-bottom:32px}
+  @media (max-width:900px){ .step-body{grid-template-columns:1fr; gap:24px} }
+  .step-body p{margin:0 0 14px; line-height:1.75; font-size:17px; color:var(--ink)}
+  .step-body p strong{color:var(--ink-deep)}
+  .step-body ul{margin:0 0 14px; padding-left:22px; line-height:1.8; color:var(--ink)}
+  .step-body li{margin-bottom:6px}
 
-  .card{
-    background:var(--white); border:1px solid var(--line); border-radius:18px;
-    padding:28px 28px 24px; display:flex; flex-direction:column;
-    box-shadow:0 8px 24px rgba(7,23,52,.06); position:relative; overflow:hidden;
-    transition:transform .25s ease-out, box-shadow .25s ease-out, border-color .25s;
-    text-decoration:none; color:inherit;
-  }
-  .card:hover{transform:translateY(-4px); box-shadow:0 18px 44px rgba(7,23,52,.12); border-color:rgba(184,138,63,.35)}
-  .card::before{content:""; position:absolute; left:0; top:0; right:0; height:5px; background:var(--accent, var(--bronze))}
-  .card .num{
-    width:52px; height:52px; border-radius:14px; background:rgba(7,23,52,.04); color:var(--ink-deep);
-    display:flex; align-items:center; justify-content:center;
-    font-family:var(--display); font-weight:500; font-size:24px; margin-bottom:18px;
-    border:1px solid rgba(7,23,52,.08);
-  }
-  .card .num em{font-style:italic; color:var(--bronze-dim)}
-  .card .label{font-family:var(--mono); font-size:11.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--accent, var(--bronze-dim)); font-weight:700; margin-bottom:8px}
-  .card h3{font-family:var(--display); font-weight:500; font-size:25px; color:var(--ink-deep); margin:0 0 8px; line-height:1.3}
-  .card h3 em{font-style:italic; color:var(--bronze-dim)}
-  .card p{margin:0 0 18px; font-size:16px; line-height:1.65; color:var(--ink-soft); flex:1}
-  .card p strong{color:var(--ink-deep)}
-  .card .cta{display:inline-flex; align-items:center; gap:8px; padding:11px 20px; border-radius:999px; font-family:var(--mono); font-size:12.5px; letter-spacing:.14em; text-transform:uppercase; font-weight:700; transition:.15s; align-self:flex-start}
-  .card .cta.solid{background:var(--ink-deep); color:var(--bone); border:1px solid var(--ink-deep)}
-  .card .cta.solid:hover{background:#1A2B52}
-  .card .cta.outline{background:transparent; color:var(--ink-deep); border:1px solid var(--ink-deep)}
-  .card .cta.outline:hover{background:rgba(7,23,52,.06)}
-  .card .cta.gold{background:linear-gradient(135deg, var(--bronze) 0%, var(--bronze-light) 100%); color:var(--ink-deep); border:1px solid var(--bronze)}
-  .card .cta.gold:hover{box-shadow:0 6px 20px rgba(184,138,63,.32)}
-  .card .arrow{transition:transform .2s}
-  .card:hover .arrow{transform:translateX(4px)}
+  .visual-card{background:var(--white); border:1px solid var(--line); border-radius:18px; padding:24px 28px; box-shadow:0 8px 24px rgba(7,23,52,.06); align-self:start}
+  .visual-card h3{font-family:var(--mono); font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--bronze-dim); margin:0 0 14px; font-weight:700}
+  .visual-card .key-list{margin:0; padding:0; list-style:none}
+  .visual-card .key-list li{display:flex; align-items:flex-start; gap:10px; padding:9px 0; border-bottom:1px solid var(--line); font-size:15px; line-height:1.5; color:var(--ink)}
+  .visual-card .key-list li:last-child{border-bottom:none}
+  .visual-card .key-list li::before{content:""; flex:0 0 8px; width:8px; height:8px; border-radius:999px; background:var(--bronze); margin-top:6px}
 
-  /* Pillars row */
-  .pillars{display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:18px; margin:48px 0}
-  .pillar{background:rgba(184,138,63,.06); border:1px solid rgba(184,138,63,.32); border-radius:14px; padding:22px 24px}
-  .pillar .label{font-family:var(--mono); font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--bronze-dim); font-weight:700; margin-bottom:6px}
-  .pillar h4{font-family:var(--display); font-weight:500; font-size:21px; color:var(--ink-deep); margin:0 0 8px}
-  .pillar p{margin:0; font-size:14.5px; line-height:1.6; color:var(--ink-soft)}
+  /* ─── Try-it-live CTA ───────────────────────────────────────────── */
+  .try-row{display:flex; flex-wrap:wrap; gap:14px; align-items:center; padding-top:18px; border-top:1px solid var(--line)}
+  .try-row .label{font-family:var(--mono); font-size:11.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-soft); font-weight:700}
+  .try-btn{display:inline-flex; align-items:center; gap:8px; padding:11px 22px; border-radius:999px; border:1px solid var(--ink-deep); background:transparent; color:var(--ink-deep); text-decoration:none; font-family:var(--mono); font-size:12.5px; letter-spacing:.14em; text-transform:uppercase; font-weight:700; transition:.15s}
+  .try-btn:hover{background:var(--ink-deep); color:var(--bone)}
+  .try-btn.solid{background:var(--ink-deep); color:var(--bone)}
+  .try-btn.solid:hover{background:#1A2B52}
+  .try-btn.gold{background:linear-gradient(135deg, var(--bronze) 0%, var(--bronze-light) 100%); color:var(--ink-deep); border-color:var(--bronze)}
+  .try-btn.gold:hover{box-shadow:0 6px 18px rgba(184,138,63,.32); color:var(--ink-deep)}
+  .next-btn{margin-left:auto; padding:11px 22px; font-family:var(--mono); font-size:12px; letter-spacing:.14em; text-transform:uppercase; font-weight:700; color:var(--bronze-dim); text-decoration:none; border-radius:999px; border:1px dashed var(--bronze-dim); transition:.15s}
+  .next-btn:hover{background:var(--bronze); color:var(--ink-deep); border-style:solid}
 
-  /* Bottom info strip */
-  .footer-strip{
-    margin-top:64px; padding:28px 36px;
-    background:var(--white); border:1px solid var(--line); border-radius:14px;
-    display:flex; gap:24px; justify-content:space-between; flex-wrap:wrap; align-items:center;
-    box-shadow:0 4px 14px rgba(7,23,52,.04);
-  }
-  .footer-strip .meta{font-size:14.5px; line-height:1.65; color:var(--ink); flex:1; min-width:280px}
-  .footer-strip .meta strong{color:var(--ink-deep)}
-  .footer-strip .meta .th{display:block; font-family:var(--th); font-size:13.5px; color:var(--ink-soft); margin-top:4px}
-  .footer-strip .contact{font-family:var(--mono); font-size:12.5px; color:var(--ink-soft); letter-spacing:.06em}
-  .footer-strip .contact a{color:var(--bronze-dim); text-decoration:none}
-  .footer-strip .contact a:hover{text-decoration:underline}
+  /* ─── Sample-mission deep panel (the centerpiece) ───────────────── */
+  .mission-shell{margin-top:18px; background:var(--ink-deep); color:var(--bone); border-radius:22px; padding:38px 40px; box-shadow:0 16px 50px rgba(7,23,52,.22); overflow:hidden}
+  .mission-shell .head{display:flex; flex-wrap:wrap; gap:14px; align-items:baseline; padding-bottom:22px; border-bottom:1px solid rgba(232,199,122,.22)}
+  .mission-shell .head .badge{font-family:var(--mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--bronze-light); padding:5px 10px; background:rgba(232,199,122,.10); border:1px solid rgba(232,199,122,.30); border-radius:6px}
+  .mission-shell .head h3{font-family:var(--display); font-weight:400; font-size:32px; color:var(--bone); margin:0; line-height:1.2}
+  .mission-shell .head h3 em{font-style:italic; color:var(--bronze-light)}
+  .mission-shell .head .pin{font-family:var(--mono); font-size:13px; color:rgba(232,199,122,.7); letter-spacing:.06em}
+  .mission-shell .meta{font-family:var(--mono); font-size:12.5px; letter-spacing:.06em; color:rgba(244,241,234,.65); margin-top:10px}
 
-  @media (max-width:720px){
-    .hero h1{font-size:42px}
-    .overview{padding:24px 22px}
-    .grid{grid-template-columns:1fr}
-    .footer-strip{padding:22px 24px}
-  }
+  .stage-rail{display:flex; gap:6px; margin:24px 0 8px; flex-wrap:wrap}
+  .stage-rail .pill{display:inline-flex; align-items:center; gap:6px; padding:8px 14px; border-radius:999px; background:rgba(63,126,68,.20); color:#7FCB84; font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; font-weight:700; border:1px solid rgba(127,203,132,.35)}
+  .stage-rail .pill::before{content:"✓"; font-size:13px}
+
+  .stage-block{margin-top:22px; background:rgba(255,255,255,.03); border:1px solid rgba(232,199,122,.18); border-radius:14px; padding:24px 26px}
+  .stage-block h4{font-family:var(--titles); font-size:15px; letter-spacing:.16em; text-transform:uppercase; color:var(--bronze-light); margin:0 0 6px; font-weight:600}
+  .stage-block .stage-sub{font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:rgba(232,199,122,.6); margin-bottom:14px}
+  .stage-block p{margin:0 0 12px; font-size:15.5px; line-height:1.7; color:rgba(244,241,234,.90)}
+  .stage-block .done-tag{display:inline-flex; align-items:center; gap:6px; padding:4px 10px; border-radius:6px; background:rgba(63,126,68,.20); color:#7FCB84; font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; font-weight:700; border:1px solid rgba(127,203,132,.35); margin-left:8px; vertical-align:middle}
+  .stage-block .done-tag::before{content:"✓"; font-size:11px}
+
+  /* Dossier sections list */
+  .dossier-list{list-style:none; padding:0; margin:6px 0 0}
+  .dossier-list li{display:grid; grid-template-columns:1fr auto; gap:12px; align-items:center; padding:14px 0; border-bottom:1px solid rgba(232,199,122,.12)}
+  .dossier-list li:last-child{border-bottom:none}
+  .dossier-list .title{font-family:var(--display); font-size:16.5px; color:var(--bone); font-weight:500}
+  .dossier-list .title em{font-style:italic; color:rgba(232,199,122,.85); font-weight:400}
+  .dossier-list .stats{font-family:var(--mono); font-size:11.5px; color:rgba(244,241,234,.55); margin-top:3px}
+
+  /* Stakeholder audio cards */
+  .stake-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:6px}
+  @media (max-width:720px){ .stake-grid{grid-template-columns:1fr} }
+  .stake-card{display:flex; gap:14px; padding:14px 16px; background:rgba(255,255,255,.04); border:1px solid rgba(232,199,122,.18); border-radius:12px; align-items:center}
+  .stake-card .av{flex:0 0 44px; width:44px; height:44px; border-radius:999px; background:linear-gradient(135deg, var(--bronze) 0%, var(--bronze-light) 100%); color:var(--ink-deep); display:flex; align-items:center; justify-content:center; font-family:var(--titles); font-weight:700; font-size:18px}
+  .stake-card .meta-stake{flex:1; min-width:0}
+  .stake-card .name{font-family:var(--display); font-size:15.5px; color:var(--bone); margin:0; font-weight:500}
+  .stake-card .role{font-family:var(--mono); font-size:11px; color:rgba(232,199,122,.7); letter-spacing:.06em; margin-top:2px}
+  .stake-card .duration{font-family:var(--mono); font-size:11px; color:rgba(244,241,234,.5); margin-top:3px}
+
+  /* Quiz items */
+  .quiz-list{list-style:none; padding:0; margin:6px 0 0; counter-reset:q}
+  .quiz-list > li{counter-increment:q; padding:18px 0 16px; border-bottom:1px solid rgba(232,199,122,.12); position:relative; padding-left:42px}
+  .quiz-list > li:last-child{border-bottom:none}
+  .quiz-list > li::before{content:"Q" counter(q); position:absolute; left:0; top:18px; width:30px; height:30px; border-radius:8px; background:rgba(232,199,122,.10); color:var(--bronze-light); font-family:var(--mono); font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center; letter-spacing:.04em}
+  .quiz-q{font-family:var(--display); font-size:16px; color:var(--bone); margin:0 0 10px; line-height:1.55; font-weight:500}
+  .quiz-a-list{list-style:none; padding:0; margin:8px 0 0; display:flex; flex-direction:column; gap:6px}
+  .quiz-a-list li{padding:9px 12px; border-radius:8px; background:rgba(255,255,255,.03); border:1px solid rgba(232,199,122,.12); font-size:14px; color:rgba(244,241,234,.78); line-height:1.5}
+  .quiz-a-list li.correct{background:rgba(63,126,68,.18); border-color:rgba(127,203,132,.45); color:#CFEED0}
+  .quiz-a-list li.correct::before{content:"✓ "; color:#7FCB84; font-weight:700}
+
+  /* DEBRIEF — token + Keystone reward */
+  .debrief-grid{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:6px}
+  @media (max-width:720px){ .debrief-grid{grid-template-columns:1fr} }
+  .reward{padding:18px 20px; border:1px solid rgba(232,199,122,.22); border-radius:12px; background:rgba(255,255,255,.04)}
+  .reward .label{font-family:var(--mono); font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:rgba(232,199,122,.7); margin-bottom:6px}
+  .reward .value{font-family:var(--display); font-size:32px; color:var(--bronze-light); font-weight:400}
+  .reward .note{font-family:var(--mono); font-size:11.5px; color:rgba(244,241,234,.6); margin-top:4px}
+  .keystone-row{display:flex; gap:8px; margin-top:8px}
+  .ks{width:18px; height:18px; border-radius:4px; transform:rotate(45deg); background:rgba(184,138,63,.12); border:1px solid rgba(232,199,122,.35)}
+  .ks.earned{background:linear-gradient(135deg, var(--bronze) 0%, var(--bronze-light) 100%); box-shadow:0 0 14px rgba(232,199,122,.4)}
+
+  .skip-cta{margin-top:30px; padding:22px 28px; border-radius:14px; background:linear-gradient(135deg, rgba(184,138,63,.22) 0%, rgba(232,199,122,.10) 100%); border:1px solid rgba(232,199,122,.40); display:flex; flex-wrap:wrap; gap:14px; align-items:center; justify-content:space-between}
+  .skip-cta .blurb{flex:1; min-width:260px}
+  .skip-cta .blurb h5{font-family:var(--display); font-weight:500; font-size:21px; color:var(--bone); margin:0 0 4px}
+  .skip-cta .blurb p{margin:0; font-size:14.5px; color:rgba(244,241,234,.75); line-height:1.5}
+  .skip-cta .skip-btn{display:inline-flex; align-items:center; gap:8px; padding:14px 24px; border-radius:999px; background:linear-gradient(135deg, var(--bronze) 0%, var(--bronze-light) 100%); color:var(--ink-deep); text-decoration:none; font-family:var(--mono); font-size:13px; letter-spacing:.14em; text-transform:uppercase; font-weight:700; transition:.15s; box-shadow:0 6px 20px rgba(232,199,122,.32)}
+  .skip-cta .skip-btn:hover{transform:translateY(-2px); box-shadow:0 10px 28px rgba(232,199,122,.45)}
+
+  /* ─── Closing ────────────────────────────────────────────────── */
+  .closing{max-width:980px; margin:0 auto; padding:80px 28px 96px; text-align:center}
+  .closing h2{font-family:var(--display); font-weight:300; font-size:48px; color:var(--ink-deep); margin:0 0 14px}
+  .closing h2 em{font-style:italic; color:var(--bronze-dim)}
+  .closing .th{font-family:var(--th); font-size:19px; color:var(--purple); margin-bottom:26px}
+  .closing p{max-width:760px; margin:0 auto 26px; line-height:1.75; font-size:18px; color:var(--ink)}
+  .closing .resource-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:14px; margin:32px auto 26px; text-align:left}
+  .closing .res{padding:18px 22px; background:var(--white); border:1px solid var(--line); border-radius:14px; text-decoration:none; color:inherit; transition:.18s; box-shadow:0 4px 12px rgba(7,23,52,.04)}
+  .closing .res:hover{transform:translateY(-3px); box-shadow:0 12px 32px rgba(7,23,52,.10); border-color:var(--bronze)}
+  .closing .res .label{font-family:var(--mono); font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--bronze-dim); font-weight:700; margin-bottom:5px}
+  .closing .res .name{font-family:var(--display); font-weight:500; font-size:17px; color:var(--ink-deep); line-height:1.3}
+  .closing .contact{margin-top:34px; padding:20px 26px; background:var(--paper-warm); border-radius:14px; font-family:var(--mono); font-size:13.5px; color:var(--ink); letter-spacing:.04em}
+  .closing .contact a{color:var(--bronze-dim); text-decoration:none; font-weight:700}
+  .closing .contact a:hover{text-decoration:underline}
+
+  @media (max-width:720px){ .closing h2{font-size:36px} }
 </style>
 </head>
 <body>
 
 <!-- Top judge banner -->
 <div class="judge-banner" role="status">
-  ⚖ JUDGE TOUR · SPU TECH CREATIVE LEARNING AWARDS 2569 · GUIDED PREVIEW FOR COMMITTEE MEMBERS · ลานสาธิตสำหรับคณะกรรมการ
+  ⚖ JUDGE TOUR · SPU TECH CREATIVE LEARNING AWARDS 2569 · 8-STEP GUIDED WALKTHROUGH · ลานสาธิตสำหรับคณะกรรมการ
 </div>
 
 <header class="shell-header">
@@ -144,155 +203,621 @@
   <a href="../home.html" class="shell-header-btn">&larr; Home</a>
 </header>
 
-<main>
+<!-- Sticky progress -->
+<div class="progress-bar" role="navigation" aria-label="Tour progress">
+  <div class="progress-meta">Step <strong id="p-current">1</strong> / 8</div>
+  <div class="progress-track"><div class="progress-fill" id="p-fill" style="width:12.5%"></div></div>
+  <div class="progress-step-name" id="p-name">Project Overview</div>
+</div>
 
-  <section class="hero">
-    <div class="eyebrow">For the Committee · สำหรับคณะกรรมการ</div>
-    <h1>Welcome to the <em>Judge Tour</em></h1>
-    <p class="th">ขอต้อนรับคณะกรรมการสู่การสาธิตแพลตฟอร์ม FUTUREPROOF</p>
-    <p>
-      A guided 60-second entry into <strong>FUTUREPROOF — SDGs Mission Journey</strong>, an AI-scaffolded
-      English-language learning platform built for LALA109 (Faculty of Liberal Arts, Mahidol University).
-      The five cards below give you the fastest possible read on what the platform does, how it works, and
-      what supports it pedagogically. Start with the demo journey if you have ten minutes — start with the
-      Hall of Voices if you have two.
-    </p>
-  </section>
+<!-- HERO -->
+<section class="hero" id="step-0">
+  <div class="eyebrow">For the Committee · สำหรับคณะกรรมการ</div>
+  <h1>The <em>Judge Tour</em></h1>
+  <p class="th">การสาธิตแพลตฟอร์มแบบทีละขั้น สำหรับคณะกรรมการ</p>
+  <p>
+    A guided eight-step walkthrough of <strong>FUTUREPROOF — SDGs Mission Journey</strong> for the
+    SPU competition committee. Scroll down to follow the same path a learner takes, with one full
+    SDG mission pre-completed so you can see what a passing journey looks like in detail. The tour
+    ends at the Voice for Change capstone, the public Hall of Voices, and the admin console — the
+    three artifacts most worth your attention.
+  </p>
+  <a href="#step-1" class="start-btn">▼ Begin the tour</a>
+</section>
 
-  <!-- 60-second overview -->
-  <section class="overview">
-    <h2>What you are about to see in <em>60 seconds</em></h2>
-    <ul>
-      <li><strong>Six adaptive missions</strong> across Thailand (one per SDG: 3, 4, 6, 11, 13, 14) each
-          built on a real Thai community tension — water, climate, cities, education, health, oceans.</li>
-      <li>Every mission runs the same <strong>five-stage arc</strong>
-          (BRIEF → PROBE → DECIDE → ACT → DEBRIEF), scored by three AI Judges against an auditable rubric.</li>
-      <li>Clear all six and you unlock <strong>Voice for Change</strong> — a multimodal capstone
-          proposal addressed to a real Thai institution. The teacher grades this; AI does not.</li>
-      <li>Throughout, <strong>Mr Compass</strong> (Socratic AI Field Mentor) offers language support only,
-          never content answers — enforcing the AI-TPACK boundary at the prompt level.</li>
-      <li>The Hall of Voices is a curated public gallery of capstone exemplars — your <em>fastest</em>
-          path to seeing the bar this platform sets.</li>
-    </ul>
-  </section>
+<!-- ═══════════════════ STEP 1 · Project Overview ═══════════════════ -->
+<section class="step" id="step-1" data-step="1" data-name="Project Overview">
+  <div class="step-eyebrow">
+    <span class="step-num">01<em>.</em></span>
+    <span class="step-of">Step 01 / 08 · Overview</span>
+  </div>
+  <div class="step-h">
+    <h2>The <em>project</em> in 60 seconds</h2>
+    <p class="th">ภาพรวมโครงการใน ๖๐ วินาที</p>
+    <p class="lede">An AI-scaffolded English-language learning platform for LALA109 at the Faculty of Liberal Arts, Mahidol University — six adaptive missions across Thailand, one Voice for Change capstone.</p>
+  </div>
+  <div class="step-body">
+    <div>
+      <p>FUTUREPROOF replaces the legacy group-project component of <strong>LALA109 · English for Digital Communication Skills</strong> with a single-player learner journey that runs in the browser. Each learner traverses six SDG-anchored missions tied to a real Thai region — climate, water, cities, education, health, oceans — and clears them by passing an AI-scored five-stage mastery arc.</p>
+      <p>The AI handles <strong>scale and consistency</strong> (formative scoring at every decision, language coaching at every register, dossier delivery at three CEFR tiers). The teacher remains the <strong>summative grader</strong> via Rubric A on the final Voice for Change capstone. This is the AI-TPACK boundary made operational.</p>
+      <p>What you are about to walk through below is the same eight-step journey a real LALA109 learner takes — except step 4 (a full SDG 6 mission) is pre-completed so you can see what every stage looks like when filled out.</p>
+    </div>
+    <aside class="visual-card">
+      <h3>At a glance</h3>
+      <ul class="key-list">
+        <li><strong>6</strong> · SDG missions across Thailand</li>
+        <li><strong>5</strong> · stage arc per mission · BRIEF → PROBE → DECIDE → ACT → DEBRIEF</li>
+        <li><strong>4</strong> · rubrics · A · B · C · D</li>
+        <li><strong>3</strong> · CEFR reading tiers · B1+ · B2 · C1</li>
+        <li><strong>3</strong> · learning theories operationalised · Behaviorism · Cognitivism · Social Constructivism</li>
+        <li><strong>2</strong> · load-bearing frameworks · PICRAT · AI-TPACK</li>
+        <li><strong>1</strong> · Voice for Change capstone · teacher-graded</li>
+      </ul>
+    </aside>
+  </div>
+  <div class="try-row">
+    <span class="label">Try it live →</span>
+    <a href="../home.html" target="_blank" rel="noopener" class="try-btn">Open the home page</a>
+    <a href="#step-2" class="next-btn">Next · Step 02 ▼</a>
+  </div>
+</section>
 
-  <!-- Five action cards -->
-  <div class="grid">
+<!-- ═══════════════════ STEP 2 · Onboarding ═════════════════════════ -->
+<section class="step" id="step-2" data-step="2" data-name="Onboarding & Consent">
+  <div class="step-eyebrow">
+    <span class="step-num">02<em>.</em></span>
+    <span class="step-of">Step 02 / 08 · Onboarding</span>
+  </div>
+  <div class="step-h">
+    <h2>Sign-up, <em>consent</em>, diagnostic, avatar</h2>
+    <p class="th">การลงทะเบียน ขั้นตอนการยินยอม PDPA การวินิจฉัยระดับ CEFR และการสร้างอวตาร</p>
+    <p class="lede">Four screens — completed once per learner, in this exact order. PDPA consent is hard-gated: the diagnostic does not run and writes nothing until consent is recorded.</p>
+  </div>
+  <div class="step-body">
+    <div>
+      <p>Every learner journey starts the same way:</p>
+      <ol style="line-height:1.85; font-size:17px;">
+        <li><strong>Sign-up</strong> — name, email, password, institution, year of study.</li>
+        <li><strong>PDPA consent</strong> — bilingual flow with granular flags: basic profile · photo · voice · decisions · public showcase. Each flag is separately revocable from the learner's <em>My Data</em> page.</li>
+        <li><strong>CEFR diagnostic</strong> — ~12 minutes. Calibrates the learner's reading tier (B1+ / B2 / C1). Audio is never tiered — only written dossier content adapts.</li>
+        <li><strong>Avatar creation</strong> — Stability AI-generated stylised portrait used on the dashboard and on the final certificate.</li>
+      </ol>
+      <p>The whole flow takes about 18 minutes. After that, the learner enters the Thailand Journey — and never sees this onboarding flow again unless they choose to update consent.</p>
+    </div>
+    <aside class="visual-card">
+      <h3>PDPA — the load-bearing rule</h3>
+      <ul class="key-list">
+        <li>Consent precedes any personal-data write</li>
+        <li>Five granular flags, separately revocable</li>
+        <li>"My Data" screen — self-service export &amp; deletion</li>
+        <li>90-day auto-deletion post-course</li>
+        <li>All admin access logged for audit</li>
+        <li>Encrypted in transit (TLS 1.3) and at rest</li>
+      </ul>
+    </aside>
+  </div>
+  <div class="try-row">
+    <span class="label">Try it live →</span>
+    <a href="signup.html" target="_blank" rel="noopener" class="try-btn">Open sign-up</a>
+    <a href="consent.html" target="_blank" rel="noopener" class="try-btn">Open PDPA consent</a>
+    <a href="assessment.html" target="_blank" rel="noopener" class="try-btn">Open CEFR diagnostic</a>
+    <a href="#step-3" class="next-btn">Next · Step 03 ▼</a>
+  </div>
+</section>
 
-    <!-- 1 · Start demo journey -->
-    <a href="final-task.html?demo=keystones" class="card" id="card-demo" style="--accent:#A82424">
-      <div class="num"><em>01</em></div>
-      <div class="label">Hands-on Demo</div>
-      <h3>Start the <em>Demo Journey</em></h3>
-      <p>
-        Skip the readiness check and the six missions — start at the capstone with all six SDG Keystones
-        pre-granted. You will see the <strong>Voice for Change studio</strong>, submit a watermarked test
-        proposal, and receive feedback from all three AI Judges.
-      </p>
-      <span class="cta solid">▶ Begin demo <span class="arrow">→</span></span>
-    </a>
+<!-- ═══════════════════ STEP 3 · Mission Selection ═══════════════════ -->
+<section class="step" id="step-3" data-step="3" data-name="Mission Selection">
+  <div class="step-eyebrow">
+    <span class="step-num">03<em>.</em></span>
+    <span class="step-of">Step 03 / 08 · The Thailand Journey</span>
+  </div>
+  <div class="step-h">
+    <h2>The <em>Thailand Journey</em> map</h2>
+    <p class="th">แผนที่ภารกิจประเทศไทย ๖ ภูมิภาค ๖ SDG</p>
+    <p class="lede">One country, six regions, six SDG-anchored tensions. Learners may take them in any order.</p>
+  </div>
+  <div class="step-body">
+    <div>
+      <p>The mission-select screen is a hand-illustrated watercolour map of Thailand. Each of the six regional missions is pinned with an amber-glow marker. Earned Keystones light up gold; unearned ones remain ink-line. <strong>Clearing all six unlocks the Voice for Change capstone.</strong></p>
+      <p>The six missions are not interchangeable — each is built on a specific Thai community tension with vetted institutional context, real stakeholder positions, and a defensible counter-argument. None of them is a "wrong answer" mission.</p>
+    </div>
+    <aside class="visual-card">
+      <h3>The six missions</h3>
+      <ul class="key-list">
+        <li><strong>SDG 13</strong> · North · Chiang Mai — The Burning Season</li>
+        <li><strong>SDG 6</strong>  · Northeast · Khon Kaen — <em>The Aquifer Below</em> <span style="font-family:var(--mono); font-size:10.5px; color:var(--bronze-dim); letter-spacing:.1em; text-transform:uppercase; font-weight:700">★ sample</span></li>
+        <li><strong>SDG 11</strong> · Central · Bangkok — The Klong and the City</li>
+        <li><strong>SDG 4</strong>  · West · Tak / Mae Sot — The Children at the Border</li>
+        <li><strong>SDG 3</strong>  · East · EEC Fringe — The Village Left Behind</li>
+        <li><strong>SDG 14</strong> · South · Andaman — The Reef and the Tide</li>
+      </ul>
+    </aside>
+  </div>
+  <div class="try-row">
+    <span class="label">Try it live →</span>
+    <a href="mission-select.html" target="_blank" rel="noopener" class="try-btn">Open mission-select map</a>
+    <a href="#step-4" class="next-btn">Next · Step 04 ▼ (Sample mission)</a>
+  </div>
+</section>
 
-    <!-- 2 · Hall of Voices -->
-    <a href="hall-of-voices.html" class="card" style="--accent:#26BDE2">
-      <div class="num"><em>02</em></div>
-      <div class="label">2-minute Read</div>
-      <h3>Browse the <em>Hall of Voices</em></h3>
-      <p>
-        Four <strong>composite, anonymous exemplars</strong> across the six SDGs — the quality bar a passing
-        Voice for Change submission must meet. Each carries the address, the evidence, and the trade-off
-        the student explicitly accepts.
-      </p>
-      <span class="cta outline">View gallery <span class="arrow">→</span></span>
-    </a>
-
-    <!-- 3 · Home / landing -->
-    <a href="../home.html" class="card" style="--accent:#5D3A9B">
-      <div class="num"><em>03</em></div>
-      <div class="label">Project Overview</div>
-      <h3>Explore the <em>Home Page</em></h3>
-      <p>
-        The public landing page — project narrative, six-mission tour, pedagogical foundations, and the
-        full Thailand journey map. Best if you want to read the <strong>full project context</strong> before
-        clicking into the demo.
-      </p>
-      <span class="cta outline">Open home <span class="arrow">→</span></span>
-    </a>
-
-    <!-- 4 · Read the rubrics -->
-    <a href="../docs/rubrics/rubric-a-voice-for-change.pdf" target="_blank" rel="noopener" class="card" style="--accent:#B58A3F">
-      <div class="num"><em>04</em></div>
-      <div class="label">Assessment Suite</div>
-      <h3>Read the <em>Four Rubrics</em></h3>
-      <p>
-        Rubric A (Voice for Change holistic, teacher-graded) · Rubric B (Mission decision quality, AI logic)
-        · Rubric C (CEFR language development pre/post) · Rubric D (soft skills).
-        <strong>All four PDFs available in the docs folder.</strong>
-      </p>
-      <span class="cta gold">Open Rubric A · PDF <span class="arrow">→</span></span>
-    </a>
-
-    <!-- 5 · Teacher manual -->
-    <a href="../docs/teacher-manual/FUTUREPROOF-Teacher-Manual.pdf" target="_blank" rel="noopener" class="card" style="--accent:#3F7E44">
-      <div class="num"><em>05</em></div>
-      <div class="label">Architecture Audit</div>
-      <h3>Read the <em>Teacher's Manual</em></h3>
-      <p>
-        A 28-page bilingual manual covering the pedagogical foundations (PICRAT, AI-TPACK, three learning
-        theories), the portal architecture, mission deep-dives, and the AI–human boundary.
-        <strong>Written for both teachers and competition judges.</strong>
-      </p>
-      <span class="cta gold">Open Manual · PDF <span class="arrow">→</span></span>
-    </a>
-
+<!-- ═══════════════════ STEP 4 · SAMPLE MISSION ═══════════════════ -->
+<section class="step" id="step-4" data-step="4" data-name="Sample Mission · SDG 6">
+  <div class="step-eyebrow">
+    <span class="step-num">04<em>.</em></span>
+    <span class="step-of">Step 04 / 08 · Sample mission · fully completed</span>
+  </div>
+  <div class="step-h">
+    <h2>Sample mission · <em>The Aquifer Below</em></h2>
+    <p class="th">ภารกิจตัวอย่าง · SDG ๖ · ขอนแก่น · "น้ำใต้ดิน"</p>
+    <p class="lede">Walk through one mission end-to-end with every stage pre-completed. The five-stage arc · the dossier readings · the four stakeholder audios · the six-item quiz · the AI Judges' formative feedback · all visible. Skip to the capstone at the bottom of this section.</p>
   </div>
 
-  <!-- Pillars row -->
-  <section class="pillars" aria-label="Pedagogical pillars">
-    <div class="pillar">
-      <div class="label">Load-bearing framework</div>
-      <h4>PICRAT</h4>
-      <p>Every mission lives at Interactive-Amplifies or above. Capstone reaches Creative-Transforms (Kimmons et al. 2020).</p>
+  <!-- The dark mission shell -->
+  <div class="mission-shell">
+    <div class="head">
+      <span class="badge">SDG 6 · Water</span>
+      <h3><em>The Aquifer Below</em> · Khon Kaen</h3>
+      <span class="pin">Northeast · Nam Phong / Ubolratana watershed</span>
     </div>
-    <div class="pillar">
-      <div class="label">Load-bearing framework</div>
-      <h4>AI-TPACK</h4>
-      <p>The boundary between what AI handles (scale, consistency) and what humans handle (authority, cultural judgement) — made auditable.</p>
-    </div>
-    <div class="pillar">
-      <div class="label">Three theories, operationalised</div>
-      <h4>Behaviorism · Cognitivism · Social Constructivism</h4>
-      <p>Each mapped to specific platform features — not cited decoratively.</p>
-    </div>
-    <div class="pillar">
-      <div class="label">Compliance from day one</div>
-      <h4>PDPA · UDL 3.0 · WCAG 2.1 AA</h4>
-      <p>Bilingual consent, granular flags, 90-day auto-deletion, multi-modal access, mobile-first from 360 px.</p>
-    </div>
-  </section>
-
-  <!-- Footer info -->
-  <section class="footer-strip">
     <div class="meta">
-      <strong>FUTUREPROOF — SDGs Mission Journey</strong> · By Dr. Payungsak Kaenchan · Faculty of Liberal Arts, Mahidol University.
-      Submitted to SPU Tech Creative Learning Awards 2569.
-      <span class="th">นวัตกรรมการสอนภาษาอังกฤษเชิงเนื้อหา บูรณาการ AI ภายใต้กรอบ AI-TPACK · LALA109</span>
+      Difficulty CEFR B1+ → B2 · Cycle 90 min · Reading tier (your demo): B1+ · Ethical axes: Distributive justice × Intergenerational equity
     </div>
-    <div class="contact">
-      Contact: <a href="mailto:payungsak.kae@mahidol.ac.th">payungsak.kae@mahidol.ac.th</a>
+
+    <!-- Stage rail · all green -->
+    <div class="stage-rail">
+      <span class="pill">Brief</span>
+      <span class="pill">Probe · Dossier</span>
+      <span class="pill">Probe · Stakeholders</span>
+      <span class="pill">Decide &amp; Act</span>
+      <span class="pill">Debrief</span>
     </div>
-  </section>
 
-</main>
+    <!-- ── Stage 1 · BRIEF ── -->
+    <div class="stage-block">
+      <h4>Stage 1 · BRIEF <span class="done-tag">complete</span></h4>
+      <div class="stage-sub">Bloom — Remember / Understand</div>
+      <p>The opening brief introduces the regional tension in three short paragraphs and one sharp decision question. The learner reads, marks "I'm ready," and proceeds.</p>
+      <p style="background:rgba(255,255,255,.04); border-left:3px solid var(--bronze-light); padding:14px 16px; border-radius:0 8px 8px 0; font-style:italic; font-family:var(--display); font-size:15px; color:rgba(244,241,234,.92);">
+        <strong style="color:var(--bronze-light); font-style:normal;">Briefing.</strong>
+        Khon Kaen sits above the Khorat Plateau aquifer, a freshwater store shared with Laos. As dry seasons lengthen, more of the province's drinking water comes from underground. Deepening the municipal wellfield secures dry-season supply for around 200,000 residents — but accelerates aquifer drawdown the next generation will inherit. <strong style="color:var(--bronze-light); font-style:normal;">Decision point:</strong> should the province authorize an additional <strong style="color:var(--bronze-light); font-style:normal;">12 deep wells</strong> this dry season, knowing recharge cannot keep pace with current extraction?
+      </p>
+    </div>
 
-<!-- Auto-set the demo flag the moment the judge clicks "Begin demo" -->
+    <!-- ── Stage 2 · PROBE Dossier ── -->
+    <div class="stage-block">
+      <h4>Stage 2a · PROBE · Dossier readings <span class="done-tag">4 / 4 read</span></h4>
+      <div class="stage-sub">Bloom — Analyze · CEFR B1+</div>
+      <p>The dossier is served at the learner's CEFR tier. Same facts, different language. The learner can re-open it during the quiz via the dossier popup.</p>
+      <ul class="dossier-list">
+        <li>
+          <div>
+            <div class="title">Part 1 — <em>Why the wells matter</em></div>
+            <div class="stats">~200 words · key terms: aquifer drawdown · Ubolratana reservoir · Groundwater Act B.E. 2520</div>
+          </div>
+          <span class="done-tag">read</span>
+        </li>
+        <li>
+          <div>
+            <div class="title">Part 2 — <em>Who depends on the aquifer</em></div>
+            <div class="stats">~250 words · key terms: PWA · smallholder shallow wells · industrial permits · saline intrusion</div>
+          </div>
+          <span class="done-tag">read</span>
+        </li>
+        <li>
+          <div>
+            <div class="title">Part 3 — <em>Why the aquifer cannot just be refilled</em></div>
+            <div class="stats">~180 words · key terms: percolation · recharge rate · saline intrusion · GWRI · TDRI</div>
+          </div>
+          <span class="done-tag">read</span>
+        </li>
+        <li>
+          <div>
+            <div class="title">Part 4 — <em>Two voices on the wellfield expansion</em></div>
+            <div class="stats">Conflicting source pair · Industry-association brief vs. KKU research summary (220 / 218 words)</div>
+          </div>
+          <span class="done-tag">read</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- ── Stage 2b · PROBE Stakeholders ── -->
+    <div class="stage-block">
+      <h4>Stage 2b · PROBE · Stakeholder dispatches <span class="done-tag">4 / 4 listened</span></h4>
+      <div class="stage-sub">Bloom — Analyze · authentic Thai voices · subtitles available</div>
+      <p>Four 60–90 second audio briefings from authentic Thai stakeholder positions. Each speaks from inside their own situation; <strong>no stakeholder is positioned as the wrong answer.</strong></p>
+      <div class="stake-grid">
+        <div class="stake-card">
+          <div class="av">SM</div>
+          <div class="meta-stake">
+            <div class="name">Smallholder rice farmer</div>
+            <div class="role">Nam Phong basin · 108 words</div>
+            <div class="duration">▶ 1 m 12 s · listened</div>
+          </div>
+        </div>
+        <div class="stake-card">
+          <div class="av">PW</div>
+          <div class="meta-stake">
+            <div class="name">PWA Khon Kaen Operations Manager</div>
+            <div class="role">Provincial Waterworks Authority · 112 words</div>
+            <div class="duration">▶ 1 m 16 s · listened</div>
+          </div>
+        </div>
+        <div class="stake-card">
+          <div class="av">FP</div>
+          <div class="meta-stake">
+            <div class="name">Food-processing Production Director</div>
+            <div class="role">Industrial permit holder · 104 words</div>
+            <div class="duration">▶ 1 m 09 s · listened</div>
+          </div>
+        </div>
+        <div class="stake-card">
+          <div class="av">CV</div>
+          <div class="meta-stake">
+            <div class="name">Community Health Volunteer · อสม.</div>
+            <div class="role">Village-level health observer · 114 words</div>
+            <div class="duration">▶ 1 m 17 s · listened</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Stage 3 · DECIDE & ACT ── -->
+    <div class="stage-block">
+      <h4>Stage 3 · DECIDE &amp; ACT — six-item quiz <span class="done-tag">6 / 6 answered</span></h4>
+      <div class="stage-sub">Bloom — Evaluate &amp; Apply · adaptive · confidence-trap on Q3</div>
+      <p>The quiz combines six question types (multiple-choice · rank · match · vocabulary · confidence calibration · open commitment) that force the learner to synthesise dossier + stakeholder positions and commit to a defensible decision under a real trade-off.</p>
+      <ol class="quiz-list">
+        <li>
+          <div class="quiz-q">Which institution holds the <em>legal</em> authority to issue the 12 new well permits?</div>
+          <ul class="quiz-a-list">
+            <li>PWA Khon Kaen branch</li>
+            <li class="correct">Department of Groundwater Resources (DGR) under MNRE</li>
+            <li>Royal Irrigation Department</li>
+            <li>Khon Kaen Provincial Council</li>
+          </ul>
+        </li>
+        <li>
+          <div class="quiz-q">Saline intrusion is a problem because…</div>
+          <ul class="quiz-a-list">
+            <li>It raises the boiling point of water.</li>
+            <li class="correct">Once an aquifer turns saline, reversing the damage takes decades — locking in a quality outcome for future generations.</li>
+            <li>It increases the volume of available water.</li>
+            <li>It is a seasonal phenomenon that self-corrects in the monsoon.</li>
+          </ul>
+        </li>
+        <li>
+          <div class="quiz-q">Rank these four sources by how much weight you would give each, in this order of strongest to weakest. <em>(Confidence-trap item · overclaiming on weak evidence costs Insight Tokens)</em></div>
+          <ul class="quiz-a-list">
+            <li class="correct">KKU Groundwater Research Institute peer-reviewed brief</li>
+            <li class="correct">Department of Groundwater Resources statutory data</li>
+            <li class="correct">Industry-association policy note (declared conflict of interest)</li>
+            <li class="correct">Anecdotal household reports from a single village</li>
+          </ul>
+        </li>
+        <li>
+          <div class="quiz-q">Match the stakeholder to the concern they most clearly own:</div>
+          <ul class="quiz-a-list">
+            <li class="correct">Smallholder farmer → upper-aquifer drawdown affecting shallow private wells</li>
+            <li class="correct">PWA Operations Manager → continuous tap-water supply mandate for 200,000 residents</li>
+            <li class="correct">Food-processing Director → existing deep-aquifer permit issued under separate regulation</li>
+            <li class="correct">Community Health Volunteer · อสม. → rise in childhood diarrhoea when households switch to surface water</li>
+          </ul>
+        </li>
+        <li>
+          <div class="quiz-q">Define <em>intergenerational equity</em> as it applies to this scenario, in one sentence.</div>
+          <ul class="quiz-a-list">
+            <li class="correct"><em>Sample C1 response:</em> "Allocation decisions made today must not foreclose freshwater quality and quantity for a generation that has no voice in the present decision — drawdown that accelerates salinity intrusion is a borrowed cost from the future."</li>
+          </ul>
+        </li>
+        <li>
+          <div class="quiz-q">Commit to one piece of evidence you will carry into the Voice for Change capstone — and name the trade-off you accept.</div>
+          <ul class="quiz-a-list">
+            <li class="correct"><em>Sample commitment:</em> "I will carry the GWRI saline-intrusion projection. The trade-off I accept: tighter industrial-permit caps in exchange for protected upper-aquifer recharge, knowing some food-processing facilities will lose capacity."</li>
+          </ul>
+        </li>
+      </ol>
+    </div>
+
+    <!-- ── Stage 5 · DEBRIEF ── -->
+    <div class="stage-block">
+      <h4>Stage 4 &amp; 5 · DEBRIEF — AI Judges + reward <span class="done-tag">passed</span></h4>
+      <div class="stage-sub">Bloom — Metacognition · three AI Judges · formative only</div>
+      <p>The three AI Judges return individual critiques within seconds. Each names a strength and a specific <code>growthEdge</code>. The composite score is checked against the pass threshold (0.60), the engine awards the SDG Keystone (idempotent), and tokens land in the wallet.</p>
+
+      <div class="debrief-grid">
+        <div class="reward">
+          <div class="label">Insight Tokens awarded</div>
+          <div class="value">+18 ◆</div>
+          <div class="note">Range: −10 (high-confidence trap) … +25 (calibrated, defensible)</div>
+        </div>
+        <div class="reward">
+          <div class="label">SDG 6 Keystone</div>
+          <div class="value" style="font-size:24px; padding:6px 0 2px;">Awarded · 1 of 6</div>
+          <div class="keystone-row" aria-label="Keystones earned">
+            <span class="ks earned" title="SDG 6 · Water"></span>
+            <span class="ks" title="SDG 13"></span>
+            <span class="ks" title="SDG 11"></span>
+            <span class="ks" title="SDG 4"></span>
+            <span class="ks" title="SDG 3"></span>
+            <span class="ks" title="SDG 14"></span>
+          </div>
+          <div class="note">5 more Keystones unlock the Voice for Change capstone</div>
+        </div>
+      </div>
+
+      <p style="margin-top:18px; padding:14px 18px; background:rgba(255,255,255,.04); border-left:3px solid var(--bronze-light); border-radius:0 8px 8px 0;">
+        <strong style="color:var(--bronze-light)">Dr. Anchalee (AI Judge):</strong>
+        <em>"Your evidence commitment is concrete — naming the GWRI saline-intrusion projection ties this decision to a verifiable source rather than to general concern. Strength: provenance-weighted. Growth edge: rehearse how you would defend tighter industrial-permit caps against the food-processing director's livelihood claim before the capstone."</em>
+      </p>
+    </div>
+
+    <!-- The SKIP TO VOICE FOR CHANGE CTA -->
+    <div class="skip-cta">
+      <div class="blurb">
+        <h5>Skip the five other missions → straight to the capstone</h5>
+        <p>For the tour, we pre-grant all six Keystones so you can see the Voice for Change studio immediately. Click → activates demo mode + jumps you to the capstone.</p>
+      </div>
+      <a href="final-task.html?demo=keystones" class="skip-btn" id="skip-to-capstone">▶ Skip to Voice for Change</a>
+    </div>
+  </div>
+
+  <div class="try-row" style="margin-top:24px">
+    <span class="label">Or stay in the tour →</span>
+    <a href="#step-5" class="next-btn">Next · Step 05 ▼</a>
+  </div>
+</section>
+
+<!-- ═══════════════════ STEP 5 · Voice for Change ═══════════════════ -->
+<section class="step" id="step-5" data-step="5" data-name="Voice for Change">
+  <div class="step-eyebrow">
+    <span class="step-num">05<em>.</em></span>
+    <span class="step-of">Step 05 / 08 · The capstone</span>
+  </div>
+  <div class="step-h">
+    <h2>The <em>Voice for Change</em> capstone</h2>
+    <p class="th">ภารกิจปิดท้าย · ข้อเสนอเสียงเพื่อการเปลี่ยนแปลง</p>
+    <p class="lede">Six Keystones unlocks one screen: the learner records a 2-to-5 minute proposal addressed to a real Thai institution, in any one of three submission lanes. <em>The teacher grades this. AI does not.</em></p>
+  </div>
+  <div class="step-body">
+    <div>
+      <p>The Voice for Change prompt is constant across all learners:</p>
+      <p style="background:var(--paper-warm); border-left:3px solid var(--bronze); padding:14px 18px; margin:14px 0 18px; font-style:italic; font-family:var(--display); font-size:16.5px; color:var(--ink);">"Having walked all six frontlines, propose one concrete action for a Thai community — addressed to a real audience, not the teacher."</p>
+      <p>Three submission lanes (CAST UDL · Multiple Means of Action and Expression):</p>
+      <ul>
+        <li><strong>Record live</strong> — in-browser, 60–180 s, unlimited re-record</li>
+        <li><strong>Upload</strong> — a prepared audio or short video file</li>
+        <li><strong>Create with Canva</strong> — opens a template in a new tab, exported and re-uploaded</li>
+      </ul>
+      <p>The lane is a means of expression — it never changes the bar. Rubric A (teacher-graded, summative) scores five dimensions × 1.0/0.5 weighting · max 45 · bands 38/30/22.</p>
+    </div>
+    <aside class="visual-card">
+      <h3>Why this is human-graded only</h3>
+      <ul class="key-list">
+        <li>The AI-TPACK boundary — made operational</li>
+        <li>Formative scoring (Rubric B) is AI · summative grade (Rubric A) is human</li>
+        <li>Cultural authenticity of the address stays with the teacher</li>
+        <li>The judge of the learner's voice is a voice itself</li>
+      </ul>
+    </aside>
+  </div>
+  <div class="try-row">
+    <span class="label">Try it live →</span>
+    <a href="final-task.html?demo=keystones" class="try-btn solid" id="goto-capstone">▶ Open Voice for Change studio (demo)</a>
+    <a href="#step-6" class="next-btn">Next · Step 06 ▼</a>
+  </div>
+</section>
+
+<!-- ═══════════════════ STEP 6 · Submission ═══════════════════ -->
+<section class="step" id="step-6" data-step="6" data-name="Submission & AI Judges">
+  <div class="step-eyebrow">
+    <span class="step-num">06<em>.</em></span>
+    <span class="step-of">Step 06 / 08 · After submission</span>
+  </div>
+  <div class="step-h">
+    <h2>Certificate, badge, <em>AI Judges' critique</em></h2>
+    <p class="th">ใบรับรอง · ตราสัญลักษณ์ · คำวิจารณ์เชิงพัฒนาโดย AI Judges สามท่าน</p>
+    <p class="lede">After submitting, the learner sees three artefacts at once: their downloadable certificate, their hexagonal badge, and the formative critique of all three AI Judges. The teacher's Rubric A grade arrives separately.</p>
+  </div>
+  <div class="step-body">
+    <div>
+      <p>The submitted screen is built around three things:</p>
+      <ol style="line-height:1.85; font-size:17px;">
+        <li><strong>Certificate of Completion</strong> — a dark editorial-style document with the learner's name, six Keystones, programme-director signature line, and unique credential ID. Downloadable as PNG or PDF.</li>
+        <li><strong>Hexagonal badge</strong> — a portfolio-ready credential the learner can drop on LinkedIn or a CV.</li>
+        <li><strong>AI Judges' Initial Critique</strong> — three personas (Dr. Anchalee · Khun Nattaphum · Khun Suthida), each scoring a dimension and surfacing a strength plus a growth edge. Formative only. Always advisory. Never overrides the teacher.</li>
+      </ol>
+      <p>A bottom banner makes the boundary explicit: <em>"Your teacher receives your submission in the admin grading queue and evaluates it with Rubric A — this is the official, final grade."</em></p>
+    </div>
+    <aside class="visual-card">
+      <h3>The three AI Judges (formative · advisory)</h3>
+      <ul class="key-list">
+        <li><strong>Dr. Anchalee Suwannapong</strong> — language proficiency &amp; register</li>
+        <li><strong>Khun Nattaphum Boonkrong</strong> — argumentation &amp; counter-position</li>
+        <li><strong>Khun Suthida Phetcharat</strong> — community address &amp; ethical reasoning</li>
+        <li>Each return must include a specific <code>growthEdge</code></li>
+        <li>Random 5% audited against teacher score — drift &gt; 0.5 triggers prompt revision</li>
+      </ul>
+    </aside>
+  </div>
+  <div class="try-row">
+    <span class="label">Try it live →</span>
+    <a href="final-task-submitted.html" target="_blank" rel="noopener" class="try-btn">Open submitted page</a>
+    <a href="#step-7" class="next-btn">Next · Step 07 ▼</a>
+  </div>
+</section>
+
+<!-- ═══════════════════ STEP 7 · Hall of Voices ═══════════════════ -->
+<section class="step" id="step-7" data-step="7" data-name="Hall of Voices">
+  <div class="step-eyebrow">
+    <span class="step-num">07<em>.</em></span>
+    <span class="step-of">Step 07 / 08 · Public gallery</span>
+  </div>
+  <div class="step-h">
+    <h2>The <em>Hall of Voices</em></h2>
+    <p class="th">หอเสียง · แกลเลอรีสาธารณะของผลงานข้อเสนอ Voice for Change</p>
+    <p class="lede">Voices that earned their six Keystones and chose — via explicit, withdrawable consent — to share their proposals beyond the classroom.</p>
+  </div>
+  <div class="step-body">
+    <div>
+      <p>The Hall of Voices is the platform's <strong>Community of Practice</strong> in the Lave &amp; Wenger sense — learners enter as peripheral participants (reading others' submissions) and may graduate to full participants (their own work featured). Curation is governed by consent at every step.</p>
+      <p>The four pieces currently on display are <strong>composite, anonymous exemplars</strong> — built to show what a passing proposal looks like. They are not the work of real students. When the platform launches with cohorts in semester 1 of academic year 2569, only submissions whose author has given explicit, withdrawable consent will appear here, under a chosen pseudonym.</p>
+    </div>
+    <aside class="visual-card">
+      <h3>Curation rules</h3>
+      <ul class="key-list">
+        <li>Author must opt in separately from PDPA basic consent</li>
+        <li>Pseudonym, not real name</li>
+        <li>Withdrawal removes the entry within 7 days</li>
+        <li>Admin curator reviews submissions before featuring</li>
+        <li>Best pieces may be forwarded to Thai SDG youth forums (further opt-in required)</li>
+      </ul>
+    </aside>
+  </div>
+  <div class="try-row">
+    <span class="label">Try it live →</span>
+    <a href="hall-of-voices.html" target="_blank" rel="noopener" class="try-btn">Open Hall of Voices</a>
+    <a href="#step-8" class="next-btn">Next · Step 08 ▼</a>
+  </div>
+</section>
+
+<!-- ═══════════════════ STEP 8 · Admin Console ═══════════════════ -->
+<section class="step" id="step-8" data-step="8" data-name="Admin Console">
+  <div class="step-eyebrow">
+    <span class="step-num">08<em>.</em></span>
+    <span class="step-of">Step 08 / 08 · The teacher side</span>
+  </div>
+  <div class="step-h">
+    <h2>The <em>Admin Console</em></h2>
+    <p class="th">แดชบอร์ดผู้ดูแลระบบ · ๗ โมดูล สำหรับครูผู้สอน</p>
+    <p class="lede">Seven modules for the teacher — Learners · Missions · Analytics · Moderation · PDPA Center · Hall of Voices Curator · System. The teacher's grade is always the authoritative one; AI Judge scores are advisory only.</p>
+  </div>
+  <div class="step-body">
+    <div>
+      <p>The Admin Console is gated behind Firebase Auth with an allowlist. The teacher signs in once per term and sees the full cohort:</p>
+      <ul style="line-height:1.85; font-size:17px;">
+        <li><strong>Learners</strong> — roster · profile edit · keystone grant/revoke · PDPA deletion</li>
+        <li><strong>Missions on/off</strong> — toggle availability per region for special cohorts</li>
+        <li><strong>Analytics</strong> — engagement · region completion · 5-stage decision matrix · CEFR delta</li>
+        <li><strong>Moderation</strong> — flagged AI judgements · replay against rubric · calibration drift audit</li>
+        <li><strong>PDPA Center</strong> — consent overview · DSAR queue · admin audit log · 90-day purge schedule</li>
+        <li><strong>Hall of Voices Curator</strong> — feature / unfeature submissions · withdrawal handler</li>
+        <li><strong>System</strong> — demo-mode toggle · pass threshold · model selection</li>
+      </ul>
+    </div>
+    <aside class="visual-card">
+      <h3>Who can access</h3>
+      <ul class="key-list">
+        <li>Firebase Auth allowlist required</li>
+        <li>Default admin: payungsak.kae@mahidol.ac.th</li>
+        <li>Per-admin audit log</li>
+        <li>Action history visible to other admins</li>
+        <li>Demo data shown when running without a live Firebase backend</li>
+      </ul>
+    </aside>
+  </div>
+  <div class="try-row">
+    <span class="label">Try it live →</span>
+    <a href="admin/" target="_blank" rel="noopener" class="try-btn solid">Open Admin Console</a>
+    <a href="#closing" class="next-btn">Finish tour ▼</a>
+  </div>
+</section>
+
+<!-- ═══════════════════ CLOSING ═══════════════════ -->
+<section class="closing" id="closing">
+  <h2>Thank you for <em>walking the tour</em></h2>
+  <p class="th">ขอบพระคุณคณะกรรมการสำหรับเวลาในการพิจารณา</p>
+  <p>
+    What you have just walked through is the same eight-step journey a real LALA109 learner takes —
+    onboarding, the Thailand journey, one mission end-to-end, the capstone, the certificate, the
+    Hall of Voices, and the teacher's side of the system. Every claim in this tour maps to a
+    feature you can click on the live platform. The platform is the proof of the manual.
+  </p>
+  <p>For deeper review, the submission package contains six artefacts:</p>
+
+  <div class="resource-grid">
+    <a href="../docs/rubrics/rubric-a-voice-for-change.pdf" target="_blank" rel="noopener" class="res">
+      <div class="label">Rubric · A</div>
+      <div class="name">Voice for Change Holistic · teacher-graded · 5 pp</div>
+    </a>
+    <a href="../docs/rubrics/rubric-b-mission-decision.pdf" target="_blank" rel="noopener" class="res">
+      <div class="label">Rubric · B</div>
+      <div class="name">Mission Decision Quality · AI logic · 4 pp</div>
+    </a>
+    <a href="../docs/rubrics/rubric-c-cefr-language.pdf" target="_blank" rel="noopener" class="res">
+      <div class="label">Rubric · C</div>
+      <div class="name">CEFR Language Development · pre/post · 5 pp</div>
+    </a>
+    <a href="../docs/rubrics/rubric-d-soft-skills.pdf" target="_blank" rel="noopener" class="res">
+      <div class="label">Rubric · D</div>
+      <div class="name">Soft Skills Demonstration · 5 dimensions · 4 pp</div>
+    </a>
+    <a href="../docs/teacher-manual/FUTUREPROOF-Teacher-Manual.pdf" target="_blank" rel="noopener" class="res">
+      <div class="label">Manual</div>
+      <div class="name">Teacher's &amp; Judge's Manual · 28 pp bilingual</div>
+    </a>
+    <a href="../docs/document-scrutiny/SCRUTINY-REPORT.md" target="_blank" rel="noopener" class="res">
+      <div class="label">Audit</div>
+      <div class="name">Document scrutiny + APA-7 bibliography</div>
+    </a>
+  </div>
+
+  <div class="contact">
+    <strong>Dr. Payungsak Kaenchan</strong> · Faculty of Liberal Arts · Mahidol University<br>
+    Email: <a href="mailto:payungsak.kae@mahidol.ac.th">payungsak.kae@mahidol.ac.th</a><br>
+    Submitted to SPU Tech Creative Learning Awards 2569
+  </div>
+</section>
+
+<!-- Sticky-progress + skip-to-capstone JS -->
 <script>
   (function () {
-    var demoLink = document.getElementById("card-demo");
-    if (demoLink) {
-      demoLink.addEventListener("click", function () {
+    // ─── Sticky progress indicator (updates as user scrolls) ───
+    const steps = Array.from(document.querySelectorAll(".step[data-step]"));
+    const closing = document.getElementById("closing");
+    const elCurrent = document.getElementById("p-current");
+    const elFill = document.getElementById("p-fill");
+    const elName = document.getElementById("p-name");
+
+    function update() {
+      // Find the step whose top is just above the bottom of the sticky header
+      const offset = 200;
+      let active = null;
+      for (const s of steps) {
+        const rect = s.getBoundingClientRect();
+        if (rect.top - offset <= 0) active = s;
+      }
+      // If we're past the last step, show the closing card state
+      const closingRect = closing.getBoundingClientRect();
+      if (closingRect.top - offset <= 0) {
+        elCurrent.textContent = "8";
+        elFill.style.width = "100%";
+        elName.textContent = "Complete · Resources";
+        return;
+      }
+      if (!active) {
+        elCurrent.textContent = "1";
+        elFill.style.width = "12.5%";
+        elName.textContent = "Project Overview";
+        return;
+      }
+      const n = parseInt(active.dataset.step, 10);
+      elCurrent.textContent = n;
+      elFill.style.width = (n / 8 * 100) + "%";
+      elName.textContent = active.dataset.name || "";
+    }
+
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update, { passive: true });
+    update();
+
+    // ─── Skip-to-capstone + Voice-for-Change try-it-live: set demo flag ───
+    const skipBtns = [document.getElementById("skip-to-capstone"), document.getElementById("goto-capstone")];
+    skipBtns.forEach(function (btn) {
+      if (!btn) return;
+      btn.addEventListener("click", function () {
         try { localStorage.setItem("fp_demo_mode", "on"); } catch (_) {}
       });
-    }
+    });
   })();
 </script>
 
