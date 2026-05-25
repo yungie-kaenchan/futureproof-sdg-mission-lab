@@ -4,7 +4,7 @@
 
 An AI-powered gamified learning platform where undergraduate teams investigate UN Sustainable Development Goals — in English. Built for the SPU Tech Creative Learning Awards 2026.
 
-**Submission deadline:** May 30, 2026 · **Domain:** `futureproof.yungie.one`
+**Submission deadline:** May 30, 2026 · **Domain:** `futureproof-sdgs-lab.netlify.app`
 
 ---
 

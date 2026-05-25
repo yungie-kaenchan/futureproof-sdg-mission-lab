@@ -44,7 +44,7 @@ open http://localhost:8000/pages/signup.html      # frame 03
 # ...
 
 # Or in a deployed build:
-open https://futureproof.yungie.one/
+open https://futureproof-sdgs-lab.netlify.app/
 ```
 
 For a **deterministic** capture, use Chrome DevTools Device Toolbar (`Cmd+Shift+M`):
@@ -87,7 +87,7 @@ futureproof-submission-2026/
 │   └── …
 ├── 08-video-demo.mp4                ← Dr. Payungsak Kaenchan's recording
 ├── 09-demo-credentials.txt          ← KEEP SEPARATE — judges only
-└── 10-live-url.txt                  ← futureproof.yungie.one
+└── 10-live-url.txt                  ← futureproof-sdgs-lab.netlify.app
 ```
 
 Convert the markdown docs to PDF via your usual flow (Pandoc, Marked, or print-to-PDF from a browser).

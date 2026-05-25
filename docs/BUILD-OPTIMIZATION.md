@@ -143,8 +143,8 @@ If the file is much larger, audit `content:` to ensure it covers all `pages/`, `
 Run from a deployed Netlify URL (not localhost — local serves don't compress):
 
 ```bash
-npx lighthouse https://futureproof.yungie.one --view --preset=desktop
-npx lighthouse https://futureproof.yungie.one --view --preset=mobile
+npx lighthouse https://futureproof-sdgs-lab.netlify.app --view --preset=desktop
+npx lighthouse https://futureproof-sdgs-lab.netlify.app --view --preset=mobile
 ```
 
 Targets: Performance 90+, Accessibility 95+, Best Practices 95+, SEO 90+.

@@ -184,7 +184,7 @@ A bottom band with a thin gold hairline above. From left to right:
   · A short three-line block:
        "Faculty of Liberal Arts · Mahidol University"
        "Course: LALA109 — English for Digital Communication Skills"
-       "futureproof.yungie.one"
+       "futureproof-sdgs-lab.netlify.app"
   · A right-aligned credit stack:
        "Innovation submitted to SPU Tech Creative Learning Awards 2569"
        "Dr. Payungsak Kaenchan · payungsak.kae@mahidol.ac.th"

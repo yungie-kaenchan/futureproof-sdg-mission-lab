@@ -12,7 +12,7 @@ This document is the authoritative context file for Claude Code working on the F
 **Thai Tagline:** ภารกิจเอสดีจีเพื่ออนาคต
 **Tagline (English):** "Where English Meets the World's Most Urgent Challenges"
 **Author:** Dr. Payungsak Kaenchan (Dr. Payungsak Kaenchan), Faculty of Liberal Arts, Mahidol University & Thammasat University
-**Domain:** Will be hosted at `futureproof.yungie.one` (Netlify subdomain of his existing brand)
+**Domain:** Will be hosted at `futureproof-sdgs-lab.netlify.app` (Netlify subdomain of his existing brand)
 
 ---
 
@@ -325,7 +325,7 @@ When SDG is selected, an SDG-matched accent palette is applied to mission-specif
 | **AI Engine** | Anthropic Claude API (Sonnet for most tasks) |
 | **Avatar Generation** | Stability.ai API (image-to-image with character style) |
 | **Voice** | Web Speech API (recording + transcription), Web Audio API |
-| **Hosting** | Netlify (deployed at `futureproof.yungie.one`) |
+| **Hosting** | Netlify (deployed at `futureproof-sdgs-lab.netlify.app`) |
 | **Build** | npm + Tailwind CLI |
 
 ### CRITICAL: No Tailwind CDN
@@ -604,7 +604,7 @@ futureproof/
 
 **Pending Dr. Payungsak Kaenchan's actions:**
 - Deploy to Netlify
-- Set up custom subdomain (`futureproof.yungie.one`)
+- Set up custom subdomain (`futureproof-sdgs-lab.netlify.app`)
 - Provision Firebase project
 - Provision Stability.ai API key
 - Confirm Anthropic API key available

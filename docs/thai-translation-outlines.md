@@ -34,7 +34,7 @@ These outlines list what each Thai section must accomplish — the equivalent of
 | 14 | Roadmap to Pilot | แผนสู่การนำร่อง | Q3/Q4 2026 pilot at Mahidol/Thammasat, scale plan for 2027. |
 | 15 | Why This Matters Now | เหตุใดจึงสำคัญในตอนนี้ | Tie to Thailand's 20-year national strategy, SDG localization, and ESD policy. |
 | 16 | Acknowledgments | กิตติกรรมประกาศ | Standard Thai academic acknowledgments. |
-| 17 | Contact & Live URL | ข้อมูลติดต่อ | `futureproof.yungie.one`, Dr. Payungsak Kaenchan's institutional email. |
+| 17 | Contact & Live URL | ข้อมูลติดต่อ | `futureproof-sdgs-lab.netlify.app`, Dr. Payungsak Kaenchan's institutional email. |
 
 ### Translation glossary (recurring terms)
 

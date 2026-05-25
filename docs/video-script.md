@@ -145,7 +145,7 @@
 >
 > Designed and developed at the Faculty of Liberal Arts, Mahidol University. Submitted to the Sripatum University Tech Creative Learning Awards 2026.
 
-**End card:** Logo + URL `futureproof.yungie.one` + "© 2026 FUTUREPROOF · SDG Mission Lab."
+**End card:** Logo + URL `futureproof-sdgs-lab.netlify.app` + "© 2026 FUTUREPROOF · SDG Mission Lab."
 
 ---
 

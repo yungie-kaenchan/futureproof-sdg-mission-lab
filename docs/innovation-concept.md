@@ -346,7 +346,7 @@ English is the working language of all mission content, decisions, and AI intera
 | AI engine | Anthropic Claude API (Sonnet for most tasks, Haiku for Field Mentor) |
 | Avatar generation | Stability.ai (image-to-image with character style template) |
 | Voice | Web Speech API (recording + transcription), Web Audio API |
-| Hosting | Netlify (deployed at `futureproof.yungie.one`) |
+| Hosting | Netlify (deployed at `futureproof-sdgs-lab.netlify.app`) |
 | Build | npm + Tailwind CLI |
 
 Detailed schema and security rules are documented in [`firebase-schema.md`](firebase-schema.md) and [`firebase-security-rules.md`](firebase-security-rules.md). API keys are kept off the client through Netlify Functions that proxy Claude and Stability.ai calls.

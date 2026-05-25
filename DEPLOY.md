@@ -127,7 +127,7 @@ Commit `scripts/inject-config.js` (provided in this repo — it reads the env va
 
 ### 4d. Custom subdomain
 
-In Netlify: **Domain settings → Add custom domain** → `futureproof.yungie.one`. Follow the DNS instructions (CNAME from `futureproof` to `your-site.netlify.app`). DNS propagates in 5–60 minutes.
+In Netlify: **Domain settings → Add custom domain** → `futureproof-sdgs-lab.netlify.app`. Follow the DNS instructions (CNAME from `futureproof` to `your-site.netlify.app`). DNS propagates in 5–60 minutes.
 
 ---
 
@@ -176,7 +176,7 @@ Sign out and back in for the claim to take effect.
 
 ## 7. Verify the live site (10 min)
 
-Walk this checklist on `https://futureproof.yungie.one`:
+Walk this checklist on `https://futureproof-sdgs-lab.netlify.app`:
 
 - [ ] Landing page renders, ticker animates, CC link works
 - [ ] Sign-up creates a Firebase Auth user

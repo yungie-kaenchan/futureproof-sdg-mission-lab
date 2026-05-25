@@ -28,7 +28,7 @@ Detailed day-by-day execution plan from May 10 to May 30, 2026.
 
 **Morning Tasks (Dr. Payungsak Kaenchan):**
 - Deploy Day 1 landing page to Netlify
-- Set up subdomain `futureproof.yungie.one`
+- Set up subdomain `futureproof-sdgs-lab.netlify.app`
 - Create Firebase project (Auth + Realtime DB + Storage)
 - Provision Stability.ai API key
 - Confirm Anthropic API key

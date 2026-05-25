@@ -315,7 +315,7 @@ Three columns separated by thin gold vertical hairlines:
     "SCAN · WATCH THE DEMO"
   
   Centre column (three lines, DM Sans light ~ 9 pt):
-    "futureproof.yungie.one"
+    "futureproof-sdgs-lab.netlify.app"
     "Faculty of Liberal Arts · Mahidol University"
     "Course: LALA109 — English for Digital Communication Skills"
   

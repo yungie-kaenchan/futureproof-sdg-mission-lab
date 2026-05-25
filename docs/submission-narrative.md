@@ -25,7 +25,7 @@ Three things separate FUTUREPROOF from existing edtech in the Thai market:
 
 ## 3. What the judges will see
 
-Live demo URL: <https://futureproof.yungie.one>
+Live demo URL: <https://futureproof-sdgs-lab.netlify.app>
 Demo accounts (one per proficiency band): see attached separate document — credentials are kept off this narrative for security.
 
 End-to-end demo flow:
