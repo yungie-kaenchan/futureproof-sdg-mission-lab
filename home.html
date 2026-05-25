@@ -6,13 +6,24 @@
   <meta name="description" content="FUTUREPROOF: SDGs Mission Journey — An AI-powered gamified learning platform where English meets the world's most urgent challenges." />
   <title>FUTUREPROOF — SDGs Mission Journey</title>
 
-  <!-- Google Fonts -->
+  <!-- Favicon (silences /favicon.ico 404 console error) -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="alternate icon" type="image/png" href="/favicon.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/favicon.png">
+
+  <!-- Google Fonts — slimmed: removed SOFT/WONK axes from Fraunces;
+       narrower weight range. Reduces variable-font payload ~30%.    -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Sans+Thai:wght@300;400;600&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Sans+Thai:wght@300;400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <!-- Compiled production CSS -->
   <link rel="stylesheet" href="./styles.css">
+
+  <!-- Preload the LCP image (WebP for modern browsers; PNG fallback in <picture>) -->
+  <link rel="preload" as="image" href="assets/images/hero-feature.webp" type="image/webp" imagesrcset="assets/images/hero-feature.webp" fetchpriority="high">
 </head>
 
 <body class="bg-white text-on-surface">
@@ -60,13 +71,18 @@
           FUTUREPROOF<br>
           <em>SDGs Mission Journey</em>.
         </h1>
-        <img
-          src="assets/images/hero-feature.png"
-          alt="FUTUREPROOF logo — UN Sustainable Development Goal icons fan out from a glowing brain in a vibrant abstract constellation."
-          class="hero-mark-logo"
-          loading="eager"
-          decoding="async"
-          onerror="this.style.display='none';" />
+        <picture>
+          <source type="image/webp" srcset="assets/images/hero-feature.webp">
+          <img
+            src="assets/images/hero-feature.png"
+            alt="FUTUREPROOF logo — UN Sustainable Development Goal icons fan out from a glowing brain in a vibrant abstract constellation."
+            class="hero-mark-logo"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+            width="640" height="640"
+            onerror="this.style.display='none';" />
+        </picture>
       </div>
 
       <!-- SDG TICKER — sits tight under the hero headline -->
