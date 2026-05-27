@@ -117,6 +117,143 @@ Paste this into ChatGPT:
 
 ---
 
+## 6.5 · Image for Clip 0 · "Project Title Card" (opening)
+
+**Mode:** Editorial title page · landscape 1792 × 1024 · centred composition
+
+**Placement:** Insert this as **Clip 0** — the very first 5-to-8-second clip of the intro film, before Clip 1 (Thailand at Dawn). The film opens on the title, then enters the world. This follows the classic documentary structure (Apple keynote intro · Penguin Books title page · National Geographic feature opening).
+
+**Text fixes applied** (silent corrections of typos in the brief):
+- "Buiild" → **Build**
+- "Where English Meets the Thailand's Urgent Challenges" → **Where English Meets Thailand's Urgent Challenges** (article "the" removed for grammatical accuracy)
+
+If you want the text exactly as originally typed, paste over those two strings in the prompt.
+
+---
+
+### Approach A · Render text in the image (one-shot · risk: typos)
+
+Paste this into ChatGPT. Best for users who don't want to add text in a vector editor afterwards. Expect 2–4 regenerations to land on a version with all three lines spelled correctly.
+
+> A photorealistic editorial title page, landscape orientation (16:9), shot as if photographing a real printed page lit by soft natural window light from camera-left. The page is warm cream-coloured paper (#FDFBF6) with very subtle visible fibre texture, slightly weathered like the front page of a serious cultural quarterly or a hardcover book.
+>
+> In the dead-centre of the page, three lines of text are letterpress-printed, perfectly aligned and centred horizontally. The composition is calm and intentionally spacious — generous negative space surrounds the type block.
+>
+> Line 1 (largest, display serif, ink-black) reads exactly: **FUTUREPROOF — SDGs Mission Journey**
+> The word "FUTUREPROOF" is set in all capitals, a humanist transitional serif (style of Cormorant Garamond or Fraunces Light), wide letter-spacing (~ 0.05em), about 90 pt visual size in the frame, ink-black colour. After an em-dash, "SDGs Mission Journey" is set in inscribed Roman capitals (style of Cinzel), smaller (~ 28 pt), gold-coloured (#C9A961).
+>
+> A short gold horizontal hairline (~ 80 pt wide, 1 pt thick, #C9A961) sits below Line 1 as a divider.
+>
+> Line 2 (medium, italic serif, dark navy ink) reads exactly: **Where English Meets Thailand's Urgent Challenges**
+> Set in italic serif (Cormorant Garamond italic feel), ~ 22 pt, dark navy ink (#1F1F23), letter-spacing slightly open.
+>
+> Line 3 (small, all caps, gold) reads exactly: **BUILD A BRIGHT FUTURE FOR ALL**
+> Set in inscribed Roman small-caps (Cinzel Regular), ~ 14 pt, gold (#C9A961), wide letter-spacing (~ 0.18em), centred below the tagline.
+>
+> A thin gold horizontal hairline runs across the very top of the page (just inside the upper margin). A matching gold hairline runs across the very bottom. Subtle gold corner-bracket marks sit in the four corners of the page (~ 18 mm in from each corner, ~ 12 mm long each leg). Below Line 3, in very small monospace caps (~ 9 pt, ink-grey), an editorial byline: "DR. PAYUNGSAK KAENCHAN · FACULTY OF LIBERAL ARTS · MAHIDOL UNIVERSITY".
+>
+> Lighting: soft, even, warm — like an overhead studio softbox from slightly camera-left, no harsh shadows, gentle paper-grain texture across the cream surface. Mood: editorial gravitas, the inside cover of a serious book, calm confidence. Style: documentary product-photo realism, photographed not rendered, NOT digital flat-design, NOT 3D-rendered. The photograph captures real ink on real paper.
+>
+> CRITICAL TYPOGRAPHIC RULES:
+> - All text must be spelled EXACTLY as shown. No misspellings. No invented words.
+> - No additional decorative text, no Lorem Ipsum, no placeholder words.
+> - No corporate logos anywhere.
+> - The em-dash in "FUTUREPROOF — SDGs Mission Journey" must be a proper em-dash, not a hyphen.
+> - Three lines only — do not add a fourth tagline.
+>
+> NO 3D-rendered look. NO neon. NO cyberpunk. NO photo-stock glossy reflection. NO watercolor on this image (this is the typographic title card, not the watercolour map clip).
+
+---
+
+### Approach B · Clean background only (recommended · text added in post)
+
+If you want guaranteed pixel-perfect typography, generate **only the background** in ChatGPT and add the three text lines later in Affinity Publisher, Figma, Keynote, or Canva (5–10 minutes of work). This is the safer route and what most professional designers do.
+
+Paste this into ChatGPT:
+
+> A photorealistic editorial title-page background, landscape orientation (16:9), shot as if photographing a real printed page lit by soft natural window light from camera-left. The page is warm cream-coloured paper (#FDFBF6) with very subtle visible fibre texture, slightly weathered like the front page of a serious cultural quarterly. A thin gold horizontal hairline (1 pt, #C9A961) runs across the very top of the page just inside the upper margin. A matching gold hairline runs across the very bottom. Subtle gold corner-bracket marks sit in the four corners of the page (~ 18 mm in from each corner, ~ 12 mm long each leg). The centre of the page is COMPLETELY EMPTY — generous, intentional negative space where typography will be placed later. Faint, barely-perceptible paper-grain texture suggests the surface is real paper, not a digital render. Lighting: soft, even, warm. Mood: editorial gravitas, calm confidence, the inside cover of a serious book. Style: documentary product-photo realism, photographed not rendered. NO text anywhere on the page — completely empty centre. NO logos. NO decorative typography. NO 3D-render look. NO cyberpunk, NO neon, NO glossy reflections. The only visual elements are the gold hairlines top and bottom, the four corner brackets, the cream paper texture, and the soft light.
+
+After ChatGPT delivers this, open it in your vector editor of choice and add the three lines as live text:
+
+```
+Line 1 · FUTUREPROOF — SDGs Mission Journey
+         (Cormorant Garamond Light, 90pt, ink #0A0A0B for "FUTUREPROOF"
+          all caps; Cinzel Regular 28pt gold #C9A961 for the subtitle)
+
+— gold hairline 80pt wide, 1pt, #C9A961, centred —
+
+Line 2 · Where English Meets Thailand's Urgent Challenges
+         (Cormorant Garamond Italic, 22pt, dark navy #1F1F23, centred)
+
+Line 3 · BUILD A BRIGHT FUTURE FOR ALL
+         (Cinzel Regular, 14pt, gold #C9A961, letter-spacing 0.18em, caps)
+
+Byline · DR. PAYUNGSAK KAENCHAN · FACULTY OF LIBERAL ARTS · MAHIDOL UNIVERSITY
+         (JetBrains Mono, 9pt, ink-grey #6E5320, caps, letter-spacing 0.16em)
+```
+
+All five fonts (Cormorant Garamond, Cinzel, JetBrains Mono, DM Sans, IBM Plex Sans Thai) are free on Google Fonts and already used elsewhere in the brand.
+
+---
+
+### Flow motion prompt for Clip 0 (use after attaching the title-card image)
+
+```
+A static cream-paper editorial title page sits centred in the frame.
+The camera begins on a very slight wider shot and slowly pushes in
+toward the centre of the page over the full clip duration (~ 6
+seconds), as if the viewer is leaning closer to read. Subtle paper-
+grain texture is visible. Soft warm window light from camera-left
+creates the gentlest possible directional shadow on the page surface.
+Each of the three lines of text gently fades in one after the other
+over the first 4 seconds: Line 1 ("FUTUREPROOF — SDGs Mission Journey")
+appears first at 0.5s, Line 2 (the italic tagline) at 2.0s, Line 3
+(the small-caps slogan) at 3.5s. The byline at the bottom fades in
+last at 4.5s. The camera continues its slow push-in for the final
+1.5 seconds, ending tight enough that the title fills two-thirds of
+the frame. The clip ends with a held frame ready to cross-fade into
+Clip 1. NO music sting on screen. NO camera shake. NO snap-cuts. The
+mood is calm, ceremonial, intentional. Lighting and colour remain
+identical to the reference image throughout.
+```
+
+---
+
+### Recommended placement in the updated 7-clip film
+
+| Clip | Time | Length | What viewer sees |
+|---|---|---|---|
+| **0 · NEW · Title Card** | **0:00 – 0:06** | **6 s** | Editorial cream-paper title page with three lines fading in |
+| 1 · Thailand at Dawn | 0:06 – 0:16 | 10 s | Aerial drone across rice paddies → river → temple |
+| 2 · The Question | 0:16 – 0:26 | 10 s | Student's hands turning a dossier page |
+| 3 · The Map Appears | 0:26 – 0:36 | 10 s | Watercolor Thailand drawn in ink in real time |
+| 4 · Six Frontlines | 0:36 – 0:46 | 10 s | Camera moves across the map · pins bloom into vignettes |
+| 5 · From Page to Screen | 0:46 – 0:56 | 10 s | Paper-to-pixel transition |
+| 6 · The Tour Begins | 0:56 – 1:06 | 10 s | Hand reaches for laptop touchpad · handoff |
+| Total intro | **1:06** | — | 66 seconds |
+
+This pushes total intro to 1:06 (6 s over your 60 s target). Three ways to stay under the SPU 5-minute cap:
+
+- **Option A** · Trim Clip 0 to 5 seconds (text fade-in sequence becomes tighter): total 1:05.
+- **Option B** · Accept 1:06 intro and tighten the screencast to 3:40: total 4:46.
+- **Option C** · Move the title card to the END (Clip 7, after Clip 6) and have it serve as the closing card on top of the screencast handoff — works but feels less standard.
+
+I recommend Option B — 1:06 intro + 3:40 screencast = 4:46, fourteen seconds under the SPU cap, with the title-card sitting properly at the opening where it belongs.
+
+---
+
+### Quick tips for Approach A regeneration
+
+If ChatGPT renders the text with typos (which happens about 1 in 3 times for long multi-line copy):
+
+- **The most common error**: it inserts an extra letter or transposes two letters in "FUTUREPROOF". If you see "FUTUREPROOOF" or "FUTUREPRROF", regenerate.
+- **Second most common**: the em-dash becomes a regular hyphen or two hyphens. If you see "FUTUREPROOF - SDGs" instead of "FUTUREPROOF — SDGs", regenerate with the explicit clause appended: *"The dash must be a proper em-dash character (U+2014), not a hyphen-minus."*
+- **Third most common**: extra decorative words appear that you didn't ask for ("THE ART OF" before FUTUREPROOF, etc.). Regenerate with: *"Use ONLY the three text lines specified above. No additional text, no decorative phrases."*
+
+After ~ 3 attempts if Approach A still doesn't land cleanly, switch to Approach B — adding text in a vector editor takes 5 minutes and is bulletproof.
+
+---
+
 ## 7 · Character / object consistency tips for Flow Omni Flash
 
 Omni Flash holds visual consistency from references in three ways. Use them strategically:
