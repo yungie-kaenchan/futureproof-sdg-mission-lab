@@ -9,8 +9,8 @@
  *   import { applySDGTheme } from "./sdg-theme.js";
  *   applySDGTheme(13);  // sets CSS variable --sdg-accent on document root
  *
- * The theme is read from the locked-in flow state on every page load by
- * pages/mission-shell.html and pages/studio.html.
+ * The theme is read from the locked-in flow state on every page load by the
+ * mission runtime (pages/mission-run.html) and related mission UI.
  */
 
 import { SDG_LIST } from "./scenario.js";
