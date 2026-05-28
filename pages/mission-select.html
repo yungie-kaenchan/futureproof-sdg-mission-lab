@@ -228,6 +228,7 @@
   <a href="./avatar.html" class="shell-header-btn">&larr; Back</a>
 </header>
 
+<main id="main-content">
 <section class="journey-hero">
   <div class="journey-kicker">Six regions · Six challenges · One journey</div>
   <h1 class="journey-title">Six Missions · Six Regions · Six Keystones · <em>One Journey</em>.</h1>
@@ -235,7 +236,7 @@
   <p class="journey-sub-th" lang="th">เดินทางข้าม 6 ภูมิภาคของไทย แก้โจทย์ความยั่งยืนประจำภูมิภาค รับ Keystone ครบทั้ง 6 เพื่อปลดล็อกภารกิจสุดท้าย — เลือกลำดับได้อย่างอิสระ</p>
 
   <div class="keystone-meter">
-    <div class="keystone-track" id="keystone-track" aria-label="Keystones earned"></div>
+    <div class="keystone-track" id="keystone-track" role="img" aria-label="Keystones earned"></div>
     <span class="keystone-count" id="keystone-count">0 / 6 Keystones</span>
     <span class="finaltask-chip locked" id="finaltask-chip">
       <span class="material-symbols-rounded">lock</span>
@@ -250,9 +251,12 @@
          role="button" tabindex="0"
          aria-label="Thailand journey map — click to enlarge full-screen">
       <figure class="map-fallback" id="map-fallback">
-        <img src="../assets/journey/thailand-map.png"
-             alt="Illustrated isometric map of Thailand with six SDG mission regions: Chiang Mai (North) · Khon Kaen (Northeast) · Bangkok (Central) · Mae Sot (West) · Rayong / EEC (East) · Andaman coast (South). Bilingual Thai / English labels."
-             loading="lazy" />
+        <picture>
+          <source srcset="../assets/journey/thailand-map.webp" type="image/webp" />
+          <img src="../assets/journey/thailand-map.png"
+               alt="Illustrated isometric map of Thailand with six SDG mission regions: Chiang Mai (North) · Khon Kaen (Northeast) · Bangkok (Central) · Mae Sot (West) · Rayong / EEC (East) · Andaman coast (South). Bilingual Thai / English labels."
+               width="1024" height="1536" loading="eager" fetchpriority="high" />
+        </picture>
         <figcaption>Six missions · ภารกิจหกพื้นที่</figcaption>
       </figure>
       <span class="map-zoom-chip" aria-hidden="true">
@@ -281,6 +285,7 @@
     <div class="mission-cards" id="mission-cards"></div>
   </div>
 </div>
+</main>
 
 <!-- GSAP — CDN with graceful CSS fallback if unavailable (no demo-fragility) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
@@ -502,9 +507,12 @@
             aria-label="Close enlarged map">
       <span class="material-symbols-rounded">close</span>
     </button>
-    <img src="../assets/journey/thailand-map.png"
-         alt="Illustrated isometric map of Thailand — enlarged view"
-         loading="eager" />
+    <picture>
+      <source srcset="../assets/journey/thailand-map.webp" type="image/webp" />
+      <img src="../assets/journey/thailand-map.png"
+           alt="Illustrated isometric map of Thailand — enlarged view"
+           width="1024" height="1536" loading="lazy" />
+    </picture>
     <div class="map-lightbox-caption" id="map-lightbox-caption">
       Six missions · ภารกิจหกพื้นที่ — press ESC or click anywhere to close
     </div>
