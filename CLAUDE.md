@@ -33,7 +33,7 @@ We have **20 days from May 10** to deliver a competition-winning submission.
 
 ## 3. The Innovation Concept (One-Sentence)
 
-FUTUREPROOF is a self-contained AI-powered gamified learning platform where undergraduate teams undertake adaptive missions across the UN Sustainable Development Goals — building English proficiency, critical thinking, ethical reasoning, and professional design skills inseparably and at once, culminating in a Pitch Capsule artifact.
+FUTUREPROOF is a self-contained AI-powered gamified learning platform where undergraduate teams undertake adaptive missions across the UN Sustainable Development Goals — building English proficiency, critical thinking, ethical reasoning, and professional design skills inseparably and at once, culminating in a Voice for Change artifact.
 
 ---
 
@@ -45,7 +45,7 @@ The platform is built on **two underlying frameworks** that govern every design 
 
 | Framework | What it governs | Where it shows up |
 |-----------|-----------------|-------------------|
-| **PICRAT** (Kimmons, Graham & West, 2020) | Where each activity sits on the **P**assive→**I**nteractive→**C**reative × **R**eplaces→**A**mplifies→**T**ransforms matrix. Every mission targets at least the **Interactive-Amplifies** cell; the Pitch Capsule (Mission 06) targets **Creative-Transforms**. | Mission architecture, role design, Studio, Hall of Excellence |
+| **PICRAT** (Kimmons, Graham & West, 2020) | Where each activity sits on the **P**assive→**I**nteractive→**C**reative × **R**eplaces→**A**mplifies→**T**ransforms matrix. Every mission targets at least the **Interactive-Amplifies** cell; the Voice for Change (Mission 06) targets **Creative-Transforms**. | Mission architecture, role design, Voice for Change recording, Hall of Voices |
 | **AI-TPACK** (Mishra & Koehler, extended) | The **boundary between what AI handles and what humans handle**. AI handles consistency, scale, formative feedback. Humans handle cultural authenticity, summative grading, voice recognition, intervention judgment. | Field Mentor guardrails, four-tier judging, Admin Command Platform, every Claude proxy system prompt |
 
 These two frameworks are **load-bearing**: removing or weakening either collapses the architecture. PICRAT keeps the platform from drifting toward Passive-Replaces edtech (digital textbook, drill-and-skill). AI-TPACK keeps it from drifting toward AI-as-tutor (productive struggle erased, teacher displaced).
@@ -61,7 +61,7 @@ These deliver the specifics PICRAT and AI-TPACK demand:
 | **Lave & Wenger's Situated Cognition** | Professional roles with asymmetric information |
 | **Vygotsky's ZPD + Wood/Bruner/Ross Scaffolding** | Token economy gates access to scaffolding tools |
 | **Hattie's Visible Learning** | AI-powered formative feedback on every decision |
-| **Mayer's Cognitive Theory of Multimodal Learning** | Pitch Capsule with text, image, audio integration |
+| **Mayer's Cognitive Theory of Multimodal Learning** | Voice for Change with text, audio, and recorded-speech integration |
 | **Kohlberg's Moral Development + Critical Pedagogy** | Mission 5 ethical cross-examination |
 | **Constructivism (Piaget, Bruner)** | Decision-consequence branching |
 | **CAST UDL Guidelines 3.0** | Multimodal representation, action, engagement |
@@ -112,26 +112,35 @@ Each mission has a specific cognitive level, language focus, decision points, an
 ### Mission 05 — TRIBUNAL (Evaluate)
 - **Cognitive Level:** Evaluate
 - **Activities:** Ethical dilemma resolution, position defense, AI cross-examination
-- **Decision Point:** Final ethical judgment that frames Pitch Capsule
+- **Decision Point:** Final ethical judgment that frames Voice for Change
 - **Adaptive Element:** AI cross-examination adapts to response quality
 - **AI Evaluation:** Ethical reasoning, language precision, argumentation under pressure
 
-### Mission 06 — FORGE (Create)
+### Mission 06 — FORGE (Create) → delivered as **Voice for Change**
 - **Cognitive Level:** Create
-- **Activities:** Pitch Capsule creation in built-in Studio
-- **Output:** 5-panel artifact with narrated audio
+- **Activities:** Compose and record the **Voice for Change** — a spoken funding proposal (the capstone)
+- **Output:** A 2–5 minute recorded proposal (record in-browser or upload), with live transcription; exportable as PDF + audio
 - **Adaptive Element:** Token-purchased upgrades available
 - **Final Evaluation:** Teacher grades using Rubric A (holistic)
 
-### The Pitch Capsule (Final Output)
-Five panels, each panel led by one professional role:
-1. **THE CRISIS** — Problem statement with data (led by Research Analyst)
-2. **THE JOURNEY** — Decisions and lessons learned (collaborative)
-3. **THE INSIGHT** — Core finding/argument (led by Ethics Officer)
-4. **THE SOLUTION** — Proposed action (led by Communications Director)
-5. **THE VOICE** — Recorded narration overlay (collaborative)
+> **Build note (current implementation).** The capstone originally specified as the
+> *Pitch Capsule* (a five-panel visual artifact built in a separate Studio) shipped as
+> **Voice for Change** (`pages/final-task.html`), unlocked after the learner collects all
+> six SDG Keystones. The old `studio.html` / Pitch Capsule generation has been retired.
+> (The six missions also ship organized around SDG **regions** with a five-stage arc —
+> Brief · Probe · Decide · Act · Debrief — rather than the Bloom's-named labels listed
+> above; reconciling that section fully is a separate documentation task.)
 
-Exportable as PDF + audio. Eligible for Hall of Excellence.
+### Voice for Change (Final Output)
+The learner records a short spoken proposal addressed to a real Thai audience, structured around **five required parts**:
+1. **The crisis** — what the problem is, and exactly where/whom it affects
+2. **Your one action** — a single concrete proposal (who, where, by when, within a ฿1,000,000 envelope)
+3. **Who it helps** — the specific people whose lives change, in concrete terms
+4. **The evidence** — at least three of the six commitments from the learner's **Evidence Trail** (one written per mission)
+5. **The trade-off you accept** — what the action will *not* do, named honestly
+
+Submitted by recording in-browser (2–5 min, unlimited re-records, live transcription) or by uploading a file.
+Exportable as PDF + audio. Eligible for the **Hall of Voices** (curated public gallery, with consent).
 
 ---
 
@@ -171,7 +180,7 @@ Teams of 3 students assign one role each. Each role has unique abilities and asy
 |------|------|--------|
 | 🔍 Expert Consultant | 15 | Strategic AI question per mission |
 | 📝 Language Coach Session | 10 | Detailed AI feedback on a draft |
-| 🎨 Premium Design Template | 20 | Upgraded Pitch Capsule layout |
+| 🎨 Premium Design Template | 20 | Upgraded Voice for Change proposal template |
 | 💡 Hint Reveal | 5 | Unlock hidden data point |
 | 🔄 Decision Replay | 25 | Redo one decision point |
 | 🎤 Pronunciation Drill | 10 | AI-guided pronunciation practice |
@@ -186,8 +195,8 @@ Teams of 3 students assign one role each. Each role has unique abilities and asy
 | Field Agent | Complete Missions 1-2 | Discussion facilitator AI |
 | Analyst | Complete Mission 3 | Data visualization tools |
 | Strategist | Complete Mission 4 | Expert consultant access |
-| Director | Complete Mission 5 | Full Creation Studio |
-| Ambassador | Submit Pitch Capsule | Public showcase, peer review |
+| Director | Complete Mission 5 | Full Voice for Change workspace |
+| Ambassador | Submit Voice for Change | Public showcase, peer review |
 
 ---
 
@@ -246,7 +255,7 @@ team's competency level [INSERT LEVEL FROM PROFILE].
 |------|-------|------|------|
 | 1 | **AI Judges** | Real-time formative evaluation | During every mission |
 | 2 | **Peer Judges** | Cross-team review with rubrics | After Mission 4 |
-| 3 | **Teacher Judges** | Holistic, summative, authoritative | Final Pitch Capsule grading |
+| 3 | **Teacher Judges** | Holistic, summative, authoritative | Final Voice for Change grading |
 | 4 | **External Judges** | Authentic audience recognition | Pitch Showcase event |
 
 The teacher's evaluation is the **final official grade**. AI provides scale and consistency. Peers build metacognition. External judges provide authentic audience.
@@ -380,11 +389,11 @@ Seven modules required:
 
 1. **User Management** — CRUD on student/teacher accounts, view profiles, manage classes, bulk import
 2. **Mission Architect** — Add/edit SDG sub-scenarios, ethical dilemmas, decision branches; preview before deploy
-3. **Analytics Dashboard** — Engagement, decision patterns, competency tracking, language metrics, soft skills, Pitch Capsule trends
+3. **Analytics Dashboard** — Engagement, decision patterns, competency tracking, language metrics, soft skills, Voice for Change trends
 4. **Content Moderation Console** — Review AI content, moderate Hall of Excellence
 5. **PDPA Compliance Center** — Track consent, process data subject requests, audit logs
 6. **System Configuration** — API key management, model selection, difficulty params
-7. **Hall of Excellence Curator** — Review/feature Pitch Capsules, organize gallery
+7. **Hall of Excellence Curator** — Review/feature Voice for Change submissions, organize gallery
 
 All data exportable as CSV or PDF for institutional reporting.
 
@@ -397,7 +406,7 @@ All data exportable as CSV or PDF for institutional reporting.
 - **Mission Dossier** — Living portfolio that builds in real time as decisions are made
 - **Integrity Meter** — Persistent visual gauge of team's ethical consistency
 - **Time Capsule Reflection** — Pre-mission and post-mission voice recordings (30 sec each)
-- **Hall of Excellence** — Public gallery of curated Pitch Capsules (with consent)
+- **Hall of Excellence** — Public gallery of curated Voice for Change submissions (with consent)
 - **Voice of the Learner** — Reflection module at 3 checkpoints (mid, end, +30 days)
 - **Personalized Learning Portfolio** — Generated post-Mission 6 with future plan
 
@@ -407,7 +416,7 @@ All data exportable as CSV or PDF for institutional reporting.
 
 Four rubrics required for the submission:
 
-- **Rubric A:** Pitch Capsule Holistic Evaluation (Teacher Use)
+- **Rubric A:** Voice for Change Holistic Evaluation (Teacher Use)
 - **Rubric B:** Mission Decision Quality (AI Judge Logic)
 - **Rubric C:** CEFR-Aligned Language Development (Pre/Post Comparison)
 - **Rubric D:** Soft Skills Demonstration (Critical Thinking, Analytical, Collaboration, Ethics, Decision-Making)
@@ -441,7 +450,7 @@ futureproof/
 │   ├── mission-03.html         # Day 11 — DEPLOY
 │   ├── mission-04.html         # Day 11 — DISSECT
 │   ├── mission-05.html         # Day 12 — TRIBUNAL
-│   ├── studio.html             # Day 13 — FORGE / Pitch Capsule Studio
+│   ├── final-task.html          # FORGE — Voice for Change capstone (replaces studio.html)
 │   ├── hall-of-excellence.html # Day 16
 │   └── admin/                  # Day 15-16 — Admin dashboard
 ├── assets/
@@ -480,7 +489,7 @@ futureproof/
 - Day 10 (May 19): Field Mentor with guardrails
 - Day 11 (May 20): Missions 2-3 with branching
 - Day 12 (May 21): Missions 4-5, NPC interviews
-- Day 13 (May 22): Mission 6 (FORGE) — Pitch Capsule Studio
+- Day 13 (May 22): Mission 6 (FORGE) — Voice for Change capstone
 - Day 14 (May 23): Studio audio recording, PDF export, polish
 
 ### Week 3 (May 24-30): Polish + Submit
@@ -598,7 +607,7 @@ futureproof/
 - ✅ Scroll-triggered reveal animations
 - ✅ Live Bangkok-time ticker
 - ✅ Animated SDG ticker (all 17 goals)
-- ✅ Pitch Capsule preview mockup
+- ✅ Voice for Change preview mockup
 - ✅ Netlify deployment configuration
 - ✅ README documentation
 
@@ -644,7 +653,7 @@ npm run build
 - ✅ 6-mission Bloom's-aligned architecture
 - ✅ 3-role situated learning (Research / Comms / Ethics)
 - ✅ Insight Token economy with shop and ranks
-- ✅ Pitch Capsule as 5-panel artifact with audio narration
+- ✅ Voice for Change as a recorded spoken proposal (5 required parts; PDF + audio export)
 - ✅ Hall of Excellence with consent-based curation
 - ✅ Mandatory Local Lens layer in every scenario
 
