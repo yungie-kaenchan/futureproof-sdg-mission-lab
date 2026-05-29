@@ -67,7 +67,7 @@ async function briefStage(container, state, engine) {
   paint(container, `
     <section class="scenario-briefing">
       <div class="briefing-banner">
-        <div class="console-label-gold">STAGE 01 // BRIEF · BLOOM: REMEMBER</div>
+        <div class="console-label-gold">STAGE 01 // BRIEF · BLOOM: REMEMBER + UNDERSTAND</div>
         <div class="scenario-chip">
           <span class="material-symbols-rounded size-20">location_city</span>
           <span>SDG 11 · Sustainable Cities</span>
@@ -106,6 +106,27 @@ async function briefStage(container, state, engine) {
         </div>
       </div>
 
+      <div class="briefing-bloom mt-6">
+        <style>
+          .briefing-bloom{border:1px solid rgba(201,169,97,.30);border-radius:16px;padding:18px 20px;background:linear-gradient(180deg,rgba(201,169,97,.07),transparent)}
+          .briefing-bloom .ba-intro{margin:0 0 14px;line-height:1.6;color:#3a4a63;font-size:15px}
+          .briefing-bloom ol{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+          .briefing-bloom li{display:flex;gap:12px;align-items:baseline;font-size:14.5px;line-height:1.55;color:#1b2435}
+          .briefing-bloom .ba-stage{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.14em;color:#b57c34;min-width:84px;flex:0 0 84px;text-transform:uppercase;padding-top:2px}
+          .briefing-bloom .ba-lvl{font-weight:700;color:#0A0A0B}
+          .briefing-bloom .ba-cap{margin:12px 0 0;font-size:13px;color:#54627c;line-height:1.55}
+        </style>
+        <div class="console-label-gold mb-2">THE FULL BLOOM ARC · ไต่ครบทั้ง 6 ระดับการคิด</div>
+        <p class="ba-intro">One mission, one five-stage arc — but it carries you up <strong>all six levels of Bloom’s Revised Taxonomy</strong>. You don’t just recall a problem; you analyze it, judge it, and act on it. Full <strong>Create</strong> lands in your capstone — the <strong>Voice for Change</strong>.</p>
+        <ol>
+          <li><span class="ba-stage">Brief</span><span><span class="ba-lvl">Remember + Understand</span> — read the land; grasp the people and the trade-off.</span></li>
+          <li><span class="ba-stage">Probe</span><span><span class="ba-lvl">Apply + Analyze</span> — question four sources and weigh conflicting evidence.</span></li>
+          <li><span class="ba-stage">Decide</span><span><span class="ba-lvl">Evaluate</span> — judge the options under pressure and defend your call.</span></li>
+          <li><span class="ba-stage">Act</span><span><span class="ba-lvl">Create</span> — compose a real communication to the people it affects.</span></li>
+          <li><span class="ba-stage">Debrief</span><span><span class="ba-lvl">Reflect</span> — name the consequence (metacognition) and earn the Keystone.</span></li>
+        </ol>
+        <p class="ba-cap">ภารกิจเดียว — ไต่ครบทั้งหกระดับของ Bloom และไปสิ้นสุดที่ระดับ Create ในภารกิจสุดท้าย Voice for Change</p>
+      </div>
       <div class="learn-block mt-6">
         <div class="learn-col">
           <div class="console-label-gold mb-2">LEARNING OBJECTIVES</div>
