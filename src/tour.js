@@ -13,7 +13,7 @@ const KEY = "fp_tour_seen_v1";
 const ALL_stepsList = [
   {
     title: "What FUTUREPROOF is",
-    body: "A platform where undergraduate teams investigate UN Sustainable Development Goals — in English. They make decisions, defend them, and produce a Pitch Capsule that synthesizes the journey.",
+    body: "A platform where undergraduate teams investigate UN Sustainable Development Goals — in English. They make decisions, defend them, and produce a Voice for Change that synthesizes the journey.",
   },
   {
     title: "Six missions, one ascent",

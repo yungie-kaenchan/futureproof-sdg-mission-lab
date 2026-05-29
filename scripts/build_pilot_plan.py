@@ -26,7 +26,7 @@ fp.kv_table(doc, [
     ("First cohort", "LALA109 · Sem 1 / AY 2569 · August 2026 · Mahidol University, Faculty of Liberal Arts"),
     ("Cohort size", "Up to 50 learners per section × up to 6 sections = up to 300 learners"),
     ("Duration", "15 weeks · 3 in-class hours + 6 async hours per week (135 hours total)"),
-    ("Course fit", "Replaces the existing Design-Thinking SDG project (weeks 7–14, currently 40% of grade)"),
+    ("Course fit", "An add-on that runs alongside the existing Design-Thinking final project across the whole semester — students build SDG knowledge in Thai contexts here while developing that project. It augments the course; it replaces nothing."),
     ("Teacher preparation", "10 hours pre-term · workshop + Teacher's Manual self-study"),
 ])
 
