@@ -26,6 +26,9 @@ import os, subprocess, tempfile, time
 
 # ── palette / fonts ──────────────────────────────────────────────
 SERIF, SANS, MONO, THAI = "Baskerville", "Avenir Next", "Menlo", "Sukhumvit Set"
+# Official Creative Commons BY-NC license button (assets/licenses/)
+CC_BADGE = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                        "assets", "licenses", "cc-by-nc-88x31.png")
 INK   = RGBColor(0x00, 0x00, 0x00)   # body — black
 DRED  = RGBColor(0x7B, 0x1B, 0x1B)   # dark red — titles
 DGOLD = RGBColor(0x9C, 0x6F, 0x1C)   # dark gold — section heads / labels
@@ -244,8 +247,16 @@ def footer(doc, *_ignored):
     (Extra positional args are accepted and ignored for backward compatibility.)"""
     sec = doc.sections[0]
     f = sec.footer; f.is_linked_to_previous = False
+    # CC BY-NC license badge (official Creative Commons button), centred on top
+    if os.path.exists(CC_BADGE):
+        pb = f.paragraphs[0]; pb.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        pb.paragraph_format.space_after = Pt(2)
+        pb.add_run().add_picture(CC_BADGE, width=Mm(19))
+        p1 = f.add_paragraph()
+    else:
+        p1 = f.paragraphs[0]
     # line 1 — authorship
-    p1 = f.paragraphs[0]; p1.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p1.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p1.paragraph_format.space_after = Pt(1)
     _add_run(p1, "Dr. Payungsak Kaenchan  |  Faculty of Liberal Arts, Mahidol University",
              font=MONO, size=7.5, color=GRAY, ls=0.5)
