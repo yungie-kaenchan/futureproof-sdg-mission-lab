@@ -40,7 +40,8 @@ def build(slug, kicker, thai, only=None):
     html2fp.render_blocks(doc, blocks, fp)
     fp.footer(doc, "Dr. Payungsak Kaenchan · Faculty of Liberal Arts",
               "FUTUREPROOF · SPU Tech Creative Learning Awards 2569")
-    docx = os.path.join(OUT, slug.upper() + ".docx")
+    # lowercase filenames — match the Judge Tour links and the original convention
+    docx = os.path.join(OUT, slug + ".docx")
     doc.save(docx); print("saved", docx)
     print("pdf", fp.to_pdf(docx))
 
