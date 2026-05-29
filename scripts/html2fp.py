@@ -18,6 +18,7 @@ SKIP_CLASSES = {
     "cover-letter", "cover-rubric-meta", "toc", "chapter-num", "chapter-opener-meta",
     "toc-item", "toc-num", "toc-title", "toc-title-th", "toc-page-num",
     "manual-cover", "cover-meta", "page-num", "running-head",
+    "cover-stats", "cover-stat", "cover-stat-num", "cover-stat-label",
 }
 INLINE_BOLD = {"strong", "b"}
 INLINE_EM = {"em", "i"}
