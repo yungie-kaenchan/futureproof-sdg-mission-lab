@@ -22,7 +22,7 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_LINE_SPACING
 from docx.enum.table import WD_TABLE_ALIGNMENT
 from docx.oxml.ns import qn
 from docx.oxml import OxmlElement
-import os, subprocess, tempfile
+import os, subprocess, tempfile, time
 
 # ── palette / fonts ──────────────────────────────────────────────
 SERIF, SANS, MONO, THAI = "Baskerville", "Avenir Next", "Menlo", "Sukhumvit Set"
@@ -123,7 +123,8 @@ def new_doc():
 # ── public content helpers ───────────────────────────────────────
 def kicker(doc, text):
     p = doc.add_paragraph(); p.paragraph_format.space_after = Pt(2)
-    _add_run(p, text.upper(), font=MONO, size=9, color=DGOLD, ls=1.6)
+    # cs/ea = Thai so any Thai in the label renders in Sukhumvit, Latin stays Menlo
+    _add_run(p, text.upper(), font=MONO, size=9, color=DGOLD, ls=1.6, cs=THAI, ea=THAI)
     return p
 
 def title(doc, text):
@@ -266,7 +267,7 @@ def cover(doc, kicker_text, title_text, subtitle, thai_line, slug, image_dir=Non
                  font=MONO, size=9, color=DGOLD, ls=0.4)
     k = doc.add_paragraph(); k.alignment = WD_ALIGN_PARAGRAPH.CENTER
     k.paragraph_format.space_after = Pt(4)
-    _add_run(k, kicker_text.upper(), font=MONO, size=10, color=DGOLD, ls=1.8)
+    _add_run(k, kicker_text.upper(), font=MONO, size=10, color=DGOLD, ls=1.8, cs=THAI, ea=THAI)
     t = doc.add_paragraph(); t.alignment = WD_ALIGN_PARAGRAPH.CENTER
     t.paragraph_format.space_after = Pt(6); t.paragraph_format.line_spacing = 1.02
     _add_run(t, title_text, font=SERIF, size=32, color=DRED)
@@ -291,6 +292,10 @@ def cover(doc, kicker_text, title_text, subtitle, thai_line, slug, image_dir=Non
 def to_pdf(docx_path, pdf_path=None):
     docx_path = os.path.abspath(docx_path)
     pdf_path = os.path.abspath(pdf_path or os.path.splitext(docx_path)[0] + ".pdf")
+    # Isolate each conversion: a stale/open Word session causes AppleEvent
+    # timeouts, so start from a clean state every time.
+    subprocess.run(["pkill", "-x", "Microsoft Word"], capture_output=True)
+    time.sleep(2)
     script = f'''
     tell application "Microsoft Word"
         activate
