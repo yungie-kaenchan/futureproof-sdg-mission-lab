@@ -150,6 +150,11 @@ function injectStyles() {
   .mtour-next{background:linear-gradient(135deg,#b57c34,#E8C77A);color:#0B1B38;border:0}
   .mtour-next:hover{filter:brightness(1.06)}
   .mtour-pop:focus{outline:2px solid #E8C77A;outline-offset:2px}
+  .mtour-close{position:absolute;top:12px;right:12px;width:30px;height:30px;display:inline-flex;
+    align-items:center;justify-content:center;border-radius:999px;background:rgba(244,241,234,.07);
+    border:1px solid rgba(244,241,234,.18);color:#F4F1EA;font-size:15px;line-height:1;cursor:pointer;padding:0;transition:.18s}
+  .mtour-close:hover{background:rgba(244,241,234,.16);border-color:#E8C77A;color:#E8C77A}
+  .mtour-step{padding-right:40px}
   .mtour-replay{display:inline-flex;align-items:center;gap:7px;background:transparent;
     border:1px solid rgba(7,23,52,.18);color:var(--ink,#071734);border-radius:999px;
     padding:9px 15px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:.18s}
@@ -177,6 +182,7 @@ function runTour() {
   const skipBtn = el("button", { class: "mtour-skip", type: "button", text: "Skip · ข้าม" });
   const backBtn = el("button", { class: "mtour-btn mtour-back", type: "button", text: "Back" });
   const nextBtn = el("button", { class: "mtour-btn mtour-next", type: "button", text: "Next →" });
+  const closeBtn = el("button", { class: "mtour-close", type: "button", "aria-label": "Close the guide", title: "Close · ปิด", text: "✕" });
   const dots = el("div", { class: "mtour-dots", "aria-hidden": "true" });
   STEPS.forEach(() => dots.appendChild(el("span", { class: "mtour-dot" })));
 
@@ -184,6 +190,7 @@ function runTour() {
     class: "mtour-pop", role: "dialog", "aria-modal": "true",
     "aria-labelledby": "mtour-title", tabIndex: "-1",
   }, [
+    closeBtn,
     stepEl, titleEl, bodyEl, thEl,
     el("div", { class: "mtour-row" }, [
       skipBtn,
@@ -265,7 +272,7 @@ function runTour() {
     else if (e.key === "ArrowRight") { e.preventDefault(); next(); }
     else if (e.key === "ArrowLeft") { e.preventDefault(); if (i > 0) { i--; render(); } }
     else if (e.key === "Tab") {
-      const f = [skipBtn, backBtn, nextBtn].filter((b) => b.offsetParent !== null);
+      const f = [closeBtn, skipBtn, backBtn, nextBtn].filter((b) => b.offsetParent !== null);
       const idx = f.indexOf(document.activeElement);
       e.preventDefault();
       const n = e.shiftKey ? (idx <= 0 ? f.length - 1 : idx - 1) : (idx === f.length - 1 ? 0 : idx + 1);
@@ -276,6 +283,7 @@ function runTour() {
   nextBtn.addEventListener("click", next);
   backBtn.addEventListener("click", () => { if (i > 0) { i--; render(); } });
   skipBtn.addEventListener("click", () => finish(true));
+  closeBtn.addEventListener("click", () => finish(true));
   window.addEventListener("resize", onResize);
   document.addEventListener("keydown", onKey, true);
 
