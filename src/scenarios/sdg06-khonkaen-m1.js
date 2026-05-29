@@ -159,7 +159,7 @@ async function reconDossier(container, state, engine) {
   container.innerHTML = `
     <section class="scenario-dossier">
       <header class="dossier-header">
-        <div class="console-label-gold">DOSSIER · BACKGROUND BRIEFING</div>
+        <div class="console-label-gold">STAGE 02 // PROBE · BLOOM: APPLY + ANALYZE · DOSSIER</div>
         <h2 class="display-heading text-2xl mt-2">${SCENARIO_META.title}</h2>
         <p class="body-m text-on-surface-variant mt-1">
           Four short sections. Hover any <strong>highlighted term</strong> for its meaning.
@@ -341,7 +341,7 @@ async function reconStakeholders(container, state, engine) {
   container.innerHTML = `
     <section class="scenario-stakeholders">
       <header class="stake-header">
-        <div class="console-label-gold">STAKEHOLDER BRIEFING</div>
+        <div class="console-label-gold">STAGE 02 // PROBE · BLOOM: APPLY + ANALYZE · FOUR VOICES</div>
         <h2 class="display-heading text-2xl mt-2">Four voices</h2>
         <p class="body-m text-on-surface-variant mt-1">
           Each stakeholder gives a short video dispatch with English subtitles
@@ -506,7 +506,7 @@ function renderCurrentQuizItem(container, state, engine) {
   container.innerHTML = `
     <section class="quiz-screen">
       <header class="quiz-progress-bar">
-        <span class="console-label-gold">FIELD MENTOR · ITEM ${idx + 1} OF ${QUIZ_ITEMS.length}</span>
+        <span class="console-label-gold">STAGE 03–04 // DECIDE · ACT · BLOOM: EVALUATE → CREATE · ITEM ${idx + 1} OF ${QUIZ_ITEMS.length}</span>
         <div class="quiz-progress-pips">
           ${QUIZ_ITEMS.map((_, i) => `<span class="pip ${i < idx ? "is-done" : ""} ${i === idx ? "is-current" : ""}"></span>`).join("")}
         </div>
@@ -980,7 +980,7 @@ async function reconComplete(container, state, engine) {
   container.innerHTML = `
     <section class="mission-complete">
       <div class="complete-banner">
-        <div class="console-label-gold">STAGE 05 // DEBRIEF · ${passed ? "KEYSTONE EARNED" : "NOT YET PASSED"}</div>
+        <div class="console-label-gold">STAGE 05 // DEBRIEF · BLOOM: REFLECT · ${passed ? "KEYSTONE EARNED" : "NOT YET PASSED"}</div>
         <h2 class="display-heading text-3xl mt-2">${passed ? "The Aquifer Below Khon Kaen — cleared." : "Close. One more pass."}</h2>
         <p class="body-l text-on-surface-variant mt-2">
           ${passed

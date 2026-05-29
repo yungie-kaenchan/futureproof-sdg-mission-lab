@@ -182,7 +182,7 @@ async function probeDossier(container, state, engine) {
   paint(container, `
     <section class="scenario-dossier">
       <header class="dossier-header">
-        <div class="console-label-gold">STAGE 02 // PROBE · DOSSIER</div>
+        <div class="console-label-gold">STAGE 02 // PROBE · BLOOM: APPLY + ANALYZE · DOSSIER</div>
         <h2 class="display-heading text-2xl mt-2">${SCENARIO_META.title}</h2>
         <div class="tier-inline-chip" title="Set once from your diagnostic. Same facts at every tier — only the wording changes. Audio stays authentic.">
           <span class="material-symbols-rounded size-20">tune</span>
@@ -374,7 +374,7 @@ async function probeStakeholders(container, state, engine) {
   paint(container, `
     <section class="scenario-stakeholders">
       <header class="stake-header">
-        <div class="console-label-gold">STAGE 02 // PROBE · FOUR VOICES</div>
+        <div class="console-label-gold">STAGE 02 // PROBE · BLOOM: APPLY + ANALYZE · FOUR VOICES</div>
         <h2 class="display-heading text-2xl mt-2">Four voices</h2>
         <p class="body-m text-on-surface-variant mt-1">
           Each stakeholder gives a short <strong>video dispatch with English
@@ -532,7 +532,7 @@ function renderCurrentQuizItem(container, state, engine) {
   paint(container, `
     <section class="quiz-screen">
       <header class="quiz-progress-bar">
-        <span class="console-label-gold">STAGE 03 // DECIDE · ITEM ${idx + 1} OF ${QUIZ_ITEMS.length}</span>
+        <span class="console-label-gold">STAGE 03 // DECIDE · BLOOM: EVALUATE · ITEM ${idx + 1} OF ${QUIZ_ITEMS.length}</span>
         <div class="quiz-progress-pips">
           ${QUIZ_ITEMS.map((_, i) => `<span class="pip ${i < idx ? "is-done" : ""} ${i === idx ? "is-current" : ""}"></span>`).join("")}
         </div>
@@ -930,7 +930,7 @@ function renderQuizSummary(container, state, engine) {
   paint(container, `
     <section class="quiz-summary">
       <header>
-        <div class="console-label-gold">STAGE 04 // ACT · TALLY</div>
+        <div class="console-label-gold">STAGE 04 // ACT · BLOOM: CREATE · TALLY</div>
         <h2 class="display-heading text-3xl mt-2">${totalTokens >= 0 ? "+" : ""}${totalTokens} ◆ earned</h2>
         <p class="body-l text-on-surface-variant mt-2">
           You've worked the dossier and the four voices into a position. Here's how each item scored.
@@ -1001,7 +1001,7 @@ async function debriefComplete(container, state, engine) {
   paint(container, `
     <section class="mission-complete">
       <div class="complete-banner">
-        <div class="console-label-gold">STAGE 05 // DEBRIEF · ${passed ? "KEYSTONE EARNED" : "NOT YET PASSED"}</div>
+        <div class="console-label-gold">STAGE 05 // DEBRIEF · BLOOM: REFLECT · ${passed ? "KEYSTONE EARNED" : "NOT YET PASSED"}</div>
         <h2 class="display-heading text-3xl mt-2">${passed ? "The Burning Season — cleared." : "Close. One more pass."}</h2>
         <p class="body-l text-on-surface-variant mt-2">
           ${passed
