@@ -239,13 +239,21 @@ def data_table(doc, headers, rows, widths_mm=None):
                 row.cells[i].width = Mm(w)
     return tbl
 
-def footer(doc, left_text, right_text):
+def footer(doc, *_ignored):
+    """Standard FUTUREPROOF footer: authorship line + concise CC BY-NC notice.
+    (Extra positional args are accepted and ignored for backward compatibility.)"""
     sec = doc.sections[0]
     f = sec.footer; f.is_linked_to_previous = False
-    p = f.paragraphs[0]; p.alignment = WD_ALIGN_PARAGRAPH.LEFT
-    bottom = p  # reuse
-    _add_run(p, left_text + "   ·   ", font=MONO, size=7.5, color=GRAY, ls=0.6)
-    _add_run(p, right_text, font=MONO, size=7.5, color=GRAY, ls=0.6)
+    # line 1 — authorship
+    p1 = f.paragraphs[0]; p1.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p1.paragraph_format.space_after = Pt(1)
+    _add_run(p1, "Dr. Payungsak Kaenchan  |  Faculty of Liberal Arts, Mahidol University",
+             font=MONO, size=7.5, color=GRAY, ls=0.5)
+    # line 2 — license / reuse notice
+    p2 = f.add_paragraph(); p2.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    _add_run(p2, "Creative Commons BY-NC · Educational, non-commercial use only · "
+                 "No profit · Reuse or duplication must credit the author and obtain prior consent.",
+             font=MONO, size=6.8, color=GRAY, ls=0.3)
 
 def cover(doc, kicker_text, title_text, subtitle, thai_line, slug, image_dir=None):
     """Cover page: top banner image (if present) + title block. New page after."""
