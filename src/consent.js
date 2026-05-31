@@ -35,8 +35,8 @@ export const CONSENT_FLAGS = [
     required: false,
     label: { en: 'Voice recordings', th: 'การบันทึกเสียง' },
     plain: {
-      en: 'Audio you record for reflections and the Pitch Capsule narration. Stored only until 90 days after the course ends.',
-      th: 'เสียงที่คุณบันทึกสำหรับการสะท้อนคิดและเสียงประกอบของแคปซูลสรุป จะถูกเก็บไว้เพียง 90 วันหลังจบหลักสูตร',
+      en: 'Audio you record for reflections and your Voice for Change narration. Stored only until 90 days after the course ends.',
+      th: 'เสียงที่คุณบันทึกสำหรับการสะท้อนคิดและเสียงประกอบของ Voice for Change จะถูกเก็บไว้เพียง 90 วันหลังจบหลักสูตร',
     },
   },
   {

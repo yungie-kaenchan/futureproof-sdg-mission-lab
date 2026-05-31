@@ -935,7 +935,7 @@ function renderQuizSummary(container, state, engine) {
         <div class="console-label-gold">FIELD MENTOR · DEBRIEF</div>
         <h2 class="display-heading text-3xl mt-2">${totalTokens >= 0 ? "+" : ""}${totalTokens} ◆ earned</h2>
         <p class="body-l text-on-surface-variant mt-2">
-          You've completed the RECON quiz. Below is a summary of how you scored on each item.
+          You've completed the Decide &amp; Act stage. Below is a summary of how you scored on each item.
         </p>
       </header>
 

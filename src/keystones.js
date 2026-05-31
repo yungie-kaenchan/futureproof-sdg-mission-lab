@@ -60,9 +60,17 @@ export function isDemoBypassActive() {
 /** Returns a map { missionId: keystoneRecord } of earned Keystones. */
 export async function getKeystones(uid) {
   if (!uid || !isFirebaseAvailable()) return {};
-  const fb = await import("./firebase-init.js");
-  const data = await fb.readPath(fb.paths.keystones(uid));
-  return data && typeof data === "object" ? data : {};
+  // Resilient by design: a failed/timed-out cloud read (network blip, quota,
+  // placeholder config) must NOT halt the caller — mission-select and the
+  // final-task capstone both await this at module top level, so a throw here
+  // would leave those pages blank. Degrade to "no keystones yet" instead.
+  try {
+    const fb = await import("./firebase-init.js");
+    const data = await fb.readPath(fb.paths.keystones(uid));
+    return data && typeof data === "object" ? data : {};
+  } catch (_) {
+    return {};
+  }
 }
 
 /** Count of earned Keystones (0–6). Demo bypass returns TOTAL immediately. */
