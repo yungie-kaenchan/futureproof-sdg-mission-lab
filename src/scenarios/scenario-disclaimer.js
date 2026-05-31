@@ -312,7 +312,7 @@ function renderPaneEN() {
 
       <p class="body-s text-on-surface-variant mt-6">
         Issued by Faculty of Liberal Arts, Mahidol University · Editorial contact:
-        Dr. Payungsak Kaenchan (Dr. Payungsak Kaenchan) · <code>payungsak.kaenchan@gmail.com</code> ·
+        Dr. Payungsak Kaenchan · <code>payungsak.kaenchan@gmail.com</code> ·
         Document version ${DISCLAIMER_VERSION} · Full text at
         <code>/docs/scenarios-disclaimer.md</code>.
       </p>
