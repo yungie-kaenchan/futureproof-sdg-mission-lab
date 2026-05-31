@@ -17,13 +17,25 @@
 
 const ANTHROPIC_ENDPOINT = "https://api.anthropic.com/v1/messages";
 
+// ── Model tier strategy ─────────────────────────────────────────────
+// JUDGE-DEMO PRESET (active from 2026-06-01) — every judge-facing AI
+// response runs on Sonnet for maximum perceived quality during the
+// finals walkthrough. Cost is trivial at demo volume (a few dozen calls).
+//
+// To revert to the cost-efficient PILOT split BEFORE the live student
+// cohort begins, restore the Haiku model on the three "chat / scoring"
+// slots — comments below mark each one with its pilot-tier fallback.
+//
+// Scenario / evaluate / tribunal stay on Sonnet either way (rubric
+// reasoning never goes down to Haiku).
+// ────────────────────────────────────────────────────────────────────
 const MODELS = {
   scenario:      "claude-sonnet-4-7",
-  fieldMentor:   "claude-haiku-4-5-20251001",
+  fieldMentor:   "claude-sonnet-4-7",            // pilot fallback: "claude-haiku-4-5-20251001"
   evaluate:      "claude-sonnet-4-7",
   tribunal:      "claude-sonnet-4-7",
-  languageCoach: "claude-haiku-4-5-20251001",
-  aiJudges:      "claude-haiku-4-5-20251001",
+  languageCoach: "claude-sonnet-4-7",            // pilot fallback: "claude-haiku-4-5-20251001"
+  aiJudges:      "claude-sonnet-4-7",            // pilot fallback: "claude-haiku-4-5-20251001"
 };
 
 const SYSTEM_PROMPTS = {
@@ -266,7 +278,7 @@ export async function handler(event) {
       },
       body: JSON.stringify({
         model,
-        max_tokens: kind === "fieldMentor" || kind === "tribunal" ? 400 : 1500,
+        max_tokens: kind === "fieldMentor" || kind === "tribunal" ? 800 : 2000,  // judge-demo lift (was 400/1500)
         system,
         messages,
       }),
