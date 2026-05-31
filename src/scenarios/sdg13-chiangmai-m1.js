@@ -139,7 +139,7 @@ async function briefStage(container, state, engine) {
       </div>
 
       <div class="briefing-roles mt-6">
-        <div class="console-label-gold mb-2">YOUR TEAM (per CLAUDE.md §6)</div>
+        <div class="console-label-gold mb-2">YOUR TEAM</div>
         <ul class="role-grid">
           <li><span class="material-symbols-rounded size-20">science</span><strong>Research Analyst</strong> · academic register, data sources</li>
           <li><span class="material-symbols-rounded size-20">campaign</span><strong>Communications Director</strong> · audience adaptation</li>

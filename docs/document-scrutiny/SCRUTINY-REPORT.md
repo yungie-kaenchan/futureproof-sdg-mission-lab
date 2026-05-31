@@ -196,7 +196,7 @@ Approximately 30 specific issues, listed in §3 below. None individually fatal; 
 | # | Current | Suggested revision | Note |
 |---|---|---|---|
 | 🟡 | "Creative Commons (CC-BY-SA)" | "สัญญาอนุญาต Creative Commons แบบ Attribution-ShareAlike (CC BY-SA 4.0)" | Specify version |
-| 🟢 | (8) PDPA + Claude API external-processing disclosure | Strong, important point — keep | None |
+| 🟢 | (8) PDPA + AI external-processing disclosure | Strong, important point — keep | None |
 | 🟡 | "ขอเสนอข้อแนะนำดังนี้" | "ขอเสนอข้อแนะนำเชิงปฏิบัติดังนี้" | Slightly more precise |
 
 ---

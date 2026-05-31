@@ -33,7 +33,7 @@ fp.body(doc, "An AI-scaffolded English-language learning platform for **LALA109 
 fp.h2(doc, "Three load-bearing claims · all auditable")
 fp.callout(doc, "Claim 1 · AI-TPACK enforced at the system-prompt level",
            "The boundary between what AI handles (scale, formative feedback) and what humans handle "
-           "(summative grading, cultural authenticity) is **hard-coded into the Claude API system prompts** "
+           "(summative grading, cultural authenticity) is **hard-coded into the AI system prompts** "
            "of Mr Compass and the AI Judges — not merely declared in the application. Open the Judge Tour, "
            "Step 8, to see this in the admin console.", kind="red")
 fp.callout(doc, "Claim 2 · Three learning theories made operational",

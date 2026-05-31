@@ -219,7 +219,7 @@ async function callJudges(payload) {
       body: JSON.stringify({ kind: "aiJudges", userMessage, context }),
     });
   } catch (netErr) {
-    throw new Error("Network · could not reach the Claude proxy (Netlify function may not be deployed). Detail: " + netErr.message);
+    throw new Error("Network · could not reach the AI engine (Netlify function may not be deployed). Detail: " + netErr.message);
   }
 
   let data = null;

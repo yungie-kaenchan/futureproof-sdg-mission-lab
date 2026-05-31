@@ -273,10 +273,10 @@ function renderPaneEN() {
       <h3 class="title-m mt-5 mb-2">6. Use of AI-generated assets</h3>
       <p class="body-m">
         Audio, illustrations, and adaptive feedback may include content produced with ElevenLabs
-        (voice), Anthropic Claude (text and rubric application), and image-generation tools.
+        (voice), an advanced AI language model (text and rubric application), and image-generation tools.
         <strong>All AI content is reviewed by the platform's pedagogical team before deployment.</strong>
         AI tools never independently author a rubric or determine your final grade. Summative
-        grading on the Pitch Capsule is performed by a qualified human teacher.
+        grading on the Voice for Change is performed by a qualified human teacher.
       </p>
 
       <h3 class="title-m mt-5 mb-2">7. No intent of harm</h3>
@@ -382,10 +382,10 @@ function renderPaneTH() {
       <h3 class="title-m mt-5 mb-2">๖. การใช้เนื้อหาที่สร้างด้วยปัญญาประดิษฐ์</h3>
       <p class="body-m">
         เสียง ภาพประกอบ และข้อเสนอแนะอาจมีเนื้อหาที่ผลิตด้วย ElevenLabs (เสียง)
-        Anthropic Claude (ข้อความและการให้คะแนนตามเกณฑ์) และเครื่องมือสร้างภาพ
+        โมเดลภาษาเอไอขั้นสูง (ข้อความและการให้คะแนนตามเกณฑ์) และเครื่องมือสร้างภาพ
         <strong>เนื้อหา AI ทั้งหมดผ่านการตรวจสอบโดยทีมงานการสอนก่อนเผยแพร่</strong>
         AI มิได้เขียนเกณฑ์การประเมินหรือกำหนดเกรดสุดท้ายของท่าน
-        การประเมินสรุปท้ายของชิ้นงาน Pitch Capsule ดำเนินการโดยอาจารย์ผู้สอนที่มีคุณวุฒิ
+        การประเมินสรุปท้ายของชิ้นงาน Voice for Change ดำเนินการโดยอาจารย์ผู้สอนที่มีคุณวุฒิ
       </p>
 
       <h3 class="title-m mt-5 mb-2">๗. ไม่มีเจตนาก่อให้เกิดความเสียหาย</h3>

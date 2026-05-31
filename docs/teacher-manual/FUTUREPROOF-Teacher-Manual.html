@@ -651,7 +651,7 @@ hr.div {
   <div class="kv-k">Term length</div>
   <div class="kv-v">15 weeks · 3 in-class hours + 6 async hours per week.</div>
   <div class="kv-k">Tech stack</div>
-  <div class="kv-v">HTML5 + Tailwind CSS + vanilla JS · Firebase (auth, Realtime DB, Storage) · Anthropic Claude API · Stability.ai for avatars · Netlify hosting.</div>
+  <div class="kv-v">HTML5 + Tailwind CSS + vanilla JS · Firebase (auth, Realtime DB, Storage) · an advanced AI language model API · Stability.ai for avatars · Netlify hosting.</div>
   <div class="kv-k">First semester of use</div>
   <div class="kv-v">Semester 1, Academic Year 2569 (Aug 2026).</div>
 </div>
@@ -831,7 +831,7 @@ hr.div {
 
   <div class="sys-layer">
     <div class="sys-layer-name">AI proxy</div>
-    <div class="sys-layer-content">Netlify Functions wrap Anthropic Claude API (Sonnet) and Stability.ai. API keys live in Netlify env vars — never reach the browser. Per-call rate-limiting and per-user daily quotas.</div>
+    <div class="sys-layer-content">Netlify Functions wrap an advanced AI language model API and Stability.ai. API keys live in Netlify env vars — never reach the browser. Per-call rate-limiting and per-user daily quotas.</div>
   </div>
 
   <div class="sys-layer">
@@ -849,7 +849,7 @@ hr.div {
 <ol>
   <li><strong>Sign-up → consent</strong>. PDPA consent recorded before any personal data write. The readiness check is hard-gated: it will not run and writes nothing until consent is granted.</li>
   <li><strong>Readiness check → reading tier</strong>. Diagnostic sets the learner's CEFR tier (1, 2, or 3). Dossiers are served at the learner's tier; audio is never tiered.</li>
-  <li><strong>Mission decision → AI Judge → token award</strong>. Each decision call goes to Claude through the Netlify proxy with the Rubric B system prompt; the response includes scores per criterion, a growthEdge string, and a token delta.</li>
+  <li><strong>Mission decision → AI Judge → token award</strong>. Each decision call goes to the AI through the Netlify proxy with the Rubric B system prompt; the response includes scores per criterion, a growthEdge string, and a token delta.</li>
   <li><strong>Keystone award</strong>. When the mission composite passes the threshold, the Keystone is awarded (idempotent — re-running cannot double-award).</li>
   <li><strong>Capstone unlock</strong>. Six Keystones unlocks Voice for Change. Teacher overrides are logged with reason for audit.</li>
   <li><strong>Hall of Voices curation</strong>. Capstone publication requires a second, explicit, withdrawable consent — separate from PDPA consent and revocable any time from <em>My Data</em>.</li>
