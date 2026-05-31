@@ -371,7 +371,7 @@
          fetchpriority="high">
   </picture>
   <!-- Video deferred: source attached by JS after window.load. The WebP
-       poster (46 KB) paints instantly as the LCP; the 4.7 MB video streams
+       poster (46 KB) paints instantly as the LCP; the ~1.5 MB video streams
        in after the page is interactive. Honours prefers-reduced-motion. -->
   <video id="bg-video"
          muted loop playsinline preload="none"
@@ -485,13 +485,13 @@
     video.addEventListener('playing', reveal);
     video.addEventListener('error', useImage);
 
-    // ─── DEFERRED VIDEO LOADING (performance: 4.7 MB) ─────────────
+    // ─── DEFERRED VIDEO LOADING (performance: ~1.5 MB) ─────────────
     // Attach <source> + start loading AFTER window.load so the video
     // never blocks the LCP. The poster still paints instantly.
     function attachVideoSource() {
       if (video.querySelector('source')) return;  // already attached
       var src = document.createElement('source');
-      src.src  = 'assets/landing/landing-video.mp4';
+      src.src  = 'assets/landing/new-landing.mp4';
       src.type = 'video/mp4';
       src.addEventListener('error', useImage);
       video.appendChild(src);
