@@ -77,29 +77,41 @@
   /* ════════════════════════════════════════════════════════════
      VIEW 1 — THE GREAT HALL (CSS-3D gallery)
      ════════════════════════════════════════════════════════════ */
-  .hall{position:relative; height:min(70vh,620px); margin-top:26px; overflow:hidden;
+  .hall{position:relative; height:min(76vh,660px); margin-top:26px; overflow:hidden;
     background:
-      radial-gradient(120% 80% at 50% 8%, rgba(232,199,122,.10) 0%, transparent 55%),
-      radial-gradient(80% 60% at 50% 120%, rgba(184,138,63,.12) 0%, transparent 60%),
-      linear-gradient(180deg, #05101F 0%, #0A1326 46%, #0E1A30 60%, #0A1326 100%);
-    perspective:1500px; perspective-origin:50% 44%;
+      radial-gradient(70% 50% at 50% 0%, rgba(232,199,122,.12) 0%, transparent 60%),
+      radial-gradient(40% 50% at 50% 100%, rgba(184,138,63,.10) 0%, transparent 65%),
+      linear-gradient(180deg, #05101F 0%, #0A1326 50%, #070F1E 100%);
+    perspective:1000px; perspective-origin:50% 42%;
     user-select:none; touch-action:pan-y;
   }
-  /* gallery floor */
-  .hall::after{content:""; position:absolute; left:0; right:0; bottom:0; height:42%;
-    background:linear-gradient(180deg, transparent 0%, rgba(232,199,122,.05) 40%, rgba(5,16,31,.85) 100%);
-    pointer-events:none}
-  /* warm sconce glows */
-  .hall::before{content:""; position:absolute; inset:0; pointer-events:none;
+  /* atmospheric vignette + warm sconces */
+  .hall::before{content:""; position:absolute; inset:0; pointer-events:none; z-index:4;
     background:
-      radial-gradient(8% 30% at 14% 30%, rgba(232,199,122,.18), transparent 70%),
-      radial-gradient(8% 30% at 86% 30%, rgba(232,199,122,.18), transparent 70%);
+      radial-gradient(62% 72% at 50% 44%, transparent 38%, rgba(5,16,31,.58) 100%),
+      radial-gradient(7% 26% at 8% 30%, rgba(232,199,122,.16), transparent 70%),
+      radial-gradient(7% 26% at 92% 30%, rgba(232,199,122,.16), transparent 70%);
   }
-  .hall__stage{position:absolute; inset:0; transform-style:preserve-3d}
+  .hall__camera{position:absolute; inset:0; transform-style:preserve-3d;
+    transform:translateZ(var(--walk,0px)); transition:transform 1s cubic-bezier(.5,0,.12,1)}
+  /* receding floor with a faint gold perspective grid */
+  .hall__floor{position:absolute; left:50%; bottom:-2px; width:1700px; height:6000px;
+    transform-origin:50% 100%; transform:translateX(-50%) rotateX(83deg);
+    background:
+      repeating-linear-gradient(90deg, transparent 0 84px, rgba(232,199,122,.05) 84px 86px),
+      repeating-linear-gradient(0deg, transparent 0 240px, rgba(232,199,122,.055) 240px 242px),
+      linear-gradient(180deg,#0c1730,#0a1224);
+    -webkit-mask:linear-gradient(0deg,#000 4%, transparent 62%); mask:linear-gradient(0deg,#000 4%, transparent 62%)}
+  /* faint ceiling */
+  .hall__ceiling{position:absolute; left:50%; top:-2px; width:1700px; height:6000px;
+    transform-origin:50% 0%; transform:translateX(-50%) rotateX(-83deg);
+    background:linear-gradient(0deg,#0b1426,transparent 58%);
+    -webkit-mask:linear-gradient(180deg,#000 2%, transparent 52%); mask:linear-gradient(180deg,#000 2%, transparent 52%)}
 
-  .frame{position:absolute; top:46%; left:50%; width:min(360px,72vw); height:auto;
-    transform-style:preserve-3d; transition:transform .7s cubic-bezier(.22,1,.36,1), opacity .6s, filter .6s;
-    cursor:pointer; will-change:transform}
+  .frame{position:absolute; top:44%; left:50%; width:300px; height:auto;
+    transform-style:preserve-3d;
+    transition:transform .95s cubic-bezier(.5,0,.12,1), opacity .7s ease, filter .7s ease;
+    cursor:pointer; will-change:transform,opacity}
   .frame__mat{position:relative; padding:18px;
     background:linear-gradient(160deg, #12203a 0%, #0c1730 100%);
     border:1px solid rgba(232,199,122,.30);
@@ -125,8 +137,8 @@
     font-family:var(--titles); font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:#E8C77A;
     background:#0c1730; border:1px solid rgba(232,199,122,.4); border-radius:4px; padding:4px 12px; white-space:nowrap;
     box-shadow:0 6px 16px rgba(0,0,0,.4)}
-  .frame.is-active .frame__mat{box-shadow:0 40px 90px rgba(0,0,0,.6), 0 0 50px rgba(232,199,122,.28), inset 0 0 0 6px rgba(201,169,97,.26)}
-  .frame:not(.is-active){filter:brightness(.7) saturate(.85)}
+  .frame.is-active .frame__mat{box-shadow:0 40px 90px rgba(0,0,0,.6), 0 0 60px rgba(232,199,122,.30), inset 0 0 0 6px rgba(201,169,97,.26)}
+  .frame:not(.is-active) .frame__mat{filter:brightness(.72) saturate(.88)}
   .frame__hint{position:absolute; inset:auto 0 14px 0; text-align:center; font-family:var(--mono);
     font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:#8a6a2e; opacity:0; transition:.3s}
   .frame.is-active .frame__hint{opacity:.8}
@@ -263,7 +275,7 @@
   <div class="wrap" style="max-width:1280px">
     <div class="hall" id="hall" tabindex="0" aria-label="3D gallery of Voice for Change proposals — use arrow keys to walk the hall">
       <div class="hall-count" id="hall-count">01 / 06</div>
-      <div class="hall__stage" id="hall-stage"></div>
+      <div class="hall__camera" id="hall-stage"></div>
       <div class="hall-nav">
         <button class="hall-arrow" id="hall-prev" aria-label="Previous"><span class="material-symbols-rounded">chevron_left</span></button>
         <div class="hall-dots" id="hall-dots"></div>

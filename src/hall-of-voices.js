@@ -125,7 +125,16 @@ const hall = {
   el: document.getElementById("hall"),
 };
 
+/* corridor geometry */
+const SEG = 600;   // depth between frames (px)
+const OFFX = 300;  // how far each frame sits off the centre aisle (px)
+const FACE = 30;   // how much each frame angles to face the walker (deg)
+
 function buildHall() {
+  // floor + ceiling (part of the moving world)
+  hall.stage.appendChild(el("div", { class: "hall__floor" }));
+  hall.stage.appendChild(el("div", { class: "hall__ceiling" }));
+
   HALL_ENTRIES.forEach((entry, i) => {
     const canvas = el("div", { class: "frame__canvas", style: `--c:${entry.color}` }, [
       sdgPill(entry, "frame__sdg"),
@@ -142,61 +151,61 @@ function buildHall() {
       class: "frame", style: `--c:${entry.color}`, role: "button", tabindex: "-1",
       "aria-label": `${entry.title} — ${entry.by}`,
     }, [mat, el("div", { class: "frame__plate", text: entry.region })]);
+
+    // two poses: hung on the wall (resting) + stepped out to face the walker (active)
+    const side = i % 2 === 0 ? -1 : 1;
+    const ry = side === -1 ? FACE : -FACE; // angle toward the centre aisle
+    const z = -i * SEG;
+    frame.dataset.wall =
+      `translate(-50%,-50%) translate3d(${side * OFFX}px, 0, ${z}px) rotateY(${ry}deg)`;
+    frame.dataset.front =
+      `translate(-50%,-50%) translate3d(${side * OFFX * 0.42}px, 0, ${z + 110}px) rotateY(${ry * 0.4}deg) scale(1.05)`;
+    frame.style.transform = frame.dataset.wall;
+
     frame.addEventListener("click", () => {
       if (i === hall.active) openLightbox(entry);
-      else setActive(i);
+      else walkTo(i);
     });
     hall.stage.appendChild(frame);
     hall.frames.push(frame);
 
     const dot = el("span", { class: "hall-dot" + (i === 0 ? " on" : "") });
-    dot.addEventListener("click", () => setActive(i));
+    dot.addEventListener("click", () => walkTo(i));
     hall.dots.appendChild(dot);
   });
-  layoutHall();
+  walkTo(0);
 }
 
-function layoutHall() {
-  const narrow = window.innerWidth < 720;
-  const SPREAD = narrow ? 140 : 252;
-  const DEPTH = narrow ? 170 : 230;
-  const ANGLE = narrow ? 30 : 38;
-  hall.frames.forEach((f, i) => {
-    const off = i - hall.active;
-    const abs = Math.abs(off);
-    const sgn = Math.sign(off);
-    if (abs > 3) {
-      f.style.opacity = "0"; f.style.pointerEvents = "none";
-      f.style.transform = `translate(-50%,-50%) translateX(${sgn * 1000}px) translateZ(-1300px)`;
-      f.classList.remove("is-active"); return;
-    }
-    f.style.opacity = abs === 0 ? "1" : abs === 1 ? "0.92" : "0.5";
-    f.style.pointerEvents = "auto";
-    const x = off * SPREAD;
-    const z = off === 0 ? 150 : -abs * DEPTH;
-    const ry = off === 0 ? 0 : -sgn * ANGLE;
-    const sc = off === 0 ? 1.05 : 0.9;
-    f.style.transform = `translate(-50%,-50%) translateX(${x}px) translateZ(${z}px) rotateY(${ry}deg) scale(${sc})`;
-    f.style.zIndex = String(60 - abs);
-    f.classList.toggle("is-active", off === 0);
-  });
+/* Walk the camera to a frame: move the whole world forward by index*SEG,
+   then fade frames that are behind the walker or too far ahead. */
+function walkTo(index) {
   const n = HALL_ENTRIES.length;
-  hall.count.textContent = `${String(hall.active + 1).padStart(2, "0")} / ${String(n).padStart(2, "0")}`;
+  hall.active = Math.max(0, Math.min(n - 1, index));
+  hall.stage.style.setProperty("--walk", `${hall.active * SEG}px`);
+
+  hall.frames.forEach((f, i) => {
+    const rel = i - hall.active;          // 0 = right in front, +ahead, −behind
+    let op;
+    if (rel < -0.5) op = 0;               // behind you
+    else if (rel > 4) op = 0;             // too deep down the hall
+    else op = rel <= 0 ? 1 : Math.max(0.16, 1 - rel * 0.22);
+    f.style.opacity = String(op);
+    f.style.pointerEvents = op > 0.25 ? "auto" : "none";
+    f.style.transform = rel === 0 ? f.dataset.front : f.dataset.wall;
+    f.classList.toggle("is-active", rel === 0);
+  });
+
+  hall.count.textContent =
+    `${String(hall.active + 1).padStart(2, "0")} / ${String(n).padStart(2, "0")}`;
   hall.dots.querySelectorAll(".hall-dot").forEach((d, i) => d.classList.toggle("on", i === hall.active));
 }
 
-function setActive(i) {
-  const n = HALL_ENTRIES.length;
-  hall.active = (i + n) % n;
-  layoutHall();
-}
-
-/* nav: arrows, keyboard, drag/swipe */
-document.getElementById("hall-prev").addEventListener("click", () => setActive(hall.active - 1));
-document.getElementById("hall-next").addEventListener("click", () => setActive(hall.active + 1));
+/* nav: arrows (walk forward/back), keyboard, drag/swipe */
+document.getElementById("hall-prev").addEventListener("click", () => walkTo(hall.active - 1));
+document.getElementById("hall-next").addEventListener("click", () => walkTo(hall.active + 1));
 hall.el.addEventListener("keydown", (e) => {
-  if (e.key === "ArrowLeft") { e.preventDefault(); setActive(hall.active - 1); }
-  else if (e.key === "ArrowRight") { e.preventDefault(); setActive(hall.active + 1); }
+  if (e.key === "ArrowLeft") { e.preventDefault(); walkTo(hall.active - 1); }
+  else if (e.key === "ArrowRight") { e.preventDefault(); walkTo(hall.active + 1); }
   else if (e.key === "Enter") openLightbox(HALL_ENTRIES[hall.active]);
 });
 (function dragNav() {
@@ -205,13 +214,15 @@ hall.el.addEventListener("keydown", (e) => {
   const up = (x) => {
     if (x0 == null) return;
     const dx = x - x0; x0 = null;
-    if (Math.abs(dx) > 50) setActive(hall.active + (dx < 0 ? 1 : -1));
+    if (Math.abs(dx) > 50) walkTo(hall.active + (dx < 0 ? 1 : -1));
   };
   hall.el.addEventListener("pointerdown", (e) => down(e.clientX));
   hall.el.addEventListener("pointerup", (e) => up(e.clientX));
   hall.el.addEventListener("touchstart", (e) => down(e.touches[0].clientX), { passive: true });
   hall.el.addEventListener("touchend", (e) => up(e.changedTouches[0].clientX));
 })();
+/* keep the view aligned after a layout switch */
+function layoutHall() { walkTo(hall.active); }
 window.addEventListener("resize", layoutHall);
 
 /* ════════════════════════════════════════════════════════════
