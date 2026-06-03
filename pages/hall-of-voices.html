@@ -4,12 +4,12 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Hall of Voices — FUTUREPROOF</title>
-<meta name="description" content="The Hall of Voices — curated student Voice for Change proposals from the FUTUREPROOF SDG Mission Lab. Anonymous composite exemplars showing the quality bar." />
+<meta name="description" content="The Hall of Voices — a 3D gallery of student Voice for Change proposals from the FUTUREPROOF SDG Mission Lab. Anonymous composite exemplars showing the quality bar." />
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="FUTUREPROOF — SDG Mission Lab">
 <meta property="og:title" content="Hall of Voices — FUTUREPROOF">
-<meta property="og:description" content="Curated student Voice for Change proposals across six SDG regions.">
+<meta property="og:description" content="A 3D gallery of student Voice for Change proposals across six SDG regions.">
 <meta property="og:image" content="https://futureproof-sdgs-lab.netlify.app/assets/journey/thailand-map-og.png">
 <meta property="og:url" content="https://futureproof-sdgs-lab.netlify.app/pages/hall-of-voices.html">
 <meta name="twitter:card" content="summary_large_image">
@@ -27,8 +27,8 @@
 
 <style>
   :root{
-    --ink:#071734; --ink-deep:#0F1729; --ink-soft:#2A3855;
-    --bronze:#B58A3F; --bronze-light:#E8C77A; --bronze-dim:#6E5320;
+    --ink:#071734; --ink-deep:#0A1326; --ink-night:#05101F; --ink-soft:#2A3855;
+    --bronze:#B58A3F; --bronze-light:#E8C77A; --bronze-dim:#6E5320; --gold:#C9A961;
     --purple:#5D3A9B;
     --paper:#FBFAF6; --paper-warm:#F4F1EA; --bone:#F4F1EA; --white:#FFFFFF;
     --line:rgba(7,23,52,.10); --line-strong:rgba(7,23,52,.18);
@@ -37,9 +37,11 @@
     --sans:'DM Sans',sans-serif; --mono:'JetBrains Mono',monospace;
     --th:'IBM Plex Sans Thai',sans-serif;
   }
-  body{background:var(--paper); color:var(--ink-deep); font-family:var(--sans); margin:0; min-height:100vh; -webkit-font-smoothing:antialiased; font-size:18.4px}
+  *{box-sizing:border-box}
+  body{background:var(--paper); color:var(--ink-deep); font-family:var(--sans); margin:0; min-height:100vh; -webkit-font-smoothing:antialiased; font-size:18px}
 
-  .shell-header{position:sticky; top:0; z-index:50; display:flex; align-items:center; justify-content:space-between; gap:18px; padding:14px 28px; background:#071734; border-bottom:1px solid rgba(232,199,122,.18); color:var(--bone)}
+  /* ── Header (unchanged brand shell) ── */
+  .shell-header{position:sticky; top:0; z-index:60; display:flex; align-items:center; justify-content:space-between; gap:18px; padding:14px 28px; background:#071734; border-bottom:1px solid rgba(232,199,122,.18); color:var(--bone)}
   .shell-header-brand{display:inline-flex; align-items:baseline; gap:14px; text-decoration:none; color:inherit}
   .shell-header-brand .logo{font-family:var(--titles); font-weight:700; font-size:20.7px; letter-spacing:.20em; color:var(--bone)}
   .shell-header-brand .sub{font-family:var(--titles); font-weight:600; font-size:12.6px; letter-spacing:.32em; color:rgba(244,241,234,.65); text-transform:uppercase; border-left:1px solid rgba(232,199,122,.22); padding-left:14px}
@@ -48,115 +50,184 @@
   .hov-brandpill-title{font-family:var(--titles); font-weight:700; font-size:16.1px; letter-spacing:.18em; text-transform:uppercase; color:var(--bone); line-height:1.2; margin-top:3px}
   .shell-header-btn{display:inline-flex; align-items:center; gap:6px; padding:8px 16px; border-radius:999px; border:1px solid rgba(244,241,234,.18); background:#071734; color:var(--bone); text-decoration:none; font-family:var(--mono); font-size:12.6px; letter-spacing:.12em; text-transform:uppercase}
   .shell-header-btn:hover{background:rgba(244,241,234,.08); border-color:var(--bronze)}
-  @media (max-width:720px){ .hov-brandpill-eyebrow{font-size:10.3px} .hov-brandpill-title{font-size:13.8px} }
+  @media (max-width:720px){ .hov-brandpill{display:none} }
 
-  main{max-width:1280px; margin:0 auto; padding:40px 24px 96px}
-  @media (max-width:980px){ main{padding:28px 16px 80px} }
-
-  /* ── Hero ─────────────────────────────────────────────────── */
-  .hov-hero{text-align:center; padding:36px 0 40px; border-bottom:1px solid var(--line); margin-bottom:36px; max-width:860px; margin-left:auto; margin-right:auto}
-  .hov-hero .eyebrow{font-family:var(--mono); font-size:13.8px; letter-spacing:.20em; text-transform:uppercase; color:var(--bronze-dim); margin-bottom:14px; font-weight:700}
-  .hov-hero h1{font-family:var(--display); font-weight:300; font-size:59.8px; color:var(--ink-deep); margin:0 0 10px; line-height:1.1; text-align:center}
+  /* ── Hero ── */
+  .hov-hero{text-align:center; padding:40px 24px 26px; max-width:880px; margin:0 auto}
+  .hov-hero .eyebrow{font-family:var(--mono); font-size:13px; letter-spacing:.22em; text-transform:uppercase; color:var(--bronze-dim); margin-bottom:14px; font-weight:700}
+  .hov-hero h1{font-family:var(--display); font-weight:300; font-size:clamp(40px,6vw,62px); color:var(--ink-deep); margin:0 0 8px; line-height:1.08}
   .hov-hero h1 em{font-style:italic; color:var(--bronze-dim)}
-  .hov-hero .th{font-family:var(--th); font-size:24.1px; color:var(--purple); margin:0 auto 26px; text-align:center; line-height:1.5; max-width:720px}
-  .hov-hero p{max-width:720px; margin:0 auto; line-height:1.75; font-size:19.5px; color:var(--ink); text-align:center; text-wrap:pretty}
-  .hov-hero p strong{color:var(--ink-deep)}
-  @media (max-width:720px){
-    .hov-hero h1{font-size:43.7px}
-    .hov-hero .th{font-size:19.5px}
-    .hov-hero p{font-size:17.8px}
-  }
+  .hov-hero .th{font-family:var(--th); font-size:clamp(18px,2.4vw,23px); color:var(--purple); margin:0 auto 18px; line-height:1.5; max-width:720px}
+  .hov-hero p{max-width:700px; margin:0 auto; line-height:1.7; font-size:17.5px; color:var(--ink); text-wrap:pretty}
 
-  /* ── About-this-gallery banner ────────────────────────────── */
-  .hov-banner{
-    max-width:980px; margin:0 auto 36px;
-    background:rgba(184,138,63,.06); border:1px solid rgba(184,138,63,.32); border-radius:14px;
-    padding:22px 28px; display:flex; gap:18px; align-items:flex-start;
+  /* ── View switcher ── */
+  .view-tabs{display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin:28px auto 0; max-width:980px; padding:0 16px}
+  .view-tab{display:inline-flex; align-items:center; gap:8px; padding:11px 22px; border-radius:999px; cursor:pointer;
+    border:1px solid var(--line-strong); background:var(--white); color:var(--ink); font-family:var(--titles); font-weight:600;
+    font-size:14px; letter-spacing:.10em; text-transform:uppercase; transition:.18s}
+  .view-tab .material-symbols-rounded{font-size:19px}
+  .view-tab:hover{border-color:var(--bronze); color:var(--bronze-dim)}
+  .view-tab.active{background:var(--ink-deep); color:var(--bone); border-color:var(--ink-deep); box-shadow:0 8px 22px rgba(7,23,52,.18)}
+  .view-tab.active .material-symbols-rounded{color:var(--bronze-light)}
+
+  .view{display:none; animation:viewIn .5s ease both}
+  .view.active{display:block}
+  @keyframes viewIn{from{opacity:0; transform:translateY(10px)} to{opacity:1; transform:none}}
+
+  /* ════════════════════════════════════════════════════════════
+     VIEW 1 — THE GREAT HALL (CSS-3D gallery)
+     ════════════════════════════════════════════════════════════ */
+  .hall{position:relative; height:min(70vh,620px); margin-top:26px; overflow:hidden;
+    background:
+      radial-gradient(120% 80% at 50% 8%, rgba(232,199,122,.10) 0%, transparent 55%),
+      radial-gradient(80% 60% at 50% 120%, rgba(184,138,63,.12) 0%, transparent 60%),
+      linear-gradient(180deg, #05101F 0%, #0A1326 46%, #0E1A30 60%, #0A1326 100%);
+    perspective:1500px; perspective-origin:50% 44%;
+    user-select:none; touch-action:pan-y;
   }
+  /* gallery floor */
+  .hall::after{content:""; position:absolute; left:0; right:0; bottom:0; height:42%;
+    background:linear-gradient(180deg, transparent 0%, rgba(232,199,122,.05) 40%, rgba(5,16,31,.85) 100%);
+    pointer-events:none}
+  /* warm sconce glows */
+  .hall::before{content:""; position:absolute; inset:0; pointer-events:none;
+    background:
+      radial-gradient(8% 30% at 14% 30%, rgba(232,199,122,.18), transparent 70%),
+      radial-gradient(8% 30% at 86% 30%, rgba(232,199,122,.18), transparent 70%);
+  }
+  .hall__stage{position:absolute; inset:0; transform-style:preserve-3d}
+
+  .frame{position:absolute; top:46%; left:50%; width:min(360px,72vw); height:auto;
+    transform-style:preserve-3d; transition:transform .7s cubic-bezier(.22,1,.36,1), opacity .6s, filter .6s;
+    cursor:pointer; will-change:transform}
+  .frame__mat{position:relative; padding:18px;
+    background:linear-gradient(160deg, #12203a 0%, #0c1730 100%);
+    border:1px solid rgba(232,199,122,.30);
+    border-radius:6px;
+    box-shadow:0 30px 60px rgba(0,0,0,.55), inset 0 0 0 6px rgba(201,169,97,.16);
+  }
+  /* gilt frame edge */
+  .frame__gilt{position:absolute; inset:5px; border-radius:4px; pointer-events:none;
+    border:3px solid transparent;
+    background:linear-gradient(135deg,#E8C77A,#B58A3F 40%,#6E5320 70%,#E8C77A) border-box;
+    -webkit-mask:linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor; mask-composite:exclude;}
+  .frame__canvas{position:relative; padding:26px 24px 22px; border-radius:3px; min-height:230px;
+    background:radial-gradient(120% 120% at 50% 0%, #fbf7ec 0%, #f3ead2 100%);
+    color:#1c1408; overflow:hidden}
+  .frame__sdg{display:inline-flex; align-items:center; gap:6px; padding:4px 11px; border-radius:5px;
+    background:var(--c); color:#fff; font-family:var(--mono); font-size:11px; letter-spacing:.10em; text-transform:uppercase; font-weight:700}
+  .frame__title{font-family:var(--display); font-weight:500; font-size:21px; line-height:1.22; margin:12px 0 6px; color:#241a09}
+  .frame__by{font-family:var(--mono); font-size:11.5px; letter-spacing:.04em; color:#7a6a3f}
+  .frame__excerpt{font-family:var(--display); font-style:italic; font-size:14px; line-height:1.55; color:#3a2f17; margin:12px 0 0;
+    display:-webkit-box; -webkit-line-clamp:4; -webkit-box-orient:vertical; overflow:hidden}
+  .frame__plate{position:absolute; left:50%; bottom:-26px; transform:translateX(-50%);
+    font-family:var(--titles); font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:#E8C77A;
+    background:#0c1730; border:1px solid rgba(232,199,122,.4); border-radius:4px; padding:4px 12px; white-space:nowrap;
+    box-shadow:0 6px 16px rgba(0,0,0,.4)}
+  .frame.is-active .frame__mat{box-shadow:0 40px 90px rgba(0,0,0,.6), 0 0 50px rgba(232,199,122,.28), inset 0 0 0 6px rgba(201,169,97,.26)}
+  .frame:not(.is-active){filter:brightness(.7) saturate(.85)}
+  .frame__hint{position:absolute; inset:auto 0 14px 0; text-align:center; font-family:var(--mono);
+    font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:#8a6a2e; opacity:0; transition:.3s}
+  .frame.is-active .frame__hint{opacity:.8}
+
+  /* nav controls */
+  .hall-nav{position:absolute; left:0; right:0; bottom:14px; display:flex; align-items:center; justify-content:center; gap:14px; z-index:5}
+  .hall-arrow{width:48px; height:48px; border-radius:999px; border:1px solid rgba(232,199,122,.4);
+    background:rgba(12,23,48,.7); color:var(--bone); cursor:pointer; display:flex; align-items:center; justify-content:center;
+    backdrop-filter:blur(6px); transition:.18s}
+  .hall-arrow:hover{background:rgba(232,199,122,.18); border-color:var(--bronze-light)}
+  .hall-arrow .material-symbols-rounded{font-size:24px}
+  .hall-dots{display:flex; gap:8px}
+  .hall-dot{width:8px; height:8px; border-radius:999px; background:rgba(232,199,122,.3); cursor:pointer; transition:.2s}
+  .hall-dot.on{background:var(--bronze-light); transform:scale(1.4)}
+  .hall-count{position:absolute; top:16px; left:50%; transform:translateX(-50%); font-family:var(--mono);
+    font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:rgba(232,199,122,.7); z-index:5}
+
+  /* ════════════════════════════════════════════════════════════
+     VIEW 2 — THE PROCESSION (2D drifting frames)
+     ════════════════════════════════════════════════════════════ */
+  .procession{margin-top:26px; padding:34px 0; overflow:hidden; position:relative;
+    background:linear-gradient(180deg,#0A1326 0%,#0E1A30 100%); border-radius:18px}
+  .procession::before, .procession::after{content:""; position:absolute; top:0; bottom:0; width:80px; z-index:3; pointer-events:none}
+  .procession::before{left:0; background:linear-gradient(90deg,#0A1326,transparent)}
+  .procession::after{right:0; background:linear-gradient(270deg,#0A1326,transparent)}
+  .proc-row{display:flex; gap:26px; width:max-content; padding:14px 26px; animation:drift 60s linear infinite}
+  .proc-row:nth-child(2){animation-duration:78s; animation-direction:reverse}
+  .procession:hover .proc-row{animation-play-state:paused}
+  @keyframes drift{from{transform:translateX(0)} to{transform:translateX(-50%)}}
+  .proc-frame{flex:0 0 auto; width:260px; padding:14px; border-radius:6px; cursor:pointer;
+    background:linear-gradient(160deg,#12203a,#0c1730); border:1px solid rgba(232,199,122,.28);
+    box-shadow:0 16px 36px rgba(0,0,0,.4); transition:transform .3s, box-shadow .3s}
+  .proc-frame:hover{transform:translateY(-6px) scale(1.02); box-shadow:0 26px 56px rgba(0,0,0,.55), 0 0 26px rgba(232,199,122,.22)}
+  .proc-canvas{padding:18px 16px; border-radius:3px; background:radial-gradient(120% 120% at 50% 0%, #fbf7ec, #f1e6cf); min-height:150px}
+  .proc-canvas .frame__title{font-size:17px; margin:9px 0 5px}
+  .proc-canvas .frame__excerpt{-webkit-line-clamp:3; font-size:12.5px}
+
+  /* ════════════════════════════════════════════════════════════
+     VIEW 3 — THE ROLL (honor roll list)
+     ════════════════════════════════════════════════════════════ */
+  .roll{max-width:760px; margin:30px auto 0; padding:0 16px}
+  .roll-head{text-align:center; margin-bottom:22px}
+  .roll-head .k{font-family:var(--mono); font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--bronze-dim); font-weight:700}
+  .roll-head h3{font-family:var(--display); font-weight:300; font-size:34px; color:var(--ink-deep); margin:6px 0 0}
+  .roll-head h3 em{font-style:italic; color:var(--bronze-dim)}
+  .roll-list{border-top:1px solid var(--line)}
+  .roll-item{display:flex; align-items:center; gap:16px; padding:15px 12px; border-bottom:1px solid var(--line);
+    opacity:0; transform:translateY(8px); animation:rollIn .5s ease forwards}
+  .roll-item .num{font-family:var(--mono); font-size:12px; color:var(--ink-soft); width:30px; text-align:right; flex:0 0 30px}
+  .roll-item .dot{width:11px; height:11px; border-radius:3px; transform:rotate(45deg); flex:0 0 11px}
+  .roll-item .who{flex:1; min-width:0}
+  .roll-item .who .name{font-family:var(--display); font-size:19px; color:var(--ink-deep); line-height:1.2}
+  .roll-item .who .meta{font-family:var(--mono); font-size:11.5px; letter-spacing:.04em; color:var(--ink-soft); text-transform:uppercase; margin-top:2px}
+  .roll-item .mark{font-family:var(--mono); font-size:11px; letter-spacing:.1em; color:var(--bronze-dim); text-transform:uppercase; display:inline-flex; align-items:center; gap:5px}
+  .roll-item .mark .material-symbols-rounded{font-size:16px; color:#3FB984}
+  .roll-item:hover{background:rgba(184,138,63,.05)}
+  @keyframes rollIn{to{opacity:1; transform:none}}
+
+  /* ── Lightbox ── */
+  .lightbox{position:fixed; inset:0; z-index:100; display:none; align-items:center; justify-content:center; padding:24px;
+    background:rgba(5,16,31,.82); backdrop-filter:blur(8px)}
+  .lightbox.open{display:flex; animation:viewIn .3s ease}
+  .lb-card{position:relative; max-width:640px; width:100%; max-height:88vh; overflow:auto; border-radius:14px;
+    background:var(--white); box-shadow:0 40px 100px rgba(0,0,0,.5); border-top:6px solid var(--c,#B58A3F)}
+  .lb-inner{padding:30px 34px 34px}
+  .lb-close{position:absolute; top:14px; right:16px; width:34px; height:34px; border-radius:999px; border:1px solid var(--line-strong);
+    background:var(--white); cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--ink)}
+  .lb-close:hover{border-color:var(--bronze); color:var(--bronze-dim)}
+  .lb-sdg{display:inline-flex; align-items:center; gap:6px; padding:4px 11px; border-radius:5px; background:var(--c,#B58A3F); color:#fff; font-family:var(--mono); font-size:12px; letter-spacing:.10em; text-transform:uppercase; font-weight:700}
+  .lb-title{font-family:var(--display); font-weight:500; font-size:30px; line-height:1.2; color:var(--ink-deep); margin:14px 0 6px}
+  .lb-by{font-family:var(--mono); font-size:13px; color:var(--ink-soft)}
+  .lb-by strong{color:var(--ink)}
+  .lb-address{font-family:var(--mono); font-size:13px; letter-spacing:.06em; color:var(--bronze-dim); font-weight:700; margin:16px 0 0}
+  .lb-address .label{color:var(--ink-soft); font-weight:400; margin-right:4px}
+  .lb-excerpt{font-family:var(--display); font-style:italic; font-size:18px; line-height:1.7; color:var(--ink); margin:16px 0 0;
+    padding:18px 20px; background:var(--paper-warm); border-radius:10px; border-left:3px solid var(--c,#B58A3F)}
+  .lb-meta{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:18px; padding-top:14px; border-top:1px solid var(--line); flex-wrap:wrap}
+  .lb-keystones{display:flex; gap:5px}
+  .lb-keystones .ks{width:15px; height:15px; border-radius:3px; transform:rotate(45deg); box-shadow:0 0 0 1px var(--white)}
+  .lb-badge{font-family:var(--mono); font-size:11px; letter-spacing:.10em; color:var(--bronze-dim); text-transform:uppercase; font-weight:700; padding:4px 9px; border-radius:4px; background:rgba(184,138,63,.10); border:1px solid rgba(184,138,63,.30)}
+
+  /* ── About banner + consent explainer (PDPA — preserved) ── */
+  .wrap{max-width:1100px; margin:0 auto; padding:0 24px}
+  .hov-banner{max-width:980px; margin:46px auto 0; background:rgba(184,138,63,.06); border:1px solid rgba(184,138,63,.32); border-radius:14px;
+    padding:22px 28px; display:flex; gap:18px; align-items:flex-start}
   .hov-banner .icon{flex:0 0 40px; width:40px; height:40px; border-radius:999px; background:var(--bronze); color:var(--white); display:flex; align-items:center; justify-content:center}
-  .hov-banner .icon .material-symbols-rounded{font-size:25.3px}
   .hov-banner .content{flex:1; min-width:0; text-align:left}
-  /* Banner heading (only the very first <strong>, not the body emphasis) */
-  .hov-banner .banner-title{
-    display:block; color:var(--bronze-dim); font-size:17.2px; font-weight:700;
-    margin:0 0 6px; letter-spacing:.04em; line-height:1.3;
-  }
-  .hov-banner p{margin:0; font-size:16.7px; line-height:1.65; color:var(--ink); text-wrap:pretty}
-  /* Inline emphasis inside body paragraph — stays inline (NOT display:block) */
+  .hov-banner .banner-title{display:block; color:var(--bronze-dim); font-size:17px; font-weight:700; margin:0 0 6px; letter-spacing:.04em}
+  .hov-banner p{margin:0; font-size:16px; line-height:1.65; color:var(--ink)}
   .hov-banner p strong{color:var(--ink-deep); font-weight:700}
-  .hov-banner .th{display:block; font-family:var(--th); font-size:15.5px; color:var(--ink-soft); margin-top:8px; line-height:1.55}
-  @media (max-width:600px){
-    .hov-banner{padding:18px 20px; gap:14px}
-    .hov-banner .icon{flex-basis:34px; width:34px; height:34px}
-    .hov-banner .icon .material-symbols-rounded{font-size:21.8px}
-  }
+  .hov-banner .th{display:block; font-family:var(--th); font-size:15px; color:var(--ink-soft); margin-top:8px; line-height:1.55}
 
-  /* ── Filter row ───────────────────────────────────────────── */
-  .hov-filters{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-bottom:32px}
-  .hov-filter{display:inline-flex; align-items:center; gap:6px; padding:8px 16px; border-radius:999px; cursor:pointer; border:1px solid var(--line-strong); background:var(--white); color:var(--ink); font-family:var(--mono); font-size:13.8px; letter-spacing:.06em; font-weight:600; transition:.15s}
-  .hov-filter:hover{border-color:var(--bronze); color:var(--bronze-dim)}
-  .hov-filter.active{background:var(--ink-deep); color:var(--bone); border-color:var(--ink-deep)}
-  .hov-filter .dot{width:10px; height:10px; border-radius:999px; display:inline-block; background:var(--bronze)}
-
-  /* ── Card grid ────────────────────────────────────────────── */
-  .hov-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(360px, 1fr)); gap:24px}
-  .hov-card{
-    background:var(--white); border:1px solid var(--line); border-radius:18px;
-    overflow:hidden; box-shadow:0 8px 24px rgba(7,23,52,.06);
-    display:flex; flex-direction:column;
-    transition:transform .25s ease-out, box-shadow .25s ease-out;
-  }
-  .hov-card:hover{transform:translateY(-4px); box-shadow:0 16px 40px rgba(7,23,52,.10)}
-  .hov-card.is-hidden{display:none}
-
-  .hov-card-top{padding:20px 22px 14px; position:relative; background:linear-gradient(180deg, rgba(0,0,0,.03) 0%, transparent 100%)}
-  .hov-card-top::before{
-    content:""; position:absolute; left:0; top:0; right:0; height:4px;
-    background:var(--sdg-color, var(--bronze));
-  }
-  .hov-card .sdg-pill{display:inline-flex; align-items:center; gap:6px; padding:4px 10px; border-radius:6px; background:var(--sdg-color, var(--bronze)); color:var(--white); font-family:var(--mono); font-size:12.1px; letter-spacing:.10em; text-transform:uppercase; font-weight:700; margin-bottom:10px}
-  .hov-card .title{font-family:var(--display); font-weight:500; font-size:25.3px; color:var(--ink-deep); margin:0 0 6px; line-height:1.25}
-  .hov-card .title em{font-style:italic; color:var(--bronze-dim)}
-  .hov-card .by{font-family:var(--mono); font-size:13.2px; color:var(--ink-soft); letter-spacing:.04em}
-  .hov-card .by strong{color:var(--ink); font-weight:700}
-
-  .hov-card-body{padding:6px 22px 18px; flex:1; display:flex; flex-direction:column; gap:14px}
-  .hov-card .address{font-family:var(--mono); font-size:13.2px; letter-spacing:.08em; color:var(--bronze-dim); font-weight:700}
-  .hov-card .address .label{color:var(--ink-soft); margin-right:4px; font-weight:400}
-  .hov-card .excerpt{
-    font-family:var(--display); font-style:italic; font-size:17.8px; line-height:1.7;
-    color:var(--ink); padding:14px 18px; background:var(--paper-warm); border-radius:10px;
-    border-left:3px solid var(--sdg-color, var(--bronze));
-    margin:0;
-  }
-  .hov-card .excerpt::before{content:'"'; color:var(--sdg-color, var(--bronze)); font-style:normal; font-size:41.4px; line-height:0.6; vertical-align:-12px; margin-right:4px; font-family:var(--display); font-weight:600}
-  .hov-card .excerpt::after{content:'"'; color:var(--sdg-color, var(--bronze)); font-style:normal; font-size:41.4px; line-height:0.6; vertical-align:-12px; margin-left:4px; font-family:var(--display); font-weight:600}
-  .hov-card .meta-row{display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:space-between; padding-top:12px; border-top:1px solid var(--line)}
-  .hov-card .keystones{display:flex; gap:5px}
-  .hov-card .keystones .ks{width:14px; height:14px; border-radius:3px; transform:rotate(45deg); box-shadow:0 0 0 1px var(--white)}
-  .hov-card .submitted{font-family:var(--mono); font-size:12.1px; color:var(--ink-soft); letter-spacing:.04em}
-  .hov-card .curated-badge{font-family:var(--mono); font-size:11.5px; letter-spacing:.10em; color:var(--bronze-dim); text-transform:uppercase; font-weight:700; padding:4px 8px; border-radius:4px; background:rgba(184,138,63,.10); border:1px solid rgba(184,138,63,.30)}
-
-  /* ── Consent explainer (bottom) ───────────────────────────── */
-  .hov-explainer{
-    margin-top:64px; padding:36px 40px;
-    background:var(--white); border:1px solid var(--line); border-radius:16px;
-    box-shadow:0 4px 14px rgba(7,23,52,.04);
-  }
-  .hov-explainer h2{font-family:var(--display); font-weight:400; font-size:29.9px; color:var(--ink-deep); margin:0 0 6px; line-height:1.25}
+  .hov-explainer{max-width:980px; margin:36px auto 80px; padding:36px 40px; background:var(--white); border:1px solid var(--line); border-radius:16px; box-shadow:0 4px 14px rgba(7,23,52,.04)}
+  .hov-explainer h2{font-family:var(--display); font-weight:400; font-size:28px; color:var(--ink-deep); margin:0 0 6px; line-height:1.25}
   .hov-explainer h2 em{font-style:italic; color:var(--bronze-dim)}
-  .hov-explainer .th{font-family:var(--th); font-size:17.2px; color:var(--ink-soft); margin:0 0 20px}
-  .hov-explainer ol{margin:0; padding-left:24px; counter-reset:hov; list-style:none}
-  .hov-explainer li{counter-increment:hov; padding:12px 0 12px 44px; position:relative; line-height:1.7; font-size:17.8px; color:var(--ink)}
-  .hov-explainer li::before{content:counter(hov); position:absolute; left:0; top:12px; width:30px; height:30px; border-radius:999px; background:var(--ink-deep); color:var(--bone); display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:14.9px; font-weight:700}
+  .hov-explainer .th{font-family:var(--th); font-size:17px; color:var(--ink-soft); margin:0 0 20px}
+  .hov-explainer ol{margin:0; padding-left:0; counter-reset:hov; list-style:none}
+  .hov-explainer li{counter-increment:hov; padding:12px 0 12px 44px; position:relative; line-height:1.7; font-size:17px; color:var(--ink)}
+  .hov-explainer li::before{content:counter(hov); position:absolute; left:0; top:12px; width:30px; height:30px; border-radius:999px; background:var(--ink-deep); color:var(--bone); display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:14px; font-weight:700}
   .hov-explainer li strong{color:var(--ink-deep); font-weight:700}
-
-  @media (max-width:720px){
-    .hov-hero h1{font-size:43.7px}
-    .hov-hero p{font-size:17.8px}
-    .hov-grid{grid-template-columns:1fr}
-    .hov-explainer{padding:24px 22px}
-  }
+  @media (max-width:720px){ .hov-explainer{padding:24px 22px} .hall{height:64vh} }
 </style>
 </head>
 <body>
@@ -173,187 +244,88 @@
   <a href="../home.html" class="shell-header-btn">&larr; Home</a>
 </header>
 
-<main id="main">
+<section class="hov-hero">
+  <div class="eyebrow">Curated student work · ผลงานเยาวชนที่ผ่านการคัดสรร</div>
+  <h1>The <em>Hall of Voices</em></h1>
+  <p class="th">หอเสียง — ผลงานข้อเสนอ Voice for Change ของนักศึกษา</p>
+  <p>Voices that earned all six SDG Keystones and chose to share their proposals beyond the classroom — each a student's spoken case for a real Thai community, naming the trade-off it deliberately accepts.</p>
+</section>
 
-  <section class="hov-hero">
-    <div class="eyebrow">Curated student work · ผลงานเยาวชนที่ผ่านการคัดสรร</div>
-    <h1>The <em>Hall of Voices</em></h1>
-    <p class="th">หอเสียง — ผลงานข้อเสนอ Voice for Change ของนักศึกษา</p>
-    <p>
-      Voices that earned their six SDG Keystones and chose to share their proposals beyond the classroom.
-      Each piece is a student's <strong>two-to-five-minute proposal</strong> for a real Thai community —
-      addressed to a real Thai institution, anchored in mission evidence, and named with the trade-off
-      it deliberately accepts. The grant is a classroom simulation. The thinking is real.
-    </p>
-  </section>
+<!-- View switcher -->
+<div class="view-tabs" role="tablist" aria-label="Gallery views">
+  <button class="view-tab active" role="tab" data-view="hall"><span class="material-symbols-rounded">view_in_ar</span>The Great Hall · 3D</button>
+  <button class="view-tab" role="tab" data-view="procession"><span class="material-symbols-rounded">view_carousel</span>The Procession · 2D</button>
+  <button class="view-tab" role="tab" data-view="roll"><span class="material-symbols-rounded">format_list_numbered</span>The Roll</button>
+</div>
 
-  <div class="hov-banner" role="note">
-    <div class="icon"><span class="material-symbols-rounded">verified_user</span></div>
-    <div class="content">
-      <h2 class="banner-title">About this gallery</h2>
-      <p>
-        The four pieces below are <strong>composite, anonymous exemplars</strong> built to show what a passing Voice for Change proposal looks like — they are not the work of real students, and no real names appear. Once the platform launches with cohorts, only submissions whose author has given <strong>explicit, withdrawable consent</strong> appear here, under a chosen pseudonym.
-        <span class="th">ผลงานในตัวอย่างนี้สร้างขึ้นเพื่อแสดงเกณฑ์มาตรฐาน — เมื่อระบบเปิดใช้จริง จะปรากฏเฉพาะผลงานที่ผู้เขียนยินยอมเปิดเผยภายใต้นามแฝง</span>
-      </p>
+<!-- VIEW 1 · THE GREAT HALL (3D) -->
+<section class="view active" id="view-hall" role="tabpanel">
+  <div class="wrap" style="max-width:1280px">
+    <div class="hall" id="hall" tabindex="0" aria-label="3D gallery of Voice for Change proposals — use arrow keys to walk the hall">
+      <div class="hall-count" id="hall-count">01 / 06</div>
+      <div class="hall__stage" id="hall-stage"></div>
+      <div class="hall-nav">
+        <button class="hall-arrow" id="hall-prev" aria-label="Previous"><span class="material-symbols-rounded">chevron_left</span></button>
+        <div class="hall-dots" id="hall-dots"></div>
+        <button class="hall-arrow" id="hall-next" aria-label="Next"><span class="material-symbols-rounded">chevron_right</span></button>
+      </div>
     </div>
   </div>
+</section>
 
-  <!-- Filter row -->
-  <div class="hov-filters" role="toolbar" aria-label="Filter by SDG">
-    <button type="button" class="hov-filter active" data-filter="all">All voices</button>
-    <button type="button" class="hov-filter" data-filter="sdg06"><span class="dot" style="background:#26BDE2"></span>SDG 6 · Water</button>
-    <button type="button" class="hov-filter" data-filter="sdg13"><span class="dot" style="background:#3F7E44"></span>SDG 13 · Climate</button>
-    <button type="button" class="hov-filter" data-filter="sdg11"><span class="dot" style="background:#FD9D24"></span>SDG 11 · Cities</button>
-    <button type="button" class="hov-filter" data-filter="sdg14"><span class="dot" style="background:#0A97D9"></span>SDG 14 · Below Water</button>
-    <button type="button" class="hov-filter" data-filter="sdg04"><span class="dot" style="background:#C5192D"></span>SDG 4 · Education</button>
-    <button type="button" class="hov-filter" data-filter="sdg03"><span class="dot" style="background:#4C9F38"></span>SDG 3 · Health</button>
+<!-- VIEW 2 · THE PROCESSION (2D) -->
+<section class="view" id="view-procession" role="tabpanel">
+  <div class="wrap" style="max-width:1280px">
+    <div class="procession" id="procession" aria-label="Drifting gallery of proposals"></div>
   </div>
+</section>
 
-  <!-- Cards · 4 seeded composite exemplars -->
-  <div class="hov-grid" id="hov-grid">
-
-    <!-- Card 1 · SDG 4 Mae Sot -->
-    <article class="hov-card" data-sdg="sdg04" style="--sdg-color:#C5192D">
-      <header class="hov-card-top">
-        <span class="sdg-pill">SDG 4 · West · Mae Sot</span>
-        <h2 class="title">Fund the bridge first, then move us across</h2>
-        <div class="by">By <strong>Pseudonym · West Champion 2026</strong></div>
-      </header>
-      <div class="hov-card-body">
-        <div class="address"><span class="label">Addressed to ·</span> Tak Primary Educational Service Area Office 2 · สพป.ตาก เขต 2</div>
-        <blockquote class="excerpt">
-          I propose that the district commit ฿840,000 to fund two bridging teachers in each of the eight receiving Thai schools for one academic year, and ฿160,000 for shared Karen-Thai learning materials. I accept that this plan does not reach the over-15 cohort this cycle — that is a real cost. I propose addressing them in Year 2, once the bridging staff are proven to work for the 6–14 group. As I committed in the Mae Sot mission, enrolment is not inclusion; the bridge must exist before the calendar.
-        </blockquote>
-        <div class="meta-row">
-          <div class="keystones" role="img" aria-label="Six SDG Keystones earned">
-            <span class="ks" style="background:#26BDE2"></span>
-            <span class="ks" style="background:#3F7E44"></span>
-            <span class="ks" style="background:#FD9D24"></span>
-            <span class="ks" style="background:#0A97D9"></span>
-            <span class="ks" style="background:#C5192D"></span>
-            <span class="ks" style="background:#4C9F38"></span>
-          </div>
-          <span class="curated-badge">Curated exemplar</span>
-        </div>
-      </div>
-    </article>
-
-    <!-- Card 2 · SDG 11 Bangkok -->
-    <article class="hov-card" data-sdg="sdg11" style="--sdg-color:#FD9D24">
-      <header class="hov-card-top">
-        <span class="sdg-pill">SDG 11 · Central · Bangkok</span>
-        <h2 class="title">A Baan Mankong precondition for the corridor</h2>
-        <div class="by">By <strong>Pseudonym · Central Champion 2026</strong></div>
-      </header>
-      <div class="hov-card-body">
-        <div class="address"><span class="label">Addressed to ·</span> BMA Department of Drainage and Sewerage · สำนักการระบายน้ำ กรุงเทพมหานคร</div>
-        <blockquote class="excerpt">
-          I propose that the Bangkok Metropolitan Administration commit ฿1,000,000 toward the first phase of a Baan Mankong-style relocation settlement for the klong-side community on the corridor alignment — a co-designed land plot inside the same district, with secure tenure, before the first wall is poured. I accept this lengthens the timeline by one season. The community-network organiser was clear: doing consent last is what slows the corridor, not consent itself.
-        </blockquote>
-        <div class="meta-row">
-          <div class="keystones" role="img" aria-label="Six SDG Keystones earned">
-            <span class="ks" style="background:#26BDE2"></span>
-            <span class="ks" style="background:#3F7E44"></span>
-            <span class="ks" style="background:#FD9D24"></span>
-            <span class="ks" style="background:#0A97D9"></span>
-            <span class="ks" style="background:#C5192D"></span>
-            <span class="ks" style="background:#4C9F38"></span>
-          </div>
-          <span class="curated-badge">Curated exemplar</span>
-        </div>
-      </div>
-    </article>
-
-    <!-- Card 3 · SDG 3 EEC fringe -->
-    <article class="hov-card" data-sdg="sdg03" style="--sdg-color:#4C9F38">
-      <header class="hov-card-top">
-        <span class="sdg-pill">SDG 3 · East · EEC fringe</span>
-        <h2 class="title">Supported อสม. rounds before a satellite clinic</h2>
-        <div class="by">By <strong>Pseudonym · East Champion 2026</strong></div>
-      </header>
-      <div class="hov-card-body">
-        <div class="address"><span class="label">Addressed to ·</span> Provincial Public Health Office, Rayong · สสจ.ระยอง</div>
-        <blockquote class="excerpt">
-          I propose that the Provincial Public Health Office fund a 12-month pilot in the three fringe villages with the highest unmet-need indicators: ฿600,000 for stipends and training for the existing อสม. volunteers (so the village system is no longer unpaid), and ฿400,000 for a twice-weekly satellite clinic. I accept this does not reach every fringe village in Year 1 — that is the trade-off — but it lets the cost-per-prevented-admission be tested honestly before scaling.
-        </blockquote>
-        <div class="meta-row">
-          <div class="keystones" role="img" aria-label="Six SDG Keystones earned">
-            <span class="ks" style="background:#26BDE2"></span>
-            <span class="ks" style="background:#3F7E44"></span>
-            <span class="ks" style="background:#FD9D24"></span>
-            <span class="ks" style="background:#0A97D9"></span>
-            <span class="ks" style="background:#C5192D"></span>
-            <span class="ks" style="background:#4C9F38"></span>
-          </div>
-          <span class="curated-badge">Curated exemplar</span>
-        </div>
-      </div>
-    </article>
-
-    <!-- Card 4 · SDG 14 Andaman -->
-    <article class="hov-card" data-sdg="sdg14" style="--sdg-color:#0A97D9">
-      <header class="hov-card-top">
-        <span class="sdg-pill">SDG 14 · South · Andaman</span>
-        <h2 class="title">A tied transition fund for the smallest operators</h2>
-        <div class="by">By <strong>Pseudonym · South Champion 2026</strong></div>
-      </header>
-      <div class="hov-card-body">
-        <div class="address"><span class="label">Addressed to ·</span> Department of Marine and Coastal Resources · กรมทรัพยากรทางทะเลและชายฝั่ง (ทช.)</div>
-        <blockquote class="excerpt">
-          I propose that DMCR ringfence ฿1,000,000 of the next reef-recovery cycle as a transition fund tied to the closure window — ฿700,000 in low-season buoy-and-monitoring contracts for the 30 smallest single-boat operators along the affected reefs, ฿300,000 for community-cooperative training. I accept that the larger tour-companies receive no compensation in this proposal. That is deliberate. They can absorb the closure; the smallest operators cannot, and the cooperative leader was right that order is where the harm hides.
-        </blockquote>
-        <div class="meta-row">
-          <div class="keystones" role="img" aria-label="Six SDG Keystones earned">
-            <span class="ks" style="background:#26BDE2"></span>
-            <span class="ks" style="background:#3F7E44"></span>
-            <span class="ks" style="background:#FD9D24"></span>
-            <span class="ks" style="background:#0A97D9"></span>
-            <span class="ks" style="background:#C5192D"></span>
-            <span class="ks" style="background:#4C9F38"></span>
-          </div>
-          <span class="curated-badge">Curated exemplar</span>
-        </div>
-      </div>
-    </article>
-
+<!-- VIEW 3 · THE ROLL -->
+<section class="view" id="view-roll" role="tabpanel">
+  <div class="roll">
+    <div class="roll-head">
+      <div class="k">Voices on the wall · ทำเนียบผู้เสนอเสียง</div>
+      <h3>The <em>Roll</em> of Voices</h3>
+    </div>
+    <div class="roll-list" id="roll-list"></div>
   </div>
+</section>
 
-  <!-- Consent explainer -->
-  <section class="hov-explainer">
-    <h2>How submissions reach the <em>Hall of Voices</em></h2>
-    <p class="th">ขั้นตอนการคัดเลือกผลงานเข้าหอเสียง</p>
-    <ol>
-      <li><strong>The learner submits a Voice for Change.</strong> Their teacher receives the work in the admin grading queue and evaluates it with Rubric A — this is the official grade.</li>
-      <li><strong>Three AI judges add formative feedback</strong> immediately on the submitted page — for the learner's reference only. The teacher's grade is never affected by the AI critique.</li>
-      <li><strong>If the learner has consented, and the teacher considers the piece exemplary,</strong> the teacher proposes it for curation. A second teacher reviews. Without two-teacher agreement, the piece never appears here.</li>
-      <li><strong>The learner is contacted with the final pseudonym and excerpt</strong> that would appear publicly. They have <strong>14 days to withdraw or revise</strong>. Default is no publication.</li>
-      <li><strong>Onward sharing to a Thai youth SDG forum</strong> (if the learner additionally opted in) requires a further explicit opt-in <em>per forum</em>. We never assume a blanket yes.</li>
-    </ol>
-  </section>
+<!-- About-this-gallery (PDPA — preserved) -->
+<div class="hov-banner" role="note">
+  <div class="icon"><span class="material-symbols-rounded">verified_user</span></div>
+  <div class="content">
+    <h2 class="banner-title">About this gallery</h2>
+    <p>
+      The pieces here are <strong>composite, anonymous exemplars</strong> built to show what a passing Voice for Change proposal looks like — they are not the work of real students, and no real names appear. Once the platform launches with cohorts, only submissions whose author has given <strong>explicit, withdrawable consent</strong> appear here, under a chosen pseudonym.
+      <span class="th">ผลงานในตัวอย่างนี้สร้างขึ้นเพื่อแสดงเกณฑ์มาตรฐาน — เมื่อระบบเปิดใช้จริง จะปรากฏเฉพาะผลงานที่ผู้เขียนยินยอมเปิดเผยภายใต้นามแฝง</span>
+    </p>
+  </div>
+</div>
 
-</main>
+<!-- Consent explainer (PDPA — preserved) -->
+<section class="hov-explainer">
+  <h2>How submissions reach the <em>Hall of Voices</em></h2>
+  <p class="th">ขั้นตอนการคัดเลือกผลงานเข้าหอเสียง</p>
+  <ol>
+    <li><strong>The learner submits a Voice for Change.</strong> Their teacher receives the work in the admin grading queue and evaluates it with Rubric A — this is the official grade.</li>
+    <li><strong>Three AI judges add formative feedback</strong> immediately on the submitted page — for the learner's reference only. The teacher's grade is never affected by the AI critique.</li>
+    <li><strong>If the learner has consented, and the teacher considers the piece exemplary,</strong> the teacher proposes it for curation. A second teacher reviews. Without two-teacher agreement, the piece never appears here.</li>
+    <li><strong>The learner is contacted with the final pseudonym and excerpt</strong> that would appear publicly. They have <strong>14 days to withdraw or revise</strong>. Default is no publication.</li>
+    <li><strong>Onward sharing to a Thai youth SDG forum</strong> (if the learner additionally opted in) requires a further explicit opt-in <em>per forum</em>. We never assume a blanket yes.</li>
+  </ol>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Full proposal">
+  <div class="lb-card" id="lb-card">
+    <button class="lb-close" id="lb-close" aria-label="Close">✕</button>
+    <div class="lb-inner" id="lb-inner"></div>
+  </div>
+</div>
 
 <script type="module" src="../src/a11y.js"></script>
-
-<!-- Filter behaviour -->
-<script>
-  (function () {
-    var grid = document.getElementById("hov-grid");
-    var buttons = document.querySelectorAll(".hov-filter");
-    buttons.forEach(function (b) {
-      b.addEventListener("click", function () {
-        buttons.forEach(function (x) { x.classList.remove("active"); });
-        b.classList.add("active");
-        var f = b.dataset.filter;
-        var cards = grid.querySelectorAll(".hov-card");
-        cards.forEach(function (c) {
-          if (f === "all" || c.dataset.sdg === f) c.classList.remove("is-hidden");
-          else c.classList.add("is-hidden");
-        });
-      });
-    });
-  })();
-</script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" crossorigin="anonymous"></script>
+<script src="../src/hall-of-voices.js"></script>
 </body>
 </html>
