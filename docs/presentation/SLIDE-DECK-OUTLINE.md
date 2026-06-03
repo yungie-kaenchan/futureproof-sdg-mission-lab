@@ -47,6 +47,57 @@ Display: **Fraunces / Cormorant Garamond** · Section titles: **Cinzel** (caps, 
 
 ---
 
+# RUBRIC COVERAGE AUDIT — every box checked
+### Final-round rubric (รอบตัดสิน): 4 categories · **12 sub-criteria** · each scored 1–5
+
+> Judges score each sub-criterion separately. This table maps every one to where the talk earns it,
+> the realistic score ceiling, and the fix for anything thin. **Green = locked. Amber = depends on the pilot/rehearsal.**
+
+### 1 · การนำเสนอ Presentation (30%)
+| Sub-criterion | Where it's earned | Ceiling | Fix |
+|---|---|:--:|---|
+| **1a Content — complete, on-point, clear** | Whole arc: problem (S2–6) → solution + live demo (S10–11) → impact (S12–16) → scaling (S17–21). Nothing essential omitted. | 🟢 5 | Hold the 3 learning theories / token economy / PDPA-UDL as **Q&A ammunition**, not slides (keeps slides clean *and* answers "completeness"). |
+| **1b Technique — creative media** | Live working platform + cinematic AI slides + Flow motion (S1/7/23) + real student video clips. Few competitors will match this. | 🟢 5 | — |
+| **1c Time management** | Timed to 14:30, hard stop 15:00, cut-list ready. | 🟡 5 | **The live demo is the only variable.** Rehearse it to a *fixed* length (≈4:30) ≥5×. This is where finalists lose the easy point. |
+
+### 2 · การตอบคำถาม Q&A (30%)
+| Sub-criterion | Where it's earned | Ceiling | Fix |
+|---|---|:--:|---|
+| **2a Accuracy + completeness** | Pre-written answers (Plan §7) + the Q&A ammunition reserve below. | 🟡 5 | Rehearse the 5 anticipated questions out loud. Know your numbers cold. |
+| **2b Fluency + clarity (easy language)** | Thai narration throughout; simple, clear answers. | 🟡 5 | Practice answering in plain Thai — short sentences, no jargon dumps. |
+| **2c Connection to the innovation** | Every answer ends by tying back to a platform feature. | 🟢 5 | Discipline: answer → **connect to FUTUREPROOF** → stop. |
+
+### 3 · ประโยชน์และผลกระทบต่อผู้เรียน Impact on learners (20%)
+| Sub-criterion | Where it's earned | Ceiling | Fix |
+|---|---|:--:|---|
+| **3a Responds to learner needs** | S3–4 (advanced learners need *use*, not more English), S16 (skills). | 🟢 5 | — |
+| **3b Engagement + learning** | Live demo shows the student *active at every stage*; Bloom arc climbs (S11). | 🟢 5 | — |
+| **3c Outcomes / effects on learners** | Pilot clips (S12–15). | 🔴 **3 → 5** | **THE KEY GAP.** Rubric's top band = *"clear positive **effect** on learners."* Student *impressions* alone cap you at ~3. To reach 5, the pilot must capture **evidence of learning/change** — a pre/post delta + each student naming **one skill or insight they gained** on camera. See "Pilot instrument" below. |
+
+### 4 · การต่อยอดนวัตกรรม Scaling (20%)
+| Sub-criterion | Where it's earned | Ceiling | Fix |
+|---|---|:--:|---|
+| **4a Creativity + novelty** | The thesis + AI-TPACK enforcement + English-as-tool (S7–9). | 🟢 5 | — |
+| **4b Feasibility of extension** | Add-on model, any level (S18). | 🟢 5 | — |
+| **4c Future development & expansion plan** | 6→17 (S17), research pipeline (S19), local→global (S20). | 🟡 **4 → 5** | Rubric wants a *clear, systematic* plan. Add a crisp **12-month roadmap** beat to S19 (pilot → data → multi-institution → publish). Done below. |
+
+### Verdict
+**10 of 12 sub-criteria lock at 5. Two are capped by inputs, not slides:** **3c** (your pilot must capture *outcomes*, not just impressions) and **4c** (one roadmap line). Fix those two and every box is a 5.
+
+---
+
+## 🎯 Pilot instrument — to convert 3c from "satisfaction" to "outcome evidence"
+Run this with your 5–6 students (≈90 min, one mission). It costs ~5 extra minutes and turns the 20% Impact box from a 3 into a 5.
+
+- **PRE (2 min, on paper):** 4 self-ratings, 1–5 — *"I can use English to argue a position" · "I can analyse a complex social problem" · "I understand this SDG issue in Thailand" · "I can see multiple stakeholders' views."* + 1 line: *"What do you expect today?"*
+- **POST (3 min):** the **same 4 ratings** (→ a before/after **delta** you can show as a tiny bar on S12) + 3 open lines: *"Name one skill you used today" · "What changed in how you see this issue?" · "One thing to improve."*
+- **ON CAMERA (the clips):** ask each student to say three things — **(1)** the moment they were most challenged, **(2)** **one skill or insight they gained**, **(3)** one improvement idea. Item (2) *is* your outcome evidence; item (1) is pathos; item (3) shows you listen.
+- **Consent:** record on-camera PDPA consent first (reuse your platform's consent wording).
+
+> Result: on stage you can say *"On four measures of thinking and confidence, the group rose on average from X to Y — and here, in their own words, is the skill each one gained."* That sentence is a **5** on 3c.
+
+---
+
 # SLIDE-BY-SLIDE
 
 ## ACT 0 — TITLE
@@ -159,9 +210,10 @@ Walk **one mission as the student** (SDG-6 Khon Kaen, via the pre-completed Judg
 - **Visual:** the **actual pilot video clips** (10–20 sec each, 2–3 students), subtitled.
 - **On-slide text:** a short pulled quote per clip (caption).
 - **You say:** minimal — *let the students speak.* This is the most persuasive 90 seconds of the talk and directly answers "impact on learners."
+- **⚠️ Score-critical (3c):** each clip must surface a **concrete skill or insight gained**, not just "it was fun." Lead one clip with the pre/post **delta** (a small bar: *before → after*) so the judges see an *effect*, not just a reaction. (See Pilot instrument above.)
 - **Mode (General fallback):** if no single strong clip, run a 2–3-voice montage or paraphrase 2–3 reactions + one improvement idea ("they asked for X — we're adding it").
-- **[FILL AFTER PILOT: pick the 2–3 strongest — ideally one "this challenged me," one "I used a skill," one improvement idea (shows you listen).]**
-- **Time 11:30 · Pathos+Logos · Impact 20%**
+- **[FILL AFTER PILOT: pick the 2–3 strongest — ideally one "this challenged me," one "I gained THIS skill," one improvement idea (shows you listen).]**
+- **Time 11:30 · Pathos+Logos · Impact 20% (the make-or-break box)**
 
 ### Slide 16 · What it grows — `11:30–11:55`
 - **Visual:** a constellation of soft-skill words orbiting a glowing "English" core.
@@ -185,11 +237,11 @@ Walk **one mission as the student** (SDG-6 Khon Kaen, via the pre-completed Judg
 - **You say:** *"มันทำงานเสริมควบคู่กับรายวิชาเดิม — แรงต้านในการนำไปใช้ต่ำ และใช้ได้ทุกระดับชั้น."* (It runs alongside any existing course — low adoption friction, works at any level.)
 - **Time 12:45 · Logos · Scaling 20%**
 
-### Slide 19 · Evidence is coming — `12:45–13:05`
-- **Visual:** a timeline arrow → conference/journal marks (TESOL · AsiaTEFL · CALL).
-- **On-slide text:** **"Designed to generate evidence — not recycle stories."**
-- **You say:** *"การนำร่องเต็มรูปแบบถูกสร้าง ปรับเทียบ และพร้อมใช้งานแล้ว — การออกแบบนี้ 'ผลิต' ข้อมูลที่ตีพิมพ์ได้ ไม่ใช่เล่าเรื่องย้อนหลัง."* (The full pilot is built, calibrated, ready — this design produces publishable evidence, not retrospective stories.)
-- **Time 13:05 · Logos · Scaling 20%**
+### Slide 19 · The 12-month roadmap — `12:45–13:10`  *(strengthens 4c: a clear, systematic plan)*
+- **Visual:** a clean horizontal timeline, 4 gold milestones across a dark ground.
+- **On-slide text:** **"A clear plan — pilot → data → scale → publish."**  *(milestone labels: `Sem 1 '69 · full pilot` → `'69 · first data` → `'70 · multi-institution` → `'70 · publish (TESOL · CALL)`)*
+- **You say:** *"แผนชัดเจนเป็นระบบครับ: ภาคต้นปีนี้ นำร่องเต็มรูปแบบกับ 300 คน → เก็บข้อมูลด้วยรูบริก A–D ที่สร้างไว้แล้ว → ขยายสู่หลายสถาบัน → ตีพิมพ์ การออกแบบนี้ 'ผลิต' ข้อมูล ไม่ใช่เล่าเรื่องย้อนหลัง."* (A clear, systematic plan: this semester, full pilot with 300 learners → measure with the A–D rubrics already built → expand multi-institution → publish. This design *produces* evidence, not retrospective stories.)
+- **Time 13:10 · Logos · Scaling 20% (4c → 5)**
 
 ### Slide 20 · Local → global — `13:05–13:30`
 - **Visual:** a map of Thailand with gold threads reaching out to a world map.
@@ -229,11 +281,22 @@ Walk **one mission as the student** (SDG-6 Khon Kaen, via the pre-completed Judg
 
 ## After Slide 24 — Q&A readiness (30% of the score)
 Keep these one-line anchors ready (full answers in `FINAL-ROUND-PRESENTATION-PLAN.md` §7):
-- **"Real results with students?"** → lead with the 6-student pilot clips/numbers; then "full pilot built, evidence-ready."
+- **"Real results with students?"** → lead with the 6-student pilot **delta + the skill each gained**; then "full pilot built, evidence-ready."
 - **"Won't students over-rely on AI?"** → the AI-TPACK boundary: Mr. Compass never answers; teacher judges; productive struggle intact.
 - **"How is this different from language apps?"** → English as *tool*, not *target*; endpoint is changemakers, not test scores.
 - **"Can it scale?"** → add-on model · 17 SDGs · any level · research pipeline.
 - Answer the question → **connect back to the innovation** (scored) → stay short, warm, dignified.
+
+### Q&A AMMUNITION RESERVE — depth kept *off* the slides (so slides stay clean, answers stay deep)
+These prove "completeness" (2a) if a judge probes beyond the talk. Have one crisp sentence ready for each:
+- **Three learning theories made operational** — Behaviorism (the Insight-Token economy = operant conditioning), Cognitivism (the 5-stage arc + multimedia learning), Social Constructivism (the 3-role asymmetric team + Mr Compass as the More Knowledgeable Other). *Each theory → a feature you can click.*
+- **The token economy / gamification** — tokens gate scaffolding (Vygotsky's ZPD); rewards reinforce desired behaviours without bribing.
+- **PDPA + UDL + accessibility** — bilingual consent, 90-day deletion, WCAG 2.1 AA (Lighthouse 100), mobile-first 360px. *Compliance built into the foundation.*
+- **CEFR + adaptivity** — content adapts to each learner's reading tier (Krashen's i+1); Rubric C measures the pre/post CEFR delta.
+- **The four-tier judging** — AI (formative) · peer · teacher (summative, final authority) · external audience. *The teacher always owns the grade.*
+- **Why these six SDGs/regions** — real, current, debatable Thai crises with multiple stakeholders and genuine ethical trade-offs.
+- **Cost / sustainability** — serverless + tiered AI models; runs within a faculty budget at cohort scale.
+> Rule: don't *volunteer* all of this on stage (it would blow the time box). Hold it in reserve; deploy one item, precisely, when asked.
 
 ---
 
