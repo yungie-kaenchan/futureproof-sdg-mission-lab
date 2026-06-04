@@ -1238,6 +1238,11 @@
     document.getElementById("an-tokens").textContent = (tokensEarned >= 0 ? "+" : "") + tokensEarned + " ◆";
     document.getElementById("an-stage").textContent = (curArc + 1) + " / " + ARC.length;
     document.getElementById("an-keystone").textContent = keystoneAwarded ? "◆ EARNED" : (passed ? "◆" : "—");
+    // Celebrate the moment a Keystone is earned (operant reinforcement) — once.
+    if (keystoneAwarded && !window.__fpKsCelebrated && typeof window.fxCelebrate === "function") {
+      window.__fpKsCelebrated = true;
+      setTimeout(() => window.fxCelebrate(document.getElementById("ks-grid")), 350);
+    }
     // Progress % + graphical Power bar fill. Stage progress is the most
     // intuitive in-mission metric ("Stage 3/5" → 60%); the 60% notch on
     // the bar is the Keystone pass bar by coincidence and design.
@@ -1519,6 +1524,7 @@
     }
   }
 </script>
+<script src="../src/fx.js"></script>
 <script type="module" src="../src/back-link.js"></script>
 <!-- First-run navigational coachmark tour (re-playable via the "Guide" button) -->
 <script type="module" src="../src/mission-tour.js"></script>

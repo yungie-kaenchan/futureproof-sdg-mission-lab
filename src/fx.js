@@ -122,6 +122,16 @@
     }
   }
 
+  /* ── flip-in entrance (e.g. a certificate) — clears transform when done
+        so it never interferes with html2canvas/PDF export ── */
+  if (!REDUCE) document.querySelectorAll("[data-fx-flip]").forEach((el) => {
+    el.addEventListener("animationend", function clear() {
+      el.style.transform = ""; el.classList.remove("fx-flip-go");
+      el.removeEventListener("animationend", clear);
+    });
+    requestAnimationFrame(() => el.classList.add("fx-flip-go"));
+  });
+
   /* ── ambient gold motes ── */
   if (!REDUCE) document.querySelectorAll("[data-fx-motes]").forEach((host) => {
     startMotes(host, parseInt(host.getAttribute("data-fx-motes"), 10) || 26);
@@ -249,6 +259,9 @@
       100%{transform:translate(var(--dx),var(--dy)) scale(.2); opacity:0}}
     .fx-pulse{animation:fxPulse .7s ease}
     @keyframes fxPulse{0%,100%{transform:scale(1)}30%{transform:scale(1.35)}60%{transform:scale(.95)}}
+    [data-fx-flip]{backface-visibility:hidden}
+    [data-fx-flip].fx-flip-go{animation:fxFlipIn 1.05s cubic-bezier(.3,.9,.3,1) both}
+    @keyframes fxFlipIn{from{transform:perspective(1400px) rotateY(-88deg); opacity:0}60%{opacity:1}to{transform:perspective(1400px) rotateY(0); opacity:1}}
     @media (prefers-reduced-motion: reduce){
       [data-fx-reveal],.fx-word{opacity:1 !important; transform:none !important}
       .fx-veil{display:none}
