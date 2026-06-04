@@ -52,7 +52,7 @@
   </div>
 
   <!-- HERO -->
-  <section class="relative min-h-screen flex flex-col justify-center overflow-hidden console-grid pt-20 pb-12 lg:pb-16">
+  <section class="relative min-h-screen flex flex-col justify-center overflow-hidden console-grid pt-20 pb-12 lg:pb-16" data-fx-motes="32">
     <div class="absolute inset-0 glow-radial pointer-events-none"></div>
 
     <div class="absolute top-24 left-6 lg:left-12 corner-marker top-left"></div>
@@ -76,6 +76,7 @@
             src="assets/images/hero-feature.png"
             alt="FUTUREPROOF logo — UN Sustainable Development Goal icons fan out from a glowing brain in a vibrant abstract constellation."
             class="hero-mark-logo"
+            data-fx-parallax="0.06"
             loading="eager"
             decoding="async"
             fetchpriority="high"
@@ -131,6 +132,46 @@
         </a>
       </div>
 
+    </div>
+  </section>
+
+
+  <!-- BY THE NUMBERS — animated counters + drawn divider -->
+  <section class="relative strip-host" aria-label="The platform by the numbers">
+    <div class="max-w-1600 mx-auto strip strip-cream">
+      <div class="flex items-center gap-4 mb-8 justify-center">
+        <span class="console-label-gold" data-fx-words>The platform by the numbers</span>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-6 lg:gap-10 text-center">
+        <div data-fx-reveal>
+          <div class="display-heading text-5xl lg:text-6xl text-gold-primary leading-none" data-fx-count="6">0</div>
+          <div class="console-label-gold mt-3 block">SDG Missions</div>
+        </div>
+        <div data-fx-reveal>
+          <div class="display-heading text-5xl lg:text-6xl text-gold-primary leading-none" data-fx-count="17">0</div>
+          <div class="console-label-gold mt-3 block">SDGs Reachable</div>
+        </div>
+        <div data-fx-reveal>
+          <div class="display-heading text-5xl lg:text-6xl text-gold-primary leading-none" data-fx-count="6">0</div>
+          <div class="console-label-gold mt-3 block">Bloom Levels</div>
+        </div>
+        <div data-fx-reveal>
+          <div class="display-heading text-5xl lg:text-6xl text-gold-primary leading-none" data-fx-count="5">0</div>
+          <div class="console-label-gold mt-3 block">Stage Arc</div>
+        </div>
+        <div data-fx-reveal>
+          <div class="display-heading text-5xl lg:text-6xl text-gold-primary leading-none" data-fx-count="36">0</div>
+          <div class="console-label-gold mt-3 block">Sources Cited</div>
+        </div>
+      </div>
+      <!-- drawn gold flourish -->
+      <div class="flex justify-center mt-12" data-fx-draw>
+        <svg width="280" height="16" viewBox="0 0 280 16" fill="none" aria-hidden="true">
+          <path pathLength="1" d="M2 8 H120" stroke="#C9A961" stroke-width="1.5" stroke-linecap="round"/>
+          <path pathLength="1" d="M140 2 L150 8 L140 14 L130 8 Z" stroke="#C9A961" stroke-width="1.5" stroke-linejoin="round"/>
+          <path pathLength="1" d="M160 8 H278" stroke="#C9A961" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
     </div>
   </section>
 
@@ -195,7 +236,7 @@
 
       <div class="grid md:grid-cols-3 gap-4">
 
-        <div class="m3-card elevated p-10 lg:p-12 reveal relative group" style="border-radius:20px;">
+        <div class="m3-card elevated p-10 lg:p-12 reveal relative group" style="border-radius:20px;" data-fx-tilt="5">
           <span class="console-label-gold mb-8 block">PILLAR 01</span>
           <h3 class="mission-title text-sm text-on-surface mb-6">Adaptive by Tier</h3>
           <div class="display-heading text-4xl lg:text-5xl mb-8 text-gold-primary">i + 1</div>
@@ -204,7 +245,7 @@
           </p>
         </div>
 
-        <div class="m3-card elevated p-10 lg:p-12 reveal relative group" style="border-radius:20px;">
+        <div class="m3-card elevated p-10 lg:p-12 reveal relative group" style="border-radius:20px;" data-fx-tilt="5">
           <span class="console-label-gold mb-8 block">PILLAR 02</span>
           <h3 class="mission-title text-sm text-on-surface mb-6">Mastery-Spiral Arc</h3>
           <div class="display-heading text-4xl lg:text-5xl mb-8 text-gold-primary">5 × 6</div>
@@ -220,7 +261,7 @@
           </ul>
         </div>
 
-        <div class="m3-card elevated p-10 lg:p-12 reveal relative group" style="border-radius:20px;">
+        <div class="m3-card elevated p-10 lg:p-12 reveal relative group" style="border-radius:20px;" data-fx-tilt="5">
           <span class="console-label-gold mb-8 block">PILLAR 03</span>
           <h3 class="mission-title text-sm text-on-surface mb-6">A Voice for Change</h3>
           <div class="display-heading text-4xl lg:text-5xl mb-8 text-gold-primary">6 → 1</div>
@@ -620,6 +661,7 @@
     </div>
   </footer>
 
+  <script src="src/fx.js"></script>
   <script type="module" src="src/a11y.js"></script>
   <!-- First-visit, once-only bilingual status & rationale pop-up (replaces the old multi-step intro tour) -->
   <script type="module" src="src/home-status-popup.js"></script>
