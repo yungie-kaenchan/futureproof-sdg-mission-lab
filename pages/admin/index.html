@@ -50,6 +50,31 @@
     .scrim.open{display:block}
     .ks-grid{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center;
       font-size:13px;border-bottom:1px solid #1F1F23;padding:8px 0}
+    .d-h3{font-family:'Fraunces',serif;font-size:15px;margin:24px 0 10px;
+      padding-top:14px;border-top:1px solid #1F1F23}
+    .d-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:6px}
+    .stat{background:#0A0A0B;border:1px solid #1F1F23;border-radius:10px;padding:12px 13px}
+    .stat .k{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.12em;
+      text-transform:uppercase;color:#8B8B92;margin:0 0 5px}
+    .stat .v{font-family:'Fraunces',serif;font-size:20px;color:#F4F1EA;line-height:1}
+    .stat .v small{font-size:12px;color:#8B8B92}
+    .bar{height:7px;border-radius:999px;background:#1F1F23;overflow:hidden;margin-top:9px}
+    .bar > span{display:block;height:100%;background:linear-gradient(90deg,#C9A961,#E8C77A)}
+    .mrow{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;
+      padding:11px 0;border-bottom:1px solid #1F1F23}
+    .mrow .mt{font-size:13.5px;color:#F4F1EA;font-weight:600;margin:0}
+    .mrow .ms{font-size:11.5px;color:#8B8B92;margin:3px 0 0;
+      font-family:'JetBrains Mono',monospace;letter-spacing:.04em}
+    .mrow .acts{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+    .chip{font-family:'JetBrains Mono',monospace;font-size:10px;padding:3px 8px;
+      border-radius:999px;border:1px solid #1F1F23;color:#8B8B92}
+    .chip.pass{color:#7BD88F;border-color:rgba(123,216,143,.4)}
+    .chip.key{color:#E8C77A;border-color:rgba(201,169,97,.45)}
+    .chip.lock{color:#8B8B92}
+    .tok-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    .tok-bal{font-family:'Fraunces',serif;font-size:26px;color:#E8C77A}
+    .vfc-card{background:#0A0A0B;border:1px solid #1F1F23;border-radius:10px;padding:14px}
+    .vfc-empty{color:#8B8B92;font-size:13px;padding:10px 0}
     .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#1E6B3A;
       color:#fff;padding:12px 22px;border-radius:10px;font-weight:600;font-size:14px;
       z-index:90;opacity:0;transition:.25s;pointer-events:none}
@@ -121,6 +146,10 @@
             <button class="btn solid" id="export">Export CSV</button>
           </div>
         </div>
+        <p class="muted" id="seed-note" hidden style="margin:-4px 0 14px;color:#E8C77A">
+          No live learners yet — showing <strong>3 sample learners</strong> so you can explore the
+          progress &amp; management panel. Edits here stay local (nothing is written) until real
+          students sign up.</p>
         <div style="overflow-x:auto">
           <table>
             <thead><tr>
@@ -412,18 +441,30 @@
 
   <!-- USER DRAWER -->
   <div class="scrim" id="scrim"></div>
-  <aside class="drawer" id="drawer" aria-label="Learner detail">
+  <aside class="drawer" id="drawer" aria-label="Learner progress and management">
     <div class="row" style="justify-content:space-between;margin-bottom:6px">
       <h2 id="d-name" style="margin:0">—</h2>
       <button class="btn sm" id="d-close">Close</button>
     </div>
-    <p class="muted" id="d-meta" style="margin:0 0 18px"></p>
+    <p class="muted" id="d-meta" style="margin:0 0 14px"></p>
 
-    <h3 style="font-size:15px;margin:0 0 10px">Edit profile</h3>
+    <!-- Progress at a glance -->
+    <div id="d-summary" class="d-summary"></div>
+
+    <h3 class="d-h3">Mission progress <span class="muted" style="font-weight:400;font-size:12px">· stage · score · pass override</span></h3>
+    <div id="d-missions"></div>
+
+    <h3 class="d-h3">Insight Tokens</h3>
+    <div id="d-tokens"></div>
+
+    <h3 class="d-h3">Voice for Change · Hall of Fame</h3>
+    <div id="d-vfc"></div>
+
+    <h3 class="d-h3">Edit profile</h3>
     <div class="row" style="margin-bottom:8px">
-      <div style="flex:1;min-width:160px"><label for="d-dn">Display name</label>
+      <div style="flex:1;min-width:150px"><label for="d-dn">Display name</label>
         <input id="d-dn" /></div>
-      <div style="flex:1;min-width:160px"><label for="d-inst">Institution</label>
+      <div style="flex:1;min-width:150px"><label for="d-inst">Institution</label>
         <input id="d-inst" /></div>
     </div>
     <div class="row" style="margin-bottom:8px">
@@ -435,10 +476,7 @@
       <button class="btn solid" id="d-save-profile" style="align-self:end">Save profile</button>
     </div>
 
-    <h3 style="font-size:15px;margin:22px 0 10px">Keystones — grant / revoke / reset</h3>
-    <div id="d-keystones"></div>
-
-    <h3 style="font-size:15px;margin:24px 0 10px;color:#E08585">Danger zone</h3>
+    <h3 class="d-h3" style="color:#E08585">Danger zone</h3>
     <p class="muted" style="margin:-4px 0 10px">PDPA erasure — permanently deletes this
       learner's profile, consents, progress and reflections. Cannot be undone.</p>
     <button class="btn danger" id="d-delete">Delete all data for this learner</button>
@@ -464,6 +502,101 @@
       setTimeout(() => { t.className = "toast"; }, 2600);
     }
     const fmt = (ms) => ms ? new Date(ms).toLocaleDateString() : "—";
+    const STAGES = ["Brief", "Probe", "Decide", "Act", "Debrief"];
+
+    /* ── Seeded demo learners ──────────────────────────────────────
+       The live database is empty before the pilot, so the console seeds
+       three learners at different points in the journey. Edits on a seeded
+       learner mutate local state + toast "(demo)" — they are never written
+       to Firebase. Real learners (from Admin.listUsers) flow through the
+       full admin.js write-ops. A seeded uid is prefixed "demo:".          */
+    const D = 86400000;
+    const SEED_JOIN = 1747008000000;            // ~2026-05-12
+    function ks(ids) { const o = {}; ids.forEach((id, i) => o[id] = { grantedAt: SEED_JOIN + i * D }); return o; }
+    function prog(map) { return map; }
+    const SEEDED = [
+      {
+        uid: "demo:napat", displayName: "Napat S.", email: "napat.demo@student.mahidol.ac.th",
+        institution: "Mahidol University", rank: "field-agent", joinedAt: SEED_JOIN + 14 * D,
+        lastActive: SEED_JOIN + 23 * D,
+        keystones: ks(["sdg06-khonkaen", "sdg13-chiangmai"]),
+        progress: prog({
+          "sdg06-khonkaen": { stage: "Debrief", stageIndex: 4, score: 0.74, passed: true, keystone: true },
+          "sdg13-chiangmai": { stage: "Debrief", stageIndex: 4, score: 0.69, passed: true, keystone: true },
+          "sdg11-bangkok": { stage: "Decide", stageIndex: 2, score: 0.58, passed: false },
+        }),
+        tokens: { balance: 45, ledger: [{ delta: 15, by: "system", at: SEED_JOIN + 14 * D, reason: "Strong intel — Mission 01" }, { delta: 20, by: "system", at: SEED_JOIN + 18 * D, reason: "Written comms — Mission 02" }, { delta: 10, by: "system", at: SEED_JOIN + 22 * D, reason: "Spent · Language Coach" }] },
+        voiceForChange: {},
+      },
+      {
+        uid: "demo:arisa", displayName: "Arisa T.", email: "arisa.demo@student.mahidol.ac.th",
+        institution: "Mahidol University", rank: "director", joinedAt: SEED_JOIN + 6 * D,
+        lastActive: SEED_JOIN + 21 * D,
+        keystones: ks(["sdg06-khonkaen", "sdg13-chiangmai", "sdg11-bangkok", "sdg14-andaman", "sdg04-takmaesot"]),
+        progress: prog({
+          "sdg06-khonkaen": { stage: "Debrief", stageIndex: 4, score: 0.88, passed: true, keystone: true },
+          "sdg13-chiangmai": { stage: "Debrief", stageIndex: 4, score: 0.81, passed: true, keystone: true },
+          "sdg11-bangkok": { stage: "Debrief", stageIndex: 4, score: 0.79, passed: true, keystone: true },
+          "sdg14-andaman": { stage: "Debrief", stageIndex: 4, score: 0.84, passed: true, keystone: true },
+          "sdg04-takmaesot": { stage: "Debrief", stageIndex: 4, score: 0.76, passed: true, keystone: true },
+          "sdg03-eecfringe": { stage: "Act", stageIndex: 3, score: 0.72, passed: false },
+        }),
+        tokens: { balance: 120, ledger: [{ delta: 25, by: "system", at: SEED_JOIN + 10 * D, reason: "Survived cross-examination — Mission 05" }, { delta: 20, by: "system", at: SEED_JOIN + 16 * D, reason: "Counterargument bonus" }] },
+        voiceForChange: {
+          "vfc1": {
+            title: "Clean Water for Khon Kaen's Aquifer Villages", status: "draft",
+            durationSec: 168, transcriptWords: 392, submittedAt: null,
+            review: { grade: "", featuredInHall: false, comment: "" },
+          },
+        },
+      },
+      {
+        uid: "demo:krit", displayName: "Krit P.", email: "krit.demo@student.mahidol.ac.th",
+        institution: "Mahidol University", rank: "ambassador", joinedAt: SEED_JOIN,
+        lastActive: SEED_JOIN + 24 * D,
+        keystones: ks(["sdg06-khonkaen", "sdg13-chiangmai", "sdg11-bangkok", "sdg14-andaman", "sdg04-takmaesot", "sdg03-eecfringe"]),
+        progress: prog({
+          "sdg06-khonkaen": { stage: "Debrief", stageIndex: 4, score: 0.91, passed: true, keystone: true },
+          "sdg13-chiangmai": { stage: "Debrief", stageIndex: 4, score: 0.86, passed: true, keystone: true },
+          "sdg11-bangkok": { stage: "Debrief", stageIndex: 4, score: 0.83, passed: true, keystone: true },
+          "sdg14-andaman": { stage: "Debrief", stageIndex: 4, score: 0.89, passed: true, keystone: true },
+          "sdg04-takmaesot": { stage: "Debrief", stageIndex: 4, score: 0.94, passed: true, keystone: true },
+          "sdg03-eecfringe": { stage: "Debrief", stageIndex: 4, score: 0.87, passed: true, keystone: true },
+        }),
+        tokens: { balance: 210, ledger: [{ delta: 25, by: "system", at: SEED_JOIN + 3 * D, reason: "Survived cross-examination" }, { delta: 15, by: "teacher", at: SEED_JOIN + 20 * D, reason: "Admin adjustment" }] },
+        voiceForChange: {
+          "vfc1": {
+            title: "A Ranger Stipend for the Andaman Reef", status: "submitted",
+            durationSec: 214, transcriptWords: 488, submittedAt: SEED_JOIN + 23 * D,
+            review: { grade: "A", featuredInHall: true, comment: "Exemplary — concrete action, honest trade-off, three commitments cited." },
+          },
+        },
+      },
+    ];
+    let USING_SEED = false;
+    const isSeedUid = (uid) => typeof uid === "string" && uid.startsWith("demo:");
+    const seedById = (uid) => SEEDED.find((s) => s.uid === uid);
+
+    /** Seeded record → the flat roster shape renderRoster expects. */
+    function seedToRoster(s) {
+      return {
+        uid: s.uid, displayName: s.displayName, email: s.email,
+        institution: s.institution, rank: s.rank, joinedAt: s.joinedAt,
+        keystoneCount: Object.keys(s.keystones).length, keystones: s.keystones,
+        missionsInProgress: Object.keys(s.progress).filter((k) => !s.progress[k].passed),
+      };
+    }
+    /** Seeded record → the detail shape getUserDetail returns. */
+    function seedToDetail(s) {
+      return {
+        uid: s.uid,
+        user: {
+          profile: { public: { displayName: s.displayName, institution: s.institution, rank: s.rank, joinedAt: s.joinedAt, lastActive: s.lastActive }, private: { email: s.email } },
+          keystones: s.keystones, voiceForChange: s.voiceForChange,
+        },
+        consents: {}, progress: s.progress, tokens: s.tokens, voiceForChange: s.voiceForChange,
+      };
+    }
 
     function emptyRow(text) {
       const tr = document.createElement("tr");
@@ -540,14 +673,19 @@
     /* ── Roster ── */
     async function loadRoster() {
       try {
-        ROSTER = await Admin.listUsers();
-        $("user-count").textContent = ROSTER.length;
-        renderRoster();
+        const live = await Admin.listUsers();
+        if (live && live.length) {
+          USING_SEED = false; ROSTER = live;
+        } else {
+          USING_SEED = true; ROSTER = SEEDED.map(seedToRoster);
+        }
       } catch (err) {
-        const tb = $("user-rows"); tb.replaceChildren();
-        tb.appendChild(emptyRow("Couldn't load learners. "
-          + (err && err.message ? err.message : "")));
+        // Database unreachable (pre-pilot / no config) → demo roster.
+        USING_SEED = true; ROSTER = SEEDED.map(seedToRoster);
       }
+      $("user-count").textContent = ROSTER.length;
+      $("seed-note").hidden = !USING_SEED;
+      renderRoster();
     }
     function renderRoster() {
       const q = $("search").value.trim().toLowerCase();
@@ -587,74 +725,242 @@
       } catch (err) { toast("Export failed: " + (err && err.message), true); }
     });
 
-    /* ── Drawer ── */
+    /* ── Drawer · per-learner progress + management ──────────────── */
+
+    // Terse, innerHTML-free element builder.
+    function el(tag, props, kids) {
+      const n = document.createElement(tag);
+      if (props) for (const k in props) {
+        if (k === "class") n.className = props[k];
+        else if (k === "text") n.textContent = props[k];
+        else if (k === "style") n.style.cssText = props[k];
+        else if (k.startsWith("on")) n.addEventListener(k.slice(2), props[k]);
+        else if (k === "title") n.title = props[k];
+        else n.setAttribute(k, props[k]);
+      }
+      (kids || []).forEach((c) => c && n.appendChild(typeof c === "string"
+        ? document.createTextNode(c) : c));
+      return n;
+    }
+    const pct = (x) => Math.round((Number(x) || 0) * 100);
+    const mmss = (s) => { s = Number(s) || 0; const m = Math.floor(s / 60);
+      const r = s % 60; return m + ":" + String(r).padStart(2, "0"); };
+
     function closeDrawer() {
       $("drawer").classList.remove("open"); $("scrim").classList.remove("open"); CURRENT = null;
     }
     $("d-close").addEventListener("click", closeDrawer);
     $("scrim").addEventListener("click", closeDrawer);
 
+    // Source-aware detail loader (seeded local state OR live Firebase).
+    async function loadDetail(uid) {
+      if (isSeedUid(uid)) return seedToDetail(seedById(uid));
+      return Admin.getUserDetail(uid);
+    }
+
+    // Write-ops that branch: seeded → mutate local state; real → admin.js.
+    async function opMissionPass(uid, mid, passed) {
+      if (isSeedUid(uid)) { const s = seedById(uid);
+        s.progress[mid] = { ...(s.progress[mid] || { stage: "Brief", stageIndex: 0, score: 0 }), passed }; return; }
+      return Admin.setMissionPassed(uid, mid, passed, ADMIN_UID);
+    }
+    async function opKeystone(uid, mid, grant) {
+      if (isSeedUid(uid)) { const s = seedById(uid);
+        if (grant) s.keystones[mid] = { grantedAt: Date.now() }; else delete s.keystones[mid];
+        if (s.progress[mid]) s.progress[mid].keystone = grant; return; }
+      return grant ? Admin.grantKeystone(uid, mid, ADMIN_UID, "Admin console grant")
+        : Admin.revokeKeystone(uid, mid);
+    }
+    async function opReset(uid, mid) {
+      if (isSeedUid(uid)) { delete seedById(uid).progress[mid]; return; }
+      return Admin.resetMissionProgress(uid, mid);
+    }
+    async function opTokens(uid, delta) {
+      if (isSeedUid(uid)) { const s = seedById(uid);
+        s.tokens = s.tokens || { balance: 0, ledger: [] };
+        s.tokens.balance = (s.tokens.balance || 0) + delta;
+        s.tokens.ledger = (s.tokens.ledger || []).slice(-49);
+        s.tokens.ledger.push({ delta, by: "admin(demo)", at: Date.now(), reason: "Admin adjustment" });
+        return s.tokens.balance; }
+      return Admin.adjustTokens(uid, delta, ADMIN_UID);
+    }
+    async function opVfcReview(uid, vfcId, patch) {
+      if (isSeedUid(uid)) { const s = seedById(uid);
+        const v = s.voiceForChange[vfcId] = s.voiceForChange[vfcId] || {};
+        v.review = { ...(v.review || {}), ...patch }; return; }
+      return Admin.setVfcReview(uid, vfcId, patch, ADMIN_UID);
+    }
+    // Run a write-op, toast, and re-render the drawer + roster.
+    async function doOp(promiseFn, okMsg) {
+      try { await promiseFn(); toast(okMsg + (USING_SEED ? " (demo)" : "")); }
+      catch (e) { toast("Failed: " + (e && e.message), true); return; }
+      await openDrawer(CURRENT); loadRoster();
+    }
+
     async function openDrawer(uid) {
       CURRENT = uid;
       $("drawer").classList.add("open"); $("scrim").classList.add("open");
       $("d-name").textContent = "Loading…"; $("d-meta").textContent = "";
-      $("d-keystones").replaceChildren();
+      $("d-summary").replaceChildren(); $("d-missions").replaceChildren();
+      $("d-tokens").replaceChildren(); $("d-vfc").replaceChildren();
       let detail;
-      try { detail = await Admin.getUserDetail(uid); }
+      try { detail = await loadDetail(uid); }
       catch (err) { $("d-name").textContent = "Error"; $("d-meta").textContent = (err && err.message) || ""; return; }
+
       const pub = (detail.user.profile && detail.user.profile.public) || {};
       const priv = (detail.user.profile && detail.user.profile.private) || {};
+      const earned = detail.user.keystones || {};
+      const progress = detail.progress || {};
+      const tokens = detail.tokens || {};
+      const vfcs = detail.voiceForChange || {};
+
+      const keyCount = Object.keys(earned).filter((k) =>
+        JOURNEY_MISSIONS.some((m) => m.id === k)).length;
+      const passedCount = JOURNEY_MISSIONS.filter((m) =>
+        progress[m.id] && progress[m.id].passed).length;
+      const tokenBal = typeof tokens.balance === "number" ? tokens.balance : 0;
+      const vfcEntries = Object.entries(vfcs);
+      const featured = vfcEntries.some(([, v]) => v.review && v.review.featuredInHall);
+      const vfcStatus = vfcEntries.length ? (vfcEntries[0][1].status || "draft") : "—";
+
       $("d-name").textContent = pub.displayName || "(no name)";
       $("d-meta").textContent = (priv.email || "no email") + " · joined " + fmt(pub.joinedAt)
-        + " · " + Object.keys(detail.progress || {}).length + " mission(s) in progress";
+        + (pub.lastActive ? " · last active " + fmt(pub.lastActive) : "");
       $("d-dn").value = pub.displayName || "";
       $("d-inst").value = pub.institution || "";
       $("d-rank").value = pub.rank || "cadet";
 
-      const ksWrap = $("d-keystones"); ksWrap.replaceChildren();
-      const earned = (detail.user.keystones) || {};
+      /* — Summary cards — */
+      const stat = (k, v, sub, barPct) => {
+        const kids = [el("p", { class: "k", text: k }),
+          el("div", { class: "v" }, [String(v), sub ? el("small", { text: " " + sub }) : null])];
+        if (typeof barPct === "number")
+          kids.push(el("div", { class: "bar" }, [el("span", { style: "width:" + barPct + "%" })]));
+        return el("div", { class: "stat" }, kids);
+      };
+      $("d-summary").append(
+        stat("Journey", pct(keyCount / 6) + "%", "", pct(keyCount / 6)),
+        stat("Keystones", keyCount, "/ 6", Math.round(keyCount / 6 * 100)),
+        stat("Insight Tokens", tokenBal, "", null),
+        stat("Missions passed", passedCount, "/ 6", Math.round(passedCount / 6 * 100)),
+        stat("Voice for Change", vfcStatus, "", null),
+        stat("Hall of Fame", featured ? "★ Featured" : "—", "", null),
+      );
+
+      /* — Mission progress — */
+      const mWrap = $("d-missions");
       for (const m of JOURNEY_MISSIONS) {
-        const g = document.createElement("div"); g.className = "ks-grid";
-        const name = document.createElement("div");
-        name.textContent = "SDG " + m.sdg + " · " + m.title;
-        const has = Boolean(earned[m.id]);
-        const stat = document.createElement("span");
-        stat.className = "pill" + (has ? " gold" : "");
-        stat.textContent = has ? "earned" : "—";
-        const act = document.createElement("div"); act.className = "row"; act.style.gap = "6px";
-        const gB = document.createElement("button");
-        gB.className = "btn sm"; gB.textContent = has ? "Revoke" : "Grant";
-        gB.addEventListener("click", async () => {
-          try {
-            if (has) await Admin.revokeKeystone(uid, m.id);
-            else await Admin.grantKeystone(uid, m.id, ADMIN_UID, "Admin console grant");
-            toast(has ? "Keystone revoked." : "Keystone granted.");
-            openDrawer(uid); loadRoster();
-          } catch (e) { toast("Failed: " + (e && e.message), true); }
-        });
-        const rB = document.createElement("button");
-        rB.className = "btn sm"; rB.textContent = "Reset progress";
-        rB.title = "Clear this mission's saved resume point for this learner";
-        rB.addEventListener("click", async () => {
-          try { await Admin.resetMissionProgress(uid, m.id); toast("Mission progress reset."); }
-          catch (e) { toast("Failed: " + (e && e.message), true); }
-        });
-        act.appendChild(gB); act.appendChild(rB);
-        g.appendChild(name); g.appendChild(stat); g.appendChild(act);
-        ksWrap.appendChild(g);
+        const p = progress[m.id]; const has = Boolean(earned[m.id]);
+        const statusTxt = p ? (p.stage || STAGES[p.stageIndex] || "—")
+          + " · " + pct(p.score) + "%" : "Not started";
+        const chips = el("div", { style: "display:flex;gap:6px;margin-top:6px" }, [
+          p && p.passed ? el("span", { class: "chip pass", text: "passed" })
+            : el("span", { class: "chip lock", text: p ? "in progress" : "—" }),
+          has ? el("span", { class: "chip key", text: "◆ keystone" }) : null,
+        ]);
+        const left = el("div", {}, [
+          el("p", { class: "mt", text: "SDG " + m.sdg + " · " + m.title }),
+          el("p", { class: "ms", text: m.region + " · " + statusTxt }), chips,
+        ]);
+        const passBtn = el("button", { class: "btn sm",
+          text: (p && p.passed) ? "Mark unpassed" : "Mark passed",
+          onclick: () => doOp(() => opMissionPass(CURRENT, m.id, !(p && p.passed)),
+            (p && p.passed) ? "Marked unpassed." : "Marked passed.") });
+        const keyBtn = el("button", { class: "btn sm", text: has ? "Revoke key" : "Grant key",
+          onclick: () => doOp(() => opKeystone(CURRENT, m.id, !has),
+            has ? "Keystone revoked." : "Keystone granted.") });
+        const resetBtn = el("button", { class: "btn sm", text: "Reset",
+          title: "Clear this mission's saved resume point",
+          onclick: () => doOp(() => opReset(CURRENT, m.id), "Mission reset.") });
+        const acts = el("div", { class: "acts" }, [passBtn, keyBtn, resetBtn]);
+        mWrap.appendChild(el("div", { class: "mrow" }, [left, acts]));
+      }
+
+      /* — Tokens — */
+      const tWrap = $("d-tokens");
+      const deltaInput = el("input", { type: "number", value: "10",
+        style: "width:90px", "aria-label": "Token amount" });
+      const apply = (sign) => doOp(async () => {
+        const n = Math.abs(parseInt(deltaInput.value, 10) || 0);
+        if (!n) throw new Error("Enter an amount");
+        await opTokens(CURRENT, sign * n);
+      }, "Tokens updated.");
+      tWrap.append(
+        el("div", { class: "tok-row", style: "margin-bottom:10px" }, [
+          el("span", { class: "tok-bal", text: String(tokenBal) }),
+          el("span", { class: "muted", text: "Insight Tokens" }),
+        ]),
+        el("div", { class: "tok-row" }, [
+          deltaInput,
+          el("button", { class: "btn sm", text: "− Deduct", onclick: () => apply(-1) }),
+          el("button", { class: "btn sm solid", text: "+ Award", onclick: () => apply(1) }),
+        ]),
+      );
+      const ledger = Array.isArray(tokens.ledger) ? tokens.ledger.slice(-3).reverse() : [];
+      if (ledger.length) {
+        const ul = el("div", { style: "margin-top:10px" });
+        ledger.forEach((L) => ul.appendChild(el("div", { class: "muted",
+          style: "font-size:12px;padding:3px 0",
+          text: (L.delta >= 0 ? "+" : "") + L.delta + " · " + (L.reason || "") + " · " + fmt(L.at) })));
+        tWrap.appendChild(ul);
+      }
+
+      /* — Voice for Change · Hall of Fame — */
+      const vWrap = $("d-vfc");
+      if (!vfcEntries.length) {
+        vWrap.appendChild(el("p", { class: "vfc-empty",
+          text: "No Voice for Change yet. It unlocks after all six Keystones." }));
+      } else {
+        for (const [vid, v] of vfcEntries) {
+          const rev = v.review || {};
+          const gradeSel = el("select", { style: "width:auto" });
+          ["—", "A", "B", "C", "D"].forEach((g) => {
+            const o = el("option", { text: g, value: g === "—" ? "" : g });
+            if ((rev.grade || "") === (g === "—" ? "" : g)) o.selected = true;
+            gradeSel.appendChild(o);
+          });
+          const comment = el("textarea", { style: "width:100%;min-height:60px;margin-top:8px;"
+            + "background:#0A0A0B;border:1px solid #1F1F23;color:#F4F1EA;border-radius:8px;padding:9px 12px;"
+            + "font-family:inherit;font-size:13px", placeholder: "Teacher comment (Rubric A)…" });
+          comment.value = rev.comment || "";
+          const featBtn = el("button", {
+            class: "btn sm" + (rev.featuredInHall ? " solid" : ""),
+            text: rev.featuredInHall ? "★ Featured in Hall" : "Feature in Hall",
+            onclick: () => doOp(() => opVfcReview(CURRENT, vid, { featuredInHall: !rev.featuredInHall }),
+              rev.featuredInHall ? "Removed from Hall." : "Featured in Hall.") });
+          const saveBtn = el("button", { class: "btn sm solid", text: "Save review",
+            onclick: () => doOp(() => opVfcReview(CURRENT, vid,
+              { grade: gradeSel.value, comment: comment.value.trim() }), "Review saved.") });
+          const statusPill = el("span", { class: "pill" + (v.status === "submitted" ? " gold" : ""),
+            text: v.status || "draft" });
+          vWrap.appendChild(el("div", { class: "vfc-card", style: "margin-bottom:10px" }, [
+            el("div", { class: "row", style: "justify-content:space-between;margin-bottom:8px" }, [
+              el("strong", { style: "font-size:14px", text: v.title || "Untitled proposal" }),
+              statusPill,
+            ]),
+            el("p", { class: "muted", style: "margin:0 0 10px;font-family:'JetBrains Mono',monospace;font-size:11.5px",
+              text: mmss(v.durationSec) + " · " + (v.transcriptWords || 0) + " words"
+                + (v.submittedAt ? " · submitted " + fmt(v.submittedAt) : " · not submitted") }),
+            el("div", { class: "row", style: "align-items:end" }, [
+              el("div", {}, [el("label", { for: "", text: "Grade (Rubric A)" }), gradeSel]),
+              featBtn,
+            ]),
+            comment,
+            el("div", { style: "margin-top:8px;text-align:right" }, [saveBtn]),
+          ]));
+        }
       }
     }
 
     $("d-save-profile").addEventListener("click", async () => {
       if (!CURRENT) return;
-      try {
-        await Admin.updateUserProfile(CURRENT, {
-          displayName: $("d-dn").value.trim(),
-          institution: $("d-inst").value.trim(),
-          rank: $("d-rank").value,
-        });
-        toast("Profile saved."); loadRoster();
-      } catch (e) { toast("Save failed: " + (e && e.message), true); }
+      const patch = { displayName: $("d-dn").value.trim(),
+        institution: $("d-inst").value.trim(), rank: $("d-rank").value };
+      doOp(async () => {
+        if (isSeedUid(CURRENT)) { const s = seedById(CURRENT);
+          s.displayName = patch.displayName; s.institution = patch.institution; s.rank = patch.rank; return; }
+        return Admin.updateUserProfile(CURRENT, patch);
+      }, "Profile saved.");
     });
 
     $("d-delete").addEventListener("click", async () => {
@@ -664,8 +970,12 @@
       if (!confirm("Permanently delete ALL data for " + nm + "?\n\nThis erases their profile, "
         + "consents, progress and reflections. This cannot be undone.")) return;
       try {
-        await Admin.deleteUserData(CURRENT);
-        toast("Learner data deleted."); closeDrawer(); loadRoster();
+        if (isSeedUid(CURRENT)) {
+          const i = SEEDED.findIndex((s) => s.uid === CURRENT);
+          if (i >= 0) SEEDED.splice(i, 1);
+        } else { await Admin.deleteUserData(CURRENT); }
+        toast("Learner data deleted." + (USING_SEED ? " (demo)" : ""));
+        closeDrawer(); loadRoster();
       } catch (e) { toast("Delete failed: " + (e && e.message), true); }
     });
 

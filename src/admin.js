@@ -85,12 +85,20 @@ export async function listUsers() {
 /** Everything we hold about one learner — for the detail drawer. */
 export async function getUserDetail(uid) {
   const m = await FB();
-  const [user, consents, progress] = await Promise.all([
+  const [user, consents, progress, tokens] = await Promise.all([
     m.readPath(`users/${uid}`),
     m.readPath(m.paths.consents(uid)),
     m.readPath(m.paths.progress(uid)),
+    m.readPath(m.paths.tokens(uid)),
   ]);
-  return { uid, user: user || {}, consents: consents || {}, progress: progress || {} };
+  return {
+    uid,
+    user: user || {},
+    consents: consents || {},
+    progress: progress || {},
+    tokens: tokens || {},
+    voiceForChange: (user && user.voiceForChange) || {},
+  };
 }
 
 /* ── Override / edit / delete ────────────────────────────────── */
@@ -114,6 +122,46 @@ export async function revokeKeystone(uid, missionId) {
 export async function resetMissionProgress(uid, missionId) {
   const m = await FB();
   await m.writePath(`${m.paths.progress(uid)}/${missionId}`, null);
+}
+
+/** Adjust a learner's Insight Tokens by a signed delta (audit-stamped). */
+export async function adjustTokens(uid, delta, adminUid) {
+  const m = await FB();
+  const tokPath = m.paths.tokens(uid);
+  const cur = (await m.readPath(tokPath)) || {};
+  const balance = (typeof cur.balance === "number" ? cur.balance : 0) + Number(delta || 0);
+  const ledger = Array.isArray(cur.ledger) ? cur.ledger.slice(-49) : [];
+  ledger.push({ delta: Number(delta || 0), by: adminUid || "admin", at: nowStamp(), reason: "Admin adjustment" });
+  await m.writePath(tokPath, { ...cur, balance, ledger });
+  return balance;
+}
+
+/** Record a teacher's review of a Voice for Change (grade + feature flag). */
+export async function setVfcReview(uid, vfcId, patch, adminUid) {
+  const m = await FB();
+  const base = `${m.paths.voiceForChange(uid)}/${vfcId}`;
+  const cur = (await m.readPath(`${base}/review`)) || {};
+  await m.writePath(`${base}/review`, {
+    ...cur, ...patch, reviewedBy: adminUid || "admin", reviewedAt: nowStamp(),
+  });
+}
+
+/** Feature / un-feature a learner's Voice for Change in the Hall of Voices. */
+export async function setHallFeatured(uid, vfcId, featured, adminUid) {
+  return setVfcReview(uid, vfcId, { featuredInHall: featured === true }, adminUid);
+}
+
+/** Override a mission outcome (mark passed / not — teacher authority). */
+export async function setMissionPassed(uid, missionId, passed, adminUid) {
+  const m = await FB();
+  const base = `${m.paths.progress(uid)}/${missionId}`;
+  const cur = (await m.readPath(base)) || {};
+  await m.writePath(base, { ...cur, passed: passed === true, overrideBy: adminUid || "admin", overrideAt: nowStamp() });
+}
+
+function nowStamp() {
+  // Date.now is unavailable in some sandboxes; fall back to a coarse marker.
+  try { return Date.now(); } catch (_) { return 0; }
 }
 
 /** Patch a learner's public profile (name / institution / rank). */
