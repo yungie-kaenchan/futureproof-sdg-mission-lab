@@ -164,13 +164,13 @@ function buildHall() {
 
     frame.addEventListener("click", () => {
       if (i === hall.active) openLightbox(entry);
-      else walkTo(i);
+      else { stopTour(); walkTo(i); }
     });
     hall.stage.appendChild(frame);
     hall.frames.push(frame);
 
     const dot = el("span", { class: "hall-dot" + (i === 0 ? " on" : "") });
-    dot.addEventListener("click", () => walkTo(i));
+    dot.addEventListener("click", () => { stopTour(); walkTo(i); });
     hall.dots.appendChild(dot);
   });
   walkTo(0);
@@ -200,13 +200,36 @@ function walkTo(index) {
   hall.dots.querySelectorAll(".hall-dot").forEach((d, i) => d.classList.toggle("on", i === hall.active));
 }
 
-/* nav: arrows (walk forward/back), keyboard, drag/swipe */
-document.getElementById("hall-prev").addEventListener("click", () => walkTo(hall.active - 1));
-document.getElementById("hall-next").addEventListener("click", () => walkTo(hall.active + 1));
+/* ── Auto-walk "Tour" mode (hands-free showcase + screen-record backup) ── */
+const tourBtn = document.getElementById("hall-tour");
+const tourLabel = document.getElementById("hall-tour-label");
+const tourIcon = tourBtn.querySelector(".material-symbols-rounded");
+hall.tour = null;
+function tourStep() {
+  walkTo(hall.active >= HALL_ENTRIES.length - 1 ? 0 : hall.active + 1);
+}
+function startTour() {
+  stopTour();
+  hall.tour = setInterval(tourStep, 3600);
+  tourBtn.classList.add("on");
+  tourIcon.textContent = "pause"; tourLabel.textContent = "Pause";
+  tourStep(); // advance immediately so it feels responsive
+}
+function stopTour() {
+  if (hall.tour) { clearInterval(hall.tour); hall.tour = null; }
+  tourBtn.classList.remove("on");
+  tourIcon.textContent = "play_arrow"; tourLabel.textContent = "Tour";
+}
+tourBtn.addEventListener("click", () => (hall.tour ? stopTour() : startTour()));
+
+/* nav: arrows (walk forward/back), keyboard, drag/swipe — all pause the tour */
+function manualWalk(i) { stopTour(); walkTo(i); }
+document.getElementById("hall-prev").addEventListener("click", () => manualWalk(hall.active - 1));
+document.getElementById("hall-next").addEventListener("click", () => manualWalk(hall.active + 1));
 hall.el.addEventListener("keydown", (e) => {
-  if (e.key === "ArrowLeft") { e.preventDefault(); walkTo(hall.active - 1); }
-  else if (e.key === "ArrowRight") { e.preventDefault(); walkTo(hall.active + 1); }
-  else if (e.key === "Enter") openLightbox(HALL_ENTRIES[hall.active]);
+  if (e.key === "ArrowLeft") { e.preventDefault(); manualWalk(hall.active - 1); }
+  else if (e.key === "ArrowRight") { e.preventDefault(); manualWalk(hall.active + 1); }
+  else if (e.key === "Enter") { stopTour(); openLightbox(HALL_ENTRIES[hall.active]); }
 });
 (function dragNav() {
   let x0 = null;
@@ -214,7 +237,7 @@ hall.el.addEventListener("keydown", (e) => {
   const up = (x) => {
     if (x0 == null) return;
     const dx = x - x0; x0 = null;
-    if (Math.abs(dx) > 50) walkTo(hall.active + (dx < 0 ? 1 : -1));
+    if (Math.abs(dx) > 50) manualWalk(hall.active + (dx < 0 ? 1 : -1));
   };
   hall.el.addEventListener("pointerdown", (e) => down(e.clientX));
   hall.el.addEventListener("pointerup", (e) => up(e.clientX));
@@ -286,6 +309,7 @@ const lbCard = document.getElementById("lb-card");
 let lbLastFocus = null;
 
 function openLightbox(entry) {
+  if (typeof stopTour === "function") stopTour();
   lbLastFocus = document.activeElement;
   lbCard.style.setProperty("--c", entry.color);
   lbInner.replaceChildren(
@@ -320,6 +344,7 @@ document.querySelectorAll(".view-tab").forEach((tab) => {
     const view = tab.dataset.view;
     document.getElementById("view-" + view).classList.add("active");
     if (view === "hall") requestAnimationFrame(layoutHall);
+    else stopTour(); // don't keep auto-walking an unseen hall
   });
 });
 
