@@ -118,28 +118,30 @@
     .bg-layer video { display: none; }
   }
 
-  /* Three-zone overlay — RE-TUNED for "new_landing.png" (two subjects on
-     left, aurora arcing upper-center, golden glow centre-right).
-     - Top:    Light (0.40) so the rainbow aurora glows through
-     - Center: Heavy vignette anchored at 66% horizontal — sits over the
-               right two-thirds where the typography column lives,
-               leaving the subjects on the left bathed in natural light
-     - Bottom: Heavy (0.92) so footer reads over the mountain mist */
+  /* Directional overlay — tuned for the new dawn video (open sky on the
+     LEFT where the text now lives; temples/skyline/guardian on the right).
+     Keep the RIGHT bright so the video shows; darken only the LEFT enough
+     for the typography, plus soft top/bottom for the markers and footer.
+     - Top:   light (0.26) so the markers + aurora read
+     - Left:  horizontal scrim, darker left → clear by ~65% (text legible,
+              imagery on the right stays bright)
+     - Bottom: moderate (0.75) so the footer reads over the mist */
   .bg-overlay {
     position: absolute; inset: 0;
     background:
       linear-gradient(180deg,
-        rgba(5, 13, 31, 0.40) 0%,
-        rgba(5, 13, 31, 0.14) 22%,
-        transparent 34%),
-      radial-gradient(ellipse 70vw 70vh at 66% 50%,
-        rgba(5, 13, 31, 0.74) 0%,
-        rgba(5, 13, 31, 0.46) 48%,
-        transparent 74%),
+        rgba(5, 13, 31, 0.26) 0%,
+        rgba(5, 13, 31, 0.08) 16%,
+        transparent 28%),
+      linear-gradient(95deg,
+        rgba(5, 13, 31, 0.60) 0%,
+        rgba(5, 13, 31, 0.34) 28%,
+        rgba(5, 13, 31, 0.08) 50%,
+        transparent 65%),
       linear-gradient(180deg,
-        transparent 68%,
-        rgba(5, 13, 31, 0.65) 86%,
-        rgba(5, 13, 31, 0.92) 100%);
+        transparent 72%,
+        rgba(5, 13, 31, 0.44) 88%,
+        rgba(5, 13, 31, 0.75) 100%);
   }
 
   /* Mobile — the mobile.webp was natively portrait-cropped (west gravity)
