@@ -343,6 +343,36 @@
     .footer { flex-direction: column; align-items: flex-start; }
     .footer .cc-block { text-align: left; }
   }
+
+  /* ── NEW LANDING: text anchored LEFT, CTA held RIGHT + larger ──
+     The new background video keeps its open sky on the left, so the
+     hero text lives in the LEFT column; the "Begin your journey"
+     pill sits big on the right, over the lighter cloud band. */
+  @media (min-width: 900px) {
+    .stage {
+      align-items: flex-start;
+      text-align: left;
+      padding-left: clamp(40px, 5vw, 84px);
+      padding-right: clamp(220px, 34vw, 600px);
+    }
+    .description, .description-th {
+      margin-left: 0;
+      margin-right: auto;
+      text-align: left;
+    }
+    .enter-cta {
+      position: absolute;
+      right: clamp(40px, 5vw, 92px);
+      bottom: clamp(80px, 15vh, 160px);
+      margin-top: 0;
+      padding: 20px 50px;
+      font-size: 17px;
+      gap: 12px;
+      box-shadow: 0 14px 38px rgba(181, 124, 52, 0.46);
+    }
+    .enter-cta svg { width: 24px; height: 24px; }
+    .enter-cta:hover { transform: translateY(-3px) scale(1.03); }
+  }
 </style>
 </head>
 
@@ -358,13 +388,13 @@
 <div class="bg-layer" aria-hidden="true">
   <picture>
     <source media="(max-width: 768px)"
-            srcset="assets/landing/bg-landing-mobile.webp"
+            srcset="assets/landing/new-land-mobile.webp"
             type="image/webp">
     <source media="(max-width: 1440px)"
-            srcset="assets/landing/bg-landing-tablet.webp"
+            srcset="assets/landing/new-land-tablet.webp"
             type="image/webp">
     <img id="bg-image"
-         src="assets/landing/bg-landing-desktop.webp"
+         src="assets/landing/new-land-desktop.webp"
          alt=""
          loading="eager"
          decoding="async"
@@ -375,7 +405,7 @@
        in after the page is interactive. Honours prefers-reduced-motion. -->
   <video id="bg-video"
          muted loop playsinline preload="none"
-         poster="assets/landing/bg-landing-desktop.webp"></video>
+         poster="assets/landing/new-land-desktop.webp"></video>
   <div class="bg-overlay"></div>
 </div>
 
@@ -492,7 +522,7 @@
     function attachVideoSource() {
       if (video.querySelector('source')) return;  // already attached
       var src = document.createElement('source');
-      src.src  = 'assets/landing/new-landing.mp4';
+      src.src  = 'assets/landing/new-land.mp4';
       src.type = 'video/mp4';
       src.addEventListener('error', useImage);
       video.appendChild(src);
