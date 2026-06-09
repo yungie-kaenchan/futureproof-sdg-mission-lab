@@ -54,6 +54,9 @@ export function startNpcChat({ logEl, stakeholder, scenario, profile }) {
       return;
     }
 
+    // Live-demo guard: 8 s ceiling — a slow API can never stall the interview.
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 8000);
     try {
       const response = await fetch(CLAUDE_PROXY, {
         method: "POST",
@@ -64,6 +67,7 @@ export function startNpcChat({ logEl, stakeholder, scenario, profile }) {
           context: { stakeholder, scenarioTitle: scenario?.title, npcSystem: system },
           history: history.slice(-8),
         }),
+        signal: controller.signal,
       });
       if (!response.ok) {
         appendBot(localFallback(stakeholder));
@@ -77,6 +81,8 @@ export function startNpcChat({ logEl, stakeholder, scenario, profile }) {
       writeUsage(stakeholder.id || stakeholder.label, usage);
     } catch {
       appendBot(localFallback(stakeholder));
+    } finally {
+      clearTimeout(timer);
     }
   }
 

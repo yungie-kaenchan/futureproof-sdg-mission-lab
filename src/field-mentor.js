@@ -63,6 +63,10 @@ export function startMentorChat({ logEl, profile, missionConfig, scenario }) {
     appendStatus("Thinking…");
     const placeholder = logEl.lastChild;
 
+    // Live-demo guard: never hang the chat — 8 s, then the Socratic
+    // local fallback answers instead.
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 8000);
     try {
       const response = await fetch(CLAUDE_PROXY, {
         method: "POST",
@@ -77,6 +81,7 @@ export function startMentorChat({ logEl, profile, missionConfig, scenario }) {
           },
           history: history.slice(-8),
         }),
+        signal: controller.signal,
       });
       placeholder.remove();
       if (!response.ok) {
@@ -93,6 +98,8 @@ export function startMentorChat({ logEl, profile, missionConfig, scenario }) {
     } catch {
       placeholder.remove();
       appendBot(localFallback(userText));
+    } finally {
+      clearTimeout(timer);
     }
   }
 

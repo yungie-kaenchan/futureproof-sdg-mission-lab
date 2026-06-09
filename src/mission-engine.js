@@ -331,6 +331,14 @@ export class MissionEngine {
   async awardStageTokens(stageId, delta, reason) {
     if (!delta) return;
     this.state.tokensEarned += delta;
+    // Make the token economy LEGIBLE: announce the delta + the why, so the
+    // learner (and a watching judge) sees cause → reward, not a silent
+    // number change. The page decides how to render (toast).
+    try {
+      window.dispatchEvent(new CustomEvent("fp:tokens", {
+        detail: { stageId, delta, reason: reason || "" },
+      }));
+    } catch (_) { /* non-browser context */ }
     try {
       const flow = getFlowState();
       if (flow && flow.uid && isFirebaseAvailable()) {

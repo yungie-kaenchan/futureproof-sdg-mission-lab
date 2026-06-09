@@ -8,6 +8,10 @@
 
 const CLAUDE_PROXY = "/.netlify/functions/claude-proxy";
 
+// Live-demo guard: an AI call must never hang the mission. 8 s, then the
+// heuristic scorer takes over — the learner always gets formative feedback.
+const JUDGE_TIMEOUT_MS = 8000;
+
 export async function evaluateDecision({ missionNumber, missionCode, rubric, decisions, rationale, scenario, profile }) {
   const userMessage = `Evaluate this team decision for Mission ${missionNumber} (${missionCode}).
 
@@ -23,6 +27,8 @@ ${rubric.join(", ")}
 Award between -10 and +25 tokens based on the integrated rubric score. Return JSON only.`;
 
   let response;
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), JUDGE_TIMEOUT_MS);
   try {
     response = await fetch(CLAUDE_PROXY, {
       method: "POST",
@@ -32,9 +38,12 @@ Award between -10 and +25 tokens based on the integrated rubric score. Return JS
         userMessage,
         context: { missionNumber, missionCode, rubric, profile },
       }),
+      signal: controller.signal,
     });
   } catch {
     return heuristicScore(rubric, rationale);
+  } finally {
+    clearTimeout(timer);
   }
 
   if (!response.ok) return heuristicScore(rubric, rationale);

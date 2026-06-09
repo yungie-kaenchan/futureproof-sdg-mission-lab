@@ -391,7 +391,16 @@ function setupRecorder() {
       playBtn.disabled = true;
     } catch (e) {
       console.error("[VoiceForChange] Could not start mic/camera:", e);
-      setStatus("idle", "Could not access microphone or camera — check browser permissions.");
+      // Be specific — a denied permission needs different help than no device.
+      if (e && (e.name === "NotAllowedError" || e.name === "PermissionDeniedError")) {
+        setStatus("idle",
+          "Microphone blocked. Click the 🔒 icon in the address bar → allow Microphone → reload this page.");
+      } else if (e && e.name === "NotFoundError") {
+        setStatus("idle",
+          "No microphone found. Plug one in (or use “Upload a file” instead) and try again.");
+      } else {
+        setStatus("idle", "Could not access microphone or camera — check browser permissions, or use “Upload a file”.");
+      }
     }
   });
 
@@ -544,7 +553,19 @@ function startSpeechRecognition() {
       // promote final runs into baseline so they don't get overwritten by next interim
       baseline = (baseline + finalRun).replace(/\s+/g, " ");
     };
-    speechRec.onerror = (e) => { console.warn("[VoiceForChange] SpeechRecognition error:", e.error); };
+    speechRec.onerror = (e) => {
+      console.warn("[VoiceForChange] SpeechRecognition error:", e.error);
+      // Surface the interruption — never let the learner think the
+      // half-finished transcript is complete (network drop kills the
+      // Web Speech API silently otherwise).
+      const s = document.getElementById("transcript-status");
+      if (s) s.textContent = "⚠ Live transcription interrupted — keep speaking; you can type or fix the transcript below.";
+      const ta = document.getElementById("transcript-area");
+      if (ta) {
+        ta.style.borderColor = "#A82424";
+        setTimeout(() => { ta.style.borderColor = ""; }, 4000);
+      }
+    };
     speechRec.onend = () => { speechRecActive = false; };
     speechRec.start();
     speechRecActive = true;
@@ -773,7 +794,9 @@ async function submitProposal() {
     audienceLabel: state.audienceLabel,
     lane: state.lane,
     videoOn: state.videoOn,
-    transcript: state.transcript,
+    // Demo submissions carry the watermark INSIDE the transcript too, so
+    // the teacher's grading queue can never mistake one for real work.
+    transcript: (isDemo ? "[DEMO MODE — NOT GRADED]\n\n" : "") + state.transcript,
     evidenceCommitments: state.evidenceCommitments,
     submittedAt: Date.now(),
     status: "submitted-awaiting-teacher",

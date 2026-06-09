@@ -340,6 +340,15 @@
             <p class="text-sm text-on-surface/75 leading-relaxed" id="desc-${f.key}">${f.plain[lang]}</p>
           </div>
         `;
+        // Consequence line — every choice shows its outcome, so consent is
+        // informed in the PDPA sense, not a blind checkbox.
+        if (f.outcome && f.outcome[lang]) {
+          const oc = document.createElement('p');
+          oc.className = 'text-xs leading-relaxed mt-2';
+          oc.style.cssText = 'font-style:italic;color:rgba(201,169,97,.95)';
+          oc.textContent = f.outcome[lang];
+          card.querySelector('.flex-1').appendChild(oc);
+        }
         cardsContainer.appendChild(card);
         const cb = card.querySelector('input');
         cb.addEventListener('change', () => { if (!cb.disabled) flags[f.key] = cb.checked; });

@@ -207,6 +207,18 @@
   .stage-intro .si-step{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.18em;
     text-transform:uppercase;color:var(--sdg-accent,var(--bronze))}
   .stage-intro .si-th{font-family:var(--thai);font-size:18px;color:var(--ink-deep);font-weight:600}
+  /* Bloom altitude meter — six rungs, the active range lit in the SDG accent */
+  .stage-intro .si-bloom{display:flex;align-items:center;gap:10px;margin:2px 0 10px;flex-wrap:wrap}
+  .stage-intro .si-bloom-cap{font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--ink-soft)}
+  .stage-intro .si-bloom-track{display:inline-flex;gap:4px}
+  .stage-intro .si-bloom-track i{width:26px;height:7px;border-radius:999px;background:#E8E4D8;
+    transition:background .45s, box-shadow .45s}
+  .stage-intro .si-bloom-track i.lit{background:var(--sdg-accent, var(--bronze));
+    box-shadow:0 0 8px color-mix(in srgb, var(--sdg-accent, var(--bronze)) 45%, transparent)}
+  .stage-intro .si-bloom-track i.below{background:color-mix(in srgb, var(--sdg-accent, var(--bronze)) 30%, #E8E4D8)}
+  .stage-intro .si-bloom-now{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.08em;
+    color:var(--ink-deep)}
   .stage-intro .si-title{font-family:var(--display);font-size:clamp(22px,2.4vw,30px);font-weight:600;
     color:var(--ink-deep);margin:2px 0 14px;line-height:1.2}
   .stage-intro .si-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
@@ -232,6 +244,12 @@
   .right-toggle .material-symbols-rounded{font-size:18px;transition:transform .3s}
   body.right-collapsed .right-toggle .material-symbols-rounded{transform:rotate(180deg)}
   .right-sec{margin-bottom:24px}
+  /* AI-TPACK boundary note — quiet, but always on screen with the scores */
+  .judging-note{display:flex;gap:8px;align-items:flex-start;margin:12px 0 0;padding:10px 12px;
+    background:rgba(181,138,63,.07);border:1px solid rgba(181,138,63,.22);border-radius:10px;
+    font-size:12.5px;line-height:1.5;color:var(--ink)}
+  .judging-note .material-symbols-rounded{font-size:17px;color:var(--bronze);flex:none;margin-top:1px}
+  .judging-note em{font-style:italic;color:var(--ink-deep)}
   .right-sec-label{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.14em;
     text-transform:uppercase;color:var(--bronze);margin-bottom:10px}
   .prog-stage{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}
@@ -650,6 +668,13 @@
          rewritten by JS on each fp:stage event. Hidden until first event. -->
     <section id="stage-intro" class="stage-intro" hidden aria-live="polite">
       <div class="si-bar"><span class="si-step" id="si-step">STAGE 1 / 5</span><span class="si-th" id="si-th" lang="th"></span></div>
+      <!-- Bloom altitude — the cognitive ladder, made visible. The lit range
+           is the level(s) this stage works at (Bloom's Revised Taxonomy). -->
+      <div class="si-bloom" id="si-bloom" role="img" aria-label="Bloom's taxonomy level for this stage">
+        <span class="si-bloom-cap">Bloom's&nbsp;ladder</span>
+        <span class="si-bloom-track" id="si-bloom-track"></span>
+        <span class="si-bloom-now" id="si-bloom-now">—</span>
+      </div>
       <h2 class="si-title" id="si-title">—</h2>
       <div class="si-grid">
         <div class="si-block">
@@ -732,6 +757,15 @@
         <span class="tp-pct" id="tp-pct">0% / 60% to Keystone</span>
       </div>
     </div>
+    <!-- The AI-TPACK boundary, stated where the scores live: what the AI
+         does here is formative; the summative judgment stays human. -->
+    <p class="judging-note">
+      <span class="material-symbols-rounded" aria-hidden="true">balance</span>
+      <span><strong>How judging works:</strong> stage scores &amp; feedback are
+      <em>AI-formative</em> — instant, advisory, for learning. Your final
+      <strong>Voice for Change is graded by your teacher</strong> (Rubric A).
+      The AI coaches; it never holds the gradebook.</span>
+    </p>
   </div>
   <!-- Keystones Collected — 6 SDG-coloured tiles. Lit when earned, dim
        when not yet. Click a tile to jump to that mission's brief. -->
@@ -1150,6 +1184,24 @@
     toastEl.textContent = msg; toastEl.classList.add("show");
     setTimeout(() => toastEl.classList.remove("show"), 2600);
   }
+
+  /* ── Token causality — every award announces its WHY ──
+     The engine emits fp:tokens {delta, reason}; we show "+N ◆ · reason"
+     and pulse the Tokens stat-box so cause → reward is visible. */
+  window.addEventListener("fp:tokens", (e) => {
+    const { delta, reason } = e.detail || {};
+    if (!delta) return;
+    const sign = delta > 0 ? "+" : "";
+    const why = reason ? " · " + String(reason).replace(/^.*?:/, "").trim() : "";
+    toast(`${sign}${delta} Insight Token${Math.abs(delta) === 1 ? "" : "s"} ◆${why}`);
+    const box = document.getElementById("an-tokens");
+    if (box && box.animate) {
+      box.animate(
+        [{ transform: "scale(1)" }, { transform: "scale(1.22)" }, { transform: "scale(1)" }],
+        { duration: 420, easing: "cubic-bezier(.2,.8,.2,1)" }
+      );
+    }
+  });
   function fail(t, b) {
     root.replaceChildren();
     const w = document.createElement("div"); w.className = "boot";
@@ -1191,6 +1243,32 @@
          do: "Read your composite and the feedback. Name one thing you'd do differently and one thing that surprised you. This is metacognition — not a re-litigation.",
          expect: "5% weight, but a Keystone moment: if your composite ≥ 60%, the mission's SDG Keystone is awarded here. You can replay any stage to lift your score." },
   };
+  // Bloom's Revised Taxonomy — the six rungs, plus which rung-range each
+  // arc stage works at (mirrors MISSION_ARC's bloom field). DEBRIEF is
+  // metacognition: reflection ACROSS the ladder, so it lights the climb.
+  const BLOOM_LADDER = ["Remember", "Understand", "Apply", "Analyze", "Evaluate", "Create"];
+  const ARC_BLOOM = [
+    { lo: 0, hi: 1, label: "Remember · Understand" },
+    { lo: 2, hi: 3, label: "Apply · Analyze" },
+    { lo: 4, hi: 4, label: "Evaluate" },
+    { lo: 5, hi: 5, label: "Create" },
+    { lo: 0, hi: 5, label: "Metacognition — reflect across the climb" },
+  ];
+  function paintBloom(curArc) {
+    const track = document.getElementById("si-bloom-track");
+    const now = document.getElementById("si-bloom-now");
+    if (!track || !now) return;
+    const b = ARC_BLOOM[curArc] || ARC_BLOOM[0];
+    track.replaceChildren();
+    BLOOM_LADDER.forEach((name, i) => {
+      const seg = document.createElement("i");
+      seg.title = name;
+      if (i >= b.lo && i <= b.hi) seg.className = "lit";
+      else if (i < b.lo) seg.className = "below";
+      track.appendChild(seg);
+    });
+    now.textContent = b.label;
+  }
   function paintStageIntro(stageId, stageIndex) {
     const si = document.getElementById("stage-intro");
     if (!si) return;
@@ -1206,6 +1284,7 @@
     document.getElementById("si-title").textContent = intro.title;
     document.getElementById("si-do").textContent = intro.do;
     document.getElementById("si-expect").textContent = intro.expect;
+    paintBloom(curArc);
     si.hidden = false;
   }
   const progressList = document.getElementById("progress-list");
@@ -1330,6 +1409,22 @@
       if (n) n.textContent = (i < curArc) ? "✓" : String(i + 1);
     });
   }
+  // Stage entrance — the center pane springs in on each arc step, so the
+  // Bloom climb is FELT, not just labeled. (Skipped under reduced-motion.)
+  let __lastSpringStage = null;
+  function springInStage(stageKey) {
+    if (stageKey === __lastSpringStage) return;       // only on real changes
+    __lastSpringStage = stageKey;
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const m = document.getElementById("mission-root");
+    if (m && m.animate) {
+      m.animate(
+        [{ opacity: 0.0, transform: "translateY(14px)" },
+         { opacity: 1, transform: "none" }],
+        { duration: 380, easing: "cubic-bezier(.2,.8,.2,1)" }
+      );
+    }
+  }
   window.addEventListener("fp:stage", (e) => {
     if (!e.detail) return;
     paintProgress(e.detail);
@@ -1337,6 +1432,7 @@
     updateDossierBtnVisibility(e.detail.stageId, e.detail.stageIndex);
     let ca = PHASE_TO_ARC[e.detail.stageId];
     if (ca == null) ca = Math.min(4, Math.round((e.detail.stageIndex / 4) * 4));
+    springInStage(e.detail.stageId || ca);
     highlightStage(ca);
     try { if (window.__fpEngine && window.__fpEngine.saveState) window.__fpEngine.saveState(); } catch (_) {}
     // If a Keystone just landed (or we resumed past completion), refresh the grid.

@@ -727,6 +727,11 @@
   .consent .ctxt .th{display:block; font-family:var(--th); font-size:14.4px; color:var(--ink-soft); margin-top:4px}
 
   /* Submit bar — light */
+  /* AI-TPACK boundary at the point of submission — teacher holds the grade */
+  .authority-note{margin:0 0 4px; padding:12px 16px; border-radius:10px;
+    background:rgba(181,138,63,.07); border:1px solid rgba(181,138,63,.25);
+    font-size:14.5px; line-height:1.6; color:var(--ink)}
+  .authority-note em{font-style:italic}
   .submit-bar{display:flex; gap:14px; justify-content:flex-end; margin-top:18px; flex-wrap:wrap; align-items:center}
   .ft-btn{display:inline-flex; align-items:center; gap:8px; padding:14px 28px; border-radius:999px; cursor:pointer; border:none; font-family:var(--mono); font-size:13.8px; letter-spacing:.14em; text-transform:uppercase; transition:transform .15s, box-shadow .15s; font-weight:700}
   .ft-btn:hover{transform:translateY(-2px)}
@@ -1197,6 +1202,12 @@
     </section>
 
     <section class="ft-section">
+      <!-- The AI-TPACK boundary, stated at the moment of submission -->
+      <p class="authority-note">
+        <strong>Who grades this?</strong> Your <strong>teacher</strong> — with Rubric A, shown above.
+        The three AI judges you'll meet after submitting are <em>advisory only</em>: instant formative
+        feedback, never the official grade. <span lang="th" style="font-family:var(--th)">ครูผู้สอนเป็นผู้ให้เกรดอย่างเป็นทางการ — AI ให้เพียงข้อเสนอแนะ</span>
+      </p>
       <div class="submit-bar">
         <span class="submit-status" id="submit-status">Choose an audience, record or upload, write a transcript — then submit.</span>
         <button type="button" class="ft-btn save" id="save-draft">💾 Save draft</button>
@@ -1208,8 +1219,8 @@
 
 </main>
 
-<!-- jsPDF for the downloadable task-brief PDF -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<!-- jsPDF for the downloadable task-brief PDF (vendored — no CDN dependency) -->
+<script src="../assets/vendor/jspdf.umd.min.js"></script>
 
 <script type="module" src="../src/a11y.js"></script>
 <script src="../src/task-brief-pdf.js"></script>

@@ -353,6 +353,24 @@ buildHall();
 buildProcession();
 buildRoll();
 
+/* ── CSS-3D capability gate ──────────────────────────────────────
+   On a machine without 3D-transform support (old GPU, some VMs and
+   projector laptops), the corridor frames pile up flat at z=0. Detect
+   that and quietly route visitors to the 2D Procession instead — the
+   Hall tab stays available but is no longer the default. */
+(function gate3d() {
+  let ok = false;
+  try {
+    ok = typeof CSS !== "undefined" && CSS.supports &&
+         CSS.supports("transform-style", "preserve-3d") &&
+         CSS.supports("transform", "translateZ(1px)");
+  } catch (_) { ok = false; }
+  if (!ok) {
+    const tab = document.querySelector('.view-tab[data-view="procession"]');
+    if (tab) tab.click();
+  }
+})();
+
 /* deep-link to a view: ?view=procession | roll | hall (handy for the live demo) */
 (function deepLink() {
   const v = new URLSearchParams(location.search).get("view");

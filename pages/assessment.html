@@ -261,7 +261,17 @@
         </p>
       </div>
 
-      <div id="results-grid" class="grid md:grid-cols-2 gap-4 mb-10"></div>
+      <div id="results-grid" class="grid md:grid-cols-2 gap-4 mb-6"></div>
+
+      <!-- Formative coaching — the diagnostic talks BACK to the learner,
+           so assessment reads as support, not data collection (Hattie:
+           every measurement owes the learner feedback). -->
+      <div id="coach-note" class="tier-report mb-10" hidden>
+        <div class="tier-report-head">
+          <span class="console-label-gold">YOUR COACH'S READ · โค้ชอ่านผลของคุณแบบนี้</span>
+        </div>
+        <p id="coach-text" class="text-base text-on-surface/85 leading-relaxed mt-3" style="margin-bottom:0"></p>
+      </div>
 
       <div id="config-warning" class="alert-warn mb-8" hidden>
         <strong>Heads up:</strong> Firebase isn't connected in this build, so your profile wasn't saved to the cloud. Once provisioning is done, the same scoring engine will write to <code>/users/$uid/learnerProfile</code>.
@@ -710,6 +720,41 @@
       grid.appendChild(makeStat('ANALYTICAL THINKING', `<div class="result-stat-value">${scored.analyticalPercentile}<span class="text-base text-console-dim">/100</span></div>`, 'Drawing inferences from data tables.'));
       grid.appendChild(makeStat('COLLABORATION', `<div class="result-stat-value">${Math.round(scored.collaborationOrientation * 100)}<span class="text-base text-console-dim">/100</span></div>`, 'Self-reported collaboration orientation.'));
       grid.appendChild(makeStat('LANGUAGE COMPOSITE', `<div class="result-stat-value">${scored.language.composite}<span class="text-base text-console-dim">/100</span></div>`, 'Weighted average across the language sub-scores.'));
+      renderCoaching(scored);
+    }
+
+    /* Formative coaching — 2–3 personal sentences built from the profile.
+       Names a strength, names ONE growth edge, and points it at a concrete
+       mission stage — so the diagnostic ends as coaching, not a scoreboard. */
+    function renderCoaching(scored) {
+      const note = document.getElementById('coach-note');
+      const out = document.getElementById('coach-text');
+      if (!note || !out) return;
+      const lang = scored.language.composite || 0;
+      const crit = scored.criticalThinkingPercentile || 0;
+      const ana  = scored.analyticalPercentile || 0;
+      const dims = [
+        { k: 'critical thinking', v: crit,
+          tip: 'in the Decide stage, slow down on the confidence ratings — naming how sure you are is where this skill grows.' },
+        { k: 'analytical reasoning', v: ana,
+          tip: 'in the Probe stage, spend extra time with the dossier’s data tables and ask yourself what each number does NOT say.' },
+        { k: 'language precision', v: lang,
+          tip: 'in the Act stage, draft first and then ask Mr. Compass for register feedback — it coaches your English without writing it for you.' },
+      ];
+      const hi = dims.reduce((a, b) => (b.v > a.v ? b : a));
+      const lo = dims.reduce((a, b) => (b.v < a.v ? b : a));
+      let text;
+      if (hi.k === lo.k || hi.v - lo.v < 8) {
+        text = 'Your profile is well balanced — no single weak flank. That means the missions will stretch all three muscles at once: read the brief slowly, interrogate the evidence, and commit to decisions with honest confidence ratings.';
+      } else {
+        text = 'Your strongest muscle right now is ' + hi.k + ' — the missions will let you lead with it. '
+             + 'Your growth edge is ' + lo.k + ': ' + lo.tip;
+      }
+      if (lang >= 75) {
+        text += ' And note — your English is already strong enough that the missions won’t be testing it. They’ll be asking you to USE it on problems that matter. That’s the point.';
+      }
+      out.textContent = text;
+      note.hidden = false;
     }
 
     function makeStat(label, valueHtml, hint) {
