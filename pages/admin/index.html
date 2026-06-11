@@ -375,6 +375,17 @@
         <div class="row" style="justify-content:flex-end;margin-bottom:10px">
           <button class="btn" id="hov-refresh">Refresh</button>
         </div>
+        <div style="background:#0A0A0B;border:1px dashed #1F1F23;border-radius:10px;padding:14px;margin-bottom:14px">
+          <p style="margin:0 0 4px;font-weight:600">Upload a clip for a learner</p>
+          <p class="muted" style="margin:0 0 12px;font-size:12px">For recordings received outside the
+            platform (email, LINE, a phone). Creates a normal submission in this queue.</p>
+          <div class="row" style="gap:10px;flex-wrap:wrap;align-items:center">
+            <select id="hovu-learner" style="min-width:220px"></select>
+            <input id="hovu-file" type="file" accept="audio/*,video/*" style="max-width:250px" />
+            <input id="hovu-aud" placeholder="Addressed to (optional)" style="width:190px" />
+            <button class="btn solid sm" id="hovu-go">Upload submission</button>
+          </div>
+        </div>
         <div style="overflow-x:auto">
           <table>
             <thead><tr><th>Student</th><th>Submitted</th><th>Addressed to</th><th>Clip</th><th>Transcript</th><th>Status</th><th></th></tr></thead>
@@ -718,6 +729,7 @@
 
     /* ── Hall of Voices curation ─────────────────────────────────── */
     async function loadHov() {
+      fillHovLearnerSelect();
       const tb = $("hov-rows");
       tb.replaceChildren(emptyRow("Loading…"));
       let subs = [];
@@ -749,21 +761,45 @@
           v.style.cssText = "width:230px;max-height:130px;border-radius:8px;background:#000";
           td(v);
         } else td("no media");
+        const mini = (label, fn, solid) => {
+          const b = document.createElement("button");
+          b.className = "btn sm" + (solid ? " solid" : "");
+          b.textContent = label;
+          b.addEventListener("click", fn);
+          return b;
+        };
+        // Transcript: expandable, with inline teacher edit (audit-stamped).
         const det = document.createElement("details");
         const sum = document.createElement("summary");
         sum.textContent = ((s.transcript || "").slice(0, 60) || "(empty)") + "…";
         sum.style.cursor = "pointer";
         const full = document.createElement("div");
         full.textContent = s.transcript || "";
-        full.style.cssText = "max-width:340px;white-space:pre-wrap;font-size:12px;color:#B9BDCB;margin-top:6px";
-        det.append(sum, full); td(det);
+        full.style.cssText = "max-width:340px;white-space:pre-wrap;font-size:12px;color:#B9BDCB;margin:6px 0";
+        const editBtn = mini("Edit transcript", () => {
+          const ta = document.createElement("textarea");
+          ta.value = s.transcript || "";
+          ta.style.cssText = "width:340px;min-height:130px;font-size:12px;margin-top:6px";
+          const row = document.createElement("div");
+          row.style.cssText = "display:flex;gap:6px;margin-top:6px";
+          row.append(
+            mini("Save", async () => {
+              try { await Admin.updateVfcTranscript(s, ta.value, ADMIN_UID);
+                toast("Transcript saved."); loadHov(); }
+              catch (e) { toast("Failed: " + (e && e.message), true); }
+            }, true),
+            mini("Cancel", () => loadHov()));
+          det.replaceChildren(sum, ta, row);
+          det.open = true;
+        });
+        det.append(sum, full, editBtn); td(det);
         const st = document.createElement("span");
         st.className = "pill" + (s.featured ? " gold" : "");
         st.textContent = s.featured ? "Featured" : "Pending review"; td(st);
-        const act = document.createElement("button");
-        act.className = s.featured ? "btn sm" : "btn solid sm";
-        act.textContent = s.featured ? "Remove from Hall" : "Feature in Hall";
-        act.addEventListener("click", async () => {
+        // Action stack: hall curation + media management.
+        const actions = document.createElement("div");
+        actions.style.cssText = "display:flex;flex-direction:column;gap:6px;min-width:160px";
+        actions.appendChild(mini(s.featured ? "Remove from Hall" : "Feature in Hall", async () => {
           try {
             if (s.featured) {
               if (!confirm("Withdraw this voice from the public Hall?")) return;
@@ -780,12 +816,73 @@
             }
             loadHov();
           } catch (e) { toast("Failed: " + (e && e.message), true); }
+        }, !s.featured));
+        const fileIn = document.createElement("input");
+        fileIn.type = "file"; fileIn.accept = "audio/*,video/*"; fileIn.hidden = true;
+        fileIn.addEventListener("change", async () => {
+          const f = fileIn.files && fileIn.files[0]; if (!f) return;
+          try { toast("Uploading clip…");
+            await Admin.replaceVfcMedia(s, f, ADMIN_UID);
+            toast(s.mediaUrl ? "Clip replaced." : "Clip attached."); loadHov(); }
+          catch (e) { toast("Upload failed: " + (e && e.message), true); }
         });
-        td(act);
+        actions.appendChild(fileIn);
+        actions.appendChild(mini(s.mediaUrl ? "Replace clip" : "Attach clip", () => fileIn.click()));
+        if (s.mediaUrl) actions.appendChild(mini("Remove clip", async () => {
+          if (!confirm("Remove this clip from the submission? The transcript stays.")) return;
+          try {
+            const r = await Admin.deleteVfcMedia(s, ADMIN_UID);
+            toast(r.storagePurged ? "Clip removed and purged from Storage."
+              : "Clip unlinked. The student-uploaded file remains in Storage — purge it in the Firebase console for full erasure.");
+            loadHov();
+          } catch (e) { toast("Failed: " + (e && e.message), true); }
+        }));
+        actions.appendChild(mini("Delete submission", async () => {
+          if (!confirm("Delete this ENTIRE submission (record + transcript + clip link)? This cannot be undone.")) return;
+          try { await Admin.deleteVfcSubmission(s, ADMIN_UID);
+            toast("Submission deleted."); loadHov(); }
+          catch (e) { toast("Failed: " + (e && e.message), true); }
+        }));
+        td(actions);
         tb.appendChild(tr);
       }
     }
     $("hov-refresh").addEventListener("click", loadHov);
+
+    /* Learner picker for the manual-upload panel (live learners only). */
+    function fillHovLearnerSelect() {
+      const sel = $("hovu-learner");
+      const prev = sel.value;
+      sel.replaceChildren();
+      const live = USING_SEED ? [] : ROSTER;
+      const ph = document.createElement("option");
+      ph.value = "";
+      ph.textContent = live.length ? "— pick a learner —" : "(no live learners yet)";
+      sel.appendChild(ph);
+      for (const r of live) {
+        const o = document.createElement("option");
+        o.value = r.uid;
+        o.textContent = r.displayName + (r.email ? " · " + r.email : "");
+        sel.appendChild(o);
+      }
+      if (prev) sel.value = prev;
+    }
+    $("hovu-go").addEventListener("click", async () => {
+      const uid = $("hovu-learner").value;
+      const file = $("hovu-file").files && $("hovu-file").files[0];
+      if (!uid) { toast("Pick a learner first.", true); return; }
+      if (!file) { toast("Choose an audio or video file.", true); return; }
+      try {
+        $("hovu-go").disabled = true;
+        toast("Uploading…");
+        await Admin.createVfcForLearner(uid,
+          { file, audienceLabel: $("hovu-aud").value.trim() }, ADMIN_UID);
+        toast("Submission created for the learner.");
+        $("hovu-file").value = ""; $("hovu-aud").value = "";
+        loadHov();
+      } catch (e) { toast("Upload failed: " + (e && e.message), true); }
+      finally { $("hovu-go").disabled = false; }
+    });
 
     /* ── Drawer · per-learner progress + management ──────────────── */
 

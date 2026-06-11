@@ -31,6 +31,7 @@ import {
   ref as storageRef,
   uploadBytes,
   getDownloadURL,
+  deleteObject,
 } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js';
 
 const REQUIRED_KEYS = [
@@ -143,6 +144,17 @@ export async function uploadFile(path, blob) {
   const r = storageRef(storage, path);
   await uploadBytes(r, blob);
   return getDownloadURL(r);
+}
+
+/**
+ * Delete a stored file given its download URL (parses the object path out
+ * of the URL). Succeeds only where rules grant the caller delete rights —
+ * i.e., files in the caller's own folder.
+ */
+export async function deleteFileByUrl(url) {
+  const m = /\/o\/([^?]+)/.exec(url || '');
+  if (!m) throw new Error('Not a Firebase Storage URL');
+  await deleteObject(storageRef(storage, decodeURIComponent(m[1])));
 }
 
 /* ──────────────────────────────────────────────────────────────────

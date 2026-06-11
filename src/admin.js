@@ -247,6 +247,91 @@ export async function removeFromHall(sub, adminUid) {
   await setVfcReview(sub.uid, sub.vfcId, { featuredInHall: false, hallId: null }, adminUid);
 }
 
+/* ── Voice for Change media management ───────────────────────────
+ * Storage rules only allow writes into one's OWN folder, so admin-
+ * uploaded clips live under voiceForChange/{adminUid}/ and the
+ * learner's record points at them. Deleting a STUDENT-uploaded file
+ * from Storage is not possible from the browser (rules); we remove
+ * the record's link and the caller purges the orphan via the console
+ * when full erasure matters (PDPA).                                */
+
+function assertMediaFile(file) {
+  if (!file) throw new Error("Choose a file first.");
+  const t = file.type || "";
+  if (!(t.startsWith("audio/") || t.startsWith("video/")))
+    throw new Error("Audio or video files only (got: " + (t || "unknown") + ").");
+  if (file.size > 100 * 1024 * 1024) throw new Error("File exceeds the 100 MB cap.");
+}
+
+/** Attach or replace the clip on an existing submission. */
+export async function replaceVfcMedia(sub, file, adminUid) {
+  assertMediaFile(file);
+  const m = await FB();
+  const ext = (file.name.split(".").pop() || "bin").toLowerCase();
+  const url = await m.uploadFile(
+    `voiceForChange/${adminUid}/${nowStamp()}-for-${sub.uid}.${ext}`, file);
+  const oldUrl = sub.mediaUrl;
+  await m.writePath(`${m.paths.voiceForChange(sub.uid)}/${sub.vfcId}/mediaUrl`, url);
+  await setVfcReview(sub.uid, sub.vfcId,
+    { mediaReplacedBy: adminUid || "admin", mediaReplacedAt: nowStamp() }, adminUid);
+  if (oldUrl) { try { await m.deleteFileByUrl(oldUrl); } catch (_) { /* student-owned: console purge */ } }
+  return url;
+}
+
+/** Remove the clip from a submission (record + transcript stay). */
+export async function deleteVfcMedia(sub, adminUid) {
+  const m = await FB();
+  let storagePurged = false;
+  if (sub.mediaUrl) {
+    try { await m.deleteFileByUrl(sub.mediaUrl); storagePurged = true; } catch (_) {}
+  }
+  await m.writePath(`${m.paths.voiceForChange(sub.uid)}/${sub.vfcId}/mediaUrl`, null);
+  await setVfcReview(sub.uid, sub.vfcId,
+    { mediaDeletedBy: adminUid || "admin", mediaDeletedAt: nowStamp() }, adminUid);
+  return { storagePurged };
+}
+
+/** Teacher edit of a submission's transcript (audit-stamped). */
+export async function updateVfcTranscript(sub, transcript, adminUid) {
+  const m = await FB();
+  await m.writePath(`${m.paths.voiceForChange(sub.uid)}/${sub.vfcId}/transcript`, transcript);
+  await setVfcReview(sub.uid, sub.vfcId,
+    { transcriptEditedBy: adminUid || "admin", transcriptEditedAt: nowStamp() }, adminUid);
+}
+
+/** Delete an entire submission (un-features it first; best-effort media purge). */
+export async function deleteVfcSubmission(sub, adminUid) {
+  const m = await FB();
+  if (sub.featured) { try { await removeFromHall(sub, adminUid); } catch (_) {} }
+  if (sub.mediaUrl) { try { await m.deleteFileByUrl(sub.mediaUrl); } catch (_) {} }
+  await m.writePath(`${m.paths.voiceForChange(sub.uid)}/${sub.vfcId}`, null);
+}
+
+/** Create a submission on a learner's behalf (e.g., a clip sent by email). */
+export async function createVfcForLearner(uid, { file, transcript, audienceLabel }, adminUid) {
+  if (!uid) throw new Error("Pick a learner first.");
+  const m = await FB();
+  let mediaUrl = null;
+  if (file) {
+    assertMediaFile(file);
+    const ext = (file.name.split(".").pop() || "bin").toLowerCase();
+    mediaUrl = await m.uploadFile(
+      `voiceForChange/${adminUid}/${nowStamp()}-for-${uid}.${ext}`, file);
+  }
+  const vfcId = "vfc-" + nowStamp();
+  await m.writePath(`${m.paths.voiceForChange(uid)}/${vfcId}`, {
+    uid,
+    transcript: transcript || "",
+    audienceLabel: audienceLabel || "",
+    mediaUrl,
+    submittedAt: nowStamp(),
+    status: "submitted-awaiting-teacher",
+    source: "teacher-upload",
+    uploadedBy: adminUid || "admin",
+  });
+  return vfcId;
+}
+
 /* ── Mission on/off + system config ──────────────────────────── */
 
 export async function getMissionFlags() {
