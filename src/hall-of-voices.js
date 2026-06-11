@@ -106,13 +106,31 @@ function sdgPill(entry, cls) {
   return el("span", { class: cls, text: `${entry.sdg} · ${entry.region}` });
 }
 
-/* ── future hook: swap seeded data for consented Firebase reads ─ */
-// async function loadEntries() {
-//   const cfg = window.FUTUREPROOF_CONFIG;
-//   // read /hallOfVoices (a curated, consent-gated public node) and map to the
-//   // same shape as HALL_ENTRIES; fall back to seeded data on any error.
-//   return HALL_ENTRIES;
-// }
+/* ── live featured voices — curated by the teacher in the Admin console ──
+   Reads the public /hall node (rules: world-readable, admin-written).
+   Featured submissions lead the gallery; the seeded exemplars stay behind
+   them so the Hall is never empty. Any failure degrades to seeds only. */
+async function loadFeaturedEntries() {
+  try {
+    if (!window.FUTUREPROOF_CONFIG) return [];
+    const fb = await import("./firebase-init.js");
+    const hallData = await fb.readPath("hall");
+    if (!hallData || typeof hallData !== "object") return [];
+    return Object.entries(hallData)
+      .filter(([, e]) => e && typeof e === "object" && (e.excerpt || e.mediaUrl))
+      .sort(([, a], [, b]) => (b.publishedAt || 0) - (a.publishedAt || 0))
+      .map(([id, e]) => ({
+        id: "live-" + id,
+        sdg: "FEATURED", region: "Voice for Change", color: "#C9A961",
+        title: e.title || "A Voice for Change",
+        by: e.by || "Pseudonymous learner",
+        address: e.address || "—",
+        excerpt: e.excerpt || "",
+        mediaUrl: e.mediaUrl || null,
+        isLive: true,
+      }));
+  } catch (_) { return []; }
+}
 
 /* ════════════════════════════════════════════════════════════
    VIEW 1 — THE GREAT HALL (CSS-3D cover-flow)
@@ -318,8 +336,16 @@ function openLightbox(entry) {
     el("div", { class: "lb-by" }, [document.createTextNode("By "), el("strong", { text: entry.by })]),
     el("div", { class: "lb-address" }, [el("span", { class: "label", text: "Addressed to ·" }), document.createTextNode(" " + entry.address)]),
     el("blockquote", { class: "lb-excerpt", text: entry.excerpt }),
-    el("div", { class: "lb-meta" }, [keystoneRow("lb-keystones"), el("span", { class: "lb-badge", text: "Curated exemplar" })]),
+    el("div", { class: "lb-meta" }, [keystoneRow("lb-keystones"),
+      el("span", { class: "lb-badge", text: entry.isLive ? "Featured Voice · Hall of Voices" : "Curated exemplar" })]),
   );
+  // Featured voices carry their real recording — playable right in the frame.
+  if (entry.mediaUrl) {
+    const player = el("video", { controls: "", preload: "metadata",
+      style: "width:100%;margin-top:16px;border-radius:10px;background:#000;max-height:300px" });
+    player.src = entry.mediaUrl;
+    lbInner.appendChild(player);
+  }
   lightbox.classList.add("open");
   document.body.style.overflow = "hidden";
   document.getElementById("lb-close").focus();
@@ -349,9 +375,18 @@ document.querySelectorAll(".view-tab").forEach((tab) => {
 });
 
 /* ── boot ────────────────────────────────────────────────────── */
-buildHall();
-buildProcession();
-buildRoll();
+(async () => {
+  // Fetch featured voices first (2.5s cap so the page never feels slow),
+  // then build all three views — live voices lead, exemplars follow.
+  const live = await Promise.race([
+    loadFeaturedEntries(),
+    new Promise((r) => setTimeout(() => r([]), 2500)),
+  ]);
+  if (Array.isArray(live) && live.length) HALL_ENTRIES.unshift(...live);
+  buildHall();
+  buildProcession();
+  buildRoll();
+})();
 
 /* ── CSS-3D capability gate ──────────────────────────────────────
    On a machine without 3D-transform support (old GPU, some VMs and

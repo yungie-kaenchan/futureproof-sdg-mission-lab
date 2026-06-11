@@ -372,43 +372,15 @@
         <h2>Capstone submissions <span class="pill gold">awaiting curation review</span></h2>
         <p class="muted" style="margin:-6px 0 16px">Only submissions with <strong>explicit, withdrawable
           public-showcase consent</strong> appear here for review. Feature, leave-pending, or withdraw.</p>
-        <table>
-          <thead><tr><th>Submission</th><th>SDG</th><th>Author (pseudonym)</th><th>Rubric A score</th><th>Status</th><th></th></tr></thead>
-          <tbody>
-            <tr>
-              <td><strong>The Quiet Aquifer</strong><br><span class="muted" style="font-size:12px">Addressed to Khon Kaen Provincial Council</span></td>
-              <td><span class="pill" style="color:#26BDE2">SDG 6</span></td>
-              <td>Phoenix</td>
-              <td><span class="pill gold">A · 41/45</span></td>
-              <td><span class="pill gold">Featured</span></td>
-              <td><button class="btn sm">Unfeature</button></td>
-            </tr>
-            <tr>
-              <td><strong>Smoke Over Doi Suthep</strong><br><span class="muted" style="font-size:12px">Addressed to Chiang Mai Public Health Office</span></td>
-              <td><span class="pill" style="color:#3F7E44">SDG 13</span></td>
-              <td>Compass</td>
-              <td><span class="pill gold">A · 38/45</span></td>
-              <td><span class="pill gold">Featured</span></td>
-              <td><button class="btn sm">Unfeature</button></td>
-            </tr>
-            <tr>
-              <td><strong>Beneath the Boom</strong><br><span class="muted" style="font-size:12px">Addressed to EEC Office &amp; Rayong Hospital</span></td>
-              <td><span class="pill" style="color:#4C9F38">SDG 3</span></td>
-              <td>Driftwood</td>
-              <td><span class="pill gold">A · 36/45</span></td>
-              <td><span class="pill">Pending review</span></td>
-              <td><button class="btn solid sm">Feature</button></td>
-            </tr>
-            <tr>
-              <td><strong>A Tide That Returns</strong><br><span class="muted" style="font-size:12px">Addressed to DMCR &amp; Phi Phi tour operators</span></td>
-              <td><span class="pill" style="color:#0A97D9">SDG 14</span></td>
-              <td>Saltline</td>
-              <td><span class="pill gold">A · 39/45</span></td>
-              <td><span class="pill">Pending review</span></td>
-              <td><button class="btn solid sm">Feature</button></td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="row" style="justify-content:flex-end;margin-bottom:10px">
+          <button class="btn" id="hov-refresh">Refresh</button>
+        </div>
+        <div style="overflow-x:auto">
+          <table>
+            <thead><tr><th>Student</th><th>Submitted</th><th>Addressed to</th><th>Clip</th><th>Transcript</th><th>Status</th><th></th></tr></thead>
+            <tbody id="hov-rows"><tr><td colspan="7" class="muted">Loading…</td></tr></tbody>
+          </table>
+        </div>
       </div>
 
       <div class="card">
@@ -644,6 +616,7 @@
       const id = t.dataset.tab;
       TAB_IDS.forEach((s) => $("tab-" + s).hidden = (s !== id));
       if (id === "analytics") renderAnalyticsBars();
+      if (id === "hov") loadHov();
     }));
 
     /* ── Analytics · seed bars by region (demo data) ── */
@@ -742,6 +715,77 @@
         toast("CSV exported.");
       } catch (err) { toast("Export failed: " + (err && err.message), true); }
     });
+
+    /* ── Hall of Voices curation ─────────────────────────────────── */
+    async function loadHov() {
+      const tb = $("hov-rows");
+      tb.replaceChildren(emptyRow("Loading…"));
+      let subs = [];
+      try { subs = await Admin.listVfcSubmissions(); }
+      catch (e) { tb.replaceChildren(emptyRow("Could not load submissions: " + (e && e.message))); return; }
+      if (!subs.length) { tb.replaceChildren(emptyRow("No capstone submissions yet.")); return; }
+      tb.replaceChildren();
+      for (const s of subs) {
+        const tr = document.createElement("tr");
+        const td = (c) => {
+          const d = document.createElement("td");
+          if (c instanceof Node) d.appendChild(c); else d.textContent = c;
+          tr.appendChild(d); return d;
+        };
+        const name = document.createElement("div");
+        name.textContent = s.displayName;
+        if (s.isDemo) {
+          const p = document.createElement("span");
+          p.className = "pill"; p.textContent = "DEMO"; p.style.marginLeft = "6px";
+          name.appendChild(p);
+        }
+        td(name);
+        td(s.submittedAt ? new Date(s.submittedAt).toLocaleString() : "—");
+        td(s.audienceLabel || "—");
+        // Inline player — works for video and audio-only webm alike.
+        if (s.mediaUrl) {
+          const v = document.createElement("video");
+          v.controls = true; v.preload = "none"; v.src = s.mediaUrl;
+          v.style.cssText = "width:230px;max-height:130px;border-radius:8px;background:#000";
+          td(v);
+        } else td("no media");
+        const det = document.createElement("details");
+        const sum = document.createElement("summary");
+        sum.textContent = ((s.transcript || "").slice(0, 60) || "(empty)") + "…";
+        sum.style.cursor = "pointer";
+        const full = document.createElement("div");
+        full.textContent = s.transcript || "";
+        full.style.cssText = "max-width:340px;white-space:pre-wrap;font-size:12px;color:#B9BDCB;margin-top:6px";
+        det.append(sum, full); td(det);
+        const st = document.createElement("span");
+        st.className = "pill" + (s.featured ? " gold" : "");
+        st.textContent = s.featured ? "Featured" : "Pending review"; td(st);
+        const act = document.createElement("button");
+        act.className = s.featured ? "btn sm" : "btn solid sm";
+        act.textContent = s.featured ? "Remove from Hall" : "Feature in Hall";
+        act.addEventListener("click", async () => {
+          try {
+            if (s.featured) {
+              if (!confirm("Withdraw this voice from the public Hall?")) return;
+              await Admin.removeFromHall(s, ADMIN_UID);
+              toast("Removed from the Hall.");
+            } else {
+              if (s.isDemo) { toast("Demo submissions can't be featured.", true); return; }
+              if (!confirm("PDPA check — has this learner given public-showcase consent?\nOnly continue if yes (consent is withdrawable).")) return;
+              const pseu = prompt("Public pseudonym for this voice (never the real name):",
+                "Voice of Change " + new Date().getFullYear());
+              if (!pseu || !pseu.trim()) return;
+              await Admin.publishToHall(s, pseu.trim(), ADMIN_UID);
+              toast("Published to the Hall of Voices.");
+            }
+            loadHov();
+          } catch (e) { toast("Failed: " + (e && e.message), true); }
+        });
+        td(act);
+        tb.appendChild(tr);
+      }
+    }
+    $("hov-refresh").addEventListener("click", loadHov);
 
     /* ── Drawer · per-learner progress + management ──────────────── */
 

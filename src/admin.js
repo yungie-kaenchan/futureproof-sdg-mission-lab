@@ -182,6 +182,71 @@ export async function deleteUserData(uid) {
   ]);
 }
 
+/* ── Voice for Change curation ───────────────────────────────── */
+
+/** Every Voice for Change submission across all learners (newest first). */
+export async function listVfcSubmissions() {
+  const m = await FB();
+  const users = await m.readPath("users");
+  if (!users) return [];
+  const rows = [];
+  for (const [uid, u] of Object.entries(users)) {
+    const pub = (u && u.profile && u.profile.public) || {};
+    const vfc = (u && u.voiceForChange) || null;
+    if (!vfc || typeof vfc !== "object") continue;
+    // New shape: one child per submission (vfc-<ts>). Legacy: flat record.
+    const entries = Object.keys(vfc).some((k) => k.startsWith("vfc-"))
+      ? Object.entries(vfc).filter(([k]) => k.startsWith("vfc-"))
+      : (vfc.transcript ? [["vfc-legacy", vfc]] : []);
+    for (const [vfcId, rec] of entries) {
+      if (!rec || typeof rec !== "object") continue;
+      rows.push({
+        uid, vfcId,
+        displayName: pub.displayName || rec.studentName || "(no name)",
+        submittedAt: rec.submittedAt || 0,
+        audienceLabel: rec.audienceLabel || "",
+        transcript: rec.transcript || "",
+        mediaUrl: rec.mediaUrl || null,
+        videoOn: rec.videoOn === true,
+        isDemo: rec.isDemo === true,
+        status: rec.status || "",
+        featured: Boolean(rec.review && rec.review.featuredInHall),
+      });
+    }
+  }
+  return rows.sort((a, b) => (b.submittedAt || 0) - (a.submittedAt || 0));
+}
+
+/**
+ * Publish a submission to the PUBLIC Hall of Voices node.
+ * PDPA: caller (the teacher) confirms showcase consent and supplies the
+ * pseudonym — a real name must never reach the public node.
+ */
+export async function publishToHall(sub, pseudonym, adminUid) {
+  const m = await FB();
+  const hallId = `${sub.uid}_${sub.vfcId}`;
+  await m.writePath(`hall/${hallId}`, {
+    title: (sub.transcript || "").replace(/\s+/g, " ").trim().slice(0, 90) || "A Voice for Change",
+    by: pseudonym || "Pseudonymous learner",
+    address: sub.audienceLabel || "",
+    excerpt: (sub.transcript || "").replace(/\s+/g, " ").trim().slice(0, 600),
+    mediaUrl: sub.mediaUrl || null,
+    videoOn: sub.videoOn === true,
+    publishedAt: nowStamp(),
+    publishedBy: adminUid || "admin",
+    uid: sub.uid, vfcId: sub.vfcId,
+  });
+  await setVfcReview(sub.uid, sub.vfcId, { featuredInHall: true, hallId }, adminUid);
+  return hallId;
+}
+
+/** Withdraw a submission from the public Hall (consent is withdrawable). */
+export async function removeFromHall(sub, adminUid) {
+  const m = await FB();
+  await m.writePath(`hall/${sub.uid}_${sub.vfcId}`, null);
+  await setVfcReview(sub.uid, sub.vfcId, { featuredInHall: false, hallId: null }, adminUid);
+}
+
 /* ── Mission on/off + system config ──────────────────────────── */
 
 export async function getMissionFlags() {
