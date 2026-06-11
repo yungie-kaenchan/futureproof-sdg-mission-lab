@@ -160,7 +160,7 @@ async function renderUnlocked() {
 
   // First-time guidance from Mr Compass (single bot message — no API call)
   appendCompassBot(
-    "Hi — I'm here for English register only. Try me with 'Is this too formal for the BMA?' or 'Help me hedge this without losing the ask.' I won't tell you what to argue."
+    "For this capstone I'm your language desk: ask me any word in English or Thai (ถามคำศัพท์ได้เลย), check your register — 'Is this too formal for the BMA?' — or get help hedging a strong ask. I won't tell you what to argue."
   );
 }
 
@@ -779,7 +779,7 @@ async function setupCompass() {
       coreTension: "Capstone — language coach mode, no content evaluation",
       coachOnly: true,  // hint to the server prompt if it ever reads this
     };
-    mentor = mod.startMentorChat({ logEl, profile, missionConfig, scenario });
+    mentor = mod.startMentorChat({ logEl, inputEl: input, profile, missionConfig, scenario });
   } catch (e) {
     console.warn("[VoiceForChange] Field Mentor unavailable — falling back to local prompts:", e);
   }
@@ -793,7 +793,7 @@ async function setupCompass() {
     } else {
       // Graceful fallback when the cloud function is unreachable
       appendCompassUser(q);
-      appendCompassBot("I can only help with English register and audience fit, not content. Try rephrasing your draft sentence and ask 'Is this too formal for the [audience]?' or 'How do I hedge this claim?'");
+      appendCompassBot("I can help with words, grammar, and register — not content. Ask me what a word means (English or Thai), or try 'Is this too formal for the [audience]?' or 'How do I hedge this claim?'");
     }
   }
   sendBtn.addEventListener("click", send);

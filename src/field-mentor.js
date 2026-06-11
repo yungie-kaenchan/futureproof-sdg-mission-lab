@@ -15,16 +15,21 @@
  */
 
 const CLAUDE_PROXY = "/.netlify/functions/claude-proxy";
-const PER_MISSION_LIMIT = 10;
+// Raised from 10 → 20: the language desk (vocab/definition questions) is cheap
+// and shouldn't compete with the strategic Socratic questions for the budget.
+const PER_MISSION_LIMIT = 20;
 
-export function startMentorChat({ logEl, profile, missionConfig, scenario }) {
+export function startMentorChat({ logEl, inputEl, profile, missionConfig, scenario }) {
   let history = [];
   let usage = readUsage(missionConfig.code);
+  const input = inputEl || document.getElementById("compass-input") || null;
 
   appendBot(
-    `Hi — I'm Mr. Compass, your Field Mentor. I won't give you answers, but I'll ask the right questions and help with English. ` +
-    `You've got ${PER_MISSION_LIMIT - usage.count} questions left for this mission.`
+    `Hi — I'm Mr. Compass! I won't hand you mission answers, but I'm a full language desk: ` +
+    `ask me any word in English or Thai (ถามคำศัพท์เป็นไทยได้เลย), get grammar fixes, register advice, ` +
+    `or ask what this stage expects from you. You've got ${PER_MISSION_LIMIT - usage.count} questions left for this mission.`
   );
+  renderChips();
 
   function appendUser(text) {
     const m = document.createElement("div");
@@ -47,6 +52,42 @@ export function startMentorChat({ logEl, profile, missionConfig, scenario }) {
     m.textContent = text;
     logEl.appendChild(m);
     logEl.scrollTop = logEl.scrollHeight;
+  }
+
+  // Quick-action chips — discoverability for what Compass can actually do.
+  // Prefill chips drop a template into the input; ask chips send directly.
+  function renderChips() {
+    if (!logEl.parentNode || logEl.parentNode.querySelector(".mentor-chips")) return;
+    const row = document.createElement("div");
+    row.className = "mentor-chips";
+    row.style.cssText = "display:flex;flex-wrap:wrap;gap:8px;margin:10px 0;";
+    const CHIPS = [
+      { label: "📖 Define a word",        prefill: 'What does "..." mean?' },
+      { label: "🇹🇭 ขอความหมาย",          prefill: 'ช่วยบอกความหมายของคำว่า "..." หน่อย' },
+      { label: "✏️ Fix my grammar",       prefill: "Can you check my grammar: ..." },
+      { label: "🧭 What does this stage expect?", ask: "What does this stage of the mission expect from me?" },
+    ];
+    for (const c of CHIPS) {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.textContent = c.label;
+      b.style.cssText = "padding:6px 12px;border-radius:999px;border:1px solid rgba(201,169,97,.6);" +
+        "background:rgba(201,169,97,.12);color:inherit;font-size:13px;cursor:pointer;font-family:inherit;";
+      b.addEventListener("click", () => {
+        if (c.ask) { send(c.ask); return; }
+        if (input) {
+          input.value = c.prefill;
+          input.dispatchEvent(new Event("input", { bubbles: true }));
+          input.focus();
+          const i = c.prefill.indexOf("...");
+          if (i >= 0 && input.setSelectionRange) input.setSelectionRange(i, i + 3);
+        } else {
+          appendStatus("Type your question in the box below — e.g. " + c.prefill);
+        }
+      });
+      row.appendChild(b);
+    }
+    logEl.parentNode.insertBefore(row, logEl.nextSibling);
   }
 
   async function send(userText) {
@@ -109,8 +150,8 @@ export function startMentorChat({ logEl, profile, missionConfig, scenario }) {
     if (/answer|tell me|what's the right|which option|correct/.test(t)) {
       return "I won't give you the answer — but tell me which two factors are pulling you in opposite directions, and we can work from there.";
     }
-    if (/word|vocab|how do you say|grammar|register/.test(t)) {
-      return "Happy to help on language. Paste the sentence you're working on and I'll suggest a more precise word or a register tweak.";
+    if (/word|vocab|how do you say|grammar|register|mean|ความหมาย|แปลว่า/.test(t)) {
+      return "Happy to help on language — give me the single word or short phrase you're stuck on (English or Thai) and I'll unlock it: meaning, Thai gloss, and an example sentence.";
     }
     if (/decide|should we|which strategy/.test(t)) {
       return "Your judgment is what matters here. What does your Ethics Officer think the cost would be of being wrong?";

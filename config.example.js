@@ -16,4 +16,10 @@ window.FUTUREPROOF_CONFIG = {
   storageBucket: "your-project.appspot.com",
   messagingSenderId: "0000000000",
   appId: "1:0000000000:web:abcdef",
+
+  // Optional — ElevenLabs Agents voice widget for Mr. Compass.
+  // Create a PUBLIC agent at elevenlabs.io → Agents, allowlist the portal
+  // domain, and paste the agent id here. Empty string = voice disabled
+  // (text Compass unaffected).
+  elevenLabsAgentId: "",
 };

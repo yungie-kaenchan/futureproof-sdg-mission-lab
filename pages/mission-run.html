@@ -939,6 +939,7 @@
 <div class="toast" id="toast"></div>
 
 <script src="../config.local.js" onerror="window.__noConfig = true;"></script>
+<script src="../src/compass-voice.js" defer></script>
 
 <script type="module">
   import { MissionEngine } from "../src/mission-engine.js";
@@ -1467,10 +1468,11 @@
         if (_sdg && SDG_COLOR[_sdg]) document.documentElement.style.setProperty("--sdg-accent", SDG_COLOR[_sdg]);
       } catch (_) {}
 
-      // ── Mount Compass · Field Mentor (Socratic chat companion) ──
-      // Lazy-mounted on first open. English-only by design. Hard cap of
-      // 10 questions per mission is enforced inside field-mentor.js +
-      // claude-proxy.js (system prompt + audit log).
+      // ── Mount Compass · Field Mentor (Socratic chat + language desk) ──
+      // Lazy-mounted on first open. Bilingual vocab/definitions allowed
+      // (EN/TH words & short phrases — never full-sentence translation);
+      // content-answer firewall enforced in claude-proxy.js. Hard cap of
+      // 20 questions per mission is enforced inside field-mentor.js.
       let compass = null;
       const cLauncher = document.getElementById("compass-launcher");
       const cPanel    = document.getElementById("compass-panel");
@@ -1484,6 +1486,7 @@
         const mod = await import("../src/field-mentor.js");
         compass = mod.startMentorChat({
           logEl: cLog,
+          inputEl: cInput,
           profile: (flow && flow.learnerProfile) || flow || {},
           missionConfig: {
             code: scenario.meta.id || scenarioId,
