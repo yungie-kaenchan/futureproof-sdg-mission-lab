@@ -153,6 +153,7 @@ async function renderUnlocked() {
   setupRecorder();
   setupUpload();
   setupTranscriptHandlers();
+  setupAutoTranscribe();
   setupCompass();
   setupConsentAndSubmit();
   loadDraftIfPresent();
@@ -322,6 +323,7 @@ function setupLaneSwitch() {
     recordPane.hidden = (r.value !== "record");
     uploadPane.hidden = (r.value !== "upload");
     saveDraftSilent();
+    refreshSttButton();
   }));
 }
 
@@ -619,6 +621,114 @@ function setupTranscriptHandlers() {
     refreshSubmitGate();
   });
 }
+
+/* ── Auto-transcribe (server-side speech-to-text) ───────────────────
+   Sends the captured clip to /.netlify/functions/openai-stt and fills
+   the transcript box with the verbatim text. Purely additive: any
+   failure leaves the typed-transcript flow untouched. */
+
+const STT_PROXY = "/.netlify/functions/openai-stt";
+const STT_MAX_BYTES = 4 * 1024 * 1024; // function body limit is ~6 MB incl. base64 overhead
+let sttBusy = false;
+
+function sttCurrentMedia() {
+  if (state.lane === "record" && state.audioBlob) {
+    const isVideo = (state.audioBlob.type || "").startsWith("video/");
+    return { blob: state.audioBlob, name: isVideo ? "recording.webm" : "recording.webm" };
+  }
+  if (state.lane === "upload" && state.uploadedFile) {
+    return { blob: state.uploadedFile, name: state.uploadedFile.name || "clip" };
+  }
+  return null;
+}
+
+function refreshSttButton() {
+  const btn = document.getElementById("stt-btn");
+  const status = document.getElementById("stt-status");
+  if (!btn || !status) return;
+  if (sttBusy) return; // runAutoTranscribe owns the UI while working
+  const media = sttCurrentMedia();
+  status.className = "stt-status";
+  if (!media) {
+    btn.disabled = true;
+    status.textContent = "Record or choose a clip first";
+  } else if (media.blob.size > STT_MAX_BYTES) {
+    btn.disabled = true;
+    status.textContent = "Clip too big to auto-transcribe (max 4 MB) — type your transcript below";
+  } else {
+    btn.disabled = false;
+    status.textContent = "";
+  }
+}
+
+function setupAutoTranscribe() {
+  const btn = document.getElementById("stt-btn");
+  if (!btn) return;
+  btn.addEventListener("click", runAutoTranscribe);
+  refreshSttButton();
+}
+
+function blobToBase64(blob) {
+  return new Promise((resolve, reject) => {
+    const fr = new FileReader();
+    fr.onload = () => {
+      const s = String(fr.result || "");
+      const i = s.indexOf(",");
+      resolve(i >= 0 ? s.slice(i + 1) : s);
+    };
+    fr.onerror = () => reject(fr.error || new Error("Could not read the clip"));
+    fr.readAsDataURL(blob);
+  });
+}
+
+async function runAutoTranscribe() {
+  const media = sttCurrentMedia();
+  if (!media || sttBusy) return;
+
+  const ta = document.getElementById("transcript-area");
+  const existingWords = ta.value.trim().split(/\s+/).filter(Boolean).length;
+  if (existingWords >= 20) {
+    const ok = confirm("Replace your current transcript with the auto-transcription? Your typed text will be overwritten.");
+    if (!ok) return;
+  }
+
+  const btn = document.getElementById("stt-btn");
+  const status = document.getElementById("stt-status");
+  sttBusy = true;
+  btn.disabled = true;
+  const btnLabel = btn.textContent;
+  btn.textContent = "👂 Listening to your clip…";
+  status.className = "stt-status";
+  status.textContent = "This usually takes 5–20 seconds";
+
+  try {
+    const audioBase64 = await blobToBase64(media.blob);
+    const res = await fetch(STT_PROXY, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ audioBase64, mime: media.blob.type || "", filename: media.name }),
+    });
+    const data = await res.json().catch(() => null);
+    if (!res.ok || !data || typeof data.transcript !== "string" || !data.transcript.trim()) {
+      throw new Error((data && data.error) ? data.error : ("HTTP " + res.status));
+    }
+    ta.value = data.transcript.trim();
+    state.transcript = ta.value;
+    updateWordCount();
+    saveDraftSilent();
+    refreshSubmitGate();
+    status.className = "stt-status ok";
+    status.textContent = "✓ Transcribed — read it through and fix any words it misheard";
+  } catch (e) {
+    console.warn("[VoiceForChange] auto-transcribe failed:", e);
+    status.className = "stt-status err";
+    status.textContent = "Auto-transcribe didn't work this time — no problem, just type or fix the transcript yourself. (" + (e && e.message ? e.message : e) + ")";
+  } finally {
+    sttBusy = false;
+    btn.textContent = btnLabel;
+    refreshSttButton();
+  }
+}
 function updateWordCount() {
   const ta = document.getElementById("transcript-area");
   const words = (ta.value.trim().split(/\s+/).filter(Boolean)).length;
@@ -717,6 +827,7 @@ function submitReady() {
 }
 
 function refreshSubmitGate() {
+  refreshSttButton();
   const ready = submitReady();
   const btn = document.getElementById("submit-btn");
   btn.disabled = !ready;

@@ -689,6 +689,16 @@
   .transcript .meta .threshold-badge.under{background:rgba(168,36,36,.10); color:var(--crimson); border:1px solid rgba(168,36,36,.30)}
   .transcript .meta .threshold-badge.met{background:rgba(63,126,68,.10); color:#3F7E44; border:1px solid rgba(63,126,68,.30)}
 
+  /* Auto-transcribe (speech-to-text) row */
+  .stt-row{display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin:0 0 8px}
+  .stt-btn{padding:9px 18px; border-radius:999px; border:1.5px solid var(--bronze); background:transparent; color:var(--ink); font-family:var(--sans); font-size:15.5px; font-weight:600; cursor:pointer; transition:background .25s ease-out, color .25s ease-out, opacity .25s ease-out}
+  .stt-btn:hover:not(:disabled){background:var(--bronze); color:#fff}
+  .stt-btn:disabled{opacity:.45; cursor:not-allowed}
+  .stt-status{font-family:var(--mono); font-size:13.4px; color:var(--bronze-dim); letter-spacing:.03em}
+  .stt-status.ok{color:#3F7E44; font-weight:700}
+  .stt-status.err{color:var(--crimson)}
+  .stt-privacy{font-size:12.8px; color:var(--bronze-dim); margin:0 0 12px; line-height:1.5}
+
   /* Compass trigger button — dark, matches the mission-page Compass button */
   .compass-trigger-wrap{display:flex; justify-content:center; margin:6px 0 26px}
   .compass-trigger{display:inline-flex; align-items:center; gap:14px; padding:16px 28px; border-radius:999px; border:none; cursor:pointer; background:var(--ink-deep); color:var(--bone); font-family:var(--mono); font-size:14.9px; letter-spacing:.10em; text-transform:uppercase; font-weight:700; box-shadow:0 8px 24px rgba(7,23,52,.20); transition:transform .15s, background .15s; min-width:280px; justify-content:flex-start}
@@ -1159,6 +1169,11 @@
 
       <div class="transcript">
         <label for="transcript-area">Transcript · ถอดความ <span style="font-family:var(--mono);color:var(--bronze-light);margin-left:8px">(auto-fills from live recording — please review and correct)</span></label>
+        <div class="stt-row">
+          <button type="button" class="stt-btn" id="stt-btn" disabled>✨ Transcribe my clip for me</button>
+          <span class="stt-status" id="stt-status">Record or choose a clip first</span>
+        </div>
+        <div class="stt-privacy">Auto-transcribe sends your clip securely to a transcription service (OpenAI) once, just to turn your speech into text — then every word is yours to edit. · ระบบส่งคลิปไปถอดความหนึ่งครั้งเท่านั้น แก้ไขข้อความได้ทุกคำ</div>
         <textarea id="transcript-area" placeholder="Live transcription will appear here as you speak. After you stop, edit any words the speech recognition got wrong before you submit."></textarea>
         <div class="meta">
           <span class="count-row under" id="count-row"><span id="word-count">0</span> words · minimum 50 to submit · suggested 200–500</span>
