@@ -811,30 +811,51 @@ async function submitProposal() {
     sessionStorage.setItem("fp_vfc_submitted", JSON.stringify(payload));
   } catch (_) {}
 
-  // Firebase upload (best-effort — never block the confirmation page)
+  // Cloud save — a submission only counts as submitted when the record
+  // actually reaches the database. No fake success screens.
+  let saved = false;
   try {
-    if (state.uid) {
-      const fb = await import("./firebase-init.js").catch(() => null);
-      if (fb && fb.uploadFile && fb.writePath && fb.paths) {
-        let mediaUrl = null;
+    const fb = await import("./firebase-init.js").catch(() => null);
+    if (fb && fb.uploadFile && fb.writePath && fb.paths && fb.paths.voiceForChange) {
+      // Flow-state uid can be missing/stale — fall back to the signed-in user.
+      let uid = state.uid;
+      if (!uid && fb.auth && fb.auth.currentUser) uid = fb.auth.currentUser.uid;
+      if (uid) {
+        payload.uid = uid;
+        let mediaUrl = null, mediaUploadFailed = false;
         try {
           const blob = state.lane === "record" ? state.audioBlob : state.uploadedFile;
-          const ext = state.lane === "record" ? (state.videoOn ? "webm" : "webm") : (state.uploadedFile?.name?.split(".").pop() || "bin");
+          const ext = state.lane === "record" ? "webm" : (state.uploadedFile?.name?.split(".").pop() || "bin");
           if (blob) {
             mediaUrl = await fb.uploadFile(
-              "voiceForChange/" + state.uid + "/" + Date.now() + "." + ext,
+              "voiceForChange/" + uid + "/" + Date.now() + "." + ext,
               blob
             );
           }
-        } catch (e) { console.warn("[VoiceForChange] media upload failed:", e); }
-
-        if (fb.paths.voiceForChange) {
-          await fb.writePath(fb.paths.voiceForChange(state.uid), { ...payload, mediaUrl });
+        } catch (e) {
+          mediaUploadFailed = true;
+          console.warn("[VoiceForChange] media upload failed:", e);
         }
+        // One child per submission (vfc-<ts>) — matches the Admin console's
+        // voiceForChange/{vfcId} review path, and a resubmission can never
+        // overwrite an earlier one.
+        const vfcId = "vfc-" + Date.now();
+        await fb.writePath(`${fb.paths.voiceForChange(uid)}/${vfcId}`,
+          { ...payload, mediaUrl, mediaUploadFailed });
+        saved = true;
       }
     }
   } catch (e) {
     console.error("[VoiceForChange] submit failed:", e);
+  }
+
+  if (!saved && !isDemo) {
+    // Nothing reached the cloud — keep the draft, tell the truth, let them retry.
+    document.getElementById("submit-btn").disabled = false;
+    document.getElementById("submit-status").textContent =
+      "⚠ Couldn't reach the server — your work is safe as a local draft. " +
+      "Check your connection and sign-in, then press Submit again.";
+    return;
   }
 
   // Clear the local draft (the submission is now durable)
