@@ -18,24 +18,29 @@
 const ANTHROPIC_ENDPOINT = "https://api.anthropic.com/v1/messages";
 
 // ── Model tier strategy ─────────────────────────────────────────────
-// JUDGE-DEMO PRESET (active from 2026-06-01) — every judge-facing AI
-// response runs on Sonnet for maximum perceived quality during the
-// finals walkthrough. Cost is trivial at demo volume (a few dozen calls).
+// FIXED 2026-06-12: the previous preset pointed every kind at
+// "claude-sonnet-4-7", which is NOT a real model ID (Sonnet skips from
+// 4.6 to nothing; 4.7 exists only in the Opus line). Anthropic returned
+// 404 not_found_error on every call, which is why the AI Judges (and all
+// other AI features) failed. Valid IDs: claude-opus-4-8, claude-opus-4-7,
+// claude-sonnet-4-6, claude-haiku-4-5-20251001.
+//
+// JUDGE-DEMO PRESET (finals 2026-06-14): rubric-reasoning kinds run on
+// Opus 4.8 (best available) for maximum perceived quality; the two
+// fast-chat kinds run on Sonnet 4.6 to keep latency conversational.
+// Cost is trivial at demo volume (a few dozen calls).
 //
 // To revert to the cost-efficient PILOT split BEFORE the live student
-// cohort begins, restore the Haiku model on the three "chat / scoring"
-// slots — comments below mark each one with its pilot-tier fallback.
-//
-// Scenario / evaluate / tribunal stay on Sonnet either way (rubric
-// reasoning never goes down to Haiku).
+// cohort begins: scenario/evaluate/tribunal/aiJudges → claude-sonnet-4-6,
+// fieldMentor/languageCoach → claude-haiku-4-5-20251001.
 // ────────────────────────────────────────────────────────────────────
 const MODELS = {
-  scenario:      "claude-sonnet-4-7",
-  fieldMentor:   "claude-sonnet-4-7",            // pilot fallback: "claude-haiku-4-5-20251001"
-  evaluate:      "claude-sonnet-4-7",
-  tribunal:      "claude-sonnet-4-7",
-  languageCoach: "claude-sonnet-4-7",            // pilot fallback: "claude-haiku-4-5-20251001"
-  aiJudges:      "claude-sonnet-4-7",            // pilot fallback: "claude-haiku-4-5-20251001"
+  scenario:      "claude-opus-4-8",              // pilot fallback: "claude-sonnet-4-6"
+  fieldMentor:   "claude-sonnet-4-6",            // pilot fallback: "claude-haiku-4-5-20251001"
+  evaluate:      "claude-opus-4-8",              // pilot fallback: "claude-sonnet-4-6"
+  tribunal:      "claude-opus-4-8",              // pilot fallback: "claude-sonnet-4-6"
+  languageCoach: "claude-sonnet-4-6",            // pilot fallback: "claude-haiku-4-5-20251001"
+  aiJudges:      "claude-opus-4-8",              // pilot fallback: "claude-sonnet-4-6"
 };
 
 const SYSTEM_PROMPTS = {
@@ -195,8 +200,8 @@ Return STRICTLY this JSON shape — nothing else:
 {
   "judges": [
     {
-      "id": "anchalee",
-      "name": "Dr. Anchalee Suwannapong",
+      "id": "judge1",
+      "name": "AI Judge 1",
       "title": "Senior Lecturer in Applied Linguistics, Faculty of Liberal Arts",
       "gender": "F",
       "icon": "school",
@@ -206,8 +211,8 @@ Return STRICTLY this JSON shape — nothing else:
       "refine": "one specific language area to refine, constructively"
     },
     {
-      "id": "nattaphum",
-      "name": "Khun Nattaphum Boonkrong",
+      "id": "judge2",
+      "name": "AI Judge 2",
       "title": "Programme Director, SDG Catalyst Initiatives",
       "gender": "M",
       "icon": "insights",
@@ -217,8 +222,8 @@ Return STRICTLY this JSON shape — nothing else:
       "refine": "one specific argument or evidence area to refine"
     },
     {
-      "id": "suthida",
-      "name": "Khun Suthida Phetcharat",
+      "id": "judge3",
+      "name": "AI Judge 3",
       "title": "Director, Community Engagement & Youth Development",
       "gender": "F",
       "icon": "diversity_3",

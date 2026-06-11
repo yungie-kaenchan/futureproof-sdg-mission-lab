@@ -29,9 +29,9 @@
 const PROXY = "/.netlify/functions/claude-proxy";
 
 const FALLBACK_JUDGES = [
-  { id: "anchalee",  name: "Dr. Anchalee Suwannapong",   title: "Senior Lecturer in Applied Linguistics, Faculty of Liberal Arts", gender: "F", icon: "school",       focus: "Language register · modality · hedging" },
-  { id: "nattaphum", name: "Khun Nattaphum Boonkrong",   title: "Programme Director, SDG Catalyst Initiatives",                  gender: "M", icon: "insights",      focus: "Argument strength · evidence · feasibility" },
-  { id: "suthida",   name: "Khun Suthida Phetcharat",    title: "Director, Community Engagement & Youth Development",            gender: "F", icon: "diversity_3",   focus: "Dignity of address · ethical clarity" },
+  { id: "judge1", name: "AI Judge 1", title: "Senior Lecturer in Applied Linguistics, Faculty of Liberal Arts", gender: "F", icon: "school",       focus: "Language register · modality · hedging" },
+  { id: "judge2", name: "AI Judge 2", title: "Programme Director, SDG Catalyst Initiatives",                  gender: "M", icon: "insights",      focus: "Argument strength · evidence · feasibility" },
+  { id: "judge3", name: "AI Judge 3", title: "Director, Community Engagement & Youth Development",            gender: "F", icon: "diversity_3",   focus: "Dignity of address · ethical clarity" },
 ];
 
 /* ── safe-DOM helper (no innerHTML on user/model content) ──────── */
