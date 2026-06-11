@@ -40,6 +40,10 @@ const cfg = {
   storageBucket:     process.env.FIREBASE_STORAGE_BUCKET     || "missing.appspot.com",
   messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID || "0",
   appId:             process.env.FIREBASE_APP_ID             || "0:0:web:0",
+  // Optional — ElevenLabs voice widget for Mr. Compass (public id; the
+  // agent's domain allowlist is the actual access control). Empty string
+  // keeps the widget unmounted.
+  elevenLabsAgentId: process.env.ELEVENLABS_AGENT_ID         || "",
 };
 
 const body = `/* Auto-generated at build time. Do not edit. */\nwindow.FUTUREPROOF_CONFIG = ${JSON.stringify(cfg, null, 2)};\n`;
