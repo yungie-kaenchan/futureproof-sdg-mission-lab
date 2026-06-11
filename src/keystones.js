@@ -86,13 +86,31 @@ async function authUid() {
 }
 
 /* ──────────────────────────────────────────────────────────────────
+ * "Who am I?" — the authoritative identity for OWN-data reads/writes.
+ *
+ * The portal historically threaded a uid from localStorage flow-state.
+ * That hint goes stale (re-login, a second device, sign-up on another
+ * browser, a shared lab machine) — and a stale hint made the Mission Map
+ * and the Voice for Change gate read the WRONG node and show 0/locked,
+ * even when the Keystones were safely in the database under the real uid.
+ *
+ * The signed-in Firebase user IS the account whose data should show, so
+ * we prefer it and fall back to the passed hint only when genuinely
+ * signed out. This makes every own-data read immune to a stale flow.uid.
+ * ──────────────────────────────────────────────────────────────── */
+async function resolveOwnUid(passedUid) {
+  const aid = await authUid();
+  return aid || passedUid || null;
+}
+
+/* ──────────────────────────────────────────────────────────────────
  * Read
  * ──────────────────────────────────────────────────────────────── */
 
 /** Returns a map { missionId: keystoneRecord } of earned Keystones. */
 export async function getKeystones(uid) {
   if (!isFirebaseAvailable()) return {};
-  if (!uid) uid = await authUid();
+  uid = await resolveOwnUid(uid);   // signed-in user wins over a stale hint
   if (!uid) return {};
   // Resilient by design: a failed/timed-out cloud read (network blip, quota,
   // placeholder config) must NOT halt the caller — mission-select and the
@@ -103,16 +121,6 @@ export async function getKeystones(uid) {
     const data = await fb.readPath(fb.paths.keystones(uid));
     return data && typeof data === "object" ? data : {};
   } catch (_) {
-    // Stale flow-state uid (shared computer, old session): the rules rightly
-    // deny reading another user's node. Retry once as the REAL signed-in user.
-    try {
-      const aid = await authUid();
-      if (aid && aid !== uid) {
-        const fb = await import("./firebase-init.js");
-        const data = await fb.readPath(fb.paths.keystones(aid));
-        return data && typeof data === "object" ? data : {};
-      }
-    } catch (_) { /* fall through */ }
     return {};
   }
 }
@@ -152,37 +160,30 @@ export async function isFinalTaskUnlocked(uid) {
  * @param {object} [opts]
  * @param {'mission'|'teacher-override'|'demo'} [opts.source='mission']
  * @param {string} [opts.reason]
+ * @param {boolean} [opts.exact]  When true, write to the GIVEN uid exactly —
+ *        used by admin/teacher grants, which target ANOTHER learner. Without
+ *        it (a learner's own mission completion) the signed-in user wins, so
+ *        a stale flow.uid can't misfile or drop the Keystone.
  * @returns {Promise<{earned:boolean, alreadyHad:boolean}>}
  */
 export async function awardKeystone(uid, missionId, opts = {}) {
   const valid = JOURNEY_MISSIONS.some((m) => m.id === missionId);
   if (!valid) throw new Error(`Unknown mission id: ${missionId}`);
   if (!isFirebaseAvailable()) return { earned: false, alreadyHad: false };
-  if (!uid) uid = await authUid();
+  // Self-award → resolve to the signed-in user. Admin grant (exact) → trust
+  // the given uid and NEVER retarget to auth (that would be the admin!).
+  if (!opts.exact) uid = await resolveOwnUid(uid);
   if (!uid) return { earned: false, alreadyHad: false };
   const fb = await import("./firebase-init.js");
-  const record = {
+  const path = `${fb.paths.keystones(uid)}/${missionId}`;
+  const existing = await fb.readPath(path);
+  if (existing) return { earned: true, alreadyHad: true };
+  await fb.writePath(path, {
     earnedAt: Date.now(),
     source: opts.source || "mission",
     reason: opts.reason || "Mission passed (composite score ≥ bar).",
-  };
-  const writeFor = async (id) => {
-    const path = `${fb.paths.keystones(id)}/${missionId}`;
-    const existing = await fb.readPath(path);
-    if (existing) return { earned: true, alreadyHad: true };
-    await fb.writePath(path, record);
-    return { earned: true, alreadyHad: false };
-  };
-  try {
-    return await writeFor(uid);
-  } catch (err) {
-    // Stale flow-state uid (shared computer, old session): rules rightly deny
-    // writing another user's node. The signed-in learner DID pass the mission —
-    // retry once with the real auth uid so the Keystone lands on their account.
-    const aid = await authUid();
-    if (aid && aid !== uid) return await writeFor(aid);
-    throw err;
-  }
+  });
+  return { earned: true, alreadyHad: false };
 }
 
 /**
@@ -192,9 +193,11 @@ export async function awardKeystone(uid, missionId, opts = {}) {
  */
 export async function grantTeacherOverride({ uid, missionId, teacherId, reason }) {
   if (!teacherId) throw new Error("teacherId required for override audit trail.");
+  if (!uid) throw new Error("uid (the learner being granted) is required.");
   return awardKeystone(uid, missionId, {
     source: "teacher-override",
     reason: `Teacher override by ${teacherId}: ${reason || "offline-equivalent work assessed"}`,
+    exact: true,   // target the learner's node exactly — never the admin's
   });
 }
 
