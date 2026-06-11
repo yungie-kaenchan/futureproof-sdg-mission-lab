@@ -60,8 +60,17 @@ export function nextStepHref(currentStep) {
   return `${FLOW_STEPS[idx + 1]}.html`;
 }
 
+/** Entering the learner portal clears any judge-demo residue left in this
+ *  browser (judge-tour sets a sticky localStorage flag; a real learner's
+ *  session must never inherit it). */
+function clearDemoResidue() {
+  try { localStorage.removeItem('fp_demo_mode'); } catch (_) {}
+  try { sessionStorage.removeItem('fp_demo_mode_certificate'); } catch (_) {}
+}
+
 export async function signUpWithProfile({ email, password, displayName, institution, yearOfStudy, demographics }) {
   const fb = await ensureFirebase();
+  clearDemoResidue();
   const user = await fb.signUp(email, password);
 
   await fb.writePath(fb.paths.userPublic(user.uid), {
@@ -96,6 +105,7 @@ export async function signUpWithProfile({ email, password, displayName, institut
 
 export async function signInExisting(email, password) {
   const fb = await ensureFirebase();
+  clearDemoResidue();
   const user = await fb.signIn(email, password);
   return user;
 }

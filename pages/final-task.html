@@ -773,9 +773,7 @@
     <div class="keystone-progress" id="ks-progress" role="img" aria-label="Keystones earned"></div>
     <div class="lk-actions">
       <a href="./mission-select.html" class="lk-btn primary">↩ Return to the journey</a>
-      <button type="button" class="lk-btn demo" id="lk-demo-btn">▶ Preview unlocked version · Demo / Judge mode</button>
     </div>
-    <p class="demo-note">Demo mode pre-grants all six Keystones for a 90-second preview. Submissions in this mode are watermarked and not graded — your actual journey progress is unaffected.</p>
   </div>
 
   <div id="ft-content" hidden>
@@ -1225,7 +1223,9 @@
 <script type="module" src="../src/a11y.js"></script>
 <script src="../src/task-brief-pdf.js"></script>
 
-<!-- Demo / Judge mode entry — pre-grants 6 Keystones for preview. Watermarks submissions. -->
+<!-- Demo / Judge mode — banner reflection ONLY. The demo flag can no longer be
+     set from this page: the sole entry is the standalone judge-tour.html, which
+     is deliberately unlinked from the learner portal. -->
 <script>
   (function () {
     // Reflect demo state in the body class so the banner shows
@@ -1236,17 +1236,6 @@
         document.body.classList.add("is-demo");
       }
     } catch (_) {}
-
-    // Locked-screen "Preview unlocked" button — sets dev flag + adds URL param + reloads
-    var btn = document.getElementById("lk-demo-btn");
-    if (btn) {
-      btn.addEventListener("click", function () {
-        try { localStorage.setItem("fp_demo_mode", "on"); } catch (_) {}
-        var url = new URL(location.href);
-        url.searchParams.set("demo", "keystones");
-        location.href = url.toString();
-      });
-    }
 
     // Mr Compass trigger — collapsible section
     var trigger = document.getElementById("compass-trigger");
