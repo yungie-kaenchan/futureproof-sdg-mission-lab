@@ -27,6 +27,18 @@
       if (!agentId) return; // voice not configured — text Compass only
       if (document.querySelector("elevenlabs-convai")) return;
 
+      // Pin the widget to the BOTTOM-LEFT corner. The default bottom-right
+      // collides with the pages' own footer clusters (View dossier ·
+      // Mr. Compass launcher · Guide on mission-run; submit bar on the
+      // capstone). The host element is ordinary fixed-position DOM, so
+      // standard CSS overrides relocate it cleanly.
+      const style = document.createElement("style");
+      style.textContent =
+        "elevenlabs-convai{position:fixed !important;bottom:16px !important;left:16px !important;" +
+        "right:auto !important;z-index:60 !important;}" +
+        "@media (max-width:760px){elevenlabs-convai{bottom:88px !important;left:8px !important;}}";
+      document.head.appendChild(style);
+
       const widget = document.createElement("elevenlabs-convai");
       widget.setAttribute("agent-id", agentId);
       document.body.appendChild(widget);
