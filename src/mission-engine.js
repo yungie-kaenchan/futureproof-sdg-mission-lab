@@ -376,11 +376,18 @@ export class MissionEngine {
     const bar = Math.round(this.passThreshold * 100);
     const passed = this.state.passed;
 
+    const keystoneSaved = Boolean(this.state.keystoneAwarded);
     const heading = passed
-      ? `+1 SDG Keystone · ${this.scenario.meta.title}`
+      ? (keystoneSaved
+          ? `+1 SDG Keystone · ${this.scenario.meta.title}`
+          : `Mission passed · ${this.scenario.meta.title}`)
       : `${pct}% · bar is ${bar}%`;
     const body = passed
-      ? "You met the bar for this region. The Keystone is yours — one of six."
+      ? (keystoneSaved
+          ? "You met the bar for this region. The Keystone is yours — one of six."
+          : "You met the bar — but your Keystone couldn't be saved to your account " +
+            "(sign-in or connection hiccup). Open the Mission Map while signed in to retry; " +
+            "if it's still missing, your teacher can grant it from the Admin console.")
       : `Close. You scored ${pct}%; the bar is ${bar}%. Replay DECIDE or ACT to lift it.`;
 
     const finish = () => this.onComplete({

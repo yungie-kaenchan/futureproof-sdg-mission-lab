@@ -117,8 +117,11 @@ async function entry() {
   state.uid = flow.uid || null;
   state.studentName = (flow.learnerProfile && (flow.learnerProfile.displayName || flow.learnerProfile.firstName)) || flow.uid || "Cadet";
 
-  const count = state.uid ? await getKeystoneCount(state.uid) : 0;
-  const unlocked = state.uid ? await isFinalTaskUnlocked(state.uid) : false;
+  // Always go through the helpers — they resolve the signed-in auth uid when
+  // the flow state is missing/stale, so the gate can't show 0/6 to a learner
+  // whose Keystones are safely in the database.
+  const count = await getKeystoneCount(state.uid);
+  const unlocked = await isFinalTaskUnlocked(state.uid);
 
   if (!unlocked) {
     renderLocked(count);

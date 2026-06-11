@@ -3,82 +3,118 @@
     ".read": false,
     ".write": false,
 
-    "users": {
+    "admins": {
       "$uid": {
-        ".read":  "auth != null && (auth.uid === $uid || auth.token.role === 'admin' || auth.token.role === 'teacher')",
-        ".write": "auth != null && (auth.uid === $uid || auth.token.role === 'admin')",
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": false
+      }
+    },
 
-        "tokens": {
-          ".read": "auth != null && (auth.uid === $uid || auth.token.role === 'admin')",
-          "balance": { ".write": "auth.token.role === 'admin'" },
-          "earned":  { ".write": "auth.token.role === 'admin'" },
-          "spent":   { ".write": "auth.token.role === 'admin'" },
-          "ledger":  { ".write": "auth.token.role === 'admin'" }
-        }
+    "users": {
+      ".read": "auth != null && root.child('admins').child(auth.uid).val() === true",
+      "$uid": {
+        ".read": "auth != null && (auth.uid === $uid || root.child('admins').child(auth.uid).val() === true)",
+        ".write": "auth != null && (auth.uid === $uid || root.child('admins').child(auth.uid).val() === true)"
+      }
+    },
+
+    "progress": {
+      ".read": "auth != null && root.child('admins').child(auth.uid).val() === true",
+      "$uid": {
+        ".read": "auth != null && (auth.uid === $uid || root.child('admins').child(auth.uid).val() === true)",
+        ".write": "auth != null && (auth.uid === $uid || root.child('admins').child(auth.uid).val() === true)"
+      }
+    },
+
+    "tokens": {
+      "$uid": {
+        ".read": "auth != null && (auth.uid === $uid || root.child('admins').child(auth.uid).val() === true)",
+        ".write": "auth != null && (auth.uid === $uid || root.child('admins').child(auth.uid).val() === true)"
       }
     },
 
     "consents": {
       "$uid": {
-        ".read":  "auth != null && (auth.uid === $uid || auth.token.role === 'admin')",
+        ".read": "auth != null && (auth.uid === $uid || root.child('admins').child(auth.uid).val() === true)",
         ".write": "auth != null && auth.uid === $uid"
       }
     },
 
     "teams": {
       "$tid": {
-        ".read":  "auth != null",
-        ".write": "auth != null && (root.child('teams/' + $tid + '/members/' + auth.uid).exists() || auth.token.role === 'teacher' || auth.token.role === 'admin')",
-        "integrityScore": { ".write": "auth.token.role === 'admin'" }
+        ".read": "auth != null",
+        ".write": "auth != null && (root.child('teams/' + $tid + '/members/' + auth.uid).exists() || root.child('admins').child(auth.uid).val() === true)",
+        "integrityScore": { ".write": "root.child('admins').child(auth.uid).val() === true" }
       }
     },
 
     "scenarios": {
-      ".read":  "auth != null",
+      ".read": "auth != null",
       "$sid": {
-        ".write": "auth != null && (!data.exists() || data.child('lockedBy').val() === auth.uid || auth.token.role === 'admin')"
+        ".write": "auth != null && (!data.exists() || data.child('lockedBy').val() === auth.uid || root.child('admins').child(auth.uid).val() === true)"
       }
     },
 
     "missions": {
-      ".read":  "auth != null",
+      ".read": "auth != null",
       "$mid": {
+        ".write": "auth != null"
+      }
+    },
+
+    "decisions": {
+      "$mid": {
+        ".read": "auth != null && root.child('admins').child(auth.uid).val() === true",
+        ".write": "auth != null"
+      }
+    },
+
+    "artifacts": {
+      "$tid": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+      }
+    },
+
+    "rubricScores": {
+      "$tid": {
+        ".read": "auth != null",
         ".write": "auth != null"
       }
     },
 
     "reflections": {
       "$uid": {
-        ".read":  "auth != null && (auth.uid === $uid || auth.token.role === 'admin' || auth.token.role === 'teacher')",
+        ".read": "auth != null && (auth.uid === $uid || root.child('admins').child(auth.uid).val() === true)",
         ".write": "auth != null && auth.uid === $uid"
       }
     },
 
     "fieldMentor": {
       "$uid": {
-        ".read":  "auth != null && (auth.uid === $uid || auth.token.role === 'admin' || auth.token.role === 'teacher')",
+        ".read": "auth != null && (auth.uid === $uid || root.child('admins').child(auth.uid).val() === true)",
         ".write": "auth != null && auth.uid === $uid"
       }
     },
 
     "hall": {
-      ".read":  true,
-      ".write": "auth != null && (auth.token.role === 'admin' || auth.token.role === 'teacher')"
+      ".read": true,
+      ".write": "auth != null && root.child('admins').child(auth.uid).val() === true"
     },
 
     "moderation": {
-      ".read":  "auth != null && (auth.token.role === 'admin' || auth.token.role === 'teacher')",
+      ".read": "auth != null && root.child('admins').child(auth.uid).val() === true",
       ".write": "auth != null"
     },
 
     "audit": {
-      ".read":  "auth != null && auth.token.role === 'admin'",
+      ".read": "auth != null && root.child('admins').child(auth.uid).val() === true",
       ".write": false
     },
 
     "config": {
-      ".read":  "auth != null",
-      ".write": "auth != null && auth.token.role === 'admin'"
+      ".read": "auth != null",
+      ".write": "auth != null && root.child('admins').child(auth.uid).val() === true"
     }
   }
 }

@@ -695,14 +695,32 @@
       if (!rows.length) { tb.appendChild(emptyRow("No learners yet.")); return; }
       for (const r of rows) {
         const tr = document.createElement("tr");
-        const cells = [
-          r.displayName, r.email, r.institution || "—", r.rank,
-          r.keystoneCount + " / 6",
-          r.missionsInProgress.length ? r.missionsInProgress.join(", ") : "—",
-        ];
-        for (const c of cells) {
-          const td = document.createElement("td"); td.textContent = c; tr.appendChild(td);
+        const tdAdd = (content) => {
+          const td = document.createElement("td");
+          if (content instanceof Node) td.appendChild(content); else td.textContent = content;
+          tr.appendChild(td);
+        };
+        tdAdd(r.displayName); tdAdd(r.email); tdAdd(r.institution || "—"); tdAdd(r.rank);
+        // Keystones: one dot per journey mission — gold = earned (hover for detail).
+        const ksWrap = document.createElement("span");
+        ksWrap.style.whiteSpace = "nowrap";
+        for (const m of JOURNEY_MISSIONS) {
+          const rec = r.keystones && r.keystones[m.id];
+          const dot = document.createElement("span");
+          dot.textContent = rec ? "●" : "○";
+          dot.style.cssText = "margin-right:3px;" + (rec ? "color:#E8C77A" : "color:#3A3F4D");
+          dot.title = rec
+            ? `${m.title} · earned ${rec.earnedAt ? new Date(rec.earnedAt).toLocaleDateString() : ""}` +
+              (rec.source === "teacher-override" ? " (teacher override)" : "")
+            : `${m.title} · not earned`;
+          ksWrap.appendChild(dot);
         }
+        const ksCount = document.createElement("span");
+        ksCount.textContent = ` ${r.keystoneCount}/6`;
+        ksCount.style.cssText = "color:#8B8B92;font-size:12px";
+        ksWrap.appendChild(ksCount);
+        tdAdd(ksWrap);
+        tdAdd(r.missionsInProgress.length ? r.missionsInProgress.join(", ") : "—");
         const tdA = document.createElement("td");
         const b = document.createElement("button");
         b.className = "btn sm"; b.textContent = "Manage";

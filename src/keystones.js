@@ -54,12 +54,46 @@ export function isDemoBypassActive() {
 }
 
 /* ──────────────────────────────────────────────────────────────────
+ * UID resolution
+ *
+ * Callers pass flow-state uid (localStorage), but that state can be
+ * absent even while the learner is signed in: cleared storage, shared
+ * lab machines, or direct navigation that skips signin.html. Falling
+ * back to the live Firebase Auth user means a passed mission can never
+ * silently lose its Keystone for want of a uid.
+ * ──────────────────────────────────────────────────────────────── */
+async function authUid() {
+  try {
+    const fb = await import("./firebase-init.js");
+    if (fb.auth && fb.auth.currentUser) return fb.auth.currentUser.uid;
+    // Firebase restores a signed-in session ASYNCHRONOUSLY after page load —
+    // auth.currentUser is null for the first moments even for a signed-in
+    // learner. Wait for the first auth-state event (4s cap) so an early read
+    // can't masquerade as "signed out → 0 Keystones".
+    return await new Promise((resolve) => {
+      let settled = false, unsub = null;
+      const finish = (v) => {
+        if (settled) return;
+        settled = true;
+        try { if (unsub) unsub(); } catch (_) {}
+        resolve(v);
+      };
+      try { unsub = fb.watchAuth((user) => finish(user ? user.uid : null)); }
+      catch (_) { finish(null); return; }
+      setTimeout(() => finish(fb.auth && fb.auth.currentUser ? fb.auth.currentUser.uid : null), 4000);
+    });
+  } catch (_) { return null; }
+}
+
+/* ──────────────────────────────────────────────────────────────────
  * Read
  * ──────────────────────────────────────────────────────────────── */
 
 /** Returns a map { missionId: keystoneRecord } of earned Keystones. */
 export async function getKeystones(uid) {
-  if (!uid || !isFirebaseAvailable()) return {};
+  if (!isFirebaseAvailable()) return {};
+  if (!uid) uid = await authUid();
+  if (!uid) return {};
   // Resilient by design: a failed/timed-out cloud read (network blip, quota,
   // placeholder config) must NOT halt the caller — mission-select and the
   // final-task capstone both await this at module top level, so a throw here
@@ -69,6 +103,16 @@ export async function getKeystones(uid) {
     const data = await fb.readPath(fb.paths.keystones(uid));
     return data && typeof data === "object" ? data : {};
   } catch (_) {
+    // Stale flow-state uid (shared computer, old session): the rules rightly
+    // deny reading another user's node. Retry once as the REAL signed-in user.
+    try {
+      const aid = await authUid();
+      if (aid && aid !== uid) {
+        const fb = await import("./firebase-init.js");
+        const data = await fb.readPath(fb.paths.keystones(aid));
+        return data && typeof data === "object" ? data : {};
+      }
+    } catch (_) { /* fall through */ }
     return {};
   }
 }
@@ -113,19 +157,32 @@ export async function isFinalTaskUnlocked(uid) {
 export async function awardKeystone(uid, missionId, opts = {}) {
   const valid = JOURNEY_MISSIONS.some((m) => m.id === missionId);
   if (!valid) throw new Error(`Unknown mission id: ${missionId}`);
-  if (!uid || !isFirebaseAvailable()) {
-    return { earned: false, alreadyHad: false };
-  }
+  if (!isFirebaseAvailable()) return { earned: false, alreadyHad: false };
+  if (!uid) uid = await authUid();
+  if (!uid) return { earned: false, alreadyHad: false };
   const fb = await import("./firebase-init.js");
-  const path = `${fb.paths.keystones(uid)}/${missionId}`;
-  const existing = await fb.readPath(path);
-  if (existing) return { earned: true, alreadyHad: true };
-  await fb.writePath(path, {
+  const record = {
     earnedAt: Date.now(),
     source: opts.source || "mission",
     reason: opts.reason || "Mission passed (composite score ≥ bar).",
-  });
-  return { earned: true, alreadyHad: false };
+  };
+  const writeFor = async (id) => {
+    const path = `${fb.paths.keystones(id)}/${missionId}`;
+    const existing = await fb.readPath(path);
+    if (existing) return { earned: true, alreadyHad: true };
+    await fb.writePath(path, record);
+    return { earned: true, alreadyHad: false };
+  };
+  try {
+    return await writeFor(uid);
+  } catch (err) {
+    // Stale flow-state uid (shared computer, old session): rules rightly deny
+    // writing another user's node. The signed-in learner DID pass the mission —
+    // retry once with the real auth uid so the Keystone lands on their account.
+    const aid = await authUid();
+    if (aid && aid !== uid) return await writeFor(aid);
+    throw err;
+  }
 }
 
 /**
