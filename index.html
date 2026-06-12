@@ -389,27 +389,27 @@
    black flash before the first frame. -->
 <div class="bg-layer" aria-hidden="true">
   <picture>
-    <source media="(max-width: 768px)"
-            srcset="assets/landing/new-land-mobile.webp"
-            type="image/webp">
-    <source media="(max-width: 1440px)"
-            srcset="assets/landing/new-land-tablet.webp"
-            type="image/webp">
     <img id="bg-image"
-         src="assets/landing/new-land-desktop.webp"
+         src="assets/landing/cover-dawn1.jpg"
          alt=""
          loading="eager"
          decoding="async"
          fetchpriority="high">
   </picture>
-  <!-- Video deferred: source attached by JS after window.load. The WebP
-       poster (46 KB) paints instantly as the LCP; the ~1.5 MB video streams
-       in after the page is interactive. Honours prefers-reduced-motion. -->
+  <!-- Background video DISABLED (2026-06-12): the landing now shows the
+       cover-dawn1 still (same artwork as the finals deck cover) with the
+       flickering gold-dust layer carrying the motion. The element stays
+       so re-enabling is a one-line change in the script below. -->
   <video id="bg-video"
          muted loop playsinline preload="none"
-         poster="assets/landing/new-land-desktop.webp"></video>
+         poster="assets/landing/cover-dawn1.jpg"></video>
   <div class="bg-overlay"></div>
 </div>
+
+<!-- Flickering gold dust — the same particle signature as the finals deck.
+     Sits between the background (z0) and the content (z2). -->
+<canvas id="gold-dust" aria-hidden="true"
+        style="position:fixed;inset:0;width:100%;height:100%;z-index:1;pointer-events:none"></canvas>
 
 <!-- Console-feel corner markers -->
 <span class="corner tl"></span>
@@ -512,6 +512,11 @@
     var reduceMotion = window.matchMedia &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+    // Background video disabled — the cover-dawn1 still is the landing
+    // visual now (gold dust carries the motion). Delete the next line to
+    // re-enable the deferred video pipeline below.
+    useImage(); return;
+
     if (!video || reduceMotion) { if (reduceMotion) useImage(); return; }
 
     video.addEventListener('canplay', reveal);
@@ -540,6 +545,56 @@
         requestAnimationFrame(attachVideoSource);
       }, { once: true });
     }
+  })();
+</script>
+
+<script>
+  // ─── Flickering gold dust ───────────────────────────────────────
+  // The same particle signature as the finals deck (drift up + deep
+  // twinkle + glow halo), on one full-viewport canvas. Honours
+  // prefers-reduced-motion (UDL — CLAUDE.md §15): no animation at all.
+  (function () {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var cv = document.getElementById('gold-dust');
+    if (!cv || !cv.getContext) return;
+    var ctx = cv.getContext('2d');
+    var RGB = '232,199,122';
+    var W, H, DPR = Math.min(window.devicePixelRatio || 1, 2);
+    function fit() {
+      W = cv.width  = Math.floor(window.innerWidth  * DPR);
+      H = cv.height = Math.floor(window.innerHeight * DPR);
+    }
+    fit();
+    window.addEventListener('resize', fit);
+    var P = [];
+    for (var i = 0; i < 110; i++) {
+      P.push({
+        px: Math.random(), py: Math.random(),
+        r: 1.0 + Math.random() * 3.0,
+        s: 0.00010 + Math.random() * 0.00026,
+        o: 0.24 + Math.random() * 0.56,
+        w: Math.random() * 6.28,
+        f: 0.0009 + Math.random() * 0.0014
+      });
+    }
+    function draw(t) {
+      ctx.clearRect(0, 0, W, H);
+      ctx.shadowColor = 'rgba(' + RGB + ',1)';
+      for (var i = 0; i < P.length; i++) {
+        var p = P[i];
+        p.py -= p.s;
+        if (p.py < -0.02) { p.py = 1.02; p.px = Math.random(); }
+        var flick = 0.32 + 0.68 * Math.abs(Math.sin(t * p.f + p.w));
+        ctx.shadowBlur = (10 + p.r * 8) * DPR * flick;
+        ctx.beginPath();
+        ctx.arc(p.px * W + Math.sin(t * 0.0004 + p.w) * 10, p.py * H,
+                p.r * DPR * (0.8 + 0.2 * flick), 0, 6.28);
+        ctx.fillStyle = 'rgba(' + RGB + ',' + (p.o * flick) + ')';
+        ctx.fill();
+      }
+      requestAnimationFrame(draw);
+    }
+    requestAnimationFrame(draw);
   })();
 </script>
 
