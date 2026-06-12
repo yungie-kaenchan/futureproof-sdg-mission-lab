@@ -27,22 +27,37 @@
       if (!agentId) return; // voice not configured — text Compass only
       if (document.querySelector("elevenlabs-convai")) return;
 
-      // Center the widget at the bottom, lifted ABOVE the pages' footer
-      // rows (View dossier · Mr. Compass launcher · Guide on mission-run;
-      // submit bar on the capstone) so it can never collide with them at
-      // any width. Centering uses left/right:0 + margin:auto — no CSS
-      // transform, which would break the widget's internal fixed
-      // positioning. The host element is ordinary fixed-position DOM.
-      const style = document.createElement("style");
-      style.textContent =
-        "elevenlabs-convai{position:fixed !important;left:0 !important;right:0 !important;" +
-        "margin:0 auto !important;width:fit-content !important;bottom:84px !important;z-index:60 !important;}" +
-        "@media (max-width:760px){elevenlabs-convai{bottom:104px !important;}}";
-      document.head.appendChild(style);
-
       const widget = document.createElement("elevenlabs-convai");
       widget.setAttribute("agent-id", agentId);
-      document.body.appendChild(widget);
+
+      const style = document.createElement("style");
+      const footer = document.getElementById("center-footer");
+      if (footer) {
+        // Mission pages: join the footer button row as its LEFTMOST item,
+        // next to "View dossier". The widget bubble renders centered on
+        // its host, so the host sits inside a fixed-size slot that
+        // reserves real space in the flex row — the bubble can't overlap
+        // its neighbours. (The host's own stylesheet wants fixed
+        // bottom-right; static-in-slot overrides it.)
+        style.textContent =
+          "#fp-voice-slot{flex:0 0 auto;width:215px;height:46px;position:relative;}" +
+          "#fp-voice-slot elevenlabs-convai{position:absolute !important;inset:0 !important;" +
+          "margin:auto !important;width:100% !important;height:100% !important;}" +
+          "@media (max-width:900px){#fp-voice-slot{width:170px;}}";
+        document.head.appendChild(style);
+        const slot = document.createElement("div");
+        slot.id = "fp-voice-slot";
+        slot.appendChild(widget);
+        footer.insertBefore(slot, footer.firstChild);
+      } else {
+        // Capstone / pages without the footer bar: float in the free
+        // bottom-right corner.
+        style.textContent =
+          "elevenlabs-convai{position:fixed !important;bottom:18px !important;right:18px !important;" +
+          "left:auto !important;z-index:60 !important;}";
+        document.head.appendChild(style);
+        document.body.appendChild(widget);
+      }
 
       const s = document.createElement("script");
       s.src = "https://unpkg.com/@elevenlabs/convai-widget-embed";
