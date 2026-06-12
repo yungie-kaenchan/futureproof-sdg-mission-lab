@@ -40,10 +40,10 @@
         // its neighbours. (The host's own stylesheet wants fixed
         // bottom-right; static-in-slot overrides it.)
         style.textContent =
-          "#fp-voice-slot{flex:0 0 auto;width:200px;height:50px;position:relative;}" +
+          "#fp-voice-slot{flex:0 0 auto;width:195px;height:60px;position:relative;}" +
           "#fp-voice-slot elevenlabs-convai{position:absolute !important;inset:0 !important;" +
           "margin:auto !important;width:100% !important;height:100% !important;}" +
-          "@media (max-width:900px){#fp-voice-slot{width:160px;height:44px;}}";
+          "@media (max-width:900px){#fp-voice-slot{width:160px;height:50px;}}";
         document.head.appendChild(style);
         const slot = document.createElement("div");
         slot.id = "fp-voice-slot";
