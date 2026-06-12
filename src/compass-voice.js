@@ -39,11 +39,18 @@
         // reserves real space in the flex row — the bubble can't overlap
         // its neighbours. (The host's own stylesheet wants fixed
         // bottom-right; static-in-slot overrides it.)
+        // The widget caps its pill at ~44px tall and hides the "Let's
+        // Talk!" label below ~200px host width — so the host keeps the
+        // proven 200x50 layout box and is visually scaled up to match
+        // the neighbouring buttons. The slot reserves the SCALED
+        // footprint (240x60) so the bigger pill still can't overlap.
         style.textContent =
-          "#fp-voice-slot{flex:0 0 auto;width:195px;height:60px;position:relative;}" +
+          "#fp-voice-slot{flex:0 0 auto;width:240px;height:60px;position:relative;}" +
           "#fp-voice-slot elevenlabs-convai{position:absolute !important;inset:0 !important;" +
-          "margin:auto !important;width:100% !important;height:100% !important;}" +
-          "@media (max-width:900px){#fp-voice-slot{width:160px;height:50px;}}";
+          "margin:auto !important;width:200px !important;height:50px !important;" +
+          "transform:scale(1.2) !important;transform-origin:center !important;}" +
+          "@media (max-width:900px){#fp-voice-slot{width:200px;height:50px;}" +
+          "#fp-voice-slot elevenlabs-convai{transform:scale(1) !important;}}";
         document.head.appendChild(style);
         const slot = document.createElement("div");
         slot.id = "fp-voice-slot";
