@@ -346,10 +346,11 @@
     .footer .cc-block { text-align: left; }
   }
 
-  /* ── NEW LANDING: text anchored LEFT, CTA held RIGHT + larger ──
-     The new background video keeps its open sky on the left, so the
-     hero text lives in the LEFT column; the "Begin your journey"
-     pill sits big on the right, over the lighter cloud band. */
+  /* ── NEW LANDING: text anchored LEFT, CTA directly under the text ──
+     The cover-dawn1 art keeps its subjects (guardian · temples · tower ·
+     SDGs emblem) on the right, so the whole hero column — headline,
+     descriptions, AND the "Begin your journey" pill — lives on the LEFT,
+     leaving the artwork unobstructed. */
   @media (min-width: 900px) {
     .stage {
       align-items: flex-start;
@@ -363,12 +364,9 @@
       text-align: left;
     }
     .enter-cta {
-      position: absolute;
-      right: clamp(40px, 5vw, 92px);
-      bottom: clamp(80px, 15vh, 160px);
-      margin-top: 0;
-      padding: 20px 50px;
-      font-size: 17px;
+      margin-top: 38px;
+      padding: 18px 46px;
+      font-size: 16px;
       gap: 12px;
       box-shadow: 0 14px 38px rgba(181, 124, 52, 0.46);
     }
