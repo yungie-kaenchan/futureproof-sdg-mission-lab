@@ -45,12 +45,12 @@
         // the neighbouring buttons. The slot reserves the SCALED
         // footprint (240x60) so the bigger pill still can't overlap.
         style.textContent =
-          "#fp-voice-slot{flex:0 0 auto;width:240px;height:60px;position:relative;}" +
+          "#fp-voice-slot{flex:0 0 auto;width:290px;height:72px;position:relative;}" +
           "#fp-voice-slot elevenlabs-convai{position:absolute !important;inset:0 !important;" +
           "margin:auto !important;width:200px !important;height:50px !important;" +
-          "transform:scale(1.2) !important;transform-origin:center !important;}" +
-          "@media (max-width:900px){#fp-voice-slot{width:200px;height:50px;}" +
-          "#fp-voice-slot elevenlabs-convai{transform:scale(1) !important;}}";
+          "transform:scale(1.45) !important;transform-origin:center !important;}" +
+          "@media (max-width:900px){#fp-voice-slot{width:220px;height:55px;}" +
+          "#fp-voice-slot elevenlabs-convai{transform:scale(1.1) !important;}}";
         document.head.appendChild(style);
         const slot = document.createElement("div");
         slot.id = "fp-voice-slot";
