@@ -27,3 +27,7 @@ assets/landing/source/
 *.docx
 *.doc
 ~$*
+
+# Competition-private material — NEVER commit (rivals could read the public repo)
+docs/presentation/
+docs/pilot/

@@ -62,6 +62,11 @@
   .demo-banner{display:none; padding:10px 20px; background:linear-gradient(90deg, var(--bronze) 0%, var(--bronze-light) 100%); color:var(--ink-deep); font-family:var(--mono); font-size:12.6px; letter-spacing:.14em; text-transform:uppercase; text-align:center; font-weight:700; border-bottom:1px solid var(--bronze-dim)}
   body.is-demo .demo-banner{display:block}
 
+  /* The hidden attribute must always win — a class like .locked-screen sets
+     display:flex, which (being an author rule) overrides the UA [hidden]
+     rule and leaves the locked banner painted even when the gate unlocks. */
+  [hidden]{display:none !important}
+
   /* Locked screen — LIGHT THEME */
   .locked-screen{min-height:60vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:48px 24px; text-align:center}
   .locked-hero-img{display:block; margin:0 auto 24px; height:auto; max-width:min(1044px, 95%); max-height:261px; object-fit:contain}
